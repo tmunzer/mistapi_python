@@ -1,17 +1,16 @@
 import requests
 from requests.exceptions import HTTPError
-
+from mistcli.__api_response import APIResponse
 
 try:
     from config import log_level
 except:
     log_level = 6
 finally:
-    from .__console import Console
+    from mistcli.__console import Console
     console = Console(log_level)
 
-
-class Req:
+class APIRequest:
 
     def __init__(self):
         self._cloud_uri = ""
@@ -48,7 +47,8 @@ class Req:
             error = resp.json()
             console.debug(f"Response Status Code: {resp.status_code}")
             console.debug(f"Response: {error}")
-        return {"result": result, "status_code": resp.status_code, "error": error, "uri":uri}
+        return APIResponse(uri=uri, response=resp)
+        #return {"result": result, "status_code": resp.status_code, "error": error, "uri":uri}
 
     def mist_get(self, uri:str, query:object=None, page=None, limit=None):
         """GET HTTP Request

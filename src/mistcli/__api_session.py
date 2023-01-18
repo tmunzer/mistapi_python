@@ -8,7 +8,8 @@ import sys
 import json
 from getpass import getpass
 
-from mistcli.__req import Req
+from mistcli.__api_request import APIRequest
+#from mistcli import apis
 from mistcli.__models.privilege import Privileges
 
 import logging
@@ -36,7 +37,7 @@ def _header():
 
 #### PARAMETERS #####
 
-class Session(Req):
+class APISession(APIRequest):
     """Class managing REST login and requests"""
 
     def __init__(self, load_settings:bool=True, email:str="", password:str="", apitoken:str=None, host:str=None):    
@@ -230,13 +231,15 @@ class Session(Req):
         console.debug("in  > get_authentication_status")
         return self._authenticated or self._apitoken 
 
-    def list_api_token(self):  
+    def get_api_token(self):  
         console.debug("in  > list_api_token")
-        resp = self.mist_get("/api/v1/self/apitokens")        
-        return resp
+        #resp = apis.self.self.get
+        #resp = self.mist_get("/api/v1/self/apitokens")        
+        #return resp
 
-    def create_api_token(self):  
+    def create_api_token(self, token_name:str=None):  
         console.debug("in  > create_api_token")
+        resp = self.mist_post("/api/v1/self/apitokens")
         uri = f"https://{self._cloud_uri}/api/v1/self/apitokens"
         resp = self._session.post(uri)
         return resp
@@ -274,11 +277,11 @@ class Session(Req):
         console.debug("in  > getself")
         uri = "/api/v1/self"
         resp = self.mist_get(uri)
-        if resp and "result" in resp:
+        if resp.data:
             # Deal with 2FA if needed
             if (
-                resp['result'].get('two_factor_required') is True
-                and resp['result'].get('two_factor_passed') is False
+                resp.data.get('two_factor_required') is True
+                and resp.data.get('two_factor_passed') is False
             ):
                 print()
                 two_factor_ok = False
@@ -288,11 +291,11 @@ class Session(Req):
                 self._getself()
             # Get details of the account 
             else:
-                for key, val in resp['result'].items():
+                for key, val in resp.data.items():
                     if key == "privileges":
-                        self.privileges = Privileges(resp['result']["privileges"])
+                        self.privileges = Privileges(resp.data["privileges"])
                     if key == "tags":
-                        for tag in resp['result']["tags"]:
+                        for tag in resp.data["tags"]:
                             self.tags.append(tag)
                     else:
                         setattr(self, key, val)
