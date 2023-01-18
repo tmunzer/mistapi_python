@@ -1,0 +1,36 @@
+from mistapi import APISession as _APISession
+from mistapi.__api_response import Response
+
+def getMspLicenses(mist_session:_APISession, msp_id:str) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getMspLicenses
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str msp_id        
+    """
+    uri = f"/api/v1/msps/{msp_id}/licenses"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def moveOrDeleteMspLicenseToAnotherOrg(mist_session:_APISession, msp_id:str, body:object) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/moveOrDeleteMspLicenseToAnotherOrg
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str msp_id        
+    """
+    uri = f"/api/v1/msps/{msp_id}/licenses"
+    resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+    

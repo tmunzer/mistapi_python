@@ -1,0 +1,142 @@
+from mistapi import APISession as _APISession
+from mistapi.__api_response import Response
+
+def getInstallerListOfRenctlyClaimedDevices(mist_session:_APISession, org_id:str) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getInstallerListOfRenctlyClaimedDevices
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    """
+    uri = f"/api/v1/installer/orgs/{org_id}/devices"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def claimInstallerDevices(mist_session:_APISession, org_id:str, body:object) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/claimInstallerDevices
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    """
+    uri = f"/api/v1/installer/orgs/{org_id}/devices"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def unassignInstallerRecentlyClaimedDevice(mist_session:_APISession, org_id:str, device_mac:str) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/unassignInstallerRecentlyClaimedDevice
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id
+    :param str device_mac        
+    """
+    uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def provisionInstallerDevices(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/provisionInstallerDevices
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id
+    :param str device_mac        
+    """
+    uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}"
+    resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+    
+def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/startInstallerLocateDevice
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id
+    :param str device_mac        
+    """
+    uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/locate"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/stopInstallerLocateDevice
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id
+    :param str device_mac        
+    """
+    uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/unlocate"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:str, device_mac:str) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteInstallerDeviceImage
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id
+    :param str image_name
+    :param str device_mac        
+    """
+    uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/{image_name}"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def addInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:str, device_mac:str, body:object) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/addInstallerDeviceImage
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id
+    :param str image_name
+    :param str device_mac        
+    """
+    uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/{image_name}"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    

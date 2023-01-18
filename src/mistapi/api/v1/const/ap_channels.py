@@ -1,0 +1,21 @@
+from mistapi import APISession as _APISession
+from mistapi.__api_response import Response
+
+def getApChannels(mist_session:_APISession, country_code:str=None) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getApChannels
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    QUERY PARAMS
+    ------------
+    :param str country_code        
+    """
+    uri = f"/api/v1/const/ap_channels"
+    query_params={}
+    if country_code: query_params["country_code"]=country_code
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    

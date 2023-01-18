@@ -1,0 +1,41 @@
+from mistapi import APISession as _APISession
+from mistapi.__api_response import Response
+
+def getSelf(mist_session:_APISession) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getSelf
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    """
+    uri = f"/api/v1/self"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def deleteSelf(mist_session:_APISession) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteSelf
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    """
+    uri = f"/api/v1/self"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def updateSelf(mist_session:_APISession, body:object) -> Response:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/updateSelf
+    
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    """
+    uri = f"/api/v1/self"
+    resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+    
