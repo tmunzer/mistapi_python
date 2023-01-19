@@ -1,3 +1,19 @@
+'''
+--------------------------------------------------------------------------------
+------------------------- Mist API Python CLI Session --------------------------
+
+    Written by: Thomas Munzer (tmunzer@juniper.net)
+    Github    : https://github.com/tmunzer/mistapi_python
+
+    This package is licensed under the MIT License.
+
+--------------------------------------------------------------------------------
+This module manages API requests with Mist Cloud. It is used to 
+* generate the URL based on the provided parameters
+* add the required HTTP Headers to the request
+* report error if any
+'''
+
 import requests
 from requests.exceptions import HTTPError
 from mistapi.__api_response import APIResponse

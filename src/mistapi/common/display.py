@@ -1,6 +1,13 @@
 '''
-Written by: Thomas Munzer (tmunzer@juniper.net)
-Github repository: https://github.com/tmunzer/Mist_library/
+--------------------------------------------------------------------------------
+------------------------- Mist API Python CLI Session --------------------------
+
+    Written by: Thomas Munzer (tmunzer@juniper.net)
+    Github    : https://github.com/tmunzer/mistapi_python
+
+    This package is licensed under the MIT License.
+
+--------------------------------------------------------------------------------
 '''
 
 import json

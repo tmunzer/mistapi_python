@@ -1,3 +1,14 @@
+'''
+--------------------------------------------------------------------------------
+------------------------- Mist API Python CLI Session --------------------------
+
+    Written by: Thomas Munzer (tmunzer@juniper.net)
+    Github    : https://github.com/tmunzer/mistapi_python
+
+    This package is licensed under the MIT License.
+
+--------------------------------------------------------------------------------
+'''
 import logging
 
 def magenta(text): return '\033[0;35m' + text + '\033[0m'

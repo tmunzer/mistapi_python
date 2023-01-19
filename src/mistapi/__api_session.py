@@ -8,6 +8,8 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
+This module provide the APISession class, which is used to manage authentication
+and HTTP session (if login/password is used) with Mist Cloud.
 '''
 
 import os

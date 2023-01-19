@@ -1,8 +1,32 @@
+'''
+--------------------------------------------------------------------------------
+------------------------- Mist API Python CLI Session --------------------------
+
+    Written by: Thomas Munzer (tmunzer@juniper.net)
+    Github    : https://github.com/tmunzer/mistapi_python
+
+    This package is licensed under the MIT License.
+
+--------------------------------------------------------------------------------
+This module manages API responses
+'''
+
 from requests import Response
 from mistapi.__logger import logger
 from mistapi.__logger import console
 
 class APIResponse:
+    """
+    Class used to pass API Responses
+
+    Attributes
+    ----------
+    :attr str raw_data - raw HTTP Response payload
+    :attr object data - JSON of the HTTP Response (if possible)
+    :attr object error - HTTP errors (if any)
+    :attr str url - URL of the HTTP Request
+    :attr int status_code - HTTP Response status code
+    """
 
     def __init__(self, url: str, response:Response) -> None:
         self.raw_data=""

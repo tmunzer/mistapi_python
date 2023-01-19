@@ -1,3 +1,16 @@
+'''
+--------------------------------------------------------------------------------
+------------------------- Mist API Python CLI Session --------------------------
+
+    Written by: Thomas Munzer (tmunzer@juniper.net)
+    Github    : https://github.com/tmunzer/mistapi_python
+
+    This package is licensed under the MIT License.
+
+--------------------------------------------------------------------------------
+This module is providing some functions to simplify Mist API use.
+'''
+
 import mistapi as mistapi
 import sys
 
@@ -20,7 +33,21 @@ def _test_choice(val, val_max):
     except:
         return -2
 
-def select_org(mist_session:mistapi.APISession, allow_many=False):
+def select_org(mist_session:mistapi.APISession, allow_many=False) -> list:
+    """
+    Function to list all the Mist Orgs allowed for the current user
+    and ask to pick one or many. Return the Org ID(s) of the selected
+    org(s)
+
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    :param bool allow_many - If user is allowed to select multiple orgs. Default is False
+
+    RETURN
+    -----------
+    :return list - list of the selected Org ID(s)
+    """
     i=-1
     org_ids = []
     resp_ids=[]
@@ -75,7 +102,21 @@ def select_org(mist_session:mistapi.APISession, allow_many=False):
         return resp_ids
 
 
-def select_site(mist_session:mistapi.APISession, org_id=None, allow_many=False):
+def select_site(mist_session:mistapi.APISession, org_id=None, allow_many=False) -> list:
+    """
+    Function to list all the Sites from a Mist Org and ask user to pick one
+    or many. Return the Site ID(s) of the selected site(s)
+
+    PARMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    :param str org_id - Org ID to request
+    :param bool allow_many - If user is allowed to select multiple orgs. Default is False
+
+    RETURN
+    -----------
+    :return list - list of the selected Site ID(s)
+    """
     i=-1
     site_ids=[]
     site_choices = []
@@ -140,13 +181,24 @@ def extract_field(json_data, field):
     else:
         return "N/A"
 
-def save_to_csv(csv_file, array_data, fields, csv_separator=","):
+def save_to_csv(csv_file:str, data:list, fields:list, csv_separator:str=",") -> None:
+    """ 
+    Write a list of lists in a CSV file
+
+
+    PARMS
+    -----------
+    :param str csv_file - path to the CSV file where to save the data
+    :param list data - list containing the lists to save
+    :param list fields - list of the columns headers
+    :param str csv_separator - character to use to separate the cells. Default is ","
+    """
     print("saving to file...")
     with open(csv_file, "w") as f:
         for column in fields:
             f.write(f"{column},")
         f.write('\r\n')
-        for row in array_data:
+        for row in data:
             for field in row:
                 if field is None:
                     f.write("")

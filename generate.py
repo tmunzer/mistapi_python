@@ -57,7 +57,21 @@ def _init_api_file(file_path: str, file_name: str, import_path: list = []):
     init_file = os.path.join(file_path, "__init__.py")
     file_created = _create_or_append_file(
         f"{api_file}.py", 
-        "from mistapi import APISession as _APISession\r\nfrom mistapi.__api_response import APIResponse as _APIResponse\r\n", create_only=True)
+        """
+'''
+--------------------------------------------------------------------------------
+------------------------- Mist API Python CLI Session --------------------------
+
+    Written by: Thomas Munzer (tmunzer@juniper.net)
+    Github    : https://github.com/tmunzer/mistapi_python
+
+    This package is licensed under the MIT License.
+
+--------------------------------------------------------------------------------
+'''
+from mistapi import APISession as _APISession
+from mistapi.__api_response import APIResponse as _APIResponse
+""", create_only=True)
     if file_created:
         import_from = f"mistapi.{'.'.join(import_path)}"
         if import_from.endswith("."):
