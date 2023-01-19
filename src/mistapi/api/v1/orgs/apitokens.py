@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgApiTokens(mist_session:_APISession, org_id:str) -> Response:
+def getOrgApiTokens(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgApiTokens
     
@@ -18,7 +18,7 @@ def getOrgApiTokens(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgApiToken(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgApiToken(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgApiToken
     
@@ -34,7 +34,7 @@ def createOrgApiToken(mist_session:_APISession, org_id:str, body:object) -> Resp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> Response:
+def getOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgApiToken
     
@@ -52,7 +52,7 @@ def getOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> Res
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> Response:
+def deleteOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgApiToken
     
@@ -70,7 +70,7 @@ def deleteOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str, body:object) -> Response:
+def updateOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgApiToken
     

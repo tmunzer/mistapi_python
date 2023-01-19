@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgServices(mist_session:_APISession, org_id:str) -> Response:
+def getOrgServices(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgServices
     
@@ -18,7 +18,7 @@ def getOrgServices(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgService(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgService(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgService
     
@@ -34,7 +34,7 @@ def createOrgService(mist_session:_APISession, org_id:str, body:object) -> Respo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgService(mist_session:_APISession, org_id:str, service_id:str) -> Response:
+def getOrgService(mist_session:_APISession, org_id:str, service_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgService
     
@@ -52,7 +52,7 @@ def getOrgService(mist_session:_APISession, org_id:str, service_id:str) -> Respo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgService(mist_session:_APISession, org_id:str, service_id:str) -> Response:
+def deleteOrgService(mist_session:_APISession, org_id:str, service_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgService
     
@@ -70,7 +70,7 @@ def deleteOrgService(mist_session:_APISession, org_id:str, service_id:str) -> Re
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgService(mist_session:_APISession, org_id:str, service_id:str, body:object) -> Response:
+def updateOrgService(mist_session:_APISession, org_id:str, service_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgService
     

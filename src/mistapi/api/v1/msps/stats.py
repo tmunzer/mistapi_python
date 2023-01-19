@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getMspOrgLicenses(mist_session:_APISession, msp_id:str) -> Response:
+def getMspOrgLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspOrgLicenses
     
@@ -18,7 +18,7 @@ def getMspOrgLicenses(mist_session:_APISession, msp_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getMspOrgStats(mist_session:_APISession, msp_id:str, page:int=1, limit:int=100) -> Response:
+def getMspOrgStats(mist_session:_APISession, msp_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspOrgStats
     

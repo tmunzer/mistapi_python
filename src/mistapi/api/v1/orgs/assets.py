@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgAssets(mist_session:_APISession, org_id:str) -> Response:
+def getOrgAssets(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAssets
     
@@ -18,7 +18,7 @@ def getOrgAssets(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgAsset
     
@@ -34,7 +34,7 @@ def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> Respons
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> Response:
+def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgAssets
     
@@ -50,7 +50,7 @@ def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> Respon
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> Response:
+def getOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAsset
     
@@ -68,7 +68,7 @@ def getOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> Response:
+def deleteOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgAsset
     
@@ -86,7 +86,7 @@ def deleteOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> Respon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAsset(mist_session:_APISession, org_id:str, asset_id:str, body:object) -> Response:
+def updateOrgAsset(mist_session:_APISession, org_id:str, asset_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgAsset
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bssid", type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bssid", type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteRogueEvents
     
@@ -45,7 +45,7 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteRogueEvents
     
@@ -87,7 +87,7 @@ def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteRogueAP(mist_session:_APISession, site_id:str, rogue_bssid:str) -> Response:
+def getSiteRogueAP(mist_session:_APISession, site_id:str, rogue_bssid:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRogueAP
     
@@ -105,7 +105,7 @@ def getSiteRogueAP(mist_session:_APISession, site_id:str, rogue_bssid:str) -> Re
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deauthSiteClientsConnectedToARogue(mist_session:_APISession, site_id:str, rogue_bssid:str, body:object) -> Response:
+def deauthSiteClientsConnectedToARogue(mist_session:_APISession, site_id:str, rogue_bssid:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deauthSiteClientsConnectedToARogue
     

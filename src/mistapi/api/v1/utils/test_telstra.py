@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def testSiteWlanTelstraSetup(mist_session:_APISession) -> Response:
+def testSiteWlanTelstraSetup(mist_session:_APISession) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/testSiteWlanTelstraSetup
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getOrgStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgStats
     
@@ -31,7 +31,7 @@ def getOrgStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAssetsStats
     
@@ -61,7 +61,7 @@ def getOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:in
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct:str=None) -> Response:
+def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgAssetsByDistanceField
     
@@ -83,7 +83,7 @@ def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:str=None, ibeacon_minor:str=None, ap_mac:str=None, beam:str=None, rssi:str=None) -> Response:
+def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:str=None, ibeacon_minor:str=None, ap_mac:str=None, beam:str=None, rssi:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgAssets
     
@@ -121,7 +121,7 @@ def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgBgpStats(mist_session:_APISession, org_id:str) -> Response:
+def countOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgBgpStats
     
@@ -138,7 +138,7 @@ def countOrgBgpStats(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> Response:
+def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgBgpStats
     
@@ -155,7 +155,7 @@ def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None) -> Response:
+def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgDevicesStats
     
@@ -197,7 +197,7 @@ def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:str="false") -> Response:
+def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:str="false") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgesStats
     
@@ -229,7 +229,7 @@ def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgMxEdgeStats(mist_session:_APISession, org_id:str, mxedge_id:str) -> Response:
+def getOrgMxEdgeStats(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeStats
     
@@ -247,7 +247,7 @@ def getOrgMxEdgeStats(mist_session:_APISession, org_id:str, mxedge_id:str) -> Re
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgSwOrGwPorts
     
@@ -335,7 +335,7 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, org_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countOrgByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, org_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgByDisctinctAttributesOfSwitchPorts
     
@@ -417,7 +417,7 @@ def countOrgByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, org_id:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str=None, type:str="wxtunnel") -> Response:
+def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str=None, type:str="wxtunnel") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgTunnelsStats
     
@@ -442,7 +442,7 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str=None, site_id:str=None, wxtunnel_id:str=None, ap:str=None, mac:str=None, node:str=None, peer_ip:str=None, peer_host:str=None, ip:str=None, tunnel_name:str=None, protocol:str=None, auth_algo:str=None, encrypt_algo:str=None, ike_version:str=None, up:str=None, type:str="wxtunnel", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str=None, site_id:str=None, wxtunnel_id:str=None, ap:str=None, mac:str=None, node:str=None, peer_ip:str=None, peer_host:str=None, ip:str=None, tunnel_name:str=None, protocol:str=None, auth_algo:str=None, encrypt_algo:str=None, ike_version:str=None, up:str=None, type:str="wxtunnel", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgTunnelsStats
     
@@ -504,7 +504,7 @@ def getOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str=No
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgPeerPathStats
     
@@ -536,7 +536,7 @@ def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", page:int=1, limit:int=100) -> Response:
+def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgPeerPathStats
     

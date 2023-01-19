@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def inviteOrgAdmin(mist_session:_APISession, org_id:str, body:object) -> Response:
+def inviteOrgAdmin(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/inviteOrgAdmin
     
@@ -17,7 +17,7 @@ def inviteOrgAdmin(mist_session:_APISession, org_id:str, body:object) -> Respons
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def uninviteOrgAdmin(mist_session:_APISession, org_id:str, invite_id:str) -> Response:
+def uninviteOrgAdmin(mist_session:_APISession, org_id:str, invite_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uninviteOrgAdmin
     
@@ -35,7 +35,7 @@ def uninviteOrgAdmin(mist_session:_APISession, org_id:str, invite_id:str) -> Res
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAdminInvite(mist_session:_APISession, org_id:str, invite_id:str, body:object) -> Response:
+def updateOrgAdminInvite(mist_session:_APISession, org_id:str, invite_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgAdminInvite
     

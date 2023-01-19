@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=None, role:str=None, page:int=1, limit:int=100) -> Response:
+def getOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=None, role:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgPsks
     
@@ -31,7 +31,7 @@ def getOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgPsk
     
@@ -47,7 +47,7 @@ def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> Response:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateOrgMultiPsks(mist_session:_APISession, org_id:str, body:object) -> Response:
+def updateOrgMultiPsks(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgMultiPsks
     
@@ -63,7 +63,7 @@ def updateOrgMultiPsks(mist_session:_APISession, org_id:str, body:object) -> Res
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def importOrgPsk(mist_session:_APISession, org_id:str, body:object) -> Response:
+def importOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgPsk
     
@@ -79,7 +79,7 @@ def importOrgPsk(mist_session:_APISession, org_id:str, body:object) -> Response:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> Response:
+def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgPsk
     
@@ -97,7 +97,7 @@ def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> Response:
+def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgPsk
     
@@ -115,7 +115,7 @@ def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> Response:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) -> Response:
+def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgPsk
     
@@ -132,7 +132,7 @@ def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str, body:object) -> Response:
+def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgPskOldPassphrase
     

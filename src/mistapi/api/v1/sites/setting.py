@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteSetting(mist_session:_APISession, site_id:str) -> Response:
+def getSiteSetting(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSetting
     
@@ -18,7 +18,7 @@ def getSiteSetting(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def updateSiteSettings(mist_session:_APISession, site_id:str, body:object) -> Response:
+def updateSiteSettings(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteSettings
     
@@ -34,7 +34,7 @@ def updateSiteSettings(mist_session:_APISession, site_id:str, body:object) -> Re
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteSiteClientsBlocklist(mist_session:_APISession, site_id:str) -> Response:
+def deleteSiteClientsBlocklist(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteClientsBlocklist
     
@@ -51,7 +51,7 @@ def deleteSiteClientsBlocklist(mist_session:_APISession, site_id:str) -> Respons
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createSiteClientsBlocklist(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteClientsBlocklist(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteClientsBlocklist
     
@@ -67,7 +67,7 @@ def createSiteClientsBlocklist(mist_session:_APISession, site_id:str, body:objec
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteSiteWatchedStations(mist_session:_APISession, site_id:str) -> Response:
+def deleteSiteWatchedStations(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteWatchedStations
     
@@ -84,7 +84,7 @@ def deleteSiteWatchedStations(mist_session:_APISession, site_id:str) -> Response
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createSiteWatchedStations(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteWatchedStations(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteWatchedStations
     
@@ -100,7 +100,7 @@ def createSiteWatchedStations(mist_session:_APISession, site_id:str, body:object
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteSiteClientsAllowlist(mist_session:_APISession, site_id:str) -> Response:
+def deleteSiteClientsAllowlist(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteClientsAllowlist
     
@@ -117,7 +117,7 @@ def deleteSiteClientsAllowlist(mist_session:_APISession, site_id:str) -> Respons
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createSiteClientsAllowlist(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteClientsAllowlist(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteClientsAllowlist
     

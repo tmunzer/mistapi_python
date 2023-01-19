@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgNacRules(mist_session:_APISession, org_id:str) -> Response:
+def getOrgNacRules(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNacRules
     
@@ -18,7 +18,7 @@ def getOrgNacRules(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgNacRule
     
@@ -34,7 +34,7 @@ def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> Respo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> Response:
+def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNacRule
     
@@ -52,7 +52,7 @@ def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> Respo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> Response:
+def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacRule
     
@@ -70,7 +70,7 @@ def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> Re
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str, body:object) -> Response:
+def updateOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgNacRule
     

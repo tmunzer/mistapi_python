@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteWlans(mist_session:_APISession, site_id:str) -> Response:
+def getSiteWlans(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWlans
     
@@ -18,7 +18,7 @@ def getSiteWlans(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteWlan
     
@@ -34,7 +34,7 @@ def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> Respon
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> Response:
+def getSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWlanDerived
     
@@ -56,7 +56,7 @@ def getSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> Response:
+def getSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWlan
     
@@ -74,7 +74,7 @@ def getSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> Response:
+def deleteSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteWlan
     
@@ -92,7 +92,7 @@ def deleteSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> Respon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> Response:
+def updateSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteWlan
     
@@ -109,7 +109,7 @@ def updateSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def uploadSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> Response:
+def uploadSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadSiteWlanPortalImage
     
@@ -126,7 +126,7 @@ def uploadSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateSiteWlanPortalTemplate(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> Response:
+def updateSiteWlanPortalTemplate(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteWlanPortalTemplate
     

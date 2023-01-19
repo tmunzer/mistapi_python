@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgGatewayTemplates(mist_session:_APISession, org_id:str) -> Response:
+def getOrgGatewayTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgGatewayTemplates
     
@@ -18,7 +18,7 @@ def getOrgGatewayTemplates(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgGatewayTemplate(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgGatewayTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgGatewayTemplate
     
@@ -34,7 +34,7 @@ def createOrgGatewayTemplate(mist_session:_APISession, org_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str) -> Response:
+def getOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgGatewayTemplate
     
@@ -52,7 +52,7 @@ def getOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str) -> Response:
+def deleteOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgGatewayTemplate
     
@@ -70,7 +70,7 @@ def deleteOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytempla
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str, body:object) -> Response:
+def updateOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgGatewayTemplate
     

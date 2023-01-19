@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteMaps(mist_session:_APISession, site_id:str) -> Response:
+def getSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMaps
     
@@ -18,7 +18,7 @@ def getSiteMaps(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteMap
     
@@ -34,7 +34,7 @@ def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> Respons
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteMaps(mist_session:_APISession, site_id:str, body:object) -> Response:
+def importSiteMaps(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteMaps
     
@@ -50,7 +50,7 @@ def importSiteMaps(mist_session:_APISession, site_id:str, body:object) -> Respon
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> Response:
+def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMap
     
@@ -68,7 +68,7 @@ def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> Response:
+def deleteSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteMap
     
@@ -86,7 +86,7 @@ def deleteSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> Response
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Response:
+def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteMap
     
@@ -103,7 +103,7 @@ def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str, body:object) -> Response:
+def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/startSiteApAutoOrientation
     
@@ -120,7 +120,7 @@ def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteApAutoPlacement(mist_session:_APISession, site_id:str, map_id:str) -> Response:
+def getSiteApAutoPlacement(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteApAutoPlacement
     
@@ -138,7 +138,7 @@ def getSiteApAutoPlacement(mist_session:_APISession, site_id:str, map_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str) -> Response:
+def deleteSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteApAutoplacement
     
@@ -156,7 +156,7 @@ def deleteSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str)
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Response:
+def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/runSiteApAutoplacement
     
@@ -173,7 +173,7 @@ def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> Response:
+def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteMapImage
     
@@ -191,7 +191,7 @@ def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> Res
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addSiteMapImage(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Response:
+def addSiteMapImage(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addSiteMapImage
     
@@ -208,7 +208,7 @@ def addSiteMapImage(mist_session:_APISession, site_id:str, map_id:str, body:obje
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def replaceSiteMapImage(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Response:
+def replaceSiteMapImage(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/replaceSiteMapImage
     
@@ -225,7 +225,7 @@ def replaceSiteMapImage(mist_session:_APISession, site_id:str, map_id:str, body:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def revertSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Response:
+def revertSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/revertSiteApAutoOrient
     
@@ -242,7 +242,7 @@ def revertSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def revertSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Response:
+def revertSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/revertSiteApAutoplacement
     
@@ -259,7 +259,7 @@ def revertSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str,
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Response:
+def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/bulkAssignSiteApsToMap
     
@@ -276,7 +276,7 @@ def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteWayfinding(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Response:
+def importSiteWayfinding(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteWayfinding
     

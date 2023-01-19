@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgEvpnTopologies(mist_session:_APISession, org_id:str) -> Response:
+def getOrgEvpnTopologies(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgEvpnTopologies
     
@@ -18,7 +18,7 @@ def getOrgEvpnTopologies(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgEvpnTopology(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgEvpnTopology(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgEvpnTopology
     
@@ -34,7 +34,7 @@ def createOrgEvpnTopology(mist_session:_APISession, org_id:str, body:object) -> 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgEvpnTolopogy(mist_session:_APISession, org_id:str, evpn_topology_id:str) -> Response:
+def getOrgEvpnTolopogy(mist_session:_APISession, org_id:str, evpn_topology_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgEvpnTolopogy
     
@@ -52,7 +52,7 @@ def getOrgEvpnTolopogy(mist_session:_APISession, org_id:str, evpn_topology_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:str) -> Response:
+def deleteOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgEvpnTopology
     
@@ -70,7 +70,7 @@ def deleteOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:str, body:object) -> Response:
+def updateOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgEvpnTopology
     

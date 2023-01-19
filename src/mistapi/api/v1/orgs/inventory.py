@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str="ap", mac:str=None, site_id:str=None, vc_mac:str=None, vc:str=None, unassigned:bool=None) -> Response:
+def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str="ap", mac:str=None, site_id:str=None, vc_mac:str=None, vc:str=None, unassigned:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgInventory
     
@@ -37,7 +37,7 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> Response:
+def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addOrgInventory
     
@@ -53,7 +53,7 @@ def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> Respon
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:object) -> Response:
+def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgInventoryAssignment
     
@@ -69,7 +69,7 @@ def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str, body:object) -> Response:
+def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/reevaluateOrgAutoAssignment
     
@@ -85,7 +85,7 @@ def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str, body:objec
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> Response:
+def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/replaceOrgDevices
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOAuth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, forward:str=None) -> Response:
+def getOAuth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, forward:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOAuth2AuthorizationUrlForLogin
     
@@ -23,7 +23,7 @@ def getOAuth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, fo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def unlinkOAuth2Provider(mist_session:_APISession, provider:str) -> Response:
+def unlinkOAuth2Provider(mist_session:_APISession, provider:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unlinkOAuth2Provider
     
@@ -40,7 +40,7 @@ def unlinkOAuth2Provider(mist_session:_APISession, provider:str) -> Response:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def loginOAuth2(mist_session:_APISession, provider:str, body:object) -> Response:
+def loginOAuth2(mist_session:_APISession, provider:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/loginOAuth2
     

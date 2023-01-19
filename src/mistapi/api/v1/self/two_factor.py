@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def generateQrCodeForVerification(mist_session:_APISession, by:str="qrcode") -> Response:
+def generateQrCodeForVerification(mist_session:_APISession, by:str="qrcode") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/generateQrCodeForVerification
     
@@ -19,7 +19,7 @@ def generateQrCodeForVerification(mist_session:_APISession, by:str="qrcode") -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def verifyTwoFactor(mist_session:_APISession, body:object) -> Response:
+def verifyTwoFactor(mist_session:_APISession, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/verifyTwoFactor
     

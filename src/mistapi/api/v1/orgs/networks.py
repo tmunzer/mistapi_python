@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgNetworks(mist_session:_APISession, org_id:str) -> Response:
+def getOrgNetworks(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNetworks
     
@@ -18,7 +18,7 @@ def getOrgNetworks(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgNetwork(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgNetwork(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgNetwork
     
@@ -34,7 +34,7 @@ def createOrgNetwork(mist_session:_APISession, org_id:str, body:object) -> Respo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> Response:
+def getOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNetwork
     
@@ -52,7 +52,7 @@ def getOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> Respo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> Response:
+def deleteOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgNetwork
     
@@ -70,7 +70,7 @@ def deleteOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> Re
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgNetwork(mist_session:_APISession, org_id:str, network_id:str, body:object) -> Response:
+def updateOrgNetwork(mist_session:_APISession, org_id:str, network_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgNetwork
     

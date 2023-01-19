@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgDevices(mist_session:_APISession, org_id:str) -> Response:
+def getOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgDevices
     
@@ -18,7 +18,7 @@ def getOrgDevices(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgDevices
     
@@ -74,7 +74,7 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str, hostname
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgDevicesEvents
     
@@ -120,7 +120,7 @@ def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, si
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDevicesEvents
     
@@ -164,7 +164,7 @@ def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type:str="ap", distinct:str=None, start:int=None, end:int=None, limit:int=100) -> Response:
+def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type:str="ap", distinct:str=None, start:int=None, end:int=None, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgDeviceLastConfigs
     
@@ -194,7 +194,7 @@ def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDeviceLastConfig(mist_session:_APISession, org_id:str, device_type:str="ap", mac:str=None, start:int=None, end:int=None, limit:int=100) -> Response:
+def searchOrgDeviceLastConfig(mist_session:_APISession, org_id:str, device_type:str="ap", mac:str=None, start:int=None, end:int=None, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDeviceLastConfig
     
@@ -224,7 +224,7 @@ def searchOrgDeviceLastConfig(mist_session:_APISession, org_id:str, device_type:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgApsMacs(mist_session:_APISession, org_id:str) -> Response:
+def getOrgApsMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgApsMacs
     
@@ -241,7 +241,7 @@ def getOrgApsMacs(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_bandwith:int=None, band_5_bandwith:int=None, band_6_bandwith:int=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_bandwith:int=None, band_5_bandwith:int=None, band_6_bandwith:int=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDevices
     
@@ -311,7 +311,7 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgMultiSitesDevicesUpgrades(mist_session:_APISession, org_id:str) -> Response:
+def getOrgMultiSitesDevicesUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMultiSitesDevicesUpgrades
     
@@ -328,7 +328,7 @@ def getOrgMultiSitesDevicesUpgrades(mist_session:_APISession, org_id:str) -> Res
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def upgradeOrgMultiSitesDevices(mist_session:_APISession, org_id:str, body:object) -> Response:
+def upgradeOrgMultiSitesDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/upgradeOrgMultiSitesDevices
     
@@ -344,7 +344,7 @@ def upgradeOrgMultiSitesDevices(mist_session:_APISession, org_id:str, body:objec
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgMultiSitesUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> Response:
+def getOrgMultiSitesUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMultiSitesUpgrade
     

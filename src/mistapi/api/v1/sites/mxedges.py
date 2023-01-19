@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteMxEdges(mist_session:_APISession, site_id:str) -> Response:
+def getSiteMxEdges(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMxEdges
     
@@ -18,7 +18,7 @@ def getSiteMxEdges(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteMxEdge(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteMxEdge(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteMxEdge
     
@@ -34,7 +34,7 @@ def createSiteMxEdge(mist_session:_APISession, site_id:str, body:object) -> Resp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> Response:
+def getSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMxEdge
     
@@ -52,7 +52,7 @@ def getSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> Respo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> Response:
+def deleteSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteMxEdge
     
@@ -70,7 +70,7 @@ def deleteSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> Re
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str, body:object) -> Response:
+def updateSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteMxEdge
     
@@ -87,7 +87,7 @@ def updateSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str, body:
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def uploadSiteMxEdgeSupportFiles(mist_session:_APISession, site_id:str, mxedge_id:str, body:object) -> Response:
+def uploadSiteMxEdgeSupportFiles(mist_session:_APISession, site_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadSiteMxEdgeSupportFiles
     

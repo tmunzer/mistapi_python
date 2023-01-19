@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgMxEdgeClusters(mist_session:_APISession, org_id:str) -> Response:
+def getOrgMxEdgeClusters(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeClusters
     
@@ -18,7 +18,7 @@ def getOrgMxEdgeClusters(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgMxEdgeCluster(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgMxEdgeCluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgMxEdgeCluster
     
@@ -34,7 +34,7 @@ def createOrgMxEdgeCluster(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) -> Response:
+def getOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeCluster
     
@@ -52,7 +52,7 @@ def getOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) -> Response:
+def deleteOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgMxEdgeCluster
     
@@ -70,7 +70,7 @@ def deleteOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:st
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str, body:object) -> Response:
+def updateOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgMxEdgeCluster
     

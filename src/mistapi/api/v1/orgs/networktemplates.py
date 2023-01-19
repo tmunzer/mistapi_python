@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgNetworkTemplates(mist_session:_APISession, org_id:str) -> Response:
+def getOrgNetworkTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNetworkTemplates
     
@@ -18,7 +18,7 @@ def getOrgNetworkTemplates(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgNetworkTemplate(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgNetworkTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgNetworkTemplate
     
@@ -34,7 +34,7 @@ def createOrgNetworkTemplate(mist_session:_APISession, org_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_id:str) -> Response:
+def getOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNetworkTemplate
     
@@ -52,7 +52,7 @@ def getOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_id:str) -> Response:
+def deleteOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgNetworkTemplate
     
@@ -70,7 +70,7 @@ def deleteOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktempla
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgNetworkTemplates(mist_session:_APISession, org_id:str, networktemplate_id:str, body:object) -> Response:
+def updateOrgNetworkTemplates(mist_session:_APISession, org_id:str, networktemplate_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgNetworkTemplates
     

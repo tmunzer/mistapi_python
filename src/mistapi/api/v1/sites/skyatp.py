@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def countSiteByDistringAttributesOfSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, mac:str=None, device_mac:str=None, threat_level:int=None, ip_address:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteByDistringAttributesOfSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, mac:str=None, device_mac:str=None, threat_level:int=None, ip_address:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDistringAttributesOfSkyatpEvents
     
@@ -43,7 +43,7 @@ def countSiteByDistringAttributesOfSkyatpEvents(mist_session:_APISession, site_i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None, mac:str=None, device_mac:str=None, threat_level:int=None, ip_address:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None, mac:str=None, device_mac:str=None, threat_level:int=None, ip_address:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSkyatpEvents
     

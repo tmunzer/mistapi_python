@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteAssetFilters(mist_session:_APISession, site_id:str) -> Response:
+def getSiteAssetFilters(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetFilters
     
@@ -18,7 +18,7 @@ def getSiteAssetFilters(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteAssetFilters(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteAssetFilters(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteAssetFilters
     
@@ -34,7 +34,7 @@ def createSiteAssetFilters(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str) -> Response:
+def getSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetFilter
     
@@ -52,7 +52,7 @@ def getSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str) -> Response:
+def deleteSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteAssetFilter
     
@@ -70,7 +70,7 @@ def deleteSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str, body:object) -> Response:
+def updateSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteAssetFilter
     

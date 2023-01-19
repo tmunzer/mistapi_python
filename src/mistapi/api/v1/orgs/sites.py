@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgSites(mist_session:_APISession, org_id:str) -> Response:
+def getOrgSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSites
     
@@ -18,7 +18,7 @@ def getOrgSites(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSite(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgSite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgSite
     
@@ -34,7 +34,7 @@ def createOrgSite(mist_session:_APISession, org_id:str, body:object) -> Response
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgSites
     
@@ -66,7 +66,7 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", page:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=None, app_waking:bool=None, asset_enabled:bool=None, auto_upgrade_enabled:bool=None, auto_upgrade_version:bool=None, country_code:str=None, honeypot_enabled:bool=None, id:str=None, locate_unconnected:bool=None, mesh_enabled:bool=None, name:str=None, rogue_enabled:bool=None, remote_syslog_enabled:bool=None, rtsa_enabled:bool=None, vna_enabled:bool=None, wifi_enabled:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=None, app_waking:bool=None, asset_enabled:bool=None, auto_upgrade_enabled:bool=None, auto_upgrade_version:bool=None, country_code:str=None, honeypot_enabled:bool=None, id:str=None, locate_unconnected:bool=None, mesh_enabled:bool=None, name:str=None, rogue_enabled:bool=None, remote_syslog_enabled:bool=None, rtsa_enabled:bool=None, vna_enabled:bool=None, wifi_enabled:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgSites
     
@@ -128,7 +128,7 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def importOrgMapToSite(mist_session:_APISession, org_id:str, site_name:str, body:object) -> Response:
+def importOrgMapToSite(mist_session:_APISession, org_id:str, site_name:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgMapToSite
     

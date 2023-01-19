@@ -1,14 +1,8 @@
 import requests
 from requests.exceptions import HTTPError
 from mistapi.__api_response import APIResponse
+from mistapi.__logger import logger
 
-try:
-    from config import log_level
-except:
-    log_level = 6
-finally:
-    from mistapi.__console import Console
-    console = Console(log_level)
 
 class APIRequest:
 
@@ -18,73 +12,64 @@ class APIRequest:
         self.privileges = ""
         
 
-    def _url(self, uri):
-        """Generate the url with the host (in the object) and the uri
-        Params: uri
-        Return: url"""
+    def _url(self, uri) -> str:
+        """
+        Generate the url with the host (in the object) and the uri
+
+        :params str uri - URI where to send the request to (e.g. "/api/v1/...")
+        :return str url - Full URL where to send the request to (e.g. "https://api.mist.com/api/v1/...")
+        """
+        logger.debug(f"apirequest:in  > _url")
         return "https://" + self._cloud_uri + uri
 
-    def _gen_query(self, query:object, limit=None, page=None):
+    def _gen_query(self, query:object) -> str:
+        logger.debug(f"apirequest:in  > _gen_query")
+        logger.debug(f"apirequest:processing query {query}")
         html_query = "?"
         if query:
             for query_param in query:
                 html_query += f"{query_param}={query[query_param]}&"
-        if limit: html_query += f"limit={limit}&"
-        if page: html_query += f"page={page}"
+        logger.debug(f"apirequest:generated query: {html_query}")
+        html_query = html_query[:-1]
         return html_query
 
-
-    def _response(self, resp, uri:str, multi_pages_result=None):
-        if resp.status_code == 200:
-            if multi_pages_result is None:
-                result = resp.json()
-            else: 
-                result = multi_pages_result
-            error = ""
-            console.debug(f"Response Status Code: {resp.status_code}")
-        else:
-            result = ""
-            error = resp.json()
-            console.debug(f"Response Status Code: {resp.status_code}")
-            console.debug(f"Response: {error}")
-        return APIResponse(uri=uri, response=resp)
-        #return {"result": result, "status_code": resp.status_code, "error": error, "uri":uri}
-
-    def mist_get(self, uri:str, query:object=None, page=None, limit=None):
+    def mist_get(self, uri:str, query:object=None) -> APIResponse:
         """GET HTTP Request
         Params: uri, HTTP query
         Return: HTTP response"""
         try:
-            url = self._url(uri) + self._gen_query(query, page, limit)
-            console.debug(f"Request > GET {url}")
+            url = self._url(uri) + self._gen_query(query)
+            logger.info(f"apirequest:sending GET request to {url}")
             resp = self._session.get(url)
             resp.raise_for_status()
         except HTTPError as http_err:
-            console.error(f'HTTP error occurred: {http_err}')  # Python 3.6
-            console.error(f'HTTP error description: {resp.json()}')
+            logger.error(f'HTTP error occurred: {http_err}')  # Python 3.6
+            logger.error(f'HTTP error description: {resp.json()}')
         except Exception as err:
-            console.error(f'Other error occurred: {err}')  # Python 3.6
-        else: 
-            if "X-Page-Limit" in resp.headers:
-                content = resp.json()
-                x_page_limit = int(resp.headers["X-Page-Limit"])
-                x_page_page = int(resp.headers["X-Page-Page"])
-                x_page_total = int(resp.headers["X-Page-Total"])
-                if x_page_limit * x_page_page < x_page_total:
-                    content+=self.mist_get(uri, query, page + 1, limit)["result"]
-                return self._response(resp, uri, content)
-            else:                
-                return self._response(resp, uri)
+            logger.error(f'Other error occurred: {err}')  # Python 3.6
+        finally:
+            return APIResponse(url=url, response=resp)
+        # else: 
+        #     if "X-Page-Limit" in resp.headers:
+        #         content = resp.json()
+        #         x_page_limit = int(resp.headers["X-Page-Limit"])
+        #         x_page_page = int(resp.headers["X-Page-Page"])
+        #         x_page_total = int(resp.headers["X-Page-Total"])
+        #         if x_page_limit * x_page_page < x_page_total:
+        #             content+=self.mist_get(uri, query, page + 1, limit)["result"]
+        #         return self._response(resp, uri, content)
+        #     else:                
+        #         return APIResponse(uri=uri, response=resp)
 
-    def mist_post(self, uri:str,  body:object=None):
+    def mist_post(self, uri:str,  body:object=None) -> APIResponse:
         """POST HTTP Request
         Params: uri, HTTP body
         Return: HTTP response"""
         try: 
             url = self._url(uri)
+            logger.info(f"apirequest:sending POST request to {url}")
             headers = {'Content-Type': "application/json"}
-            console.debug(f"Request > POST {url}")
-            console.debug(f"Request body: \r\n{body}")
+            logger.debug(f"apirequest:Request body: \r\n{body}")
             if type(body) == str:
                 resp = self._session.post(url, data=body, headers=headers)
             elif type(body) == dict:
@@ -93,21 +78,21 @@ class APIRequest:
                 resp = self._session.post(url, json=body, headers=headers)
             resp.raise_for_status()
         except HTTPError as http_err:
-            console.error(f'HTTP error occurred: {http_err}')  # Python 3.6
-            console.error(f'HTTP error description: {resp.json()}')
+            logger.error(f'HTTP error occurred: {http_err}')  # Python 3.6
+            logger.error(f'HTTP error description: {resp.json()}')
         except Exception as err:
-            console.error(f'Other error occurred: {err}')  # Python 3.6
-        else: 
-            return self._response(resp, uri)
+            logger.error(f'Other error occurred: {err}')  # Python 3.6
+        finally: 
+            return APIResponse(uri=uri, response=resp)
 
-    def mist_put(self, uri:str, body:object=None):
+    def mist_put(self, uri:str, body:object=None) -> APIResponse:
         """PUT HTTP Request
         Params: uri, HTTP body
         Return: HTTP response"""
         try:
             url = self._url(uri)
-            console.debug(f"Request > PUT {url}")
-            console.debug(f"Request body: \r\n{body}")
+            logger.info(f"apirequest:sending PUT request to {url}")
+            logger.debug(f"apirequest:Request body: \r\n{body}")
             if type(body) == str:
                 resp = self._session.put(url, data=body)
             elif type(body) == dict:
@@ -116,44 +101,44 @@ class APIRequest:
                 resp = self._session.put(url, json=body)
             resp.raise_for_status()
         except HTTPError as http_err:
-            console.error(f'HTTP error occurred: {http_err}')  # Python 3.6
-            console.error(f'HTTP error description: {resp.json()}')
+            logger.error(f'HTTP error occurred: {http_err}')  # Python 3.6
+            logger.error(f'HTTP error description: {resp.json()}')
         except Exception as err:
-            console.error(f'Other error occurred: {err}')  # Python 3.6
-        else: 
-            return self._response(resp, uri)
+            logger.error(f'Other error occurred: {err}')  # Python 3.6
+        finally: 
+            return APIResponse(url=url, response=resp)
 
-    def mist_delete(self, uri:str, query:object=None):
+    def mist_delete(self, uri:str, query:object=None) -> APIResponse:
         """DELETE HTTP Request
         Params: uri
         Return: HTTP response"""
         try: 
             url = self._url(uri) + self._gen_query(query)
-            console.debug(f"Request > DELETE {url}")
+            logger.info(f"apirequest:sending DELETE request to {url}")
             resp = self._session.delete(url)
             resp.raise_for_status()
         except HTTPError as http_err:
-            console.error(f'HTTP error occurred: {http_err}')  # Python 3.6
+            logger.error(f'HTTP error occurred: {http_err}')  # Python 3.6
         except Exception as err:
-            console.error(f'Other error occurred: {err}')  # Python 3.6
+            logger.error(f'Other error occurred: {err}')  # Python 3.6
         else: 
-            return self._response(resp, uri)
+            return APIResponse(url=url, response=resp)
 
 
-    def mist_post_file(self, uri:str, files=None):
+    def mist_post_file(self, uri:str, files=None) -> APIResponse:
         """POST HTTP Request
         Params: uri, HTTP body
         Return: HTTP response"""
         try:                 
             url = self._url(uri)
-            console.debug(f"Request > POST {url}")
+            logger.info(f"apirequest:sending POST request to {url}")
             resp = self.ses_sessionion.post(url, files=files)
             resp.raise_for_status()
         except HTTPError as http_err:
-            console.error(f'HTTP error occurred: {http_err}')  # Python 3.6
-            console.error(f'HTTP error description: {resp.json()}')
+            logger.error(f'HTTP error occurred: {http_err}')  # Python 3.6
+            logger.error(f'HTTP error description: {resp.json()}')
             return resp
         except Exception as err:
-            console.error(f'Other error occurred: {err}')  # Python 3.6
+            logger.error(f'Other error occurred: {err}')  # Python 3.6
         else: 
-            return self._response(resp, uri)
+            return APIResponse(url=url, response=resp)

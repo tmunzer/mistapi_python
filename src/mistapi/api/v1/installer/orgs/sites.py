@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getInstallerSites(mist_session:_APISession, org_id:str) -> Response:
+def getInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getInstallerSites
     
@@ -18,7 +18,7 @@ def getInstallerSites(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name:str, body:object) -> Response:
+def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrUpdateInstallerSites
     
@@ -35,7 +35,7 @@ def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> Response:
+def getInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getInstallerMaps
     
@@ -53,7 +53,7 @@ def getInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> Res
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def importInstallerMap(mist_session:_APISession, org_id:str, site_name:str, body:object) -> Response:
+def importInstallerMap(mist_session:_APISession, org_id:str, site_name:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importInstallerMap
     
@@ -70,7 +70,7 @@ def importInstallerMap(mist_session:_APISession, org_id:str, site_name:str, body
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str) -> Response:
+def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteInstallerMap
     
@@ -89,7 +89,7 @@ def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:object) -> Response:
+def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createInstallerMap
     
@@ -107,7 +107,7 @@ def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:object) -> Response:
+def updateInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateInstallerMap
     

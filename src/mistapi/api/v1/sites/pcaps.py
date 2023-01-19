@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", client_mac:str=None) -> Response:
+def getSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", client_mac:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSitePacketCaptures
     
@@ -33,7 +33,7 @@ def getSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, lim
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteCapturingStatus(mist_session:_APISession, site_id:str) -> Response:
+def getSiteCapturingStatus(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCapturingStatus
     
@@ -50,7 +50,7 @@ def getSiteCapturingStatus(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def stopSitePacketCapture(mist_session:_APISession, site_id:str) -> Response:
+def stopSitePacketCapture(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/stopSitePacketCapture
     
@@ -67,7 +67,7 @@ def stopSitePacketCapture(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def startSitePacketCapture(mist_session:_APISession, site_id:str, body:object) -> Response:
+def startSitePacketCapture(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/startSitePacketCapture
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def updateSelfEmail(mist_session:_APISession, body:object) -> Response:
+def updateSelfEmail(mist_session:_APISession, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSelfEmail
     
@@ -13,7 +13,7 @@ def updateSelfEmail(mist_session:_APISession, body:object) -> Response:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def verifySelfEmail(mist_session:_APISession, token:str) -> Response:
+def verifySelfEmail(mist_session:_APISession, token:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/verifySelfEmail
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteZones(mist_session:_APISession, site_id:str) -> Response:
+def getSiteZones(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteZones
     
@@ -18,7 +18,7 @@ def getSiteZones(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteZone(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteZone(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteZone
     
@@ -34,7 +34,7 @@ def createSiteZone(mist_session:_APISession, site_id:str, body:object) -> Respon
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> Response:
+def getSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteZone
     
@@ -52,7 +52,7 @@ def getSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> Response:
+def deleteSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteZone
     
@@ -70,7 +70,7 @@ def deleteSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> Respon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteZone(mist_session:_APISession, site_id:str, zone_id:str, body:object) -> Response:
+def updateSiteZone(mist_session:_APISession, site_id:str, zone_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteZone
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, page:int=1, limit:int=100) -> Response:
+def getSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDevices
     
@@ -29,7 +29,7 @@ def getSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteDevice(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteDevice(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteDevice
     
@@ -45,7 +45,7 @@ def createSiteDevice(mist_session:_APISession, site_id:str, body:object) -> Resp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_code:str=None) -> Response:
+def getSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_code:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceRadioChannels
     
@@ -67,7 +67,7 @@ def getSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_co
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct:str=None, mac:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct:str=None, mac:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteDeviceConfigHistory
     
@@ -101,7 +101,7 @@ def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, device_type:str="ap", mac:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, device_type:str="ap", mac:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDeviceConfigHistory
     
@@ -135,7 +135,7 @@ def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, device_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model", hostname:str=None, model:str=None, mac:str=None, version:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, map_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model", hostname:str=None, model:str=None, mac:str=None, version:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, map_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteDevices
     
@@ -189,7 +189,7 @@ def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model"
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="model", model:str=None, type:str=None, type_code:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="model", model:str=None, type:str=None, type_code:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteDeviceEvents
     
@@ -227,7 +227,7 @@ def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="m
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDeviceEvents(mist_session:_APISession, site_id:str, model:str=None, type:str=None, type_code:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteDeviceEvents(mist_session:_APISession, site_id:str, model:str=None, type:str=None, type_code:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDeviceEvents
     
@@ -263,7 +263,7 @@ def searchSiteDeviceEvents(mist_session:_APISession, site_id:str, model:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def exportSiteDevices(mist_session:_APISession, site_id:str) -> Response:
+def exportSiteDevices(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/exportSiteDevices
     
@@ -280,7 +280,7 @@ def exportSiteDevices(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> Response:
+def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteDevices
     
@@ -296,7 +296,7 @@ def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> Res
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:str="mac", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:str="mac", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteDeviceLastConfig
     
@@ -328,7 +328,7 @@ def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, device_type:str="ap", mac:str=None, version:str=None, name:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, device_type:str="ap", mac:str=None, version:str=None, name:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDeviceLastConfigs
     
@@ -366,7 +366,7 @@ def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, device_ty
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def reprovisionSiteAllAps(mist_session:_APISession, site_id:str, body:object) -> Response:
+def reprovisionSiteAllAps(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/reprovisionSiteAllAps
     
@@ -382,7 +382,7 @@ def reprovisionSiteAllAps(mist_session:_APISession, site_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) -> Response:
+def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/resetSiteAllApsToUseRrm
     
@@ -398,7 +398,7 @@ def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def multiRestartSiteDevices(mist_session:_APISession, site_id:str, body:object) -> Response:
+def multiRestartSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/multiRestartSiteDevices
     
@@ -414,7 +414,7 @@ def multiRestartSiteDevices(mist_session:_APISession, site_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDevices
     
@@ -484,7 +484,7 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDevicesUpgrade(mist_session:_APISession, site_id:str, status:str=None) -> Response:
+def getSiteDevicesUpgrade(mist_session:_APISession, site_id:str, status:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDevicesUpgrade
     
@@ -506,7 +506,7 @@ def getSiteDevicesUpgrade(mist_session:_APISession, site_id:str, status:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def multiUpgradeSiteDevices(mist_session:_APISession, site_id:str, body:object) -> Response:
+def multiUpgradeSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/multiUpgradeSiteDevices
     
@@ -522,7 +522,7 @@ def multiUpgradeSiteDevices(mist_session:_APISession, site_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> Response:
+def getSiteUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteUpgrade
     
@@ -540,7 +540,7 @@ def getSiteUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> Res
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str, body:object) -> Response:
+def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/cancelSiteDeviceUpgrade
     
@@ -557,7 +557,7 @@ def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap") -> Response:
+def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAvailableDeviceVersions
     
@@ -579,7 +579,7 @@ def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def zeroizeSiteFipsAllAps(mist_session:_APISession, site_id:str, body:object) -> Response:
+def zeroizeSiteFipsAllAps(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/zeroizeSiteFipsAllAps
     
@@ -595,7 +595,7 @@ def zeroizeSiteFipsAllAps(mist_session:_APISession, site_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> Response:
+def getSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDevice
     
@@ -613,7 +613,7 @@ def getSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> Respo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> Response:
+def deleteSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteDevice
     
@@ -631,7 +631,7 @@ def deleteSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> Re
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteDevice
     
@@ -648,7 +648,7 @@ def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/arpFromDevice
     
@@ -665,7 +665,7 @@ def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:obj
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def portsBounceFromSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def portsBounceFromSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/portsBounceFromSwitch
     
@@ -682,7 +682,7 @@ def portsBounceFromSwitch(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def cableTestFromSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def cableTestFromSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/cableTestFromSwitch
     
@@ -699,7 +699,7 @@ def cableTestFromSwitch(mist_session:_APISession, site_id:str, device_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def startSiteSwitchRadiusSyntheticTest(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def startSiteSwitchRadiusSyntheticTest(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/startSiteSwitchRadiusSyntheticTest
     
@@ -716,7 +716,7 @@ def startSiteSwitchRadiusSyntheticTest(mist_session:_APISession, site_id:str, de
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearSiteSsrArpCache(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def clearSiteSsrArpCache(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/clearSiteSsrArpCache
     
@@ -733,7 +733,7 @@ def clearSiteSsrArpCache(mist_session:_APISession, site_id:str, device_id:str, b
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/clearSiteSsrBgpRoutes
     
@@ -750,7 +750,7 @@ def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearBpduErrosFromPortsOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def clearBpduErrosFromPortsOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/clearBpduErrosFromPortsOnSwitch
     
@@ -767,7 +767,7 @@ def clearBpduErrosFromPortsOnSwitch(mist_session:_APISession, site_id:str, devic
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/clearAllLearnedMacsFromPortOnSwitch
     
@@ -784,7 +784,7 @@ def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, d
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str, sort:str="false") -> Response:
+def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str, sort:str="false") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceConfigCmd
     
@@ -807,7 +807,7 @@ def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:str) -> Response:
+def deleteSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteDeviceHaCluster
     
@@ -825,7 +825,7 @@ def deleteSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:s
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteDeviceHaCluster
     
@@ -842,7 +842,7 @@ def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:s
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def swapSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def swapSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/swapSiteDeviceHaClusterNode
     
@@ -859,7 +859,7 @@ def swapSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -> Response:
+def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceIotPort
     
@@ -877,7 +877,7 @@ def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def setSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def setSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/setSiteDeviceIotPort
     
@@ -894,7 +894,7 @@ def setSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str, b
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, device_id:str) -> Response:
+def deleteSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteLocalSwitchPortConfig
     
@@ -912,7 +912,7 @@ def deleteSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, devic
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteLocalSwitchPortConfig
     
@@ -929,7 +929,7 @@ def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, devic
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/startSiteLocateDevice
     
@@ -946,7 +946,7 @@ def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/pingFromDevice
     
@@ -963,7 +963,7 @@ def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:ob
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/pollSiteSwitchStats
     
@@ -980,7 +980,7 @@ def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/releaseSiteSsrDhcpLease
     
@@ -997,7 +997,7 @@ def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceZtpPassword
     
@@ -1014,7 +1014,7 @@ def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/testSiteSsrDnsResolution
     
@@ -1031,7 +1031,7 @@ def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/restartSiteDevice
     
@@ -1048,7 +1048,7 @@ def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/servicePingFromSsr
     
@@ -1065,7 +1065,7 @@ def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, bod
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def getSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSsrAndSrxRoutes
     
@@ -1082,7 +1082,7 @@ def getSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str,
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def getSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSsrAndSrxSessions
     
@@ -1099,7 +1099,7 @@ def getSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteDeviceSnapshot
     
@@ -1116,7 +1116,7 @@ def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadSiteDeviceSupportFile
     
@@ -1133,7 +1133,7 @@ def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def StartSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def StartSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/StartSiteDeviceSyntheticTest
     
@@ -1150,7 +1150,7 @@ def StartSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_i
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/tracerouteFromDevice
     
@@ -1167,7 +1167,7 @@ def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, b
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/stopSiteLocateDevice
     
@@ -1184,7 +1184,7 @@ def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, b
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def upgradeSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def upgradeSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/upgradeSiteDevice
     
@@ -1201,7 +1201,7 @@ def upgradeSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> Response:
+def getSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteVirtualChassis
     
@@ -1219,7 +1219,7 @@ def getSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> Response:
+def deleteSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteVirtualChassis
     
@@ -1237,7 +1237,7 @@ def deleteSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteVirtualChassis
     
@@ -1254,7 +1254,7 @@ def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def removeSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def removeSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/removeSiteVirtualChassisMember
     
@@ -1271,7 +1271,7 @@ def removeSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def setSiteVcPort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def setSiteVcPort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/setSiteVcPort
     
@@ -1288,7 +1288,7 @@ def setSiteVcPort(mist_session:_APISession, site_id:str, device_id:str, body:obj
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_name:str) -> Response:
+def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_name:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteDeviceImage
     
@@ -1307,7 +1307,7 @@ def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_name:str, body:object) -> Response:
+def addSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_name:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addSiteDeviceImage
     

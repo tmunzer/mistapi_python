@@ -1,28 +1,28 @@
 from requests import Response
-
-try:
-    from config import log_level
-except:
-    log_level = 6
-finally:
-    from mistapi.__console import Console
-    console = Console(log_level)
+from mistapi.__logger import logger
+from mistapi.__logger import console
 
 class APIResponse:
 
-    def __init__(self, uri: str, response:Response) -> None:
-        self.raw=""
+    def __init__(self, url: str, response:Response) -> None:
+        self.raw_data=""
         self.data={}
         self.error={}
-        self.uri=uri
+        self.url=url
         self.status_code=response.status_code
 
-        if response.status_code == 200:
-            self.raw = response.content
-            self.data = response.json()
-            console.debug(f"Response Status Code: {response.status_code}")
-        else:
-            self.raw = response.content
-            self.error = response.json()
-            console.debug(f"Response Status Code: {response.status_code}")
-            console.debug(f"Response: {self.error}")
+        logger.info(f"apiresponse:Response Status Code: {response.status_code}")
+        console.debug(f"Response Status Code: {response.status_code}")
+
+        try:
+            if response.status_code == 200:
+                self.raw_data = response.content
+                self.data = response.json()
+            else:
+                self.raw_data = response.content
+                self.error = response.json()
+                logger.error(f"apiresponse:Response: {response}")
+                console.debug(f"Response: {self.error}")
+            logger.debug(f"apiresponse:HTTP Response processed")
+        except Exception as err:
+            logger.error(f"apiresponse:Unable to process HTTP Response: \r\n{err}")

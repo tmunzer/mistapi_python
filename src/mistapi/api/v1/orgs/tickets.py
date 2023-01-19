@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgTickets
     
@@ -27,7 +27,7 @@ def getOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgTicket(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgTicket(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgTicket
     
@@ -43,7 +43,7 @@ def createOrgTicket(mist_session:_APISession, org_id:str, body:object) -> Respon
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status") -> Response:
+def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgTickets
     
@@ -65,7 +65,7 @@ def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status")
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str) -> Response:
+def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgTicket
     
@@ -83,7 +83,7 @@ def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str) -> Respons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> Response:
+def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgTicket
     
@@ -100,7 +100,7 @@ def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:ob
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> Response:
+def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addOrgTicketComment
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteInfo(mist_session:_APISession, site_id:str) -> Response:
+def getSiteInfo(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteInfo
     
@@ -18,7 +18,7 @@ def getSiteInfo(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSite(mist_session:_APISession, site_id:str) -> Response:
+def deleteSite(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSite
     
@@ -35,7 +35,7 @@ def deleteSite(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteInfo(mist_session:_APISession, site_id:str, body:object) -> Response:
+def updateSiteInfo(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteInfo
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSdkInvites(mist_session:_APISession, org_id:str) -> Response:
+def getSdkInvites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSdkInvites
     
@@ -18,7 +18,7 @@ def getSdkInvites(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSdkInvite(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createSdkInvite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSdkInvite
     
@@ -34,7 +34,7 @@ def createSdkInvite(mist_session:_APISession, org_id:str, body:object) -> Respon
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> Response:
+def getSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSdkInvite
     
@@ -52,7 +52,7 @@ def getSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> Resp
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def revokeSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> Response:
+def revokeSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/revokeSdkInvite
     
@@ -70,7 +70,7 @@ def revokeSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> R
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> Response:
+def updateSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSdkInvite
     
@@ -87,7 +87,7 @@ def updateSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str, body
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def sendSdkInviteEmail(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> Response:
+def sendSdkInviteEmail(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/sendSdkInviteEmail
     
@@ -104,7 +104,7 @@ def sendSdkInviteEmail(mist_session:_APISession, org_id:str, sdkinvite_id:str, b
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSdkInviteQrCode(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> Response:
+def getSdkInviteQrCode(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSdkInviteQrCode
     
@@ -122,7 +122,7 @@ def getSdkInviteQrCode(mist_session:_APISession, org_id:str, sdkinvite_id:str) -
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def sendSdkInviteSms(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> Response:
+def sendSdkInviteSms(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/sendSdkInviteSms
     

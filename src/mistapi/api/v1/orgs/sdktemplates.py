@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSdkTemplates(mist_session:_APISession, org_id:str) -> Response:
+def getSdkTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSdkTemplates
     
@@ -18,7 +18,7 @@ def getSdkTemplates(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSdkTemplate(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createSdkTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSdkTemplate
     
@@ -34,7 +34,7 @@ def createSdkTemplate(mist_session:_APISession, org_id:str, body:object) -> Resp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> Response:
+def getSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSdkTemplate
     
@@ -52,7 +52,7 @@ def getSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> Response:
+def deleteSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSdkTemplate
     
@@ -70,7 +70,7 @@ def deleteSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str, body:object) -> Response:
+def updateSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSdkTemplate
     

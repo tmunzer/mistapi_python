@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def countOrgClientsWired(mist_session:_APISession, org_id:str, distinct:str="mac", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countOrgClientsWired(mist_session:_APISession, org_id:str, distinct:str="mac", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgClientsWired
     
@@ -33,7 +33,7 @@ def countOrgClientsWired(mist_session:_APISession, org_id:str, distinct:str="mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgClientsWired(mist_session:_APISession, org_id:str, device_mac:str=None, mac:str=None, port_id:str=None, vlan:int=None, site_id:str=None, ip:str=None, manufacture:str=None, text:str=None, type:str=None) -> Response:
+def searchOrgClientsWired(mist_session:_APISession, org_id:str, device_mac:str=None, mac:str=None, port_id:str=None, vlan:int=None, site_id:str=None, ip:str=None, manufacture:str=None, text:str=None, type:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgClientsWired
     

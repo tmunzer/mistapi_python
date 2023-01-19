@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> Response:
+def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrg128TRegistrationCommands
     
@@ -18,7 +18,7 @@ def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> Resp
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> Response:
+def getOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSsrUpgrades
     
@@ -35,7 +35,7 @@ def getOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:object) -> Response:
+def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/upgradeOrgSsrs
     
@@ -51,7 +51,7 @@ def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:object) -> Respons
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str, body:object) -> Response:
+def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/cancelOrgSsrUpgrade
     
@@ -68,7 +68,7 @@ def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSsrUpgradeInfo(mist_session:_APISession, org_id:str, channel:str=None) -> Response:
+def getOrgSsrUpgradeInfo(mist_session:_APISession, org_id:str, channel:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSsrUpgradeInfo
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteWebhooks(mist_session:_APISession, site_id:str) -> Response:
+def getSiteWebhooks(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWebhooks
     
@@ -18,7 +18,7 @@ def getSiteWebhooks(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteWebhook(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteWebhook(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteWebhook
     
@@ -34,7 +34,7 @@ def createSiteWebhook(mist_session:_APISession, site_id:str, body:object) -> Res
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> Response:
+def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWebhook
     
@@ -52,7 +52,7 @@ def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> Res
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> Response:
+def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteWebhook
     
@@ -70,7 +70,7 @@ def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:object) -> Response:
+def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteWebhook
     
@@ -87,7 +87,7 @@ def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:object) -> Response:
+def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/pingSiteWebhook
     

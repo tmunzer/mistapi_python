@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgAptemplates(mist_session:_APISession, org_id:str) -> Response:
+def getOrgAptemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAptemplates
     
@@ -18,7 +18,7 @@ def getOrgAptemplates(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgAptemplate(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgAptemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgAptemplate
     
@@ -34,7 +34,7 @@ def createOrgAptemplate(mist_session:_APISession, org_id:str, body:object) -> Re
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str) -> Response:
+def getOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAptemplate
     
@@ -52,7 +52,7 @@ def getOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str) -> Response:
+def deleteOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgAptemplate
     
@@ -70,7 +70,7 @@ def deleteOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str)
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str, body:object) -> Response:
+def updateOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgAptemplate
     

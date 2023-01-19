@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getMspAdmins(mist_session:_APISession, msp_id:str) -> Response:
+def getMspAdmins(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspAdmins
     
@@ -18,7 +18,7 @@ def getMspAdmins(mist_session:_APISession, msp_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> Response:
+def getMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspAdmin
     
@@ -36,7 +36,7 @@ def getMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def revokeMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> Response:
+def revokeMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/revokeMspAdmin
     
@@ -54,7 +54,7 @@ def revokeMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> Respon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str, body:object) -> Response:
+def updateMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateMspAdmin
     

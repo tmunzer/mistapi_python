@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> Response:
+def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSitesSle
     
@@ -33,7 +33,7 @@ def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgSle(mist_session:_APISession, org_id:str, metric:str, sle:str=None, duration:str="1d", interval:str=None, start:int=None, end:int=None) -> Response:
+def getOrgSle(mist_session:_APISession, org_id:str, metric:str, sle:str=None, duration:str="1d", interval:str=None, start:int=None, end:int=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSle
     

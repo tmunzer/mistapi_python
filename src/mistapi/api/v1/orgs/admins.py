@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgAdmins(mist_session:_APISession, org_id:str) -> Response:
+def getOrgAdmins(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAdmins
     
@@ -18,7 +18,7 @@ def getOrgAdmins(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def revokeOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str) -> Response:
+def revokeOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/revokeOrgAdmin
     
@@ -36,7 +36,7 @@ def revokeOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str) -> Respon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str, body:object) -> Response:
+def updateOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgAdmin
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getMspSso(mist_session:_APISession, msp_id:str) -> Response:
+def getMspSso(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspSso
     
@@ -18,7 +18,7 @@ def getMspSso(mist_session:_APISession, msp_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createMspSso(mist_session:_APISession, msp_id:str, body:object) -> Response:
+def createMspSso(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createMspSso
     
@@ -34,7 +34,7 @@ def createMspSso(mist_session:_APISession, msp_id:str, body:object) -> Response:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> Response:
+def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteMspSso
     
@@ -52,7 +52,7 @@ def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> Response:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:object) -> Response:
+def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateMspSso
     
@@ -69,7 +69,7 @@ def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:object) 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) -> Response:
+def getMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspSsoLatestFailures
     
@@ -87,7 +87,7 @@ def getMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> Response:
+def getMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspSsoSamlMetadata
     
@@ -105,7 +105,7 @@ def getMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> R
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def downloadMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> Response:
+def downloadMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/downloadMspSsoSamlMetadata
     

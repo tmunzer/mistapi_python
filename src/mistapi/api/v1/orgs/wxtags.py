@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgWxTags(mist_session:_APISession, org_id:str) -> Response:
+def getOrgWxTags(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWxTags
     
@@ -18,7 +18,7 @@ def getOrgWxTags(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgWxTag(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgWxTag(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgWxTag
     
@@ -34,7 +34,7 @@ def createOrgWxTag(mist_session:_APISession, org_id:str, body:object) -> Respons
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgApplicationList(mist_session:_APISession, org_id:str) -> Response:
+def getOrgApplicationList(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgApplicationList
     
@@ -51,7 +51,7 @@ def getOrgApplicationList(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> Response:
+def getOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWxTag
     
@@ -69,7 +69,7 @@ def getOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> Response:
+def deleteOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgWxTag
     
@@ -87,7 +87,7 @@ def deleteOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> Respon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str, body:object) -> Response:
+def updateOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgWxTag
     
@@ -104,7 +104,7 @@ def updateOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getOrgCurrentMatchingClientsOfAWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> Response:
+def getOrgCurrentMatchingClientsOfAWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgCurrentMatchingClientsOfAWxTag
     

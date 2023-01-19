@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteStats(mist_session:_APISession, site_id:str) -> Response:
+def getSiteStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteStats
     
@@ -18,7 +18,7 @@ def getSiteStats(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, device_mac:str=None, app:str=None, wired:str=None) -> Response:
+def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, device_mac:str=None, app:str=None, wired:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteApps
     
@@ -46,7 +46,7 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetsStats
     
@@ -76,7 +76,7 @@ def getSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAssetStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteAssetStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetStats
     
@@ -102,7 +102,7 @@ def getSiteAssetStats(mist_session:_APISession, site_id:str, start:int=None, end
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id") -> Response:
+def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteAssets
     
@@ -124,7 +124,7 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:int=None, ibeacon_minor:int=None, eddystone_uid_namespace:str=None, eddystone_uid_instance:str=None, eddystone_url:str=None, device_name:str=None, by:str=None, name:str=None, ap_mac:str=None, beam:str=None, rssi:str=None) -> Response:
+def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:int=None, ibeacon_minor:int=None, eddystone_uid_namespace:str=None, eddystone_uid_instance:str=None, eddystone_url:str=None, device_name:str=None, by:str=None, name:str=None, ap_mac:str=None, beam:str=None, rssi:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteAssets
     
@@ -172,7 +172,7 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteBeaconsStats
     
@@ -202,7 +202,7 @@ def getSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, distinct:str=None) -> Response:
+def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, distinct:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteBgpStats
     
@@ -226,7 +226,7 @@ def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, dis
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> Response:
+def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteBgpStats
     
@@ -243,7 +243,7 @@ def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", app:str=None, start:str=None, end:str=None) -> Response:
+def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", app:str=None, start:str=None, end:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteCalls
     
@@ -271,7 +271,7 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", a
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str=None, start:str=None, end:str=None) -> Response:
+def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str=None, start:str=None, end:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteCalls
     
@@ -299,7 +299,7 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteClientStats(mist_session:_APISession, site_id:str, client_mac:str, wired:bool=None) -> Response:
+def getSiteClientStats(mist_session:_APISession, site_id:str, client_mac:str, wired:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteClientStats
     
@@ -322,7 +322,7 @@ def getSiteClientStats(mist_session:_APISession, site_id:str, client_mac:str, wi
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", type:str="ap", status:str="all") -> Response:
+def getSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", type:str="ap", status:str="all") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDevicesStats
     
@@ -356,7 +356,7 @@ def getSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str) -> Response:
+def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceStats
     
@@ -374,7 +374,7 @@ def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device_id:str) -> Response:
+def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAllClientsStatsByDevice
     
@@ -392,7 +392,7 @@ def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDiscoveredAssets
     
@@ -422,7 +422,7 @@ def getSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, l
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, scope:str="site", type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, scope:str="site", type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDiscoveredSwitchesMetrics
     
@@ -456,7 +456,7 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:str="system_name", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:str="system_name", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteDiscoveredSwitches
     
@@ -488,7 +488,7 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, threshold:str=None, system_name:str=None) -> Response:
+def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, threshold:str=None, system_name:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDiscoveredSwitchesMetrics
     
@@ -512,7 +512,7 @@ def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, thre
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, system_name:str=None, mgmt_addr:str=None, model:str=None, version:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, system_name:str=None, mgmt_addr:str=None, model:str=None, version:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDiscoveredSwitches
     
@@ -550,7 +550,7 @@ def getSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, system_name
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str="1d", start:int=None, end:int=None, page:int=1, limit:int=100) -> Response:
+def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str="1d", start:int=None, end:int=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetsOfInterest
     
@@ -580,7 +580,7 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteGatwayMetrics(mist_session:_APISession, site_id:str) -> Response:
+def getSiteGatwayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteGatwayMetrics
     
@@ -597,7 +597,7 @@ def getSiteGatwayMetrics(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteClientsStatsByMap
     
@@ -628,7 +628,7 @@ def getSiteClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:str) -> Response:
+def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDiscoveredAssetByMap
     
@@ -646,7 +646,7 @@ def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> Response:
+def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSdkStatsByMap
     
@@ -664,7 +664,7 @@ def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> R
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:str) -> Response:
+def getSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteUnconnectedClientStats
     
@@ -682,7 +682,7 @@ def getSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteMxEdgesStats(mist_session:_APISession, site_id:str) -> Response:
+def getSiteMxEdgesStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMxEdgesStats
     
@@ -699,7 +699,7 @@ def getSiteMxEdgesStats(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str) -> Response:
+def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMxEdgeStats
     
@@ -717,7 +717,7 @@ def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteByDisctinctAttributesOPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteByDisctinctAttributesOPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDisctinctAttributesOPorts
     
@@ -799,7 +799,7 @@ def countSiteByDisctinctAttributesOPorts(mist_session:_APISession, site_id:str, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSwOrGwPorts
     
@@ -889,7 +889,7 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> Response:
+def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSdkStats
     
@@ -907,7 +907,7 @@ def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDisctinctAttributesOfSwitchPorts
     
@@ -989,7 +989,7 @@ def countSiteByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, site_i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSwitchPorts
     
@@ -1069,7 +1069,7 @@ def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAdoptedSwitchesComplianceMetrics(mist_session:_APISession, site_id:str) -> Response:
+def getSiteAdoptedSwitchesComplianceMetrics(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAdoptedSwitchesComplianceMetrics
     
@@ -1086,7 +1086,7 @@ def getSiteAdoptedSwitchesComplianceMetrics(mist_session:_APISession, site_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> Response:
+def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxRulesUsage
     
@@ -1103,7 +1103,7 @@ def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) -> Response:
+def getSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteZonesStats
     
@@ -1125,7 +1125,7 @@ def getSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_type:str, zone_id:str) -> Response:
+def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_type:str, zone_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteZoneStats
     

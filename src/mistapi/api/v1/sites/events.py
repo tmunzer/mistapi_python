@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRoamingEvents
     
@@ -33,7 +33,7 @@ def getSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str=None, p
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteInterferenceEvents(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteInterferenceEvents(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteInterferenceEvents
     
@@ -63,7 +63,7 @@ def getSiteInterferenceEvents(mist_session:_APISession, site_id:str, page:int=1,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="type", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="type", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteSystemEvents
     
@@ -95,7 +95,7 @@ def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="t
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSystemEvents(mist_session:_APISession, site_id:str, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteSystemEvents(mist_session:_APISession, site_id:str, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSystemEvents
     

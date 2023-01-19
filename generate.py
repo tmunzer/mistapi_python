@@ -57,7 +57,7 @@ def _init_api_file(file_path: str, file_name: str, import_path: list = []):
     init_file = os.path.join(file_path, "__init__.py")
     file_created = _create_or_append_file(
         f"{api_file}.py", 
-        "from mistapi import APISession as _APISession\r\nfrom mistapi.__api_response import Response\r\n", create_only=True)
+        "from mistapi import APISession as _APISession\r\nfrom mistapi.__api_response import APIResponse as _APIResponse\r\n", create_only=True)
     if file_created:
         import_from = f"mistapi.{'.'.join(import_path)}"
         if import_from.endswith("."):
@@ -200,7 +200,7 @@ def _create_get(operation_id: str, endpoint_path: str, path_params: list, query_
         operation_id, desc_path_params, desc_query_params)
 
     code = f"""
-def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> Response:
+def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
 {code_desc}
     uri = f"{endpoint_path}"{code_query}
     resp = mist_session.mist_get(uri=uri, query=query_params)
@@ -222,7 +222,7 @@ def _create_delete(operation_id: str, endpoint_path: str, path_params: list, que
         operation_id, desc_path_params, desc_query_params)
 
     code = f"""
-def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> Response:
+def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
 {code_desc}
     uri = f"{endpoint_path}"{code_query}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
@@ -240,7 +240,7 @@ def _create_post(operation_id: str, endpoint_path: str, path_params: list, folde
     code_desc = _gen_description(operation_id, desc_path_params)
 
     code = f"""
-def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> Response:
+def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _APIResponse:
 {code_desc}
     uri = f"{endpoint_path}"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -258,7 +258,7 @@ def _create_put(operation_id: str, endpoint_path: str, path_params: list, folder
     code_desc = _gen_description(operation_id, desc_path_params)
 
     code = f"""
-def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> Response:
+def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _APIResponse:
 {code_desc}
     uri = f"{endpoint_path}"
     resp = mist_session.mist_put(uri=uri, body=body)

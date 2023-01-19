@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOAuth2UrlForLinking(mist_session:_APISession, provider:str, forward:str=None) -> Response:
+def getOAuth2UrlForLinking(mist_session:_APISession, provider:str, forward:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOAuth2UrlForLinking
     
@@ -23,7 +23,7 @@ def getOAuth2UrlForLinking(mist_session:_APISession, provider:str, forward:str=N
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def linkOAuth2MistAccount(mist_session:_APISession, provider:str, body:object) -> Response:
+def linkOAuth2MistAccount(mist_session:_APISession, provider:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/linkOAuth2MistAccount
     

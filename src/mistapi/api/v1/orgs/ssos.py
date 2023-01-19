@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgSsos(mist_session:_APISession, org_id:str) -> Response:
+def getOrgSsos(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSsos
     
@@ -18,7 +18,7 @@ def getOrgSsos(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSso(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgSso(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgSso
     
@@ -34,7 +34,7 @@ def createOrgSso(mist_session:_APISession, org_id:str, body:object) -> Response:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> Response:
+def getOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSso
     
@@ -52,7 +52,7 @@ def getOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> Response:
+def deleteOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgSso
     
@@ -70,7 +70,7 @@ def deleteOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> Response:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgSso(mist_session:_APISession, org_id:str, sso_id:str, body:object) -> Response:
+def updateOrgSso(mist_session:_APISession, org_id:str, sso_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgSso
     
@@ -87,7 +87,7 @@ def updateOrgSso(mist_session:_APISession, org_id:str, sso_id:str, body:object) 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSsoLatestFailures
     
@@ -118,7 +118,7 @@ def getOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, pa
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgSsoSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> Response:
+def getOrgSsoSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSsoSamlMetadata
     
@@ -136,7 +136,7 @@ def getOrgSsoSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> R
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def downloadOrgSsoSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> Response:
+def downloadOrgSsoSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/downloadOrgSsoSamlMetadata
     

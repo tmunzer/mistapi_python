@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteInsightMetricsForClient
     
@@ -33,7 +33,7 @@ def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteInsightMetricsForDevice
     
@@ -65,7 +65,7 @@ def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRogueAPs
     
@@ -97,7 +97,7 @@ def getSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, page:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteRogueClients(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteRogueClients(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRogueClients
     
@@ -127,7 +127,7 @@ def getSiteRogueClients(mist_session:_APISession, site_id:str, page:int=1, limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteInsightMetrics
     

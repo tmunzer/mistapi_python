@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgSettings(mist_session:_APISession, org_id:str) -> Response:
+def getOrgSettings(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSettings
     
@@ -18,7 +18,7 @@ def getOrgSettings(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> Response:
+def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgSettings
     
@@ -34,7 +34,7 @@ def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> Resp
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgClientsBlocklist(mist_session:_APISession, org_id:str) -> Response:
+def deleteOrgClientsBlocklist(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgClientsBlocklist
     
@@ -51,7 +51,7 @@ def deleteOrgClientsBlocklist(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createOrgClientsBlocklist(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgClientsBlocklist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgClientsBlocklist
     
@@ -67,7 +67,7 @@ def createOrgClientsBlocklist(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:object) -> Response:
+def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/setupOrgCradlepointConnectionToMist
     
@@ -83,7 +83,7 @@ def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str, body:object) -> Response:
+def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/syncOrgCradlepointRouters
     
@@ -99,7 +99,7 @@ def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:object) -> Response:
+def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/linkOrgToJuniperJuniperAccount
     
@@ -115,7 +115,7 @@ def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:ob
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> Response:
+def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unlinkOrgFromJuniperCustomerId
     
@@ -132,7 +132,7 @@ def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> Resp
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> Response:
+def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/setOrgCustomBucket
     
@@ -148,7 +148,7 @@ def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> Res
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> Response:
+def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/verifyOrgCustomBucket
     
@@ -164,7 +164,7 @@ def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:str, forward:str=None) -> Response:
+def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:str, forward:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgOauthAppLinkedStatus
     
@@ -187,7 +187,7 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_name:str) -> Response:
+def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_name:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgOauthAppAuthorization
     

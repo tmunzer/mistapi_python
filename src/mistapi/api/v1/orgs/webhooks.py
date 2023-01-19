@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgWebhooks(mist_session:_APISession, org_id:str) -> Response:
+def getOrgWebhooks(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWebhooks
     
@@ -18,7 +18,7 @@ def getOrgWebhooks(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgWebhook(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgWebhook(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgWebhook
     
@@ -34,7 +34,7 @@ def createOrgWebhook(mist_session:_APISession, org_id:str, body:object) -> Respo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> Response:
+def getOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWebhook
     
@@ -52,7 +52,7 @@ def getOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> Respo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> Response:
+def deleteOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgWebhook
     
@@ -70,7 +70,7 @@ def deleteOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> Re
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str, body:object) -> Response:
+def updateOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgWebhook
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspTickets
     
@@ -27,7 +27,7 @@ def getMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status") -> Response:
+def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countMspTickets
     

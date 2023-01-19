@@ -6,7 +6,7 @@ try:
 except:
     log_level = 6
 finally:
-    from mistapi.__console import Console
+    from mistapi.__logger import Console
     console = Console(log_level)
 
 usages_list = ["multi", "single"]

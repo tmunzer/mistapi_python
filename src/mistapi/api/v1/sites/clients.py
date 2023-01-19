@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def countSiteByDistinctAttributesOfClients(mist_session:_APISession, site_id:str, distinct:str, ssid:str=None, ap:str=None, ip_address:str=None, vlan:str=None, hostname:str=None, os:str=None, model:str=None, device:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteByDistinctAttributesOfClients(mist_session:_APISession, site_id:str, distinct:str, ssid:str=None, ap:str=None, ip_address:str=None, vlan:str=None, hostname:str=None, os:str=None, model:str=None, device:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDistinctAttributesOfClients
     
@@ -49,7 +49,7 @@ def countSiteByDistinctAttributesOfClients(mist_session:_APISession, site_id:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def disconnectSiteMultipleClients(mist_session:_APISession, site_id:str, body:object) -> Response:
+def disconnectSiteMultipleClients(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/disconnectSiteMultipleClients
     
@@ -65,7 +65,7 @@ def disconnectSiteMultipleClients(mist_session:_APISession, site_id:str, body:ob
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteByDistinctAttributesOfClientsEvents(mist_session:_APISession, site_id:str, distinct:str=None, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteByDistinctAttributesOfClientsEvents(mist_session:_APISession, site_id:str, distinct:str=None, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDistinctAttributesOfClientsEvents
     
@@ -111,7 +111,7 @@ def countSiteByDistinctAttributesOfClientsEvents(mist_session:_APISession, site_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteClientEvents(mist_session:_APISession, site_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteClientEvents(mist_session:_APISession, site_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteClientEvents
     
@@ -155,7 +155,7 @@ def searchSiteClientEvents(mist_session:_APISession, site_id:str, type:str=None,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteClientsWireless(mist_session:_APISession, site_id:str, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, ssid:str=None, text:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteClientsWireless(mist_session:_APISession, site_id:str, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, ssid:str=None, text:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteClientsWireless
     
@@ -203,7 +203,7 @@ def searchSiteClientsWireless(mist_session:_APISession, site_id:str, mac:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteByDistinctAttributesOfClientSessions(mist_session:_APISession, site_id:str, distinct:str="mac", ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteByDistinctAttributesOfClientSessions(mist_session:_APISession, site_id:str, distinct:str="mac", ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDistinctAttributesOfClientSessions
     
@@ -251,7 +251,7 @@ def countSiteByDistinctAttributesOfClientSessions(mist_session:_APISession, site
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteClientSessions(mist_session:_APISession, site_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteClientSessions(mist_session:_APISession, site_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteClientSessions
     
@@ -297,7 +297,7 @@ def searchSiteClientSessions(mist_session:_APISession, site_id:str, ap:str=None,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def unauthorizeSiteMultipleClients(mist_session:_APISession, site_id:str, body:object) -> Response:
+def unauthorizeSiteMultipleClients(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unauthorizeSiteMultipleClients
     
@@ -313,7 +313,7 @@ def unauthorizeSiteMultipleClients(mist_session:_APISession, site_id:str, body:o
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def disconnectSiteClient(mist_session:_APISession, site_id:str, client_mac:str, body:object) -> Response:
+def disconnectSiteClient(mist_session:_APISession, site_id:str, client_mac:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/disconnectSiteClient
     
@@ -330,7 +330,7 @@ def disconnectSiteClient(mist_session:_APISession, site_id:str, client_mac:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, type:str=None, proto:str=None, band:str=None, channel:str=None, wlan_id:str=None, ssid:str=None, start:int=None, end:int=None, page:int=1, limit:int=100, duration:str="1d") -> Response:
+def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, type:str=None, proto:str=None, band:str=None, channel:str=None, wlan_id:str=None, ssid:str=None, start:int=None, end:int=None, page:int=1, limit:int=100, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteEventsForClient
     
@@ -373,7 +373,7 @@ def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def unauthorizeSiteClient(mist_session:_APISession, site_id:str, client_mac:str, body:object) -> Response:
+def unauthorizeSiteClient(mist_session:_APISession, site_id:str, client_mac:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unauthorizeSiteClient
     

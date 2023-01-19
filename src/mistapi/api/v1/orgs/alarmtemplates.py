@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgAlarmTemplates(mist_session:_APISession, org_id:str) -> Response:
+def getOrgAlarmTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAlarmTemplates
     
@@ -18,7 +18,7 @@ def getOrgAlarmTemplates(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgAlarmTemplate(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgAlarmTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgAlarmTemplate
     
@@ -34,7 +34,7 @@ def createOrgAlarmTemplate(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def suppressOrgAlarm(mist_session:_APISession, org_id:str, body:object) -> Response:
+def suppressOrgAlarm(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/suppressOrgAlarm
     
@@ -50,7 +50,7 @@ def suppressOrgAlarm(mist_session:_APISession, org_id:str, body:object) -> Respo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str) -> Response:
+def getOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAlarmTemplate
     
@@ -68,7 +68,7 @@ def getOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str) -> Response:
+def deleteOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgAlarmTemplate
     
@@ -86,7 +86,7 @@ def deleteOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_i
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str, body:object) -> Response:
+def updateOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgAlarmTemplate
     

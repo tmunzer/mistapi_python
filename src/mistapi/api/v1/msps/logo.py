@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def deleteMspLogo(mist_session:_APISession, msp_id:str) -> Response:
+def deleteMspLogo(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteMspLogo
     
@@ -18,7 +18,7 @@ def deleteMspLogo(mist_session:_APISession, msp_id:str) -> Response:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def postMspLogo(mist_session:_APISession, msp_id:str, body:object) -> Response:
+def postMspLogo(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/postMspLogo
     

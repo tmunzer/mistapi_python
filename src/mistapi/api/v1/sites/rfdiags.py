@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSiteRfdiagRecording
     
@@ -31,7 +31,7 @@ def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, page:int=1
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def startSiteRecording(mist_session:_APISession, site_id:str, body:object) -> Response:
+def startSiteRecording(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/startSiteRecording
     
@@ -47,7 +47,7 @@ def startSiteRecording(mist_session:_APISession, site_id:str, body:object) -> Re
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> Response:
+def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRfdiagRecording
     
@@ -65,7 +65,7 @@ def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> Response:
+def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteRfdiagRecording
     
@@ -83,7 +83,7 @@ def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str, body:object) -> Response:
+def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteRfdiagRecording
     
@@ -100,7 +100,7 @@ def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> Response:
+def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/downloadSiteRfdiagRecording
     
@@ -118,7 +118,7 @@ def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str, body:object) -> Response:
+def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/stopSiteRfdiagRecording
     

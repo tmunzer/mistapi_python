@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteAssets(mist_session:_APISession, site_id:str) -> Response:
+def getSiteAssets(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssets
     
@@ -18,7 +18,7 @@ def getSiteAssets(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteAsset(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteAsset(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteAsset
     
@@ -34,7 +34,7 @@ def createSiteAsset(mist_session:_APISession, site_id:str, body:object) -> Respo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteAssets(mist_session:_APISession, site_id:str, body:object) -> Response:
+def importSiteAssets(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteAssets
     
@@ -50,7 +50,7 @@ def importSiteAssets(mist_session:_APISession, site_id:str, body:object) -> Resp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> Response:
+def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAsset
     
@@ -68,7 +68,7 @@ def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> Respons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> Response:
+def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteAsset
     
@@ -86,7 +86,7 @@ def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> Resp
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteAsset(mist_session:_APISession, site_id:str, asset_id:str, body:object) -> Response:
+def updateSiteAsset(mist_session:_APISession, site_id:str, asset_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteAsset
     

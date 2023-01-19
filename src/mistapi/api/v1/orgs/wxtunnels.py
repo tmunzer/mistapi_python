@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgWxTunnels(mist_session:_APISession, org_id:str) -> Response:
+def getOrgWxTunnels(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWxTunnels
     
@@ -18,7 +18,7 @@ def getOrgWxTunnels(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgWxTunnel(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgWxTunnel(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgWxTunnel
     
@@ -34,7 +34,7 @@ def createOrgWxTunnel(mist_session:_APISession, org_id:str, body:object) -> Resp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> Response:
+def getOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWxTunnel
     
@@ -52,7 +52,7 @@ def getOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> Res
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> Response:
+def deleteOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgWxTunnel
     
@@ -70,7 +70,7 @@ def deleteOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str, body:object) -> Response:
+def updateOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgWxTunnel
     

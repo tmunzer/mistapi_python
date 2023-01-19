@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgTemplates(mist_session:_APISession, org_id:str) -> Response:
+def getOrgTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgTemplates
     
@@ -18,7 +18,7 @@ def getOrgTemplates(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgTemplate(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgTemplate
     
@@ -34,7 +34,7 @@ def createOrgTemplate(mist_session:_APISession, org_id:str, body:object) -> Resp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> Response:
+def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgTemplate
     
@@ -52,7 +52,7 @@ def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> Res
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> Response:
+def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgTemplate
     
@@ -70,7 +70,7 @@ def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:object) -> Response:
+def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgTemplate
     
@@ -87,7 +87,7 @@ def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def cloneOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:object) -> Response:
+def cloneOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/cloneOrgTemplate
     

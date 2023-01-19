@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def multiAckOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> Response:
+def multiAckOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/multiAckOrgAlarms
     
@@ -17,7 +17,7 @@ def multiAckOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> Resp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> Response:
+def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/ackOrgAllAlarms
     
@@ -33,7 +33,7 @@ def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> Respon
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgAlarms
     
@@ -65,7 +65,7 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgAlarms(mist_session:_APISession, org_id:str, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Response:
+def searchOrgAlarms(mist_session:_APISession, org_id:str, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgAlarms
     
@@ -97,7 +97,7 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, type:str=None, start:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def multiUnackOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> Response:
+def multiUnackOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/multiUnackOrgAlarms
     
@@ -113,7 +113,7 @@ def multiUnackOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> Re
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unackOrgAllArlarms(mist_session:_APISession, org_id:str, body:object) -> Response:
+def unackOrgAllArlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unackOrgAllArlarms
     
@@ -129,7 +129,7 @@ def unackOrgAllArlarms(mist_session:_APISession, org_id:str, body:object) -> Res
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:object) -> Response:
+def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/ackOrgAlarm
     

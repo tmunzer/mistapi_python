@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_name:str=None, message:str=None) -> Response:
+def getMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_name:str=None, message:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspLogs
     
@@ -27,7 +27,7 @@ def getMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_name
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countMspLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_name") -> Response:
+def countMspLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_name") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countMspLogs
     

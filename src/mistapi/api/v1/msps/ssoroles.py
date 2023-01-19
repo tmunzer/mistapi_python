@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getMspSsoRoles(mist_session:_APISession, msp_id:str) -> Response:
+def getMspSsoRoles(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspSsoRoles
     
@@ -18,7 +18,7 @@ def getMspSsoRoles(mist_session:_APISession, msp_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> Response:
+def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createMspSsoRole
     
@@ -34,7 +34,7 @@ def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> Respo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteMspSsoRoles(mist_session:_APISession, msp_id:str, ssorole_id:str) -> Response:
+def deleteMspSsoRoles(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteMspSsoRoles
     
@@ -52,7 +52,7 @@ def deleteMspSsoRoles(mist_session:_APISession, msp_id:str, ssorole_id:str) -> R
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str, body:object) -> Response:
+def updateMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateMspSsoRole
     

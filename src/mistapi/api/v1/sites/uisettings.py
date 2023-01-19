@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteCurdSettings(mist_session:_APISession, site_id:str) -> Response:
+def getSiteCurdSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCurdSettings
     
@@ -18,7 +18,7 @@ def getSiteCurdSettings(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteCurdSettings(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteCurdSettings(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteCurdSettings
     
@@ -34,7 +34,7 @@ def createSiteCurdSettings(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDerivedCurdSetting(mist_session:_APISession, site_id:str) -> Response:
+def getSiteDerivedCurdSetting(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDerivedCurdSetting
     
@@ -51,7 +51,7 @@ def getSiteDerivedCurdSetting(mist_session:_APISession, site_id:str) -> Response
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> Response:
+def getSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCurdSetting
     
@@ -69,7 +69,7 @@ def getSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str) 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> Response:
+def deleteSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteCurdSetting
     
@@ -87,7 +87,7 @@ def deleteSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:st
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str, body:object) -> Response:
+def updateSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteCurdSetting
     

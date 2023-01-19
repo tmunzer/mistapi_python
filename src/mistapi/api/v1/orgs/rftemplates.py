@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgRfTemplates(mist_session:_APISession, org_id:str) -> Response:
+def getOrgRfTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgRfTemplates
     
@@ -18,7 +18,7 @@ def getOrgRfTemplates(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgRfTemplate(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgRfTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgRfTemplate
     
@@ -34,7 +34,7 @@ def createOrgRfTemplate(mist_session:_APISession, org_id:str, body:object) -> Re
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str) -> Response:
+def getOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgRfTemplate
     
@@ -52,7 +52,7 @@ def getOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str) -> Response:
+def deleteOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgRfTemplate
     
@@ -70,7 +70,7 @@ def deleteOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str)
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str, body:object) -> Response:
+def updateOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgRfTemplate
     

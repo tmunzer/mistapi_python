@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str) -> Response:
+def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAnomalyEventsForClient
     
@@ -20,7 +20,7 @@ def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAnomalyEventsforDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str) -> Response:
+def getSiteAnomalyEventsforDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAnomalyEventsforDevice
     
@@ -39,7 +39,7 @@ def getSiteAnomalyEventsforDevice(mist_session:_APISession, site_id:str, metric:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAnomalyEvents(mist_session:_APISession, site_id:str, metric:str) -> Response:
+def getSiteAnomalyEvents(mist_session:_APISession, site_id:str, metric:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAnomalyEvents
     

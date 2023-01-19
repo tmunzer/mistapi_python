@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getInstallerDeviceProfiles_WIP_(mist_session:_APISession, org_id:str) -> Response:
+def getInstallerDeviceProfiles_WIP_(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getInstallerDeviceProfiles_WIP_
     

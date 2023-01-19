@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgWxRules(mist_session:_APISession, org_id:str) -> Response:
+def getOrgWxRules(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWxRules
     
@@ -18,7 +18,7 @@ def getOrgWxRules(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgWxRule(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgWxRule(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgWxRule
     
@@ -34,7 +34,7 @@ def createOrgWxRule(mist_session:_APISession, org_id:str, body:object) -> Respon
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgWxRulesDerived(mist_session:_APISession, org_id:str) -> Response:
+def getOrgWxRulesDerived(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWxRulesDerived
     
@@ -51,7 +51,7 @@ def getOrgWxRulesDerived(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> Response:
+def getOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWxRule
     
@@ -69,7 +69,7 @@ def getOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> Respon
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> Response:
+def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgWxRule
     
@@ -87,7 +87,7 @@ def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> Res
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str, body:object) -> Response:
+def updateOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgWxRule
     

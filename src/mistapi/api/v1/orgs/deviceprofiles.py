@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap") -> Response:
+def getOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgDeviceProfiles
     
@@ -23,7 +23,7 @@ def getOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap") ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgDeviceProfiles(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgDeviceProfiles(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgDeviceProfiles
     
@@ -39,7 +39,7 @@ def createOrgDeviceProfiles(mist_session:_APISession, org_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str) -> Response:
+def getOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgDeviceProfile
     
@@ -57,7 +57,7 @@ def getOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str) -> Response:
+def deleteOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgDeviceProfile
     
@@ -75,7 +75,7 @@ def deleteOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> Response:
+def updateOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgDeviceProfile
     
@@ -92,7 +92,7 @@ def updateOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def assignOrgDeviceProfileToDevices(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> Response:
+def assignOrgDeviceProfileToDevices(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/assignOrgDeviceProfileToDevices
     
@@ -109,7 +109,7 @@ def assignOrgDeviceProfileToDevices(mist_session:_APISession, org_id:str, device
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unassignOrgDeviceProfilesFromDevices(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> Response:
+def unassignOrgDeviceProfilesFromDevices(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unassignOrgDeviceProfilesFromDevices
     

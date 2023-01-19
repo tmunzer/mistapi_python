@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgSecPolicies(mist_session:_APISession, org_id:str) -> Response:
+def getOrgSecPolicies(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSecPolicies
     
@@ -18,7 +18,7 @@ def getOrgSecPolicies(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSecPolicies(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgSecPolicies(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgSecPolicies
     
@@ -34,7 +34,7 @@ def createOrgSecPolicies(mist_session:_APISession, org_id:str, body:object) -> R
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str) -> Response:
+def getOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSecPolicy
     
@@ -52,7 +52,7 @@ def getOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str) -> R
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSecPolicies(mist_session:_APISession, org_id:str, secpolicy_id:str) -> Response:
+def deleteOrgSecPolicies(mist_session:_APISession, org_id:str, secpolicy_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgSecPolicies
     
@@ -70,7 +70,7 @@ def deleteOrgSecPolicies(mist_session:_APISession, org_id:str, secpolicy_id:str)
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgSecPolicies(mist_session:_APISession, org_id:str, secpolicy_id:str, body:object) -> Response:
+def updateOrgSecPolicies(mist_session:_APISession, org_id:str, secpolicy_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgSecPolicies
     

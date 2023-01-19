@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgPskPortals(mist_session:_APISession, org_id:str) -> Response:
+def getOrgPskPortals(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgPskPortals
     
@@ -18,7 +18,7 @@ def getOrgPskPortals(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgPskPortal
     
@@ -34,7 +34,7 @@ def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> Res
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> Response:
+def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgPskPortal
     
@@ -52,7 +52,7 @@ def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> R
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> Response:
+def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgPskPortal
     
@@ -70,7 +70,7 @@ def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, body:object) -> Response:
+def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgPskPortal
     

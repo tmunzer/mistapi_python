@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgServicePolicies(mist_session:_APISession, org_id:str) -> Response:
+def getOrgServicePolicies(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgServicePolicies
     
@@ -18,7 +18,7 @@ def getOrgServicePolicies(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgServicePolicy(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgServicePolicy(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgServicePolicy
     
@@ -34,7 +34,7 @@ def createOrgServicePolicy(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> Response:
+def getOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgServicePolicy
     
@@ -52,7 +52,7 @@ def getOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> Response:
+def deleteOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgServicePolicy
     
@@ -70,7 +70,7 @@ def deleteOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_i
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str, body:object) -> Response:
+def updateOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgServicePolicy
     

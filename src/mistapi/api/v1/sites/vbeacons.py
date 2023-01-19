@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteVBeacons(mist_session:_APISession, site_id:str) -> Response:
+def getSiteVBeacons(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteVBeacons
     
@@ -18,7 +18,7 @@ def getSiteVBeacons(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteVBeacon
     
@@ -34,7 +34,7 @@ def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> Res
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> Response:
+def getSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteVBeacon
     
@@ -52,7 +52,7 @@ def getSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> Res
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> Response:
+def deleteSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteVBeacon
     
@@ -70,7 +70,7 @@ def deleteSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str, body:object) -> Response:
+def updateSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteVBeacon
     

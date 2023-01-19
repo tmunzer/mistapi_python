@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def unsubscribeOrgAlarmsReports(mist_session:_APISession, org_id:str) -> Response:
+def unsubscribeOrgAlarmsReports(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unsubscribeOrgAlarmsReports
     
@@ -18,7 +18,7 @@ def unsubscribeOrgAlarmsReports(mist_session:_APISession, org_id:str) -> Respons
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def subscribeOrgAlarmsReports(mist_session:_APISession, org_id:str, body:object) -> Response:
+def subscribeOrgAlarmsReports(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/subscribeOrgAlarmsReports
     

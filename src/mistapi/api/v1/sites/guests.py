@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id:str=None) -> Response:
+def getSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAllGuestAuthorizations
     
@@ -23,7 +23,7 @@ def getSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct:str="auth_method", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct:str="auth_method", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteGuestAuthorizations
     
@@ -55,7 +55,7 @@ def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteGuestAuthorization
     
@@ -91,7 +91,7 @@ def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> Response:
+def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteGuestAuthorization
     
@@ -109,7 +109,7 @@ def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> Response:
+def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteGuestAuthorization
     
@@ -127,7 +127,7 @@ def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_ma
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str, body:object) -> Response:
+def updateSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteGuestAuthorization
     

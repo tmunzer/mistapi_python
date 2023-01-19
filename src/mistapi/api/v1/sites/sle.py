@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, classifier:str, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, classifier:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleClassifierDetails
     
@@ -31,7 +31,7 @@ def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleMetricClassifiers(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str) -> Response:
+def getSiteSleMetricClassifiers(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleMetricClassifiers
     
@@ -51,7 +51,7 @@ def getSiteSleMetricClassifiers(mist_session:_APISession, site_id:str, scope:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleHistogram
     
@@ -80,7 +80,7 @@ def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", fields:str=None, classifier:str=None) -> Response:
+def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", fields:str=None, classifier:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactSummary
     
@@ -113,7 +113,7 @@ def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, sc
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> Response:
+def getSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedApplications
     
@@ -144,7 +144,7 @@ def getSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleImpactedAps(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> Response:
+def getSiteSleImpactedAps(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedAps
     
@@ -175,7 +175,7 @@ def getSiteSleImpactedAps(mist_session:_APISession, site_id:str, scope:str, scop
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> Response:
+def getSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedChassis
     
@@ -206,7 +206,7 @@ def getSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> Response:
+def getSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedWiredClients
     
@@ -237,7 +237,7 @@ def getSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleImpactedGateways(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> Response:
+def getSiteSleImpactedGateways(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedGateways
     
@@ -268,7 +268,7 @@ def getSiteSleImpactedGateways(mist_session:_APISession, site_id:str, scope:str,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> Response:
+def getSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedInterfaces
     
@@ -299,7 +299,7 @@ def getSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleImpactedSwitches(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> Response:
+def getSiteSleImpactedSwitches(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedSwitches
     
@@ -330,7 +330,7 @@ def getSiteSleImpactedSwitches(mist_session:_APISession, site_id:str, scope:str,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> Response:
+def getSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedWirelessClients
     
@@ -361,7 +361,7 @@ def getSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, sco
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleSummary
     
@@ -390,7 +390,7 @@ def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str) -> Response:
+def getSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleThreshold
     
@@ -410,7 +410,7 @@ def getSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def replaceSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, body:object) -> Response:
+def replaceSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/replaceSiteSleThreshold
     
@@ -429,7 +429,7 @@ def replaceSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sc
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, body:object) -> Response:
+def updateSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteSleThreshold
     
@@ -448,7 +448,7 @@ def updateSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sco
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getSiteSlesMetrics(mist_session:_APISession, site_id:str, scope:str, scope_id:str) -> Response:
+def getSiteSlesMetrics(mist_session:_APISession, site_id:str, scope:str, scope_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSlesMetrics
     

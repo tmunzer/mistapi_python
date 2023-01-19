@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:str=None, type:str="sdkclient", duration:str="1h", resolution:str="default", client_type:str=None, start:int=None, end:int=None) -> Response:
+def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:str=None, type:str="sdkclient", duration:str="1h", resolution:str="default", client_type:str=None, start:int=None, end:int=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteBeamCoverageOverview
     
@@ -35,7 +35,7 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map_id:str=None) -> Response:
+def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map_id:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMachineLearningCurrentStat
     
@@ -57,7 +57,7 @@ def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> Response:
+def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDefaultPlfForModels
     
@@ -74,7 +74,7 @@ def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> Respons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_id:str) -> Response:
+def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/clearSiteMlOverwriteForDevice
     
@@ -92,7 +92,7 @@ def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Response:
+def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/overwriteSiteMlForDevice
     
@@ -109,7 +109,7 @@ def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str) -> Response:
+def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/clearSiteMlOverwriteForMap
     
@@ -127,7 +127,7 @@ def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Response:
+def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/overwriteSiteMlForMap
     
@@ -144,7 +144,7 @@ def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Response:
+def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/resetSiteMlStatsByMap
     
@@ -161,7 +161,7 @@ def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str, bod
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteMachineLearningEvents(mist_session:_APISession, site_id:str, device_id:str=None, map_ip:str=None, client_type:str=None, duration:str=None, start:int=None, end:int=None, interval:str=None) -> Response:
+def getSiteMachineLearningEvents(mist_session:_APISession, site_id:str, device_id:str=None, map_ip:str=None, client_type:str=None, duration:str=None, start:int=None, end:int=None, interval:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMachineLearningEvents
     

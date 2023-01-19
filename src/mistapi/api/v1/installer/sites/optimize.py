@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def optimizeInstallerRrm(mist_session:_APISession, site_name:str) -> Response:
+def optimizeInstallerRrm(mist_session:_APISession, site_name:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/optimizeInstallerRrm
     

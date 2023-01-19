@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=None, name:str=None, page:int=1, limit:int=100) -> Response:
+def getSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=None, name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSitePsks
     
@@ -31,7 +31,7 @@ def getSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=N
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSitePsk(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSitePsk
     
@@ -47,7 +47,7 @@ def createSitePsk(mist_session:_APISession, site_id:str, body:object) -> Respons
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateSitePsks(mist_session:_APISession, site_id:str, body:object) -> Response:
+def updateSitePsks(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSitePsks
     
@@ -63,7 +63,7 @@ def updateSitePsks(mist_session:_APISession, site_id:str, body:object) -> Respon
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def importSitePsk(mist_session:_APISession, site_id:str, body:object) -> Response:
+def importSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSitePsk
     
@@ -79,7 +79,7 @@ def importSitePsk(mist_session:_APISession, site_id:str, body:object) -> Respons
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> Response:
+def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSitePsk
     
@@ -97,7 +97,7 @@ def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> Response:
+def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSitePsk
     
@@ -115,7 +115,7 @@ def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> Response
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSitePsk(mist_session:_APISession, site_id:str, psk_id:str, body:object) -> Response:
+def updateSitePsk(mist_session:_APISession, site_id:str, psk_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSitePsk
     

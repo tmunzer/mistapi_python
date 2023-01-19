@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteCurrentChannelPlanning(mist_session:_APISession, site_id:str) -> Response:
+def getSiteCurrentChannelPlanning(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentChannelPlanning
     
@@ -18,7 +18,7 @@ def getSiteCurrentChannelPlanning(mist_session:_APISession, site_id:str) -> Resp
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteCurrentRrmConsiderationsForAnApOnASpecificBand(mist_session:_APISession, site_id:str, device_id:str, band:str) -> Response:
+def getSiteCurrentRrmConsiderationsForAnApOnASpecificBand(mist_session:_APISession, site_id:str, device_id:str, band:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentRrmConsiderationsForAnApOnASpecificBand
     
@@ -37,7 +37,7 @@ def getSiteCurrentRrmConsiderationsForAnApOnASpecificBand(mist_session:_APISessi
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRrmEvents
     
@@ -69,7 +69,7 @@ def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str, page:int=1
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def optimizeSiteRrm(mist_session:_APISession, site_id:str, body:object) -> Response:
+def optimizeSiteRrm(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/optimizeSiteRrm
     

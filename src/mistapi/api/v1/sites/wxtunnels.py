@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getSiteWxTunnels(mist_session:_APISession, site_id:str) -> Response:
+def getSiteWxTunnels(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxTunnels
     
@@ -18,7 +18,7 @@ def getSiteWxTunnels(mist_session:_APISession, site_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteWxTunnel(mist_session:_APISession, site_id:str, body:object) -> Response:
+def createSiteWxTunnel(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteWxTunnel
     
@@ -34,7 +34,7 @@ def createSiteWxTunnel(mist_session:_APISession, site_id:str, body:object) -> Re
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> Response:
+def getSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxTunnel
     
@@ -52,7 +52,7 @@ def getSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> R
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> Response:
+def deleteSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteWxTunnel
     
@@ -70,7 +70,7 @@ def deleteSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str, body:object) -> Response:
+def updateSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteWxTunnel
     

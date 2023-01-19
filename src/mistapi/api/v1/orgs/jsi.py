@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None, mac:str=None) -> Response:
+def getOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None, mac:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgJsiDevices
     
@@ -31,7 +31,7 @@ def getOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> Response:
+def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/adoptOrgJsiDevice
     
@@ -48,7 +48,7 @@ def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> Response:
+def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgJsiDeviceShellSession
     
@@ -65,7 +65,7 @@ def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> Response:
+def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/upgradeOrgJsiDevice
     
@@ -82,7 +82,7 @@ def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None) -> Response:
+def getOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgJsiPastPurchases
     

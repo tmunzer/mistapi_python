@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def multiAckSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> Response:
+def multiAckSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/multiAckSiteAlarms
     
@@ -17,7 +17,7 @@ def multiAckSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> Re
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> Response:
+def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/ackSiteAllAlarms
     
@@ -33,7 +33,7 @@ def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> Resp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", ack_admin_name:str=None, acked:bool=None, type:str=None, severity:str=None, group:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", ack_admin_name:str=None, acked:bool=None, type:str=None, severity:str=None, group:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteAlarms
     
@@ -75,7 +75,7 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admin_name:str=None, acked:bool=None, severity:str=None, group:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Response:
+def getSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admin_name:str=None, acked:bool=None, severity:str=None, group:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAlarms
     
@@ -115,7 +115,7 @@ def getSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admi
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def multiUnackSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> Response:
+def multiUnackSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/multiUnackSiteAlarms
     
@@ -131,7 +131,7 @@ def multiUnackSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unackSiteAllArlarms(mist_session:_APISession, site_id:str, body:object) -> Response:
+def unackSiteAllArlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unackSiteAllArlarms
     
@@ -147,7 +147,7 @@ def unackSiteAllArlarms(mist_session:_APISession, site_id:str, body:object) -> R
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:object) -> Response:
+def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/ackSiteAlarm
     
@@ -164,7 +164,7 @@ def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:objec
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:object) -> Response:
+def unackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unackSiteAlarm
     

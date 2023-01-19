@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def inviteMspAdmin(mist_session:_APISession, msp_id:str, body:object) -> Response:
+def inviteMspAdmin(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/inviteMspAdmin
     
@@ -17,7 +17,7 @@ def inviteMspAdmin(mist_session:_APISession, msp_id:str, body:object) -> Respons
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def uninviteMspAdmin(mist_session:_APISession, msp_id:str, invite_id:str) -> Response:
+def uninviteMspAdmin(mist_session:_APISession, msp_id:str, invite_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uninviteMspAdmin
     
@@ -35,7 +35,7 @@ def uninviteMspAdmin(mist_session:_APISession, msp_id:str, invite_id:str) -> Res
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMspAdminInvite(mist_session:_APISession, msp_id:str, invite_id:str, body:object) -> Response:
+def updateMspAdminInvite(mist_session:_APISession, msp_id:str, invite_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateMspAdminInvite
     

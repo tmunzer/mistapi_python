@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgSiteTemplates(mist_session:_APISession, org_id:str) -> Response:
+def getOrgSiteTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSiteTemplates
     
@@ -18,7 +18,7 @@ def getOrgSiteTemplates(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSiteTemplates(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgSiteTemplates(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgSiteTemplates
     
@@ -34,7 +34,7 @@ def createOrgSiteTemplates(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str) -> Response:
+def getOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSiteTemplate
     
@@ -52,7 +52,7 @@ def getOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str) -> Response:
+def deleteOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgSiteTemplate
     
@@ -70,7 +70,7 @@ def deleteOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str, body:object) -> Response:
+def updateOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgSiteTemplate
     

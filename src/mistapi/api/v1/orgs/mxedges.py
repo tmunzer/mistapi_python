@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any") -> Response:
+def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdges
     
@@ -23,7 +23,7 @@ def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any") -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> Response:
+def createOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgMxEdge
     
@@ -39,7 +39,7 @@ def createOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> Respon
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def assignOrgMxEdgeToSite(mist_session:_APISession, org_id:str, body:object) -> Response:
+def assignOrgMxEdgeToSite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/assignOrgMxEdgeToSite
     
@@ -55,7 +55,7 @@ def assignOrgMxEdgeToSite(mist_session:_APISession, org_id:str, body:object) -> 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def claimOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> Response:
+def claimOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/claimOrgMxEdge
     
@@ -71,7 +71,7 @@ def claimOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> Respons
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object) -> Response:
+def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unassignOrgMxEdgeFromSite
     
@@ -87,7 +87,7 @@ def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> Response:
+def getOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeUpgrades
     
@@ -104,7 +104,7 @@ def getOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def upgradeOrgMxEdges(mist_session:_APISession, org_id:str, body:object) -> Response:
+def upgradeOrgMxEdges(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/upgradeOrgMxEdges
     
@@ -120,7 +120,7 @@ def upgradeOrgMxEdges(mist_session:_APISession, org_id:str, body:object) -> Resp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> Response:
+def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeUpgrade
     
@@ -138,7 +138,7 @@ def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="stable") -> Response:
+def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="stable") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeUpgradeInfo
     
@@ -160,7 +160,7 @@ def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> Response:
+def getOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdge
     
@@ -178,7 +178,7 @@ def getOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> Respons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> Response:
+def deleteOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgMxEdge
     
@@ -196,7 +196,7 @@ def deleteOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> Resp
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> Response:
+def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgMxEdge
     
@@ -213,7 +213,7 @@ def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:ob
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> Response:
+def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/restartOrgMxEdge
     
@@ -230,7 +230,7 @@ def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:o
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> Response:
+def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/bounceOrgMxEdgeDataPorts
     
@@ -247,7 +247,7 @@ def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str, name:str, action:str, body:object) -> Response:
+def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str, name:str, action:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/controlOrgMxEdgeServices
     
@@ -266,7 +266,7 @@ def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> Response:
+def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadOrgMxEdgeSupportFiles
     
@@ -283,7 +283,7 @@ def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> Response:
+def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unregisterOrgMxEdge
     
@@ -300,7 +300,7 @@ def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, bod
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def upgradeOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> Response:
+def upgradeOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/upgradeOrgMxEdge
     

@@ -1,7 +1,7 @@
 from mistapi import APISession as _APISession
-from mistapi.__api_response import Response
+from mistapi.__api_response import APIResponse as _APIResponse
 
-def getApiTokens(mist_session:_APISession) -> Response:
+def getApiTokens(mist_session:_APISession) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getApiTokens
     
@@ -14,7 +14,7 @@ def getApiTokens(mist_session:_APISession) -> Response:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createApiToken(mist_session:_APISession, body:object) -> Response:
+def createApiToken(mist_session:_APISession, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createApiToken
     
@@ -26,7 +26,7 @@ def createApiToken(mist_session:_APISession, body:object) -> Response:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteApiToken(mist_session:_APISession, apitoken_id:str) -> Response:
+def deleteApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteApiToken
     
