@@ -1,5 +1,3 @@
-geopy
-tzwhere
 requests
 tabulate
 python-dotenv

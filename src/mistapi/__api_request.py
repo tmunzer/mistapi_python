@@ -99,7 +99,7 @@ class APIRequest:
         except Exception as err:
             logger.error(f'Other error occurred: {err}')  # Python 3.6
         finally: 
-            return APIResponse(uri=uri, response=resp)
+            return APIResponse(url=url, response=resp)
 
     def mist_put(self, uri:str, body:object=None) -> APIResponse:
         """PUT HTTP Request

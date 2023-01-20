@@ -39,7 +39,7 @@ However, it is possible to set them in an `.env` file. The location of this file
 | Variable Name | Type | Default | Comment |
 | ------------- | ---- |  ------ | ------- |
 MIST_HOST | string | None | The Mist Cloud to use. It must be the "api" one (e.g. `api.mist.com`, `api.eu.mist.com`, ...) |
-MIST_API_TOKAN | string | None | The API Token to use.  |
+MIST_APITOKEN | string | None | The API Token to use.  |
 MIST_USER | string | None | The login to use if no API Token is provided (apitoken use is prefered) |
 MIST_PASSWORD | string | None | The password to use if no API Token is provided (apitoken use is prefered) |
 CONSOLE_LOG_LEVEL | int | 20 | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical) |

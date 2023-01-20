@@ -33,6 +33,7 @@ class APIResponse:
         self.data={}
         self.error={}
         self.url=url
+        self.headers = response.headers
         self.status_code=response.status_code
 
         logger.info(f"apiresponse:Response Status Code: {response.status_code}")

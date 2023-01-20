@@ -13,8 +13,10 @@ This module is providing some functions to simplify Mist API use.
 
 import mistapi as mistapi
 import sys
+import json
+from tabulate import tabulate
 
-
+###########################################
 def _search_org(orgs, org_id):
     i = 0
     for org in orgs:
@@ -33,6 +35,8 @@ def _test_choice(val, val_max):
     except:
         return -2
 
+###########################################
+#### CLI SELECTIONS
 def select_org(mist_session:mistapi.APISession, allow_many=False) -> list:
     """
     Function to list all the Mist Orgs allowed for the current user
@@ -168,7 +172,8 @@ def select_site(mist_session:mistapi.APISession, org_id=None, allow_many=False) 
         return resp_ids
 
 
-    
+###########################################
+#### DATA PROCESSING / DISPLAY
 def extract_field(json_data, field):   
     split_field = field.split(".")
     cur_field = split_field[0]
@@ -207,4 +212,30 @@ def save_to_csv(csv_file:str, data:list, fields:list, csv_separator:str=",") -> 
                 f.write(csv_separator)
             f.write('\r\n')
 
+def _json_to_array(json_data:object, fields:list) -> list:
+    data = []
+    for field in fields:
+        data.append(json_data.get(field, ""))
+    return data
 
+
+def display_list_of_json_as_table(json_list:list, fields:list) -> None:
+    table = []
+    for data in json_list:
+        table.append(_json_to_array(data, fields))
+    print(tabulate(table, headers=fields))
+
+
+def pretty_print(response, fields=None):
+    if "result" in response:
+        data = response["result"]
+    else:
+        data = response
+    print("")
+    if type(data) is list:  
+        print(tabulate(data, headers=fields))
+    elif type(data) == dict:
+        print(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
+    else:
+        print(data)    
+    print("")

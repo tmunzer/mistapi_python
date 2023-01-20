@@ -69,6 +69,9 @@ class APISession(APIRequest):
         self.email = None
         self._password = None
         self._apitoken = None
+        self._csrftoken = None
+        self._authenticated = False
+        self._session = requests.session()
         self._console_log_level = console_log_level
         self._logging_log_level = logging_log_level
 
@@ -84,8 +87,6 @@ class APISession(APIRequest):
             self._password = password
         if apitoken:
             self._apitoken = apitoken
-        self._csrftoken = ""
-        self._session = requests.session()
         self.first_name = ""
         self.last_name = ""
         self.via_sso = False
@@ -93,7 +94,6 @@ class APISession(APIRequest):
 
         self.privileges = Privileges([])
         self.session_expiry = ""
-        self._authenticated = False
 
         logger.debug('API Session initialized')
 
@@ -136,8 +136,8 @@ class APISession(APIRequest):
 
         if os.getenv('MIST_HOST'):
             self.set_cloud(os.getenv('MIST_HOST'))
-        if os.getenv('MIST_API_TOKEN'):
-            self.set_api_token(os.getenv('MIST_API_TOKEN'))
+        if os.getenv('MIST_APITOKEN'):
+            self.set_api_token(os.getenv('MIST_APITOKEN'))
         if os.getenv('MIST_USER'):
             self.set_email(os.getenv('MIST_USER'))
         if os.getenv('MIST_PASSWORD'):
@@ -160,8 +160,10 @@ class APISession(APIRequest):
         for cloud in clouds:
             if cloud["host"] == cloud_uri:
                 self._cloud_uri = cloud_uri
-                logger.info(
+                logger.debug(
                     f"apisession:Mist Cloud configured to {self._cloud_uri}")
+                console.debug(
+                    f"Mist Cloud configured to {self._cloud_uri}")
         if not self._cloud_uri:
             logger.error(f"apisession:{cloud_uri} is not valid")
             console.error(f"{cloud_uri} is not valid")
@@ -215,10 +217,12 @@ class APISession(APIRequest):
         :param str email    If no email provided, an interactive input will ask for it
         """
         logger.debug(f"apisession:in  > set_email")
-        if not email:
-            email = input("Login: ")
-        logger.debug(f"apisession:Email configured to {email}")
-        self.email = email
+        if email:
+            self.email = email
+        else:
+            self.email = input("Login: ")
+        logger.debug(f"apisession:Email configured to {self.email}")
+        console.debug(f"Email configured to {self.email}")
 
     def set_password(self, password: str = None) -> None:
         """
@@ -232,6 +236,7 @@ class APISession(APIRequest):
         else:
             self._password = getpass("Password: ")
         logger.debug(f"apisession:Password configured")
+        console.debug(f"Password configured")
 
     def set_api_token(self, apitoken: str):
         """
@@ -241,8 +246,8 @@ class APISession(APIRequest):
         self._apitoken = apitoken
         self._session.headers.update(
             {'Authorization': "Token " + self._apitoken})
-        logger.info(f"apisession:API Token configured")
-        self._set_authenticated(True)
+        logger.debug(f"apisession:API Token configured")
+        console.debug(f"API Token configured")
 
     def _process_login(self):
         """
@@ -300,7 +305,7 @@ class APISession(APIRequest):
             if not self._cloud_uri:
                 self.select_cloud()
             if self._apitoken:
-                self.set_api_token(self._apitoken)
+                self._set_authenticated(True)
             if not self._authenticated:
                 self._process_login()
             # if successfuly authenticated

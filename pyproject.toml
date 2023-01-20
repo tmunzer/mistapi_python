@@ -4,3 +4,30 @@ requires = [
     "wheel"
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "mistapi"
+version = "0.34.7"
+authors = [{name="Thomas Munzer", email="tmunzer@juniper.net"}]
+description = "Python package to simplify the Mist System APIs usage"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Telecommunications Industry",
+    "Topic :: System :: Networking",
+    "Development Status :: 4 - Beta"
+]
+dependencies = [
+  'requests > 2.24',
+  'tabulate > 0.8.5',
+  'python-dotenv < 0.17',
+]
+
+[project.urls]
+"Source" = "https://github.com/tmunzer/mistapi_python"
+"Bug Tracker" = "https://github.com/tmunzer/mistapi_python/issues"
+
