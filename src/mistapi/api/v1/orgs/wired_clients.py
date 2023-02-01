@@ -32,7 +32,7 @@ def countOrgClientsWired(mist_session:_APISession, org_id:str, distinct:str="mac
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/wired_clients/count"
     query_params={}
@@ -45,7 +45,7 @@ def countOrgClientsWired(mist_session:_APISession, org_id:str, distinct:str="mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgClientsWired(mist_session:_APISession, org_id:str, device_mac:str=None, mac:str=None, port_id:str=None, vlan:int=None, site_id:str=None, ip:str=None, manufacture:str=None, text:str=None, type:str=None) -> _APIResponse:
+def searchOrgClientsWired(mist_session:_APISession, org_id:str, device_mac:str=None, mac:str=None, port_id:str=None, vlan:int=None, site_id:str=None, ip:str=None, manufacture:str=None, text:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgClientsWired
     
@@ -67,7 +67,10 @@ def searchOrgClientsWired(mist_session:_APISession, org_id:str, device_mac:str=N
     :param str ip - ip
     :param str manufacture - client manufacture
     :param str text - single entry of hostname/mac
-    :param str type - E.g. CLIENT_DNS_OK        
+    :param int limit
+    :param int start
+    :param int end
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/wired_clients/search"
     query_params={}
@@ -79,7 +82,10 @@ def searchOrgClientsWired(mist_session:_APISession, org_id:str, device_mac:str=N
     if ip: query_params["ip"]=ip
     if manufacture: query_params["manufacture"]=manufacture
     if text: query_params["text"]=text
-    if type: query_params["type"]=type
+    if limit: query_params["limit"]=limit
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

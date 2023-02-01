@@ -76,7 +76,7 @@ def getSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit:
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets"
     query_params={}
@@ -104,7 +104,7 @@ def getSiteAssetStats(mist_session:_APISession, site_id:str, start:int=None, end
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets/asset_id"
     query_params={}
@@ -136,7 +136,7 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:int=None, ibeacon_minor:int=None, eddystone_uid_namespace:str=None, eddystone_uid_instance:str=None, eddystone_url:str=None, device_name:str=None, by:str=None, name:str=None, ap_mac:str=None, beam:str=None, rssi:str=None) -> _APIResponse:
+def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:int=None, ibeacon_minor:int=None, eddystone_uid_namespace:str=None, eddystone_uid_instance:str=None, eddystone_url:str=None, device_name:str=None, by:str=None, name:str=None, ap_mac:str=None, beam:str=None, rssi:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteAssets
     
@@ -163,7 +163,11 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     :param str name
     :param str ap_mac
     :param str beam
-    :param str rssi        
+    :param str rssi
+    :param int limit
+    :param int start
+    :param int end
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets/search"
     query_params={}
@@ -181,6 +185,10 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     if ap_mac: query_params["ap_mac"]=ap_mac
     if beam: query_params["beam"]=beam
     if rssi: query_params["rssi"]=rssi
+    if limit: query_params["limit"]=limit
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -202,7 +210,7 @@ def getSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limit
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/beacons"
     query_params={}
@@ -283,7 +291,7 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", a
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str=None, start:str=None, end:str=None) -> _APIResponse:
+def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteCalls
     
@@ -299,15 +307,19 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     ------------
     :param str mac - device identifier
     :param str app - Third party app name
-    :param str start
-    :param str end        
+    :param int limit
+    :param int start
+    :param int end
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/calls/search"
     query_params={}
     if mac: query_params["mac"]=mac
     if app: query_params["app"]=app
+    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -352,7 +364,7 @@ def getSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str type(ap, switch, gateways, all)
     :param str status(all, connected, disconnected)        
     """
@@ -422,7 +434,7 @@ def getSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, l
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_assets"
     query_params={}
@@ -434,7 +446,7 @@ def getSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, l
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, scope:str="site", type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, scope:str="site", type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDiscoveredSwitchesMetrics
     
@@ -450,17 +462,15 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     ------------
     :param str scope(site, switch) - metric scope, optional
     :param str type(inactive_wired_vlans, switch_ap_affinity, poe_compliance, version_compliance) - metric type, inactive_wired_vlans/switch_ap_affinity/poe_compliance/version_compliance, optional
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switch_metrics/search"
     query_params={}
     if scope: query_params["scope"]=scope
     if type: query_params["type"]=type
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -487,7 +497,7 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/count"
     query_params={}
@@ -524,9 +534,9 @@ def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, thre
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, system_name:str=None, mgmt_addr:str=None, model:str=None, version:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:bool=None, system_name:str=None, hostname:str=None, vendor:str=None, model:str=None, version:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDiscoveredSwitches
+    API doc: https://doc.mist-lab.fr/#operation/searchSiteDiscoveredSwitches
     
     PARMS
     -----------
@@ -538,23 +548,25 @@ def getSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, system_name
     
     QUERY PARAMS
     ------------
+    :param bool adopted
     :param str system_name
-    :param str mgmt_addr
+    :param str hostname
+    :param str vendor
     :param str model
     :param str version
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/search"
     query_params={}
+    if adopted: query_params["adopted"]=adopted
     if system_name: query_params["system_name"]=system_name
-    if mgmt_addr: query_params["mgmt_addr"]=mgmt_addr
+    if hostname: query_params["hostname"]=hostname
+    if vendor: query_params["vendor"]=vendor
     if model: query_params["model"]=model
     if version: query_params["version"]=version
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -576,7 +588,7 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     
     QUERY PARAMS
     ------------
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param int start
     :param int end
     :param int page
@@ -628,7 +640,7 @@ def getSiteClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, 
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/clients"
     query_params={}
@@ -773,7 +785,7 @@ def countSiteByDisctinctAttributesOPorts(mist_session:_APISession, site_id:str, 
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/ports/count"
     query_params={}
@@ -811,7 +823,7 @@ def countSiteByDisctinctAttributesOPorts(mist_session:_APISession, site_id:str, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSwOrGwPorts
     
@@ -855,11 +867,10 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     :param str stp_role(designated, backup, alternate, root, root-prevented) - if `up`==`true`
     :param str xcvr_part_number - Optic Slot Partnumber, Check for null/empty
     :param str auth_state(init, authenticated, authenticating, held) - if `up`==`true` && has Authenticator role
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/ports/search"
     query_params={}
@@ -893,7 +904,6 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     if stp_role: query_params["stp_role"]=stp_role
     if xcvr_part_number: query_params["xcvr_part_number"]=xcvr_part_number
     if auth_state: query_params["auth_state"]=auth_state
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -963,7 +973,7 @@ def countSiteByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, site_i
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/switch_ports/count"
     query_params={}
@@ -1001,7 +1011,7 @@ def countSiteByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, site_i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSwitchPorts
     
@@ -1040,11 +1050,10 @@ def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     :param str stp_role(designated, backup, alternate, root, root-prevented) - if `up`==`true`
     :param str auth_state(init, authenticated, authenticating, held) - if `up`==`true` && has Authenticator role
     :param bool up - indicates if interface is up
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/stats/switch_ports/search"
     query_params={}
@@ -1073,7 +1082,6 @@ def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     if stp_role: query_params["stp_role"]=stp_role
     if auth_state: query_params["auth_state"]=auth_state
     if up: query_params["up"]=up
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

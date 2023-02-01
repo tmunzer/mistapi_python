@@ -49,7 +49,7 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/guests/count"
     query_params={}
@@ -62,7 +62,7 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgGuestAuthorization
     
@@ -79,18 +79,16 @@ def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:st
     :param str wlan_id
     :param str auth_method
     :param str ssid
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/guests/search"
     query_params={}
     if wlan_id: query_params["wlan_id"]=wlan_id
     if auth_method: query_params["auth_method"]=auth_method
     if ssid: query_params["ssid"]=ssid
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

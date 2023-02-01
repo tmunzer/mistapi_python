@@ -29,7 +29,7 @@ def getMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int=
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/msps/{msp_id}/tickets"
     query_params={}

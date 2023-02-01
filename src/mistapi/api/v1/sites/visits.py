@@ -36,7 +36,7 @@ def searchSiteZoneSessions(mist_session:_APISession, site_id:str, zone_type:str,
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/{zone_type}/visits/search"
     query_params={}

@@ -69,7 +69,7 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/alarms/count"
     query_params={}
@@ -87,9 +87,9 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admin_name:str=None, acked:bool=None, severity:str=None, group:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admin_name:str=None, acked:bool=None, severity:str=None, group:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteAlarms
+    API doc: https://doc.mist-lab.fr/#operation/searchSiteAlarms
     
     PARMS
     -----------
@@ -106,11 +106,10 @@ def getSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admi
     :param bool acked
     :param str severity - Alarm severity; accepts multiple values separated by comma
     :param str group - Alarm group name; accepts multiple values separated by comma
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/alarms/search"
     query_params={}
@@ -119,7 +118,6 @@ def getSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admi
     if acked: query_params["acked"]=acked
     if severity: query_params["severity"]=severity
     if group: query_params["group"]=group
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

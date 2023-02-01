@@ -65,17 +65,6 @@ class APIRequest:
             logger.error(f'Other error occurred: {err}')  # Python 3.6
         finally:
             return APIResponse(url=url, response=resp)
-        # else: 
-        #     if "X-Page-Limit" in resp.headers:
-        #         content = resp.json()
-        #         x_page_limit = int(resp.headers["X-Page-Limit"])
-        #         x_page_page = int(resp.headers["X-Page-Page"])
-        #         x_page_total = int(resp.headers["X-Page-Total"])
-        #         if x_page_limit * x_page_page < x_page_total:
-        #             content+=self.mist_get(uri, query, page + 1, limit)["result"]
-        #         return self._response(resp, uri, content)
-        #     else:                
-        #         return APIResponse(uri=uri, response=resp)
 
     def mist_post(self, uri:str,  body:object=None) -> APIResponse:
         """POST HTTP Request

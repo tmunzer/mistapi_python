@@ -38,7 +38,7 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/rogues/events/count"
     query_params={}
@@ -57,7 +57,7 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:int=None, seen_on_lan:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteRogueEvents
     
@@ -75,13 +75,12 @@ def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, 
     :param str ssid - ssid of the network detected as threat
     :param str bssid - bssid of the network detected as threat
     :param str ap_mac - mac of the device that had strongest signal strength for ssid/bssid pair
-    :param str channel - channel over which ap_mac heard ssid/bssid pair
+    :param int channel - channel over which ap_mac heard ssid/bssid pair
     :param bool seen_on_lan - whether the reporting AP see a wireless client (on LAN) connecting to it  
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/rogues/events/search"
     query_params={}
@@ -91,7 +90,6 @@ def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, 
     if ap_mac: query_params["ap_mac"]=ap_mac
     if channel: query_params["channel"]=channel
     if seen_on_lan: query_params["seen_on_lan"]=seen_on_lan
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

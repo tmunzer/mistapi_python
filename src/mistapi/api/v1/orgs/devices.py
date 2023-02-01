@@ -61,7 +61,7 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str, hostname
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/devices/count"
     query_params={}
@@ -107,12 +107,12 @@ def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, si
     :param str model - device model
     :param str text - event message
     :param str timestamp - event time
-    :param str type(AP_CONFIG_CHANGED_BY_RRM, AP_CONFIG_CHANGED_BY_USER, AP_CONFIGURED, AP_RECONFIGURED, AP_RESTARTED, AP_RESTART_BY_USER, AP_RRM_ACTION, CLIENT_DNS_OK, MARVIS_DNS_FAILURE) - Events Type
+    :param str type - Events Type
     :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/devices/events/count"
     query_params={}
@@ -132,7 +132,7 @@ def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, si
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDevicesEvents
     
@@ -147,28 +147,24 @@ def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=Non
     QUERY PARAMS
     ------------
     :param str site_id - site id
-    :param str ap - AP mac
-    :param str apfw - AP Firmware
+    :param str mac - device mac
     :param str model - device model
     :param str text - event message
     :param str timestamp - event time
-    :param str type(AP_CONFIG_CHANGED_BY_RRM, AP_CONFIG_CHANGED_BY_USER, AP_CONFIGURED, AP_RECONFIGURED, AP_RESTARTED, AP_RESTART_BY_USER, AP_RRM_ACTION, CLIENT_DNS_OK, MARVIS_DNS_FAILURE) - Events Type
-    :param int page
+    :param str type - see [Event Types Definition](/#tag/Constants/operation/getDeviceEventsDefinitions)
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/devices/events/search"
     query_params={}
     if site_id: query_params["site_id"]=site_id
-    if ap: query_params["ap"]=ap
-    if apfw: query_params["apfw"]=apfw
+    if mac: query_params["mac"]=mac
     if model: query_params["model"]=model
     if text: query_params["text"]=text
     if timestamp: query_params["timestamp"]=timestamp
     if type: query_params["type"]=type
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -206,9 +202,9 @@ def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDeviceLastConfig(mist_session:_APISession, org_id:str, device_type:str="ap", mac:str=None, start:int=None, end:int=None, limit:int=100) -> _APIResponse:
+def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type:str="ap", mac:str=None, name:str=None, version:str=None, start:int=None, end:int=None, limit:int=100, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgDeviceLastConfig
+    API doc: https://doc.mist-lab.fr/#operation/searchOrgDeviceLastConfigs
     
     PARMS
     -----------
@@ -222,17 +218,23 @@ def searchOrgDeviceLastConfig(mist_session:_APISession, org_id:str, device_type:
     ------------
     :param str device_type(ap, switch, gateway)
     :param str mac
+    :param str name
+    :param str version
     :param int start
     :param int end
-    :param int limit        
+    :param int limit
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/devices/last_config/search"
     query_params={}
     if device_type: query_params["device_type"]=device_type
     if mac: query_params["mac"]=mac
+    if name: query_params["name"]=name
+    if version: query_params["version"]=version
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if limit: query_params["limit"]=limit
+    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -253,7 +255,7 @@ def getOrgApsMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_bandwith:int=None, band_5_bandwith:int=None, band_6_bandwith:int=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_bandwith:int=None, band_5_bandwith:int=None, band_6_bandwith:int=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDevices
     
@@ -287,11 +289,10 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     :param int band_5_channel - Channel of band_5
     :param int band_6_channel - Channel of band_6
     :param int eth0_port_speed - Port speed of eth0
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/devices/search"
     query_params={}
@@ -315,7 +316,6 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     if band_5_channel: query_params["band_5_channel"]=band_5_channel
     if band_6_channel: query_params["band_6_channel"]=band_6_channel
     if eth0_port_speed: query_params["eth0_port_speed"]=eth0_port_speed
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

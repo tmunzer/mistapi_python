@@ -118,7 +118,7 @@ def getOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, pa
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/ssos/{sso_id}/failures"
     query_params={}

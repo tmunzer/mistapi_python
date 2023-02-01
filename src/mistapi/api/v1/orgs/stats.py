@@ -31,7 +31,7 @@ def getOrgStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100,
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/stats"
     query_params={}
@@ -61,7 +61,7 @@ def getOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:in
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/stats/assets"
     query_params={}
@@ -95,7 +95,7 @@ def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:str=None, ibeacon_minor:str=None, ap_mac:str=None, beam:str=None, rssi:str=None) -> _APIResponse:
+def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, device_name:str=None, name:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:str=None, ibeacon_minor:str=None, eddystone_uid_namespace:str=None, eddystone_uid_instance:str=None, eddystone_url:str=None, ap_mac:str=None, beam:int=None, rssi:int=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgAssets
     
@@ -111,25 +111,43 @@ def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:
     ------------
     :param str site_id
     :param str mac
+    :param str device_name
+    :param str name
     :param str map_id
     :param str ibeacon_uuid
     :param str ibeacon_major
     :param str ibeacon_minor
+    :param str eddystone_uid_namespace
+    :param str eddystone_uid_instance
+    :param str eddystone_url
     :param str ap_mac
-    :param str beam
-    :param str rssi        
+    :param int beam
+    :param int rssi
+    :param int limit
+    :param int start
+    :param int end
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/stats/assets/search"
     query_params={}
     if site_id: query_params["site_id"]=site_id
     if mac: query_params["mac"]=mac
+    if device_name: query_params["device_name"]=device_name
+    if name: query_params["name"]=name
     if map_id: query_params["map_id"]=map_id
     if ibeacon_uuid: query_params["ibeacon_uuid"]=ibeacon_uuid
     if ibeacon_major: query_params["ibeacon_major"]=ibeacon_major
     if ibeacon_minor: query_params["ibeacon_minor"]=ibeacon_minor
+    if eddystone_uid_namespace: query_params["eddystone_uid_namespace"]=eddystone_uid_namespace
+    if eddystone_uid_instance: query_params["eddystone_uid_instance"]=eddystone_uid_instance
+    if eddystone_url: query_params["eddystone_url"]=eddystone_url
     if ap_mac: query_params["ap_mac"]=ap_mac
     if beam: query_params["beam"]=beam
     if rssi: query_params["rssi"]=rssi
+    if limit: query_params["limit"]=limit
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -185,7 +203,7 @@ def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str type(ap, switch, gateways, all)
     :param str status(all, connected, disconnected)
     :param str site_id
@@ -227,7 +245,7 @@ def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str for_site(true, false, any) - filter for site level mist edges        
     """
     uri = f"/api/v1/orgs/{org_id}/stats/mxedges"
@@ -259,7 +277,7 @@ def getOrgMxEdgeStats(mist_session:_APISession, org_id:str, mxedge_id:str) -> _A
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgSwOrGwPorts
     
@@ -302,11 +320,10 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     :param str stp_state(forwarding, blocking, learning, listening, disabled) - if `up`==`true`
     :param str stp_role(designated, backup, alternate, root, root-prevented) - if `up`==`true`
     :param str auth_state(init, authenticated, authenticating, held) - if `up`==`true` && has Authenticator role
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/stats/ports/search"
     query_params={}
@@ -339,7 +356,6 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     if stp_state: query_params["stp_state"]=stp_state
     if stp_role: query_params["stp_role"]=stp_role
     if auth_state: query_params["auth_state"]=auth_state
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -391,7 +407,7 @@ def countOrgByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, org_id:
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/stats/switch_ports/count"
     query_params={}
@@ -454,9 +470,9 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str=None, site_id:str=None, wxtunnel_id:str=None, ap:str=None, mac:str=None, node:str=None, peer_ip:str=None, peer_host:str=None, ip:str=None, tunnel_name:str=None, protocol:str=None, auth_algo:str=None, encrypt_algo:str=None, ike_version:str=None, up:str=None, type:str="wxtunnel", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str=None, site_id:str=None, wxtunnel_id:str=None, ap:str=None, mac:str=None, node:str=None, peer_ip:str=None, peer_host:str=None, ip:str=None, tunnel_name:str=None, protocol:str=None, auth_algo:str=None, encrypt_algo:str=None, ike_version:str=None, up:str=None, type:str="wxtunnel", limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgTunnelsStats
+    API doc: https://doc.mist-lab.fr/#operation/searchOrgTunnelsStats
     
     PARMS
     -----------
@@ -484,11 +500,10 @@ def getOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str=No
     :param str ike_version - if `type`==`wan`
     :param str up - if `type`==`wan`
     :param str type(wxtunnel, wan)
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/stats/tunnels/search"
     query_params={}
@@ -508,7 +523,6 @@ def getOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str=No
     if ike_version: query_params["ike_version"]=ike_version
     if up: query_params["up"]=up
     if type: query_params["type"]=type
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -535,7 +549,7 @@ def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=Non
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/stats/vpn_peers/count"
     query_params={}
@@ -548,7 +562,7 @@ def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", page:int=1, limit:int=100) -> _APIResponse:
+def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgPeerPathStats
     
@@ -564,8 +578,7 @@ def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None,
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
-    :param int page
+    :param str duration
     :param int limit        
     """
     uri = f"/api/v1/orgs/{org_id}/stats/vpn_peers/search"
@@ -573,7 +586,6 @@ def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None,
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

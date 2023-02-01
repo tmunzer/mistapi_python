@@ -65,7 +65,7 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", page:
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/sites/count"
     query_params={}
@@ -78,7 +78,7 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", page:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=None, app_waking:bool=None, asset_enabled:bool=None, auto_upgrade_enabled:bool=None, auto_upgrade_version:bool=None, country_code:str=None, honeypot_enabled:bool=None, id:str=None, locate_unconnected:bool=None, mesh_enabled:bool=None, name:str=None, rogue_enabled:bool=None, remote_syslog_enabled:bool=None, rtsa_enabled:bool=None, vna_enabled:bool=None, wifi_enabled:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=None, app_waking:bool=None, asset_enabled:bool=None, auto_upgrade_enabled:bool=None, auto_upgrade_version:str=None, country_code:str=None, honeypot_enabled:bool=None, id:str=None, locate_unconnected:bool=None, mesh_enabled:bool=None, name:str=None, rogue_enabled:bool=None, remote_syslog_enabled:bool=None, rtsa_enabled:bool=None, vna_enabled:bool=None, wifi_enabled:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgSites
     
@@ -96,7 +96,7 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     :param bool app_waking - if App Waking feature is enabled
     :param bool asset_enabled - if Asset Tracking is enabled
     :param bool auto_upgrade_enabled - if Auto Upgrade feature is enabled
-    :param bool auto_upgrade_version - if Auto Upgrade feature is enabled
+    :param str auto_upgrade_version - if Auto Upgrade feature is enabled
     :param str country_code - site country code
     :param bool honeypot_enabled - if Honeypot detection is enabled
     :param str id - site id
@@ -108,11 +108,10 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     :param bool rtsa_enabled - if managed mobility feature is enabled
     :param bool vna_enabled - if Virtual Network Assistant is enabled
     :param bool wifi_enabled - if WIFI feature is enabled
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/sites/search"
     query_params={}
@@ -132,7 +131,6 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     if rtsa_enabled: query_params["rtsa_enabled"]=rtsa_enabled
     if vna_enabled: query_params["vna_enabled"]=vna_enabled
     if wifi_enabled: query_params["wifi_enabled"]=wifi_enabled
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

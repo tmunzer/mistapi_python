@@ -31,7 +31,7 @@ def getSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, lim
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str client_mac - optional client mac filter        
     """
     uri = f"/api/v1/sites/{site_id}/pcaps"

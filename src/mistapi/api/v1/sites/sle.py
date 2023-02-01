@@ -33,7 +33,7 @@ def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/classifier/{classifier}/summary"
     query_params={}
@@ -82,7 +82,7 @@ def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/histogram"
     query_params={}
@@ -111,7 +111,7 @@ def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, sc
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str fields(wlan, device_type, device_os, band, ap, server, mxedge, switch, client, vlan, interface, chassis, gateway, peer_path, gateway_zones)
     :param str classifier        
     """
@@ -144,7 +144,7 @@ def getSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope:
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str classifier        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-applications"
@@ -175,7 +175,7 @@ def getSiteSleImpactedAps(mist_session:_APISession, site_id:str, scope:str, scop
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str classifier        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-aps"
@@ -206,7 +206,7 @@ def getSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str, 
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str classifier        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-chassis"
@@ -237,7 +237,7 @@ def getSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope:
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str classifier        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-clients"
@@ -268,7 +268,7 @@ def getSiteSleImpactedGateways(mist_session:_APISession, site_id:str, scope:str,
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str classifier        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-gateways"
@@ -299,7 +299,7 @@ def getSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:st
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str classifier        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-interfaces"
@@ -330,7 +330,7 @@ def getSiteSleImpactedSwitches(mist_session:_APISession, site_id:str, scope:str,
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str classifier        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-switches"
@@ -361,7 +361,7 @@ def getSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, sco
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
+    :param str duration
     :param str classifier        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-users"
@@ -392,7 +392,7 @@ def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id
     ------------
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/summary"
     query_params={}

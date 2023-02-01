@@ -34,7 +34,7 @@ def getOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_nam
     :param int end
     :param int limit
     :param int page
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/logs"
     query_params={}
@@ -72,7 +72,7 @@ def countOrgLogsByDistinctAttributes(mist_session:_APISession, org_id:str, disti
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/logs/count"
     query_params={}

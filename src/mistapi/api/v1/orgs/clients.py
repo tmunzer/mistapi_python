@@ -41,7 +41,7 @@ def countOrgClientsWireless(mist_session:_APISession, org_id:str, distinct:str="
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/clients/count"
     query_params={}
@@ -63,9 +63,9 @@ def countOrgClientsWireless(mist_session:_APISession, org_id:str, distinct:str="
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgClientEvents(mist_session:_APISession, org_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgClientsEvents(mist_session:_APISession, org_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgClientEvents
+    API doc: https://doc.mist-lab.fr/#operation/searchOrgClientsEvents
     
     PARMS
     -----------
@@ -84,11 +84,10 @@ def searchOrgClientEvents(mist_session:_APISession, org_id:str, type:str=None, r
     :param str proto(b, g, n, ac, ax, a) - 802.11 standard
     :param str band(24, 5) - 24 / 5
     :param str wlan_id - wlan_id
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/clients/events/search"
     query_params={}
@@ -99,7 +98,6 @@ def searchOrgClientEvents(mist_session:_APISession, org_id:str, type:str=None, r
     if proto: query_params["proto"]=proto
     if band: query_params["band"]=band
     if wlan_id: query_params["wlan_id"]=wlan_id
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -107,7 +105,7 @@ def searchOrgClientEvents(mist_session:_APISession, org_id:str, type:str=None, r
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgClientsWireless(mist_session:_APISession, org_id:str, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, psk_id:str=None, psk_name:str=None, vlan:str=None, ssid:str=None, text:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgClientsWireless(mist_session:_APISession, org_id:str, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, psk_id:str=None, psk_name:str=None, vlan:str=None, ssid:str=None, text:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgClientsWireless
     
@@ -133,11 +131,10 @@ def searchOrgClientsWireless(mist_session:_APISession, org_id:str, mac:str=None,
     :param str vlan - vlan
     :param str ssid - SSID
     :param str text - partial / full MAC address, hostname
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/clients/search"
     query_params={}
@@ -153,7 +150,6 @@ def searchOrgClientsWireless(mist_session:_APISession, org_id:str, mac:str=None,
     if vlan: query_params["vlan"]=vlan
     if ssid: query_params["ssid"]=ssid
     if text: query_params["text"]=text
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -188,7 +184,7 @@ def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distin
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/clients/sessions/count"
     query_params={}
@@ -209,7 +205,7 @@ def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distin
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgClientWirelessSessions(mist_session:_APISession, org_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, psk_id:str=None, psk_name:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgClientWirelessSessions(mist_session:_APISession, org_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, psk_id:str=None, psk_name:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgClientWirelessSessions
     
@@ -233,11 +229,10 @@ def searchOrgClientWirelessSessions(mist_session:_APISession, org_id:str, ap:str
     :param str wlan_id - wlan_id
     :param str psk_id
     :param str psk_name - PSK Name
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/clients/sessions/search"
     query_params={}
@@ -251,7 +246,6 @@ def searchOrgClientWirelessSessions(mist_session:_APISession, org_id:str, ap:str
     if wlan_id: query_params["wlan_id"]=wlan_id
     if psk_id: query_params["psk_id"]=psk_id
     if psk_name: query_params["psk_name"]=psk_name
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

@@ -64,7 +64,7 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/count"
     query_params={}
@@ -77,7 +77,7 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgAlarms(mist_session:_APISession, org_id:str, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgAlarms(mist_session:_APISession, org_id:str, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgAlarms
     
@@ -94,9 +94,8 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, type:str=None, start:i
     :param str type
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)
-    :param int limit
-    :param int page        
+    :param str duration
+    :param int limit        
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/search"
     query_params={}
@@ -105,7 +104,6 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, type:str=None, start:i
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -99,7 +99,7 @@ def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/devices/config_history/count"
     query_params={}
@@ -113,7 +113,7 @@ def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, device_type:str="ap", mac:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, device_type:str="ap", mac:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDeviceConfigHistory
     
@@ -129,17 +129,15 @@ def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, device_
     ------------
     :param str device_type(ap, switch, gateway)
     :param str mac - Device MAC Address
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/devices/config_history/search"
     query_params={}
     if device_type: query_params["device_type"]=device_type
     if mac: query_params["mac"]=mac
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -177,7 +175,7 @@ def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model"
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/devices/count"
     query_params={}
@@ -223,7 +221,7 @@ def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="m
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/devices/events/count"
     query_params={}
@@ -239,9 +237,9 @@ def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="m
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDeviceEvents(mist_session:_APISession, site_id:str, model:str=None, type:str=None, type_code:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteDevicesEvents(mist_session:_APISession, site_id:str, device_type:str=None, mac:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteDeviceEvents
+    API doc: https://doc.mist-lab.fr/#operation/searchSiteDevicesEvents
     
     PARMS
     -----------
@@ -253,21 +251,25 @@ def searchSiteDeviceEvents(mist_session:_APISession, site_id:str, model:str=None
     
     QUERY PARAMS
     ------------
-    :param str model
-    :param str type
-    :param str type_code
-    :param int page
+    :param str device_type(ap, switch, gateway)
+    :param str mac - device mac
+    :param str model - device model
+    :param str text - event message
+    :param str timestamp - event time
+    :param str type - see [Event Types Definition](/#tag/Constants/operation/getDeviceEventsDefinitions)
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/devices/events/search"
     query_params={}
+    if device_type: query_params["device_type"]=device_type
+    if mac: query_params["mac"]=mac
     if model: query_params["model"]=model
+    if text: query_params["text"]=text
+    if timestamp: query_params["timestamp"]=timestamp
     if type: query_params["type"]=type
-    if type_code: query_params["type_code"]=type_code
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -327,7 +329,7 @@ def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:st
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/devices/last_config/count"
     query_params={}
@@ -340,7 +342,7 @@ def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, device_type:str="ap", mac:str=None, version:str=None, name:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, device_type:str="ap", mac:str=None, version:str=None, name:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDeviceLastConfigs
     
@@ -358,11 +360,10 @@ def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, device_ty
     :param str mac
     :param str version
     :param str name
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/devices/last_config/search"
     query_params={}
@@ -370,7 +371,6 @@ def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, device_ty
     if mac: query_params["mac"]=mac
     if version: query_params["version"]=version
     if name: query_params["name"]=name
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -426,7 +426,7 @@ def multiRestartSiteDevices(mist_session:_APISession, site_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDevices
     
@@ -460,11 +460,10 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     :param str sort(timestamp, mac, model, sku) - sort options
     :param str desc_sort(timestamp, mac, model, sku) - sort options in reverse order
     :param bool stats - whether to return device stats
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/devices/search"
     query_params={}
@@ -488,7 +487,6 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     if sort: query_params["sort"]=sort
     if desc_sort: query_params["desc_sort"]=desc_sort
     if stats: query_params["stats"]=stats
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

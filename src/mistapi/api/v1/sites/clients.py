@@ -40,7 +40,7 @@ def countSiteByDistinctAttributesOfClients(mist_session:_APISession, site_id:str
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/clients/count"
     query_params={}
@@ -103,7 +103,7 @@ def countSiteByDistinctAttributesOfClientsEvents(mist_session:_APISession, site_
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/clients/events/count"
     query_params={}
@@ -123,9 +123,9 @@ def countSiteByDistinctAttributesOfClientsEvents(mist_session:_APISession, site_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteClientEvents(mist_session:_APISession, site_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteClientsEvents(mist_session:_APISession, site_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteClientEvents
+    API doc: https://doc.mist-lab.fr/#operation/searchSiteClientsEvents
     
     PARMS
     -----------
@@ -144,11 +144,10 @@ def searchSiteClientEvents(mist_session:_APISession, site_id:str, type:str=None,
     :param str proto(b, g, n, ac, ax, a) - 802.11 standard
     :param str band(24, 5) - 24 / 5
     :param str wlan_id - wlan_id
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/clients/events/search"
     query_params={}
@@ -159,7 +158,6 @@ def searchSiteClientEvents(mist_session:_APISession, site_id:str, type:str=None,
     if proto: query_params["proto"]=proto
     if band: query_params["band"]=band
     if wlan_id: query_params["wlan_id"]=wlan_id
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -167,7 +165,7 @@ def searchSiteClientEvents(mist_session:_APISession, site_id:str, type:str=None,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteClientsWireless(mist_session:_APISession, site_id:str, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, ssid:str=None, text:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteClientsWireless(mist_session:_APISession, site_id:str, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, ssid:str=None, text:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteClientsWireless
     
@@ -190,11 +188,10 @@ def searchSiteClientsWireless(mist_session:_APISession, site_id:str, mac:str=Non
     :param str ap - AP mac where the client has connected to
     :param str ssid
     :param str text - partial / full MAC address, hostname, username or ip
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/clients/search"
     query_params={}
@@ -207,7 +204,6 @@ def searchSiteClientsWireless(mist_session:_APISession, site_id:str, mac:str=Non
     if ap: query_params["ap"]=ap
     if ssid: query_params["ssid"]=ssid
     if text: query_params["text"]=text
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -242,7 +238,7 @@ def countSiteByDistinctAttributesOfClientSessions(mist_session:_APISession, site
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/clients/sessions/count"
     query_params={}
@@ -263,9 +259,9 @@ def countSiteByDistinctAttributesOfClientSessions(mist_session:_APISession, site
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteClientSessions(mist_session:_APISession, site_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteClientWirelessSessions(mist_session:_APISession, site_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteClientSessions
+    API doc: https://doc.mist-lab.fr/#operation/searchSiteClientWirelessSessions
     
     PARMS
     -----------
@@ -285,11 +281,10 @@ def searchSiteClientSessions(mist_session:_APISession, site_id:str, ap:str=None,
     :param str client_os - E.g. “Mojave”, “Windows 10”, “Linux”
     :param str ssid - SSID
     :param str wlan_id - wlan_id
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/clients/sessions/search"
     query_params={}
@@ -301,7 +296,6 @@ def searchSiteClientSessions(mist_session:_APISession, site_id:str, ap:str=None,
     if client_os: query_params["client_os"]=client_os
     if ssid: query_params["ssid"]=ssid
     if wlan_id: query_params["wlan_id"]=wlan_id
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -367,7 +361,7 @@ def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str
     :param int end
     :param int page
     :param int limit
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/clients/{client_mac}/events"
     query_params={}

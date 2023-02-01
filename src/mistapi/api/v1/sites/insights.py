@@ -33,7 +33,7 @@ def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/insights/client/{client_mac}/{metric}"
     query_params={}
@@ -65,7 +65,7 @@ def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/insights/device/{device_mac}/{metric}"
     query_params={}
@@ -77,7 +77,7 @@ def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def getSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRogueAPs
     
@@ -92,16 +92,14 @@ def getSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, page:i
     QUERY PARAMS
     ------------
     :param str type(honeypot, lan, others, spoof)
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/insights/rogues"
     query_params={}
     if type: query_params["type"]=type
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -109,7 +107,7 @@ def getSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, page:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteRogueClients(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def getSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRogueClients
     
@@ -123,15 +121,13 @@ def getSiteRogueClients(mist_session:_APISession, site_id:str, page:int=1, limit
     
     QUERY PARAMS
     ------------
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/insights/rogues/clients"
     query_params={}
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -158,7 +154,7 @@ def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, pag
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/insights/{metric}"
     query_params={}

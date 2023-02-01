@@ -32,7 +32,7 @@ def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int
     :param int end
     :param int limit
     :param int page
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/orgs/{org_id}/insights/sites-sle"
     query_params={}
@@ -60,8 +60,8 @@ def getOrgSle(mist_session:_APISession, org_id:str, metric:str, sle:str=None, du
     
     QUERY PARAMS
     ------------
-    :param str sle - see /api/v1/const/insight_metrics for more details
-    :param str duration(1d, 1h, 10m)
+    :param str sle - see [/api/v1/const/insight_metrics](/#tag/Constants/operation/getSiteAvailableInsightMetrics) for more details
+    :param str duration
     :param str interval(10m, 1h)
     :param int start
     :param int end        

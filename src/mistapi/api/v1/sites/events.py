@@ -32,7 +32,7 @@ def getSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str=None, p
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/events/fast_roam"
     query_params={}
@@ -63,7 +63,7 @@ def getSiteInterferenceEvents(mist_session:_APISession, site_id:str, page:int=1,
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/events/interference"
     query_params={}
@@ -94,7 +94,7 @@ def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="t
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/events/system/count"
     query_params={}
@@ -107,7 +107,7 @@ def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="t
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSystemEvents(mist_session:_APISession, site_id:str, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteSystemEvents(mist_session:_APISession, site_id:str, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSystemEvents
     
@@ -122,16 +122,14 @@ def searchSiteSystemEvents(mist_session:_APISession, site_id:str, type:str=None,
     QUERY PARAMS
     ------------
     :param str type
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/events/system/search"
     query_params={}
     if type: query_params["type"]=type
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

@@ -37,7 +37,7 @@ def countSiteByDistringAttributesOfSkyatpEvents(mist_session:_APISession, site_i
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/skyatp/events/count"
     query_params={}
@@ -55,7 +55,7 @@ def countSiteByDistringAttributesOfSkyatpEvents(mist_session:_APISession, site_i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None, mac:str=None, device_mac:str=None, threat_level:int=None, ip_address:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None, mac:str=None, device_mac:str=None, threat_level:int=None, ip_address:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSkyatpEvents
     
@@ -74,11 +74,10 @@ def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None,
     :param str device_mac - device MAC
     :param int threat_level - threat level
     :param str ip_address
-    :param int page
     :param int limit
     :param int start
     :param int end
-    :param str duration(1d, 1h, 10m)        
+    :param str duration        
     """
     uri = f"/api/v1/sites/{site_id}/skyatp/events/search"
     query_params={}
@@ -87,7 +86,6 @@ def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None,
     if device_mac: query_params["device_mac"]=device_mac
     if threat_level: query_params["threat_level"]=threat_level
     if ip_address: query_params["ip_address"]=ip_address
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
