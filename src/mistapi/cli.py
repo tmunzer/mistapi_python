@@ -56,6 +56,7 @@ def select_org(mist_session:mistapi.APISession, allow_many=False) -> list:
     org_ids = []
     resp_ids=[]
     data = mist_session.privileges
+    data = [d for d in data if d['name']]
     data=sorted(data, key=lambda x: x["name"].lower())
     print("\r\nAvailable organizations:")
     for privilege in data:
