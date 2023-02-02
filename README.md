@@ -13,6 +13,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 ## Features
+This package is build from the [Mist OpenAPI specifications](https://doc.mist-lab.fr) and is designed to simplify the use of the Mist APIs with Python scripts.
+
 * Manage Mist Authentication with login/password (and 2FA if required) or API Token
 * Provide interactive user inputs for login and org/site selections
 * Provide easy access to Mist APIs endpoints and documentation
@@ -25,6 +27,15 @@ python3 -m pip install mistapi
 
 # Windows
 py -m pip install mistapi
+```
+
+## Upgrade
+```
+# Linux/macOS
+python3 -m pip install --upgrade mistapi
+
+# Windows
+py -m pip install --upgrade mistapi
 ```
 
 ## Configuration

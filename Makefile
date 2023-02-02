@@ -8,6 +8,6 @@ publish-test:
 	rm -fr build dist
 
 publish:
+	rm -fr build dist 
 	python3 -m build
 	python3 -m twine upload --repository mistapi dist/* 
-	rm -fr build dist 
