@@ -1,4 +1,3 @@
-
 '''
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
@@ -10,6 +9,7 @@
 
 --------------------------------------------------------------------------------
 '''
+
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 

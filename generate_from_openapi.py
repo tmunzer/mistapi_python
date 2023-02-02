@@ -17,6 +17,18 @@ var_translation = {
     "boolean": "bool"
 }
 
+file_header="""'''
+--------------------------------------------------------------------------------
+------------------------- Mist API Python CLI Session --------------------------
+
+    Written by: Thomas Munzer (tmunzer@juniper.net)
+    Github    : https://github.com/tmunzer/mistapi_python
+
+    This package is licensed under the MIT License.
+
+--------------------------------------------------------------------------------
+'''
+"""
 
 def fprint(message: str):
     print(f"{message}".ljust(80))
@@ -44,7 +56,7 @@ def get_ref(ref_name: str):
 def _create_or_append_file(file_path: str, data: str, create_only: bool = False):
     if not os.path.exists(file_path):
         with open(file_path, "w+") as f:
-            f.write(f"{data}")
+            f.write(f"{file_header}\r\n{data}")
             return True
     elif not create_only:
         with open(file_path, "a+") as f:
@@ -57,19 +69,7 @@ def _init_api_file(file_path: str, file_name: str, import_path: list = []):
     init_file = os.path.join(file_path, "__init__.py")
     file_created = _create_or_append_file(
         f"{api_file}.py", 
-        """
-'''
---------------------------------------------------------------------------------
-------------------------- Mist API Python CLI Session --------------------------
-
-    Written by: Thomas Munzer (tmunzer@juniper.net)
-    Github    : https://github.com/tmunzer/mistapi_python
-
-    This package is licensed under the MIT License.
-
---------------------------------------------------------------------------------
-'''
-from mistapi import APISession as _APISession
+        f"""from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 """, create_only=True)
     if file_created:
@@ -201,6 +201,29 @@ def _gen_query_code(query_params: list):
             code += f"\r\n    if {param['name']}: query_params[\"{param['name']}\"]={param['name']}"
     return code
 
+
+###########
+# GET NEXT
+def _create_get_next():
+    file_path = os.path.join(root_folder, root_api_folder, "get_next.py")
+    code=f"""{file_header}
+from mistapi import APISession as _APISession
+from mistapi.__api_response import APIResponse as _APIResponse
+
+def get_next(mist_session: _APISession, response: _APIResponse) -> _APIResponse:
+    \"\"\"
+    Generate the url with the host (in the object) and the uri
+
+    :params APISession mist_session - mistapi session including authentication and Mist host information
+    :return APIResponse response - response from a previous API call
+    \"\"\"
+    if response.next:
+        return mist_session.mist_get(response.next)
+    else:
+        return None
+"""
+    with open(file_path, "w") as f:
+        f.write(code)
 
 ########
 # CRUDS
@@ -409,6 +432,7 @@ def start():
     out.write("\n")
     out.flush()
 
+    _create_get_next()
     return endpoint_count, api_count
 ############################################################################################################ 
 ############################################################################################################ 

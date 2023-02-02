@@ -1,4 +1,3 @@
-
 '''
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
@@ -10,6 +9,7 @@
 
 --------------------------------------------------------------------------------
 '''
+
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
@@ -132,7 +132,7 @@ def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, si
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, mac:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDevicesEvents
     
@@ -146,7 +146,6 @@ def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=Non
     
     QUERY PARAMS
     ------------
-    :param str site_id - site id
     :param str mac - device mac
     :param str model - device model
     :param str text - event message
@@ -159,7 +158,6 @@ def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=Non
     """
     uri = f"/api/v1/orgs/{org_id}/devices/events/search"
     query_params={}
-    if site_id: query_params["site_id"]=site_id
     if mac: query_params["mac"]=mac
     if model: query_params["model"]=model
     if text: query_params["text"]=text

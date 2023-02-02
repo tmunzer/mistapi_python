@@ -1,4 +1,3 @@
-
 '''
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
@@ -10,6 +9,7 @@
 
 --------------------------------------------------------------------------------
 '''
+
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
@@ -259,7 +259,7 @@ def countSiteByDistinctAttributesOfClientSessions(mist_session:_APISession, site
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteClientWirelessSessions(mist_session:_APISession, site_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteClientWirelessSessions(mist_session:_APISession, site_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_username:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, psk_id:str=None, psk_name:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteClientWirelessSessions
     
@@ -274,13 +274,16 @@ def searchSiteClientWirelessSessions(mist_session:_APISession, site_id:str, ap:s
     QUERY PARAMS
     ------------
     :param str ap - AP MAC
-    :param str band - 24 /5
+    :param str band(24, 5) - 5 / 24
     :param str client_family - E.g. “Mac”, “iPhone”, “Apple watch”
     :param str client_manufacture - E.g. “Apple”
     :param str client_model - E.g. “8+”, “XS”
+    :param str client_username - Username
     :param str client_os - E.g. “Mojave”, “Windows 10”, “Linux”
     :param str ssid - SSID
     :param str wlan_id - wlan_id
+    :param str psk_id
+    :param str psk_name - PSK Name
     :param int limit
     :param int start
     :param int end
@@ -293,9 +296,12 @@ def searchSiteClientWirelessSessions(mist_session:_APISession, site_id:str, ap:s
     if client_family: query_params["client_family"]=client_family
     if client_manufacture: query_params["client_manufacture"]=client_manufacture
     if client_model: query_params["client_model"]=client_model
+    if client_username: query_params["client_username"]=client_username
     if client_os: query_params["client_os"]=client_os
     if ssid: query_params["ssid"]=ssid
     if wlan_id: query_params["wlan_id"]=wlan_id
+    if psk_id: query_params["psk_id"]=psk_id
+    if psk_name: query_params["psk_name"]=psk_name
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

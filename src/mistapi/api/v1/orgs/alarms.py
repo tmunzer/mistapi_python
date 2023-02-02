@@ -1,4 +1,3 @@
-
 '''
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
@@ -10,6 +9,7 @@
 
 --------------------------------------------------------------------------------
 '''
+
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
@@ -77,7 +77,7 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgAlarms(mist_session:_APISession, org_id:str, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgAlarms
     
@@ -91,6 +91,7 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, type:str=None, start:i
     
     QUERY PARAMS
     ------------
+    :param str site_id
     :param str type
     :param int start
     :param int end
@@ -99,6 +100,7 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, type:str=None, start:i
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/search"
     query_params={}
+    if site_id: query_params["site_id"]=site_id
     if type: query_params["type"]=type
     if start: query_params["start"]=start
     if end: query_params["end"]=end

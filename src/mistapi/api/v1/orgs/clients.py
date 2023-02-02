@@ -1,4 +1,3 @@
-
 '''
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
@@ -10,6 +9,7 @@
 
 --------------------------------------------------------------------------------
 '''
+
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
@@ -105,7 +105,7 @@ def searchOrgClientsEvents(mist_session:_APISession, org_id:str, type:str=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgClientsWireless(mist_session:_APISession, org_id:str, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, psk_id:str=None, psk_name:str=None, vlan:str=None, ssid:str=None, text:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgClientsWireless(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, psk_id:str=None, psk_name:str=None, vlan:str=None, ssid:str=None, text:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgClientsWireless
     
@@ -119,6 +119,7 @@ def searchOrgClientsWireless(mist_session:_APISession, org_id:str, mac:str=None,
     
     QUERY PARAMS
     ------------
+    :param str site_id - Site ID
     :param str mac - partial / full MAC address
     :param str ip_address
     :param str hostname - partial / full hostname
@@ -138,6 +139,7 @@ def searchOrgClientsWireless(mist_session:_APISession, org_id:str, mac:str=None,
     """
     uri = f"/api/v1/orgs/{org_id}/clients/search"
     query_params={}
+    if site_id: query_params["site_id"]=site_id
     if mac: query_params["mac"]=mac
     if ip_address: query_params["ip_address"]=ip_address
     if hostname: query_params["hostname"]=hostname
@@ -205,7 +207,7 @@ def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distin
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgClientWirelessSessions(mist_session:_APISession, org_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, psk_id:str=None, psk_name:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgClientWirelessSessions(mist_session:_APISession, org_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_username:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, psk_id:str=None, psk_name:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgClientWirelessSessions
     
@@ -224,6 +226,7 @@ def searchOrgClientWirelessSessions(mist_session:_APISession, org_id:str, ap:str
     :param str client_family - E.g. “Mac”, “iPhone”, “Apple watch”
     :param str client_manufacture - E.g. “Apple”
     :param str client_model - E.g. “8+”, “XS”
+    :param str client_username - Username
     :param str client_os - E.g. “Mojave”, “Windows 10”, “Linux”
     :param str ssid - SSID
     :param str wlan_id - wlan_id
@@ -241,6 +244,7 @@ def searchOrgClientWirelessSessions(mist_session:_APISession, org_id:str, ap:str
     if client_family: query_params["client_family"]=client_family
     if client_manufacture: query_params["client_manufacture"]=client_manufacture
     if client_model: query_params["client_model"]=client_model
+    if client_username: query_params["client_username"]=client_username
     if client_os: query_params["client_os"]=client_os
     if ssid: query_params["ssid"]=ssid
     if wlan_id: query_params["wlan_id"]=wlan_id
