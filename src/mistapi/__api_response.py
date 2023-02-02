@@ -25,14 +25,16 @@ class APIResponse:
     :attr object data - JSON of the HTTP Response (if possible)
     :attr object error - HTTP errors (if any)
     :attr str url - URL of the HTTP Request
+    :attr str url - URI of the HTTP Request
     :attr int status_code - HTTP Response status code
     """
 
-    def __init__(self, url: str, response:Response) -> None:
+    def __init__(self, response:Response, url: str,) -> None:
         self.raw_data=""
         self.data={}
         self.error={}
         self.url=url
+        self.next=None
         self.headers = response.headers
         self.status_code=response.status_code
 
@@ -43,6 +45,7 @@ class APIResponse:
             if response.status_code == 200:
                 self.raw_data = response.content
                 self.data = response.json()
+                self._check_next()
             else:
                 self.raw_data = response.content
                 self.error = response.json()
@@ -51,3 +54,26 @@ class APIResponse:
             logger.debug(f"apiresponse:HTTP Response processed")
         except Exception as err:
             logger.error(f"apiresponse:Unable to process HTTP Response: \r\n{err}")
+
+    def _check_next(self) -> None:
+        logger.debug(f"apiresponse:in  > _check_next")
+        if "next" in self.data:
+            self.next = self.data["next"]
+            logger.debug(f"apiresponse:set next to {self.next}")
+        else:
+            total = self.headers.get("X-Page-Total")
+            limit = self.headers.get("X-Page-Limit")
+            page = self.headers.get("X-Page-Page")
+            if total and limit and page:
+                try:
+                    total=int(total)
+                    limit=int(limit)
+                    page=int(page)
+                except:
+                    logger.error(f"apiresponse:Unable to convert total({total})/limit({limit})/page({page}) to int")
+                    console.error(f"Unable to convert total({total})/limit({limit})/page({page}) to int")
+                if limit * page < total:
+                    uri = f"/api/{self.url.split('/api/')[1]}"
+                    self.next= uri.replace(f"page={page}", f"page={page+1}")
+                    logger.debug(f"apiresponse:set next to {self.next}")
+
