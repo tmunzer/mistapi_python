@@ -137,7 +137,7 @@ class APIRequest:
         try:                 
             url = self._url(uri)
             logger.info(f"apirequest:sending POST request to {url}")
-            resp = self.ses_sessionion.post(url, files=files)
+            resp = self._session.post(url, files=files)
             resp.raise_for_status()
         except HTTPError as http_err:
             logger.error(f'HTTP error occurred: {http_err}')  # Python 3.6
