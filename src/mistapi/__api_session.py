@@ -63,8 +63,7 @@ class APISession(APIRequest):
         :param str env_file     path to the env file to load. See README.md for allowed variables
         :param int console_log_level
         :param int logging_log_level
-        """
-        _header()
+        """        
         self._cloud_uri = None
         self.email = None
         self._password = None
@@ -124,6 +123,8 @@ class APISession(APIRequest):
 
     def _load_env(self, env_file=None):
         if env_file:
+            if env_file.startswith("~/"):
+                env_file = os.path.join(os.path.expanduser('~'), env_file.replace("~/",""))
             env_file = os.path.abspath(env_file)
             console.debug(f"Loading settings from {env_file}")
             logger.debug(f"apisession:Loading settings from {env_file}")
