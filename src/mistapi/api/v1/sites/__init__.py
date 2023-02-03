@@ -17,6 +17,7 @@ from mistapi.api.v1.sites import apps
 from mistapi.api.v1.sites import assetfilters
 from mistapi.api.v1.sites import assets
 from mistapi.api.v1.sites import beacons
+from mistapi.api.v1.sites import call
 from mistapi.api.v1.sites import clients
 from mistapi.api.v1.sites import devices
 from mistapi.api.v1.sites import events
@@ -28,6 +29,7 @@ from mistapi.api.v1.sites import location
 from mistapi.api.v1.sites import maps
 from mistapi.api.v1.sites import mxedges
 from mistapi.api.v1.sites import mxtunnels
+from mistapi.api.v1.sites import otherdevices
 from mistapi.api.v1.sites import pcaps
 from mistapi.api.v1.sites import psks
 from mistapi.api.v1.sites import rfdiags

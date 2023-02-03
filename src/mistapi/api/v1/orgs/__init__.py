@@ -19,6 +19,7 @@ from mistapi.api.v1.orgs import apitokens
 from mistapi.api.v1.orgs import aptemplates
 from mistapi.api.v1.orgs import assetfilters
 from mistapi.api.v1.orgs import assets
+from mistapi.api.v1.orgs import call
 from mistapi.api.v1.orgs import cert
 from mistapi.api.v1.orgs import claim
 from mistapi.api.v1.orgs import clients
@@ -46,6 +47,7 @@ from mistapi.api.v1.orgs import networks
 from mistapi.api.v1.orgs import networktemplates
 from mistapi.api.v1.orgs import ocdevices
 from mistapi.api.v1.orgs import otherdeivces
+from mistapi.api.v1.orgs import otherdevices
 from mistapi.api.v1.orgs import pma
 from mistapi.api.v1.orgs import pskportals
 from mistapi.api.v1.orgs import psks
