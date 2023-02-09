@@ -13,9 +13,6 @@
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
-from mistapi import APISession as _APISession
-from mistapi.__api_response import APIResponse as _APIResponse
-
 def get_next(mist_session: _APISession, response: _APIResponse) -> _APIResponse:
     """
     Get the next page when previous response does not include all the items
@@ -48,10 +45,16 @@ def get_all(mist_session: _APISession, response: _APIResponse) -> list:
     :return list - list of all the items
     """
     if type(response.data) == list:
-        data = response.data
+        data = response.data.copy()
         while response.next:
             response = get_next(mist_session, response)
             data += response.data
+        return data
+    elif type(response.data) == dict and "results" in response.data:
+        data = response.data["results"].copy()
+        while response.next:
+            response = get_next(mist_session, response)
+            data += response.data["results"]
         return data
     else:
         return None
