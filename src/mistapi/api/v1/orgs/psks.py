@@ -17,7 +17,7 @@ def getOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=Non
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgPsks
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -32,6 +32,10 @@ def getOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=Non
     :param str role
     :param int page
     :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/psks"
     query_params={}
@@ -47,13 +51,17 @@ def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIRespo
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgPsk
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/psks"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -63,13 +71,17 @@ def updateOrgMultiPsks(mist_session:_APISession, org_id:str, body:object) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgMultiPsks
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/psks"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -79,13 +91,17 @@ def importOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIRespo
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgPsk
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/psks/import"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -95,7 +111,7 @@ def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgPsk
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -103,6 +119,10 @@ def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     -----------
     :param str org_id
     :param str psk_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/psks/{psk_id}"
     query_params={}
@@ -113,7 +133,7 @@ def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIRespon
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgPsk
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -121,6 +141,10 @@ def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIRespon
     -----------
     :param str org_id
     :param str psk_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/psks/{psk_id}"
     query_params={}
@@ -131,7 +155,7 @@ def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) 
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgPsk
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -139,6 +163,10 @@ def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) 
     -----------
     :param str org_id
     :param str psk_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/psks/{psk_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -148,7 +176,7 @@ def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str, 
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgPskOldPassphrase
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -156,6 +184,10 @@ def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str, 
     -----------
     :param str org_id
     :param str psk_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/psks/{psk_id}/delete_old_passphrase"
     resp = mist_session.mist_post(uri=uri, body=body)

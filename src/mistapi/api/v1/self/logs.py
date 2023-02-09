@@ -17,7 +17,7 @@ def getSelfAuditLogs(mist_session:_APISession, page:int=1, limit:int=100, start:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSelfAuditLogs
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -28,6 +28,10 @@ def getSelfAuditLogs(mist_session:_APISession, page:int=1, limit:int=100, start:
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/self/logs"
     query_params={}

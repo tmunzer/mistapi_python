@@ -17,7 +17,7 @@ def countSiteByDistringAttributesOfSkyatpEvents(mist_session:_APISession, site_i
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDistringAttributesOfSkyatpEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -38,6 +38,10 @@ def countSiteByDistringAttributesOfSkyatpEvents(mist_session:_APISession, site_i
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/skyatp/events/count"
     query_params={}
@@ -59,7 +63,7 @@ def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None,
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSkyatpEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -78,6 +82,10 @@ def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None,
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/skyatp/events/search"
     query_params={}

@@ -17,7 +17,7 @@ def getGetawayDefaultConfig(mist_session:_APISession, model:str=None, ha:str=Non
     """
     API doc: https://doc.mist-lab.fr/#operation/getGetawayDefaultConfig
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -25,6 +25,10 @@ def getGetawayDefaultConfig(mist_session:_APISession, model:str=None, ha:str=Non
     ------------
     :param str model - model the default gateway config is intended (as the default LAN/WAN port can differ)
     :param str ha - whether the config is intended for HA        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/const/default_gateway_config"
     query_params={}

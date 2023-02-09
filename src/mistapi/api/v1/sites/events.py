@@ -17,7 +17,7 @@ def getSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str=None, p
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRoamingEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -33,6 +33,10 @@ def getSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str=None, p
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/events/fast_roam"
     query_params={}
@@ -49,7 +53,7 @@ def getSiteInterferenceEvents(mist_session:_APISession, site_id:str, page:int=1,
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteInterferenceEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -64,6 +68,10 @@ def getSiteInterferenceEvents(mist_session:_APISession, site_id:str, page:int=1,
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/events/interference"
     query_params={}
@@ -79,7 +87,7 @@ def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="t
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteSystemEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -95,6 +103,10 @@ def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="t
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/events/system/count"
     query_params={}
@@ -111,7 +123,7 @@ def searchSiteSystemEvents(mist_session:_APISession, site_id:str, type:str=None,
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSystemEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -126,6 +138,10 @@ def searchSiteSystemEvents(mist_session:_APISession, site_id:str, type:str=None,
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/events/system/search"
     query_params={}

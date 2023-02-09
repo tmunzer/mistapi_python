@@ -17,7 +17,7 @@ def getOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap") ->
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgDeviceProfiles
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -28,6 +28,10 @@ def getOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap") ->
     QUERY PARAMS
     ------------
     :param str type(ap, switch, gateway)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles"
     query_params={}
@@ -39,13 +43,17 @@ def createOrgDeviceProfiles(mist_session:_APISession, org_id:str, body:object) -
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgDeviceProfiles
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -55,7 +63,7 @@ def getOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:s
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgDeviceProfile
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -63,6 +71,10 @@ def getOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:s
     -----------
     :param str org_id
     :param str deviceprofile_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles/{deviceprofile_id}"
     query_params={}
@@ -73,7 +85,7 @@ def deleteOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgDeviceProfile
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -81,6 +93,10 @@ def deleteOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     -----------
     :param str org_id
     :param str deviceprofile_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles/{deviceprofile_id}"
     query_params={}
@@ -91,7 +107,7 @@ def updateOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgDeviceProfile
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -99,6 +115,10 @@ def updateOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     -----------
     :param str org_id
     :param str deviceprofile_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles/{deviceprofile_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -108,7 +128,7 @@ def assignOrgDeviceProfileToDevices(mist_session:_APISession, org_id:str, device
     """
     API doc: https://doc.mist-lab.fr/#operation/assignOrgDeviceProfileToDevices
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -116,6 +136,10 @@ def assignOrgDeviceProfileToDevices(mist_session:_APISession, org_id:str, device
     -----------
     :param str org_id
     :param str deviceprofile_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles/{deviceprofile_id}/assign"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -125,7 +149,7 @@ def unassignOrgDeviceProfilesFromDevices(mist_session:_APISession, org_id:str, d
     """
     API doc: https://doc.mist-lab.fr/#operation/unassignOrgDeviceProfilesFromDevices
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -133,6 +157,10 @@ def unassignOrgDeviceProfilesFromDevices(mist_session:_APISession, org_id:str, d
     -----------
     :param str org_id
     :param str deviceprofile_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles/{deviceprofile_id}/unassign"
     resp = mist_session.mist_post(uri=uri, body=body)

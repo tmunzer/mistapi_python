@@ -49,6 +49,8 @@ class Console:
         """    
         set console and logging log level
 
+        PARAMS
+        -----------
         :param int console_log_level
         :param int logging_log_level
 

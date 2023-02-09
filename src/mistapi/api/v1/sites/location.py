@@ -17,7 +17,7 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteBeamCoverageOverview
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -34,6 +34,10 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     :param str client_type - client_type (as filter. optional)
     :param int start
     :param int end        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/coverage"
     query_params={}
@@ -51,7 +55,7 @@ def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMachineLearningCurrentStat
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -62,6 +66,10 @@ def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map
     QUERY PARAMS
     ------------
     :param str map_id - map_id (as filter, optional)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/current"
     query_params={}
@@ -73,13 +81,17 @@ def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDefaultPlfForModels
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/defaults"
     query_params={}
@@ -90,7 +102,7 @@ def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_
     """
     API doc: https://doc.mist-lab.fr/#operation/clearSiteMlOverwriteForDevice
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -98,6 +110,10 @@ def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_
     -----------
     :param str site_id
     :param str device_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/device/{device_id}"
     query_params={}
@@ -108,7 +124,7 @@ def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/overwriteSiteMlForDevice
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -116,6 +132,10 @@ def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:st
     -----------
     :param str site_id
     :param str device_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/device/{device_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -125,7 +145,7 @@ def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str
     """
     API doc: https://doc.mist-lab.fr/#operation/clearSiteMlOverwriteForMap
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -133,6 +153,10 @@ def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str
     -----------
     :param str site_id
     :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/map/{map_id}"
     query_params={}
@@ -143,7 +167,7 @@ def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, bod
     """
     API doc: https://doc.mist-lab.fr/#operation/overwriteSiteMlForMap
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -151,6 +175,10 @@ def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, bod
     -----------
     :param str site_id
     :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/map/{map_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -160,7 +188,7 @@ def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str, bod
     """
     API doc: https://doc.mist-lab.fr/#operation/resetSiteMlStatsByMap
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -168,6 +196,10 @@ def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str, bod
     -----------
     :param str site_id
     :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/reset/map/{map_id}"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -177,7 +209,7 @@ def getSiteMachineLearningEvents(mist_session:_APISession, site_id:str, device_i
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMachineLearningEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -194,6 +226,10 @@ def getSiteMachineLearningEvents(mist_session:_APISession, site_id:str, device_i
     :param int start
     :param int end
     :param str interval        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/updates"
     query_params={}

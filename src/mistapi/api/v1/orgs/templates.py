@@ -17,13 +17,17 @@ def getOrgTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgTemplates
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/templates"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgTemplate(mist_session:_APISession, org_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/templates"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _AP
     -----------
     :param str org_id
     :param str template_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/templates/{template_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> 
     -----------
     :param str org_id
     :param str template_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/templates/{template_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, bod
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, bod
     -----------
     :param str org_id
     :param str template_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/templates/{template_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -103,7 +123,7 @@ def cloneOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body
     """
     API doc: https://doc.mist-lab.fr/#operation/cloneOrgTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -111,6 +131,10 @@ def cloneOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body
     -----------
     :param str org_id
     :param str template_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/templates/{template_id}/clone"
     resp = mist_session.mist_post(uri=uri, body=body)

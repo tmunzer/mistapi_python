@@ -17,13 +17,17 @@ def getSiteAssetFilters(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetFilters
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assetfilters"
     query_params={}
@@ -34,13 +38,17 @@ def createSiteAssetFilters(mist_session:_APISession, site_id:str, body:object) -
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteAssetFilters
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assetfilters"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetFilter
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str
     -----------
     :param str site_id
     :param str assetfilter_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assetfilters/{assetfilter_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteAssetFilter
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:
     -----------
     :param str site_id
     :param str assetfilter_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assetfilters/{assetfilter_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteAssetFilter
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:
     -----------
     :param str site_id
     :param str assetfilter_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assetfilters/{assetfilter_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

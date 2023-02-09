@@ -17,7 +17,7 @@ def getSiteOtherDevices(mist_session:_APISession, site_id:str, vendor:str=None, 
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteOtherDevices
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -34,6 +34,10 @@ def getSiteOtherDevices(mist_session:_APISession, site_id:str, vendor:str=None, 
     :param str name
     :param int page
     :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/otherdevices"
     query_params={}

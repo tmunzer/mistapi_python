@@ -17,13 +17,17 @@ def getSiteWebhooks(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWebhooks
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/webhooks"
     query_params={}
@@ -34,13 +38,17 @@ def createSiteWebhook(mist_session:_APISession, site_id:str, body:object) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteWebhook
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/webhooks"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWebhook
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _AP
     -----------
     :param str site_id
     :param str webhook_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteWebhook
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> 
     -----------
     :param str site_id
     :param str webhook_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, bod
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteWebhook
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, bod
     -----------
     :param str site_id
     :param str webhook_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -103,7 +123,7 @@ def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:
     """
     API doc: https://doc.mist-lab.fr/#operation/pingSiteWebhook
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -111,6 +131,10 @@ def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:
     -----------
     :param str site_id
     :param str webhook_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}/ping"
     resp = mist_session.mist_post(uri=uri, body=body)

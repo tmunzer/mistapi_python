@@ -17,13 +17,17 @@ def activateSdkInvite(mist_session:_APISession, secret:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/activateSdkInvite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str secret        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/mobile/verify/{secret}"
     resp = mist_session.mist_post(uri=uri, body=body)

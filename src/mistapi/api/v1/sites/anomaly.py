@@ -17,7 +17,7 @@ def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAnomalyEventsForClient
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -26,6 +26,10 @@ def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_
     :param str site_id
     :param str client_mac
     :param str metric        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/anomaly/client/{client_mac}/{metric}"
     query_params={}
@@ -36,7 +40,7 @@ def getSiteAnomalyEventsforDevice(mist_session:_APISession, site_id:str, metric:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAnomalyEventsforDevice
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -45,6 +49,10 @@ def getSiteAnomalyEventsforDevice(mist_session:_APISession, site_id:str, metric:
     :param str site_id
     :param str metric
     :param str device_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/anomaly/device/{device_mac}/{metric}"
     query_params={}
@@ -55,7 +63,7 @@ def getSiteAnomalyEvents(mist_session:_APISession, site_id:str, metric:str) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAnomalyEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -63,6 +71,10 @@ def getSiteAnomalyEvents(mist_session:_APISession, site_id:str, metric:str) -> _
     -----------
     :param str site_id
     :param str metric        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/anomaly/{metric}"
     query_params={}

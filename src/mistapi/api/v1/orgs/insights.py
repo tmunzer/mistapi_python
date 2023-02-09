@@ -13,11 +13,11 @@
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d", interval:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSitesSle
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -32,7 +32,12 @@ def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int
     :param int end
     :param int limit
     :param int page
-    :param str duration        
+    :param str duration
+    :param str interval        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/insights/sites-sle"
     query_params={}
@@ -42,6 +47,7 @@ def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int
     if limit: query_params["limit"]=limit
     if page: query_params["page"]=page
     if duration: query_params["duration"]=duration
+    if interval: query_params["interval"]=interval
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -49,7 +55,7 @@ def getOrgSle(mist_session:_APISession, org_id:str, metric:str, sle:str=None, du
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSle
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -62,9 +68,13 @@ def getOrgSle(mist_session:_APISession, org_id:str, metric:str, sle:str=None, du
     ------------
     :param str sle - see [/api/v1/const/insight_metrics](/#tag/Constants/operation/getSiteAvailableInsightMetrics) for more details
     :param str duration
-    :param str interval(10m, 1h)
+    :param str interval
     :param int start
     :param int end        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/insights/{metric}"
     query_params={}

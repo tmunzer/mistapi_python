@@ -176,7 +176,7 @@ def _gen_description(operation_id: str, desc_path_params: str, desc_query_params
     description = f"""    \"\"\"
     API doc: https://doc.mist-lab.fr/#operation/{operation_id}
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     """
@@ -190,7 +190,11 @@ def _gen_description(operation_id: str, desc_path_params: str, desc_query_params
     QUERY PARAMS
     ------------{desc_query_params}        
     """
-    description += """\"\"\""""
+    description += """
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    \"\"\""""
     return description
 
 
@@ -210,15 +214,46 @@ def _create_get_next():
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
+from mistapi import APISession as _APISession
+from mistapi.__api_response import APIResponse as _APIResponse
+
 def get_next(mist_session: _APISession, response: _APIResponse) -> _APIResponse:
     \"\"\"
-    Generate the url with the host (in the object) and the uri
+    Get the next page when previous response does not include all the items
 
-    :params APISession mist_session - mistapi session including authentication and Mist host information
-    :return APIResponse response - response from a previous API call
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    :param APIResponse response - mistapi previous response to use
+
+    RETURN
+    -----------
+    :return APIResponse - response from the API call passed in parameteer
     \"\"\"
     if response.next:
         return mist_session.mist_get(response.next)
+    else:
+        return None
+
+def get_all(mist_session: _APISession, response: _APIResponse) -> list:
+    \"\"\"
+    Retrieve and return all the items after a first request
+
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    :param APIResponse response - mistapi previous response to use
+
+    RETURN
+    -----------
+    :return list - list of all the items
+    \"\"\"
+    if type(response.data) == list:
+        data = response.data
+        while response.next:
+            response = get_next(mist_session, response)
+            data += response.data
+        return data
     else:
         return None
 """
@@ -308,7 +343,7 @@ def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _
 
 
 ########
-# PARMS
+# PARAMS
 def _process_path_params(endpoint_params: object):
     params = []
     for parameter in endpoint_params:
@@ -432,7 +467,7 @@ def start():
     out.write("\n")
     out.flush()
 
-    _create_get_next()
+    #_create_get_next()
     return endpoint_count, api_count
 ############################################################################################################ 
 ############################################################################################################ 

@@ -17,13 +17,17 @@ def getOrgNacRules(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNacRules
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nacrules"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgNacRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nacrules"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNacRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIR
     -----------
     :param str org_id
     :param str nacrule_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nacrules/{nacrule_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _A
     -----------
     :param str org_id
     :param str nacrule_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nacrules/{nacrule_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str, body:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgNacRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str, body:
     -----------
     :param str org_id
     :param str nacrule_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nacrules/{nacrule_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

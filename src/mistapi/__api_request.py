@@ -32,7 +32,12 @@ class APIRequest:
         """
         Generate the url with the host (in the object) and the uri
 
-        :params str uri - URI where to send the request to (e.g. "/api/v1/...")
+        PARAMS
+        -----------
+        :param str uri - URI where to send the request to (e.g. "/api/v1/...")
+
+        RETURN
+        -----------
         :return str url - Full URL where to send the request to (e.g. "https://api.mist.com/api/v1/...")
         """
         logger.debug(f"apirequest:in  > _url")
@@ -50,9 +55,18 @@ class APIRequest:
         return html_query
 
     def mist_get(self, uri:str, query:object=None) -> APIResponse:
-        """GET HTTP Request
-        Params: uri, HTTP query
-        Return: HTTP response"""
+        """
+        GET HTTP Request
+
+        PARAMS
+        -----------
+        :param str uri - HTTP URI (e.g. "/api/v1/self") 
+        :param object query - dict of HTTP Queries (e.g. {"page": 1, "limit":100})
+
+        RETURN
+        -----------
+        :return APIResponse
+        """
         try:
             url = self._url(uri) + self._gen_query(query)
             logger.info(f"apirequest:sending GET request to {url}")
@@ -67,9 +81,18 @@ class APIRequest:
             return APIResponse(url=url, response=resp)
 
     def mist_post(self, uri:str,  body:object=None) -> APIResponse:
-        """POST HTTP Request
-        Params: uri, HTTP body
-        Return: HTTP response"""
+        """
+        POST HTTP Request
+
+        PARAMS
+        -----------
+        :param str uri - HTTP URI (e.g. "/api/v1/self") 
+        :param object body 
+
+        RETURN
+        -----------
+        :return APIResponse
+        """
         try: 
             url = self._url(uri)
             logger.info(f"apirequest:sending POST request to {url}")
@@ -91,9 +114,18 @@ class APIRequest:
             return APIResponse(url=url, response=resp)
 
     def mist_put(self, uri:str, body:object=None) -> APIResponse:
-        """PUT HTTP Request
-        Params: uri, HTTP body
-        Return: HTTP response"""
+        """
+        PUT HTTP Request
+
+        PARAMS
+        -----------
+        :param str uri - HTTP URI (e.g. "/api/v1/self") 
+        :param object body 
+
+        RETURN
+        -----------
+        :return APIResponse
+        """
         try:
             url = self._url(uri)
             logger.info(f"apirequest:sending PUT request to {url}")
@@ -114,9 +146,17 @@ class APIRequest:
             return APIResponse(url=url, response=resp)
 
     def mist_delete(self, uri:str, query:object=None) -> APIResponse:
-        """DELETE HTTP Request
-        Params: uri
-        Return: HTTP response"""
+        """
+        DELETE HTTP Request
+
+        PARAMS
+        -----------
+        :param str uri - HTTP URI (e.g. "/api/v1/self") 
+
+        RETURN
+        -----------
+        :return APIResponse
+        """
         try: 
             url = self._url(uri) + self._gen_query(query)
             logger.info(f"apirequest:sending DELETE request to {url}")
@@ -131,9 +171,18 @@ class APIRequest:
 
 
     def mist_post_file(self, uri:str, files=None) -> APIResponse:
-        """POST HTTP Request
-        Params: uri, HTTP body
-        Return: HTTP response"""
+        """
+        POST HTTP Request
+
+        PARAMS
+        -----------
+        :param str uri - HTTP URI (e.g. "/api/v1/self") 
+        :param object body 
+
+        RETURN
+        -----------
+        :return APIResponse
+        """
         try:                 
             url = self._url(uri)
             logger.info(f"apirequest:sending POST request to {url}")

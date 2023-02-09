@@ -17,13 +17,17 @@ def getOrgAssets(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAssets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assets"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgAsset
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assets"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,13 +58,17 @@ def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgAssets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assets/import"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -66,7 +78,7 @@ def getOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIRespo
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAsset
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -74,6 +86,10 @@ def getOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIRespo
     -----------
     :param str org_id
     :param str asset_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assets/{asset_id}"
     query_params={}
@@ -84,7 +100,7 @@ def deleteOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgAsset
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -92,6 +108,10 @@ def deleteOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIRe
     -----------
     :param str org_id
     :param str asset_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assets/{asset_id}"
     query_params={}
@@ -102,7 +122,7 @@ def updateOrgAsset(mist_session:_APISession, org_id:str, asset_id:str, body:obje
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgAsset
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -110,6 +130,10 @@ def updateOrgAsset(mist_session:_APISession, org_id:str, asset_id:str, body:obje
     -----------
     :param str org_id
     :param str asset_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assets/{asset_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

@@ -17,13 +17,17 @@ def getMspSsoRoles(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspSsoRoles
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssoroles"
     query_params={}
@@ -34,13 +38,17 @@ def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/createMspSsoRole
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssoroles"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def deleteMspSsoRoles(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteMspSsoRoles
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def deleteMspSsoRoles(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _
     -----------
     :param str msp_id
     :param str ssorole_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssoroles/{ssorole_id}"
     query_params={}
@@ -68,7 +80,7 @@ def updateMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str, body:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateMspSsoRole
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def updateMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str, body:
     -----------
     :param str msp_id
     :param str ssorole_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssoroles/{ssorole_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

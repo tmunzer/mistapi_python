@@ -17,9 +17,13 @@ def testSiteWlanTwilioSetup(mist_session:_APISession, body:object) -> _APIRespon
     """
     API doc: https://doc.mist-lab.fr/#operation/testSiteWlanTwilioSetup
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/utils/test_twilio"
     resp = mist_session.mist_post(uri=uri, body=body)

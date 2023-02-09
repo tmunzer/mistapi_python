@@ -17,13 +17,17 @@ def getSiteEvpnTopologies(mist_session:_APISession, site_id:str) -> _APIResponse
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteEvpnTopologies
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/evpn_topologies"
     query_params={}
@@ -34,13 +38,17 @@ def createSiteEvpnTopology(mist_session:_APISession, site_id:str, body:object) -
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteEvpnTopology
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/evpn_topologies"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getSiteEvpnTolopogy(mist_session:_APISession, site_id:str, evpn_topology_id:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteEvpnTolopogy
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getSiteEvpnTolopogy(mist_session:_APISession, site_id:str, evpn_topology_id:
     -----------
     :param str site_id
     :param str evpn_topology_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/evpn_topologies/{evpn_topology_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteEvpnTopology
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_
     -----------
     :param str site_id
     :param str evpn_topology_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/evpn_topologies/{evpn_topology_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteEvpnTopology
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_
     -----------
     :param str site_id
     :param str evpn_topology_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/evpn_topologies/{evpn_topology_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

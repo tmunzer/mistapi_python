@@ -17,9 +17,13 @@ def twoFactor(mist_session:_APISession, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/twoFactor
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/login/two_factor"
     resp = mist_session.mist_post(uri=uri, body=body)

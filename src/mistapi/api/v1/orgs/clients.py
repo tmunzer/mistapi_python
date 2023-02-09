@@ -17,7 +17,7 @@ def countOrgClientsWireless(mist_session:_APISession, org_id:str, distinct:str="
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgClientsWireless
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -42,6 +42,10 @@ def countOrgClientsWireless(mist_session:_APISession, org_id:str, distinct:str="
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/clients/count"
     query_params={}
@@ -67,7 +71,7 @@ def searchOrgClientsEvents(mist_session:_APISession, org_id:str, type:str=None, 
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgClientsEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -88,6 +92,10 @@ def searchOrgClientsEvents(mist_session:_APISession, org_id:str, type:str=None, 
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/clients/events/search"
     query_params={}
@@ -109,7 +117,7 @@ def searchOrgClientsWireless(mist_session:_APISession, org_id:str, site_id:str=N
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgClientsWireless
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -136,6 +144,10 @@ def searchOrgClientsWireless(mist_session:_APISession, org_id:str, site_id:str=N
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/clients/search"
     query_params={}
@@ -163,7 +175,7 @@ def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distin
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgWirelessClientsSessions
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -187,6 +199,10 @@ def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distin
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/clients/sessions/count"
     query_params={}
@@ -211,7 +227,7 @@ def searchOrgClientWirelessSessions(mist_session:_APISession, org_id:str, ap:str
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgClientWirelessSessions
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -236,6 +252,10 @@ def searchOrgClientWirelessSessions(mist_session:_APISession, org_id:str, ap:str
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/clients/sessions/search"
     query_params={}

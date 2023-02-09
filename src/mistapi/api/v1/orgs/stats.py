@@ -17,7 +17,7 @@ def getOrgStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100,
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -32,6 +32,10 @@ def getOrgStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100,
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats"
     query_params={}
@@ -47,7 +51,7 @@ def getOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:in
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAssetsStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -62,6 +66,10 @@ def getOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:in
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/assets"
     query_params={}
@@ -77,7 +85,7 @@ def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgAssetsByDistanceField
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -88,6 +96,10 @@ def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct
     QUERY PARAMS
     ------------
     :param str distinct(site_id, mac, map_id, ibeacon_uuid, ibeacon_major, ibeacon_minor)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/assets/count"
     query_params={}
@@ -99,7 +111,7 @@ def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgAssets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -127,6 +139,10 @@ def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/assets/search"
     query_params={}
@@ -155,13 +171,17 @@ def countOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgBgpStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/bgp_peers/count"
     query_params={}
@@ -172,13 +192,17 @@ def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgBgpStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/bgp_peers/search"
     query_params={}
@@ -189,7 +213,7 @@ def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgDevicesStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -210,6 +234,10 @@ def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     :param str mac
     :param str evpntopo_id - EVPN Topology ID
     :param str evpn_unused - if `evpn_unused`==`true`, find EVPN eligible switches which don’t belong to any EVPN Topology yet        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/devices"
     query_params={}
@@ -231,7 +259,7 @@ def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgesStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -247,6 +275,10 @@ def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     :param int end
     :param str duration
     :param str for_site(true, false, any) - filter for site level mist edges        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/mxedges"
     query_params={}
@@ -263,7 +295,7 @@ def getOrgMxEdgeStats(mist_session:_APISession, org_id:str, mxedge_id:str) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -271,6 +303,10 @@ def getOrgMxEdgeStats(mist_session:_APISession, org_id:str, mxedge_id:str) -> _A
     -----------
     :param str org_id
     :param str mxedge_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/mxedges/{mxedge_id}"
     query_params={}
@@ -281,7 +317,7 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgSwOrGwPorts
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -324,6 +360,10 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/ports/search"
     query_params={}
@@ -367,7 +407,7 @@ def countOrgByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, org_id:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgByDisctinctAttributesOfSwitchPorts
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -408,6 +448,10 @@ def countOrgByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, org_id:
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/switch_ports/count"
     query_params={}
@@ -449,7 +493,7 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str=None
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgTunnelsStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -462,6 +506,10 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str=None
     :param str distinct(auth_algo) - - If `type`==`wxtunnel`: wxtunnel_id / ap / remote_ip / remote_port / state / mxedge_id / mxcluster_id / site_id / peer_mxedge_id; default is wxtunnel_id 
 - If `type`==`wan`: mac / site_id / node / peer_ip / peer_host/ ip / tunnel_name / protocol / auth_algo / encrypt_algo / ike_version / last_event / up
     :param str type(wxtunnel, wan)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/tunnels/count"
     query_params={}
@@ -474,7 +522,7 @@ def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgTunnelsStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -504,6 +552,10 @@ def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/tunnels/search"
     query_params={}
@@ -534,7 +586,7 @@ def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=Non
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgPeerPathStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -550,6 +602,10 @@ def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=Non
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/vpn_peers/count"
     query_params={}
@@ -566,7 +622,7 @@ def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None,
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgPeerPathStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -580,6 +636,10 @@ def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None,
     :param int end
     :param str duration
     :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/stats/vpn_peers/search"
     query_params={}

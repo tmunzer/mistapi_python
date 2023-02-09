@@ -17,13 +17,17 @@ def getSiteSetting(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSetting
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/setting"
     query_params={}
@@ -34,13 +38,17 @@ def updateSiteSettings(mist_session:_APISession, site_id:str, body:object) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteSettings
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/setting"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -50,13 +58,17 @@ def deleteSiteClientsBlocklist(mist_session:_APISession, site_id:str) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteClientsBlocklist
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/setting/blacklist"
     query_params={}
@@ -67,13 +79,17 @@ def createSiteClientsBlocklist(mist_session:_APISession, site_id:str, body:objec
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteClientsBlocklist
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/setting/blacklist"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -83,13 +99,17 @@ def deleteSiteWatchedStations(mist_session:_APISession, site_id:str) -> _APIResp
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteWatchedStations
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/setting/watched_station"
     query_params={}
@@ -100,13 +120,17 @@ def createSiteWatchedStations(mist_session:_APISession, site_id:str, body:object
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteWatchedStations
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/setting/watched_station"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -116,13 +140,17 @@ def deleteSiteClientsAllowlist(mist_session:_APISession, site_id:str) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteClientsAllowlist
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/setting/whitelist"
     query_params={}
@@ -133,13 +161,17 @@ def createSiteClientsAllowlist(mist_session:_APISession, site_id:str, body:objec
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteClientsAllowlist
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/setting/whitelist"
     resp = mist_session.mist_post(uri=uri, body=body)

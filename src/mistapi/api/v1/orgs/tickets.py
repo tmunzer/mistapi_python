@@ -17,7 +17,7 @@ def getOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgTickets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -30,6 +30,10 @@ def getOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/tickets"
     query_params={}
@@ -43,13 +47,17 @@ def createOrgTicket(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgTicket
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/tickets"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -59,7 +67,7 @@ def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status")
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgTickets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -70,6 +78,10 @@ def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status")
     QUERY PARAMS
     ------------
     :param str distinct(status, type)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/tickets/count"
     query_params={}
@@ -81,7 +93,7 @@ def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgTicket
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -89,6 +101,10 @@ def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str) -> _APIRes
     -----------
     :param str org_id
     :param str ticket_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}"
     query_params={}
@@ -99,7 +115,7 @@ def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:ob
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgTicket
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -107,6 +123,10 @@ def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:ob
     -----------
     :param str org_id
     :param str ticket_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -116,7 +136,7 @@ def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, bod
     """
     API doc: https://doc.mist-lab.fr/#operation/addOrgTicketComment
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -124,6 +144,10 @@ def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, bod
     -----------
     :param str org_id
     :param str ticket_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}/comments"
     resp = mist_session.mist_post(uri=uri, body=body)

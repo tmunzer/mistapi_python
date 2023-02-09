@@ -17,7 +17,7 @@ def getOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:i
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgJsiDevices
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -32,6 +32,10 @@ def getOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:i
     :param str model
     :param str serial
     :param str mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/devices"
     query_params={}
@@ -47,13 +51,17 @@ def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/adoptOrgJsiDevice
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/devices/outbound_ssh_cmd"
     query_params={}
@@ -64,7 +72,7 @@ def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgJsiDeviceShellSession
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -72,6 +80,10 @@ def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_
     -----------
     :param str org_id
     :param str device_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/devices/{device_mac}/shell"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -81,7 +93,7 @@ def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, bo
     """
     API doc: https://doc.mist-lab.fr/#operation/upgradeOrgJsiDevice
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -89,6 +101,10 @@ def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, bo
     -----------
     :param str org_id
     :param str device_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/devices/{device_mac}/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -98,7 +114,7 @@ def getOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, 
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgJsiPastPurchases
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -112,6 +128,10 @@ def getOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, 
     :param int page
     :param str model
     :param str serial        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/inventory"
     query_params={}

@@ -17,13 +17,17 @@ def getSiteWxRules(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxRules
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxrules"
     query_params={}
@@ -34,13 +38,17 @@ def createSiteWxRule(mist_session:_APISession, site_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteWxRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxrules"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,13 +58,17 @@ def getSiteWxRulesDerived(mist_session:_APISession, site_id:str) -> _APIResponse
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxRulesDerived
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxrules/derived"
     query_params={}
@@ -67,7 +79,7 @@ def getSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -75,6 +87,10 @@ def getSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str) -> _API
     -----------
     :param str site_id
     :param str wxrules_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxrules/{wxrules_id}"
     query_params={}
@@ -85,7 +101,7 @@ def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteWxRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -93,6 +109,10 @@ def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str) -> _
     -----------
     :param str site_id
     :param str wxrules_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxrules/{wxrules_id}"
     query_params={}
@@ -103,7 +123,7 @@ def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str, body
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteWxRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -111,6 +131,10 @@ def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str, body
     -----------
     :param str site_id
     :param str wxrules_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxrules/{wxrules_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

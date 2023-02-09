@@ -17,7 +17,7 @@ def troubleshootOrgClient(mist_session:_APISession, org_id:str, mac:str=None, si
     """
     API doc: https://doc.mist-lab.fr/#operation/troubleshootOrgClient
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -32,6 +32,10 @@ def troubleshootOrgClient(mist_session:_APISession, org_id:str, mac:str=None, si
     :param int start
     :param int end
     :param str type(wireless, wired, wan) - when troubleshooting site, type of network to troubleshoot        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/troubleshoot"
     query_params={}

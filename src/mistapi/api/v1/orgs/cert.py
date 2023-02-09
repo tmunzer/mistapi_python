@@ -17,13 +17,17 @@ def getOrgCertificates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgCertificates
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/cert"
     query_params={}
@@ -34,13 +38,17 @@ def clearOrgCertificates(mist_session:_APISession, org_id:str, body:object) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/clearOrgCertificates
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/cert/regenerate"
     resp = mist_session.mist_post(uri=uri, body=body)

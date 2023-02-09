@@ -17,13 +17,17 @@ def getOrgAdmins(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAdmins
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/admins"
     query_params={}
@@ -34,7 +38,7 @@ def revokeOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/revokeOrgAdmin
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -42,6 +46,10 @@ def revokeOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str) -> _APIRe
     -----------
     :param str org_id
     :param str admin_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/admins/{admin_id}"
     query_params={}
@@ -52,7 +60,7 @@ def updateOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str, body:obje
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgAdmin
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -60,6 +68,10 @@ def updateOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str, body:obje
     -----------
     :param str org_id
     :param str admin_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/admins/{admin_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

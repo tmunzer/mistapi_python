@@ -17,13 +17,17 @@ def getOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIRespo
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgGuestAuthorizations
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/guests"
     query_params={}
@@ -34,7 +38,7 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgGuestAuthorizations
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -50,6 +54,10 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/guests/count"
     query_params={}
@@ -66,7 +74,7 @@ def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgGuestAuthorization
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -83,6 +91,10 @@ def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:st
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/guests/search"
     query_params={}
@@ -100,7 +112,7 @@ def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgGuestAuthorization
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -108,6 +120,10 @@ def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str
     -----------
     :param str org_id
     :param str guest_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/guests/{guest_mac}"
     query_params={}
@@ -118,7 +134,7 @@ def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgGuestAuthorization
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -126,6 +142,10 @@ def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     -----------
     :param str org_id
     :param str guest_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/guests/{guest_mac}"
     query_params={}
@@ -136,7 +156,7 @@ def updateOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgGuestAuthorization
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -144,6 +164,10 @@ def updateOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     -----------
     :param str org_id
     :param str guest_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/guests/{guest_mac}"
     resp = mist_session.mist_put(uri=uri, body=body)

@@ -17,7 +17,7 @@ def getSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=N
     """
     API doc: https://doc.mist-lab.fr/#operation/getSitePsks
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -32,6 +32,10 @@ def getSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=N
     :param str name
     :param int page
     :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks"
     query_params={}
@@ -47,13 +51,17 @@ def createSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/createSitePsk
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -63,13 +71,17 @@ def updateSitePsks(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSitePsks
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -79,13 +91,17 @@ def importSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/importSitePsk
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks/import"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -95,7 +111,7 @@ def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIRespons
     """
     API doc: https://doc.mist-lab.fr/#operation/getSitePsk
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -103,6 +119,10 @@ def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIRespons
     -----------
     :param str site_id
     :param str psk_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks/{psk_id}"
     query_params={}
@@ -113,7 +133,7 @@ def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResp
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSitePsk
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -121,6 +141,10 @@ def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResp
     -----------
     :param str site_id
     :param str psk_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks/{psk_id}"
     query_params={}
@@ -131,7 +155,7 @@ def updateSitePsk(mist_session:_APISession, site_id:str, psk_id:str, body:object
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSitePsk
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -139,6 +163,10 @@ def updateSitePsk(mist_session:_APISession, site_id:str, psk_id:str, body:object
     -----------
     :param str site_id
     :param str psk_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks/{psk_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

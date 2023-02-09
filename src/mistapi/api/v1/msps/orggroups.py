@@ -17,13 +17,17 @@ def getMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspOrgGroups
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups"
     query_params={}
@@ -34,13 +38,17 @@ def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/createMspOrgGroup
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspOrgGroup
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _AP
     -----------
     :param str msp_id
     :param str orggroup_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteMspOrgGroup
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> 
     -----------
     :param str msp_id
     :param str orggroup_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str, bod
     """
     API doc: https://doc.mist-lab.fr/#operation/updateMspOrgGroup
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str, bod
     -----------
     :param str msp_id
     :param str orggroup_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

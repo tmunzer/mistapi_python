@@ -17,13 +17,17 @@ def getOrgWxRules(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWxRules
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wxrules"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgWxRule(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgWxRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wxrules"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,13 +58,17 @@ def getOrgWxRulesDerived(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWxRulesDerived
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wxrules/derived"
     query_params={}
@@ -67,7 +79,7 @@ def getOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWxRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -75,6 +87,10 @@ def getOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> _APIRe
     -----------
     :param str org_id
     :param str wxrules_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wxrules/{wxrules_id}"
     query_params={}
@@ -85,7 +101,7 @@ def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgWxRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -93,6 +109,10 @@ def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> _AP
     -----------
     :param str org_id
     :param str wxrules_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wxrules/{wxrules_id}"
     query_params={}
@@ -103,7 +123,7 @@ def updateOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str, body:o
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgWxRule
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -111,6 +131,10 @@ def updateOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str, body:o
     -----------
     :param str org_id
     :param str wxrules_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wxrules/{wxrules_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

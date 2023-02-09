@@ -17,13 +17,17 @@ def getOrgAssetFilters(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAssetFilters
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assetfilters"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgAssetFilters(mist_session:_APISession, org_id:str, body:object) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgAssetFilters
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assetfilters"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) 
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgAssetFilter
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) 
     -----------
     :param str org_id
     :param str assetfilter_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assetfilters/{assetfilter_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgAssetFilters(mist_session:_APISession, org_id:str, assetfilter_id:s
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgAssetFilters
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgAssetFilters(mist_session:_APISession, org_id:str, assetfilter_id:s
     -----------
     :param str org_id
     :param str assetfilter_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assetfilters/{assetfilter_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgAssetFilters(mist_session:_APISession, org_id:str, assetfilter_id:s
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgAssetFilters
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgAssetFilters(mist_session:_APISession, org_id:str, assetfilter_id:s
     -----------
     :param str org_id
     :param str assetfilter_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/assetfilters/{assetfilter_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

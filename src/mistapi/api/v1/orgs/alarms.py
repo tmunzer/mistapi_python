@@ -17,13 +17,17 @@ def multiAckOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/multiAckOrgAlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/ack"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -33,13 +37,17 @@ def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/ackOrgAllAlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/ack_all"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -49,7 +57,7 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgAlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -65,6 +73,10 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/count"
     query_params={}
@@ -81,7 +93,7 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgAlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -97,6 +109,10 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type
     :param int end
     :param str duration
     :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/search"
     query_params={}
@@ -113,13 +129,17 @@ def multiUnackOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/multiUnackOrgAlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/unack"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -129,13 +149,17 @@ def unackOrgAllArlarms(mist_session:_APISession, org_id:str, body:object) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/unackOrgAllArlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/unack_all"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -145,7 +169,7 @@ def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:object)
     """
     API doc: https://doc.mist-lab.fr/#operation/ackOrgAlarm
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -153,6 +177,10 @@ def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:object)
     -----------
     :param str org_id
     :param str alarm_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/{alarm_id}/ack"
     resp = mist_session.mist_post(uri=uri, body=body)

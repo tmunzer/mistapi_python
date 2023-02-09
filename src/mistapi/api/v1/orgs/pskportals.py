@@ -17,13 +17,17 @@ def getOrgPskPortals(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgPskPortals
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/pskportals"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgPskPortal
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/pskportals"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgPskPortal
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _
     -----------
     :param str org_id
     :param str pskportal_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/pskportals/{pskportal_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgPskPortal
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -
     -----------
     :param str org_id
     :param str pskportal_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/pskportals/{pskportal_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, b
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgPskPortal
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, b
     -----------
     :param str org_id
     :param str pskportal_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/pskportals/{pskportal_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

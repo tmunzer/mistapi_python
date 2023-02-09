@@ -17,13 +17,17 @@ def getSiteCurrentChannelPlanning(mist_session:_APISession, site_id:str) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentChannelPlanning
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rrm/current"
     query_params={}
@@ -34,7 +38,7 @@ def getSiteCurrentRrmConsiderationsForAnApOnASpecificBand(mist_session:_APISessi
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentRrmConsiderationsForAnApOnASpecificBand
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -43,6 +47,10 @@ def getSiteCurrentRrmConsiderationsForAnApOnASpecificBand(mist_session:_APISessi
     :param str site_id
     :param str device_id
     :param str band - radio band        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rrm/current/devices/{device_id}/band/{band}"
     query_params={}
@@ -53,7 +61,7 @@ def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str, page:int=1
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRrmEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -69,6 +77,10 @@ def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str, page:int=1
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rrm/events"
     query_params={}
@@ -85,13 +97,17 @@ def optimizeSiteRrm(mist_session:_APISession, site_id:str, body:object) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/optimizeSiteRrm
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rrm/optimize"
     resp = mist_session.mist_post(uri=uri, body=body)

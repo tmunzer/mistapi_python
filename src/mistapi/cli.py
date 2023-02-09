@@ -43,7 +43,7 @@ def select_org(mist_session:mistapi.APISession, allow_many=False) -> list:
     and ask to pick one or many. Return the Org ID(s) of the selected
     org(s)
 
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     :param bool allow_many - If user is allowed to select multiple orgs. Default is False
@@ -112,7 +112,7 @@ def select_site(mist_session:mistapi.APISession, org_id=None, allow_many=False) 
     Function to list all the Sites from a Mist Org and ask user to pick one
     or many. Return the Site ID(s) of the selected site(s)
 
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     :param str org_id - Org ID to request
@@ -191,8 +191,7 @@ def save_to_csv(csv_file:str, data:list, fields:list, csv_separator:str=",") -> 
     """ 
     Write a list of lists in a CSV file
 
-
-    PARMS
+    PARAMS
     -----------
     :param str csv_file - path to the CSV file where to save the data
     :param list data - list containing the lists to save
@@ -234,6 +233,8 @@ def pretty_print(response, fields=None):
         data = response
     print("")
     if type(data) is list:  
+        if fields is None:
+            fields = "keys" 
         print(tabulate(data, headers=fields))
     elif type(data) == dict:
         print(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))

@@ -17,13 +17,17 @@ def getOrgMxTunnels(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxTunnels
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxtunnels"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgMxTunnel(mist_session:_APISession, org_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgMxTunnel
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxtunnels"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxTunnel
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> _AP
     -----------
     :param str org_id
     :param str mxtunnel_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxtunnels/{mxtunnel_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgMxTunnel
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> 
     -----------
     :param str org_id
     :param str mxtunnel_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxtunnels/{mxtunnel_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str, bod
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgMxTunnel
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str, bod
     -----------
     :param str org_id
     :param str mxtunnel_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxtunnels/{mxtunnel_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

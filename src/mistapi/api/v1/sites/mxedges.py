@@ -17,13 +17,17 @@ def getSiteMxEdges(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMxEdges
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/mxedges"
     query_params={}
@@ -34,13 +38,17 @@ def createSiteMxEdge(mist_session:_APISession, site_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteMxEdge
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/mxedges"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMxEdge
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> _APIR
     -----------
     :param str site_id
     :param str mxedge_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/mxedges/{mxedge_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteMxEdge
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> _A
     -----------
     :param str site_id
     :param str mxedge_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/mxedges/{mxedge_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str, body:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteMxEdge
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str, body:
     -----------
     :param str site_id
     :param str mxedge_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/mxedges/{mxedge_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -103,7 +123,7 @@ def uploadSiteMxEdgeSupportFiles(mist_session:_APISession, site_id:str, mxedge_i
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadSiteMxEdgeSupportFiles
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -111,6 +131,10 @@ def uploadSiteMxEdgeSupportFiles(mist_session:_APISession, site_id:str, mxedge_i
     -----------
     :param str site_id
     :param str mxedge_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/mxedges/{mxedge_id}/support"
     resp = mist_session.mist_post(uri=uri, body=body)

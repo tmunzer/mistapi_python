@@ -17,9 +17,13 @@ def getApiTokens(mist_session:_APISession) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getApiTokens
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/self/apitokens"
     query_params={}
@@ -30,9 +34,13 @@ def createApiToken(mist_session:_APISession, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createApiToken
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/self/apitokens"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -42,13 +50,17 @@ def deleteApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteApiToken
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str apitoken_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/self/apitokens/{apitoken_id}"
     query_params={}

@@ -17,7 +17,7 @@ def searchMspOrgGroup(mist_session:_APISession, msp_id:str, type:str, q:str=None
     """
     API doc: https://doc.mist-lab.fr/#operation/searchMspOrgGroup
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -33,6 +33,10 @@ def searchMspOrgGroup(mist_session:_APISession, msp_id:str, type:str, q:str=None
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/search"
     query_params={}

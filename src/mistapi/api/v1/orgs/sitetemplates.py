@@ -17,13 +17,17 @@ def getOrgSiteTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSiteTemplates
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitetemplates"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgSiteTemplates(mist_session:_APISession, org_id:str, body:object) ->
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgSiteTemplates
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitetemplates"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSiteTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str
     -----------
     :param str org_id
     :param str sitetemplate_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitetemplates/{sitetemplate_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgSiteTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:
     -----------
     :param str org_id
     :param str sitetemplate_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitetemplates/{sitetemplate_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgSiteTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:
     -----------
     :param str org_id
     :param str sitetemplate_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitetemplates/{sitetemplate_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

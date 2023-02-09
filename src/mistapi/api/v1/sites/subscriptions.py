@@ -17,13 +17,17 @@ def UnsubscribeSite(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/UnsubscribeSite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/subscriptions"
     query_params={}
@@ -34,13 +38,17 @@ def SubscribeSite(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/SubscribeSite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/subscriptions"
     resp = mist_session.mist_post(uri=uri, body=body)

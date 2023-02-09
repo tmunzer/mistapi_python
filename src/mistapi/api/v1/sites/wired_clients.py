@@ -17,7 +17,7 @@ def countSiteClientsWired(mist_session:_APISession, site_id:str, distinct:str="m
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteClientsWired
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -37,6 +37,10 @@ def countSiteClientsWired(mist_session:_APISession, site_id:str, distinct:str="m
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wired_clients/count"
     query_params={}
@@ -57,7 +61,7 @@ def searchSiteClientsWired(mist_session:_APISession, site_id:str, device_mac:str
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteClientsWired
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -78,6 +82,10 @@ def searchSiteClientsWired(mist_session:_APISession, site_id:str, device_mac:str
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wired_clients/search"
     query_params={}

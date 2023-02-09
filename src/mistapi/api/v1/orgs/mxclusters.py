@@ -17,13 +17,17 @@ def getOrgMxEdgeClusters(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeClusters
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxclusters"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgMxEdgeCluster(mist_session:_APISession, org_id:str, body:object) ->
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgMxEdgeCluster
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxclusters"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) 
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeCluster
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) 
     -----------
     :param str org_id
     :param str mxcluster_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxclusters/{mxcluster_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgMxEdgeCluster
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:st
     -----------
     :param str org_id
     :param str mxcluster_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxclusters/{mxcluster_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgMxEdgeCluster
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:st
     -----------
     :param str org_id
     :param str mxcluster_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxclusters/{mxcluster_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

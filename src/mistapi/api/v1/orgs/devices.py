@@ -17,13 +17,17 @@ def getOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgDevices
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices"
     query_params={}
@@ -34,7 +38,7 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str, hostname
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgDevices
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -62,6 +66,10 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str, hostname
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices/count"
     query_params={}
@@ -90,7 +98,7 @@ def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, si
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgDevicesEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -113,6 +121,10 @@ def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, si
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices/events/count"
     query_params={}
@@ -136,7 +148,7 @@ def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, mac:str=None, m
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDevicesEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -155,6 +167,10 @@ def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, mac:str=None, m
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices/events/search"
     query_params={}
@@ -174,7 +190,7 @@ def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgDeviceLastConfigs
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -189,6 +205,10 @@ def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type:
     :param int start
     :param int end
     :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices/last_config/count"
     query_params={}
@@ -204,7 +224,7 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDeviceLastConfigs
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -222,6 +242,10 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type
     :param int end
     :param int limit
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices/last_config/search"
     query_params={}
@@ -240,13 +264,17 @@ def getOrgApsMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgApsMacs
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices/radio_macs"
     query_params={}
@@ -257,7 +285,7 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDevices
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -291,6 +319,10 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices/search"
     query_params={}
@@ -325,13 +357,17 @@ def getOrgMultiSitesDevicesUpgrades(mist_session:_APISession, org_id:str) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMultiSitesDevicesUpgrades
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices/upgrade"
     query_params={}
@@ -342,13 +378,17 @@ def upgradeOrgMultiSitesDevices(mist_session:_APISession, org_id:str, body:objec
     """
     API doc: https://doc.mist-lab.fr/#operation/upgradeOrgMultiSitesDevices
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -358,7 +398,7 @@ def getOrgMultiSitesUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMultiSitesUpgrade
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -366,6 +406,10 @@ def getOrgMultiSitesUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str
     -----------
     :param str org_id
     :param str upgrade_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/devices/upgrade/{upgrade_id}"
     query_params={}

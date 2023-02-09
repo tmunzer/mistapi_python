@@ -17,13 +17,17 @@ def inviteMspAdmin(mist_session:_APISession, msp_id:str, body:object) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/inviteMspAdmin
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/invites"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -33,7 +37,7 @@ def uninviteMspAdmin(mist_session:_APISession, msp_id:str, invite_id:str) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/uninviteMspAdmin
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -41,6 +45,10 @@ def uninviteMspAdmin(mist_session:_APISession, msp_id:str, invite_id:str) -> _AP
     -----------
     :param str msp_id
     :param str invite_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/invites/{invite_id}"
     query_params={}
@@ -51,7 +59,7 @@ def updateMspAdminInvite(mist_session:_APISession, msp_id:str, invite_id:str, bo
     """
     API doc: https://doc.mist-lab.fr/#operation/updateMspAdminInvite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -59,6 +67,10 @@ def updateMspAdminInvite(mist_session:_APISession, msp_id:str, invite_id:str, bo
     -----------
     :param str msp_id
     :param str invite_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/invites/{invite_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

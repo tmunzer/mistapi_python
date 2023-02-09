@@ -17,13 +17,17 @@ def getSiteBeacons(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteBeacons
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/beacons"
     query_params={}
@@ -34,13 +38,17 @@ def createSiteBeacon(mist_session:_APISession, site_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteBeacon
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/beacons"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getSiteBeacon(mist_session:_APISession, site_id:str, beacon_id:str) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteBeacon
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getSiteBeacon(mist_session:_APISession, site_id:str, beacon_id:str) -> _APIR
     -----------
     :param str site_id
     :param str beacon_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/beacons/{beacon_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteSiteBeacons(mist_session:_APISession, site_id:str, beacon_id:str) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteBeacons
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteSiteBeacons(mist_session:_APISession, site_id:str, beacon_id:str) -> _
     -----------
     :param str site_id
     :param str beacon_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/beacons/{beacon_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateSiteBeacons(mist_session:_APISession, site_id:str, beacon_id:str, body
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteBeacons
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateSiteBeacons(mist_session:_APISession, site_id:str, beacon_id:str, body
     -----------
     :param str site_id
     :param str beacon_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/beacons/{beacon_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

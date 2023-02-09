@@ -17,7 +17,7 @@ def getMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int=
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspTickets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -30,6 +30,10 @@ def getMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int=
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/tickets"
     query_params={}
@@ -43,7 +47,7 @@ def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status")
     """
     API doc: https://doc.mist-lab.fr/#operation/countMspTickets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -54,6 +58,10 @@ def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status")
     QUERY PARAMS
     ------------
     :param str distinct(status, type, org_id)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/tickets/count"
     query_params={}

@@ -17,13 +17,17 @@ def getOrgNetworks(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNetworks
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/networks"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgNetwork(mist_session:_APISession, org_id:str, body:object) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgNetwork
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/networks"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNetwork
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> _APIR
     -----------
     :param str org_id
     :param str network_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/networks/{network_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgNetwork
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> _A
     -----------
     :param str org_id
     :param str network_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/networks/{network_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgNetwork(mist_session:_APISession, org_id:str, network_id:str, body:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgNetwork
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgNetwork(mist_session:_APISession, org_id:str, network_id:str, body:
     -----------
     :param str org_id
     :param str network_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/networks/{network_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

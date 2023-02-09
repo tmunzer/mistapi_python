@@ -17,13 +17,17 @@ def getInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getInstallerSites
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites"
     query_params={}
@@ -34,7 +38,7 @@ def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrUpdateInstallerSites
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -42,6 +46,10 @@ def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name
     -----------
     :param str org_id
     :param str site_name        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -51,7 +59,7 @@ def getInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/getInstallerMaps
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -59,6 +67,10 @@ def getInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _AP
     -----------
     :param str org_id
     :param str site_name        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps"
     query_params={}
@@ -69,7 +81,7 @@ def importInstallerMap(mist_session:_APISession, org_id:str, site_name:str, body
     """
     API doc: https://doc.mist-lab.fr/#operation/importInstallerMap
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -77,6 +89,10 @@ def importInstallerMap(mist_session:_APISession, org_id:str, site_name:str, body
     -----------
     :param str org_id
     :param str site_name        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/import"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -86,7 +102,7 @@ def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteInstallerMap
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -95,6 +111,10 @@ def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     :param str org_id
     :param str site_name
     :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/{map_id}"
     query_params={}
@@ -105,7 +125,7 @@ def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     """
     API doc: https://doc.mist-lab.fr/#operation/createInstallerMap
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -114,6 +134,10 @@ def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     :param str org_id
     :param str site_name
     :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/{map_id}"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -123,7 +147,7 @@ def updateInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     """
     API doc: https://doc.mist-lab.fr/#operation/updateInstallerMap
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -132,6 +156,10 @@ def updateInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     :param str org_id
     :param str site_name
     :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/{map_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

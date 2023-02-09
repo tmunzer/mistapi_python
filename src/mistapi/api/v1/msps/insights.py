@@ -17,7 +17,7 @@ def getMspSle(mist_session:_APISession, msp_id:str, metric:str, sle:str=None, du
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspSle
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -30,9 +30,13 @@ def getMspSle(mist_session:_APISession, msp_id:str, metric:str, sle:str=None, du
     ------------
     :param str sle - see /api/v1/const/insight_metrics for more details
     :param str duration
-    :param str interval(10m, 1h)
+    :param str interval
     :param int start
     :param int end        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/insights/{metric}"
     query_params={}

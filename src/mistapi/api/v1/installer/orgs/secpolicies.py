@@ -17,13 +17,17 @@ def getInstallerSecPolicies(mist_session:_APISession, org_id:str) -> _APIRespons
     """
     API doc: https://doc.mist-lab.fr/#operation/getInstallerSecPolicies
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/secpolicies"
     query_params={}

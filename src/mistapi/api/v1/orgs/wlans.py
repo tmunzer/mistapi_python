@@ -17,13 +17,17 @@ def getOrgWlans(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWlans
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgWlan(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgWlan
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgWlanDerived(mist_session:_APISession, org_id:str, resolve:bool=None) -
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWlanDerived
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -61,6 +69,10 @@ def getOrgWlanDerived(mist_session:_APISession, org_id:str, resolve:bool=None) -
     QUERY PARAMS
     ------------
     :param bool resolve - whether to resolve SITE_VARS        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/derived"
     query_params={}
@@ -72,7 +84,7 @@ def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIRespons
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWLAN
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -80,6 +92,10 @@ def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIRespons
     -----------
     :param str org_id
     :param str wlan_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
     query_params={}
@@ -90,7 +106,7 @@ def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResp
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgWlan
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -98,6 +114,10 @@ def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResp
     -----------
     :param str org_id
     :param str wlan_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
     query_params={}
@@ -108,7 +128,7 @@ def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgWlan
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -116,6 +136,10 @@ def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object
     -----------
     :param str org_id
     :param str wlan_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -125,7 +149,7 @@ def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) 
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgWlanPortalImage
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -133,6 +157,10 @@ def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) 
     -----------
     :param str org_id
     :param str wlan_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_image"
     query_params={}
@@ -143,7 +171,7 @@ def uploadOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str, 
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadOrgWlanPortalImage
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -151,6 +179,10 @@ def uploadOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str, 
     -----------
     :param str org_id
     :param str wlan_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_image"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -160,7 +192,7 @@ def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgWlanPortalTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -168,6 +200,10 @@ def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:st
     -----------
     :param str org_id
     :param str wlan_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_template"
     resp = mist_session.mist_put(uri=uri, body=body)

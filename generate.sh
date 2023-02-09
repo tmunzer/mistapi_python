@@ -3,6 +3,7 @@
 if [ ! $1 ]
 then
     echo "Missing version"
+    exit 0
 fi
 
 echo "Updating OPENAPI local repo"

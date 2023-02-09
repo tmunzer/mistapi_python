@@ -17,13 +17,17 @@ def getOrgRfTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgRfTemplates
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/rftemplates"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgRfTemplate(mist_session:_APISession, org_id:str, body:object) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgRfTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/rftemplates"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str) ->
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgRfTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str) ->
     -----------
     :param str org_id
     :param str rftemplate_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/rftemplates/{rftemplate_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str)
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgRfTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str)
     -----------
     :param str org_id
     :param str rftemplate_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/rftemplates/{rftemplate_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str,
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgRfTemplate
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str,
     -----------
     :param str org_id
     :param str rftemplate_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/rftemplates/{rftemplate_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

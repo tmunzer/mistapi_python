@@ -17,7 +17,7 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgInventory
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -35,6 +35,10 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     :param str vc_mac
     :param str vc
     :param bool unassigned        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory"
     query_params={}
@@ -53,13 +57,17 @@ def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/addOrgInventory
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -69,13 +77,17 @@ def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:obje
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgInventoryAssignment
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -85,13 +97,17 @@ def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str, body:objec
     """
     API doc: https://doc.mist-lab.fr/#operation/reevaluateOrgAutoAssignment
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory/reevaluate_auto_assignment"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -101,13 +117,17 @@ def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/replaceOrgDevices
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory/replace"
     resp = mist_session.mist_post(uri=uri, body=body)

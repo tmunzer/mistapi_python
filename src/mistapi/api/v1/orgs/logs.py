@@ -17,7 +17,7 @@ def getOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_nam
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgLogs
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -35,6 +35,10 @@ def getOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_nam
     :param int limit
     :param int page
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/logs"
     query_params={}
@@ -53,7 +57,7 @@ def countOrgLogsByDistinctAttributes(mist_session:_APISession, org_id:str, disti
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgLogsByDistinctAttributes
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -73,6 +77,10 @@ def countOrgLogsByDistinctAttributes(mist_session:_APISession, org_id:str, disti
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/logs/count"
     query_params={}

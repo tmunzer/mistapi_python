@@ -17,13 +17,17 @@ def getOrgSsoRoles(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSsoRoles
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/ssoroles"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgSsoRole(mist_session:_APISession, org_id:str, body:object) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgSsoRole
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/ssoroles"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSsoRole
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIR
     -----------
     :param str org_id
     :param str ssorole_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/ssoroles/{ssorole_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgSsoRoles(mist_session:_APISession, org_id:str, ssorole_id:str) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgSsoRoles
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgSsoRoles(mist_session:_APISession, org_id:str, ssorole_id:str) -> _
     -----------
     :param str org_id
     :param str ssorole_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/ssoroles/{ssorole_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str, body:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgSsoRole
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str, body:
     -----------
     :param str org_id
     :param str ssorole_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/ssoroles/{ssorole_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

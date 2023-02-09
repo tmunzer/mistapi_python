@@ -17,7 +17,7 @@ def getMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_name
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspLogs
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -30,6 +30,10 @@ def getMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_name
     :param str org_id
     :param str admin_name - admin name or email
     :param str message        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/logs"
     query_params={}
@@ -43,7 +47,7 @@ def countMspLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_name"
     """
     API doc: https://doc.mist-lab.fr/#operation/countMspLogs
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -54,6 +58,10 @@ def countMspLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_name"
     QUERY PARAMS
     ------------
     :param str distinct(admin_id, admin_name, message, org_id)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/logs/count"
     query_params={}

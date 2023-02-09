@@ -17,7 +17,7 @@ def countSiteZoneSessions(mist_session:_APISession, site_id:str, zone_type:str, 
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteZoneSessions
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -38,6 +38,10 @@ def countSiteZoneSessions(mist_session:_APISession, site_id:str, zone_type:str, 
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/{zone_type}/count"
     query_params={}

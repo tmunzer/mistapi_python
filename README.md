@@ -167,7 +167,7 @@ Help on function getOrgStats in module mistapi.api.v1.orgs.stats:
 getOrgStats(mist_session: mistapi.__api_session.APISession, org_id: str, page: int = 1, limit: int = 100, start: int = None, end: int = None, duration: str = '1d') -> mistapi.__api_response.APIResponse
     API doc: https://doc.mist-lab.fr/#operation/getOrgStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -182,4 +182,8 @@ getOrgStats(mist_session: mistapi.__api_session.APISession, org_id: str, page: i
     :param int start
     :param int end
     :param str duration(1d, 1h, 10m)
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
 ```

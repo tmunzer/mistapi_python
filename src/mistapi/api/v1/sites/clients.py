@@ -17,7 +17,7 @@ def countSiteByDistinctAttributesOfClients(mist_session:_APISession, site_id:str
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDistinctAttributesOfClients
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -41,6 +41,10 @@ def countSiteByDistinctAttributesOfClients(mist_session:_APISession, site_id:str
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/count"
     query_params={}
@@ -65,13 +69,17 @@ def disconnectSiteMultipleClients(mist_session:_APISession, site_id:str, body:ob
     """
     API doc: https://doc.mist-lab.fr/#operation/disconnectSiteMultipleClients
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/disconnect"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -81,7 +89,7 @@ def countSiteByDistinctAttributesOfClientsEvents(mist_session:_APISession, site_
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDistinctAttributesOfClientsEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -104,6 +112,10 @@ def countSiteByDistinctAttributesOfClientsEvents(mist_session:_APISession, site_
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/events/count"
     query_params={}
@@ -127,7 +139,7 @@ def searchSiteClientsEvents(mist_session:_APISession, site_id:str, type:str=None
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteClientsEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -148,6 +160,10 @@ def searchSiteClientsEvents(mist_session:_APISession, site_id:str, type:str=None
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/events/search"
     query_params={}
@@ -169,7 +185,7 @@ def searchSiteClientsWireless(mist_session:_APISession, site_id:str, mac:str=Non
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteClientsWireless
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -192,6 +208,10 @@ def searchSiteClientsWireless(mist_session:_APISession, site_id:str, mac:str=Non
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/search"
     query_params={}
@@ -215,7 +235,7 @@ def countSiteByDistinctAttributesOfClientSessions(mist_session:_APISession, site
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDistinctAttributesOfClientSessions
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -239,6 +259,10 @@ def countSiteByDistinctAttributesOfClientSessions(mist_session:_APISession, site
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/sessions/count"
     query_params={}
@@ -263,7 +287,7 @@ def searchSiteClientWirelessSessions(mist_session:_APISession, site_id:str, ap:s
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteClientWirelessSessions
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -288,6 +312,10 @@ def searchSiteClientWirelessSessions(mist_session:_APISession, site_id:str, ap:s
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/sessions/search"
     query_params={}
@@ -313,13 +341,17 @@ def unauthorizeSiteMultipleClients(mist_session:_APISession, site_id:str, body:o
     """
     API doc: https://doc.mist-lab.fr/#operation/unauthorizeSiteMultipleClients
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/unauthorize"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -329,7 +361,7 @@ def disconnectSiteClient(mist_session:_APISession, site_id:str, client_mac:str, 
     """
     API doc: https://doc.mist-lab.fr/#operation/disconnectSiteClient
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -337,6 +369,10 @@ def disconnectSiteClient(mist_session:_APISession, site_id:str, client_mac:str, 
     -----------
     :param str site_id
     :param str client_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/{client_mac}/disconnect"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -346,7 +382,7 @@ def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteEventsForClient
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -368,6 +404,10 @@ def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str
     :param int page
     :param int limit
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/{client_mac}/events"
     query_params={}
@@ -389,7 +429,7 @@ def unauthorizeSiteClient(mist_session:_APISession, site_id:str, client_mac:str,
     """
     API doc: https://doc.mist-lab.fr/#operation/unauthorizeSiteClient
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -397,6 +437,10 @@ def unauthorizeSiteClient(mist_session:_APISession, site_id:str, client_mac:str,
     -----------
     :param str site_id
     :param str client_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/{client_mac}/unauthorize"
     resp = mist_session.mist_post(uri=uri, body=body)

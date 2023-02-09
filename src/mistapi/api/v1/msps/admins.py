@@ -17,13 +17,17 @@ def getMspAdmins(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspAdmins
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/admins"
     query_params={}
@@ -34,7 +38,7 @@ def getMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> _APIRespo
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspAdmin
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -42,6 +46,10 @@ def getMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> _APIRespo
     -----------
     :param str msp_id
     :param str admin_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/admins/{admin_id}"
     query_params={}
@@ -52,7 +60,7 @@ def revokeMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/revokeMspAdmin
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -60,6 +68,10 @@ def revokeMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> _APIRe
     -----------
     :param str msp_id
     :param str admin_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/admins/{admin_id}"
     query_params={}
@@ -70,7 +82,7 @@ def updateMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str, body:obje
     """
     API doc: https://doc.mist-lab.fr/#operation/updateMspAdmin
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -78,6 +90,10 @@ def updateMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str, body:obje
     -----------
     :param str msp_id
     :param str admin_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/admins/{admin_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

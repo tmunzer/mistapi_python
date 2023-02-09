@@ -17,13 +17,17 @@ def getOrgApiTokens(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgApiTokens
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/apitokens"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgApiToken(mist_session:_APISession, org_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgApiToken
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/apitokens"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgApiToken
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> _AP
     -----------
     :param str org_id
     :param str apitoken_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/apitokens/{apitoken_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgApiToken
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> 
     -----------
     :param str org_id
     :param str apitoken_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/apitokens/{apitoken_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str, bod
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgApiToken
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str, bod
     -----------
     :param str org_id
     :param str apitoken_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/apitokens/{apitoken_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

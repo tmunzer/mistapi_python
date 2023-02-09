@@ -17,13 +17,17 @@ def verifyRecoverPasssword(mist_session:_APISession, token:str, body:object) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/verifyRecoverPasssword
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str token        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/recover/verify/{token}"
     resp = mist_session.mist_post(uri=uri, body=body)

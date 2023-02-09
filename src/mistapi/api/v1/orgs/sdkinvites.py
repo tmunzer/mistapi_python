@@ -17,13 +17,17 @@ def getSdkInvites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSdkInvites
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sdkinvites"
     query_params={}
@@ -34,13 +38,17 @@ def createSdkInvite(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/createSdkInvite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sdkinvites"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/getSdkInvite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _API
     -----------
     :param str org_id
     :param str sdkinvite_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sdkinvites/{sdkinvite_id}"
     query_params={}
@@ -68,7 +80,7 @@ def revokeSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/revokeSdkInvite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def revokeSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _
     -----------
     :param str org_id
     :param str sdkinvite_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sdkinvites/{sdkinvite_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str, body
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSdkInvite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str, body
     -----------
     :param str org_id
     :param str sdkinvite_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sdkinvites/{sdkinvite_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -103,7 +123,7 @@ def sendSdkInviteEmail(mist_session:_APISession, org_id:str, sdkinvite_id:str, b
     """
     API doc: https://doc.mist-lab.fr/#operation/sendSdkInviteEmail
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -111,6 +131,10 @@ def sendSdkInviteEmail(mist_session:_APISession, org_id:str, sdkinvite_id:str, b
     -----------
     :param str org_id
     :param str sdkinvite_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sdkinvites/{sdkinvite_id}/email"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -120,7 +144,7 @@ def getSdkInviteQrCode(mist_session:_APISession, org_id:str, sdkinvite_id:str) -
     """
     API doc: https://doc.mist-lab.fr/#operation/getSdkInviteQrCode
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -128,6 +152,10 @@ def getSdkInviteQrCode(mist_session:_APISession, org_id:str, sdkinvite_id:str) -
     -----------
     :param str org_id
     :param str sdkinvite_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sdkinvites/{sdkinvite_id}/qrcode"
     query_params={}
@@ -138,7 +166,7 @@ def sendSdkInviteSms(mist_session:_APISession, org_id:str, sdkinvite_id:str, bod
     """
     API doc: https://doc.mist-lab.fr/#operation/sendSdkInviteSms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -146,6 +174,10 @@ def sendSdkInviteSms(mist_session:_APISession, org_id:str, sdkinvite_id:str, bod
     -----------
     :param str org_id
     :param str sdkinvite_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sdkinvites/{sdkinvite_id}/sms"
     resp = mist_session.mist_post(uri=uri, body=body)

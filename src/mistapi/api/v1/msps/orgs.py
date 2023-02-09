@@ -17,13 +17,17 @@ def getMspOrgs(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspOrgs
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs"
     query_params={}
@@ -34,13 +38,17 @@ def createMspOrg(mist_session:_APISession, msp_id:str, body:object) -> _APIRespo
     """
     API doc: https://doc.mist-lab.fr/#operation/createMspOrg
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,13 +58,17 @@ def manageMspOrgs(mist_session:_APISession, msp_id:str, body:object) -> _APIResp
     """
     API doc: https://doc.mist-lab.fr/#operation/manageMspOrgs
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -66,7 +78,7 @@ def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str=None, org_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/searchMspOrgs
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -82,6 +94,10 @@ def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str=None, org_id:st
     :param bool trial_enabled - if this org is under trial period
     :param list usage_types - a list of types that enabled by usage
     :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs/search"
     query_params={}
@@ -98,7 +114,7 @@ def getMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspOrg
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -106,6 +122,10 @@ def getMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIResponse:
     -----------
     :param str msp_id
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs/{org_id}"
     query_params={}

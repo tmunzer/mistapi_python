@@ -17,7 +17,7 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteRogueEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -39,6 +39,10 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rogues/events/count"
     query_params={}
@@ -61,7 +65,7 @@ def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, 
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteRogueEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -81,6 +85,10 @@ def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, 
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rogues/events/search"
     query_params={}
@@ -101,7 +109,7 @@ def getSiteRogueAP(mist_session:_APISession, site_id:str, rogue_bssid:str) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRogueAP
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -109,6 +117,10 @@ def getSiteRogueAP(mist_session:_APISession, site_id:str, rogue_bssid:str) -> _A
     -----------
     :param str site_id
     :param str rogue_bssid        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rogues/{rogue_bssid}"
     query_params={}
@@ -119,7 +131,7 @@ def deauthSiteClientsConnectedToARogue(mist_session:_APISession, site_id:str, ro
     """
     API doc: https://doc.mist-lab.fr/#operation/deauthSiteClientsConnectedToARogue
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -127,6 +139,10 @@ def deauthSiteClientsConnectedToARogue(mist_session:_APISession, site_id:str, ro
     -----------
     :param str site_id
     :param str rogue_bssid        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rogues/{rogue_bssid}/deauth_clients"
     resp = mist_session.mist_post(uri=uri, body=body)

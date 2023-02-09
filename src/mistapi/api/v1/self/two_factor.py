@@ -17,13 +17,17 @@ def generateQrCodeForVerification(mist_session:_APISession, by:str="qrcode") -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/generateQrCodeForVerification
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     QUERY PARAMS
     ------------
     :param str by(qrcode)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/self/two_factor/token"
     query_params={}
@@ -35,9 +39,13 @@ def verifyTwoFactor(mist_session:_APISession, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/verifyTwoFactor
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/self/two_factor/verify"
     resp = mist_session.mist_post(uri=uri, body=body)

@@ -17,7 +17,7 @@ def getOrgJuniperDevicesCommand(mist_session:_APISession, org_id:str, site_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgJuniperDevicesCommand
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -28,6 +28,10 @@ def getOrgJuniperDevicesCommand(mist_session:_APISession, org_id:str, site_id:st
     QUERY PARAMS
     ------------
     :param str site_id - site_id would be used for proxy config check of the site and automatic site assignment        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/ocdevices/outbound_ssh_cmd"
     query_params={}

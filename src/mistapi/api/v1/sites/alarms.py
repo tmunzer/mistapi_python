@@ -17,13 +17,17 @@ def multiAckSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/multiAckSiteAlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/ack"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -33,13 +37,17 @@ def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/ackSiteAllAlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/ack_all"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -49,7 +57,7 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteAlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -70,6 +78,10 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/count"
     query_params={}
@@ -91,7 +103,7 @@ def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_a
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteAlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -110,6 +122,10 @@ def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_a
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/search"
     query_params={}
@@ -129,13 +145,17 @@ def multiUnackSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/multiUnackSiteAlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/unack"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -145,13 +165,17 @@ def unackSiteAllArlarms(mist_session:_APISession, site_id:str, body:object) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/unackSiteAllArlarms
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/unack_all"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -161,7 +185,7 @@ def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:objec
     """
     API doc: https://doc.mist-lab.fr/#operation/ackSiteAlarm
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -169,6 +193,10 @@ def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:objec
     -----------
     :param str site_id
     :param str alarm_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/{alarm_id}/ack"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -178,7 +206,7 @@ def unackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:obj
     """
     API doc: https://doc.mist-lab.fr/#operation/unackSiteAlarm
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -186,6 +214,10 @@ def unackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:obj
     -----------
     :param str site_id
     :param str alarm_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/{alarm_id}/unack"
     resp = mist_session.mist_post(uri=uri, body=body)

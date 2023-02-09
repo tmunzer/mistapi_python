@@ -17,13 +17,17 @@ def getSiteAssets(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assets"
     query_params={}
@@ -34,13 +38,17 @@ def createSiteAsset(mist_session:_APISession, site_id:str, body:object) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteAsset
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assets"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,13 +58,17 @@ def importSiteAssets(mist_session:_APISession, site_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteAssets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assets/import"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -66,7 +78,7 @@ def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAsset
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -74,6 +86,10 @@ def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIRes
     -----------
     :param str site_id
     :param str asset_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assets/{asset_id}"
     query_params={}
@@ -84,7 +100,7 @@ def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteAsset
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -92,6 +108,10 @@ def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _API
     -----------
     :param str site_id
     :param str asset_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assets/{asset_id}"
     query_params={}
@@ -102,7 +122,7 @@ def updateSiteAsset(mist_session:_APISession, site_id:str, asset_id:str, body:ob
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteAsset
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -110,6 +130,10 @@ def updateSiteAsset(mist_session:_APISession, site_id:str, asset_id:str, body:ob
     -----------
     :param str site_id
     :param str asset_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/assets/{asset_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

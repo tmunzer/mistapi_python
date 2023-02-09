@@ -17,13 +17,17 @@ def optimizeInstallerRrm(mist_session:_APISession, site_name:str) -> _APIRespons
     """
     API doc: https://doc.mist-lab.fr/#operation/optimizeInstallerRrm
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_name        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/sites/{site_name}/optimize"
     query_params={}

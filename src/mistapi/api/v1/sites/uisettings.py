@@ -17,13 +17,17 @@ def getSiteCurdSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCurdSettings
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/uisettings"
     query_params={}
@@ -34,13 +38,17 @@ def createSiteCurdSettings(mist_session:_APISession, site_id:str, body:object) -
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteCurdSettings
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/uisettings"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,13 +58,17 @@ def getSiteDerivedCurdSetting(mist_session:_APISession, site_id:str) -> _APIResp
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDerivedCurdSetting
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/uisettings/derived"
     query_params={}
@@ -67,7 +79,7 @@ def getSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str) 
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCurdSetting
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -75,6 +87,10 @@ def getSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str) 
     -----------
     :param str site_id
     :param str uisetting_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/uisettings/{uisetting_id}"
     query_params={}
@@ -85,7 +101,7 @@ def deleteSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteCurdSetting
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -93,6 +109,10 @@ def deleteSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:st
     -----------
     :param str site_id
     :param str uisetting_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/uisettings/{uisetting_id}"
     query_params={}
@@ -103,7 +123,7 @@ def updateSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteCurdSetting
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -111,6 +131,10 @@ def updateSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:st
     -----------
     :param str site_id
     :param str uisetting_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/uisettings/{uisetting_id}"
     resp = mist_session.mist_post(uri=uri, body=body)

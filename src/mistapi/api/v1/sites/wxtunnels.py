@@ -17,13 +17,17 @@ def getSiteWxTunnels(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxTunnels
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtunnels"
     query_params={}
@@ -34,13 +38,17 @@ def createSiteWxTunnel(mist_session:_APISession, site_id:str, body:object) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteWxTunnel
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtunnels"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxTunnel
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> _
     -----------
     :param str site_id
     :param str wxtunnel_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtunnels/{wxtunnel_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteWxTunnel
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -
     -----------
     :param str site_id
     :param str wxtunnel_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtunnels/{wxtunnel_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str, b
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteWxTunnel
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str, b
     -----------
     :param str site_id
     :param str wxtunnel_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtunnels/{wxtunnel_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

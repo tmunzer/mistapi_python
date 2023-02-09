@@ -17,13 +17,17 @@ def getOrgSettings(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSettings
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting"
     query_params={}
@@ -34,13 +38,17 @@ def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgSettings
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -50,13 +58,17 @@ def deleteOrgClientsBlocklist(mist_session:_APISession, org_id:str) -> _APIRespo
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgClientsBlocklist
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/blacklist"
     query_params={}
@@ -67,13 +79,17 @@ def createOrgClientsBlocklist(mist_session:_APISession, org_id:str, body:object)
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgClientsBlocklist
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/blacklist"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -83,13 +99,17 @@ def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, bo
     """
     API doc: https://doc.mist-lab.fr/#operation/setupOrgCradlepointConnectionToMist
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/cradlepoint/setup"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -99,13 +119,17 @@ def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str, body:object)
     """
     API doc: https://doc.mist-lab.fr/#operation/syncOrgCradlepointRouters
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/cradlepoint/sync"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -115,13 +139,17 @@ def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:ob
     """
     API doc: https://doc.mist-lab.fr/#operation/linkOrgToJuniperJuniperAccount
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/juniper/link_accounts"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -131,13 +159,17 @@ def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/unlinkOrgFromJuniperCustomerId
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/juniper/linked_account"
     query_params={}
@@ -148,13 +180,17 @@ def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _AP
     """
     API doc: https://doc.mist-lab.fr/#operation/setOrgCustomBucket
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/pcap_bucket/setup"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -164,13 +200,17 @@ def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/verifyOrgCustomBucket
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/pcap_bucket/verify"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -180,7 +220,7 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgOauthAppLinkedStatus
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -192,6 +232,10 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     QUERY PARAMS
     ------------
     :param str forward - Mist portal url to which backend needs to redirect after succesful OAuth authorization. **Required** to get the `authorization_url`        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link"
     query_params={}
@@ -203,7 +247,7 @@ def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_nam
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgOauthAppAuthorization
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -211,6 +255,10 @@ def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_nam
     -----------
     :param str org_id
     :param str app_name - OAuth application name (Example : zoom, teams, etc..)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link"
     query_params={}

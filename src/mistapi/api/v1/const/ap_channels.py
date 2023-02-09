@@ -17,13 +17,17 @@ def getApChannels(mist_session:_APISession, country_code:str=None) -> _APIRespon
     """
     API doc: https://doc.mist-lab.fr/#operation/getApChannels
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     QUERY PARAMS
     ------------
     :param str country_code        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/const/ap_channels"
     query_params={}

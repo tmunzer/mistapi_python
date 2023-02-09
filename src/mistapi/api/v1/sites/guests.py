@@ -17,7 +17,7 @@ def getSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAllGuestAuthorizations
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -28,6 +28,10 @@ def getSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id
     QUERY PARAMS
     ------------
     :param str wlan_id - UUID of single or multiple (Comma separated) WLAN under Site `site_id` (to filter by WLAN)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/guests"
     query_params={}
@@ -39,7 +43,7 @@ def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteGuestAuthorizations
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -55,6 +59,10 @@ def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/guests/count"
     query_params={}
@@ -71,7 +79,7 @@ def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteGuestAuthorization
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -88,6 +96,10 @@ def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/guests/search"
     query_params={}
@@ -105,7 +117,7 @@ def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:s
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteGuestAuthorization
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -113,6 +125,10 @@ def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:s
     -----------
     :param str site_id
     :param str guest_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/guests/{guest_mac}"
     query_params={}
@@ -123,7 +139,7 @@ def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_ma
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteGuestAuthorization
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -131,6 +147,10 @@ def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_ma
     -----------
     :param str site_id
     :param str guest_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/guests/{guest_mac}"
     query_params={}
@@ -141,7 +161,7 @@ def updateSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_ma
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteGuestAuthorization
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -149,6 +169,10 @@ def updateSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_ma
     -----------
     :param str site_id
     :param str guest_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/guests/{guest_mac}"
     resp = mist_session.mist_put(uri=uri, body=body)

@@ -17,7 +17,7 @@ def getOrgOtherDevices(mist_session:_APISession, org_id:str, vendor:str=None, ma
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgOtherDevices
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -34,6 +34,10 @@ def getOrgOtherDevices(mist_session:_APISession, org_id:str, vendor:str=None, ma
     :param str name
     :param int page
     :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices"
     query_params={}
@@ -51,7 +55,7 @@ def getOrgOtherDevicesStats(mist_session:_APISession, org_id:str, device_mac:str
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgOtherDevicesStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -59,6 +63,10 @@ def getOrgOtherDevicesStats(mist_session:_APISession, org_id:str, device_mac:str
     -----------
     :param str org_id
     :param str device_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices/{device_mac}"
     query_params={}

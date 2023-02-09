@@ -17,7 +17,7 @@ def getSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, lim
     """
     API doc: https://doc.mist-lab.fr/#operation/getSitePacketCaptures
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -33,6 +33,10 @@ def getSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, lim
     :param int end
     :param str duration
     :param str client_mac - optional client mac filter        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/pcaps"
     query_params={}
@@ -49,13 +53,17 @@ def getSiteCapturingStatus(mist_session:_APISession, site_id:str) -> _APIRespons
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCapturingStatus
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/pcaps/capture"
     query_params={}
@@ -66,13 +74,17 @@ def stopSitePacketCapture(mist_session:_APISession, site_id:str) -> _APIResponse
     """
     API doc: https://doc.mist-lab.fr/#operation/stopSitePacketCapture
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/pcaps/capture"
     query_params={}
@@ -83,13 +95,17 @@ def startSitePacketCapture(mist_session:_APISession, site_id:str, body:object) -
     """
     API doc: https://doc.mist-lab.fr/#operation/startSitePacketCapture
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/pcaps/capture"
     resp = mist_session.mist_post(uri=uri, body=body)

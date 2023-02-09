@@ -17,7 +17,7 @@ def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, page:int=1
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSiteRfdiagRecording
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -32,6 +32,10 @@ def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, page:int=1
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags"
     query_params={}
@@ -47,13 +51,17 @@ def startSiteRecording(mist_session:_APISession, site_id:str, body:object) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/startSiteRecording
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -63,7 +71,7 @@ def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str)
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRfdiagRecording
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -71,6 +79,10 @@ def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str)
     -----------
     :param str site_id
     :param str rfdiag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}"
     query_params={}
@@ -81,7 +93,7 @@ def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteRfdiagRecording
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -89,6 +101,10 @@ def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     -----------
     :param str site_id
     :param str rfdiag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}"
     query_params={}
@@ -99,7 +115,7 @@ def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteRfdiagRecording
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -107,6 +123,10 @@ def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     -----------
     :param str site_id
     :param str rfdiag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -116,7 +136,7 @@ def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id
     """
     API doc: https://doc.mist-lab.fr/#operation/downloadSiteRfdiagRecording
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -124,6 +144,10 @@ def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id
     -----------
     :param str site_id
     :param str rfdiag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}/download"
     query_params={}
@@ -134,7 +158,7 @@ def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str
     """
     API doc: https://doc.mist-lab.fr/#operation/stopSiteRfdiagRecording
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -142,6 +166,10 @@ def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str
     -----------
     :param str site_id
     :param str rfdiag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}/stop"
     resp = mist_session.mist_post(uri=uri, body=body)

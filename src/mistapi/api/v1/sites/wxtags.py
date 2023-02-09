@@ -17,13 +17,17 @@ def getSiteWxTags(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxTags
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtags"
     query_params={}
@@ -34,13 +38,17 @@ def createSiteWxTag(mist_session:_APISession, site_id:str, body:object) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteWxTag
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtags"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,13 +58,17 @@ def getSiteApplicationList(mist_session:_APISession, site_id:str) -> _APIRespons
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteApplicationList
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtags/apps"
     query_params={}
@@ -67,7 +79,7 @@ def getSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxTag
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -75,6 +87,10 @@ def getSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _APIRes
     -----------
     :param str site_id
     :param str wxtag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtags/{wxtag_id}"
     query_params={}
@@ -85,7 +101,7 @@ def deleteSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteWxTag
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -93,6 +109,10 @@ def deleteSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _API
     -----------
     :param str site_id
     :param str wxtag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtags/{wxtag_id}"
     query_params={}
@@ -103,7 +123,7 @@ def updateSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str, body:ob
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteWxTag
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -111,6 +131,10 @@ def updateSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str, body:ob
     -----------
     :param str site_id
     :param str wxtag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtags/{wxtag_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -120,7 +144,7 @@ def getSiteCurrentMatchingClientsOfAWxTag(mist_session:_APISession, site_id:str,
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentMatchingClientsOfAWxTag
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -128,6 +152,10 @@ def getSiteCurrentMatchingClientsOfAWxTag(mist_session:_APISession, site_id:str,
     -----------
     :param str site_id
     :param str wxtag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wxtags/{wxtag_id}/clients"
     query_params={}

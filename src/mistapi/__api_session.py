@@ -154,6 +154,8 @@ class APISession(APIRequest):
         """
         Set Mist Cloud to reach.
 
+        PARAMS
+        -----------
         :param str cloud_uri - Mist FQDN to reach ("api.mist.com", "api.eu.mist.com", ...)
         """
         logger.debug(f"apisession:in  > set_cloud")
@@ -215,6 +217,8 @@ class APISession(APIRequest):
         """
         Set the user email
 
+        PARAMS
+        -----------
         :param str email    If no email provided, an interactive input will ask for it
         """
         logger.debug(f"apisession:in  > set_email")
@@ -229,6 +233,8 @@ class APISession(APIRequest):
         """
         Set the user password
 
+        PARAMS
+        -----------
         :param str password    If no password provided, an interactive input will ask for it
         """
         logger.debug(f"apisession:in  > set_password")
@@ -242,6 +248,10 @@ class APISession(APIRequest):
     def set_api_token(self, apitoken: str):
         """
         Set Mist API Token
+
+        PARAMS
+        -----------
+        :param str apitoken
         """
         logger.debug(f"apisession:in  > set_api_token")
         self._apitoken = apitoken
@@ -344,6 +354,8 @@ class APISession(APIRequest):
         during the future API requests.
         If False, clear the CSRF Token and delete the HTTP session.
 
+        PARAMS
+        -----------
         :param bool authentication_status
         """
         logger.debug(f"apisession:in  > _set_authenticated")
@@ -375,6 +387,8 @@ class APISession(APIRequest):
 
     def get_authentication_status(self) -> bool:
         """
+        RETURN
+        -----------
         Return the authentication status.
         """
         logger.debug(f"apisession:in  > get_authentication_status")
@@ -393,6 +407,10 @@ class APISession(APIRequest):
     def create_api_token(self, token_name: str = None):
         """
         Create a new API Token with the current account (user/org)
+
+        PARAMS
+        -----------
+        :param str API token name (optional)
         """
         logger.debug(f"apisession:in  > create_api_token")
         if token_name:
@@ -405,6 +423,10 @@ class APISession(APIRequest):
     def delete_api_token(self, token_id: str):
         """
         Delete an API Token based on its token_id
+
+        PARAMS
+        -----------
+        :param str api token_id
         """
         logger.debug(f"apisession:in  > delete_api_token")
         logger.info(
@@ -418,7 +440,12 @@ class APISession(APIRequest):
         Function called when 2FA is requested by Mist Cloud to authenticate
         with 2FA enabled
 
+        PARAMS
+        -----------
         :param str two_factor - 2FA code to send to the Mist Cloud
+
+        RETURN
+        -----------
         :return bool - True if authentication succeed, False otherwise
         """
         logger.debug(f"apisession:in  > two_factor_authentication")

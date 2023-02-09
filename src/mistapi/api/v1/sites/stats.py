@@ -17,13 +17,17 @@ def getSiteStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats"
     query_params={}
@@ -34,7 +38,7 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteApps
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -48,6 +52,10 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     :param str device_mac - MAC of the device
     :param str app - Application name
     :param str wired - If a device is wired or wireless. Default is False.        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/apps/count"
     query_params={}
@@ -62,7 +70,7 @@ def getSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetsStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -77,6 +85,10 @@ def getSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit:
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets"
     query_params={}
@@ -92,7 +104,7 @@ def getSiteAssetStats(mist_session:_APISession, site_id:str, start:int=None, end
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -105,6 +117,10 @@ def getSiteAssetStats(mist_session:_APISession, site_id:str, start:int=None, end
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets/asset_id"
     query_params={}
@@ -118,7 +134,7 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteAssets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -129,6 +145,10 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     QUERY PARAMS
     ------------
     :param str distinct(mac, map_id, ibeacon_uuid, ibeacon_major, ibeacon_minor, eddystone_uid_namespace, eddystone_uid_instance, eddystone_url, by, name, device_name)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets/count"
     query_params={}
@@ -140,7 +160,7 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteAssets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -168,6 +188,10 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets/search"
     query_params={}
@@ -196,7 +220,7 @@ def getSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limit
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteBeaconsStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -211,6 +235,10 @@ def getSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limit
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/beacons"
     query_params={}
@@ -226,7 +254,7 @@ def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, dis
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteBgpStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -238,6 +266,10 @@ def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, dis
     ------------
     :param str state
     :param str distinct        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/bgp_peers/count"
     query_params={}
@@ -250,13 +282,17 @@ def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteBgpStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/bgp_peers/search"
     query_params={}
@@ -267,7 +303,7 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", a
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteCalls
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -281,6 +317,10 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", a
     :param str app
     :param str start
     :param str end        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/calls/count"
     query_params={}
@@ -295,7 +335,7 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteCalls
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -311,6 +351,10 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/calls/search"
     query_params={}
@@ -323,11 +367,37 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def getSiteClientsStats(mist_session:_APISession, site_id:str, wired:bool=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getSiteClientsStats
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str site_id        
+    
+    QUERY PARAMS
+    ------------
+    :param bool wired        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/stats/clients"
+    query_params={}
+    if wired: query_params["wired"]=wired
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
 def getSiteClientStats(mist_session:_APISession, site_id:str, client_mac:str, wired:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteClientStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -339,6 +409,10 @@ def getSiteClientStats(mist_session:_APISession, site_id:str, client_mac:str, wi
     QUERY PARAMS
     ------------
     :param bool wired        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/clients/{client_mac}"
     query_params={}
@@ -350,7 +424,7 @@ def getSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDevicesStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -367,6 +441,10 @@ def getSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit
     :param str duration
     :param str type(ap, switch, gateways, all)
     :param str status(all, connected, disconnected)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/devices"
     query_params={}
@@ -384,7 +462,7 @@ def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -392,6 +470,10 @@ def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str) -> 
     -----------
     :param str site_id
     :param str device_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/devices/{device_id}"
     query_params={}
@@ -402,7 +484,7 @@ def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAllClientsStatsByDevice
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -410,6 +492,10 @@ def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device
     -----------
     :param str site_id
     :param str device_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/devices/{device_id}/clients"
     query_params={}
@@ -420,7 +506,7 @@ def getSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, l
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDiscoveredAssets
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -435,6 +521,10 @@ def getSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, l
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_assets"
     query_params={}
@@ -450,7 +540,7 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDiscoveredSwitchesMetrics
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -466,6 +556,10 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switch_metrics/search"
     query_params={}
@@ -482,7 +576,7 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteDiscoveredSwitches
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -498,6 +592,10 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/count"
     query_params={}
@@ -514,7 +612,7 @@ def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, thre
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDiscoveredSwitchesMetrics
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -526,6 +624,10 @@ def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, thre
     ------------
     :param str threshold - configurable # ap per switch threshold, default 12
     :param str system_name - system name for switch level metrics, optional        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/metrics"
     query_params={}
@@ -538,7 +640,7 @@ def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDiscoveredSwitches
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -558,6 +660,10 @@ def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/search"
     query_params={}
@@ -578,7 +684,7 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetsOfInterest
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -593,6 +699,10 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     :param int end
     :param int page
     :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/filtered_assets"
     query_params={}
@@ -604,17 +714,21 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteGatwayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse:
+def getSiteGatewayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteGatwayMetrics
+    API doc: https://doc.mist-lab.fr/#operation/getSiteGatewayMetrics
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/gateways/metrics"
     query_params={}
@@ -625,7 +739,7 @@ def getSiteClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, 
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteClientsStatsByMap
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -641,6 +755,10 @@ def getSiteClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, 
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/clients"
     query_params={}
@@ -656,7 +774,7 @@ def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDiscoveredAssetByMap
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -664,6 +782,10 @@ def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:st
     -----------
     :param str site_id
     :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/discovered_assets"
     query_params={}
@@ -674,7 +796,7 @@ def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSdkStatsByMap
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -682,6 +804,10 @@ def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _
     -----------
     :param str site_id
     :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/sdkclients"
     query_params={}
@@ -692,7 +818,7 @@ def getSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteUnconnectedClientStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -700,6 +826,10 @@ def getSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:
     -----------
     :param str site_id
     :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/unconnected_clients"
     query_params={}
@@ -710,13 +840,17 @@ def getSiteMxEdgesStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMxEdgesStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/mxedges"
     query_params={}
@@ -727,7 +861,7 @@ def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteMxEdgeStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -735,6 +869,10 @@ def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str) -> 
     -----------
     :param str site_id
     :param str mxedge_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/mxedges/{mxedge_id}"
     query_params={}
@@ -745,7 +883,7 @@ def countSiteByDisctinctAttributesOPorts(mist_session:_APISession, site_id:str, 
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDisctinctAttributesOPorts
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -786,6 +924,10 @@ def countSiteByDisctinctAttributesOPorts(mist_session:_APISession, site_id:str, 
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/ports/count"
     query_params={}
@@ -827,7 +969,7 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSwOrGwPorts
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -871,6 +1013,10 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/ports/search"
     query_params={}
@@ -915,7 +1061,7 @@ def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSdkStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -923,6 +1069,10 @@ def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> 
     -----------
     :param str site_id
     :param str sdkclient_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/sdkclients/{sdkclient_id}"
     query_params={}
@@ -933,7 +1083,7 @@ def countSiteByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, site_i
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteByDisctinctAttributesOfSwitchPorts
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -974,6 +1124,10 @@ def countSiteByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, site_i
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/switch_ports/count"
     query_params={}
@@ -1015,7 +1169,7 @@ def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSwitchPorts
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -1054,6 +1208,10 @@ def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/switch_ports/search"
     query_params={}
@@ -1093,13 +1251,17 @@ def getSiteAdoptedSwitchesComplianceMetrics(mist_session:_APISession, site_id:st
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAdoptedSwitchesComplianceMetrics
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/switches/metrics"
     query_params={}
@@ -1110,13 +1272,17 @@ def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxRulesUsage
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/wxrules"
     query_params={}
@@ -1127,7 +1293,7 @@ def getSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) ->
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteZonesStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -1138,6 +1304,10 @@ def getSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) ->
     QUERY PARAMS
     ------------
     :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/zones"
     query_params={}
@@ -1149,7 +1319,7 @@ def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_type:str, zone_
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteZoneStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -1158,6 +1328,10 @@ def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_type:str, zone_
     :param str site_id
     :param str zone_type(zones, rssizones)
     :param str zone_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/{zone_type}/{zone_id}"
     query_params={}

@@ -17,13 +17,17 @@ def getOrgWebhooks(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWebhooks
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/webhooks"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgWebhook(mist_session:_APISession, org_id:str, body:object) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgWebhook
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/webhooks"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgWebhook
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _APIR
     -----------
     :param str org_id
     :param str webhook_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/webhooks/{webhook_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _A
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgWebhook
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _A
     -----------
     :param str org_id
     :param str webhook_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/webhooks/{webhook_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str, body:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgWebhook
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str, body:
     -----------
     :param str org_id
     :param str webhook_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/webhooks/{webhook_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

@@ -17,7 +17,7 @@ def getSiteSsrUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> 
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSsrUpgrade
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -25,6 +25,10 @@ def getSiteSsrUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> 
     -----------
     :param str site_id
     :param str upgrade_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/ssr/upgrade/{upgrade_id}"
     query_params={}
@@ -35,7 +39,7 @@ def upgradeSiteSsr(mist_session:_APISession, site_id:str, device_id:str, body:ob
     """
     API doc: https://doc.mist-lab.fr/#operation/upgradeSiteSsr
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -43,6 +47,10 @@ def upgradeSiteSsr(mist_session:_APISession, site_id:str, device_id:str, body:ob
     -----------
     :param str site_id
     :param str device_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/ssr/{device_id}/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)

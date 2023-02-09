@@ -17,7 +17,7 @@ def getOAuth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, fo
     """
     API doc: https://doc.mist-lab.fr/#operation/getOAuth2AuthorizationUrlForLogin
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -28,6 +28,10 @@ def getOAuth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, fo
     QUERY PARAMS
     ------------
     :param str forward        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/login/oauth/{provider}"
     query_params={}
@@ -39,13 +43,17 @@ def unlinkOAuth2Provider(mist_session:_APISession, provider:str) -> _APIResponse
     """
     API doc: https://doc.mist-lab.fr/#operation/unlinkOAuth2Provider
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str provider        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/login/oauth/{provider}"
     query_params={}
@@ -56,13 +64,17 @@ def loginOAuth2(mist_session:_APISession, provider:str, body:object) -> _APIResp
     """
     API doc: https://doc.mist-lab.fr/#operation/loginOAuth2
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str provider        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/login/oauth/{provider}"
     resp = mist_session.mist_post(uri=uri, body=body)

@@ -17,7 +17,7 @@ def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleClassifierDetails
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -34,6 +34,10 @@ def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/classifier/{classifier}/summary"
     query_params={}
@@ -47,7 +51,7 @@ def getSiteSleMetricClassifiers(mist_session:_APISession, site_id:str, scope:str
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleMetricClassifiers
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -57,6 +61,10 @@ def getSiteSleMetricClassifiers(mist_session:_APISession, site_id:str, scope:str
     :param str scope
     :param str scope_id
     :param str metric -  values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/classifiers"
     query_params={}
@@ -67,7 +75,7 @@ def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleHistogram
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -83,6 +91,10 @@ def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/histogram"
     query_params={}
@@ -96,7 +108,7 @@ def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, sc
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactSummary
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -114,6 +126,10 @@ def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, sc
     :param str duration
     :param str fields(wlan, device_type, device_os, band, ap, server, mxedge, switch, client, vlan, interface, chassis, gateway, peer_path, gateway_zones)
     :param str classifier        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impact-summary"
     query_params={}
@@ -129,7 +145,7 @@ def getSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedApplications
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -146,6 +162,10 @@ def getSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope:
     :param int end
     :param str duration
     :param str classifier        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-applications"
     query_params={}
@@ -160,7 +180,7 @@ def getSiteSleImpactedAps(mist_session:_APISession, site_id:str, scope:str, scop
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedAps
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -177,6 +197,10 @@ def getSiteSleImpactedAps(mist_session:_APISession, site_id:str, scope:str, scop
     :param int end
     :param str duration
     :param str classifier        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-aps"
     query_params={}
@@ -191,7 +215,7 @@ def getSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str, 
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedChassis
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -208,6 +232,10 @@ def getSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str, 
     :param int end
     :param str duration
     :param str classifier        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-chassis"
     query_params={}
@@ -222,7 +250,7 @@ def getSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedWiredClients
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -239,6 +267,10 @@ def getSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope:
     :param int end
     :param str duration
     :param str classifier        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-clients"
     query_params={}
@@ -253,7 +285,7 @@ def getSiteSleImpactedGateways(mist_session:_APISession, site_id:str, scope:str,
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedGateways
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -270,6 +302,10 @@ def getSiteSleImpactedGateways(mist_session:_APISession, site_id:str, scope:str,
     :param int end
     :param str duration
     :param str classifier        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-gateways"
     query_params={}
@@ -284,7 +320,7 @@ def getSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:st
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedInterfaces
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -301,6 +337,10 @@ def getSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:st
     :param int end
     :param str duration
     :param str classifier        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-interfaces"
     query_params={}
@@ -315,7 +355,7 @@ def getSiteSleImpactedSwitches(mist_session:_APISession, site_id:str, scope:str,
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedSwitches
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -332,6 +372,10 @@ def getSiteSleImpactedSwitches(mist_session:_APISession, site_id:str, scope:str,
     :param int end
     :param str duration
     :param str classifier        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-switches"
     query_params={}
@@ -346,7 +390,7 @@ def getSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, sco
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleImpactedWirelessClients
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -363,6 +407,10 @@ def getSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, sco
     :param int end
     :param str duration
     :param str classifier        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-users"
     query_params={}
@@ -377,7 +425,7 @@ def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleSummary
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -393,6 +441,10 @@ def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/summary"
     query_params={}
@@ -406,7 +458,7 @@ def getSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSleThreshold
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -416,6 +468,10 @@ def getSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_
     :param str scope
     :param str scope_id
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/threshold"
     query_params={}
@@ -426,7 +482,7 @@ def replaceSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sc
     """
     API doc: https://doc.mist-lab.fr/#operation/replaceSiteSleThreshold
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -436,6 +492,10 @@ def replaceSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sc
     :param str scope
     :param str scope_id
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/threshold"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -445,7 +505,7 @@ def updateSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sco
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteSleThreshold
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -455,6 +515,10 @@ def updateSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sco
     :param str scope
     :param str scope_id
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/threshold"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -464,7 +528,7 @@ def getSiteSlesMetrics(mist_session:_APISession, site_id:str, scope:str, scope_i
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteSlesMetrics
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -473,6 +537,10 @@ def getSiteSlesMetrics(mist_session:_APISession, site_id:str, scope:str, scope_i
     :param str site_id
     :param str scope
     :param str scope_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics"
     query_params={}

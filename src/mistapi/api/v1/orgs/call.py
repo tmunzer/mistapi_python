@@ -17,7 +17,7 @@ def countOrgCallEvents(mist_session:_APISession, org_id:str, distinct:str=None) 
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgCallEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -28,6 +28,10 @@ def countOrgCallEvents(mist_session:_APISession, org_id:str, distinct:str=None) 
     QUERY PARAMS
     ------------
     :param str distinct(type, app)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/call/events/count"
     query_params={}
@@ -39,7 +43,7 @@ def searchOrgCallEvents(mist_session:_APISession, org_id:str, type:str=None, ap:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgCallEvents
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -53,6 +57,10 @@ def searchOrgCallEvents(mist_session:_APISession, org_id:str, type:str=None, ap:
     :param str ap
     :param str mac
     :param str app        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/call/events/search"
     query_params={}

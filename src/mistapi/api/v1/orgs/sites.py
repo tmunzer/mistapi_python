@@ -17,13 +17,17 @@ def getOrgSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSites
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgSite(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgSite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", page:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgSites
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -66,6 +74,10 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", page:
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites/count"
     query_params={}
@@ -82,7 +94,7 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgSites
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -112,6 +124,10 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     :param int start
     :param int end
     :param str duration        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites/search"
     query_params={}
@@ -142,7 +158,7 @@ def importOrgMapToSite(mist_session:_APISession, org_id:str, site_name:str, body
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgMapToSite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -150,6 +166,10 @@ def importOrgMapToSite(mist_session:_APISession, org_id:str, site_name:str, body
     -----------
     :param str org_id
     :param str site_name        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites/{site_name}/maps/import"
     resp = mist_session.mist_post(uri=uri, body=body)

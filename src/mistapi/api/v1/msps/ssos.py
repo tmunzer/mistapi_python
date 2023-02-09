@@ -17,13 +17,17 @@ def getMspSso(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspSso
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssos"
     query_params={}
@@ -34,13 +38,17 @@ def createMspSso(mist_session:_APISession, msp_id:str, body:object) -> _APIRespo
     """
     API doc: https://doc.mist-lab.fr/#operation/createMspSso
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssos"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIRespon
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteMspSso
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIRespon
     -----------
     :param str msp_id
     :param str sso_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}"
     query_params={}
@@ -68,7 +80,7 @@ def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:object) 
     """
     API doc: https://doc.mist-lab.fr/#operation/updateMspSso
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:object) 
     -----------
     :param str msp_id
     :param str sso_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -85,7 +101,7 @@ def getMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) ->
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspSsoLatestFailures
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -93,6 +109,10 @@ def getMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) ->
     -----------
     :param str msp_id
     :param str sso_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}/failures"
     query_params={}
@@ -103,7 +123,7 @@ def getMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspSsoSamlMetadata
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -111,6 +131,10 @@ def getMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _
     -----------
     :param str msp_id
     :param str sso_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}/metadata"
     query_params={}
@@ -121,7 +145,7 @@ def downloadMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str)
     """
     API doc: https://doc.mist-lab.fr/#operation/downloadMspSsoSamlMetadata
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -129,6 +153,10 @@ def downloadMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str)
     -----------
     :param str msp_id
     :param str sso_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}/metadata.xml"
     query_params={}

@@ -12,4 +12,4 @@
 from mistapi.__api_session import APISession
 from mistapi import cli
 from mistapi import api
-from mistapi.__get_next import get_next
+from mistapi.__get_next import get_next, get_all

@@ -17,13 +17,17 @@ def getMspOrgLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspOrgLicenses
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/stats/licenses"
     query_params={}
@@ -34,7 +38,7 @@ def getMspOrgStats(mist_session:_APISession, msp_id:str, page:int=1, limit:int=1
     """
     API doc: https://doc.mist-lab.fr/#operation/getMspOrgStats
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -46,6 +50,10 @@ def getMspOrgStats(mist_session:_APISession, msp_id:str, page:int=1, limit:int=1
     ------------
     :param int page
     :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/stats/orgs"
     query_params={}

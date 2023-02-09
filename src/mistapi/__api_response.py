@@ -19,14 +19,14 @@ class APIResponse:
     """
     Class used to pass API Responses
 
-    Attributes
-    ----------
-    :attr str raw_data - raw HTTP Response payload
-    :attr object data - JSON of the HTTP Response (if possible)
-    :attr object error - HTTP errors (if any)
-    :attr str url - URL of the HTTP Request
-    :attr str url - URI of the HTTP Request
-    :attr int status_code - HTTP Response status code
+    PARAMS
+    -----------
+    :param str raw_data - raw HTTP Response payload
+    :param object data - JSON of the HTTP Response (if possible)
+    :param object error - HTTP errors (if any)
+    :param str url - URL of the HTTP Request
+    :param str url - URI of the HTTP Request
+    :param int status_code - HTTP Response status code
     """
 
     def __init__(self, response:Response, url: str,) -> None:

@@ -17,13 +17,17 @@ def getOrgNacTags(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNacTags
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nactags"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgNacTag(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgNacTag
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nactags"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIRes
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgNacTag
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIRes
     -----------
     :param str org_id
     :param str nactag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nactags/{nactag_id}"
     query_params={}
@@ -68,7 +80,7 @@ def DeleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _API
     """
     API doc: https://doc.mist-lab.fr/#operation/DeleteOrgNacTag
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def DeleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _API
     -----------
     :param str org_id
     :param str nactag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nactags/{nactag_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str, body:ob
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgNacTag
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str, body:ob
     -----------
     :param str org_id
     :param str nactag_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nactags/{nactag_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

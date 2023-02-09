@@ -17,13 +17,17 @@ def verifyAdminInvite(mist_session:_APISession, token:str, body:object) -> _APIR
     """
     API doc: https://doc.mist-lab.fr/#operation/verifyAdminInvite
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str token        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/invite/verify/{token}"
     resp = mist_session.mist_post(uri=uri, body=body)

@@ -17,13 +17,17 @@ def getOrgsVpns(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgsVpns
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/vpns"
     query_params={}
@@ -34,13 +38,17 @@ def createOrgVpns(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgVpns
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/vpns"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -50,7 +58,7 @@ def getOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgVpn
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -58,6 +66,10 @@ def getOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIResponse:
     -----------
     :param str org_id
     :param str vpn_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/vpns/{vpn_id}"
     query_params={}
@@ -68,7 +80,7 @@ def deleteOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIRespon
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgVpn
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -76,6 +88,10 @@ def deleteOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIRespon
     -----------
     :param str org_id
     :param str vpn_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/vpns/{vpn_id}"
     query_params={}
@@ -86,7 +102,7 @@ def updateOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str, body:object) 
     """
     API doc: https://doc.mist-lab.fr/#operation/updateOrgVpn
     
-    PARMS
+    PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
@@ -94,6 +110,10 @@ def updateOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str, body:object) 
     -----------
     :param str org_id
     :param str vpn_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/vpns/{vpn_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
