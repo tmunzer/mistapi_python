@@ -145,7 +145,7 @@ def updateSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def uploadSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> _APIResponse:
+def uploadSiteWlanPortalImageFile(mist_session:_APISession, site_id:str, wlan_id:str, file_path:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadSiteWlanPortalImage
     
@@ -158,13 +158,18 @@ def uploadSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str
     :param str site_id
     :param str wlan_id        
     
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wlans/{wlan_id}/portal_image"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
+    with open(file_path, "rb") as f:    
+        files = {"file": f.read()}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
     
 def updateSiteWlanPortalTemplate(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> _APIResponse:
     """

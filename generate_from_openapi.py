@@ -172,7 +172,7 @@ def _gen_code_params(endpoint_params: list, operation_id: str):
     return code_params, code_params_desc
 
 
-def _gen_description(operation_id: str, desc_path_params: str, desc_query_params: str = ""):
+def _gen_description(operation_id: str, desc_path_params: str, desc_query_params: str = "", with_file:bool=False):
     description = f"""    \"\"\"
     API doc: https://doc.mist-lab.fr/#operation/{operation_id}
     
@@ -190,6 +190,12 @@ def _gen_description(operation_id: str, desc_path_params: str, desc_query_params
     QUERY PARAMS
     ------------{desc_query_params}        
     """
+    if with_file:
+        description += f"""
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    """
     description += """
     RETURN
     -----------
@@ -204,61 +210,6 @@ def _gen_query_code(query_params: list):
         for param in query_params:
             code += f"\r\n    if {param['name']}: query_params[\"{param['name']}\"]={param['name']}"
     return code
-
-
-###########
-# GET NEXT
-def _create_get_next():
-    file_path = os.path.join(root_folder, root_api_folder, "get_next.py")
-    code=f"""{file_header}
-from mistapi import APISession as _APISession
-from mistapi.__api_response import APIResponse as _APIResponse
-
-from mistapi import APISession as _APISession
-from mistapi.__api_response import APIResponse as _APIResponse
-
-def get_next(mist_session: _APISession, response: _APIResponse) -> _APIResponse:
-    \"\"\"
-    Get the next page when previous response does not include all the items
-
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    :param APIResponse response - mistapi previous response to use
-
-    RETURN
-    -----------
-    :return APIResponse - response from the API call passed in parameteer
-    \"\"\"
-    if response.next:
-        return mist_session.mist_get(response.next)
-    else:
-        return None
-
-def get_all(mist_session: _APISession, response: _APIResponse) -> list:
-    \"\"\"
-    Retrieve and return all the items after a first request
-
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    :param APIResponse response - mistapi previous response to use
-
-    RETURN
-    -----------
-    :return list - list of all the items
-    \"\"\"
-    if type(response.data) == list:
-        data = response.data
-        while response.next:
-            response = get_next(mist_session, response)
-            data += response.data
-        return data
-    else:
-        return None
-"""
-    with open(file_path, "w") as f:
-        f.write(code)
 
 ########
 # CRUDS
@@ -306,6 +257,24 @@ def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}
         f.write(code)
 
 
+def _create_post_empty(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, file_name: str):
+    code_path_params, desc_path_params = _gen_code_params(
+        path_params, operation_id)
+    code_desc = _gen_description(operation_id, desc_path_params)
+
+    code = f"""
+def {operation_id}(mist_session:_APISession{code_path_params}) -> _APIResponse:
+{code_desc}
+    uri = f"{endpoint_path}"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+    """
+
+    file = os.path.join(folder_path, file_name)
+    with open(file, "a+") as f:
+        f.write(code)
+
+
 def _create_post(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, file_name: str):
     code_path_params, desc_path_params = _gen_code_params(
         path_params, operation_id)
@@ -317,6 +286,24 @@ def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _
     uri = f"{endpoint_path}"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
+    """
+
+    file = os.path.join(folder_path, file_name)
+    with open(file, "a+") as f:
+        f.write(code)
+
+
+def _create_post_file(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, file_name: str):
+    code_path_params, desc_path_params = _gen_code_params(
+        path_params, operation_id)
+    code_desc = _gen_description(operation_id, desc_path_params, with_file=True)
+    code = f"""
+def {operation_id}File(mist_session:_APISession{code_path_params}, file_path:str) -> _APIResponse:
+{code_desc}
+    uri = f"{endpoint_path}"
+    with open(file_path, "rb") as f:    
+        files = {{"file": f.read()}}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
     """
 
     file = os.path.join(folder_path, file_name)
@@ -415,13 +402,33 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
         )
     if endpoint_data.get("post"):
         operation_id = endpoint_data["post"]['operationId']
-        _create_post(
-            operation_id,
-            endpoint_path,
-            path_params,
-            folder_path,
-            f"{file_name}.py"
-        )
+        request_body = endpoint_data["post"].get("requestBody")
+        if request_body:
+            if "multipart/form-data" in request_body.get("content"):
+                _create_post_file(
+                    operation_id,
+                    endpoint_path,
+                    path_params,
+                    folder_path,
+                    f"{file_name}.py"
+                )
+            if "application/json" in request_body.get("content"):
+                _create_post(
+                    operation_id,
+                    endpoint_path,
+                    path_params,
+                    folder_path,
+                    f"{file_name}.py"
+                )
+        else:
+            _create_post_empty(
+                operation_id,
+                endpoint_path,
+                path_params,
+                folder_path,
+                f"{file_name}.py"
+            )
+
     if endpoint_data.get("put"):
         operation_id = endpoint_data["put"]['operationId']
         _create_put(

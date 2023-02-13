@@ -34,7 +34,7 @@ def UnsubscribeSite(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def SubscribeSite(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def SubscribeSite(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/SubscribeSite
     
@@ -51,6 +51,6 @@ def SubscribeSite(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/subscriptions"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     

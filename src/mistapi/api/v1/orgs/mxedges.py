@@ -273,7 +273,7 @@ def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:ob
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
+def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/restartOrgMxEdge
     
@@ -291,7 +291,7 @@ def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:o
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/restart"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
@@ -315,7 +315,7 @@ def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str, name:str, action:str, body:object) -> _APIResponse:
+def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str, name:str, action:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/controlOrgMxEdgeServices
     
@@ -335,10 +335,10 @@ def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/services/{name}/{action}"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
-def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
+def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadOrgMxEdgeSupportFiles
     
@@ -356,10 +356,10 @@ def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/support"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
-def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
+def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unregisterOrgMxEdge
     
@@ -377,7 +377,7 @@ def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, bod
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/unregister"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def upgradeOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:

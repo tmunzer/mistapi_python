@@ -154,7 +154,7 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def importOrgMapToSite(mist_session:_APISession, org_id:str, site_name:str, body:object) -> _APIResponse:
+def importOrgMapToSiteFile(mist_session:_APISession, org_id:str, site_name:str, file_path:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgMapToSite
     
@@ -167,11 +167,16 @@ def importOrgMapToSite(mist_session:_APISession, org_id:str, site_name:str, body
     :param str org_id
     :param str site_name        
     
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites/{site_name}/maps/import"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
+    with open(file_path, "rb") as f:    
+        files = {"file": f.read()}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
     

@@ -13,7 +13,7 @@
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
-def verifyAdminInvite(mist_session:_APISession, token:str, body:object) -> _APIResponse:
+def verifyAdminInvite(mist_session:_APISession, token:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/verifyAdminInvite
     
@@ -30,6 +30,6 @@ def verifyAdminInvite(mist_session:_APISession, token:str, body:object) -> _APIR
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/invite/verify/{token}"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     

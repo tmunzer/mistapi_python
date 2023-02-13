@@ -115,7 +115,7 @@ def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/syncOrgCradlepointRouters
     
@@ -132,7 +132,7 @@ def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str, body:object)
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/cradlepoint/sync"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:

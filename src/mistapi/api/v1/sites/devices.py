@@ -426,7 +426,7 @@ def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, device_ty
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def reprovisionSiteAllAps(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def reprovisionSiteAllAps(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/reprovisionSiteAllAps
     
@@ -443,7 +443,7 @@ def reprovisionSiteAllAps(mist_session:_APISession, site_id:str, body:object) ->
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/reprovision"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
@@ -626,7 +626,7 @@ def getSiteUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> _AP
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str, body:object) -> _APIResponse:
+def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/cancelSiteDeviceUpgrade
     
@@ -644,7 +644,7 @@ def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:st
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/upgrade/{upgrade_id}/cancel"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap") -> _APIResponse:
@@ -758,7 +758,7 @@ def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/arpFromDevice
     
@@ -776,7 +776,7 @@ def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:obj
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/arp"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def portsBounceFromSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
@@ -1103,7 +1103,7 @@ def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, devic
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/startSiteLocateDevice
     
@@ -1121,7 +1121,7 @@ def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, 
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/locate"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
@@ -1145,7 +1145,7 @@ def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:ob
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/pollSiteSwitchStats
     
@@ -1163,7 +1163,7 @@ def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str, bo
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/poll_stats"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
@@ -1187,7 +1187,7 @@ def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceZtpPassword
     
@@ -1205,10 +1205,10 @@ def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:st
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/request_ztp_password"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
-def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/testSiteSsrDnsResolution
     
@@ -1226,7 +1226,7 @@ def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:st
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/resolve_dns"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
@@ -1313,7 +1313,7 @@ def getSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createSiteDeviceSnapshot
     
@@ -1331,7 +1331,7 @@ def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:st
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/snapshot"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
@@ -1397,7 +1397,7 @@ def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, b
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/stopSiteLocateDevice
     
@@ -1415,7 +1415,7 @@ def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, b
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/unlocate"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def upgradeSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
@@ -1569,7 +1569,7 @@ def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_name:str, body:object) -> _APIResponse:
+def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str, image_name:str, file_path:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addSiteDeviceImage
     
@@ -1583,11 +1583,16 @@ def addSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, ima
     :param str device_id
     :param str image_name        
     
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/{image_name}"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
+    with open(file_path, "rb") as f:    
+        files = {"file": f.read()}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
     

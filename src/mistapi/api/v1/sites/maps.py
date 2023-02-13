@@ -54,7 +54,7 @@ def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteMaps(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def importSiteMapsFile(mist_session:_APISession, site_id:str, file_path:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteMaps
     
@@ -66,13 +66,18 @@ def importSiteMaps(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     -----------
     :param str site_id        
     
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/import"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
+    with open(file_path, "rb") as f:    
+        files = {"file": f.read()}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
     
 def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
@@ -139,7 +144,7 @@ def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str, body:object) -> _APIResponse:
+def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/startSiteApAutoOrientation
     
@@ -157,7 +162,7 @@ def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_orient"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def getSiteApAutoPlacement(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
@@ -247,7 +252,7 @@ def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> _AP
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addSiteMapImage(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file_path:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addSiteMapImage
     
@@ -260,15 +265,20 @@ def addSiteMapImage(mist_session:_APISession, site_id:str, map_id:str, body:obje
     :param str site_id
     :param str map_id        
     
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/image"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
+    with open(file_path, "rb") as f:    
+        files = {"file": f.read()}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
     
-def replaceSiteMapImage(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file_path:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/replaceSiteMapImage
     
@@ -281,13 +291,18 @@ def replaceSiteMapImage(mist_session:_APISession, site_id:str, map_id:str, body:
     :param str site_id
     :param str map_id        
     
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/replace"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
+    with open(file_path, "rb") as f:    
+        files = {"file": f.read()}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
     
 def revertSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """

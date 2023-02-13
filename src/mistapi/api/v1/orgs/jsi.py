@@ -68,7 +68,7 @@ def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
+def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgJsiDeviceShellSession
     
@@ -86,7 +86,7 @@ def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/devices/{device_mac}/shell"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:

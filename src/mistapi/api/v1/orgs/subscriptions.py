@@ -34,7 +34,7 @@ def unsubscribeOrgAlarmsReports(mist_session:_APISession, org_id:str) -> _APIRes
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def subscribeOrgAlarmsReports(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def subscribeOrgAlarmsReports(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/subscribeOrgAlarmsReports
     
@@ -51,6 +51,6 @@ def subscribeOrgAlarmsReports(mist_session:_APISession, org_id:str, body:object)
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/subscriptions"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     

@@ -184,7 +184,7 @@ def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/resetSiteMlStatsByMap
     
@@ -202,7 +202,7 @@ def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str, bod
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/reset/map/{map_id}"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def getSiteMachineLearningEvents(mist_session:_APISession, site_id:str, device_id:str=None, map_ip:str=None, client_type:str=None, duration:str=None, start:int=None, end:int=None, interval:str=None) -> _APIResponse:

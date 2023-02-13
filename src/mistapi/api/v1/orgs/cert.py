@@ -34,7 +34,7 @@ def getOrgCertificates(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def clearOrgCertificates(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def clearOrgCertificates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/clearOrgCertificates
     
@@ -51,6 +51,6 @@ def clearOrgCertificates(mist_session:_APISession, org_id:str, body:object) -> _
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/cert/regenerate"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     

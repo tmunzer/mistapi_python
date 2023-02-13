@@ -25,7 +25,9 @@ def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str
     -----------
     :param str site_id
     :param str scope
-    :param str scope_id
+    :param str scope_id - * site_id if `scope`==`site`
+* device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
+* mac if `scope`==`client`
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics
     :param str classifier        
     
@@ -59,7 +61,9 @@ def getSiteSleMetricClassifiers(mist_session:_APISession, site_id:str, scope:str
     -----------
     :param str site_id
     :param str scope
-    :param str scope_id
+    :param str scope_id - * site_id if `scope`==`site`
+* device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
+* mac if `scope`==`client`
     :param str metric -  values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     RETURN
@@ -83,7 +87,9 @@ def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_
     -----------
     :param str site_id
     :param str scope
-    :param str scope_id
+    :param str scope_id - * site_id if `scope`==`site`
+* device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
+* mac if `scope`==`client`
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
@@ -116,7 +122,9 @@ def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, sc
     -----------
     :param str site_id
     :param str scope
-    :param str scope_id
+    :param str scope_id - * site_id if `scope`==`site`
+* device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
+* mac if `scope`==`client`
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
@@ -433,7 +441,9 @@ def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id
     -----------
     :param str site_id
     :param str scope
-    :param str scope_id
+    :param str scope_id - * site_id if `scope`==`site`
+* device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
+* mac if `scope`==`client`
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
@@ -466,7 +476,9 @@ def getSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_
     -----------
     :param str site_id
     :param str scope
-    :param str scope_id
+    :param str scope_id - * site_id if `scope`==`site`
+* device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
+* mac if `scope`==`client`
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     RETURN
@@ -490,7 +502,9 @@ def replaceSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sc
     -----------
     :param str site_id
     :param str scope
-    :param str scope_id
+    :param str scope_id - * site_id if `scope`==`site`
+* device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
+* mac if `scope`==`client`
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     RETURN
@@ -513,7 +527,9 @@ def updateSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sco
     -----------
     :param str site_id
     :param str scope
-    :param str scope_id
+    :param str scope_id - * site_id if `scope`==`site`
+* device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
+* mac if `scope`==`client`
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     RETURN
@@ -536,7 +552,9 @@ def getSiteSlesMetrics(mist_session:_APISession, site_id:str, scope:str, scope_i
     -----------
     :param str site_id
     :param str scope
-    :param str scope_id        
+    :param str scope_id - * site_id if `scope`==`site`
+* device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
+* mac if `scope`==`client`        
     
     RETURN
     -----------

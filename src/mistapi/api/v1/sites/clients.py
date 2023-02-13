@@ -357,7 +357,7 @@ def unauthorizeSiteMultipleClients(mist_session:_APISession, site_id:str, body:o
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def disconnectSiteClient(mist_session:_APISession, site_id:str, client_mac:str, body:object) -> _APIResponse:
+def disconnectSiteClient(mist_session:_APISession, site_id:str, client_mac:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/disconnectSiteClient
     
@@ -375,7 +375,7 @@ def disconnectSiteClient(mist_session:_APISession, site_id:str, client_mac:str, 
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/{client_mac}/disconnect"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, type:str=None, proto:str=None, band:str=None, channel:str=None, wlan_id:str=None, ssid:str=None, start:int=None, end:int=None, page:int=1, limit:int=100, duration:str="1d") -> _APIResponse:
@@ -425,7 +425,7 @@ def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def unauthorizeSiteClient(mist_session:_APISession, site_id:str, client_mac:str, body:object) -> _APIResponse:
+def unauthorizeSiteClient(mist_session:_APISession, site_id:str, client_mac:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/unauthorizeSiteClient
     
@@ -443,6 +443,6 @@ def unauthorizeSiteClient(mist_session:_APISession, site_id:str, client_mac:str,
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/{client_mac}/unauthorize"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     

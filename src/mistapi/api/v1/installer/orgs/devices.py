@@ -118,7 +118,7 @@ def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
+def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/stopInstallerLocateDevice
     
@@ -136,7 +136,7 @@ def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:s
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/unlocate"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:str, device_mac:str) -> _APIResponse:
@@ -162,7 +162,7 @@ def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:str, device_mac:str, body:object) -> _APIResponse:
+def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name:str, device_mac:str, file_path:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addInstallerDeviceImage
     
@@ -176,11 +176,16 @@ def addInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:str
     :param str image_name
     :param str device_mac        
     
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/{image_name}"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
+    with open(file_path, "rb") as f:    
+        files = {"file": f.read()}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
     

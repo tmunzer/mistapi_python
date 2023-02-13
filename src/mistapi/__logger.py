@@ -26,7 +26,7 @@ class Console:
 
     def critical(self, message:str) -> None:
         if self.level <= 50 and self.level > 0:
-            print(f"[{magenta('CRITICAL ')}] + {message}")
+            print(f"[{magenta('CRITICAL ')}] {message}")
 
     def error(self, message:str) -> None:
         if self.level <= 40 and self.level > 0:

@@ -119,7 +119,7 @@ def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:object) -> _APIResponse:
+def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/pingSiteWebhook
     
@@ -137,6 +137,6 @@ def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}/ping"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     

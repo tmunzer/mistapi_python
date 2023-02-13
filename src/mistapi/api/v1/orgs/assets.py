@@ -54,6 +54,31 @@ def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+def importOrgAssetsFile(mist_session:_APISession, org_id:str, file_path:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/importOrgAssets
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/assets/import"
+    with open(file_path, "rb") as f:    
+        files = {"file": f.read()}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
+    
 def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgAssets

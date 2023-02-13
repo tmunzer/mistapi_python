@@ -167,7 +167,7 @@ def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def uploadOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> _APIResponse:
+def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:str, file_path:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadOrgWlanPortalImage
     
@@ -180,13 +180,18 @@ def uploadOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str, 
     :param str org_id
     :param str wlan_id        
     
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_image"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
+    with open(file_path, "rb") as f:    
+        files = {"file": f.read()}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
     
 def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> _APIResponse:
     """

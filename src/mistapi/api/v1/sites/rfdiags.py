@@ -154,7 +154,7 @@ def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str, body:object) -> _APIResponse:
+def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/stopSiteRfdiagRecording
     
@@ -172,6 +172,6 @@ def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}/stop"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
