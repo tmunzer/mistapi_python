@@ -76,9 +76,9 @@ def getOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIR
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSsoRoles(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIResponse:
+def deleteOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSsoRoles
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSsoRole
     
     PARAMS
     -----------

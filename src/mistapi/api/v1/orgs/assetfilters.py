@@ -76,9 +76,9 @@ def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgAssetFilters(mist_session:_APISession, org_id:str, assetfilter_id:str) -> _APIResponse:
+def deleteOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgAssetFilters
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgAssetFilter
     
     PARAMS
     -----------

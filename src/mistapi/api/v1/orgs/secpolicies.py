@@ -76,9 +76,9 @@ def getOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str) -> _
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSecPolicies(mist_session:_APISession, org_id:str, secpolicy_id:str) -> _APIResponse:
+def deleteOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSecPolicies
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSecPolicy
     
     PARAMS
     -----------

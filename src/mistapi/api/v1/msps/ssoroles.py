@@ -54,9 +54,9 @@ def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteMspSsoRoles(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _APIResponse:
+def deleteMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteMspSsoRoles
+    API doc: https://doc.mist-lab.fr/#operation/deleteMspSsoRole
     
     PARAMS
     -----------
