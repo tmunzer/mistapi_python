@@ -304,6 +304,7 @@ def {operation_id}File(mist_session:_APISession{code_path_params}, file_path:str
     with open(file_path, "rb") as f:    
         files = {{"file": f.read()}}
         resp = mist_session.mist_post_file(uri=uri, files=files)
+        return resp
     """
 
     file = os.path.join(folder_path, file_name)

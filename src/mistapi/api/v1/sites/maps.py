@@ -78,6 +78,7 @@ def importSiteMapsFile(mist_session:_APISession, site_id:str, file_path:str) -> 
     with open(file_path, "rb") as f:    
         files = {"file": f.read()}
         resp = mist_session.mist_post_file(uri=uri, files=files)
+        return resp
     
 def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
@@ -277,6 +278,7 @@ def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file_
     with open(file_path, "rb") as f:    
         files = {"file": f.read()}
         resp = mist_session.mist_post_file(uri=uri, files=files)
+        return resp
     
 def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file_path:str) -> _APIResponse:
     """
@@ -303,6 +305,7 @@ def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, f
     with open(file_path, "rb") as f:    
         files = {"file": f.read()}
         resp = mist_session.mist_post_file(uri=uri, files=files)
+        return resp
     
 def revertSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """

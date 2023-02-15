@@ -188,4 +188,5 @@ def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name
     with open(file_path, "rb") as f:    
         files = {"file": f.read()}
         resp = mist_session.mist_post_file(uri=uri, files=files)
+        return resp
     

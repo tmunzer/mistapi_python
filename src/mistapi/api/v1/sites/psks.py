@@ -111,6 +111,7 @@ def importSitePskFile(mist_session:_APISession, site_id:str, file_path:str) -> _
     with open(file_path, "rb") as f:    
         files = {"file": f.read()}
         resp = mist_session.mist_post_file(uri=uri, files=files)
+        return resp
     
 def importSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """

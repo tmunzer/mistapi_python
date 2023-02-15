@@ -192,6 +192,7 @@ def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:s
     with open(file_path, "rb") as f:    
         files = {"file": f.read()}
         resp = mist_session.mist_post_file(uri=uri, files=files)
+        return resp
     
 def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> _APIResponse:
     """

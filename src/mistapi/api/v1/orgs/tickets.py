@@ -157,6 +157,7 @@ def addOrgTicketCommentFile(mist_session:_APISession, org_id:str, ticket_id:str,
     with open(file_path, "rb") as f:    
         files = {"file": f.read()}
         resp = mist_session.mist_post_file(uri=uri, files=files)
+        return resp
     
 def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> _APIResponse:
     """

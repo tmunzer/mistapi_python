@@ -111,6 +111,7 @@ def importOrgPskFile(mist_session:_APISession, org_id:str, file_path:str) -> _AP
     with open(file_path, "rb") as f:    
         files = {"file": f.read()}
         resp = mist_session.mist_post_file(uri=uri, files=files)
+        return resp
     
 def importOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
