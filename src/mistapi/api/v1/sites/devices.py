@@ -1017,6 +1017,57 @@ def swapSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
+def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_number:int) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteSiteDeviceImage
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str site_id
+    :param str device_id
+    :param int image_number        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/image{image_number}"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str, image_number:int, file_path:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/addSiteDeviceImage
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str site_id
+    :param str device_id
+    :param int image_number        
+    
+    FILE PARAMS
+    -----------
+    :param str file_path - path to the file to upload
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/image{image_number}"
+    with open(file_path, "rb") as f:    
+        files = {"file": f.read()}
+        resp = mist_session.mist_post_file(uri=uri, files=files)
+        return resp
+    
 def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceIotPort
@@ -1545,55 +1596,4 @@ def setSiteVcPort(mist_session:_APISession, site_id:str, device_id:str, body:obj
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/vc/vc_port"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
-    
-def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_name:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteDeviceImage
-    
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    :param str site_id
-    :param str device_id
-    :param str image_name        
-    
-    RETURN
-    -----------
-    :return APIResponse - response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/{image_name}"
-    query_params={}
-    resp = mist_session.mist_delete(uri=uri, query=query_params)
-    return resp
-    
-def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str, image_name:str, file_path:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/addSiteDeviceImage
-    
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    :param str site_id
-    :param str device_id
-    :param str image_name        
-    
-    FILE PARAMS
-    -----------
-    :param str file_path - path to the file to upload
-    
-    RETURN
-    -----------
-    :return APIResponse - response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/{image_name}"
-    with open(file_path, "rb") as f:    
-        files = {"file": f.read()}
-        resp = mist_session.mist_post_file(uri=uri, files=files)
-        return resp
     
