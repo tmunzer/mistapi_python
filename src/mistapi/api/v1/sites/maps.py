@@ -370,9 +370,9 @@ def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteWayfinding(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+def importSiteWayfindings(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSiteWayfinding
+    API doc: https://doc.mist-lab.fr/#operation/importSiteWayfindings
     
     PARAMS
     -----------

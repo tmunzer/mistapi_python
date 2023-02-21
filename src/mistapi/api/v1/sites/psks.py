@@ -87,9 +87,9 @@ def updateSitePsks(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def importSitePskFile(mist_session:_APISession, site_id:str, file_path:str) -> _APIResponse:
+def importSitePsksFile(mist_session:_APISession, site_id:str, file_path:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSitePsk
+    API doc: https://doc.mist-lab.fr/#operation/importSitePsks
     
     PARAMS
     -----------
@@ -113,9 +113,9 @@ def importSitePskFile(mist_session:_APISession, site_id:str, file_path:str) -> _
         resp = mist_session.mist_post_file(uri=uri, files=files)
         return resp
     
-def importSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def importSitePsks(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSitePsk
+    API doc: https://doc.mist-lab.fr/#operation/importSitePsks
     
     PARAMS
     -----------

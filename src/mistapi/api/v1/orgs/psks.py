@@ -87,9 +87,9 @@ def updateOrgMultiPsks(mist_session:_APISession, org_id:str, body:object) -> _AP
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def importOrgPskFile(mist_session:_APISession, org_id:str, file_path:str) -> _APIResponse:
+def importOrgPsksFile(mist_session:_APISession, org_id:str, file_path:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgPsk
+    API doc: https://doc.mist-lab.fr/#operation/importOrgPsks
     
     PARAMS
     -----------
@@ -113,9 +113,9 @@ def importOrgPskFile(mist_session:_APISession, org_id:str, file_path:str) -> _AP
         resp = mist_session.mist_post_file(uri=uri, files=files)
         return resp
     
-def importOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def importOrgPsks(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgPsk
+    API doc: https://doc.mist-lab.fr/#operation/importOrgPsks
     
     PARAMS
     -----------
