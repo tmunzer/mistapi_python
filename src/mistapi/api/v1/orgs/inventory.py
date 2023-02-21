@@ -29,7 +29,7 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     ------------
     :param str serial - device serial
     :param str model - device model
-    :param str type(ap, switch, gateway)
+    :param str type(ap, switch, gateway, mxedge)
     :param str mac - MAC address
     :param str site_id - site id if assigned, null if not assigned
     :param str vc_mac
