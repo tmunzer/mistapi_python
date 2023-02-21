@@ -21,7 +21,7 @@ This package is build from the [Mist OpenAPI specifications](https://doc.mist-la
 
 ## Installation
 This Python Package can be install with `pip`:
-```
+```python3
 # Linux/macOS
 python3 -m pip install mistapi
 
@@ -30,7 +30,7 @@ py -m pip install mistapi
 ```
 
 ## Upgrade
-```
+```python3
 # Linux/macOS
 python3 -m pip install --upgrade mistapi
 
@@ -41,7 +41,7 @@ py -m pip install --upgrade mistapi
 ## Configuration
 Configuration is optional. All the required information can be passed as APISession parameter.
 However, it is possible to set them in an `.env` file. The location of this file must be provided during when calling the APISession class with the `env_file` parameter:
-```
+```python3
 > import mistapi
 > apisession = mistapi.APISession(enf_file="path/to/the/.env")
 ```
@@ -61,20 +61,10 @@ LOGGING_LOG_LEVEL | int | 10 | The minimum log level to log on the file, using `
 Usage examples are available in the [mist_library repository](https://github.com/tmunzer/mist_library).
 
 To use it, 
-1. an `APISession` must be instanciated:
-```
+### 1. `APISession` must be instanciated:
+```python3
 >>> import mistapi
 >>> apisession = mistapi.APISession()
-
---------------------------------------------------------------------------------
-------------------------- Mist API Python CLI Session --------------------------
-
-    Written by: Thomas Munzer (tmunzer@juniper.net)
-    Github    : https://github.com/tmunzer/mistapi_python
-
-    This package is licensed under the MIT License.
-
---------------------------------------------------------------------------------  
 ```
 This class accepts different parameters, all optionals:
 
@@ -88,9 +78,26 @@ env_file | str | None | path to the env file to load. See README.md for allowed 
 console_log_leve | int | 20 | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical) |
 logging_log_leve | int | 10 | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
 
-2. call the `login()` function to validate the authentication. 
-* If no `host` has been configured, an interactive input will ask for it.
+### 2. `login()` function must be called to validate the authentication. 
+
+#### 2.1. If the env file is provided and all the required information are valid, the session is validated:
+```python3
+>>> import mistapi
+>>> apisession = mistapi.APISession(env_file="~/.mist_env")
+>>> apisession.login()
+
+-------------------------------- Authenticated ---------------------------------
+
+Welcome Thomas Munzer!
+
+>>> apisession.get_authentication_status()
+True
 ```
+
+#### 2.2. If the env file is not provided or does not contain the required valid information, the missing information will be requested:
+
+* If no `host` has been configured, an interactive input will ask for it.
+```python3
 >>> apisession.login()
 
 ----------------------------- Mist Cloud Selection -----------------------------
@@ -104,7 +111,7 @@ logging_log_leve | int | 10 | The minimum log level to log on the file, using `l
 Select a Cloud (0 to 5, or q to exit): 
 ```
 * if not authentication (`apitoken` or `email`/`password`) has been configured, an interactive input will ask for it. If login/password authentication is used and 2FA is requested by the Mist Cloud, the 2FA code will be asked.
-```
+```python3
 >>> apisession.login()
 
 --------------------------- Login/Pwd authentication ---------------------------
@@ -121,8 +128,8 @@ Two Factor Authentication code required: 122749
 Welcome Thomas Munzer!
 ```
 
-3. It is now possible to request Mist APIs
-```
+### 3. It is now possible to request Mist APIs
+```python3
 >>> device_models = mistapi.api.v1.const.device_models.getDeviceModels(apisession)
 >>> device_models.url
 'https://api.mist.com/api/v1/const/device_models'
@@ -134,7 +141,7 @@ Welcome Thomas Munzer!
 
 ## Usefull functions
 * easily find an Org Id from the current account with `mistapi.cli.select_org(apisession)`
-```
+```python3
 >>> mistapi.cli.select_org(apisession)
 
 Available organizations:
@@ -148,7 +155,7 @@ Select an Org (0 to 44, or q to exit): 41
 ```
 
 * easily find a Site Id from an org  with `mistapi.cli.select_org(apisession)`
-```
+```python3
 >>> mistapi.cli.select_site(apisession, org_id="203d3d02-xxxx-xxxx-xxxx-76896a3330f4")
 
 Available sites:
@@ -159,8 +166,43 @@ Select a Site (0 to 6, or q to exit): 0
 ['f5fcbee5-xxxx-xxxx-xxxx-1619ede87879']
 ```
 
-* get help on a specific function
+* get the next page or all the pages from a request
+For some requests, the Mist Cloud is using pagination to limit the size of the response. The required information the find the next page can either in the HTTP header (headers `X-Page-Total`, `X-Page-Limit` and `X-Page-Page`) or with the `next` key in the json document. To make it easier to request the next page or all the pages, the `mistapi` package is prossessing the response to extract or generate the URI to retrieve the next page.
+```python3
+>>> response = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(apisession, my_org_id, duration="1d")
+>>> len(response.data["results"])
+100
+>>> response.next
+'/api/v1/orgs/203d3d02-xxxx-xxxx-xxxx-76896a3330f4/clients/events/search?end=1676966894&limit=100&search_after=%5B1676966519626%5D&start=1676880494'
 ```
+To get the next page, use the `mistapi.get_next()` function. The returned response will be the same format as the previous one:
+
+```python3
+>>> response_1 = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(apisession, my_org_id, duration="1d")
+>>> len(response_1.data["results"])
+100
+>>> response_1.next
+'/api/v1/orgs/203d3d02-xxxx-xxxx-xxxx-76896a3330f4/clients/events/search?end=1676966894&limit=100&search_after=%5B1676966519626%5D&start=1676880494'
+>>> response_2 = response.get_next(apisession, response_1)
+>>> response_2.next
+'/api/v1/orgs/203d3d02-xxxx-xxxx-xxxx-76896a3330f4/clients/events/search?end=1676966894&limit=100&search_after=%5B1676966204625%5D&start=1676880494'
+>>> len(response_2.data["results"])
+100
+```
+To retrieve all the pages, use the `mistapi.get_all()` function. The returned response will be a list with the concatained data from all the Mist responses:
+```python3
+>>> response = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(apisession, my_org_id, duration="1d")
+>>> len(response.data["results"])
+100
+>>> response.next
+'/api/v1/orgs/203d3d02-xxxx-xxxx-xxxx-76896a3330f4/clients/events/search?end=1676966894&limit=100&search_after=%5B1676966519626%5D&start=1676880494'
+>>> data = mistapi.get_all(apisession, response)
+>>> len(data)
+26027
+```
+
+* get help on a specific function
+```python3
 >>> help(mistapi.api.v1.orgs.stats.getOrgStats)
 Help on function getOrgStats in module mistapi.api.v1.orgs.stats:
 
