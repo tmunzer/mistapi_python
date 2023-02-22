@@ -32,7 +32,6 @@ class APIResponse:
     def __init__(self, response:Response, url: str,) -> None:
         self.raw_data=""
         self.data={}
-        self.error={}
         self.url=url
         self.next=None
         self.headers = response.headers
@@ -42,16 +41,13 @@ class APIResponse:
         console.debug(f"Response Status Code: {response.status_code}")
 
         try:
-            if response.status_code == 200:
-                self.raw_data = response.content
-                self.data = response.json()
-                self._check_next()
-            else:
-                self.raw_data = response.content
-                self.error = response.json()
-                logger.error(f"apiresponse:Response: {response}")
-                console.debug(f"Response: {self.error}")
+            self.raw_data = response.content
+            self.data = response.json()
+            self._check_next()
             logger.debug(f"apiresponse:HTTP Response processed")
+            if self.status_code >= 400 or (type(self.data) == object and self.data.get("error")):
+                logger.error(f"apiresponse:Response: {response}")
+                console.debug(f"Response: {self.data}")
         except Exception as err:
             logger.error(f"apiresponse:Unable to process HTTP Response: \r\n{err}")
 
