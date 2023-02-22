@@ -57,6 +57,13 @@ CONSOLE_LOG_LEVEL | int | 20 | The minimum log level to display on the console, 
 LOGGING_LOG_LEVEL | int | 10 | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
 
 
+An example of the environment file content is:
+```
+MIST_HOST = api.mist.com
+MIST_APITOKEN = xxxxxx
+MIST_ORG_ID = 203d3d02-xxxx-xxxx-xxxx-76896a3330f4
+```
+
 ## Usage
 Usage examples are available in the [mist_library repository](https://github.com/tmunzer/mist_library).
 
