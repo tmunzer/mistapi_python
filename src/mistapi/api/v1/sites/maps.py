@@ -145,6 +145,28 @@ def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
+def deleteSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteSiteApAutoOrientation
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str map_id
+    :param str site_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_orient"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
 def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/startSiteApAutoOrientation
@@ -231,6 +253,48 @@ def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+def clearSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/clearSiteApAutoOrient
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str site_id
+    :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/clear_auto_orient"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def clearSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/clearSiteApAutoplacement
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str site_id
+    :param str map_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/clear_autoplacement"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
 def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteMapImage
@@ -306,48 +370,6 @@ def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, f
         files = {"file": f.read()}
         resp = mist_session.mist_post_file(uri=uri, files=files)
         return resp
-    
-def revertSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/revertSiteApAutoOrient
-    
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    :param str site_id
-    :param str map_id        
-    
-    RETURN
-    -----------
-    :return APIResponse - response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/revert_auto_orient"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
-    
-def revertSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/revertSiteApAutoplacement
-    
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    :param str site_id
-    :param str map_id        
-    
-    RETURN
-    -----------
-    :return APIResponse - response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/revert_autoplacement"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
     
 def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """

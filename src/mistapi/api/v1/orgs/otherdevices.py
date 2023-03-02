@@ -51,9 +51,29 @@ def getOrgOtherDevices(mist_session:_APISession, org_id:str, vendor:str=None, ma
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgOtherDevicesStats(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+def updateOrgOtherDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgOtherDevicesStats
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgOtherDevices
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/otherdevices"
+    resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+    
+def getOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getOrgOtherDevice
     
     PARAMS
     -----------
@@ -71,5 +91,48 @@ def getOrgOtherDevicesStats(mist_session:_APISession, org_id:str, device_mac:str
     uri = f"/api/v1/orgs/{org_id}/otherdevices/{device_mac}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def deleteOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgOtherDevice
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id
+    :param str device_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/otherdevices/{device_mac}"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def updateOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgOtherDevice
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id
+    :param str device_mac        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/otherdevices/{device_mac}"
+    resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     

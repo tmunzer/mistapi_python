@@ -377,7 +377,7 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
     query_params = []
     operation_id = ""
     path_params = _process_path_params(endpoint_data.get("parameters", []))
-    if endpoint_data.get("get"):
+    if endpoint_data.get("get") and not endpoint_data.get("get", {}).get("deprecated"):
         query_params = _process_query_params(
             endpoint_data["get"].get("parameters", []))
         operation_id = endpoint_data["get"]['operationId']
@@ -389,7 +389,7 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
             folder_path,
             f"{file_name}.py"
         )
-    if endpoint_data.get("delete"):
+    if endpoint_data.get("delete") and not endpoint_data.get("delete", {}).get("deprecated"):
         query_params = _process_query_params(
             endpoint_data["delete"].get("parameters", []))
         operation_id = endpoint_data["delete"]['operationId']
@@ -401,7 +401,7 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
             folder_path,
             f"{file_name}.py"
         )
-    if endpoint_data.get("post"):
+    if endpoint_data.get("post") and not endpoint_data.get("post", {}).get("deprecated"):
         operation_id = endpoint_data["post"]['operationId']
         request_body = endpoint_data["post"].get("requestBody")
         if request_body:
@@ -430,7 +430,7 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
                 f"{file_name}.py"
             )
 
-    if endpoint_data.get("put"):
+    if endpoint_data.get("put") and not endpoint_data.get("put", {}).get("deprecated"):
         operation_id = endpoint_data["put"]['operationId']
         _create_put(
             operation_id,
@@ -442,6 +442,14 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
 
         count += 1
     return count
+
+def _is_totaly_deprecated(endpoint_data:object)->bool:    
+    for crud in ["get", "post", "put", "delete"]:
+        if endpoint_data.get(crud, {}):
+            if not endpoint_data[crud].get("deprecated"):
+                return False
+    return True
+
 
 ##################################
 # start
@@ -466,10 +474,11 @@ def start():
     for endpoint_path in openapi_paths:
         if endpoint_path.startswith("/api"):
             endpoint_data = openapi_paths[endpoint_path]
-            folder_path, file_name = _init_endpoint(endpoint_path)
-            api_count += _process_endpoint(endpoint_data,
-                                           endpoint_path, folder_path, file_name)
-            endpoint_count += 1
+            if not _is_totaly_deprecated(endpoint_data):
+                folder_path, file_name = _init_endpoint(endpoint_path)
+                api_count += _process_endpoint(endpoint_data,
+                                            endpoint_path, folder_path, file_name)
+                endpoint_count += 1
         show(i+1)
         i += 1
     out.write("\n")

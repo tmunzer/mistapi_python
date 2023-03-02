@@ -34,7 +34,6 @@ from mistapi.api.v1.orgs import insights
 from mistapi.api.v1.orgs import inventory
 from mistapi.api.v1.orgs import invites
 from mistapi.api.v1.orgs import jsi
-from mistapi.api.v1.orgs import junos
 from mistapi.api.v1.orgs import licenses
 from mistapi.api.v1.orgs import logs
 from mistapi.api.v1.orgs import maps
@@ -46,7 +45,6 @@ from mistapi.api.v1.orgs import nactags
 from mistapi.api.v1.orgs import networks
 from mistapi.api.v1.orgs import networktemplates
 from mistapi.api.v1.orgs import ocdevices
-from mistapi.api.v1.orgs import otherdeivces
 from mistapi.api.v1.orgs import otherdevices
 from mistapi.api.v1.orgs import pma
 from mistapi.api.v1.orgs import pskportals

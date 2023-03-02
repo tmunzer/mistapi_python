@@ -996,27 +996,6 @@ def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:s
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def swapSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/swapSiteDeviceHaClusterNode
-    
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    :param str site_id
-    :param str device_id        
-    
-    RETURN
-    -----------
-    :return APIResponse - response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/ha"
-    resp = mist_session.mist_put(uri=uri, body=body)
-    return resp
-    
 def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_number:int) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteDeviceImage
@@ -1555,9 +1534,9 @@ def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def removeSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def updateSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/removeSiteVirtualChassisMember
+    API doc: https://doc.mist-lab.fr/#operation/updateSiteVirtualChassisMember
     
     PARAMS
     -----------

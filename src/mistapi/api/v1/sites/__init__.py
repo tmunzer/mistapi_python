@@ -42,6 +42,7 @@ from mistapi.api.v1.sites import sle
 from mistapi.api.v1.sites import ssr
 from mistapi.api.v1.sites import stats
 from mistapi.api.v1.sites import subscriptions
+from mistapi.api.v1.sites import synthetic_test
 from mistapi.api.v1.sites import uisettings
 from mistapi.api.v1.sites import vbeacons
 from mistapi.api.v1.sites import webhooks
