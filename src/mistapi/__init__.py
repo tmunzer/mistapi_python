@@ -9,7 +9,11 @@
 
 --------------------------------------------------------------------------------
 '''
+
 from mistapi.__api_session import APISession
-from mistapi import cli
 from mistapi import api
+from mistapi import cli
 from mistapi.__pagination import get_next, get_all
+
+__version__ = "0.36.0"
+__author__ = "Thomas Munzer <tmunzer@juniper.net>"
