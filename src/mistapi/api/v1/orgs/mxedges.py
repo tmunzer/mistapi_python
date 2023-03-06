@@ -13,7 +13,7 @@
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any") -> _APIResponse:
+def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdges
     
@@ -27,7 +27,9 @@ def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any") -> 
     
     QUERY PARAMS
     ------------
-    :param str for_sites(any, true, false) - filter for site level mist edges        
+    :param str for_sites(any, true, false) - filter for site level mist edges
+    :param int limit
+    :param int page        
     
     RETURN
     -----------
@@ -36,6 +38,8 @@ def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any") -> 
     uri = f"/api/v1/orgs/{org_id}/mxedges"
     query_params={}
     if for_sites: query_params["for_sites"]=for_sites
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

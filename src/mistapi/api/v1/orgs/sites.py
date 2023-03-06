@@ -13,7 +13,7 @@
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgSites(mist_session:_APISession, org_id:str) -> _APIResponse:
+def getOrgSites(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgSites
     
@@ -25,12 +25,19 @@ def getOrgSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     -----------
     :param str org_id        
     
+    QUERY PARAMS
+    ------------
+    :param int limit
+    :param int page        
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites"
     query_params={}
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
