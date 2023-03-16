@@ -13,7 +13,7 @@
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
-def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str="ap", mac:str=None, site_id:str=None, vc_mac:str=None, vc:str=None, unassigned:bool=None, limit:int=100, page:int=1) -> _APIResponse:
+def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str=None, mac:str=None, site_id:str=None, vc_mac:str=None, vc:str=None, unassigned:bool=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgInventory
     
@@ -29,7 +29,7 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     ------------
     :param str serial - device serial
     :param str model - device model
-    :param str type(ap, switch, gateway, mxedge)
+    :param str type(ap, switch, gateway)
     :param str mac - MAC address
     :param str site_id - site id if assigned, null if not assigned
     :param str vc_mac

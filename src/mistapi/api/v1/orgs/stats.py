@@ -228,7 +228,7 @@ def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     :param int start
     :param int end
     :param str duration
-    :param str type(ap, switch, gateways, all)
+    :param str type(ap, switch, gateway, all)
     :param str status(all, connected, disconnected)
     :param str site_id
     :param str mac
