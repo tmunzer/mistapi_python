@@ -439,7 +439,7 @@ def getSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit
     :param int start
     :param int end
     :param str duration
-    :param str type(ap, switch, gateways, all)
+    :param str type(ap, switch, gateway, all)
     :param str status(all, connected, disconnected)        
     
     RETURN
