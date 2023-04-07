@@ -416,3 +416,45 @@ def getOrgMultiSitesUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def removeOrgGatewaysTunnel(mist_session:_APISession, org_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/removeOrgGatewaysTunnel
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id
+    :param str device_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/devices/{device_id}/clear_tunnels"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def createOrgGatewaysCredentials(mist_session:_APISession, org_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/createOrgGatewaysCredentials
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id
+    :param str device_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/devices/{device_id}/provision_tunnels"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    

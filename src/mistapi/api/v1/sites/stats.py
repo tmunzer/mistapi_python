@@ -1247,6 +1247,33 @@ def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def getSiteWiredClientAndParentInterface(mist_session:_APISession, site_id:str, device_id:str, port_id:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getSiteWiredClientAndParentInterface
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str site_id
+    :param str device_id        
+    
+    QUERY PARAMS
+    ------------
+    :param str port_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/stats/switch_wired_clients/{device_id}/search"
+    query_params={}
+    if port_id: query_params["port_id"]=port_id
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
 def getSiteAdoptedSwitchesComplianceMetrics(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAdoptedSwitchesComplianceMetrics

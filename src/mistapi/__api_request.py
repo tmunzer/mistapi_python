@@ -100,6 +100,8 @@ class APIRequest:
             logger.debug(f"apirequest:Request body: \r\n{body}")
             if type(body) == str:
                 resp = self._session.post(url, data=body, headers=headers)
+            elif type(body) == list:
+                resp = self._session.post(url, json=body, headers=headers)
             elif type(body) == dict:
                 resp = self._session.post(url, json=body, headers=headers)
             else: 
@@ -129,13 +131,16 @@ class APIRequest:
         try:
             url = self._url(uri)
             logger.info(f"apirequest:sending PUT request to {url}")
+            headers = {'Content-Type': "application/json"}
             logger.debug(f"apirequest:Request body: \r\n{body}")
             if type(body) == str:
-                resp = self._session.put(url, data=body)
+                resp = self._session.put(url, data=body, headers=headers)
+            elif type(body) == list:
+                resp = self._session.put(url, json=body, headers=headers)
             elif type(body) == dict:
-                resp = self._session.put(url, json=body)
+                resp = self._session.put(url, json=body, headers=headers)
             else: 
-                resp = self._session.put(url, json=body)
+                resp = self._session.put(url, json=body, headers=headers)
             resp.raise_for_status()
         except HTTPError as http_err:
             logger.error(f'HTTP error occurred: {http_err}')  # Python 3.6

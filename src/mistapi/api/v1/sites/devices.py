@@ -758,7 +758,7 @@ def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/arpFromDevice
     
@@ -776,7 +776,7 @@ def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIR
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/arp"
-    resp = mist_session.mist_post(uri=uri)
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
 def portsBounceFromSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
@@ -1319,6 +1319,27 @@ def getSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str,
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_route"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def getSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getSiteSsrServicePath
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str site_id
+    :param str device_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_service_path"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
