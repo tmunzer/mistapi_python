@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str=None, mac:str=None, site_id:str=None, vc_mac:str=None, vc:str=None, unassigned:bool=None, limit:int=100, page:int=1) -> _APIResponse:
     """
@@ -69,6 +70,10 @@ def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     -----------
     :param str org_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -88,6 +93,10 @@ def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:obje
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -109,6 +118,10 @@ def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str, body:objec
     -----------
     :param str org_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -128,6 +141,10 @@ def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _API
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def countSiteCallEvents(mist_session:_APISession, site_id:str, distinct:str=None) -> _APIResponse:
     """

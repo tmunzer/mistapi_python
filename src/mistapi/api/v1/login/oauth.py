@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def getOAuth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, forward:str=None) -> _APIResponse:
     """
@@ -71,6 +72,10 @@ def loginOAuth2(mist_session:_APISession, provider:str, body:object) -> _APIResp
     PATH PARAMS
     -----------
     :param str provider        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

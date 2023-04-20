@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def generateQrCodeForVerification(mist_session:_APISession, by:str="qrcode") -> _APIResponse:
     """
@@ -42,6 +43,10 @@ def verifyTwoFactor(mist_session:_APISession, body:object) -> _APIResponse:
     PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

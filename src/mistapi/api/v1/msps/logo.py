@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def deleteMspLogo(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
@@ -45,6 +46,10 @@ def postMspLogo(mist_session:_APISession, msp_id:str, body:object) -> _APIRespon
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def multiAckOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
@@ -24,6 +25,10 @@ def multiAckOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _API
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -44,6 +49,10 @@ def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -137,6 +146,10 @@ def multiUnackOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _A
     -----------
     :param str org_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -156,6 +169,10 @@ def unackOrgAllArlarms(mist_session:_APISession, org_id:str, body:object) -> _AP
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -177,6 +194,10 @@ def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:object)
     -----------
     :param str org_id
     :param str alarm_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

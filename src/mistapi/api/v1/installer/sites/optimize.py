@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def optimizeInstallerRrm(mist_session:_APISession, site_name:str) -> _APIResponse:
     """

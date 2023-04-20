@@ -17,4 +17,4 @@ mv new_pyproject.toml pyproject.toml
 sed -e "s/__version__ = .*/__version__ = \"$1\"/g" ./src/mistapi/__init__.py > ./src/mistapi/__init__.py.new
 mv ./src/mistapi/__init__.py.new ./src/mistapi/__init__.py
 
-python3 ./generate_from_openapi.py
+python3 ./generate_from_openapi.py $1

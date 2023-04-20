@@ -12,10 +12,12 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteDevices")  
 def getSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDevices
+    API doc: https://doc.mist-lab.fr/#operation/listSiteDevices
     
     PARAMS
     -----------
@@ -45,9 +47,9 @@ def getSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteDevice(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteDevice
+    API doc: https://doc.mist-lab.fr/#operation/listSiteDevices
     
     PARAMS
     -----------
@@ -57,12 +59,24 @@ def createSiteDevice(mist_session:_APISession, site_id:str, body:object) -> _API
     -----------
     :param str site_id        
     
+    QUERY PARAMS
+    ------------
+    :param str type(ap, switch, gateway, all) - device type
+    :param str name
+    :param int page
+    :param int limit        
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    query_params={}
+    if type: query_params["type"]=type
+    if name: query_params["name"]=name
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
+    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
 def getSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_code:str=None) -> _APIResponse:
@@ -342,6 +356,10 @@ def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _AP
     -----------
     :param str site_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -458,6 +476,10 @@ def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) 
     -----------
     :param str site_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -477,6 +499,10 @@ def multiRestartSiteDevices(mist_session:_APISession, site_id:str, body:object) 
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -596,6 +622,10 @@ def multiUpgradeSiteDevices(mist_session:_APISession, site_id:str, body:object) 
     -----------
     :param str site_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -647,9 +677,36 @@ def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:st
     resp = mist_session.mist_post(uri=uri)
     return resp
     
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteAvailableDeviceVersions")  
 def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteAvailableDeviceVersions
+    API doc: https://doc.mist-lab.fr/#operation/listSiteAvailableDeviceVersions
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str site_id        
+    
+    QUERY PARAMS
+    ------------
+    :param str type(ap, switch, gateway)        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/versions"
+    query_params={}
+    if type: query_params["type"]=type
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap") -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listSiteAvailableDeviceVersions
     
     PARAMS
     -----------
@@ -684,6 +741,10 @@ def zeroizeSiteFipsAllAps(mist_session:_APISession, site_id:str, body:object) ->
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -750,6 +811,10 @@ def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -770,6 +835,10 @@ def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:obj
     -----------
     :param str site_id
     :param str device_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -792,6 +861,10 @@ def portsBounceFromSwitch(mist_session:_APISession, site_id:str, device_id:str, 
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -812,6 +885,10 @@ def cableTestFromSwitch(mist_session:_APISession, site_id:str, device_id:str, bo
     -----------
     :param str site_id
     :param str device_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -834,6 +911,10 @@ def startSiteSwitchRadiusSyntheticTest(mist_session:_APISession, site_id:str, de
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -854,6 +935,10 @@ def clearSiteSsrArpCache(mist_session:_APISession, site_id:str, device_id:str, b
     -----------
     :param str site_id
     :param str device_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -876,6 +961,10 @@ def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, 
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -897,6 +986,10 @@ def clearBpduErrosFromPortsOnSwitch(mist_session:_APISession, site_id:str, devic
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -917,6 +1010,10 @@ def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, d
     -----------
     :param str site_id
     :param str device_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -988,6 +1085,10 @@ def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:s
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1019,7 +1120,7 @@ def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str, image_number:int, file_path:str) -> _APIResponse:
+def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str, image_number:int) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addSiteDeviceImage
     
@@ -1033,20 +1134,14 @@ def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str,
     :param str device_id
     :param int image_number        
     
-    FILE PARAMS
-    -----------
-    :param str file_path - path to the file to upload
-    
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/image{image_number}"
-    with open(file_path, "rb") as f:    
-        files = {"file": f.read()}
-        resp = mist_session.mist_post_file(uri=uri, files=files)
-        return resp
-    
+    resp = mist_session.mist_post_file(uri=uri)
+    return resp
+
 def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceIotPort
@@ -1081,6 +1176,10 @@ def setSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str, b
     -----------
     :param str site_id
     :param str device_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -1125,6 +1224,10 @@ def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, devic
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1167,6 +1270,10 @@ def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:ob
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1208,6 +1315,10 @@ def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str
     -----------
     :param str site_id
     :param str device_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -1272,6 +1383,10 @@ def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1292,6 +1407,10 @@ def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, bod
     -----------
     :param str site_id
     :param str device_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -1314,6 +1433,10 @@ def getSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str,
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1335,6 +1458,10 @@ def getSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str, 
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1355,6 +1482,10 @@ def getSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:st
     -----------
     :param str site_id
     :param str device_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -1398,6 +1529,10 @@ def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1419,6 +1554,10 @@ def StartSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_i
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1439,6 +1578,10 @@ def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, b
     -----------
     :param str site_id
     :param str device_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -1482,6 +1625,10 @@ def upgradeSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1490,9 +1637,9 @@ def upgradeSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+def getSiteDeviceVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteVirtualChassis
+    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceVirtualChassis
     
     PARAMS
     -----------
@@ -1547,6 +1694,10 @@ def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:st
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1568,6 +1719,10 @@ def updateSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device
     :param str site_id
     :param str device_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -1588,6 +1743,10 @@ def setSiteVcPort(mist_session:_APISession, site_id:str, device_id:str, body:obj
     -----------
     :param str site_id
     :param str device_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

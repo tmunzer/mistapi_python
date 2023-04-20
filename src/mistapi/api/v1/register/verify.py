@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def verifyRegistration(mist_session:_APISession, token:str) -> _APIResponse:
     """

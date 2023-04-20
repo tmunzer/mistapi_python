@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, classifier:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
@@ -507,6 +508,10 @@ def replaceSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sc
 * mac if `scope`==`client`
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -531,6 +536,10 @@ def updateSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sco
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`
     :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def createMsp(mist_session:_APISession, body:object) -> _APIResponse:
     """
@@ -20,6 +21,10 @@ def createMsp(mist_session:_APISession, body:object) -> _APIResponse:
     PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -82,6 +87,10 @@ def updateMsp(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

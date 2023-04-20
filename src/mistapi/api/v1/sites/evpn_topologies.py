@@ -12,10 +12,11 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
-def getSiteEvpnTopologies(mist_session:_APISession, site_id:str) -> _APIResponse:
+def getSiteEvpnTopology(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteEvpnTopologies
+    API doc: https://doc.mist-lab.fr/#operation/getSiteEvpnTopology
     
     PARAMS
     -----------
@@ -45,6 +46,10 @@ def createSiteEvpnTopology(mist_session:_APISession, site_id:str, body:object) -
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -110,6 +115,10 @@ def updateSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_
     -----------
     :param str site_id
     :param str evpn_topology_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

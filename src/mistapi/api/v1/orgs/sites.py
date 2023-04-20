@@ -12,10 +12,40 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listOrgSites")  
 def getOrgSites(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSites
+    API doc: https://doc.mist-lab.fr/#operation/listOrgSites
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    QUERY PARAMS
+    ------------
+    :param int limit
+    :param int page        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/sites"
+    query_params={}
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listOrgSites(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listOrgSites
     
     PARAMS
     -----------
@@ -52,6 +82,10 @@ def createOrgSite(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -161,7 +195,7 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def importOrgMapToSiteFile(mist_session:_APISession, org_id:str, site_name:str, file_path:str) -> _APIResponse:
+def importOrgMapToSiteFile(mist_session:_APISession, org_id:str, site_name:str, file_path:str="", csv_path:str="") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgMapToSite
     
@@ -174,17 +208,15 @@ def importOrgMapToSiteFile(mist_session:_APISession, org_id:str, site_name:str, 
     :param str org_id
     :param str site_name        
     
-    FILE PARAMS
+    BODY PARAMS
     -----------
     :param str file_path - path to the file to upload
+    :param str csv_path - path to the csv file to upload
     
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites/{site_name}/maps/import"
-    with open(file_path, "rb") as f:    
-        files = {"file": f.read()}
-        resp = mist_session.mist_post_file(uri=uri, files=files)
-        return resp
-    
+    resp = mist_session.mist_post_file(uri=uri, file=file_path, csv=csv_path)
+    return resp

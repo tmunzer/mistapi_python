@@ -138,7 +138,7 @@ def select_site(mist_session:mistapi.APISession, org_id=None, allow_many=False) 
             site_choices.append({"id": privilege["site_id"], "name": privilege["name"]})
 
     if site_choices == [] or org_access == True:
-        site_choices = mistapi.api.v1.orgs.sites.getOrgSites(mist_session, org_id).data
+        site_choices = mistapi.api.v1.orgs.sites.listOrgSites(mist_session, org_id).data
 
 
     

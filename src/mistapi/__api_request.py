@@ -15,6 +15,8 @@ This module manages API requests with Mist Cloud. It is used to
 '''
 
 import requests
+import os
+import json
 from requests.exceptions import HTTPError
 from mistapi.__api_response import APIResponse
 from mistapi.__logger import logger
@@ -77,6 +79,7 @@ class APIRequest:
             logger.error(f'HTTP error description: {resp.json()}')
         except Exception as err:
             logger.error(f'Other error occurred: {err}')  # Python 3.6
+            logger.error("Exception occurred", exc_info=True)
         finally:
             return APIResponse(url=url, response=resp)
 
@@ -112,6 +115,7 @@ class APIRequest:
             logger.error(f'HTTP error description: {resp.json()}')
         except Exception as err:
             logger.error(f'Other error occurred: {err}')  # Python 3.6
+            logger.error("Exception occurred", exc_info=True)
         finally: 
             return APIResponse(url=url, response=resp)
 
@@ -147,6 +151,7 @@ class APIRequest:
             logger.error(f'HTTP error description: {resp.json()}')
         except Exception as err:
             logger.error(f'Other error occurred: {err}')  # Python 3.6
+            logger.error("Exception occurred", exc_info=True)
         finally: 
             return APIResponse(url=url, response=resp)
 
@@ -171,11 +176,12 @@ class APIRequest:
             logger.error(f'HTTP error occurred: {http_err}')  # Python 3.6
         except Exception as err:
             logger.error(f'Other error occurred: {err}')  # Python 3.6
+            logger.error("Exception occurred", exc_info=True)
         else: 
             return APIResponse(url=url, response=resp)
 
 
-    def mist_post_file(self, uri:str, files=None) -> APIResponse:
+    def mist_post_file(self, uri:str, file:str="", csv:str="", body:dict={}) -> APIResponse:
         """
         POST HTTP Request
 
@@ -191,7 +197,11 @@ class APIRequest:
         try:                 
             url = self._url(uri)
             logger.info(f"apirequest:sending POST request to {url}")
-            resp = self._session.post(url, files=files)
+            multipart_form_data = {}
+            if file: multipart_form_data["file"] = (os.path.basename(file), open(file, 'rb'), 'application/octet-stream')
+            if csv: multipart_form_data["csv"] = (os.path.basename(csv), open(file, 'rb'), 'application/octet-stream')
+            if body: multipart_form_data["json"] = (None, json.dumps(body), 'application/json')
+            resp = self._session.post(url, files=multipart_form_data)
             resp.raise_for_status()
         except HTTPError as http_err:
             logger.error(f'HTTP error occurred: {http_err}')  # Python 3.6
@@ -199,5 +209,6 @@ class APIRequest:
             return resp
         except Exception as err:
             logger.error(f'Other error occurred: {err}')  # Python 3.6
+            logger.error("Exception occurred", exc_info=True)
         else: 
             return APIResponse(url=url, response=resp)

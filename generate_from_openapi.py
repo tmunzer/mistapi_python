@@ -71,6 +71,7 @@ def _init_api_file(file_path: str, file_name: str, import_path: list = []):
         f"{api_file}.py", 
         f"""from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 """, create_only=True)
     if file_created:
         import_from = f"mistapi.{'.'.join(import_path)}"
@@ -172,7 +173,7 @@ def _gen_code_params(endpoint_params: list, operation_id: str):
     return code_params, code_params_desc
 
 
-def _gen_description(operation_id: str, desc_path_params: str, desc_query_params: str = "", with_file:bool=False):
+def _gen_description(operation_id: str, desc_path_params: str, desc_query_params: str = "", with_file:bool=False, with_csv:bool=False, with_body:bool=False):
     description = f"""    \"\"\"
     API doc: https://doc.mist-lab.fr/#operation/{operation_id}
     
@@ -180,21 +181,33 @@ def _gen_description(operation_id: str, desc_path_params: str, desc_query_params
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     """
+
     if desc_path_params:
         description += f"""
     PATH PARAMS
     -----------{desc_path_params}        
     """
+        
     if desc_query_params:
         description += f"""
     QUERY PARAMS
     ------------{desc_query_params}        
     """
-    if with_file:
+        
+    if with_body or with_file or with_csv:
         description += f"""
-    FILE PARAMS
-    -----------
-    :param str file_path - path to the file to upload
+    BODY PARAMS
+    -----------"""
+        if with_body:
+            description += f"""
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)"""
+        if with_file:
+            description += f"""
+    :param str file_path - path to the file to upload"""
+        if with_csv:
+            description += f"""
+    :param str csv_path - path to the csv file to upload"""
+        description+="""
     """
     description += """
     RETURN
@@ -213,7 +226,32 @@ def _gen_query_code(query_params: list):
 
 ########
 # CRUDS
+def _create_get_deprecated(operation_id: str, endpoint_path: str, path_params: list, query_params: list, folder_path: str, file_name: str):
+    code_path_params, desc_path_params = _gen_code_params(
+        path_params, operation_id)
+    code_query_params, desc_query_params = _gen_code_params(
+        query_params, operation_id)
+    code_query = _gen_query_code(query_params)
+    code_desc = _gen_description(
+        operation_id, desc_path_params, desc_query_params)
+
+    old_operation_id = operation_id.replace("list", "get", 1 )
+
+    code = f"""
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="{version}", details="function replaced with {operation_id}")  
+def {old_operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
+{code_desc}
+    uri = f"{endpoint_path}"{code_query}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    """
+
+    file = os.path.join(folder_path, file_name)
+    with open(file, "a+") as f:
+        f.write(code)
+
 def _create_get(operation_id: str, endpoint_path: str, path_params: list, query_params: list, folder_path: str, file_name: str):
+    if operation_id.startswith("list"): _create_get_deprecated(operation_id, endpoint_path, path_params, query_params, folder_path, file_name)
     code_path_params, desc_path_params = _gen_code_params(
         path_params, operation_id)
     code_query_params, desc_query_params = _gen_code_params(
@@ -278,7 +316,7 @@ def {operation_id}(mist_session:_APISession{code_path_params}) -> _APIResponse:
 def _create_post(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, file_name: str):
     code_path_params, desc_path_params = _gen_code_params(
         path_params, operation_id)
-    code_desc = _gen_description(operation_id, desc_path_params)
+    code_desc = _gen_description(operation_id, desc_path_params, with_body=True)
 
     code = f"""
 def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _APIResponse:
@@ -293,19 +331,36 @@ def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _
         f.write(code)
 
 
-def _create_post_file(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, file_name: str):
+def _create_post_file(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, properties: dict, file_name: str):
     code_path_params, desc_path_params = _gen_code_params(
         path_params, operation_id)
-    code_desc = _gen_description(operation_id, desc_path_params, with_file=True)
+    file_param = ""
+    with_file = False
+    csv_param = ""
+    with_csv = False
+    body_param = ""
+    with_body = False
+    if "file" in properties:
+        file_param = ", file_path:str=\"\""
+        with_file = True
+    if "csv" in properties:
+        csv_param = ", csv_path:str=\"\""
+        with_csv = True
+    if "json" in properties:
+        body_param = ", body:dict={}"
+        with_body = True
+    code_desc = _gen_description(operation_id, desc_path_params, with_file=with_file, with_csv=with_csv, with_body=with_body)
     code = f"""
-def {operation_id}File(mist_session:_APISession{code_path_params}, file_path:str) -> _APIResponse:
+def {operation_id}File(mist_session:_APISession{code_path_params}{file_param}{csv_param}{body_param}) -> _APIResponse:
 {code_desc}
     uri = f"{endpoint_path}"
-    with open(file_path, "rb") as f:    
-        files = {{"file": f.read()}}
-        resp = mist_session.mist_post_file(uri=uri, files=files)
-        return resp
-    """
+    resp = mist_session.mist_post_file(uri=uri"""
+    if with_file: code += ", file=file_path"
+    if with_csv: code += ", csv=csv_path"
+    if with_body: code += ", body=body"
+    code += """)
+    return resp
+"""
 
     file = os.path.join(folder_path, file_name)
     with open(file, "a+") as f:
@@ -315,7 +370,7 @@ def {operation_id}File(mist_session:_APISession{code_path_params}, file_path:str
 def _create_put(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, file_name: str):
     code_path_params, desc_path_params = _gen_code_params(
         path_params, operation_id)
-    code_desc = _gen_description(operation_id, desc_path_params)
+    code_desc = _gen_description(operation_id, desc_path_params, with_body=True)
 
     code = f"""
 def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _APIResponse:
@@ -411,6 +466,7 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
                     endpoint_path,
                     path_params,
                     folder_path,
+                    request_body["content"]["multipart/form-data"].get("schema",{}).get("properties", {}),
                     f"{file_name}.py"
                 )
             if "application/json" in request_body.get("content"):
@@ -489,7 +545,7 @@ def start():
 ############################################################################################################ 
 ############################################################################################################ 
 
-
+version = sys.argv[1]
 if os.path.exists(f"{root_folder}/{root_api_folder}"):
     shutil.rmtree(f"{root_folder}/{root_api_folder}")
 # if os.path.exists("./__init__.py"):

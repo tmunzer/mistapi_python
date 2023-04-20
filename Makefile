@@ -1,6 +1,6 @@
 .PHONY: docs
 init:
-	pip install -r requirements-dev.txt
+	python3 -m pip install -r requirements-dev.txt
 
 publish-test:
 	python3 -m build

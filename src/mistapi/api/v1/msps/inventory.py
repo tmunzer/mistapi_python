@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def getMspInventoryByMac(mist_session:_APISession, msp_id:str, device_mac:str) -> _APIResponse:
     """

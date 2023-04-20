@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def activateSdkInvite(mist_session:_APISession, secret:str, body:object) -> _APIResponse:
     """
@@ -24,6 +25,10 @@ def activateSdkInvite(mist_session:_APISession, secret:str, body:object) -> _API
     PATH PARAMS
     -----------
     :param str secret        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

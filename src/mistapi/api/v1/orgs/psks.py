@@ -12,10 +12,46 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listOrgPsks")  
 def getOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=None, role:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgPsks
+    API doc: https://doc.mist-lab.fr/#operation/listOrgPsks
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    QUERY PARAMS
+    ------------
+    :param str name
+    :param str ssid
+    :param str role
+    :param int page
+    :param int limit        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/psks"
+    query_params={}
+    if name: query_params["name"]=name
+    if ssid: query_params["ssid"]=ssid
+    if role: query_params["role"]=role
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=None, role:str=None, page:int=1, limit:int=100) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listOrgPsks
     
     PARAMS
     -----------
@@ -59,6 +95,10 @@ def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIRespo
     -----------
     :param str org_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -79,6 +119,10 @@ def updateOrgMultiPsks(mist_session:_APISession, org_id:str, body:object) -> _AP
     -----------
     :param str org_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -87,7 +131,7 @@ def updateOrgMultiPsks(mist_session:_APISession, org_id:str, body:object) -> _AP
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def importOrgPsksFile(mist_session:_APISession, org_id:str, file_path:str) -> _APIResponse:
+def importOrgPsksFile(mist_session:_APISession, org_id:str, file_path:str="") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgPsks
     
@@ -99,7 +143,7 @@ def importOrgPsksFile(mist_session:_APISession, org_id:str, file_path:str) -> _A
     -----------
     :param str org_id        
     
-    FILE PARAMS
+    BODY PARAMS
     -----------
     :param str file_path - path to the file to upload
     
@@ -108,11 +152,9 @@ def importOrgPsksFile(mist_session:_APISession, org_id:str, file_path:str) -> _A
     :return APIResponse - response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/psks/import"
-    with open(file_path, "rb") as f:    
-        files = {"file": f.read()}
-        resp = mist_session.mist_post_file(uri=uri, files=files)
-        return resp
-    
+    resp = mist_session.mist_post_file(uri=uri, file=file_path)
+    return resp
+
 def importOrgPsks(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgPsks
@@ -124,6 +166,10 @@ def importOrgPsks(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -190,6 +236,10 @@ def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) 
     :param str org_id
     :param str psk_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -210,6 +260,10 @@ def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str, 
     -----------
     :param str org_id
     :param str psk_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

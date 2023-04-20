@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def multiAckSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
@@ -24,6 +25,10 @@ def multiAckSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> _A
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -44,6 +49,10 @@ def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _API
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -153,6 +162,10 @@ def multiUnackSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> 
     -----------
     :param str site_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -172,6 +185,10 @@ def unackSiteAllArlarms(mist_session:_APISession, site_id:str, body:object) -> _
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -194,6 +211,10 @@ def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:objec
     :param str site_id
     :param str alarm_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -214,6 +235,10 @@ def unackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:obj
     -----------
     :param str site_id
     :param str alarm_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mistapi"
-version = "0.37.3"
+version = "0.37.8"
 authors = [{name="Thomas Munzer", email="tmunzer@juniper.net"}]
 description = "Python package to simplify the Mist System APIs usage"
 keywords = ["Mist", "Juniper", "API"]
@@ -27,6 +27,7 @@ dependencies = [
   'requests > 2.24',
   'tabulate > 0.8.5',
   'python-dotenv < 0.17',
+  'deprecation > 2.0.0'
 ]
 
 [project.urls]

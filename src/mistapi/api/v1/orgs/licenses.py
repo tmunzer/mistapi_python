@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def getOrgLicencesSummary(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
@@ -45,6 +46,10 @@ def moveOrDeleteOrgLicenseToAnotherOrg(mist_session:_APISession, org_id:str, bod
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

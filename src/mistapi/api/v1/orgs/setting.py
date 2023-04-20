@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def getOrgSettings(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
@@ -45,6 +46,10 @@ def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> _API
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -87,6 +92,10 @@ def createOrgClientsBlocklist(mist_session:_APISession, org_id:str, body:object)
     -----------
     :param str org_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -107,6 +116,10 @@ def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, bo
     -----------
     :param str org_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -126,6 +139,10 @@ def updateOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, b
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -166,6 +183,10 @@ def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:ob
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -208,6 +229,10 @@ def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _AP
     -----------
     :param str org_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -227,6 +252,10 @@ def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> 
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -290,6 +319,10 @@ def setupOrgZscalerCredential(mist_session:_APISession, org_id:str, body:object)
     -----------
     :param str org_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -309,6 +342,10 @@ def udpateOrgZscalerCredential(mist_session:_APISession, org_id:str, body:object
     PATH PARAMS
     -----------
     :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

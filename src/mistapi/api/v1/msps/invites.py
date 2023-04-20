@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def inviteMspAdmin(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
@@ -24,6 +25,10 @@ def inviteMspAdmin(mist_session:_APISession, msp_id:str, body:object) -> _APIRes
     PATH PARAMS
     -----------
     :param str msp_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -67,6 +72,10 @@ def updateMspAdminInvite(mist_session:_APISession, msp_id:str, invite_id:str, bo
     -----------
     :param str msp_id
     :param str invite_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------

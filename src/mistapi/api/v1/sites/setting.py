@@ -12,6 +12,7 @@
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 def getSiteSetting(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
@@ -45,6 +46,10 @@ def updateSiteSettings(mist_session:_APISession, site_id:str, body:object) -> _A
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
@@ -87,6 +92,10 @@ def createSiteClientsBlocklist(mist_session:_APISession, site_id:str, body:objec
     -----------
     :param str site_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -128,6 +137,10 @@ def createSiteWatchedStations(mist_session:_APISession, site_id:str, body:object
     -----------
     :param str site_id        
     
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     :return APIResponse - response from the API call
@@ -168,6 +181,10 @@ def createSiteClientsAllowlist(mist_session:_APISession, site_id:str, body:objec
     PATH PARAMS
     -----------
     :param str site_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
