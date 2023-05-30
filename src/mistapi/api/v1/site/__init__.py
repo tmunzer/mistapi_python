@@ -10,10 +10,8 @@
 --------------------------------------------------------------------------------
 '''
 
-from mistapi.__api_session import APISession
-from mistapi import api
-from mistapi import cli
-from mistapi.__pagination import get_next, get_all
-
-__version__ = "0.40.0"
-__author__ = "Thomas Munzer <tmunzer@juniper.net>"
+from mistapi.api.v1.site import deviceprofiles
+from mistapi.api.v1.site import networks
+from mistapi.api.v1.site import servicepolicies
+from mistapi.api.v1.site import services
+from mistapi.api.v1.site import vpns

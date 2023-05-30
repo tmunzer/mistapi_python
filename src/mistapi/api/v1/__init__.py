@@ -21,5 +21,6 @@ from mistapi.api.v1 import orgs
 from mistapi.api.v1 import recover
 from mistapi.api.v1 import register
 from mistapi.api.v1 import self
+from mistapi.api.v1 import site
 from mistapi.api.v1 import sites
 from mistapi.api.v1 import utils

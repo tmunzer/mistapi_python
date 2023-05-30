@@ -67,7 +67,7 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteAssetsStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteAssetsStats")  
 def getSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteAssetsStats
@@ -252,7 +252,7 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteBeaconsStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteBeaconsStats")  
 def getSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteBeaconsStats
@@ -370,7 +370,7 @@ def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", app:str=None, start:str=None, end:str=None) -> _APIResponse:
+def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", rating:int=None, app:str=None, start:str=None, end:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteCalls
     
@@ -385,6 +385,7 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", a
     QUERY PARAMS
     ------------
     :param str distrinct(mac)
+    :param int rating - feedback rating (e.g. "rating=1" or "rating=1,2")
     :param str app
     :param str start
     :param str end        
@@ -396,6 +397,7 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", a
     uri = f"/api/v1/sites/{site_id}/stats/calls/count"
     query_params={}
     if distrinct: query_params["distrinct"]=distrinct
+    if rating: query_params["rating"]=rating
     if app: query_params["app"]=app
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -438,7 +440,7 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteClientsStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteClientsStats")  
 def getSiteClientsStats(mist_session:_APISession, site_id:str, wired:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteClientsStats
@@ -518,8 +520,8 @@ def getSiteClientStats(mist_session:_APISession, site_id:str, client_mac:str, wi
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteDevicesStats")  
-def getSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", type:str="ap", status:str="all") -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteDevicesStats")  
+def getSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", status:str="all", page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDevicesStats
     
@@ -533,13 +535,10 @@ def getSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration
     :param str type(ap, switch, gateway, all)
-    :param str status(all, connected, disconnected)        
+    :param str status(all, connected, disconnected)
+    :param int page
+    :param int limit        
     
     RETURN
     -----------
@@ -547,17 +546,14 @@ def getSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit
     """
     uri = f"/api/v1/sites/{site_id}/stats/devices"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
     if type: query_params["type"]=type
     if status: query_params["status"]=status
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", type:str="ap", status:str="all") -> _APIResponse:
+def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", status:str="all", page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDevicesStats
     
@@ -571,13 +567,10 @@ def listSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limi
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration
     :param str type(ap, switch, gateway, all)
-    :param str status(all, connected, disconnected)        
+    :param str status(all, connected, disconnected)
+    :param int page
+    :param int limit        
     
     RETURN
     -----------
@@ -585,13 +578,10 @@ def listSiteDevicesStats(mist_session:_APISession, site_id:str, page:int=1, limi
     """
     uri = f"/api/v1/sites/{site_id}/stats/devices"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
     if type: query_params["type"]=type
     if status: query_params["status"]=status
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -639,7 +629,7 @@ def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteDiscoveredAssets")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteDiscoveredAssets")  
 def getSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDiscoveredAssets
@@ -986,7 +976,7 @@ def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteUnconnectedClientStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteUnconnectedClientStats")  
 def getSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteUnconnectedClientStats
@@ -1031,7 +1021,7 @@ def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteMxEdgesStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteMxEdgesStats")  
 def getSiteMxEdgesStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMxEdgesStats
@@ -1096,9 +1086,9 @@ def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteByDisctinctAttributesOPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteByDisctinctAttributesOPorts
+    API doc: https://doc.mist-lab.fr/#operation/countSiteSwOrGwPorts
     
     PARAMS
     -----------
@@ -1296,9 +1286,9 @@ def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteByDisctinctAttributesOfSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteByDisctinctAttributesOfSwitchPorts
+    API doc: https://doc.mist-lab.fr/#operation/countSiteSwitchPorts
     
     PARAMS
     -----------
@@ -1533,7 +1523,7 @@ def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteZonesStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteZonesStats")  
 def getSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteZonesStats

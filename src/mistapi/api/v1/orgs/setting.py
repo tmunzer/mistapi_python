@@ -172,6 +172,138 @@ def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str) -> _APIRespo
     resp = mist_session.mist_post(uri=uri)
     return resp
     
+def getOrgJamfAppLinkedStatus(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getOrgJamfAppLinkedStatus
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/jamf/link_accounts"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def deleteOrgJamfAppAuthorization(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgJamfAppAuthorization
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/jamf/link_accounts"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def addOrgJamfAppAuthorization(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/addOrgJamfAppAuthorization
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/jamf/link_accounts"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def getOrgJsecCredential(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getOrgJsecCredential
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/jse/setup"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def deleteOrgJsecCredential(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgJsecCredential
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/jse/setup"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def setupOrgJsecCredential(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/setupOrgJsecCredential
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    BODY PARAMS
+    -----------
+    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/jse/setup"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
 def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/linkOrgToJuniperJuniperAccount
@@ -331,30 +463,6 @@ def setupOrgZscalerCredential(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def udpateOrgZscalerCredential(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/udpateOrgZscalerCredential
-    
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    :param str org_id        
-    
-    BODY PARAMS
-    -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
-    
-    RETURN
-    -----------
-    :return APIResponse - response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/setting/zscaler/setup"
-    resp = mist_session.mist_put(uri=uri, body=body)
-    return resp
-    
 def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:str, forward:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgOauthAppLinkedStatus
@@ -366,7 +474,7 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     PATH PARAMS
     -----------
     :param str org_id
-    :param str app_name - OAuth application name (Example : zoom, teams, etc..)        
+    :param str app_name - OAuth application name (Example : zoom, teams, intune        
     
     QUERY PARAMS
     ------------
@@ -393,7 +501,7 @@ def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_nam
     PATH PARAMS
     -----------
     :param str org_id
-    :param str app_name - OAuth application name (Example : zoom, teams, etc..)        
+    :param str app_name - OAuth application name (Example : zoom, teams, intune        
     
     RETURN
     -----------

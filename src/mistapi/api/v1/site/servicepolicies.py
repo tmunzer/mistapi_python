@@ -14,10 +14,10 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listOrgPmaDashboards")  
-def getOrgPmaDashboards(mist_session:_APISession, org_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteServicePoliciesDerived")  
+def getSiteServicePoliciesDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgPmaDashboards
+    API doc: https://doc.mist-lab.fr/#operation/listSiteServicePoliciesDerived
     
     PARAMS
     -----------
@@ -25,20 +25,25 @@ def getOrgPmaDashboards(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    :param str site_id        
+    
+    QUERY PARAMS
+    ------------
+    :param bool resolve - whether resolve the site variables        
     
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/pma/dashboards"
+    uri = f"/api/v1/site/{site_id}/servicepolicies/derived"
     query_params={}
+    if resolve: query_params["resolve"]=resolve
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgPmaDashboards(mist_session:_APISession, org_id:str) -> _APIResponse:
+def listSiteServicePoliciesDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgPmaDashboards
+    API doc: https://doc.mist-lab.fr/#operation/listSiteServicePoliciesDerived
     
     PARAMS
     -----------
@@ -46,14 +51,19 @@ def listOrgPmaDashboards(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    :param str site_id        
+    
+    QUERY PARAMS
+    ------------
+    :param bool resolve - whether resolve the site variables        
     
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/pma/dashboards"
+    uri = f"/api/v1/site/{site_id}/servicepolicies/derived"
     query_params={}
+    if resolve: query_params["resolve"]=resolve
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -14,38 +14,33 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteAvailableInsightMetrics")  
-def getSiteAvailableInsightMetrics(mist_session:_APISession) -> _APIResponse:
+def countMspsMarvisActions(mist_session:_APISession, msp_id:str, distinct:str="org_id", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteAvailableInsightMetrics
+    API doc: https://doc.mist-lab.fr/#operation/countMspsMarvisActions
     
     PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
-    RETURN
+    PATH PARAMS
     -----------
-    :return APIResponse - response from the API call
-    """
-    uri = f"/api/v1/const/insight_metrics"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
+    :param str msp_id        
     
-def listSiteAvailableInsightMetrics(mist_session:_APISession) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteAvailableInsightMetrics
-    
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    QUERY PARAMS
+    ------------
+    :param str distinct(org_id, status)
+    :param int limit
+    :param int page        
     
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
-    uri = f"/api/v1/const/insight_metrics"
+    uri = f"/api/v1/msps/{msp_id}/suggestion/count"
     query_params={}
+    if distinct: query_params["distinct"]=distinct
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

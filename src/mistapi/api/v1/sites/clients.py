@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteByDistinctAttributesOfClients(mist_session:_APISession, site_id:str, distinct:str, ssid:str=None, ap:str=None, ip_address:str=None, vlan:str=None, hostname:str=None, os:str=None, model:str=None, device:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteClients(mist_session:_APISession, site_id:str, distinct:str, ssid:str=None, ap:str=None, ip_address:str=None, vlan:str=None, hostname:str=None, os:str=None, model:str=None, device:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteByDistinctAttributesOfClients
+    API doc: https://doc.mist-lab.fr/#operation/countSiteClients
     
     PARAMS
     -----------
@@ -90,9 +90,9 @@ def disconnectSiteMultipleClients(mist_session:_APISession, site_id:str, body:ob
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteByDistinctAttributesOfClientsEvents(mist_session:_APISession, site_id:str, distinct:str=None, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteClientsEvents(mist_session:_APISession, site_id:str, distinct:str=None, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteByDistinctAttributesOfClientsEvents
+    API doc: https://doc.mist-lab.fr/#operation/countSiteClientsEvents
     
     PARAMS
     -----------
@@ -236,9 +236,9 @@ def searchSiteClientsWireless(mist_session:_APISession, site_id:str, mac:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteByDistinctAttributesOfClientSessions(mist_session:_APISession, site_id:str, distinct:str="mac", ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteClientSessions(mist_session:_APISession, site_id:str, distinct:str="mac", ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteByDistinctAttributesOfClientSessions
+    API doc: https://doc.mist-lab.fr/#operation/countSiteClientSessions
     
     PARAMS
     -----------

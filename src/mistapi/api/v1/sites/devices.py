@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteDevices")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteDevices")  
 def getSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDevices
@@ -677,8 +677,8 @@ def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:st
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.37.8", details="function replaced with listSiteAvailableDeviceVersions")  
-def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap") -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listSiteAvailableDeviceVersions")  
+def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap", model:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteAvailableDeviceVersions
     
@@ -692,7 +692,8 @@ def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:s
     
     QUERY PARAMS
     ------------
-    :param str type(ap, switch, gateway)        
+    :param str type(ap, switch, gateway) - fetch version for device type (E.g. switch)
+    :param str model - fetch version for device model, use/combine with `type` as needed (for switch and gateway devices)        
     
     RETURN
     -----------
@@ -701,10 +702,11 @@ def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:s
     uri = f"/api/v1/sites/{site_id}/devices/versions"
     query_params={}
     if type: query_params["type"]=type
+    if model: query_params["model"]=model
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap") -> _APIResponse:
+def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap", model:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteAvailableDeviceVersions
     
@@ -718,7 +720,8 @@ def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:
     
     QUERY PARAMS
     ------------
-    :param str type(ap, switch, gateway)        
+    :param str type(ap, switch, gateway) - fetch version for device type (E.g. switch)
+    :param str model - fetch version for device model, use/combine with `type` as needed (for switch and gateway devices)        
     
     RETURN
     -----------
@@ -727,6 +730,7 @@ def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:
     uri = f"/api/v1/sites/{site_id}/devices/versions"
     query_params={}
     if type: query_params["type"]=type
+    if model: query_params["model"]=model
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

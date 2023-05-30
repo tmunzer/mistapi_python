@@ -22,6 +22,7 @@ from mistapi.api.v1.const import device_events
 from mistapi.api.v1.const import device_models
 from mistapi.api.v1.const import insight_metrics
 from mistapi.api.v1.const import languages
+from mistapi.api.v1.const import license_types
 from mistapi.api.v1.const import mxedge_events
 from mistapi.api.v1.const import mxedge_models
 from mistapi.api.v1.const import traffic_types

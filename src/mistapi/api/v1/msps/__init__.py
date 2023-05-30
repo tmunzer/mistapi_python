@@ -25,4 +25,5 @@ from mistapi.api.v1.msps import search
 from mistapi.api.v1.msps import ssoroles
 from mistapi.api.v1.msps import ssos
 from mistapi.api.v1.msps import stats
+from mistapi.api.v1.msps import suggestion
 from mistapi.api.v1.msps import tickets
