@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -9,21 +9,23 @@
 
 --------------------------------------------------------------------------------
 This module is providing some functions to simplify Mist API use.
-'''
+"""
 
 import mistapi as mistapi
 import sys
 import json
 from tabulate import tabulate
 
+
 ###########################################
 def _search_org(orgs, org_id):
     i = 0
     for org in orgs:
-        if org['org_id'] == org_id:
+        if org["org_id"] == org_id:
             return i
-        i+=1
+        i += 1
     return None
+
 
 def _test_choice(val, val_max):
     try:
@@ -35,9 +37,76 @@ def _test_choice(val, val_max):
     except:
         return -2
 
+
 ###########################################
 #### CLI SELECTIONS
-def select_org(mist_session:mistapi.APISession, allow_many=False) -> list:
+def _forge_privileges(mist_session: mistapi.APISession, msp_id: str):
+    """
+    Function to generate user privileges for Orgs belonging to a MSP Account
+
+    PARAMS
+    -----------
+    :param APISession   mist_session - mistapi session including authentication and Mist host information
+    :param str          msp_id - msp_id of the MSP account to use to generate the privileges
+
+    RETURN
+    -----------
+    :return list - List of ORG privileges
+    """
+    resp = mistapi.api.v1.msps.orgs.listMspOrgs(mist_session, msp_id)
+    orgs = mistapi.get_all(mist_session, resp)
+    custom_privileges = []
+    for org in orgs:
+        custom_privileges.append(mist_session.get_privilege_by_org_id(org["id"]))
+    return custom_privileges
+
+
+def _select_msp(mist_session: mistapi.APISession) -> list:
+    """
+    Function to list all the Mist MSPs allowed for the current user
+    and ask to pick one. Return the list org ORG privileges based
+    on the user selection
+
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+
+    RETURN
+    -----------
+    :return list - List of ORG privileges
+    """
+    msp_accounts = [
+        priv for priv in mist_session.privileges if priv.get("scope") == "msp"
+    ]
+    if len(msp_accounts) == 0:
+        return mist_session.privileges
+    else:
+        msp_accounts = sorted(msp_accounts, key=lambda x: x["name"].lower())
+        while True:
+            i = -1
+            print("\r\nAvailable MSP Accounts:")
+            for privilege in msp_accounts:
+                i += 1
+                print(f"{i}) {privilege['name']} (id: {privilege['msp_id']})")
+
+            resp = input(
+                f'\r\nSelect the MSP Account to use (0 to {i}, "n" for None, or "q" to quit): '
+            )
+            if resp == "q":
+                sys.exit(0)
+            elif resp.lower() == "n":
+                return [priv for priv in mist_session.privileges if not priv.get("msp_id")]
+            else:
+                tested_val = _test_choice(resp, i)
+                if tested_val >= 0:
+                    return _forge_privileges(mist_session, msp_accounts[tested_val]["msp_id"])
+                elif tested_val == -1:
+                    print(f"{resp} is not part of the possibilities.")
+                elif tested_val == -2:
+                    print("Only numbers are allowed.")
+
+
+def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
     """
     Function to list all the Mist Orgs allowed for the current user
     and ask to pick one or many. Return the Org ID(s) of the selected
@@ -52,62 +121,77 @@ def select_org(mist_session:mistapi.APISession, allow_many=False) -> list:
     -----------
     :return list - list of the selected Org ID(s)
     """
-    i=-1
-    org_ids = []
-    resp_ids=[]
-    data = mist_session.privileges
-    data = [d for d in data if d['name']]
-    data=sorted(data, key=lambda x: x["name"].lower())
-    print("\r\nAvailable organizations:")
-    for privilege in data:
-        if privilege["scope"] == "org" and not privilege["org_id"] in org_ids:
-            i+=1
-            org_ids.append(privilege["org_id"])
-            print(f"{i}) {privilege['name']} (id: {privilege['org_id']})")
-
-    orgs_with_sites = []
-    for privilege in data:
-        if privilege["scope"] == "site" and not privilege["org_id"] in org_ids:
-            index = _search_org(orgs_with_sites, privilege["org_id"])
-            if index is None:
-                i+=1
+    data = _select_msp(mist_session)
+    data = [d for d in data if d["name"]]
+    data = sorted(data, key=lambda x: x["name"].lower())
+    while True:
+        i = -1
+        org_ids = []
+        resp_ids = []
+        print("\r\nAvailable organizations:")
+        for privilege in data:
+            if privilege["scope"] == "org" and not privilege["org_id"] in org_ids:
+                i += 1
                 org_ids.append(privilege["org_id"])
                 print(f"{i}) {privilege['name']} (id: {privilege['org_id']})")
-                orgs_with_sites.append({
-                    "org_id": privilege["org_id"], 
-                    "name": privilege["name"], 
-                    "sites": [
+
+        orgs_with_sites = []
+        for privilege in data:
+            if privilege["scope"] == "site" and not privilege["org_id"] in org_ids:
+                index = _search_org(orgs_with_sites, privilege["org_id"])
+                if index is None:
+                    i += 1
+                    org_ids.append(privilege["org_id"])
+                    print(f"{i}) {privilege['name']} (id: {privilege['org_id']})")
+                    orgs_with_sites.append(
+                        {
+                            "org_id": privilege["org_id"],
+                            "name": privilege["name"],
+                            "sites": [
+                                {"site_id": privilege["site_id"], "name": privilege["name"]}
+                            ],
+                        }
+                    )
+                else:
+                    orgs_with_sites[index]["sites"].append(
                         {"site_id": privilege["site_id"], "name": privilege["name"]}
-                        ]
-                    })
-            else:
-                orgs_with_sites[index]["sites"].append({"site_id": privilege["site_id"], "name": privilege["name"]})
+                    )
 
-    if allow_many: resp = input(f"\r\nSelect an Org (0 to {i}, \"0,1\" for sites 0 and 1, \"a\" for all, or q to exit): ")
-    else: resp = input(f"\r\nSelect an Org (0 to {i}, or q to exit): ")
-    if resp == "q":
-        sys.exit(0)
-    elif resp.lower() == "a" and allow_many:
-        return org_ids
-    else:            
-        resp = resp.split(",")
-        if not allow_many and len(resp) > 1 :
-            print(f"Only one org is allowed, you selected {len(resp)}")
-            return select_org(mist_session, allow_many)
-        for num in resp:
-            tested_val = _test_choice(num, i)
-            if tested_val >= 0:
-                resp_ids.append(org_ids[tested_val])
-            if tested_val == -1:
-                print(f"{num} is not part of the possibilities.")
+        if allow_many:
+            resp = input(
+                f'\r\nSelect an Org (0 to {i}, "0,1" for sites 0 and 1, "a" for all, "b" for back or "q" to quit): '
+            )
+        else:
+            resp = input(f'\r\nSelect an Org (0 to {i}, "b" for back or "q" to quit): ')
+        if resp.lower() == "b":
+            return select_org(mist_session)
+        elif resp.lower() == "q":
+            sys.exit(0)
+        elif resp.lower() == "a" and allow_many:
+            return org_ids
+        else:
+            selection_validated = True
+            resp = resp.split(",")
+            if not allow_many and len(resp) > 1:
+                print(f"Only one org is allowed, you selected {len(resp)}")
                 return select_org(mist_session, allow_many)
-            if tested_val == -2:
-                print("Only numbers are allowed.")
-                return select_org(mist_session, allow_many)
-        return resp_ids
+            for num in resp:
+                tested_val = _test_choice(num, i)
+                if tested_val >= 0:
+                    resp_ids.append(org_ids[tested_val])
+                if tested_val == -1:
+                    print(f"{num} is not part of the possibilities.")
+                    selection_validated = False
+                if tested_val == -2:
+                    print("Only numbers are allowed.")
+                    selection_validated = False
+            if selection_validated:
+                return resp_ids
 
 
-def select_site(mist_session:mistapi.APISession, org_id=None, allow_many=False) -> list:
+def select_site(
+    mist_session: mistapi.APISession, org_id=None, allow_many=False
+) -> list:
     """
     Function to list all the Sites from a Mist Org and ask user to pick one
     or many. Return the Site ID(s) of the selected site(s)
@@ -122,10 +206,10 @@ def select_site(mist_session:mistapi.APISession, org_id=None, allow_many=False) 
     -----------
     :return list - list of the selected Site ID(s)
     """
-    i=-1
-    site_ids=[]
+    i = -1
+    site_ids = []
     site_choices = []
-    resp_ids=[]
+    resp_ids = []
     org_access = False
 
     if org_id is None:
@@ -140,24 +224,26 @@ def select_site(mist_session:mistapi.APISession, org_id=None, allow_many=False) 
     if site_choices == [] or org_access == True:
         site_choices = mistapi.api.v1.orgs.sites.listOrgSites(mist_session, org_id).data
 
-
-    
-    site_choices=sorted(site_choices, key=lambda x: x["name"].lower())
+    site_choices = sorted(site_choices, key=lambda x: x["name"].lower())
     print("\r\nAvailable sites:")
-    for site in site_choices:        
-        i+=1
+    for site in site_choices:
+        i += 1
         site_ids.append(site["id"])
         print(f"{i}) {site['name']} (id: {site['id']})")
-    if allow_many: resp = input(f"\r\nSelect a Site (0 to {i}, \"0,1\" for sites 0 and 1, \"a\" for all, or q to exit): ")
-    else: resp = input(f"\r\nSelect a Site (0 to {i}, or q to exit): ")
+    if allow_many:
+        resp = input(
+            f'\r\nSelect a Site (0 to {i}, "0,1" for sites 0 and 1, "a" for all, or q to exit): '
+        )
+    else:
+        resp = input(f"\r\nSelect a Site (0 to {i}, or q to exit): ")
 
     if resp.lower() == "q":
         sys.exit(0)
     elif resp.lower() == "a" and allow_many:
         return site_ids
-    else:                
+    else:
         resp = resp.split(",")
-        if not allow_many and len(resp) > 1 :
+        if not allow_many and len(resp) > 1:
             print(f"Only one site is allowed, you selected {len(resp)}")
             return select_site(mist_session, org_id, allow_many)
         for num in resp:
@@ -175,7 +261,7 @@ def select_site(mist_session:mistapi.APISession, org_id=None, allow_many=False) 
 
 ###########################################
 #### DATA PROCESSING / DISPLAY
-def extract_field(json_data, field):   
+def extract_field(json_data, field):
     split_field = field.split(".")
     cur_field = split_field[0]
     next_fields = ".".join(split_field[1:])
@@ -183,12 +269,15 @@ def extract_field(json_data, field):
         if len(split_field) > 1:
             return extract_field(json_data[cur_field], next_fields)
         else:
-            return json_data[cur_field] 
+            return json_data[cur_field]
     else:
         return "N/A"
 
-def save_to_csv(csv_file:str, data:list, fields:list, csv_separator:str=",") -> None:
-    """ 
+
+def save_to_csv(
+    csv_file: str, data: list, fields: list, csv_separator: str = ","
+) -> None:
+    """
     Write a list of lists in a CSV file
 
     PARAMS
@@ -202,7 +291,7 @@ def save_to_csv(csv_file:str, data:list, fields:list, csv_separator:str=",") -> 
     with open(csv_file, "w") as f:
         for column in fields:
             f.write(f"{column},")
-        f.write('\r\n')
+        f.write("\r\n")
         for row in data:
             for field in row:
                 if field is None:
@@ -210,16 +299,17 @@ def save_to_csv(csv_file:str, data:list, fields:list, csv_separator:str=",") -> 
                 else:
                     f.write(field)
                 f.write(csv_separator)
-            f.write('\r\n')
+            f.write("\r\n")
 
-def _json_to_array(json_data:object, fields:list) -> list:
+
+def _json_to_array(json_data: object, fields: list) -> list:
     data = []
     for field in fields:
         data.append(json_data.get(field, ""))
     return data
 
 
-def display_list_of_json_as_table(json_list:list, fields:list) -> None:
+def display_list_of_json_as_table(json_list: list, fields: list) -> None:
     table = []
     for data in json_list:
         table.append(_json_to_array(data, fields))
@@ -232,12 +322,12 @@ def pretty_print(response, fields=None):
     else:
         data = response
     print("")
-    if type(data) is list:  
+    if type(data) is list:
         if fields is None:
-            fields = "keys" 
+            fields = "keys"
         print(tabulate(data, headers=fields))
     elif type(data) == dict:
-        print(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
+        print(json.dumps(data, sort_keys=True, indent=4, separators=(",", ": ")))
     else:
-        print(data)    
+        print(data)
     print("")

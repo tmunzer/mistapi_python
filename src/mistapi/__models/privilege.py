@@ -8,7 +8,7 @@ class Privileges:
             self.privileges.append(_Privilege(privilege))           
 
     def __str__(self):
-        columns_headers = ["scope", "name", "site_id", "org_name", "org_id", 'msp_name', "msp_id" ]
+        columns_headers = ["scope", "role", "name", "site_id", "org_name", "org_id", 'msp_name', "msp_id" ]
         table = []
         for entry in self.privileges:
             temp = []
@@ -42,7 +42,7 @@ class _Privilege:
 
 
     def __str__(self):
-        fields = ["scope", "org_id", "org_name", "msp_id", "msp_name",
+        fields = ["scope", "role", "org_id", "org_name", "msp_id", "msp_name",
                   "orggroup_ids", "name", "role", "site_id", "sitegroup_ids"]
         string = ""
         for field in fields:

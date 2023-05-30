@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 This module provide the APISession class, which is used to manage authentication
 and HTTP session (if login/password is used) with Mist Cloud.
-'''
+"""
 
 import os
 import sys
@@ -31,30 +31,26 @@ clouds = [
     {"short": "Global 01", "host": "api.mist.com", "cookies_ext": ""},
     {"short": "Global 02", "host": "api.gc1.mist.com", "cookies_ext": ".gc1"},
     {"short": "Global 03", "host": "api.ac2.mist.com", "cookies_ext": ".ac2"},
-    {"short": "Global 04", "host": "api.gc2.mist.com", "cookies_ext": ".gc2"}
+    {"short": "Global 04", "host": "api.gc2.mist.com", "cookies_ext": ".gc2"},
 ]
-
-
-def _header():
-    print("""
---------------------------------------------------------------------------------
-------------------------- Mist API Python CLI Session --------------------------
-
-    Written by: Thomas Munzer (tmunzer@juniper.net)
-    Github    : https://github.com/tmunzer/mistapi_python
-
-    This package is licensed under the MIT License.
-
---------------------------------------------------------------------------------    
-    """)
 
 
 #### PARAMETERS #####
 
+
 class APISession(APIRequest):
     """Class managing REST API Session"""
 
-    def __init__(self, email: str = None, password: str = None, apitoken: str = None, host: str = None, env_file: str = None, console_log_level: str = 20, logging_log_level: int = 10):
+    def __init__(
+        self,
+        email: str = None,
+        password: str = None,
+        apitoken: str = None,
+        host: str = None,
+        env_file: str = None,
+        console_log_level: str = 20,
+        logging_log_level: int = 10,
+    ):
         """
         :param str email        used if login/password is used. Can be defined later
         :param str password     used if login/password is used. Can be defined later
@@ -63,7 +59,7 @@ class APISession(APIRequest):
         :param str env_file     path to the env file to load. See README.md for allowed variables
         :param int console_log_level
         :param int logging_log_level
-        """        
+        """
         self._cloud_uri = None
         self.email = None
         self._password = None
@@ -94,11 +90,20 @@ class APISession(APIRequest):
         self.privileges = Privileges([])
         self.session_expiry = ""
 
-        logger.debug('API Session initialized')
+        logger.debug("API Session initialized")
 
     def __str__(self):
-        fields = ["email", "first_name", "last_name", "phone", "via_sso",
-                  "privileges", "session_expiry", "tags", "authenticated"]
+        fields = [
+            "email",
+            "first_name",
+            "last_name",
+            "phone",
+            "via_sso",
+            "privileges",
+            "session_expiry",
+            "tags",
+            "authenticated",
+        ]
         string = ""
         for field in fields:
             if hasattr(self, field) and getattr(self, field) != "":
@@ -116,15 +121,14 @@ class APISession(APIRequest):
                 string += "\r\n"
         return string
 
-
-####################################
-# LOAD FUNCTIONS
-
-
+    ####################################
+    # LOAD FUNCTIONS
     def _load_env(self, env_file=None):
         if env_file:
             if env_file.startswith("~/"):
-                env_file = os.path.join(os.path.expanduser('~'), env_file.replace("~/",""))
+                env_file = os.path.join(
+                    os.path.expanduser("~"), env_file.replace("~/", "")
+                )
             env_file = os.path.abspath(env_file)
             console.debug(f"Loading settings from {env_file}")
             logger.debug(f"apisession:Loading settings from {env_file}")
@@ -135,21 +139,21 @@ class APISession(APIRequest):
             logger.debug(f"apisession:Loading settings from env file")
             load_dotenv()
 
-        if os.getenv('MIST_HOST'):
-            self.set_cloud(os.getenv('MIST_HOST'))
-        if os.getenv('MIST_APITOKEN'):
-            self.set_api_token(os.getenv('MIST_APITOKEN'))
-        if os.getenv('MIST_USER'):
-            self.set_email(os.getenv('MIST_USER'))
-        if os.getenv('MIST_PASSWORD'):
-            self.set_password(os.getenv('MIST_PASSWORD'))
-        if os.getenv('CONSOLE_LOG_LEVEL'):
-            self._console_log_level = os.getenv('CONSOLE_LOG_LEVEL')
-        if os.getenv('LOGGING_LOG_LEVEL'):
-            self._logging_log_level = os.getenv('LOGGING_LOG_LEVEL')
+        if os.getenv("MIST_HOST"):
+            self.set_cloud(os.getenv("MIST_HOST"))
+        if os.getenv("MIST_APITOKEN"):
+            self.set_api_token(os.getenv("MIST_APITOKEN"))
+        if os.getenv("MIST_USER"):
+            self.set_email(os.getenv("MIST_USER"))
+        if os.getenv("MIST_PASSWORD"):
+            self.set_password(os.getenv("MIST_PASSWORD"))
+        if os.getenv("CONSOLE_LOG_LEVEL"):
+            self._console_log_level = os.getenv("CONSOLE_LOG_LEVEL")
+        if os.getenv("LOGGING_LOG_LEVEL"):
+            self._logging_log_level = os.getenv("LOGGING_LOG_LEVEL")
 
-####################################
-# CLOUD FUNCTIONS
+    ####################################
+    # CLOUD FUNCTIONS
     def set_cloud(self, cloud_uri: str) -> None:
         """
         Set Mist Cloud to reach.
@@ -163,10 +167,8 @@ class APISession(APIRequest):
         for cloud in clouds:
             if cloud["host"] == cloud_uri:
                 self._cloud_uri = cloud_uri
-                logger.debug(
-                    f"apisession:Mist Cloud configured to {self._cloud_uri}")
-                console.debug(
-                    f"Mist Cloud configured to {self._cloud_uri}")
+                logger.debug(f"apisession:Mist Cloud configured to {self._cloud_uri}")
+                console.debug(f"Mist Cloud configured to {self._cloud_uri}")
         if not self._cloud_uri:
             logger.error(f"apisession:{cloud_uri} is not valid")
             console.error(f"{cloud_uri} is not valid")
@@ -210,9 +212,8 @@ class APISession(APIRequest):
                 print("\r\nPlease enter a number.")
                 self.select_cloud()
 
-####################################
-# AUTH FUNCTIONS
-
+    ####################################
+    # AUTH FUNCTIONS
     def set_email(self, email: str = None) -> None:
         """
         Set the user email
@@ -255,14 +256,13 @@ class APISession(APIRequest):
         """
         logger.debug(f"apisession:in  > set_api_token")
         self._apitoken = apitoken
-        self._session.headers.update(
-            {'Authorization': "Token " + self._apitoken})
+        self._session.headers.update({"Authorization": "Token " + self._apitoken})
         logger.debug(f"apisession:API Token configured")
         console.debug(f"API Token configured")
 
     def _process_login(self):
         """
-        Function to authenticate a user with login/password. 
+        Function to authenticate a user with login/password.
         Will create and store a session used by other requests.
         """
 
@@ -279,10 +279,7 @@ class APISession(APIRequest):
 
         logger.debug(f"apisession:Email/Password configured")
         uri = "/api/v1/login"
-        body = {
-            "email": self.email,
-            "password": self._password
-        }
+        body = {"email": self.email, "password": self._password}
         resp = self._session.post(self._url(uri), json=body)
         if resp.status_code == 200:
             logger.info(f"apisession:Authentication successful!")
@@ -290,12 +287,14 @@ class APISession(APIRequest):
             self._set_authenticated(True)
         else:
             logger.error(
-                f"apisession:Authentication failed: {resp.json().get('detail')}")
+                f"apisession:Authentication failed: {resp.json().get('detail')}"
+            )
             console.error(f"Authentication failed: {resp.json().get('detail')}\r\n")
             self.email = None
             self._password = None
             logger.debug(
-                f"apisession:Email/Password cleaned up. Restarting authentication function")
+                f"apisession:Email/Password cleaned up. Restarting authentication function"
+            )
             self._process_login()
 
     def login(self):
@@ -303,8 +302,8 @@ class APISession(APIRequest):
         Log in on the Mist Cloud.
         If information are missing to get connected, they will be requested
         during the process.
-        If login/password is used, 2FA may be requests. Once authenticated, 
-        the HTTP session and CSRF Token will be stored and used during the 
+        If login/password is used, 2FA may be requests. Once authenticated,
+        the HTTP session and CSRF Token will be stored and used during the
         future API requests.
         """
         logger.debug(f"apisession:in  > login")
@@ -349,8 +348,8 @@ class APISession(APIRequest):
     def _set_authenticated(self, authentication_status: bool) -> None:
         """
         Set the authentication status.
-        If True and Login/password is used, extract the HTTP session and 
-        CSRF Token from the cookies and store them in memory to be used 
+        If True and Login/password is used, extract the HTTP session and
+        CSRF Token from the cookies and store them in memory to be used
         during the future API requests.
         If False, clear the CSRF Token and delete the HTTP session.
 
@@ -359,8 +358,7 @@ class APISession(APIRequest):
         :param bool authentication_status
         """
         logger.debug(f"apisession:in  > _set_authenticated")
-        logger.debug(
-            f"apisession:authentication_status is {authentication_status}")
+        logger.debug(f"apisession:authentication_status is {authentication_status}")
         if authentication_status == True:
             self._authenticated = True
             logger.info(f"apisession:Session is now Authenticated")
@@ -368,14 +366,16 @@ class APISession(APIRequest):
                 logger.debug(f"apisession:Processing HTTP cookies")
                 try:
                     cookies_ext = next(
-                        item["cookies_ext"] for item in clouds if item["host"] == self._cloud_uri)
+                        item["cookies_ext"]
+                        for item in clouds
+                        if item["host"] == self._cloud_uri
+                    )
                     logger.info(f"apisession:HTTP session cookies extracted")
                 except:
                     cookies_ext = ""
-                    logger.error(
-                        f"apisession:Unable to extract HTTP session cookies")
-                self._csrftoken = self._session.cookies['csrftoken' + cookies_ext]
-                self._session.headers.update({'X-CSRFToken': self._csrftoken})
+                    logger.error(f"apisession:Unable to extract HTTP session cookies")
+                self._csrftoken = self._session.cookies["csrftoken" + cookies_ext]
+                self._session.headers.update({"X-CSRFToken": self._csrftoken})
                 logger.info(f"apisession:CSRF Token stored")
         elif authentication_status == False:
             self._authenticated = False
@@ -383,7 +383,8 @@ class APISession(APIRequest):
             self._csrftoken = ""
             del self._session
             logger.info(
-                f"apisession:CSRFT Token is cleaned up and HTTP Session deleted")
+                f"apisession:CSRFT Token is cleaned up and HTTP Session deleted"
+            )
 
     def get_authentication_status(self) -> bool:
         """
@@ -399,8 +400,7 @@ class APISession(APIRequest):
         Retrieve and display the User/Org API Tokens
         """
         logger.debug(f"apisession:in  > list_api_token")
-        logger.info(
-            f"apisession:Sending GET request to \"/api/v1/self/apitokens\"")
+        logger.info(f'apisession:Sending GET request to "/api/v1/self/apitokens"')
         resp = self.mist_get("/api/v1/self/apitokens")
         return resp
 
@@ -416,7 +416,8 @@ class APISession(APIRequest):
         if token_name:
             body = {"name": token_name}
         logger.info(
-            f"apisession:Sending POST request to \"/api/v1/self/apitokens\" with name \"{token_name}\"")
+            f'apisession:Sending POST request to "/api/v1/self/apitokens" with name "{token_name}"'
+        )
         resp = self.mist_post("/api/v1/self/apitokens", body=body)
         return resp
 
@@ -430,7 +431,8 @@ class APISession(APIRequest):
         """
         logger.debug(f"apisession:in  > delete_api_token")
         logger.info(
-            f"apisession:Sending DELETE request to \"/api/v1/self/apitokens\" with token_id \"{token_id}\"")
+            f'apisession:Sending DELETE request to "/api/v1/self/apitokens" with token_id "{token_id}"'
+        )
         uri = f"https://{self._cloud_uri}/api/v1/self/apitokens/{token_id}"
         resp = self._session.delete(uri)
         return resp
@@ -453,7 +455,7 @@ class APISession(APIRequest):
         body = {
             "email": self.email,
             "password": self._password,
-            "two_factor": two_factor
+            "two_factor": two_factor,
         }
         resp = self._session.post(self._url(uri), json=body)
         if resp.status_code == 200:
@@ -463,8 +465,11 @@ class APISession(APIRequest):
             return True
         else:
             logger.error(
-                f"apisession:2FA authentication failed with error code: {resp.status_code}")
-            console.error(f"2FA authentication failed with error code: {resp.status_code}\r\n")
+                f"apisession:2FA authentication failed with error code: {resp.status_code}"
+            )
+            console.error(
+                f"2FA authentication failed with error code: {resp.status_code}\r\n"
+            )
             return False
 
     def _getself(self) -> None:
@@ -473,25 +478,25 @@ class APISession(APIRequest):
         """
         logger.debug(f"apisession:in  > getself")
         uri = "/api/v1/self"
-        logger.info(f"apisession:Sending GET request to \"{uri}\"")
+        logger.info(f'apisession:Sending GET request to "{uri}"')
         resp = self.mist_get(uri)
         if resp.data:
             # Deal with 2FA if needed
             if (
-                resp.data.get('two_factor_required') is True
-                and resp.data.get('two_factor_passed') is False
+                resp.data.get("two_factor_required") is True
+                and resp.data.get("two_factor_passed") is False
             ):
                 logger.info(f"apisession:2FA request by Mist Cloud")
                 two_factor_ok = False
                 while not two_factor_ok:
-                    two_factor = input(
-                        "Two Factor Authentication code required: ")
+                    two_factor = input("Two Factor Authentication code required: ")
                     two_factor_ok = self._two_factor_authentication(two_factor)
                 self._getself()
             # Get details of the account
             else:
                 logger.info(
-                    f"apisession:Authentication Ok. Processing account privileges")
+                    f"apisession:Authentication Ok. Processing account privileges"
+                )
                 for key, val in resp.data.items():
                     if key == "privileges":
                         self.privileges = Privileges(resp.data["privileges"])
@@ -504,16 +509,78 @@ class APISession(APIRequest):
                 print(" Authenticated ".center(80, "-"))
                 print(f"\r\nWelcome {self.first_name} {self.last_name}!\r\n")
                 logger.info(
-                    f"apisession:Account used: {self.first_name} {self.last_name}")
+                    f"apisession:Account used: {self.first_name} {self.last_name}"
+                )
                 return True
         else:
             logger.error(f"apisession:Authentication not valid...")
             console.error("Authentication not valid...\r\n")
             resp = input(
-                f"Do you want to try with new credentials for {self._cloud_uri} (y/N)? " % ())
+                f"Do you want to try with new credentials for {self._cloud_uri} (y/N)? "
+                % ()
+            )
             if resp.lower() == "y":
                 self._process_login()
                 return self._getself()
             else:
                 sys.exit(0)
 
+    ####################################
+    # PRIVILEGES
+
+    def get_privilege_by_org_id(self, org_id: str):
+        logger.debug(f"apisession:in  > get_privilege_by_org_id")
+        org_priv = next(
+            (priv for priv in self.privileges if priv.get("org_id") == org_id), None
+        )
+        if org_priv:
+            logger.info(f"apisession:org {org_id} privileges found in user info")
+            logger.debug(f"apisession:{org_priv}")
+            return org_priv
+        else:
+            logger.warn(
+                f"apisession:Unable of find org {org_id} privileges in user data"
+            )
+            logger.info(
+                f"apisession:Trying to request org {org_id} info from the Cloud"
+            )
+            uri = f"/api/v1/orgs/{org_id}"
+            msp_id = None
+            try:
+                resp = self.mist_get(uri)
+                if resp.data and resp.data.get("msp_id"):
+                    logger.info(
+                        f"apisession:org {org_id} belong to msp_id {resp.data['msp_id']}"
+                    )
+                    msp_id = resp.data.get("msp_id")
+                else:
+                    logger.warn(
+                        "apisession: Not able to find msp_id information in the org info"
+                    )
+            except:
+                logger.error("apisession:Error when retrieving org info")
+            if msp_id:
+                msp_priv = next(
+                    (
+                        priv
+                        for priv in self.privileges
+                        if priv.get("scope") == "msp" and priv.get("msp_id") == msp_id
+                    ),
+                    None,
+                )
+                if not msp_priv:
+                    logger.warn(
+                        f"apisession:Unable of find msp {msp_id} privileges in user data"
+                    )
+                    return None
+                else:
+                    return {
+                        "scope": "org",
+                        "org_id": org_id,
+                        "name": resp.data.get("name"),
+                        "role": msp_priv["role"],
+                        "msp_id": msp_id,
+                        "msp_name": msp_priv["name"],
+                        "orggroup_ids": resp.data.get("orggroup_ids"),
+                        "msp_logo_url": resp.data.get("logo_url")
+                    }
