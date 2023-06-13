@@ -68,6 +68,8 @@ from mistapi.api.v1.orgs import templates
 from mistapi.api.v1.orgs import tickets
 from mistapi.api.v1.orgs import troubleshoot
 from mistapi.api.v1.orgs import vpns
+from mistapi.api.v1.orgs import wan_client
+from mistapi.api.v1.orgs import wan_clients
 from mistapi.api.v1.orgs import webhooks
 from mistapi.api.v1.orgs import wired_clients
 from mistapi.api.v1.orgs import wlans

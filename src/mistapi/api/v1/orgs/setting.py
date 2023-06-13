@@ -59,9 +59,9 @@ def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgClientsBlocklist(mist_session:_APISession, org_id:str) -> _APIResponse:
+def deleteOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgClientsBlocklist
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWirelessClientsBlocklist
     
     PARAMS
     -----------
@@ -80,9 +80,9 @@ def deleteOrgClientsBlocklist(mist_session:_APISession, org_id:str) -> _APIRespo
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createOrgClientsBlocklist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgClientsBlocklist
+    API doc: https://doc.mist-lab.fr/#operation/createOrgWirelessClientsBlocklist
     
     PARAMS
     -----------
@@ -102,6 +102,27 @@ def createOrgClientsBlocklist(mist_session:_APISession, org_id:str, body:object)
     """
     uri = f"/api/v1/orgs/{org_id}/setting/blacklist"
     resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def deleteOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgCradlepointConnection
+    
+    PARAMS
+    -----------
+    :param APISession mist_session - mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    :param str org_id        
+    
+    RETURN
+    -----------
+    :return APIResponse - response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/cradlepoint/setup"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
 def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:

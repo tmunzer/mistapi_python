@@ -14,38 +14,29 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.1", details="function replaced with listApLedDefinition")  
-def getApLedDefinition(mist_session:_APISession) -> _APIResponse:
+def countOrgWanClientEvents(mist_session:_APISession, org_id:str, distinct:str="type") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listApLedDefinition
+    API doc: https://doc.mist-lab.fr/#operation/countOrgWanClientEvents
     
     PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
     
-    RETURN
+    PATH PARAMS
     -----------
-    :return APIResponse - response from the API call
-    """
-    uri = f"/api/v1/const/ap_led_status"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
+    :param str org_id        
     
-def listApLedDefinition(mist_session:_APISession) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listApLedDefinition
-    
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    QUERY PARAMS
+    ------------
+    :param str distinct(type, hostname, ip, mfg, mac)        
     
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
-    uri = f"/api/v1/const/ap_led_status"
+    uri = f"/api/v1/orgs/{org_id}/wan_client/events/count"
     query_params={}
+    if distinct: query_params["distinct"]=distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

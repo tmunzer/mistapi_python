@@ -128,9 +128,9 @@ def getSiteRogueAP(mist_session:_APISession, site_id:str, rogue_bssid:str) -> _A
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deauthSiteClientsConnectedToARogue(mist_session:_APISession, site_id:str, rogue_bssid:str) -> _APIResponse:
+def deauthSiteWirelessClientsConnectedToARogue(mist_session:_APISession, site_id:str, rogue_bssid:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deauthSiteClientsConnectedToARogue
+    API doc: https://doc.mist-lab.fr/#operation/deauthSiteWirelessClientsConnectedToARogue
     
     PARAMS
     -----------

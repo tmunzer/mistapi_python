@@ -59,9 +59,9 @@ def updateSiteSettings(mist_session:_APISession, site_id:str, body:object) -> _A
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteSiteClientsBlocklist(mist_session:_APISession, site_id:str) -> _APIResponse:
+def deleteSiteWirelessClientsBlocklist(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteClientsBlocklist
+    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWirelessClientsBlocklist
     
     PARAMS
     -----------
@@ -80,9 +80,9 @@ def deleteSiteClientsBlocklist(mist_session:_APISession, site_id:str) -> _APIRes
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createSiteClientsBlocklist(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def createSiteWirelessClientsBlocklist(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteClientsBlocklist
+    API doc: https://doc.mist-lab.fr/#operation/createSiteWirelessClientsBlocklist
     
     PARAMS
     -----------
@@ -149,9 +149,9 @@ def createSiteWatchedStations(mist_session:_APISession, site_id:str, body:object
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteSiteClientsAllowlist(mist_session:_APISession, site_id:str) -> _APIResponse:
+def deleteSiteWirelessClientsAllowlist(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteClientsAllowlist
+    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWirelessClientsAllowlist
     
     PARAMS
     -----------
@@ -170,9 +170,9 @@ def deleteSiteClientsAllowlist(mist_session:_APISession, site_id:str) -> _APIRes
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createSiteClientsAllowlist(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def createSiteWirelessClientsAllowlist(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteClientsAllowlist
+    API doc: https://doc.mist-lab.fr/#operation/createSiteWirelessClientsAllowlist
     
     PARAMS
     -----------

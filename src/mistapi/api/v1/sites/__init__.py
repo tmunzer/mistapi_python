@@ -19,6 +19,7 @@ from mistapi.api.v1.sites import assets
 from mistapi.api.v1.sites import beacons
 from mistapi.api.v1.sites import call
 from mistapi.api.v1.sites import clients
+from mistapi.api.v1.sites import deviceprofiles
 from mistapi.api.v1.sites import devices
 from mistapi.api.v1.sites import events
 from mistapi.api.v1.sites import evpn_topologies
@@ -29,6 +30,7 @@ from mistapi.api.v1.sites import location
 from mistapi.api.v1.sites import maps
 from mistapi.api.v1.sites import mxedges
 from mistapi.api.v1.sites import mxtunnels
+from mistapi.api.v1.sites import networks
 from mistapi.api.v1.sites import otherdevices
 from mistapi.api.v1.sites import pcaps
 from mistapi.api.v1.sites import psks
@@ -36,6 +38,8 @@ from mistapi.api.v1.sites import rfdiags
 from mistapi.api.v1.sites import rogues
 from mistapi.api.v1.sites import rrm
 from mistapi.api.v1.sites import rssizones
+from mistapi.api.v1.sites import servicepolicies
+from mistapi.api.v1.sites import services
 from mistapi.api.v1.sites import setting
 from mistapi.api.v1.sites import skyatp
 from mistapi.api.v1.sites import sle
@@ -45,6 +49,9 @@ from mistapi.api.v1.sites import subscriptions
 from mistapi.api.v1.sites import synthetic_test
 from mistapi.api.v1.sites import uisettings
 from mistapi.api.v1.sites import vbeacons
+from mistapi.api.v1.sites import vpns
+from mistapi.api.v1.sites import wan_client
+from mistapi.api.v1.sites import wan_clients
 from mistapi.api.v1.sites import webhooks
 from mistapi.api.v1.sites import wired_clients
 from mistapi.api.v1.sites import wlans

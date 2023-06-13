@@ -14,8 +14,8 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listOrgLogs")  
-def getOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.1", details="function replaced with listOrgLogs")  
+def getOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:any=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgLogs
     
@@ -32,6 +32,7 @@ def getOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_nam
     :param str site_id - site id
     :param str admin_name - admin name or email
     :param str message - message
+    :param any sort(timestamp, -timestamp, site_id, admin_id) - sort order
     :param int start
     :param int end
     :param int limit
@@ -47,6 +48,7 @@ def getOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_nam
     if site_id: query_params["site_id"]=site_id
     if admin_name: query_params["admin_name"]=admin_name
     if message: query_params["message"]=message
+    if sort: query_params["sort"]=sort
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if limit: query_params["limit"]=limit
@@ -55,7 +57,7 @@ def getOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_nam
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+def listOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:any=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgLogs
     
@@ -72,6 +74,7 @@ def listOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_na
     :param str site_id - site id
     :param str admin_name - admin name or email
     :param str message - message
+    :param any sort(timestamp, -timestamp, site_id, admin_id) - sort order
     :param int start
     :param int end
     :param int limit
@@ -87,6 +90,7 @@ def listOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_na
     if site_id: query_params["site_id"]=site_id
     if admin_name: query_params["admin_name"]=admin_name
     if message: query_params["message"]=message
+    if sort: query_params["sort"]=sort
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if limit: query_params["limit"]=limit

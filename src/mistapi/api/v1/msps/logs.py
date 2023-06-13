@@ -14,8 +14,8 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.0", details="function replaced with listMspLogs")  
-def getMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_name:str=None, message:str=None) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.1", details="function replaced with listMspLogs")  
+def getMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:any=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listMspLogs
     
@@ -29,9 +29,15 @@ def getMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_name
     
     QUERY PARAMS
     ------------
-    :param str org_id
+    :param str site_id - site id
     :param str admin_name - admin name or email
-    :param str message        
+    :param str message - message
+    :param any sort(timestamp, -timestamp, site_id, admin_id) - sort order
+    :param int start
+    :param int end
+    :param int limit
+    :param int page
+    :param str duration        
     
     RETURN
     -----------
@@ -39,13 +45,19 @@ def getMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_name
     """
     uri = f"/api/v1/msps/{msp_id}/logs"
     query_params={}
-    if org_id: query_params["org_id"]=org_id
+    if site_id: query_params["site_id"]=site_id
     if admin_name: query_params["admin_name"]=admin_name
     if message: query_params["message"]=message
+    if sort: query_params["sort"]=sort
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
+    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_name:str=None, message:str=None) -> _APIResponse:
+def listMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:any=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listMspLogs
     
@@ -59,9 +71,15 @@ def listMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_nam
     
     QUERY PARAMS
     ------------
-    :param str org_id
+    :param str site_id - site id
     :param str admin_name - admin name or email
-    :param str message        
+    :param str message - message
+    :param any sort(timestamp, -timestamp, site_id, admin_id) - sort order
+    :param int start
+    :param int end
+    :param int limit
+    :param int page
+    :param str duration        
     
     RETURN
     -----------
@@ -69,9 +87,15 @@ def listMspLogs(mist_session:_APISession, msp_id:str, org_id:str=None, admin_nam
     """
     uri = f"/api/v1/msps/{msp_id}/logs"
     query_params={}
-    if org_id: query_params["org_id"]=org_id
+    if site_id: query_params["site_id"]=site_id
     if admin_name: query_params["admin_name"]=admin_name
     if message: query_params["message"]=message
+    if sort: query_params["sort"]=sort
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
+    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

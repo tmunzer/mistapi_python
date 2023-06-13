@@ -88,9 +88,11 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
             for privilege in msp_accounts:
                 i += 1
                 print(f"{i}) {privilege['name']} (id: {privilege['msp_id']})")
-
+            print()
+            print("n) Non-MSP Orgs")
+            print()
             resp = input(
-                f'\r\nSelect the MSP Account to use (0 to {i}, "n" for None, or "q" to quit): '
+                f'\r\nSelect the MSP Account to use (0 to {i}, "n" to access Orgs not attached to an MSP Account, or "q" to quit): '
             )
             if resp == "q":
                 sys.exit(0)
