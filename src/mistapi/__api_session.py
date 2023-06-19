@@ -164,16 +164,11 @@ class APISession(APIRequest):
         """
         logger.debug(f"apisession:in  > set_cloud")
         self._cloud_uri = None
-        if cloud_uri == "api.mistsys.com":
+        for cloud in clouds:
+            if cloud["host"] == cloud_uri:
                 self._cloud_uri = cloud_uri
                 logger.debug(f"apisession:Mist Cloud configured to {self._cloud_uri}")
                 console.debug(f"Mist Cloud configured to {self._cloud_uri}")
-        else:
-            for cloud in clouds:
-                if cloud["host"] == cloud_uri:
-                    self._cloud_uri = cloud_uri
-                    logger.debug(f"apisession:Mist Cloud configured to {self._cloud_uri}")
-                    console.debug(f"Mist Cloud configured to {self._cloud_uri}")
         if not self._cloud_uri:
             logger.error(f"apisession:{cloud_uri} is not valid")
             console.error(f"{cloud_uri} is not valid")
@@ -398,7 +393,7 @@ class APISession(APIRequest):
         Return the authentication status.
         """
         logger.debug(f"apisession:in  > get_authentication_status")
-        return self._authenticated or self._apitoken
+        return self._authenticated
 
     def get_api_token(self):
         """

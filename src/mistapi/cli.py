@@ -12,6 +12,7 @@ This module is providing some functions to simplify Mist API use.
 """
 
 import mistapi as mistapi
+from mistapi.__logger import console
 import sys
 import json
 from tabulate import tabulate
@@ -37,6 +38,17 @@ def _test_choice(val, val_max):
     except:
         return -2
 
+###########################################
+#### DECORATOR
+def is_authenticated(func):
+    def wrapper(*args, **kwargs):
+        mist_session = args[0]
+        if mist_session.get_authentication_status():
+            return func(*args, **kwargs)
+        else:
+            console.critical("Not authenticated... Exiting...")
+            console.critical("Please une the \"login()\" function first...")            
+    return wrapper
 
 ###########################################
 #### CLI SELECTIONS
@@ -60,7 +72,7 @@ def _forge_privileges(mist_session: mistapi.APISession, msp_id: str):
         custom_privileges.append(mist_session.get_privilege_by_org_id(org["id"]))
     return custom_privileges
 
-
+@is_authenticated
 def _select_msp(mist_session: mistapi.APISession) -> list:
     """
     Function to list all the Mist MSPs allowed for the current user
@@ -75,9 +87,7 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
     -----------
     :return list - List of ORG privileges
     """
-    msp_accounts = [
-        priv for priv in mist_session.privileges if priv.get("scope") == "msp"
-    ]
+    msp_accounts = [ priv for priv in mist_session.privileges if priv.get("scope") == "msp" ]
     if len(msp_accounts) == 0:
         return mist_session.privileges
     else:
@@ -88,11 +98,9 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
             for privilege in msp_accounts:
                 i += 1
                 print(f"{i}) {privilege['name']} (id: {privilege['msp_id']})")
-            print()
-            print("n) Non-MSP Orgs")
-            print()
+
             resp = input(
-                f'\r\nSelect the MSP Account to use (0 to {i}, "n" to access Orgs not attached to an MSP Account, or "q" to quit): '
+                f'\r\nSelect the MSP Account to use (0 to {i}, "n" for None, or "q" to quit): '
             )
             if resp == "q":
                 sys.exit(0)
@@ -107,7 +115,7 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
                 elif tested_val == -2:
                     print("Only numbers are allowed.")
 
-
+@is_authenticated
 def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
     """
     Function to list all the Mist Orgs allowed for the current user
@@ -190,7 +198,7 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
             if selection_validated:
                 return resp_ids
 
-
+@is_authenticated
 def select_site(
     mist_session: mistapi.APISession, org_id=None, allow_many=False
 ) -> list:
