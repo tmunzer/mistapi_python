@@ -20,33 +20,43 @@ def countOrgWirelessClients(mist_session:_APISession, org_id:str, distinct:str="
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(mac, hostname, device, os, model, ap, vlan, ssid, ip)
-    :param str mac - partial / full MAC address
-    :param str hostname - partial / full hostname
-    :param str device - device type, e.g. Mac, Nvidia, iPhone
-    :param str os - os, e.g. Sierra, Yosemite, Windows 10
-    :param str model - model, e.g. “MBP 15 late 2013”, 6, 6s, “8+ GSM”
-    :param str ap - AP mac where the client has connected to
-    :param str vlan - vlan
-    :param str ssid - SSID
-    :param str ip_address
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'mac', 'hostname', 'device', 'os', 'model', 'ap', 'vlan', 'ssid', 'ip'}, default: device
+    mac : str
+      partial / full MAC address
+    hostname : str
+      partial / full hostname
+    device : str
+      device type, e.g. Mac, Nvidia, iPhone
+    os : str
+      os, e.g. Sierra, Yosemite, Windows 10
+    model : str
+      model, e.g. “MBP 15 late 2013”, 6, 6s, “8+ GSM”
+    ap : str
+      AP mac where the client has connected to
+    vlan : str
+      vlan
+    ssid : str
+      SSID
+    ip_address : str
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/clients/count"
     query_params={}
@@ -74,29 +84,38 @@ def searchOrgWirelessClientsEvents(mist_session:_APISession, org_id:str, type:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type - event type, e.g. MARVIS_EVENT_CLIENT_FBT_FAILURE
-    :param int reason_code - for assoc/disassoc events
-    :param str ssid - SSID Name
-    :param str ap - AP MAC
-    :param str proto(b, g, n, ac, ax, a) - 802.11 standard
-    :param str band(24, 5) - 24 / 5
-    :param str wlan_id - wlan_id
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    type : str
+      event type, e.g. MARVIS_EVENT_CLIENT_FBT_FAILURE
+    reason_code : int
+      for assoc/disassoc events
+    ssid : str
+      SSID Name
+    ap : str
+      AP MAC
+    proto : str{'b', 'g', 'n', 'ac', 'ax', 'a'}
+      802.11 standard
+    band : str{'24', '5'}
+      24 / 5
+    wlan_id : str
+      wlan_id
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/clients/events/search"
     query_params={}
@@ -120,35 +139,48 @@ def searchOrgWirelessClients(mist_session:_APISession, org_id:str, site_id:str=N
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str site_id - Site ID
-    :param str mac - partial / full MAC address
-    :param str ip_address
-    :param str hostname - partial / full hostname
-    :param str device - device type, e.g. Mac, Nvidia, iPhone
-    :param str os - os, e.g. Sierra, Yosemite, Windows 10
-    :param str model - model, e.g. “MBP 15 late 2013”, 6, 6s, “8+ GSM”
-    :param str ap - AP mac where the client has connected to
-    :param str psk_id
-    :param str psk_name - PSK Name
-    :param str vlan - vlan
-    :param str ssid - SSID
-    :param str text - partial / full MAC address, hostname
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    site_id : str
+      Site ID
+    mac : str
+      partial / full MAC address
+    ip_address : str
+    hostname : str
+      partial / full hostname
+    device : str
+      device type, e.g. Mac, Nvidia, iPhone
+    os : str
+      os, e.g. Sierra, Yosemite, Windows 10
+    model : str
+      model, e.g. “MBP 15 late 2013”, 6, 6s, “8+ GSM”
+    ap : str
+      AP mac where the client has connected to
+    psk_id : str
+    psk_name : str
+      PSK Name
+    vlan : str
+      vlan
+    ssid : str
+      SSID
+    text : str
+      partial / full MAC address, hostname
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/clients/search"
     query_params={}
@@ -178,32 +210,42 @@ def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distin
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(ssid, ap, ip, vlan, hostname, os, model, device)
-    :param str ap - AP MAC
-    :param str band(24, 5) - 5 / 24
-    :param str client_family - E.g. “Mac”, “iPhone”, “Apple watch”
-    :param str client_manufacture - E.g. “Apple”
-    :param str client_model - E.g. “8+”, “XS”
-    :param str client_os - E.g. “Mojave”, “Windows 10”, “Linux”
-    :param str ssid - SSID
-    :param str wlan_id - wlan_id
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'ssid', 'ap', 'ip', 'vlan', 'hostname', 'os', 'model', 'device'}, default: device
+    ap : str
+      AP MAC
+    band : str{'24', '5'}
+      5 / 24
+    client_family : str
+      E.g. “Mac”, “iPhone”, “Apple watch”
+    client_manufacture : str
+      E.g. “Apple”
+    client_model : str
+      E.g. “8+”, “XS”
+    client_os : str
+      E.g. “Mojave”, “Windows 10”, “Linux”
+    ssid : str
+      SSID
+    wlan_id : str
+      wlan_id
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/clients/sessions/count"
     query_params={}
@@ -230,33 +272,45 @@ def searchOrgWirelessClientSessions(mist_session:_APISession, org_id:str, ap:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str ap - AP MAC
-    :param str band(24, 5) - 5 / 24
-    :param str client_family - E.g. “Mac”, “iPhone”, “Apple watch”
-    :param str client_manufacture - E.g. “Apple”
-    :param str client_model - E.g. “8+”, “XS”
-    :param str client_username - Username
-    :param str client_os - E.g. “Mojave”, “Windows 10”, “Linux”
-    :param str ssid - SSID
-    :param str wlan_id - wlan_id
-    :param str psk_id
-    :param str psk_name - PSK Name
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    ap : str
+      AP MAC
+    band : str{'24', '5'}
+      5 / 24
+    client_family : str
+      E.g. “Mac”, “iPhone”, “Apple watch”
+    client_manufacture : str
+      E.g. “Apple”
+    client_model : str
+      E.g. “8+”, “XS”
+    client_username : str
+      Username
+    client_os : str
+      E.g. “Mojave”, “Windows 10”, “Linux”
+    ssid : str
+      SSID
+    wlan_id : str
+      wlan_id
+    psk_id : str
+    psk_name : str
+      PSK Name
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/clients/sessions/search"
     query_params={}

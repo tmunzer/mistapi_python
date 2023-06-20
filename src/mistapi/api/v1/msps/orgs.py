@@ -21,15 +21,17 @@ def getMspOrgs(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs"
     query_params={}
@@ -42,15 +44,17 @@ def listMspOrgs(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs"
     query_params={}
@@ -63,19 +67,22 @@ def createMspOrg(mist_session:_APISession, msp_id:str, body:object) -> _APIRespo
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -87,19 +94,22 @@ def manageMspOrgs(mist_session:_APISession, msp_id:str, body:object) -> _APIResp
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -111,24 +121,30 @@ def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str=None, org_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param str name
-    :param str org_id - org id
-    :param bool sub_insufficient - if this org has sufficient subscription
-    :param bool trial_enabled - if this org is under trial period
-    :param list usage_types - a list of types that enabled by usage
-    :param int limit        
+    name : str
+    org_id : str
+      org id
+    sub_insufficient : bool
+      if this org has sufficient subscription
+    trial_enabled : bool
+      if this org is under trial period
+    usage_types : list
+      a list of types that enabled by usage
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs/search"
     query_params={}
@@ -147,16 +163,18 @@ def getMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id
-    :param str org_id        
+    msp_id : str
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orgs/{org_id}"
     query_params={}

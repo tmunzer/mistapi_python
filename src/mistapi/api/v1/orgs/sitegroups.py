@@ -21,15 +21,17 @@ def getOrgSiteGroups(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitegroups"
     query_params={}
@@ -42,15 +44,17 @@ def listOrgSiteGroups(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitegroups"
     query_params={}
@@ -63,19 +67,22 @@ def createOrgSiteGroup(mist_session:_APISession, org_id:str, body:object) -> _AP
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitegroups"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -87,16 +94,18 @@ def getOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> _
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str sitegroup_id        
+    org_id : str
+    sitegroup_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitegroups/{sitegroup_id}"
     query_params={}
@@ -109,16 +118,18 @@ def deleteOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str sitegroup_id        
+    org_id : str
+    sitegroup_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitegroups/{sitegroup_id}"
     query_params={}
@@ -131,20 +142,23 @@ def updateOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str, b
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str sitegroup_id        
+    org_id : str
+    sitegroup_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sitegroups/{sitegroup_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

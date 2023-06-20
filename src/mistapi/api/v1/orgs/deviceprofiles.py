@@ -21,21 +21,23 @@ def getOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap", li
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(ap, switch, gateway)
-    :param int limit
-    :param int page        
+    type : str{'ap', 'switch', 'gateway'}, default: ap
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles"
     query_params={}
@@ -51,21 +53,23 @@ def listOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap", l
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(ap, switch, gateway)
-    :param int limit
-    :param int page        
+    type : str{'ap', 'switch', 'gateway'}, default: ap
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles"
     query_params={}
@@ -81,19 +85,22 @@ def createOrgDeviceProfiles(mist_session:_APISession, org_id:str, body:object) -
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -105,16 +112,18 @@ def getOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str deviceprofile_id        
+    org_id : str
+    deviceprofile_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles/{deviceprofile_id}"
     query_params={}
@@ -127,16 +136,18 @@ def deleteOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str deviceprofile_id        
+    org_id : str
+    deviceprofile_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles/{deviceprofile_id}"
     query_params={}
@@ -149,20 +160,23 @@ def updateOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str deviceprofile_id        
+    org_id : str
+    deviceprofile_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles/{deviceprofile_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -174,20 +188,23 @@ def assignOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str deviceprofile_id        
+    org_id : str
+    deviceprofile_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles/{deviceprofile_id}/assign"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -199,20 +216,23 @@ def unassignOrgDeviceProfiles(mist_session:_APISession, org_id:str, deviceprofil
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str deviceprofile_id        
+    org_id : str
+    deviceprofile_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/deviceprofiles/{deviceprofile_id}/unassign"
     resp = mist_session.mist_post(uri=uri, body=body)

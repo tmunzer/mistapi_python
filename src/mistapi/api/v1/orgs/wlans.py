@@ -21,15 +21,17 @@ def getOrgWlans(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans"
     query_params={}
@@ -42,15 +44,17 @@ def listOrgWlans(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans"
     query_params={}
@@ -63,19 +67,22 @@ def createOrgWlan(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -87,19 +94,22 @@ def getOrgWlanDerived(mist_session:_APISession, org_id:str, resolve:bool=None) -
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param bool resolve - whether to resolve SITE_VARS, default is false (as filter, optional)        
+    resolve : bool
+      whether to resolve SITE_VARS, default is false (as filter, optional)        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/derived"
     query_params={}
@@ -113,16 +123,18 @@ def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIRespons
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str wlan_id        
+    org_id : str
+    wlan_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
     query_params={}
@@ -135,16 +147,18 @@ def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResp
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str wlan_id        
+    org_id : str
+    wlan_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
     query_params={}
@@ -157,20 +171,23 @@ def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str wlan_id        
+    org_id : str
+    wlan_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -182,16 +199,18 @@ def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str wlan_id        
+    org_id : str
+    wlan_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_image"
     query_params={}
@@ -204,16 +223,18 @@ def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str wlan_id        
+    org_id : str
+    wlan_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     multipart_form_data = {
     }
@@ -227,20 +248,23 @@ def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str wlan_id        
+    org_id : str
+    wlan_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_template"
     resp = mist_session.mist_put(uri=uri, body=body)

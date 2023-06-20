@@ -20,19 +20,22 @@ def multiAckOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _API
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/ack"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -44,19 +47,22 @@ def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/ack_all"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -68,24 +74,26 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/count"
     query_params={}
@@ -104,24 +112,26 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str site_id
-    :param str type
-    :param int start
-    :param int end
-    :param str duration
-    :param int limit        
+    site_id : str
+    type : str
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/search"
     query_params={}
@@ -140,19 +150,22 @@ def multiUnackOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _A
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/unack"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -164,19 +177,22 @@ def unackOrgAllArlarms(mist_session:_APISession, org_id:str, body:object) -> _AP
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/unack_all"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -188,20 +204,23 @@ def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:object)
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str alarm_id        
+    org_id : str
+    alarm_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/alarms/{alarm_id}/ack"
     resp = mist_session.mist_post(uri=uri, body=body)

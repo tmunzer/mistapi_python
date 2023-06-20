@@ -21,21 +21,24 @@ def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", lim
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str for_sites(any, true, false) - filter for site level mist edges
-    :param int limit
-    :param int page        
+    for_sites : str{'any', 'true', 'false'}, default: any
+      filter for site level mist edges
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges"
     query_params={}
@@ -51,21 +54,24 @@ def listOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", li
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str for_sites(any, true, false) - filter for site level mist edges
-    :param int limit
-    :param int page        
+    for_sites : str{'any', 'true', 'false'}, default: any
+      filter for site level mist edges
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges"
     query_params={}
@@ -81,19 +87,22 @@ def createOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -105,19 +114,22 @@ def assignOrgMxEdgeToSite(mist_session:_APISession, org_id:str, body:object) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/assign"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -129,19 +141,22 @@ def claimOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/claim"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -153,19 +168,22 @@ def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object)
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/unassign"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -178,15 +196,17 @@ def getOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/upgrade"
     query_params={}
@@ -199,15 +219,17 @@ def listOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/upgrade"
     query_params={}
@@ -220,19 +242,22 @@ def upgradeOrgMxEdges(mist_session:_APISession, org_id:str, body:object) -> _API
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -244,16 +269,18 @@ def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str upgrade_id        
+    org_id : str
+    upgrade_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/upgrade/{upgrade_id}"
     query_params={}
@@ -266,19 +293,22 @@ def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str channel(stable, beta, alpha) - upgrade channel to follow, stable (default) / beta / alpha        
+    channel : str{'stable', 'beta', 'alpha'}, default: stable
+      upgrade channel to follow, stable (default) / beta / alpha        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/version"
     query_params={}
@@ -292,16 +322,18 @@ def getOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIRes
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str mxedge_id        
+    org_id : str
+    mxedge_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}"
     query_params={}
@@ -314,16 +346,18 @@ def deleteOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _API
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str mxedge_id        
+    org_id : str
+    mxedge_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}"
     query_params={}
@@ -336,20 +370,23 @@ def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:ob
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str mxedge_id        
+    org_id : str
+    mxedge_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -361,16 +398,18 @@ def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _AP
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str mxedge_id        
+    org_id : str
+    mxedge_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/restart"
     resp = mist_session.mist_post(uri=uri)
@@ -382,20 +421,23 @@ def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str mxedge_id        
+    org_id : str
+    mxedge_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/services/tunterm/bounce_port"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -407,18 +449,21 @@ def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str mxedge_id
-    :param str name
-    :param str action - restart or start or stop        
+    org_id : str
+    mxedge_id : str
+    name : str
+    action : str
+      restart or start or stop        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/services/{name}/{action}"
     resp = mist_session.mist_post(uri=uri)
@@ -430,16 +475,18 @@ def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str mxedge_id        
+    org_id : str
+    mxedge_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/support"
     resp = mist_session.mist_post(uri=uri)
@@ -451,16 +498,18 @@ def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str mxedge_id        
+    org_id : str
+    mxedge_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/unregister"
     resp = mist_session.mist_post(uri=uri)
@@ -472,20 +521,23 @@ def upgradeOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:o
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str mxedge_id        
+    org_id : str
+    mxedge_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)

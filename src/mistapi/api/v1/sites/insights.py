@@ -20,26 +20,28 @@ def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str client_mac
-    :param str metric        
+    site_id : str
+    client_mac : str
+    metric : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration
-    :param str interval        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d
+    interval : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/insights/client/{client_mac}/{metric}"
     query_params={}
@@ -58,26 +60,28 @@ def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str metric
-    :param str device_mac        
+    site_id : str
+    metric : str
+    device_mac : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration
-    :param str interval        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d
+    interval : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/insights/device/{device_mac}/{metric}"
     query_params={}
@@ -97,24 +101,26 @@ def getSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, limit:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(honeypot, lan, others, spoof)
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration
-    :param str interval        
+    type : str{'honeypot', 'lan', 'others', 'spoof'}
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d
+    interval : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/insights/rogues"
     query_params={}
@@ -133,24 +139,26 @@ def listSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, limit
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(honeypot, lan, others, spoof)
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration
-    :param str interval        
+    type : str{'honeypot', 'lan', 'others', 'spoof'}
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d
+    interval : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/insights/rogues"
     query_params={}
@@ -170,23 +178,25 @@ def getSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration
-    :param str interval        
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d
+    interval : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/insights/rogues/clients"
     query_params={}
@@ -204,23 +214,25 @@ def listSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration
-    :param str interval        
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d
+    interval : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/insights/rogues/clients"
     query_params={}
@@ -238,25 +250,27 @@ def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, pag
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str metric        
+    site_id : str
+    metric : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration
-    :param str interval        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d
+    interval : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/insights/{metric}"
     query_params={}

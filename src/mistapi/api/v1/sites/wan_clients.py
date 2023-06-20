@@ -20,24 +20,26 @@ def countSiteWanClients(mist_session:_APISession, site_id:str, distinct:str="mac
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(hostname, ip, mfg, mac)
-    :param int start
-    :param int end
-    :param str duration
-    :param int limit
-    :param int page        
+    distinct : str{'hostname', 'ip', 'mfg', 'mac'}, default: mac
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wan_clients/count"
     query_params={}
@@ -56,28 +58,35 @@ def searchSiteWanClientsEvents(mist_session:_APISession, site_id:str, type:str=N
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type - Event type, e.g. CLIENT_IP_ASSIGNED, CLIENT_IP_RENEWED, CLIENT_IP_EXPIRED
-    :param str mac - partial / full MAC address
-    :param str hostname - partial / full hostname
-    :param str ip - client IP
-    :param str mfg - Manufacture
-    :param int start
-    :param int end
-    :param str duration
-    :param int limit
-    :param int page        
+    type : str
+      Event type, e.g. CLIENT_IP_ASSIGNED, CLIENT_IP_RENEWED, CLIENT_IP_EXPIRED
+    mac : str
+      partial / full MAC address
+    hostname : str
+      partial / full hostname
+    ip : str
+      client IP
+    mfg : str
+      Manufacture
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wan_clients/events/search"
     query_params={}
@@ -100,27 +109,33 @@ def searchSiteWanClients(mist_session:_APISession, site_id:str, mac:str=None, ho
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str mac - partial / full MAC address
-    :param str hostname - partial / full hostname
-    :param str ip - client IP
-    :param str mfg - Manufacture
-    :param int start
-    :param int end
-    :param str duration
-    :param int limit
-    :param int page        
+    mac : str
+      partial / full MAC address
+    hostname : str
+      partial / full hostname
+    ip : str
+      client IP
+    mfg : str
+      Manufacture
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/wan_clients/search"
     query_params={}

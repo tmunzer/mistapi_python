@@ -21,23 +21,25 @@ def getSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=N
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str ssid
-    :param str role
-    :param str name
-    :param int page
-    :param int limit        
+    ssid : str
+    role : str
+    name : str
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks"
     query_params={}
@@ -55,23 +57,25 @@ def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str ssid
-    :param str role
-    :param str name
-    :param int page
-    :param int limit        
+    ssid : str
+    role : str
+    name : str
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks"
     query_params={}
@@ -89,19 +93,22 @@ def createSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -113,19 +120,22 @@ def updateSitePsks(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -137,19 +147,22 @@ def importSitePsksFile(mist_session:_APISession, site_id:str, file:str=None) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param str file - path to the file to upload. 
+    file : str
+        path to the file to upload. 
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     multipart_form_data = {
         "file":file,
@@ -164,19 +177,22 @@ def importSitePsks(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks/import"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -188,16 +204,18 @@ def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIRespons
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str psk_id        
+    site_id : str
+    psk_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks/{psk_id}"
     query_params={}
@@ -210,16 +228,18 @@ def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResp
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str psk_id        
+    site_id : str
+    psk_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks/{psk_id}"
     query_params={}
@@ -232,20 +252,23 @@ def updateSitePsk(mist_session:_APISession, site_id:str, psk_id:str, body:object
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str psk_id        
+    site_id : str
+    psk_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/psks/{psk_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

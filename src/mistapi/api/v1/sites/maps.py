@@ -21,15 +21,17 @@ def getSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps"
     query_params={}
@@ -42,15 +44,17 @@ def listSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps"
     query_params={}
@@ -63,19 +67,22 @@ def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -87,22 +94,32 @@ def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param bool auto_deviceprofile_assignment - boolean, whether to auto assign device to deviceprofile by name
-    :param str csv - path to the file to upload. csv file for ap name mapping, optional
-    :param str file - path to the file to upload. 
-    :param dict json - 
+    auto_deviceprofile_assignment : bool
+        whether to auto assign device to deviceprofile by name
+    csv : str
+        path to the file to upload. csv file for ap name mapping, optional
+    file : str
+        path to the file to upload. 
+    json : dict
+        import_all_floorplans : bool
+        import_height : bool, default: True
+        import_orientation : bool, default: True
+        site_id : str
+        vendor_name : {'ekahau', 'ibwave'}
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     multipart_form_data = {
         "auto_deviceprofile_assignment":auto_deviceprofile_assignment,
@@ -120,16 +137,18 @@ def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIRespons
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}"
     query_params={}
@@ -142,16 +161,18 @@ def deleteSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResp
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}"
     query_params={}
@@ -164,20 +185,23 @@ def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -189,16 +213,18 @@ def deleteSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str map_id
-    :param str site_id        
+    map_id : str
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_orient"
     query_params={}
@@ -211,16 +237,18 @@ def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str map_id
-    :param str site_id        
+    map_id : str
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_orient"
     resp = mist_session.mist_post(uri=uri)
@@ -232,16 +260,18 @@ def getSiteApAutoPlacement(mist_session:_APISession, site_id:str, map_id:str) ->
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_placement"
     query_params={}
@@ -254,16 +284,18 @@ def deleteSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str)
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_placement"
     query_params={}
@@ -276,20 +308,23 @@ def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, bo
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_placement"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -301,20 +336,23 @@ def clearSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, bod
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/clear_auto_orient"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -326,20 +364,23 @@ def clearSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/clear_autoplacement"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -351,16 +392,18 @@ def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> _AP
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/image"
     query_params={}
@@ -373,16 +416,18 @@ def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str) -> _A
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     multipart_form_data = {
     }
@@ -396,21 +441,26 @@ def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, f
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param str file - path to the file to upload. 
-    :param dict json - 
+    file : str
+        path to the file to upload. 
+    json : dict
+        transform : dict
+        If `transform` is provided, all the locations of the objects on the map (AP, Zone, Vbeacon, Beacon) will be transformed as well (relative to the new Map)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     multipart_form_data = {
         "file":file,
@@ -426,20 +476,23 @@ def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, bo
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/set_map"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -451,20 +504,23 @@ def confirmSiteApLocalizationData(mist_session:_APISession, site_id:str, map_id:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/use_auto_ap_values"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -476,20 +532,23 @@ def importSiteWayfindings(mist_session:_APISession, site_id:str, map_id:str, bod
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/wayfinding/import"
     resp = mist_session.mist_post(uri=uri, body=body)

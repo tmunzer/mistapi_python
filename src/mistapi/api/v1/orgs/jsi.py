@@ -21,23 +21,25 @@ def getOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:i
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param int limit
-    :param int page
-    :param str model
-    :param str serial
-    :param str mac        
+    limit : int, default: 100
+    page : int, default: 1
+    model : str
+    serial : str
+    mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/devices"
     query_params={}
@@ -55,23 +57,25 @@ def listOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param int limit
-    :param int page
-    :param str model
-    :param str serial
-    :param str mac        
+    limit : int, default: 100
+    page : int, default: 1
+    model : str
+    serial : str
+    mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/devices"
     query_params={}
@@ -89,15 +93,17 @@ def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/devices/outbound_ssh_cmd"
     query_params={}
@@ -110,16 +116,18 @@ def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str device_mac        
+    org_id : str
+    device_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/devices/{device_mac}/shell"
     resp = mist_session.mist_post(uri=uri)
@@ -131,20 +139,23 @@ def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, bo
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str device_mac        
+    org_id : str
+    device_mac : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/devices/{device_mac}/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -157,22 +168,24 @@ def getOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param int limit
-    :param int page
-    :param str model
-    :param str serial        
+    limit : int, default: 100
+    page : int, default: 1
+    model : str
+    serial : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/inventory"
     query_params={}
@@ -189,22 +202,24 @@ def listOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100,
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param int limit
-    :param int page
-    :param str model
-    :param str serial        
+    limit : int, default: 100
+    page : int, default: 1
+    model : str
+    serial : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/jsi/inventory"
     query_params={}

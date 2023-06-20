@@ -20,32 +20,34 @@ def countSiteWirelessClients(mist_session:_APISession, site_id:str, distinct:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(ssid, ap, ip, vlan, hostname, os, model, device)
-    :param str ssid
-    :param str ap
-    :param str ip_address
-    :param str vlan
-    :param str hostname
-    :param str os
-    :param str model
-    :param str device
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'ssid', 'ap', 'ip', 'vlan', 'hostname', 'os', 'model', 'device'}, default: device
+    ssid : str
+    ap : str
+    ip_address : str
+    vlan : str
+    hostname : str
+    os : str
+    model : str
+    device : str
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/count"
     query_params={}
@@ -72,19 +74,22 @@ def disconnectSiteMultipleClients(mist_session:_APISession, site_id:str, body:ob
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/disconnect"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -96,31 +101,41 @@ def countSiteWirelessClientsEvents(mist_session:_APISession, site_id:str, distin
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(type, proto, band, channel, wlan_id, ssid) - type / proto / band / channel / wlan_id / ssid
-    :param str type - event type, e.g. MARVIS_EVENT_CLIENT_FBT_FAILURE
-    :param int reason_code - for assoc/disassoc events
-    :param str ssid - SSID Name
-    :param str ap - AP MAC
-    :param str proto(b, g, n, ac, ax, a) - 802.11 standard
-    :param str band(24, 5) - 24 / 5
-    :param str wlan_id - wlan_id
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'type', 'proto', 'band', 'channel', 'wlan_id', 'ssid'}
+      type / proto / band / channel / wlan_id / ssid
+    type : str
+      event type, e.g. MARVIS_EVENT_CLIENT_FBT_FAILURE
+    reason_code : int
+      for assoc/disassoc events
+    ssid : str
+      SSID Name
+    ap : str
+      AP MAC
+    proto : str{'b', 'g', 'n', 'ac', 'ax', 'a'}
+      802.11 standard
+    band : str{'24', '5'}
+      24 / 5
+    wlan_id : str
+      wlan_id
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/events/count"
     query_params={}
@@ -146,29 +161,38 @@ def searchSiteWirelessClientsEvents(mist_session:_APISession, site_id:str, type:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type - event type, e.g. MARVIS_EVENT_CLIENT_FBT_FAILURE
-    :param int reason_code - for assoc/disassoc events
-    :param str ssid - SSID Name
-    :param str ap - AP MAC
-    :param str proto(b, g, n, ac, ax, a) - 802.11 standard
-    :param str band(24, 5) - 24 / 5
-    :param str wlan_id - wlan_id
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    type : str
+      event type, e.g. MARVIS_EVENT_CLIENT_FBT_FAILURE
+    reason_code : int
+      for assoc/disassoc events
+    ssid : str
+      SSID Name
+    ap : str
+      AP MAC
+    proto : str{'b', 'g', 'n', 'ac', 'ax', 'a'}
+      802.11 standard
+    band : str{'24', '5'}
+      24 / 5
+    wlan_id : str
+      wlan_id
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/events/search"
     query_params={}
@@ -192,31 +216,40 @@ def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str=Non
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str mac - partial / full MAC address
-    :param str ip_address
-    :param str hostname - partial / full hostname
-    :param str device - device type, e.g. Mac, Nvidia, iPhone
-    :param str os - os, e.g. Sierra, Yosemite, Windows 10
-    :param str model - model, e.g. “MBP 15 late 2013”, 6, 6s, “8+ GSM”
-    :param str ap - AP mac where the client has connected to
-    :param str ssid
-    :param str text - partial / full MAC address, hostname, username or ip
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    mac : str
+      partial / full MAC address
+    ip_address : str
+    hostname : str
+      partial / full hostname
+    device : str
+      device type, e.g. Mac, Nvidia, iPhone
+    os : str
+      os, e.g. Sierra, Yosemite, Windows 10
+    model : str
+      model, e.g. “MBP 15 late 2013”, 6, 6s, “8+ GSM”
+    ap : str
+      AP mac where the client has connected to
+    ssid : str
+    text : str
+      partial / full MAC address, hostname, username or ip
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/search"
     query_params={}
@@ -242,32 +275,42 @@ def countSiteWirelessClientSessions(mist_session:_APISession, site_id:str, disti
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(ssid, wlan_id, ap, mac, client_family, client_manufacture, client_model, client_os)
-    :param str ap - AP MAC
-    :param str band - 24 /5
-    :param str client_family - E.g. “Mac”, “iPhone”, “Apple watch”
-    :param str client_manufacture - E.g. “Apple”
-    :param str client_model - E.g. “8+”, “XS”
-    :param str client_os - E.g. “Mojave”, “Windows 10”, “Linux”
-    :param str ssid - SSID
-    :param str wlan_id - wlan_id
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'ssid', 'wlan_id', 'ap', 'mac', 'client_family', 'client_manufacture', 'client_model', 'client_os'}, default: mac
+    ap : str
+      AP MAC
+    band : str
+      24 /5
+    client_family : str
+      E.g. “Mac”, “iPhone”, “Apple watch”
+    client_manufacture : str
+      E.g. “Apple”
+    client_model : str
+      E.g. “8+”, “XS”
+    client_os : str
+      E.g. “Mojave”, “Windows 10”, “Linux”
+    ssid : str
+      SSID
+    wlan_id : str
+      wlan_id
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/sessions/count"
     query_params={}
@@ -294,33 +337,45 @@ def searchSiteWirelessClientSessions(mist_session:_APISession, site_id:str, ap:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str ap - AP MAC
-    :param str band(24, 5) - 5 / 24
-    :param str client_family - E.g. “Mac”, “iPhone”, “Apple watch”
-    :param str client_manufacture - E.g. “Apple”
-    :param str client_model - E.g. “8+”, “XS”
-    :param str client_username - Username
-    :param str client_os - E.g. “Mojave”, “Windows 10”, “Linux”
-    :param str ssid - SSID
-    :param str wlan_id - wlan_id
-    :param str psk_id
-    :param str psk_name - PSK Name
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    ap : str
+      AP MAC
+    band : str{'24', '5'}
+      5 / 24
+    client_family : str
+      E.g. “Mac”, “iPhone”, “Apple watch”
+    client_manufacture : str
+      E.g. “Apple”
+    client_model : str
+      E.g. “8+”, “XS”
+    client_username : str
+      Username
+    client_os : str
+      E.g. “Mojave”, “Windows 10”, “Linux”
+    ssid : str
+      SSID
+    wlan_id : str
+      wlan_id
+    psk_id : str
+    psk_name : str
+      PSK Name
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/sessions/search"
     query_params={}
@@ -348,19 +403,22 @@ def unauthorizeSiteMultipleClients(mist_session:_APISession, site_id:str, body:o
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/unauthorize"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -372,16 +430,18 @@ def disconnectSiteWirelessClient(mist_session:_APISession, site_id:str, client_m
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str client_mac        
+    site_id : str
+    client_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/{client_mac}/disconnect"
     resp = mist_session.mist_post(uri=uri)
@@ -393,30 +453,35 @@ def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str client_mac        
+    site_id : str
+    client_mac : str        
     
     QUERY PARAMS
     ------------
-    :param str type(b, g, n) - e.g. MARVIS_EVENT_CLIENT_DHCP_STUCK
-    :param str proto(a, b, g, n, ac, ax) - a / b / g / n / ac / ax
-    :param str band - 24 / 5
-    :param str channel
-    :param str wlan_id
-    :param str ssid
-    :param int start
-    :param int end
-    :param int page
-    :param int limit
-    :param str duration        
+    type : str{'b', 'g', 'n'}
+      e.g. MARVIS_EVENT_CLIENT_DHCP_STUCK
+    proto : str{'a', 'b', 'g', 'n', 'ac', 'ax'}
+      a / b / g / n / ac / ax
+    band : str
+      24 / 5
+    channel : str
+    wlan_id : str
+    ssid : str
+    start : int
+    end : int
+    page : int, default: 1
+    limit : int, default: 100
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/{client_mac}/events"
     query_params={}
@@ -440,16 +505,18 @@ def unauthorizeSiteWirelessClient(mist_session:_APISession, site_id:str, client_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str client_mac        
+    site_id : str
+    client_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/clients/{client_mac}/unauthorize"
     resp = mist_session.mist_post(uri=uri)

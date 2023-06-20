@@ -20,29 +20,35 @@ def countSiteSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="t
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(type, mac, device_mac, threat_level)
-    :param str type - event type, e.g. cc, fs, mw
-    :param str mac - client MAC
-    :param str device_mac - device MAC
-    :param int threat_level - threat level
-    :param str ip_address
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'type', 'mac', 'device_mac', 'threat_level'}, default: type
+    type : str
+      event type, e.g. cc, fs, mw
+    mac : str
+      client MAC
+    device_mac : str
+      device MAC
+    threat_level : int
+      threat level
+    ip_address : str
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/skyatp/events/count"
     query_params={}
@@ -66,27 +72,33 @@ def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None,
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type - event type, e.g. cc, fs, mw
-    :param str mac - client MAC
-    :param str device_mac - device MAC
-    :param int threat_level - threat level
-    :param str ip_address
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    type : str
+      event type, e.g. cc, fs, mw
+    mac : str
+      client MAC
+    device_mac : str
+      device MAC
+    threat_level : int
+      threat level
+    ip_address : str
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/skyatp/events/search"
     query_params={}

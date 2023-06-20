@@ -21,15 +21,17 @@ def getInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites"
     query_params={}
@@ -42,15 +44,17 @@ def listInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites"
     query_params={}
@@ -63,20 +67,23 @@ def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str site_name        
+    org_id : str
+    site_name : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -89,16 +96,18 @@ def getInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _AP
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str site_name        
+    org_id : str
+    site_name : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps"
     query_params={}
@@ -111,16 +120,18 @@ def listInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _A
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str site_name        
+    org_id : str
+    site_name : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps"
     query_params={}
@@ -133,22 +144,30 @@ def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str site_name        
+    org_id : str
+    site_name : str        
     
     BODY PARAMS
     -----------
-    :param str csv - path to the file to upload. 
-    :param str file - path to the file to upload. 
-    :param dict json - 
+    csv : str
+        path to the file to upload. 
+    file : str
+        path to the file to upload. 
+    json : dict
+        import_all_floorplans : bool
+        import_height : bool
+        import_orientation : bool
+        vendor_name : {'ibwave', 'ekahau'}
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     multipart_form_data = {
         "csv":csv,
@@ -165,17 +184,19 @@ def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str site_name
-    :param str map_id        
+    org_id : str
+    site_name : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/{map_id}"
     query_params={}
@@ -188,21 +209,24 @@ def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str site_name
-    :param str map_id        
+    org_id : str
+    site_name : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/{map_id}"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -214,21 +238,24 @@ def updateInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str site_name
-    :param str map_id        
+    org_id : str
+    site_name : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/{map_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

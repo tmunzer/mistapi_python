@@ -21,22 +21,25 @@ def getSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(ap, switch, gateway, all) - device type
-    :param str name
-    :param int page
-    :param int limit        
+    type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
+      device type
+    name : str
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices"
     query_params={}
@@ -53,22 +56,25 @@ def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(ap, switch, gateway, all) - device type
-    :param str name
-    :param int page
-    :param int limit        
+    type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
+      device type
+    name : str
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices"
     query_params={}
@@ -85,19 +91,22 @@ def getSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_co
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str country_code - country code for the site (for AP config generation), in [two-character](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)        
+    country_code : str
+      country code for the site (for AP config generation), in [two-character](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/ap_channels"
     query_params={}
@@ -111,25 +120,27 @@ def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct
-    :param str mac
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str
+    mac : str
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/config_history/count"
     query_params={}
@@ -149,24 +160,27 @@ def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, device_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str device_type(ap, switch, gateway)
-    :param str mac - Device MAC Address
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    device_type : str{'ap', 'switch', 'gateway'}, default: ap
+    mac : str
+      Device MAC Address
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/config_history/search"
     query_params={}
@@ -185,35 +199,37 @@ def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model"
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(model, version, map_id, hostname, mxtunnel_status, mxedge_id, lldp_system_name, lldp_system_desc, lldp_port_id, lldp_mgmt_addr)
-    :param str hostname
-    :param str model
-    :param str mac
-    :param str version
-    :param str mxtunnel_status
-    :param str mxedge_id
-    :param str lldp_system_name
-    :param str lldp_system_desc
-    :param str lldp_port_id
-    :param str lldp_mgmt_addr
-    :param str map_id
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'model', 'version', 'map_id', 'hostname', 'mxtunnel_status', 'mxedge_id', 'lldp_system_name', 'lldp_system_desc', 'lldp_port_id', 'lldp_mgmt_addr'}, default: model
+    hostname : str
+    model : str
+    mac : str
+    version : str
+    mxtunnel_status : str
+    mxedge_id : str
+    lldp_system_name : str
+    lldp_system_desc : str
+    lldp_port_id : str
+    lldp_mgmt_addr : str
+    map_id : str
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/count"
     query_params={}
@@ -243,27 +259,29 @@ def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="m
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(model, type, type_code, mac)
-    :param str model
-    :param str type
-    :param str type_code
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'model', 'type', 'type_code', 'mac'}, default: model
+    model : str
+    type : str
+    type_code : str
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/events/count"
     query_params={}
@@ -285,28 +303,35 @@ def searchSiteDevicesEvents(mist_session:_APISession, site_id:str, device_type:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str device_type(ap, switch, gateway)
-    :param str mac - device mac
-    :param str model - device model
-    :param str text - event message
-    :param str timestamp - event time
-    :param str type - see [Event Types Definition](/#tag/Constants/operation/getDeviceEventsDefinitions)
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    device_type : str{'ap', 'switch', 'gateway'}
+    mac : str
+      device mac
+    model : str
+      device model
+    text : str
+      event message
+    timestamp : str
+      event time
+    type : str
+      see [Event Types Definition](/#tag/Constants/operation/getDeviceEventsDefinitions)
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/events/search"
     query_params={}
@@ -329,15 +354,17 @@ def exportSiteDevices(mist_session:_APISession, site_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/export"
     query_params={}
@@ -350,19 +377,22 @@ def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _AP
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/import"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -374,24 +404,26 @@ def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(version, name, site_id, mac)
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'version', 'name', 'site_id', 'mac'}, default: mac
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/last_config/count"
     query_params={}
@@ -410,26 +442,28 @@ def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, device_ty
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str device_type(ap, switch, gateway)
-    :param str mac
-    :param str version
-    :param str name
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    device_type : str{'ap', 'switch', 'gateway'}, default: ap
+    mac : str
+    version : str
+    name : str
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/last_config/search"
     query_params={}
@@ -450,15 +484,17 @@ def reprovisionSiteAllAps(mist_session:_APISession, site_id:str) -> _APIResponse
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/reprovision"
     resp = mist_session.mist_post(uri=uri)
@@ -470,19 +506,22 @@ def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/reset_radio_config"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -494,19 +533,22 @@ def multiRestartSiteDevices(mist_session:_APISession, site_id:str, body:object) 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/restart"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -518,42 +560,63 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str hostname - partial / full hostname
-    :param str type(ap, switch, gateway) - device type
-    :param str model - device model
-    :param str mac - device MAC
-    :param str version - version
-    :param bool power_constrained - power_constrained
-    :param str ip_address
-    :param str mxtunnel_status(up, down) - MxTunnel status, up / down
-    :param str mxedge_id - Mist Edge id, if AP is connecting to a Mist Edge
-    :param str lldp_system_name - LLDP system name
-    :param str lldp_system_desc - LLDP system description
-    :param str lldp_port_id - LLDP port id
-    :param str lldp_mgmt_addr - LLDP management ip address
-    :param int band_24_channel - Channel of band_24
-    :param int band_5_channel - Channel of band_5
-    :param int band_6_channel - Channel of band_6
-    :param int eth0_port_speed - Port speed of eth0
-    :param str sort(timestamp, mac, model, sku) - sort options
-    :param str desc_sort(timestamp, mac, model, sku) - sort options in reverse order
-    :param bool stats - whether to return device stats
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    hostname : str
+      partial / full hostname
+    type : str{'ap', 'switch', 'gateway'}, default: ap
+      device type
+    model : str
+      device model
+    mac : str
+      device MAC
+    version : str
+      version
+    power_constrained : bool
+      power_constrained
+    ip_address : str
+    mxtunnel_status : str{'up', 'down'}
+      MxTunnel status, up / down
+    mxedge_id : str
+      Mist Edge id, if AP is connecting to a Mist Edge
+    lldp_system_name : str
+      LLDP system name
+    lldp_system_desc : str
+      LLDP system description
+    lldp_port_id : str
+      LLDP port id
+    lldp_mgmt_addr : str
+      LLDP management ip address
+    band_24_channel : int
+      Channel of band_24
+    band_5_channel : int
+      Channel of band_5
+    band_6_channel : int
+      Channel of band_6
+    eth0_port_speed : int
+      Port speed of eth0
+    sort : str{'timestamp', 'mac', 'model', 'sku'}, default: timestamp
+      sort options
+    desc_sort : str{'timestamp', 'mac', 'model', 'sku'}
+      sort options in reverse order
+    stats : bool
+      whether to return device stats
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/search"
     query_params={}
@@ -590,19 +653,21 @@ def getSiteDevicesUpgrade(mist_session:_APISession, site_id:str, status:str=None
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str status(downloading, completed, created, downloaded, upgrading, cancelled, failed)        
+    status : str{'downloading', 'completed', 'created', 'downloaded', 'upgrading', 'cancelled', 'failed'}        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/upgrade"
     query_params={}
@@ -616,19 +681,22 @@ def multiUpgradeSiteDevices(mist_session:_APISession, site_id:str, body:object) 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -640,16 +708,18 @@ def getSiteUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> _AP
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str upgrade_id        
+    site_id : str
+    upgrade_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/upgrade/{upgrade_id}"
     query_params={}
@@ -662,16 +732,18 @@ def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str upgrade_id        
+    site_id : str
+    upgrade_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/upgrade/{upgrade_id}/cancel"
     resp = mist_session.mist_post(uri=uri)
@@ -684,20 +756,24 @@ def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(ap, switch, gateway) - fetch version for device type (E.g. switch)
-    :param str model - fetch version for device model, use/combine with `type` as needed (for switch and gateway devices)        
+    type : str{'ap', 'switch', 'gateway'}, default: ap
+      fetch version for device type (E.g. switch)
+    model : str
+      fetch version for device model, use/combine with `type` as needed (for switch and gateway devices)        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/versions"
     query_params={}
@@ -712,20 +788,24 @@ def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(ap, switch, gateway) - fetch version for device type (E.g. switch)
-    :param str model - fetch version for device model, use/combine with `type` as needed (for switch and gateway devices)        
+    type : str{'ap', 'switch', 'gateway'}, default: ap
+      fetch version for device type (E.g. switch)
+    model : str
+      fetch version for device model, use/combine with `type` as needed (for switch and gateway devices)        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/versions"
     query_params={}
@@ -740,19 +820,22 @@ def zeroizeSiteFipsAllAps(mist_session:_APISession, site_id:str, body:object) ->
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/zerioze"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -764,16 +847,18 @@ def getSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIR
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}"
     query_params={}
@@ -786,16 +871,18 @@ def deleteSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> _A
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}"
     query_params={}
@@ -808,20 +895,23 @@ def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -833,20 +923,23 @@ def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:obj
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/arp"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -858,20 +951,23 @@ def portsBounceFromSwitch(mist_session:_APISession, site_id:str, device_id:str, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/bounce_port"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -883,20 +979,23 @@ def cableTestFromSwitch(mist_session:_APISession, site_id:str, device_id:str, bo
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/cable_test"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -908,20 +1007,23 @@ def startSiteSwitchRadiusSyntheticTest(mist_session:_APISession, site_id:str, de
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/check_radius_server"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -933,20 +1035,23 @@ def clearSiteSsrArpCache(mist_session:_APISession, site_id:str, device_id:str, b
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/clear_arp"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -958,20 +1063,23 @@ def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/clear_bgp"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -983,20 +1091,23 @@ def clearBpduErrosFromPortsOnSwitch(mist_session:_APISession, site_id:str, devic
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/clear_bpdu_error"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1008,20 +1119,23 @@ def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, d
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/clear_macs"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1033,20 +1147,23 @@ def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str,
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     QUERY PARAMS
     ------------
-    :param str sort(true, false) - Make output cmds sorted (for better readability) or not.        
+    sort : str{'true', 'false'}, default: false
+      Make output cmds sorted (for better readability) or not.        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/config_cmd"
     query_params={}
@@ -1060,16 +1177,18 @@ def deleteSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/ha"
     query_params={}
@@ -1082,20 +1201,23 @@ def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/ha"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1107,17 +1229,19 @@ def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id
-    :param int image_number        
+    site_id : str
+    device_id : str
+    image_number : int        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/image{image_number}"
     query_params={}
@@ -1130,17 +1254,19 @@ def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str,
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id
-    :param int image_number        
+    site_id : str
+    device_id : str
+    image_number : int        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     multipart_form_data = {
     }
@@ -1154,16 +1280,18 @@ def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/iot"
     query_params={}
@@ -1176,20 +1304,23 @@ def setSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str, b
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/iot"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -1201,16 +1332,18 @@ def deleteSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, devic
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/local_port_config"
     query_params={}
@@ -1223,20 +1356,23 @@ def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, devic
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/local_port_config"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -1248,16 +1384,18 @@ def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str) 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/locate"
     resp = mist_session.mist_post(uri=uri)
@@ -1269,20 +1407,23 @@ def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:ob
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/ping"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1294,16 +1435,18 @@ def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str) ->
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/poll_stats"
     resp = mist_session.mist_post(uri=uri)
@@ -1315,20 +1458,23 @@ def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/release_dhcp"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1340,16 +1486,18 @@ def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/request_ztp_password"
     resp = mist_session.mist_post(uri=uri)
@@ -1361,16 +1509,18 @@ def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/resolve_dns"
     resp = mist_session.mist_post(uri=uri)
@@ -1382,20 +1532,23 @@ def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/restart"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1407,20 +1560,23 @@ def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, bod
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/service_ping"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1432,20 +1588,23 @@ def getSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str,
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_route"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1457,20 +1616,23 @@ def getSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_service_path"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1482,20 +1644,23 @@ def getSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_session"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1507,16 +1672,18 @@ def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/snapshot"
     resp = mist_session.mist_post(uri=uri)
@@ -1528,20 +1695,23 @@ def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/support"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1553,20 +1723,23 @@ def StartSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_i
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/synthetic_test"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1578,20 +1751,23 @@ def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, b
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/traceroute"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1603,16 +1779,18 @@ def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str) -
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/unlocate"
     resp = mist_session.mist_post(uri=uri)
@@ -1624,20 +1802,23 @@ def upgradeSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1649,16 +1830,18 @@ def getSiteDeviceVirtualChassis(mist_session:_APISession, site_id:str, device_id
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/vc"
     query_params={}
@@ -1671,16 +1854,18 @@ def deleteSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/vc"
     query_params={}
@@ -1693,20 +1878,23 @@ def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/vc"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -1718,20 +1906,23 @@ def updateSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/vc"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -1743,20 +1934,23 @@ def setSiteVcPort(mist_session:_APISession, site_id:str, device_id:str, body:obj
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/vc/vc_port"
     resp = mist_session.mist_post(uri=uri, body=body)

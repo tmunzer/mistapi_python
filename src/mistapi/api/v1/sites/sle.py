@@ -20,27 +20,31 @@ def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id - * site_id if `scope`==`site`
+    site_id : str
+    scope : str
+    scope_id : str
+      * site_id if `scope`==`site`
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics
-    :param str classifier        
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics
+    classifier : str        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration        
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/classifier/{classifier}/summary"
     query_params={}
@@ -56,20 +60,24 @@ def getSiteSleMetricClassifiers(mist_session:_APISession, site_id:str, scope:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id - * site_id if `scope`==`site`
+    site_id : str
+    scope : str
+    scope_id : str
+      * site_id if `scope`==`site`
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`
-    :param str metric -  values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    metric : str
+       values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/classifiers"
     query_params={}
@@ -82,26 +90,30 @@ def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id - * site_id if `scope`==`site`
+    site_id : str
+    scope : str
+    scope_id : str
+      * site_id if `scope`==`site`
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration        
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/histogram"
     query_params={}
@@ -117,28 +129,32 @@ def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, sc
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id - * site_id if `scope`==`site`
+    site_id : str
+    scope : str
+    scope_id : str
+      * site_id if `scope`==`site`
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration
-    :param str fields(wlan, device_type, device_os, band, ap, server, mxedge, switch, client, vlan, interface, chassis, gateway, peer_path, gateway_zones)
-    :param str classifier        
+    start : int
+    end : int
+    duration : str, default: 1d
+    fields : str{'wlan', 'device_type', 'device_os', 'band', 'ap', 'server', 'mxedge', 'switch', 'client', 'vlan', 'interface', 'chassis', 'gateway', 'peer_path', 'gateway_zones'}
+    classifier : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impact-summary"
     query_params={}
@@ -156,25 +172,28 @@ def getSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    site_id : str
+    scope : str
+    scope_id : str
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration
-    :param str classifier        
+    start : int
+    end : int
+    duration : str, default: 1d
+    classifier : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-applications"
     query_params={}
@@ -191,25 +210,28 @@ def getSiteSleImpactedAps(mist_session:_APISession, site_id:str, scope:str, scop
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    site_id : str
+    scope : str
+    scope_id : str
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration
-    :param str classifier        
+    start : int
+    end : int
+    duration : str, default: 1d
+    classifier : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-aps"
     query_params={}
@@ -226,25 +248,28 @@ def getSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    site_id : str
+    scope : str
+    scope_id : str
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration
-    :param str classifier        
+    start : int
+    end : int
+    duration : str, default: 1d
+    classifier : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-chassis"
     query_params={}
@@ -261,25 +286,28 @@ def getSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    site_id : str
+    scope : str
+    scope_id : str
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration
-    :param str classifier        
+    start : int
+    end : int
+    duration : str, default: 1d
+    classifier : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-clients"
     query_params={}
@@ -296,25 +324,28 @@ def getSiteSleImpactedGateways(mist_session:_APISession, site_id:str, scope:str,
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    site_id : str
+    scope : str
+    scope_id : str
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration
-    :param str classifier        
+    start : int
+    end : int
+    duration : str, default: 1d
+    classifier : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-gateways"
     query_params={}
@@ -331,25 +362,28 @@ def getSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    site_id : str
+    scope : str
+    scope_id : str
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration
-    :param str classifier        
+    start : int
+    end : int
+    duration : str, default: 1d
+    classifier : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-interfaces"
     query_params={}
@@ -366,25 +400,28 @@ def getSiteSleImpactedSwitches(mist_session:_APISession, site_id:str, scope:str,
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    site_id : str
+    scope : str
+    scope_id : str
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration
-    :param str classifier        
+    start : int
+    end : int
+    duration : str, default: 1d
+    classifier : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-switches"
     query_params={}
@@ -401,25 +438,28 @@ def getSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, sco
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    site_id : str
+    scope : str
+    scope_id : str
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration
-    :param str classifier        
+    start : int
+    end : int
+    duration : str, default: 1d
+    classifier : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-users"
     query_params={}
@@ -436,26 +476,30 @@ def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id - * site_id if `scope`==`site`
+    site_id : str
+    scope : str
+    scope_id : str
+      * site_id if `scope`==`site`
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration        
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/summary"
     query_params={}
@@ -471,20 +515,24 @@ def getSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id - * site_id if `scope`==`site`
+    site_id : str
+    scope : str
+    scope_id : str
+      * site_id if `scope`==`site`
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/threshold"
     query_params={}
@@ -497,24 +545,29 @@ def replaceSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sc
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id - * site_id if `scope`==`site`
+    site_id : str
+    scope : str
+    scope_id : str
+      * site_id if `scope`==`site`
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/threshold"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -526,24 +579,29 @@ def updateSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sco
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id - * site_id if `scope`==`site`
+    site_id : str
+    scope : str
+    scope_id : str
+      * site_id if `scope`==`site`
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`
-    :param str metric - values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+    metric : str
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/threshold"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -555,19 +613,22 @@ def getSiteSlesMetrics(mist_session:_APISession, site_id:str, scope:str, scope_i
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str scope
-    :param str scope_id - * site_id if `scope`==`site`
+    site_id : str
+    scope : str
+    scope_id : str
+      * site_id if `scope`==`site`
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics"
     query_params={}

@@ -20,16 +20,18 @@ def getMspInventoryByMac(mist_session:_APISession, msp_id:str, device_mac:str) -
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id
-    :param str device_mac        
+    msp_id : str
+    device_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/inventory/{device_mac}"
     query_params={}

@@ -20,17 +20,19 @@ def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str client_mac
-    :param str metric        
+    site_id : str
+    client_mac : str
+    metric : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/anomaly/client/{client_mac}/{metric}"
     query_params={}
@@ -43,17 +45,19 @@ def getSiteAnomalyEventsforDevice(mist_session:_APISession, site_id:str, metric:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str metric
-    :param str device_mac        
+    site_id : str
+    metric : str
+    device_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/anomaly/device/{device_mac}/{metric}"
     query_params={}
@@ -66,16 +70,18 @@ def getSiteAnomalyEvents(mist_session:_APISession, site_id:str, metric:str) -> _
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str metric        
+    site_id : str
+    metric : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/anomaly/{metric}"
     query_params={}

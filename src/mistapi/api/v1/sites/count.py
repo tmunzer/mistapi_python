@@ -20,29 +20,35 @@ def countSiteZoneSessions(mist_session:_APISession, site_id:str, zone_type:str, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str zone_type(zones, rssizones)        
+    site_id : str
+    zone_type : str{'zones', 'rssizones'}        
     
     QUERY PARAMS
     ------------
-    :param str distinct(user_type, user, scope_id, scope)
-    :param str user_type(client, sdkclient, asset) - user type
-    :param str user - client MAC / Asset MAC / SDK UUID
-    :param str scope_id - if `scope`==`map`/`zone`/`rssizone`, the scope id
-    :param str scope(site, map, zone, rssizone) - scope
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'user_type', 'user', 'scope_id', 'scope'}, default: scope_id
+    user_type : str{'client', 'sdkclient', 'asset'}, default: client
+      user type
+    user : str
+      client MAC / Asset MAC / SDK UUID
+    scope_id : str
+      if `scope`==`map`/`zone`/`rssizone`, the scope id
+    scope : str{'site', 'map', 'zone', 'rssizone'}, default: site
+      scope
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/{zone_type}/count"
     query_params={}

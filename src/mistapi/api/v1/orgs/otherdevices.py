@@ -21,25 +21,27 @@ def getOrgOtherDevices(mist_session:_APISession, org_id:str, vendor:str=None, ma
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str vendor
-    :param str mac
-    :param str serial
-    :param str model
-    :param str name
-    :param int page
-    :param int limit        
+    vendor : str
+    mac : str
+    serial : str
+    model : str
+    name : str
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices"
     query_params={}
@@ -59,25 +61,27 @@ def listOrgOtherDevices(mist_session:_APISession, org_id:str, vendor:str=None, m
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str vendor
-    :param str mac
-    :param str serial
-    :param str model
-    :param str name
-    :param int page
-    :param int limit        
+    vendor : str
+    mac : str
+    serial : str
+    model : str
+    name : str
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices"
     query_params={}
@@ -97,19 +101,22 @@ def updateOrgOtherDevices(mist_session:_APISession, org_id:str, body:object) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -121,24 +128,26 @@ def countOrgOtherDevicesEvents(mist_session:_APISession, org_id:str, distinct:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(mac, type, vendor, site_id)
-    :param int start
-    :param int end
-    :param str duration
-    :param int limit
-    :param int page        
+    distinct : str{'mac', 'type', 'vendor', 'site_id'}, default: mac
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices/events/count"
     query_params={}
@@ -157,29 +166,37 @@ def searchOrgOtherDevicesEvents(mist_session:_APISession, org_id:str, org_id:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str org_id - org id
-    :param str site_id - site id
-    :param str mac - mac
-    :param str device_mac - mac of attached device
-    :param str vendor - vendor name
-    :param str type - event type
-    :param int start
-    :param int end
-    :param str duration
-    :param int limit
-    :param int page        
+    org_id : str
+      org id
+    site_id : str
+      site id
+    mac : str
+      mac
+    device_mac : str
+      mac of attached device
+    vendor : str
+      vendor name
+    type : str
+      event type
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices/events/search"
     query_params={}
@@ -203,16 +220,18 @@ def getOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str device_mac        
+    org_id : str
+    device_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices/{device_mac}"
     query_params={}
@@ -225,16 +244,18 @@ def deleteOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str) -
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str device_mac        
+    org_id : str
+    device_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices/{device_mac}"
     query_params={}
@@ -247,20 +268,23 @@ def updateOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str, b
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str device_mac        
+    org_id : str
+    device_mac : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices/{device_mac}"
     resp = mist_session.mist_put(uri=uri, body=body)

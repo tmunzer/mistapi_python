@@ -21,15 +21,17 @@ def getInstallerListOfRenctlyClaimedDevices(mist_session:_APISession, org_id:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices"
     query_params={}
@@ -42,15 +44,17 @@ def listInstallerListOfRenctlyClaimedDevices(mist_session:_APISession, org_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices"
     query_params={}
@@ -63,19 +67,22 @@ def claimInstallerDevices(mist_session:_APISession, org_id:str, body:object) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -87,16 +94,18 @@ def unassignInstallerRecentlyClaimedDevice(mist_session:_APISession, org_id:str,
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str device_mac        
+    org_id : str
+    device_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}"
     query_params={}
@@ -109,20 +118,23 @@ def provisionInstallerDevices(mist_session:_APISession, org_id:str, device_mac:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str device_mac        
+    org_id : str
+    device_mac : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -134,20 +146,23 @@ def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str device_mac        
+    org_id : str
+    device_mac : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/locate"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -159,16 +174,18 @@ def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str device_mac        
+    org_id : str
+    device_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/unlocate"
     resp = mist_session.mist_post(uri=uri)
@@ -180,17 +197,19 @@ def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str image_name
-    :param str device_mac        
+    org_id : str
+    image_name : str
+    device_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/{image_name}"
     query_params={}
@@ -203,17 +222,19 @@ def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str image_name
-    :param str device_mac        
+    org_id : str
+    image_name : str
+    device_mac : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     multipart_form_data = {
     }

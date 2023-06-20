@@ -21,15 +21,17 @@ def getApChannels(mist_session:_APISession, country_code:str=None) -> _APIRespon
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     QUERY PARAMS
     ------------
-    :param str country_code        
+    country_code : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/const/ap_channels"
     query_params={}
@@ -43,15 +45,17 @@ def listApChannels(mist_session:_APISession, country_code:str=None) -> _APIRespo
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     QUERY PARAMS
     ------------
-    :param str country_code        
+    country_code : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/const/ap_channels"
     query_params={}

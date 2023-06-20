@@ -20,19 +20,21 @@ def countSiteCallEvents(mist_session:_APISession, site_id:str, distinct:str=None
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(type, app)        
+    distinct : str{'type', 'app'}        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/call/events/count"
     query_params={}
@@ -46,22 +48,25 @@ def searchSiteCallEvents(mist_session:_APISession, site_id:str, type:str=None, a
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type - Event Type. See [getCallEventsDefinitions](#tag/Constants/operation/getCallEventsDefinitions)
-    :param str ap
-    :param str mac
-    :param str app        
+    type : str
+      Event Type. See [getCallEventsDefinitions](#tag/Constants/operation/getCallEventsDefinitions)
+    ap : str
+    mac : str
+    app : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/call/events/search"
     query_params={}

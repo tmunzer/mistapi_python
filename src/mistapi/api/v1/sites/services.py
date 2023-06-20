@@ -21,19 +21,22 @@ def getSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=N
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param bool resolve - whether resolve the site variables        
+    resolve : bool
+      whether resolve the site variables        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/services/derived"
     query_params={}
@@ -47,19 +50,22 @@ def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param bool resolve - whether resolve the site variables        
+    resolve : bool
+      whether resolve the site variables        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/services/derived"
     query_params={}

@@ -20,23 +20,25 @@ def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, page:int=1
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags"
     query_params={}
@@ -54,19 +56,22 @@ def startSiteRecording(mist_session:_APISession, site_id:str, body:object) -> _A
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -78,16 +83,18 @@ def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str)
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str rfdiag_id        
+    site_id : str
+    rfdiag_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}"
     query_params={}
@@ -100,16 +107,18 @@ def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str rfdiag_id        
+    site_id : str
+    rfdiag_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}"
     query_params={}
@@ -122,20 +131,23 @@ def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str rfdiag_id        
+    site_id : str
+    rfdiag_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -147,16 +159,18 @@ def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str rfdiag_id        
+    site_id : str
+    rfdiag_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}/download"
     query_params={}
@@ -169,16 +183,18 @@ def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str rfdiag_id        
+    site_id : str
+    rfdiag_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}/stop"
     resp = mist_session.mist_post(uri=uri)

@@ -21,15 +21,17 @@ def getMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups"
     query_params={}
@@ -42,15 +44,17 @@ def listMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups"
     query_params={}
@@ -63,19 +67,22 @@ def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:object) -> _API
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -87,16 +94,18 @@ def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _AP
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id
-    :param str orggroup_id        
+    msp_id : str
+    orggroup_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
     query_params={}
@@ -109,16 +118,18 @@ def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id
-    :param str orggroup_id        
+    msp_id : str
+    orggroup_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
     query_params={}
@@ -131,20 +142,23 @@ def updateMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str, bod
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id
-    :param str orggroup_id        
+    msp_id : str
+    orggroup_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
     resp = mist_session.mist_put(uri=uri, body=body)

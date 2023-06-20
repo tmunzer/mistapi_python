@@ -20,24 +20,28 @@ def getMspSle(mist_session:_APISession, msp_id:str, metric:str, sle:str=None, du
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id
-    :param str metric - see /api/v1/const/insight_metrics for available metrics        
+    msp_id : str
+    metric : str
+      see /api/v1/const/insight_metrics for available metrics        
     
     QUERY PARAMS
     ------------
-    :param str sle - see /api/v1/const/insight_metrics for more details
-    :param str duration
-    :param str interval
-    :param int start
-    :param int end        
+    sle : str
+      see /api/v1/const/insight_metrics for more details
+    duration : str, default: 1d
+    interval : str
+    start : int
+    end : int        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/insights/{metric}"
     query_params={}

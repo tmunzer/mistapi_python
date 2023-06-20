@@ -21,15 +21,17 @@ def getMspOrgLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/stats/licenses"
     query_params={}
@@ -42,15 +44,17 @@ def listMspOrgLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/stats/licenses"
     query_params={}
@@ -64,20 +68,22 @@ def getMspOrgStats(mist_session:_APISession, msp_id:str, page:int=1, limit:int=1
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit        
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/stats/orgs"
     query_params={}
@@ -92,20 +98,22 @@ def listMspOrgStats(mist_session:_APISession, msp_id:str, page:int=1, limit:int=
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit        
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/stats/orgs"
     query_params={}

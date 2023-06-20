@@ -164,14 +164,23 @@ def _gen_code_params(endpoint_params: list, operation_id: str):
 
         code_params += f", {param['name']}:{ptype}"
 
-        code_params_desc += f"\r\n    :param {ptype} {param['name']}"
+        code_params_desc += f"\r\n    {param['name']} : {ptype}"
         if param.get("enum"):
-            code_params_desc += f"({', '.join(param['enum'])})"
+            code_params_desc += str(param['enum']).replace("[", "{").replace("]","}")
+        if param.get("default"):
+            code_params_desc += f", default: {param['default']}"
         if param.get("description"):
-            code_params_desc += f" - {param['description']}"
+            code_params_desc += f"\r\n      {param['description']}"
         code_params += _gen_code_params_default_value(param)
     return code_params, code_params_desc
 
+def _gen_description_property(property_data:dict):
+    property_type = property_data["property_type"]
+    property_desc = ""
+    if property_data.get("property_enum"): property_type = str(property_data["property_enum"]).replace("[", "{").replace("]","}")
+    if property_data.get("property_default"): property_type += f", default: {property_data['property_default']}"
+    if property_data.get("property_desc"): property_desc = f"\r\n        {property_data['property_desc']}"
+    return property_type, property_desc
 
 def _gen_description(operation_id: str, desc_path_params: str, desc_query_params: str = "", with_body:bool=False, multipart_form_data:dict={}):
     description = f"""    \"\"\"
@@ -179,7 +188,8 @@ def _gen_description(operation_id: str, desc_path_params: str, desc_query_params
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     """
 
     if desc_path_params:
@@ -199,23 +209,27 @@ def _gen_description(operation_id: str, desc_path_params: str, desc_query_params
     BODY PARAMS
     -----------"""
         if with_body:
-            description += f"""
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)"""
+            description += f"\r\n    body : dict\r\n        JSON object to send to Mist Cloud (see API doc above for more details)"
+            
         if multipart_form_data:
             for key in multipart_form_data:
                 if key in ["csv", "file"]:
-                    description += f"""
-    :param {multipart_form_data[key]["property_type"]} {key} - path to the file to upload. {multipart_form_data[key]["property_desc"]}"""
+                    description += f"\r\n    {key} : {multipart_form_data[key]['property_type']}\r\n        path to the file to upload. {multipart_form_data[key]['property_desc']}"
+                    
                 else:
-                    description += f"""
-    :param {multipart_form_data[key]["property_type"]} {key} - {multipart_form_data[key]["property_desc"]}"""
-
+                    property_type, property_desc = _gen_description_property(multipart_form_data[key])
+                    description += f"\r\n    {key} : {property_type}{property_desc}"
+                    if multipart_form_data[key]["property_childs"]:
+                        for child in multipart_form_data[key]["property_childs"]:
+                            property_type, property_desc = _gen_description_property(multipart_form_data[key]["property_childs"][child])
+                            description += f"\r\n        {child} : {property_type}{property_desc}"
         description+="""
     """
     description += """
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     \"\"\""""
     return description
 
@@ -334,12 +348,13 @@ def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _
         f.write(code)
 
 
-def _create_post_file(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, properties: dict, file_name: str):
-    code_path_params, desc_path_params = _gen_code_params(
-        path_params, operation_id)
+def _process_multipart_json(properties:dict) -> dict:
     multipart_form_data = {}
     for key in properties:
         property_type = "any"
+        property_default = properties[key].get("default", None)
+        property_enum = properties[key].get("enum", None)
+        property_childs = None
         match properties[key].get("type"):
             case "boolean": 
                 property_type = "bool"
@@ -349,17 +364,29 @@ def _create_post_file(operation_id: str, endpoint_path: str, path_params: list, 
                 property_type = "int"
             case "number": 
                 property_type = "float"
-            case "object": 
-                property_type = "dict"
             case "array": 
                 property_type = "list"
             case "binary": 
                 property_type = "str"
+            case "object": 
+                property_type = "dict"
+                if properties[key].get("properties"):
+                    property_childs = _process_multipart_json(properties[key]["properties"])
         multipart_form_data[key] = {
             "property_type": property_type,
-            "property_desc": properties[key].get("description", "")
+            "property_desc": properties[key].get("description", ""),
+            "property_default": property_default,
+            "property_enum": property_enum,
+            "property_childs": property_childs
         }
+    return multipart_form_data
+
+def _create_post_file(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, properties: dict, file_name: str):
+    code_path_params, desc_path_params = _gen_code_params(
+        path_params, operation_id)
+    multipart_form_data = _process_multipart_json(properties)
     code_desc = _gen_description(operation_id, desc_path_params, multipart_form_data=multipart_form_data)
+
     code = f"""
 def {operation_id}File(mist_session:_APISession{code_path_params}"""
     for key in multipart_form_data:

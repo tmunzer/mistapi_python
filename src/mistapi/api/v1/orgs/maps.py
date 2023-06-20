@@ -20,22 +20,32 @@ def importOrgMapsFile(mist_session:_APISession, org_id:str, auto_deviceprofile_a
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param bool auto_deviceprofile_assignment - boolean, whether to auto assign device to deviceprofile by name
-    :param str csv - path to the file to upload. csv file for ap name mapping, optional
-    :param str file - path to the file to upload. 
-    :param dict json - 
+    auto_deviceprofile_assignment : bool
+        whether to auto assign device to deviceprofile by name
+    csv : str
+        path to the file to upload. csv file for ap name mapping, optional
+    file : str
+        path to the file to upload. 
+    json : dict
+        import_all_floorplans : bool
+        import_height : bool, default: True
+        import_orientation : bool, default: True
+        site_id : str
+        vendor_name : {'ekahau', 'ibwave'}
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     multipart_form_data = {
         "auto_deviceprofile_assignment":auto_deviceprofile_assignment,

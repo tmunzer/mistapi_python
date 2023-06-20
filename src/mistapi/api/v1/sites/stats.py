@@ -20,15 +20,17 @@ def getSiteStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats"
     query_params={}
@@ -41,22 +43,28 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(ap, wcid, ssid, wlan_id app, device_mac, src_ip, port_id, app, category, service) - Default for wireless devices is `ap`. Default for wired devices is `device_mac`
-    :param str device_mac - MAC of the device
-    :param str app - Application name
-    :param str wired - If a device is wired or wireless. Default is False.        
+    distinct : str{'ap', 'wcid', 'ssid', 'wlan_id app', 'device_mac', 'src_ip', 'port_id', 'app', 'category', 'service'}
+      Default for wireless devices is `ap`. Default for wired devices is `device_mac`
+    device_mac : str
+      MAC of the device
+    app : str
+      Application name
+    wired : str
+      If a device is wired or wireless. Default is False.        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/apps/count"
     query_params={}
@@ -74,23 +82,25 @@ def getSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets"
     query_params={}
@@ -108,23 +118,25 @@ def listSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets"
     query_params={}
@@ -142,21 +154,23 @@ def getSiteAssetStats(mist_session:_APISession, site_id:str, start:int=None, end
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration        
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets/asset_id"
     query_params={}
@@ -172,19 +186,21 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(mac, map_id, ibeacon_uuid, ibeacon_major, ibeacon_minor, eddystone_uid_namespace, eddystone_uid_instance, eddystone_url, by, name, device_name)        
+    distinct : str{'mac', 'map_id', 'ibeacon_uuid', 'ibeacon_major', 'ibeacon_minor', 'eddystone_uid_namespace', 'eddystone_uid_instance', 'eddystone_url', 'by', 'name', 'device_name'}, default: map_id        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets/count"
     query_params={}
@@ -198,36 +214,38 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str mac
-    :param str map_id
-    :param str ibeacon_uuid
-    :param int ibeacon_major
-    :param int ibeacon_minor
-    :param str eddystone_uid_namespace
-    :param str eddystone_uid_instance
-    :param str eddystone_url
-    :param str device_name
-    :param str by
-    :param str name
-    :param str ap_mac
-    :param str beam
-    :param str rssi
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    mac : str
+    map_id : str
+    ibeacon_uuid : str
+    ibeacon_major : int
+    ibeacon_minor : int
+    eddystone_uid_namespace : str
+    eddystone_uid_instance : str
+    eddystone_url : str
+    device_name : str
+    by : str
+    name : str
+    ap_mac : str
+    beam : str
+    rssi : str
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets/search"
     query_params={}
@@ -259,23 +277,25 @@ def getSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limit
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/beacons"
     query_params={}
@@ -293,23 +313,25 @@ def listSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limi
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/beacons"
     query_params={}
@@ -327,20 +349,22 @@ def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, dis
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str state
-    :param str distinct        
+    state : str
+    distinct : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/bgp_peers/count"
     query_params={}
@@ -355,15 +379,17 @@ def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/bgp_peers/search"
     query_params={}
@@ -376,23 +402,26 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", r
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distrinct(mac)
-    :param int rating - feedback rating (e.g. "rating=1" or "rating=1,2")
-    :param str app
-    :param str start
-    :param str end        
+    distrinct : str{'mac'}, default: mac
+    rating : int
+      feedback rating (e.g. "rating=1" or "rating=1,2")
+    app : str
+    start : str
+    end : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/calls/count"
     query_params={}
@@ -410,24 +439,28 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str mac - device identifier
-    :param str app - Third party app name
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    mac : str
+      device identifier
+    app : str
+      Third party app name
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/calls/search"
     query_params={}
@@ -447,19 +480,21 @@ def getSiteWirelessClientsStats(mist_session:_APISession, site_id:str, wired:boo
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param bool wired        
+    wired : bool        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/clients"
     query_params={}
@@ -473,19 +508,21 @@ def listSiteWirelessClientsStats(mist_session:_APISession, site_id:str, wired:bo
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param bool wired        
+    wired : bool        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/clients"
     query_params={}
@@ -499,20 +536,22 @@ def getSiteWirelessClientStats(mist_session:_APISession, site_id:str, client_mac
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str client_mac        
+    site_id : str
+    client_mac : str        
     
     QUERY PARAMS
     ------------
-    :param bool wired        
+    wired : bool        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/clients/{client_mac}"
     query_params={}
@@ -527,22 +566,24 @@ def getSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(ap, switch, gateway, all)
-    :param str status(all, connected, disconnected)
-    :param int page
-    :param int limit        
+    type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
+    status : str{'all', 'connected', 'disconnected'}, default: all
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/devices"
     query_params={}
@@ -559,22 +600,24 @@ def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(ap, switch, gateway, all)
-    :param str status(all, connected, disconnected)
-    :param int page
-    :param int limit        
+    type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
+    status : str{'all', 'connected', 'disconnected'}, default: all
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/devices"
     query_params={}
@@ -591,16 +634,18 @@ def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/devices/{device_id}"
     query_params={}
@@ -613,16 +658,18 @@ def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/devices/{device_id}/clients"
     query_params={}
@@ -636,23 +683,25 @@ def getSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, l
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_assets"
     query_params={}
@@ -670,23 +719,25 @@ def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_assets"
     query_params={}
@@ -704,24 +755,28 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str scope(site, switch) - metric scope, optional
-    :param str type(inactive_wired_vlans, switch_ap_affinity, poe_compliance, version_compliance) - metric type, inactive_wired_vlans/switch_ap_affinity/poe_compliance/version_compliance, optional
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    scope : str{'site', 'switch'}, default: site
+      metric scope, optional
+    type : str{'inactive_wired_vlans', 'switch_ap_affinity', 'poe_compliance', 'version_compliance'}
+      metric type, inactive_wired_vlans/switch_ap_affinity/poe_compliance/version_compliance, optional
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switch_metrics/search"
     query_params={}
@@ -740,24 +795,26 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(system_name, version, model, mgmt_addr)
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'system_name', 'version', 'model', 'mgmt_addr'}, default: system_name
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/count"
     query_params={}
@@ -776,20 +833,24 @@ def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, thre
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str threshold - configurable # ap per switch threshold, default 12
-    :param str system_name - system name for switch level metrics, optional        
+    threshold : str
+      configurable # ap per switch threshold, default 12
+    system_name : str
+      system name for switch level metrics, optional        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/metrics"
     query_params={}
@@ -804,28 +865,30 @@ def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param bool adopted
-    :param str system_name
-    :param str hostname
-    :param str vendor
-    :param str model
-    :param str version
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    adopted : bool
+    system_name : str
+    hostname : str
+    vendor : str
+    model : str
+    version : str
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/search"
     query_params={}
@@ -848,23 +911,25 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str duration
-    :param int start
-    :param int end
-    :param int page
-    :param int limit        
+    duration : str, default: 1d
+    start : int
+    end : int
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/filtered_assets"
     query_params={}
@@ -882,15 +947,17 @@ def getSiteGatewayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/gateways/metrics"
     query_params={}
@@ -903,24 +970,26 @@ def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     QUERY PARAMS
     ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/clients"
     query_params={}
@@ -938,16 +1007,18 @@ def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/discovered_assets"
     query_params={}
@@ -960,16 +1031,18 @@ def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/sdkclients"
     query_params={}
@@ -983,16 +1056,18 @@ def getSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/unconnected_clients"
     query_params={}
@@ -1005,16 +1080,18 @@ def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/unconnected_clients"
     query_params={}
@@ -1028,15 +1105,17 @@ def getSiteMxEdgesStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/mxedges"
     query_params={}
@@ -1049,15 +1128,17 @@ def listSiteMxEdgesStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/mxedges"
     query_params={}
@@ -1070,16 +1151,18 @@ def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str mxedge_id        
+    site_id : str
+    mxedge_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/mxedges/{mxedge_id}"
     query_params={}
@@ -1092,49 +1175,77 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(port_id, port_mac, full_duplex, mac, neighbor_mac, neighbor_port_desc, neighbor_system_name, poe_disabled, poe_mode, poe_on, speed, up) - port_id, port_mac, full_duplex, mac, neighbor_macneighbor_port_desc, neighbor_system_name, poe_disabled, poe_mode, poe_on, speed, up
-    :param bool full_duplex - indicates full or half duplex
-    :param str mac - device identifier
-    :param str neighbor_mac - Chassis identifier of the chassis type listed
-    :param str neighbor_port_desc - Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
-    :param str neighbor_system_name - Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
-    :param bool poe_disabled - is the POE configured not be disabled.
-    :param str poe_mode - poe mode depending on class E.g. “802.3at”
-    :param bool poe_on - is the device attached to POE
-    :param str port_id - interface name
-    :param str port_mac - interface mac address
-    :param float power_draw - Amount of power being used by the interface at the time the command is executed. Unit in watts.
-    :param int tx_pkts - Output packets
-    :param int rx_pkts - Input packets
-    :param int rx_bytes - Input bytes
-    :param int tx_bps - Output rate
-    :param int rx_bps - Input rate
-    :param int tx_mcast_pkts - Multicast output packets
-    :param int tx_bcast_pkts - Broadcast output packets
-    :param int rx_mcast_pkts - Multicast input packets
-    :param int rx_bcast_pkts - Broadcast input packets
-    :param int speed - port speed
-    :param str stp_state(forwarding, blocking, learning, listening, disabled) - if `up`==`true`
-    :param str stp_role(designated, backup, alternate, root, root-prevented) - if `up`==`true`
-    :param str auth_state(init, authenticated, authenticating, held) - if `up`==`true` && has Authenticator role
-    :param bool up - indicates if interface is up
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'port_id', 'port_mac', 'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'speed', 'up'}, default: mac
+      port_id, port_mac, full_duplex, mac, neighbor_macneighbor_port_desc, neighbor_system_name, poe_disabled, poe_mode, poe_on, speed, up
+    full_duplex : bool
+      indicates full or half duplex
+    mac : str
+      device identifier
+    neighbor_mac : str
+      Chassis identifier of the chassis type listed
+    neighbor_port_desc : str
+      Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
+    neighbor_system_name : str
+      Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
+    poe_disabled : bool
+      is the POE configured not be disabled.
+    poe_mode : str
+      poe mode depending on class E.g. “802.3at”
+    poe_on : bool
+      is the device attached to POE
+    port_id : str
+      interface name
+    port_mac : str
+      interface mac address
+    power_draw : float
+      Amount of power being used by the interface at the time the command is executed. Unit in watts.
+    tx_pkts : int
+      Output packets
+    rx_pkts : int
+      Input packets
+    rx_bytes : int
+      Input bytes
+    tx_bps : int
+      Output rate
+    rx_bps : int
+      Input rate
+    tx_mcast_pkts : int
+      Multicast output packets
+    tx_bcast_pkts : int
+      Broadcast output packets
+    rx_mcast_pkts : int
+      Multicast input packets
+    rx_bcast_pkts : int
+      Broadcast input packets
+    speed : int
+      port speed
+    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+      if `up`==`true`
+    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+      if `up`==`true`
+    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+      if `up`==`true` && has Authenticator role
+    up : bool
+      indicates if interface is up
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/ports/count"
     query_params={}
@@ -1178,52 +1289,84 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param bool full_duplex - indicates full or half duplex
-    :param str mac - device identifier
-    :param str neighbor_mac - Chassis identifier of the chassis type listed
-    :param str neighbor_port_desc - Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
-    :param str neighbor_system_name - Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
-    :param bool poe_disabled - is the POE configured not be disabled.
-    :param str poe_mode - poe mode depending on class E.g. “802.3at”
-    :param bool poe_on - is the device attached to POE
-    :param str port_id - interface name
-    :param str port_mac - interface mac address
-    :param float power_draw - Amount of power being used by the interface at the time the command is executed. Unit in watts.
-    :param int tx_pkts - Output packets
-    :param int rx_pkts - Input packets
-    :param int rx_bytes - Input bytes
-    :param int tx_bps - Output rate
-    :param int rx_bps - Input rate
-    :param int tx_errors - Output errors
-    :param int rx_errors - Input errors
-    :param int tx_mcast_pkts - Multicast output packets
-    :param int tx_bcast_pkts - Broadcast output packets
-    :param int rx_mcast_pkts - Multicast input packets
-    :param int rx_bcast_pkts - Broadcast input packets
-    :param int speed - port speed
-    :param int mac_limit - Limit on number of dynamically learned macs
-    :param int mac_count - Number of mac addresses in the forwarding table
-    :param bool up - indicates if interface is up
-    :param str stp_state(forwarding, blocking, learning, listening, disabled) - if `up`==`true`
-    :param str stp_role(designated, backup, alternate, root, root-prevented) - if `up`==`true`
-    :param str xcvr_part_number - Optic Slot Partnumber, Check for null/empty
-    :param str auth_state(init, authenticated, authenticating, held) - if `up`==`true` && has Authenticator role
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    full_duplex : bool
+      indicates full or half duplex
+    mac : str
+      device identifier
+    neighbor_mac : str
+      Chassis identifier of the chassis type listed
+    neighbor_port_desc : str
+      Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
+    neighbor_system_name : str
+      Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
+    poe_disabled : bool
+      is the POE configured not be disabled.
+    poe_mode : str
+      poe mode depending on class E.g. “802.3at”
+    poe_on : bool
+      is the device attached to POE
+    port_id : str
+      interface name
+    port_mac : str
+      interface mac address
+    power_draw : float
+      Amount of power being used by the interface at the time the command is executed. Unit in watts.
+    tx_pkts : int
+      Output packets
+    rx_pkts : int
+      Input packets
+    rx_bytes : int
+      Input bytes
+    tx_bps : int
+      Output rate
+    rx_bps : int
+      Input rate
+    tx_errors : int
+      Output errors
+    rx_errors : int
+      Input errors
+    tx_mcast_pkts : int
+      Multicast output packets
+    tx_bcast_pkts : int
+      Broadcast output packets
+    rx_mcast_pkts : int
+      Multicast input packets
+    rx_bcast_pkts : int
+      Broadcast input packets
+    speed : int
+      port speed
+    mac_limit : int
+      Limit on number of dynamically learned macs
+    mac_count : int
+      Number of mac addresses in the forwarding table
+    up : bool
+      indicates if interface is up
+    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+      if `up`==`true`
+    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+      if `up`==`true`
+    xcvr_part_number : str
+      Optic Slot Partnumber, Check for null/empty
+    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+      if `up`==`true` && has Authenticator role
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/ports/search"
     query_params={}
@@ -1270,16 +1413,18 @@ def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str sdkclient_id        
+    site_id : str
+    sdkclient_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/sdkclients/{sdkclient_id}"
     query_params={}
@@ -1292,49 +1437,77 @@ def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(port_id, port_mac, full_duplex, mac, neighbor_mac, neighbor_port_desc, neighbor_system_name, poe_disabled, poe_mode, poe_on, speed, up) - port_id, port_mac, full_duplex, mac, neighbor_macneighbor_port_desc, neighbor_system_name, poe_disabled, poe_mode, poe_on, speed, up
-    :param bool full_duplex - indicates full or half duplex
-    :param str mac - device identifier
-    :param str neighbor_mac - Chassis identifier of the chassis type listed
-    :param str neighbor_port_desc - Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
-    :param str neighbor_system_name - Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
-    :param bool poe_disabled - is the POE configured not be disabled.
-    :param str poe_mode - poe mode depending on class E.g. “802.3at”
-    :param bool poe_on - is the device attached to POE
-    :param str port_id - interface name
-    :param str port_mac - interface mac address
-    :param float power_draw - Amount of power being used by the interface at the time the command is executed. Unit in watts.
-    :param int tx_pkts - Output packets
-    :param int rx_pkts - Input packets
-    :param int rx_bytes - Input bytes
-    :param int tx_bps - Output rate
-    :param int rx_bps - Input rate
-    :param int tx_mcast_pkts - Multicast output packets
-    :param int tx_bcast_pkts - Broadcast output packets
-    :param int rx_mcast_pkts - Multicast input packets
-    :param int rx_bcast_pkts - Broadcast input packets
-    :param int speed - port speed
-    :param str stp_state(forwarding, blocking, learning, listening, disabled) - if `up`==`true`
-    :param str stp_role(designated, backup, alternate, root, root-prevented) - if `up`==`true`
-    :param str auth_state(init, authenticated, authenticating, held) - if `up`==`true`
-    :param bool up - indicates if interface is up
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'port_id', 'port_mac', 'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'speed', 'up'}, default: mac
+      port_id, port_mac, full_duplex, mac, neighbor_macneighbor_port_desc, neighbor_system_name, poe_disabled, poe_mode, poe_on, speed, up
+    full_duplex : bool
+      indicates full or half duplex
+    mac : str
+      device identifier
+    neighbor_mac : str
+      Chassis identifier of the chassis type listed
+    neighbor_port_desc : str
+      Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
+    neighbor_system_name : str
+      Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
+    poe_disabled : bool
+      is the POE configured not be disabled.
+    poe_mode : str
+      poe mode depending on class E.g. “802.3at”
+    poe_on : bool
+      is the device attached to POE
+    port_id : str
+      interface name
+    port_mac : str
+      interface mac address
+    power_draw : float
+      Amount of power being used by the interface at the time the command is executed. Unit in watts.
+    tx_pkts : int
+      Output packets
+    rx_pkts : int
+      Input packets
+    rx_bytes : int
+      Input bytes
+    tx_bps : int
+      Output rate
+    rx_bps : int
+      Input rate
+    tx_mcast_pkts : int
+      Multicast output packets
+    tx_bcast_pkts : int
+      Broadcast output packets
+    rx_mcast_pkts : int
+      Multicast input packets
+    rx_bcast_pkts : int
+      Broadcast input packets
+    speed : int
+      port speed
+    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+      if `up`==`true`
+    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+      if `up`==`true`
+    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+      if `up`==`true`
+    up : bool
+      indicates if interface is up
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/switch_ports/count"
     query_params={}
@@ -1378,47 +1551,74 @@ def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param bool full_duplex - indicates full or half duplex
-    :param str mac - device identifier
-    :param str neighbor_mac - Chassis identifier of the chassis type listed
-    :param str neighbor_port_desc - Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
-    :param str neighbor_system_name - Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
-    :param bool poe_disabled - is the POE configured not be disabled.
-    :param str poe_mode - poe mode depending on class E.g. “802.3at”
-    :param bool poe_on - is the device attached to POE
-    :param str port_id - interface name
-    :param str port_mac - interface mac address
-    :param float power_draw - Amount of power being used by the interface at the time the command is executed. Unit in watts.
-    :param int tx_pkts - Output packets
-    :param int rx_pkts - Input packets
-    :param int rx_bytes - Input bytes
-    :param int tx_bps - Output rate
-    :param int rx_bps - Input rate
-    :param int tx_mcast_pkts - Multicast output packets
-    :param int tx_bcast_pkts - Broadcast output packets
-    :param int rx_mcast_pkts - Multicast input packets
-    :param int rx_bcast_pkts - Broadcast input packets
-    :param int speed - port speed
-    :param str stp_state(forwarding, blocking, learning, listening, disabled) - if `up`==`true`
-    :param str stp_role(designated, backup, alternate, root, root-prevented) - if `up`==`true`
-    :param str auth_state(init, authenticated, authenticating, held) - if `up`==`true` && has Authenticator role
-    :param bool up - indicates if interface is up
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    full_duplex : bool
+      indicates full or half duplex
+    mac : str
+      device identifier
+    neighbor_mac : str
+      Chassis identifier of the chassis type listed
+    neighbor_port_desc : str
+      Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
+    neighbor_system_name : str
+      Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
+    poe_disabled : bool
+      is the POE configured not be disabled.
+    poe_mode : str
+      poe mode depending on class E.g. “802.3at”
+    poe_on : bool
+      is the device attached to POE
+    port_id : str
+      interface name
+    port_mac : str
+      interface mac address
+    power_draw : float
+      Amount of power being used by the interface at the time the command is executed. Unit in watts.
+    tx_pkts : int
+      Output packets
+    rx_pkts : int
+      Input packets
+    rx_bytes : int
+      Input bytes
+    tx_bps : int
+      Output rate
+    rx_bps : int
+      Input rate
+    tx_mcast_pkts : int
+      Multicast output packets
+    tx_bcast_pkts : int
+      Broadcast output packets
+    rx_mcast_pkts : int
+      Multicast input packets
+    rx_bcast_pkts : int
+      Broadcast input packets
+    speed : int
+      port speed
+    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+      if `up`==`true`
+    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+      if `up`==`true`
+    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+      if `up`==`true` && has Authenticator role
+    up : bool
+      indicates if interface is up
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/switch_ports/search"
     query_params={}
@@ -1460,20 +1660,22 @@ def getSiteWiredClientAndParentInterface(mist_session:_APISession, site_id:str, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     QUERY PARAMS
     ------------
-    :param str port_id        
+    port_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/switch_wired_clients/{device_id}/search"
     query_params={}
@@ -1487,15 +1689,17 @@ def getSiteAdoptedSwitchesComplianceMetrics(mist_session:_APISession, site_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/switches/metrics"
     query_params={}
@@ -1508,15 +1712,17 @@ def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/wxrules"
     query_params={}
@@ -1530,19 +1736,21 @@ def getSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) ->
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str map_id        
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/zones"
     query_params={}
@@ -1556,19 +1764,21 @@ def listSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) -
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str map_id        
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/zones"
     query_params={}
@@ -1582,17 +1792,19 @@ def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_type:str, zone_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str zone_type(zones, rssizones)
-    :param str zone_id        
+    site_id : str
+    zone_type : str{'zones', 'rssizones'}
+    zone_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/stats/{zone_type}/{zone_id}"
     query_params={}

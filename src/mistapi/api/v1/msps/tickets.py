@@ -21,21 +21,23 @@ def getMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int=
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration        
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/tickets"
     query_params={}
@@ -51,21 +53,23 @@ def listMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param int start
-    :param int end
-    :param str duration        
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/tickets"
     query_params={}
@@ -81,19 +85,21 @@ def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status")
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(status, type, org_id)        
+    distinct : str{'status', 'type', 'org_id'}, default: status        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/tickets/count"
     query_params={}

@@ -20,19 +20,21 @@ def countOrgWanClientEvents(mist_session:_APISession, org_id:str, distinct:str="
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(type, hostname, ip, mfg, mac)        
+    distinct : str{'type', 'hostname', 'ip', 'mfg', 'mac'}, default: type        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wan_client/events/count"
     query_params={}

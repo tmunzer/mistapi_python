@@ -20,30 +20,37 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(bssid, ssid, ap, type)
-    :param str type(honeypot, lan, others, spoof)
-    :param str ssid - ssid of the network detected as threat
-    :param str bssid - bssid of the network detected as threat
-    :param str ap_mac - mac of the device that had strongest signal strength for ssid/bssid pair
-    :param str channel - channel over which ap_mac heard ssid/bssid pair
-    :param bool seen_on_lan - whether the reporting AP see a wireless client (on LAN) connecting to it  
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'bssid', 'ssid', 'ap', 'type'}, default: bssid
+    type : str{'honeypot', 'lan', 'others', 'spoof'}
+    ssid : str
+      ssid of the network detected as threat
+    bssid : str
+      bssid of the network detected as threat
+    ap_mac : str
+      mac of the device that had strongest signal strength for ssid/bssid pair
+    channel : str
+      channel over which ap_mac heard ssid/bssid pair
+    seen_on_lan : bool
+      whether the reporting AP see a wireless client (on LAN) connecting to it  
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rogues/events/count"
     query_params={}
@@ -68,28 +75,35 @@ def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(honeypot, lan, others, spoof)
-    :param str ssid - ssid of the network detected as threat
-    :param str bssid - bssid of the network detected as threat
-    :param str ap_mac - mac of the device that had strongest signal strength for ssid/bssid pair
-    :param int channel - channel over which ap_mac heard ssid/bssid pair
-    :param bool seen_on_lan - whether the reporting AP see a wireless client (on LAN) connecting to it  
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    type : str{'honeypot', 'lan', 'others', 'spoof'}
+    ssid : str
+      ssid of the network detected as threat
+    bssid : str
+      bssid of the network detected as threat
+    ap_mac : str
+      mac of the device that had strongest signal strength for ssid/bssid pair
+    channel : int
+      channel over which ap_mac heard ssid/bssid pair
+    seen_on_lan : bool
+      whether the reporting AP see a wireless client (on LAN) connecting to it  
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rogues/events/search"
     query_params={}
@@ -112,16 +126,18 @@ def getSiteRogueAP(mist_session:_APISession, site_id:str, rogue_bssid:str) -> _A
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str rogue_bssid        
+    site_id : str
+    rogue_bssid : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rogues/{rogue_bssid}"
     query_params={}
@@ -134,16 +150,18 @@ def deauthSiteWirelessClientsConnectedToARogue(mist_session:_APISession, site_id
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str rogue_bssid        
+    site_id : str
+    rogue_bssid : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rogues/{rogue_bssid}/deauth_clients"
     resp = mist_session.mist_post(uri=uri)

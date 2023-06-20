@@ -20,21 +20,23 @@ def countMspsMarvisActions(mist_session:_APISession, msp_id:str, distinct:str="o
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(org_id, status)
-    :param int limit
-    :param int page        
+    distinct : str{'org_id', 'status'}, default: org_id
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/suggestion/count"
     query_params={}

@@ -20,19 +20,21 @@ def getOAuth2UrlForLinking(mist_session:_APISession, provider:str, forward:str=N
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str provider        
+    provider : str        
     
     QUERY PARAMS
     ------------
-    :param str forward        
+    forward : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/self/oauth/{provider}"
     query_params={}
@@ -46,19 +48,22 @@ def linkOAuth2MistAccount(mist_session:_APISession, provider:str, body:object) -
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str provider        
+    provider : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/self/oauth/{provider}"
     resp = mist_session.mist_post(uri=uri, body=body)

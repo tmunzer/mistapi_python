@@ -20,28 +20,34 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str serial - device serial
-    :param str model - device model
-    :param str type(ap, switch, gateway)
-    :param str mac - MAC address
-    :param str site_id - site id if assigned, null if not assigned
-    :param str vc_mac
-    :param str vc
-    :param bool unassigned
-    :param int limit
-    :param int page        
+    serial : str
+      device serial
+    model : str
+      device model
+    type : str{'ap', 'switch', 'gateway'}
+    mac : str
+      MAC address
+    site_id : str
+      site id if assigned, null if not assigned
+    vc_mac : str
+    vc : str
+    unassigned : bool
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory"
     query_params={}
@@ -64,19 +70,22 @@ def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -88,19 +97,22 @@ def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:obje
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -112,19 +124,22 @@ def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str, body:objec
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory/reevaluate_auto_assignment"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -136,19 +151,22 @@ def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _API
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory/replace"
     resp = mist_session.mist_post(uri=uri, body=body)

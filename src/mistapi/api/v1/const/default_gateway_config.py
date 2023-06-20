@@ -20,16 +20,20 @@ def getGatawayDefaultConfig(mist_session:_APISession, model:str=None, ha:str=Non
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     QUERY PARAMS
     ------------
-    :param str model - model the default gateway config is intended (as the default LAN/WAN port can differ)
-    :param str ha - whether the config is intended for HA        
+    model : str
+      model the default gateway config is intended (as the default LAN/WAN port can differ)
+    ha : str
+      whether the config is intended for HA        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/const/default_gateway_config"
     query_params={}

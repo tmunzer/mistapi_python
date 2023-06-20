@@ -20,19 +20,22 @@ def multiAckSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> _A
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/ack"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -44,19 +47,22 @@ def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _API
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/ack_all"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -68,29 +74,36 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(type, acked, severity, group) - Group by and count the alarms by some distinct field
-    :param str ack_admin_name - Name of the admins who have acked the alarms; accepts multiple values separated by comma
-    :param bool acked
-    :param str type - Key-name of the alarms; accepts multiple values separated by comma
-    :param str severity - Alarm severity; accepts multiple values separated by comma
-    :param str group - Alarm group name; accepts multiple values separated by comma
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'type', 'acked', 'severity', 'group'}, default: type
+      Group by and count the alarms by some distinct field
+    ack_admin_name : str
+      Name of the admins who have acked the alarms; accepts multiple values separated by comma
+    acked : bool
+    type : str
+      Key-name of the alarms; accepts multiple values separated by comma
+    severity : str
+      Alarm severity; accepts multiple values separated by comma
+    group : str
+      Alarm group name; accepts multiple values separated by comma
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/count"
     query_params={}
@@ -114,27 +127,33 @@ def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_a
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type - Key-name of the alarms; accepts multiple values separated by comma
-    :param str ack_admin_name - Name of the admins who have acked the alarms; accepts multiple values separated by comma
-    :param bool acked
-    :param str severity - Alarm severity; accepts multiple values separated by comma
-    :param str group - Alarm group name; accepts multiple values separated by comma
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    type : str
+      Key-name of the alarms; accepts multiple values separated by comma
+    ack_admin_name : str
+      Name of the admins who have acked the alarms; accepts multiple values separated by comma
+    acked : bool
+    severity : str
+      Alarm severity; accepts multiple values separated by comma
+    group : str
+      Alarm group name; accepts multiple values separated by comma
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/search"
     query_params={}
@@ -156,19 +175,22 @@ def multiUnackSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/unack"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -180,19 +202,22 @@ def unackSiteAllArlarms(mist_session:_APISession, site_id:str, body:object) -> _
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/unack_all"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -204,20 +229,23 @@ def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:objec
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str alarm_id        
+    site_id : str
+    alarm_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/{alarm_id}/ack"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -229,20 +257,23 @@ def unackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:obj
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str alarm_id        
+    site_id : str
+    alarm_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/alarms/{alarm_id}/unack"
     resp = mist_session.mist_post(uri=uri, body=body)

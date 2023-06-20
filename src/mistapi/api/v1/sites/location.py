@@ -20,25 +20,30 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str map_id - map_id (filter by map_id)
-    :param str type(sdkclient, client, asset)
-    :param str duration(1d, 5h, 1h, 30m) - where the start time will be calculated (with end time is now)
-    :param str resolution(default, fine)
-    :param str client_type - client_type (as filter. optional)
-    :param int start
-    :param int end        
+    map_id : str
+      map_id (filter by map_id)
+    type : str{'sdkclient', 'client', 'asset'}, default: sdkclient
+    duration : str{'1d', '5h', '1h', '30m'}, default: 1h
+      where the start time will be calculated (with end time is now)
+    resolution : str{'default', 'fine'}, default: default
+    client_type : str
+      client_type (as filter. optional)
+    start : int
+    end : int        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/coverage"
     query_params={}
@@ -58,19 +63,22 @@ def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str map_id - map_id (as filter, optional)        
+    map_id : str
+      map_id (as filter, optional)        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/current"
     query_params={}
@@ -84,15 +92,17 @@ def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> _APIRes
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/defaults"
     query_params={}
@@ -105,16 +115,18 @@ def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/device/{device_id}"
     query_params={}
@@ -127,20 +139,23 @@ def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:st
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id        
+    site_id : str
+    device_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/device/{device_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -152,16 +167,18 @@ def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/map/{map_id}"
     query_params={}
@@ -174,20 +191,23 @@ def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, bod
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/map/{map_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
@@ -199,16 +219,18 @@ def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str map_id        
+    site_id : str
+    map_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/reset/map/{map_id}"
     resp = mist_session.mist_post(uri=uri)
@@ -220,25 +242,31 @@ def getSiteMachineLearningEvents(mist_session:_APISession, site_id:str, device_i
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str device_id - device_id (as filter, optional)
-    :param str map_ip - map_id (as filter, optional)
-    :param str client_type - client_type (as filter, optional)
-    :param str duration - instead of start, you can use 1d, 30m, 5h, where the start will be calculated
-    :param int start
-    :param int end
-    :param str interval        
+    device_id : str
+      device_id (as filter, optional)
+    map_ip : str
+      map_id (as filter, optional)
+    client_type : str
+      client_type (as filter, optional)
+    duration : str
+      instead of start, you can use 1d, 30m, 5h, where the start will be calculated
+    start : int
+    end : int
+    interval : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/location/ml/updates"
     query_params={}

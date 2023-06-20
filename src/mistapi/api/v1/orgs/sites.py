@@ -21,20 +21,22 @@ def getOrgSites(mist_session:_APISession, org_id:str, limit:int=100, page:int=1)
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param int limit
-    :param int page        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites"
     query_params={}
@@ -49,20 +51,22 @@ def listOrgSites(mist_session:_APISession, org_id:str, limit:int=100, page:int=1
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param int limit
-    :param int page        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites"
     query_params={}
@@ -77,19 +81,22 @@ def createOrgSite(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -101,24 +108,26 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", page:
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(analytic_enabled, app_waking, asset_enabled, auto_upgrade_enabled, auto_upgrade_version, country_code, honeypot_enabled, id, locate_unconnected, mesh_enabled, name, rogue_enabled, remote_syslog_enabled, rtsa_enabled, vna_enabled, wifi_enabled)
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'analytic_enabled', 'app_waking', 'asset_enabled', 'auto_upgrade_enabled', 'auto_upgrade_version', 'country_code', 'honeypot_enabled', 'id', 'locate_unconnected', 'mesh_enabled', 'name', 'rogue_enabled', 'remote_syslog_enabled', 'rtsa_enabled', 'vna_enabled', 'wifi_enabled'}, default: id
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites/count"
     query_params={}
@@ -137,38 +146,56 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param bool analytic_enabled - if Advanced Analytic feature is enabled
-    :param bool app_waking - if App Waking feature is enabled
-    :param bool asset_enabled - if Asset Tracking is enabled
-    :param bool auto_upgrade_enabled - if Auto Upgrade feature is enabled
-    :param str auto_upgrade_version - if Auto Upgrade feature is enabled
-    :param str country_code - site country code
-    :param bool honeypot_enabled - if Honeypot detection is enabled
-    :param str id - site id
-    :param bool locate_unconnected - if unconnected client are located
-    :param bool mesh_enabled - if Mesh feature is enabled
-    :param str name - site name
-    :param bool rogue_enabled - if Rogue detection is enabled
-    :param bool remote_syslog_enabled - if Remote Syslog is enabled
-    :param bool rtsa_enabled - if managed mobility feature is enabled
-    :param bool vna_enabled - if Virtual Network Assistant is enabled
-    :param bool wifi_enabled - if WIFI feature is enabled
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    analytic_enabled : bool
+      if Advanced Analytic feature is enabled
+    app_waking : bool
+      if App Waking feature is enabled
+    asset_enabled : bool
+      if Asset Tracking is enabled
+    auto_upgrade_enabled : bool
+      if Auto Upgrade feature is enabled
+    auto_upgrade_version : str
+      if Auto Upgrade feature is enabled
+    country_code : str
+      site country code
+    honeypot_enabled : bool
+      if Honeypot detection is enabled
+    id : str
+      site id
+    locate_unconnected : bool
+      if unconnected client are located
+    mesh_enabled : bool
+      if Mesh feature is enabled
+    name : str
+      site name
+    rogue_enabled : bool
+      if Rogue detection is enabled
+    remote_syslog_enabled : bool
+      if Remote Syslog is enabled
+    rtsa_enabled : bool
+      if managed mobility feature is enabled
+    vna_enabled : bool
+      if Virtual Network Assistant is enabled
+    wifi_enabled : bool
+      if WIFI feature is enabled
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/sites/search"
     query_params={}
@@ -201,21 +228,25 @@ def importOrgMapToSiteFile(mist_session:_APISession, org_id:str, site_name:str, 
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str site_name        
+    org_id : str
+    site_name : str        
     
     BODY PARAMS
     -----------
-    :param str csv - path to the file to upload. 
-    :param str file - path to the file to upload. 
+    csv : str
+        path to the file to upload. 
+    file : str
+        path to the file to upload. 
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     multipart_form_data = {
         "csv":csv,

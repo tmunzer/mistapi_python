@@ -20,24 +20,26 @@ def countOrgWiredClients(mist_session:_APISession, org_id:str, distinct:str="mac
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(port_id, vlan, mac, device_mac, site_id, type)
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    distinct : str{'port_id', 'vlan', 'mac', 'device_mac', 'site_id', 'type'}, default: mac
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wired_clients/count"
     query_params={}
@@ -56,30 +58,40 @@ def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str site_id - Site ID
-    :param str device_mac - device mac
-    :param str mac - client mac
-    :param str port_id - port id
-    :param int vlan - vlan
-    :param str ip - ip
-    :param str manufacture - client manufacture
-    :param str text - single entry of hostname/mac
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    site_id : str
+      Site ID
+    device_mac : str
+      device mac
+    mac : str
+      client mac
+    port_id : str
+      port id
+    vlan : int
+      vlan
+    ip : str
+      ip
+    manufacture : str
+      client manufacture
+    text : str
+      single entry of hostname/mac
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/wired_clients/search"
     query_params={}

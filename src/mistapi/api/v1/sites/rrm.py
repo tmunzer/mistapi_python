@@ -20,15 +20,17 @@ def getSiteCurrentChannelPlanning(mist_session:_APISession, site_id:str) -> _API
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rrm/current"
     query_params={}
@@ -41,17 +43,20 @@ def getSiteCurrentRrmConsiderationsForAnApOnASpecificBand(mist_session:_APISessi
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id
-    :param str device_id
-    :param str band - radio band        
+    site_id : str
+    device_id : str
+    band : str
+      radio band        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rrm/current/devices/{device_id}/band/{band}"
     query_params={}
@@ -64,24 +69,26 @@ def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str, page:int=1
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     QUERY PARAMS
     ------------
-    :param str band(24, 5, 6)
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    band : str{'24', '5', '6'}
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rrm/events"
     query_params={}
@@ -100,19 +107,22 @@ def optimizeSiteRrm(mist_session:_APISession, site_id:str, body:object) -> _APIR
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str site_id        
+    site_id : str        
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/rrm/optimize"
     resp = mist_session.mist_post(uri=uri, body=body)

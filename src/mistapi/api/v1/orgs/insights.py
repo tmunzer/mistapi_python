@@ -20,25 +20,27 @@ def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id        
+    org_id : str        
     
     QUERY PARAMS
     ------------
-    :param str sle(wan, wired, wifi)
-    :param int start
-    :param int end
-    :param int limit
-    :param int page
-    :param str duration
-    :param str interval        
+    sle : str{'wan', 'wired', 'wifi'}
+    start : int
+    end : int
+    limit : int, default: 100
+    page : int, default: 1
+    duration : str, default: 1d
+    interval : str        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/insights/sites-sle"
     query_params={}
@@ -58,24 +60,27 @@ def getOrgSle(mist_session:_APISession, org_id:str, metric:str, sle:str=None, du
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str org_id
-    :param str metric        
+    org_id : str
+    metric : str        
     
     QUERY PARAMS
     ------------
-    :param str sle - see [/api/v1/const/insight_metrics](/#tag/Constants/operation/getSiteAvailableInsightMetrics) for more details
-    :param str duration
-    :param str interval
-    :param int start
-    :param int end        
+    sle : str
+      see [/api/v1/const/insight_metrics](/#tag/Constants/operation/getSiteAvailableInsightMetrics) for more details
+    duration : str, default: 1d
+    interval : str
+    start : int
+    end : int        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/insights/{metric}"
     query_params={}

@@ -15,33 +15,39 @@ from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
 @deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.0", details="function replaced with listMspLogs")  
-def getMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:any=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+def getMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listMspLogs
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param str site_id - site id
-    :param str admin_name - admin name or email
-    :param str message - message
-    :param any sort(timestamp, -timestamp, site_id, admin_id) - sort order
-    :param int start
-    :param int end
-    :param int limit
-    :param int page
-    :param str duration        
+    site_id : str
+      site id
+    admin_name : str
+      admin name or email
+    message : str
+      message
+    sort : str{'timestamp', '-timestamp', 'site_id', 'admin_id'}
+      sort order
+    start : int
+    end : int
+    limit : int, default: 100
+    page : int, default: 1
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/logs"
     query_params={}
@@ -57,33 +63,39 @@ def getMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_nam
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:any=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+def listMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listMspLogs
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param str site_id - site id
-    :param str admin_name - admin name or email
-    :param str message - message
-    :param any sort(timestamp, -timestamp, site_id, admin_id) - sort order
-    :param int start
-    :param int end
-    :param int limit
-    :param int page
-    :param str duration        
+    site_id : str
+      site id
+    admin_name : str
+      admin name or email
+    message : str
+      message
+    sort : str{'timestamp', '-timestamp', 'site_id', 'admin_id'}
+      sort order
+    start : int
+    end : int
+    limit : int, default: 100
+    page : int, default: 1
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/logs"
     query_params={}
@@ -105,19 +117,21 @@ def countMspLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_name"
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param str distinct(admin_id, admin_name, message, org_id)        
+    distinct : str{'admin_id', 'admin_name', 'message', 'org_id'}, default: admin_name        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/logs/count"
     query_params={}

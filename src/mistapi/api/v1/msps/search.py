@@ -20,24 +20,27 @@ def searchMspOrgGroup(mist_session:_APISession, msp_id:str, type:str, q:str=None
     
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
     
     PATH PARAMS
     -----------
-    :param str msp_id        
+    msp_id : str        
     
     QUERY PARAMS
     ------------
-    :param str type(orgs) - orgs
-    :param str q
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration        
+    type : str{'orgs'}
+      orgs
+    q : str
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
-    :return APIResponse - response from the API call
+    mistapi.APIResponse
+        response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/search"
     query_params={}
