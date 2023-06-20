@@ -63,6 +63,8 @@ class APIRequest:
             headers["Authorization"] = "***hidden***"
         if "X-CSRFToken" in headers:
             headers["X-CSRFToken"] = "***hidden***"
+        if "Cookie" in headers:
+            headers["Cookie"] = "***hidden***"
         return headers
     
     def remove_file_from_body(self, resp: requests.Response):
