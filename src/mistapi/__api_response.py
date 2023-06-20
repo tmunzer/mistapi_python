@@ -12,8 +12,7 @@ This module manages API responses
 '''
 
 from requests import Response
-from mistapi.__logger import logger
-from mistapi.__logger import console
+from mistapi.__logger import logger, console
 
 class APIResponse:
     """
@@ -37,25 +36,25 @@ class APIResponse:
         self.headers = response.headers
         self.status_code=response.status_code
 
-        logger.info(f"apiresponse:Response Status Code: {response.status_code}")
+        logger.info(f"apiresponse:__init__: response status code: {response.status_code}")
         console.debug(f"Response Status Code: {response.status_code}")
 
         try:
             self.raw_data = response.content
             self.data = response.json()
             self._check_next()
-            logger.debug(f"apiresponse:HTTP Response processed")
+            logger.debug(f"apiresponse:__init__: HTTP response processed")
             if self.status_code >= 400 or (type(self.data) == object and self.data.get("error")):
-                logger.error(f"apiresponse:Response: {response}")
+                logger.error(f"apiresponse:__init__: response = {response}")
                 console.debug(f"Response: {self.data}")
         except Exception as err:
-            logger.error(f"apiresponse:Unable to process HTTP Response: \r\n{err}")
+            logger.error(f"apiresponse:__init__: unable to process HTTP Response: \r\n{err}")
 
     def _check_next(self) -> None:
-        logger.debug(f"apiresponse:in  > _check_next")
+        logger.debug(f"apiresponse:_check_next")
         if "next" in self.data:
             self.next = self.data["next"]
-            logger.debug(f"apiresponse:set next to {self.next}")
+            logger.debug(f"apiresponse:_check_next: set next to {self.next}")
         else:
             total = self.headers.get("X-Page-Total")
             limit = self.headers.get("X-Page-Limit")
@@ -66,10 +65,10 @@ class APIResponse:
                     limit=int(limit)
                     page=int(page)
                 except:
-                    logger.error(f"apiresponse:Unable to convert total({total})/limit({limit})/page({page}) to int")
+                    logger.error(f"apiresponse:_check_next: unable to convert total({total})/limit({limit})/page({page}) to int")
                     console.error(f"Unable to convert total({total})/limit({limit})/page({page}) to int")
                 if limit * page < total:
                     uri = f"/api/{self.url.split('/api/')[1]}"
                     self.next= uri.replace(f"page={page}", f"page={page+1}")
-                    logger.debug(f"apiresponse:set next to {self.next}")
+                    logger.debug(f"apiresponse:_check_next: set next to {self.next}")
 

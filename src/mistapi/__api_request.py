@@ -72,6 +72,7 @@ class APIRequest:
             url = self._url(uri) + self._gen_query(query)
             logger.info(f"apirequest:mist_get: sending request to {url}")
             resp = self._session.get(url)
+            logger.debug(f"apirequest:mist_get: request headers: {resp.request.headers}")
             resp.raise_for_status()
         except HTTPError as http_err:
             logger.error(f'apirequest:mist_get: HTTP error occurred: {http_err}')  # Python 3.6
@@ -104,6 +105,8 @@ class APIRequest:
                 resp = self._session.post(url, data=body, headers=headers)
             else: 
                 resp = self._session.post(url, json=body, headers=headers)
+            logger.debug(f"apirequest:mist_post: request headers: {resp.request.headers}")
+            logger.debug(f"apirequest:mist_post: request body: {resp.request.body}")
             resp.raise_for_status()
         except HTTPError as http_err:
             logger.error(f'apirequest:mist_post: HTTP error occurred: {http_err}')  # Python 3.6
@@ -136,6 +139,8 @@ class APIRequest:
                 resp = self._session.put(url, data=body, headers=headers)
             else: 
                 resp = self._session.put(url, json=body, headers=headers)
+            logger.debug(f"apirequest:mist_put: request headers: {resp.request.headers}")
+            logger.debug(f"apirequest:mist_put: request body: {resp.request.body}")
             resp.raise_for_status()
         except HTTPError as http_err:
             logger.error(f'apirequest:mist_put: HTTP error occurred: {http_err}')  # Python 3.6
@@ -162,6 +167,7 @@ class APIRequest:
             url = self._url(uri) + self._gen_query(query)
             logger.info(f"apirequest:mist_delete: sending request to {url}")
             resp = self._session.delete(url)
+            logger.debug(f"apirequest:mist_delete: request headers: {resp.request.headers}")
             resp.raise_for_status()
         except HTTPError as http_err:
             logger.error(f'apirequest:mist_delete: HTTP error occurred: {http_err}')  # Python 3.6
@@ -205,6 +211,8 @@ class APIRequest:
                         logger.error(f"apirequest:mist_post_file: multipart_form_data: Unable to parse JSON object {key} with value {multipart_form_data[key]}")            
             logger.debug(f"apirequest:mist_post_file: final multipart_form_data: {generated_multipart_form_data}")
             resp = self._session.post(url, files=generated_multipart_form_data)
+            logger.debug(f"apirequest:mist_post_file: request headers: {resp.request.headers}")
+            logger.debug(f"apirequest:mist_post_file: request body: {resp.request.body}")
             if files:
                 for f in files:
                     f.close()
