@@ -210,19 +210,22 @@ class APIRequest:
                     files = []
                     try:
                         if key in ["csv", "file"]:
+                            logger.debug(f"apirequest:mist_post_file: opening file: {multipart_form_data[key]}")
                             f = open(multipart_form_data[key], 'rb') 
                             files.append(f)
                             generated_multipart_form_data[key] = (os.path.basename(multipart_form_data[key]), f, 'application/octet-stream')                            
                         else:
                             generated_multipart_form_data[key] = (None, json.dumps(multipart_form_data[key]), 'application/json')
                     except:
-                        logger.error(f"apirequest:mist_post_file: multipart_form_data: Unable to parse JSON object {key} with value {multipart_form_data[key]}")            
+                        logger.error(f"apirequest:mist_post_file: multipart_form_data: Unable to parse JSON object {key} with value {multipart_form_data[key]}")  
+                        logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
             logger.debug(f"apirequest:mist_post_file: final multipart_form_data: {generated_multipart_form_data}")
             resp = self._session.post(url, files=generated_multipart_form_data)
             logger.debug(f"apirequest:mist_post_file: request headers: {self._remove_auth_from_headers(resp)}")
             logger.debug(f"apirequest:mist_post_file: request body: {resp.request.body}")
             if files:
                 for f in files:
+                    logger.debug(f"apirequest:mist_post_file: closing file: {multipart_form_data[key]}")
                     f.close()
             resp.raise_for_status()
         except HTTPError as http_err:

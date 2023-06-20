@@ -377,6 +377,7 @@ class APISession(APIRequest):
                 except:
                     cookies_ext = ""
                     logger.error(f"apisession:_set_authenticated: unable to extract HTTP session cookies")
+                    logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
                 self._csrftoken = self._session.cookies["csrftoken" + cookies_ext]
                 self._session.headers.update({"X-CSRFToken": self._csrftoken})
                 logger.info(f"apisession:_set_authenticated: CSRF Token stored")
@@ -561,6 +562,7 @@ class APISession(APIRequest):
                     )
             except:
                 logger.error("apisession:get_privilege_by_org_id: error when retrieving org info")
+                logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
             if msp_id:
                 msp_priv = next(
                     (

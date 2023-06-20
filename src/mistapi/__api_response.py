@@ -66,6 +66,7 @@ class APIResponse:
                     page=int(page)
                 except:
                     logger.error(f"apiresponse:_check_next: unable to convert total({total})/limit({limit})/page({page}) to int")
+                    logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
                     console.error(f"Unable to convert total({total})/limit({limit})/page({page}) to int")
                 if limit * page < total:
                     uri = f"/api/{self.url.split('/api/')[1]}"
