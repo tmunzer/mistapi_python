@@ -173,7 +173,7 @@ def _gen_code_params(endpoint_params: list, operation_id: str):
     return code_params, code_params_desc
 
 
-def _gen_description(operation_id: str, desc_path_params: str, desc_query_params: str = "", with_file:bool=False, with_csv:bool=False, with_body:bool=False):
+def _gen_description(operation_id: str, desc_path_params: str, desc_query_params: str = "", with_body:bool=False, multipart_form_data:dict={}):
     description = f"""    \"\"\"
     API doc: https://doc.mist-lab.fr/#operation/{operation_id}
     
@@ -194,19 +194,22 @@ def _gen_description(operation_id: str, desc_path_params: str, desc_query_params
     ------------{desc_query_params}        
     """
         
-    if with_body or with_file or with_csv:
+    if with_body or multipart_form_data:
         description += f"""
     BODY PARAMS
     -----------"""
         if with_body:
             description += f"""
     :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)"""
-        if with_file:
-            description += f"""
-    :param str file_path - path to the file to upload"""
-        if with_csv:
-            description += f"""
-    :param str csv_path - path to the csv file to upload"""
+        if multipart_form_data:
+            for key in multipart_form_data:
+                if key in ["csv", "file"]:
+                    description += f"""
+    :param {multipart_form_data[key]["property_type"]} {key} - path to the file to upload. {multipart_form_data[key]["property_desc"]}"""
+                else:
+                    description += f"""
+    :param {multipart_form_data[key]["property_type"]} {key} - {multipart_form_data[key]["property_desc"]}"""
+
         description+="""
     """
     description += """
@@ -334,31 +337,45 @@ def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _
 def _create_post_file(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, properties: dict, file_name: str):
     code_path_params, desc_path_params = _gen_code_params(
         path_params, operation_id)
-    file_param = ""
-    with_file = False
-    csv_param = ""
-    with_csv = False
-    body_param = ""
-    with_body = False
-    if "file" in properties:
-        file_param = ", file_path:str=\"\""
-        with_file = True
-    if "csv" in properties:
-        csv_param = ", csv_path:str=\"\""
-        with_csv = True
-    if "json" in properties:
-        body_param = ", body:dict={}"
-        with_body = True
-    code_desc = _gen_description(operation_id, desc_path_params, with_file=with_file, with_csv=with_csv, with_body=with_body)
+    multipart_form_data = {}
+    for key in properties:
+        property_type = "any"
+        match properties[key].get("type"):
+            case "boolean": 
+                property_type = "bool"
+            case "string": 
+                property_type = "str"
+            case "integer": 
+                property_type = "int"
+            case "number": 
+                property_type = "float"
+            case "object": 
+                property_type = "dict"
+            case "array": 
+                property_type = "list"
+            case "binary": 
+                property_type = "str"
+        multipart_form_data[key] = {
+            "property_type": property_type,
+            "property_desc": properties[key].get("description", "")
+        }
+    code_desc = _gen_description(operation_id, desc_path_params, multipart_form_data=multipart_form_data)
     code = f"""
-def {operation_id}File(mist_session:_APISession{code_path_params}{file_param}{csv_param}{body_param}) -> _APIResponse:
+def {operation_id}File(mist_session:_APISession{code_path_params}"""
+    for key in multipart_form_data:
+        code += f", {key}:{multipart_form_data[key]['property_type']}=None"
+    code +=") -> _APIResponse:"
+    code += f"""
 {code_desc}
+    """
+    code += "multipart_form_data = {"
+    for key in multipart_form_data:
+        code += f"""
+        "{key}":{key},"""
+    code += f"""
+    }}
     uri = f"{endpoint_path}"
-    resp = mist_session.mist_post_file(uri=uri"""
-    if with_file: code += ", file=file_path"
-    if with_csv: code += ", csv=csv_path"
-    if with_body: code += ", body=body"
-    code += """)
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 """
 
