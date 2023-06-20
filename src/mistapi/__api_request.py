@@ -203,7 +203,7 @@ class APIRequest:
                             generated_multipart_form_data[key] = (None, json.dumps(multipart_form_data[key]), 'application/json')
                     except:
                         logger.error(f"apirequest:mist_post_file: multipart_form_data: Unable to parse JSON object {key} with value {multipart_form_data[key]}")            
-            logger.debug(f"fapirequest:mist_post_file: final multipart_form_data: {generated_multipart_form_data}")
+            logger.debug(f"apirequest:mist_post_file: final multipart_form_data: {generated_multipart_form_data}")
             resp = self._session.post(url, files=generated_multipart_form_data)
             if files:
                 for f in files:
