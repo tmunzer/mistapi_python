@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.1", details="function replaced with listInstallerSites")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.0", details="function replaced with listInstallerSites")  
 def getInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listInstallerSites
@@ -82,7 +82,7 @@ def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.1", details="function replaced with listInstallerMaps")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.0", details="function replaced with listInstallerMaps")  
 def getInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listInstallerMaps
@@ -127,7 +127,7 @@ def listInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _A
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, file_path:str="", csv_path:str="", body:dict={}) -> _APIResponse:
+def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, csv:str=None, file:str=None, json:dict=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importInstallerMap
     
@@ -142,16 +142,21 @@ def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, 
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
-    :param str file_path - path to the file to upload
-    :param str csv_path - path to the csv file to upload
+    :param str csv - path to the file to upload. 
+    :param str file - path to the file to upload. 
+    :param dict json - 
     
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
+    multipart_form_data = {
+        "csv":csv,
+        "file":file,
+        "json":json,
+    }
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/import"
-    resp = mist_session.mist_post_file(uri=uri, file=file_path, csv=csv_path, body=body)
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
 def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str) -> _APIResponse:

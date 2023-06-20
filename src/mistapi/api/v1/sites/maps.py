@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.1", details="function replaced with listSiteMaps")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.0", details="function replaced with listSiteMaps")  
 def getSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMaps
@@ -81,7 +81,7 @@ def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteMapsFile(mist_session:_APISession, site_id:str, file_path:str="", csv_path:str="", body:dict={}) -> _APIResponse:
+def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:dict=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteMaps
     
@@ -95,16 +95,23 @@ def importSiteMapsFile(mist_session:_APISession, site_id:str, file_path:str="", 
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
-    :param str file_path - path to the file to upload
-    :param str csv_path - path to the csv file to upload
+    :param bool auto_deviceprofile_assignment - boolean, whether to auto assign device to deviceprofile by name
+    :param str csv - path to the file to upload. csv file for ap name mapping, optional
+    :param str file - path to the file to upload. 
+    :param dict json - 
     
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
+    multipart_form_data = {
+        "auto_deviceprofile_assignment":auto_deviceprofile_assignment,
+        "csv":csv,
+        "file":file,
+        "json":json,
+    }
     uri = f"/api/v1/sites/{site_id}/maps/import"
-    resp = mist_session.mist_post_file(uri=uri, file=file_path, csv=csv_path, body=body)
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
 def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
@@ -377,11 +384,13 @@ def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str) -> _A
     -----------
     :return APIResponse - response from the API call
     """
+    multipart_form_data = {
+    }
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/image"
-    resp = mist_session.mist_post_file(uri=uri)
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file_path:str="", body:dict={}) -> _APIResponse:
+def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:str=None, json:dict=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/replaceSiteMapImage
     
@@ -396,15 +405,19 @@ def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, f
     
     BODY PARAMS
     -----------
-    :param dict body - JSON object to send to Mist Cloud (see API doc above for more details)
-    :param str file_path - path to the file to upload
+    :param str file - path to the file to upload. 
+    :param dict json - 
     
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
+    multipart_form_data = {
+        "file":file,
+        "json":json,
+    }
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/replace"
-    resp = mist_session.mist_post_file(uri=uri, file=file_path, body=body)
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
 def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:

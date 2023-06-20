@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.1", details="function replaced with listSiteAssets")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.0", details="function replaced with listSiteAssets")  
 def getSiteAssets(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteAssets
@@ -81,7 +81,7 @@ def createSiteAsset(mist_session:_APISession, site_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteAssetsFile(mist_session:_APISession, site_id:str, file_path:str="") -> _APIResponse:
+def importSiteAssetsFile(mist_session:_APISession, site_id:str, file:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteAssets
     
@@ -95,14 +95,17 @@ def importSiteAssetsFile(mist_session:_APISession, site_id:str, file_path:str=""
     
     BODY PARAMS
     -----------
-    :param str file_path - path to the file to upload
+    :param str file - path to the file to upload. CSV file
     
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
+    multipart_form_data = {
+        "file":file,
+    }
     uri = f"/api/v1/sites/{site_id}/assets/import"
-    resp = mist_session.mist_post_file(uri=uri, file=file_path)
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
 def importSiteAssets(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:

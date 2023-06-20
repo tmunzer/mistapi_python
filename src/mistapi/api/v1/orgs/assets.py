@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.40.1", details="function replaced with listOrgAssets")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.0", details="function replaced with listOrgAssets")  
 def getOrgAssets(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgAssets
@@ -81,7 +81,7 @@ def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importOrgAssetsFile(mist_session:_APISession, org_id:str, file_path:str="") -> _APIResponse:
+def importOrgAssetsFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgAssets
     
@@ -95,14 +95,17 @@ def importOrgAssetsFile(mist_session:_APISession, org_id:str, file_path:str="") 
     
     BODY PARAMS
     -----------
-    :param str file_path - path to the file to upload
+    :param str file - path to the file to upload. CSV file
     
     RETURN
     -----------
     :return APIResponse - response from the API call
     """
+    multipart_form_data = {
+        "file":file,
+    }
     uri = f"/api/v1/orgs/{org_id}/assets/import"
-    resp = mist_session.mist_post_file(uri=uri, file=file_path)
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
 def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
