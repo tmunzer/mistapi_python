@@ -62,6 +62,23 @@ class APIRequest:
         if "X-CSRFToken" in headers:
             headers["X-CSRFToken"] = "***hidden***"
         return headers
+    
+    def remove_file_from_body(self, resp: requests.Response):
+        keepit=True
+        werein=False
+        request_body=""
+        for i in resp.request.body.decode("utf-8", errors="ignore").split("\r\n"):
+            if i.startswith("Content-Disposition: form-data; name=\"file\";") or i.startswith("Content-Disposition: form-data; name=\"csv\";"):
+                werein=True
+            elif i=="" and werein:
+                keepit=False
+            elif i.startswith("--") and not keepit:
+                request_body+="\r\n"
+                werein = False
+                keepit = True
+            if keepit:
+                request_body += f"\r\n{i}"
+        return request_body
 
     def mist_get(self, uri:str, query:object=None) -> APIResponse:
         """
@@ -207,26 +224,20 @@ class APIRequest:
             for key in multipart_form_data:
                 logger.debug(f"apirequest:mist_post_file: multipart_form_data: {key} = {multipart_form_data[key]}")
                 if multipart_form_data[key]:
-                    files = []
                     try:
                         if key in ["csv", "file"]:
-                            logger.debug(f"apirequest:mist_post_file: opening file: {multipart_form_data[key]}")
+                            logger.debug(f"apirequest:mist_post_file: reading file: {multipart_form_data[key]}")
                             f = open(multipart_form_data[key], 'rb') 
-                            files.append(f)
                             generated_multipart_form_data[key] = (os.path.basename(multipart_form_data[key]), f, 'application/octet-stream')                            
                         else:
-                            generated_multipart_form_data[key] = (None, json.dumps(multipart_form_data[key]), 'application/json')
+                            generated_multipart_form_data[key] = (None, json.dumps(multipart_form_data[key]))
                     except:
                         logger.error(f"apirequest:mist_post_file: multipart_form_data: Unable to parse JSON object {key} with value {multipart_form_data[key]}")  
                         logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
             logger.debug(f"apirequest:mist_post_file: final multipart_form_data: {generated_multipart_form_data}")
             resp = self._session.post(url, files=generated_multipart_form_data)
             logger.debug(f"apirequest:mist_post_file: request headers: {self._remove_auth_from_headers(resp)}")
-            logger.debug(f"apirequest:mist_post_file: request body: {resp.request.body}")
-            if files:
-                for f in files:
-                    logger.debug(f"apirequest:mist_post_file: closing file: {multipart_form_data[key]}")
-                    f.close()
+            logger.debug(f"apirequest:mist_post_file: request body: {self.remove_file_from_body(resp)}")
             resp.raise_for_status()
         except HTTPError as http_err:
             logger.error(f'apirequest:mist_post_file: HTTP error occurred: {http_err}')  # Python 3.6
