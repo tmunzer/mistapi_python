@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.0", details="function replaced with listOrgOtherDevices")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.1", details="function replaced with listOrgOtherDevices")  
 def getOrgOtherDevices(mist_session:_APISession, org_id:str, vendor:str=None, mac:str=None, serial:str=None, model:str=None, name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgOtherDevices
@@ -160,7 +160,7 @@ def countOrgOtherDevicesEvents(mist_session:_APISession, org_id:str, distinct:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgOtherDevicesEvents(mist_session:_APISession, org_id:str, org_id:str=None, site_id:str=None, mac:str=None, device_mac:str=None, vendor:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgOtherDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, device_mac:str=None, vendor:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgOtherDevicesEvents
     
@@ -175,8 +175,6 @@ def searchOrgOtherDevicesEvents(mist_session:_APISession, org_id:str, org_id:str
     
     QUERY PARAMS
     ------------
-    org_id : str
-      org id
     site_id : str
       site id
     mac : str
@@ -200,7 +198,6 @@ def searchOrgOtherDevicesEvents(mist_session:_APISession, org_id:str, org_id:str
     """
     uri = f"/api/v1/orgs/{org_id}/otherdevices/events/search"
     query_params={}
-    if org_id: query_params["org_id"]=org_id
     if site_id: query_params["site_id"]=site_id
     if mac: query_params["mac"]=mac
     if device_mac: query_params["device_mac"]=device_mac
