@@ -21,6 +21,7 @@ from getpass import getpass
 
 from mistapi.__logger import logger, console
 from mistapi.__api_request import APIRequest
+from mistapi.__api_response import APIResponse
 from mistapi.__models.privilege import Privileges
 
 
@@ -51,13 +52,20 @@ class APISession(APIRequest):
         logging_log_level: int = 10,
     ):
         """
-        :param str email        used if login/password is used. Can be defined later
-        :param str password     used if login/password is used. Can be defined later
-        :param str apitoken     used if API Token is used. Can de defined later
-        :param str host         Mist Cloud to reach (e.g. "api.mist.com"). Can de defined later
-        :param str env_file     path to the env file to load. See README.md for allowed variables
-        :param int console_log_level
-        :param int logging_log_level
+        PARAMS
+        -----------
+        email : str
+            used if login/password is used. Can be defined later
+        password : str
+            used if login/password is used. Can be defined later
+        apitoken : str
+            used if API Token is used. Can de defined later
+        host : str
+            Mist Cloud to reach (e.g. "api.mist.com"). Can de defined later
+        env_file : str
+            path to the env file to load. See README.md for allowed variables
+        console_log_level : int
+            param int logging_log_level
         """
         self._cloud_uri = None
         self.email = None
@@ -122,7 +130,7 @@ class APISession(APIRequest):
 
     ####################################
     # LOAD FUNCTIONS
-    def _load_env(self, env_file=None):
+    def _load_env(self, env_file=None) -> None:
         if env_file:
             if env_file.startswith("~/"):
                 env_file = os.path.join(
@@ -159,7 +167,8 @@ class APISession(APIRequest):
 
         PARAMS
         -----------
-        :param str cloud_uri - Mist FQDN to reach ("api.mist.com", "api.eu.mist.com", ...)
+        cloud_uri : str
+            Mist FQDN to reach ("api.mist.com", "api.eu.mist.com", ...)
         """
         logger.debug(f"apisession:set_cloud")
         self._cloud_uri = None
@@ -223,7 +232,8 @@ class APISession(APIRequest):
 
         PARAMS
         -----------
-        :param str email    If no email provided, an interactive input will ask for it
+        email : str
+            If no email provided, an interactive input will ask for it
         """
         logger.debug(f"apisession:set_email")
         if email:
@@ -239,7 +249,8 @@ class APISession(APIRequest):
 
         PARAMS
         -----------
-        :param str password    If no password provided, an interactive input will ask for it
+        password : str
+            If no password provided, an interactive input will ask for it
         """
         logger.debug(f"apisession:set_password")
         if password:
@@ -249,13 +260,14 @@ class APISession(APIRequest):
         logger.info(f"apisession:set_password: password configured")
         console.debug(f"Password configured")
 
-    def set_api_token(self, apitoken: str):
+    def set_api_token(self, apitoken: str) -> None:
         """
         Set Mist API Token
 
         PARAMS
         -----------
-        :param str apitoken
+        apitoken : str
+            API Token to add in the requests headers for authentication and authorization
         """
         logger.debug(f"apisession:set_api_token")
         self._apitoken = apitoken
@@ -263,12 +275,11 @@ class APISession(APIRequest):
         logger.info(f"apisession:set_api_token: API Token configured")
         console.debug(f"API Token configured")
 
-    def _process_login(self):
+    def _process_login(self) -> None:
         """
         Function to authenticate a user with login/password.
         Will create and store a session used by other requests.
         """
-
         logger.debug(f"apisession:_process_login")
         print()
         print(" Login/Pwd authentication ".center(80, "-"))
@@ -300,7 +311,7 @@ class APISession(APIRequest):
             )
             self._process_login()
 
-    def login(self):
+    def login(self) -> None:
         """
         Log in on the Mist Cloud.
         If information are missing to get connected, they will be requested
@@ -326,7 +337,7 @@ class APISession(APIRequest):
                 logger.info(f"apisession:login: authenticated")
                 self._getself()
 
-    def logout(self):
+    def logout(self) -> None:
         """
         Log out from the Mist Cloud.
         If login/password is used, the HTTP session is destroyed.
@@ -358,7 +369,7 @@ class APISession(APIRequest):
 
         PARAMS
         -----------
-        :param bool authentication_status
+        authentication_status : bool
         """
         logger.debug(f"apisession:_set_authenticated")
         logger.debug(f"apisession:_set_authenticated: authentication_status is {authentication_status}")
@@ -394,26 +405,38 @@ class APISession(APIRequest):
         """
         RETURN
         -----------
-        Return the authentication status.
+        bool
+            Return the authentication status.
         """
         logger.debug(f"apisession:get_authentication_status: return {self._authenticated}")
         return self._authenticated
 
-    def get_api_token(self):
+    def get_api_token(self) -> APIResponse:
         """
         Retrieve and display the User/Org API Tokens
+
+        RETURN
+        -----------
+        mistapi.APIResponse
+            api response for the GET /api/v1/self request
         """
         logger.info(f'apisession:get_api_token: Sending GET request to "/api/v1/self/apitokens"')
         resp = self.mist_get("/api/v1/self/apitokens")
         return resp
 
-    def create_api_token(self, token_name: str = None):
+    def create_api_token(self, token_name: str = None) -> APIResponse:
         """
         Create a new API Token with the current account (user/org)
 
         PARAMS
         -----------
-        :param str API token name (optional)
+        token_name : str
+            API token name (optional)
+
+        RETURN
+        -----------
+        mistapi.APIResponse
+            api response for the POST /api/v1/self/apitokens request
         """
         logger.debug(f"apisession:create_api_token")
         if token_name:
@@ -424,19 +447,25 @@ class APISession(APIRequest):
         resp = self.mist_post("/api/v1/self/apitokens", body=body)
         return resp
 
-    def delete_api_token(self, token_id: str):
+    def delete_api_token(self, apitoken_id: str) -> APIResponse:
         """
         Delete an API Token based on its token_id
 
         PARAMS
         -----------
-        :param str api token_id
+        apitoken_id : str
+            API Token ID to delete
+
+        RETURN
+        -----------
+        mistapi.APIResponse
+            api response for the DELETE /api/v1/self/apitokens/{apitoken_id} request
         """
         logger.debug(f"apisession:delete_api_token")
         logger.info(
-            f'apisession:delete_api_token: sending DELETE request to "/api/v1/self/apitokens" with token_id "{token_id}"'
+            f'apisession:delete_api_token: sending DELETE request to "/api/v1/self/apitokens" with token_id "{apitoken_id}"'
         )
-        uri = f"https://{self._cloud_uri}/api/v1/self/apitokens/{token_id}"
+        uri = f"https://{self._cloud_uri}/api/v1/self/apitokens/{apitoken_id}"
         resp = self._session.delete(uri)
         return resp
 
@@ -447,11 +476,13 @@ class APISession(APIRequest):
 
         PARAMS
         -----------
-        :param str two_factor - 2FA code to send to the Mist Cloud
+        two_factor : str
+            2FA code to send to the Mist Cloud
 
         RETURN
         -----------
-        :return bool - True if authentication succeed, False otherwise
+        bool
+            True if authentication succeed, False otherwise
         """
         logger.debug(f"apisession:_two_factor_authentication")
         uri = "/api/v1/login"

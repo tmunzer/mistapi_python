@@ -36,11 +36,13 @@ class APIRequest:
 
         PARAMS
         -----------
-        :param str uri - URI where to send the request to (e.g. "/api/v1/...")
+        uri : str
+            URI where to send the request to (e.g. "/api/v1/...")
 
         RETURN
         -----------
-        :return str url - Full URL where to send the request to (e.g. "https://api.mist.com/api/v1/...")
+        str
+            Full URL where to send the request to (e.g. "https://api.mist.com/api/v1/...")
         """
         logger.debug(f"apirequest:_url: https://{self._cloud_uri}{uri}")
         return f"https://{self._cloud_uri}{uri}"
@@ -80,18 +82,21 @@ class APIRequest:
                 request_body += f"\r\n{i}"
         return request_body
 
-    def mist_get(self, uri:str, query:object=None) -> APIResponse:
+    def mist_get(self, uri:str, query:dict=None) -> APIResponse:
         """
         GET HTTP Request
 
         PARAMS
         -----------
-        :param str uri - HTTP URI (e.g. "/api/v1/self") 
-        :param object query - dict of HTTP Queries (e.g. {"page": 1, "limit":100})
+        uri : str
+            HTTP URI (e.g. "/api/v1/self") 
+        query : dict
+            dict of HTTP Queries (e.g. {"page": 1, "limit":100})
 
         RETURN
         -----------
-        :return APIResponse
+        mistapi.APIResponse
+            response from the API call
         """
         try:
             url = self._url(uri) + self._gen_query(query)
@@ -108,18 +113,20 @@ class APIRequest:
         finally:
             return APIResponse(url=url, response=resp)
 
-    def mist_post(self, uri:str,  body:object=None) -> APIResponse:
+    def mist_post(self, uri:str,  body:dict=None) -> APIResponse:
         """
         POST HTTP Request
 
         PARAMS
         -----------
-        :param str uri - HTTP URI (e.g. "/api/v1/self") 
-        :param object body 
+        uri : str
+            HTTP URI (e.g. "/api/v1/self") 
+        body : dict
 
         RETURN
         -----------
-        :return APIResponse
+        mistapi.APIResponse
+            response from the API call
         """
         try: 
             url = self._url(uri)
@@ -142,18 +149,20 @@ class APIRequest:
         finally: 
             return APIResponse(url=url, response=resp)
 
-    def mist_put(self, uri:str, body:object=None) -> APIResponse:
+    def mist_put(self, uri:str, body:dict=None) -> APIResponse:
         """
         PUT HTTP Request
 
         PARAMS
         -----------
-        :param str uri - HTTP URI (e.g. "/api/v1/self") 
-        :param object body 
+        uri : str
+            HTTP URI (e.g. "/api/v1/self") 
+        body : dict
 
         RETURN
         -----------
-        :return APIResponse
+        mistapi.APIResponse
+            response from the API call
         """
         try:
             url = self._url(uri)
@@ -176,17 +185,19 @@ class APIRequest:
         finally: 
             return APIResponse(url=url, response=resp)
 
-    def mist_delete(self, uri:str, query:object=None) -> APIResponse:
+    def mist_delete(self, uri:str, query:dict=None) -> APIResponse:
         """
         DELETE HTTP Request
 
         PARAMS
         -----------
-        :param str uri - HTTP URI (e.g. "/api/v1/self") 
+        uri : str
+            HTTP URI (e.g. "/api/v1/self") 
 
         RETURN
         -----------
-        :return APIResponse
+        mistapi.APIResponse
+            response from the API call
         """
         try: 
             url = self._url(uri) + self._gen_query(query)
@@ -209,12 +220,15 @@ class APIRequest:
 
         PARAMS
         -----------
-        :param str uri - HTTP URI (e.g. "/api/v1/self") 
-        :param object multipart_form_data - dict of key/values to add include in the multipart form 
+        uri : str uri
+            HTTP URI (e.g. "/api/v1/self") 
+        multipart_form_data : dict
+            dict of key/values to add include in the multipart form 
 
         RETURN
         -----------
-        :return APIResponse
+        mistapi.APIResponse
+            response from the API call
         """
         try:                 
             url = self._url(uri)

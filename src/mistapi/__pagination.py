@@ -19,12 +19,15 @@ def get_next(mist_session: _APISession, response: _APIResponse) -> _APIResponse:
 
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    :param APIResponse response - mistapi previous response to use
+    mist_session :  mistapi.APISession
+        mistapi session including authentication and Mist host information
+    response : mistapi.APIResponse
+        mistapi previous response to use
 
     RETURN
     -----------
-    :return APIResponse - response from the API call passed in parameteer
+    mistapi.APIResponse
+        response from the API call passed in parameteer
     """
     if response.next:
         return mist_session.mist_get(response.next)
@@ -37,12 +40,15 @@ def get_all(mist_session: _APISession, response: _APIResponse) -> list:
 
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    :param APIResponse response - mistapi previous response to use
+    mist_session :  mistapi.APISession
+        mistapi session including authentication and Mist host information
+    response : mistapi.APIResponse
+        mistapi previous response to use
 
     RETURN
     -----------
-    :return list - list of all the items
+    list
+        list of all the items
     """
     if type(response.data) == list:
         data = response.data.copy()

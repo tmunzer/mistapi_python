@@ -51,8 +51,8 @@ class Console:
 
         PARAMS
         -----------
-        :param int console_log_level
-        :param int logging_log_level
+        console_log_level : int, default: 20
+        logging_log_level : int, default: 10
 
         Values:
         50 -> CRITICAL

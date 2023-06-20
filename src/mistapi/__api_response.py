@@ -17,18 +17,17 @@ from mistapi.__logger import logger, console
 class APIResponse:
     """
     Class used to pass API Responses
-
-    PARAMS
-    -----------
-    :param str raw_data - raw HTTP Response payload
-    :param object data - JSON of the HTTP Response (if possible)
-    :param object error - HTTP errors (if any)
-    :param str url - URL of the HTTP Request
-    :param str url - URI of the HTTP Request
-    :param int status_code - HTTP Response status code
     """
 
     def __init__(self, response:Response, url: str,) -> None:
+        """
+        PARAMS
+        -----------
+        response : requests.Response
+            Response from the request
+        url : str
+            URL of the HTTP Request    
+        """
         self.raw_data=""
         self.data={}
         self.url=url
