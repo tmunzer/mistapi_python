@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.6", details="function replaced with listSiteMaps")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.7", details="function replaced with listSiteMaps")  
 def getSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMaps
@@ -113,7 +113,6 @@ def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile
         import_all_floorplans : bool
         import_height : bool, default: True
         import_orientation : bool, default: True
-        site_id : str
         vendor_name : {'ekahau', 'ibwave'}
     
     RETURN

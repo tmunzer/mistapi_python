@@ -172,12 +172,16 @@ class APISession(APIRequest):
         """
         logger.debug(f"apisession:set_cloud")
         self._cloud_uri = None
-        for cloud in clouds:
-            if cloud["host"] == cloud_uri:
-                self._cloud_uri = cloud_uri
-                logger.debug(f"apisession:set_cloud: Mist Cloud configured to {self._cloud_uri}")
-                console.debug(f"Mist Cloud configured to {self._cloud_uri}")
-        if not self._cloud_uri:
+        if cloud_uri == "api.mistsys.com":
+            self._cloud_uri = cloud_uri
+        else:
+            for cloud in clouds:
+                if cloud["host"] == cloud_uri:
+                    self._cloud_uri = cloud_uri
+        if self._cloud_uri:
+            logger.debug(f"apisession:set_cloud: Mist Cloud configured to {self._cloud_uri}")
+            console.debug(f"Mist Cloud configured to {self._cloud_uri}")
+        else:
             logger.error(f"apisession:set_cloud: {cloud_uri} is not valid")
             console.error(f"{cloud_uri} is not valid")
 

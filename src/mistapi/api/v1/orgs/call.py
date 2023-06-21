@@ -58,7 +58,7 @@ def searchOrgCallEvents(mist_session:_APISession, org_id:str, type:str=None, ap:
     QUERY PARAMS
     ------------
     type : str
-      Event Type. See [getCallEventsDefinitions](#tag/Constants/operation/getCallEventsDefinitions)
+      Event Type. See [listCallEventsDefinitions](/#operation/listCallEventsDefinitions)
     ap : str
     mac : str
     app : str        
