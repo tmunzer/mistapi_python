@@ -140,7 +140,7 @@ class APISession(APIRequest):
             console.debug(f"Loading settings from {env_file}")
             logger.debug(f"apisession:_load_env: loading settings from {env_file}")
             dotenv_path = Path(env_file)
-            load_dotenv(dotenv_path=dotenv_path)
+            load_dotenv(dotenv_path=dotenv_path, override=True)
         else:
             console.debug("Loading settings from env file")
             logger.debug(f"apisession:_load_env: loading settings from env file")
