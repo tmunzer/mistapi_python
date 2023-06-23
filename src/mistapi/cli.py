@@ -132,7 +132,7 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
     :return list - list of the selected Org ID(s)
     """
     data = _select_msp(mist_session)
-    data = [d for d in data if d["name"]]
+    data = [d for d in data if d.get("name")]
     data = sorted(data, key=lambda x: x["name"].lower())
     while True:
         i = -1
