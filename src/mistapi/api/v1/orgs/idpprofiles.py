@@ -14,10 +14,10 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.10", details="function replaced with listOrgWxRules")  
-def getOrgWxRules(mist_session:_APISession, org_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.10", details="function replaced with listOrgIdpProfiles")  
+def getOrgIdpProfiles(mist_session:_APISession, idpprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgWxRules
+    API doc: https://doc.mist-lab.fr/#operation/listOrgIdpProfiles
     
     PARAMS
     -----------
@@ -26,21 +26,21 @@ def getOrgWxRules(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PATH PARAMS
     -----------
-    org_id : str        
+    idpprofile_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wxrules"
+    uri = f"/api/v1/orgs/{org_id}/idpprofiles"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgWxRules(mist_session:_APISession, org_id:str) -> _APIResponse:
+def listOrgIdpProfiles(mist_session:_APISession, idpprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgWxRules
+    API doc: https://doc.mist-lab.fr/#operation/listOrgIdpProfiles
     
     PARAMS
     -----------
@@ -49,21 +49,21 @@ def listOrgWxRules(mist_session:_APISession, org_id:str) -> _APIResponse:
     
     PATH PARAMS
     -----------
-    org_id : str        
+    idpprofile_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wxrules"
+    uri = f"/api/v1/orgs/{org_id}/idpprofiles"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgWxRule(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgIdpProfile(mist_session:_APISession, idpprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgWxRule
+    API doc: https://doc.mist-lab.fr/#operation/createOrgIdpProfile
     
     PARAMS
     -----------
@@ -72,7 +72,7 @@ def createOrgWxRule(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
     PATH PARAMS
     -----------
-    org_id : str        
+    idpprofile_id : str        
     
     BODY PARAMS
     -----------
@@ -84,36 +84,13 @@ def createOrgWxRule(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wxrules"
+    uri = f"/api/v1/orgs/{org_id}/idpprofiles"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgWxRulesDerived(mist_session:_APISession, org_id:str) -> _APIResponse:
+def getOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgWxRulesDerived
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/wxrules/derived"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def getOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgWxRule
+    API doc: https://doc.mist-lab.fr/#operation/getOrgIdpProfile
     
     PARAMS
     -----------
@@ -123,21 +100,21 @@ def getOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> _APIRe
     PATH PARAMS
     -----------
     org_id : str
-    wxrules_id : str        
+    idpprofile_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wxrules/{wxrules_id}"
+    uri = f"/api/v1/orgs/{org_id}/idpprofiles/{idpprofile_id}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> _APIResponse:
+def deleteOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWxRule
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgIdpProfile
     
     PARAMS
     -----------
@@ -147,21 +124,21 @@ def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str) -> _AP
     PATH PARAMS
     -----------
     org_id : str
-    wxrules_id : str        
+    idpprofile_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wxrules/{wxrules_id}"
+    uri = f"/api/v1/orgs/{org_id}/idpprofiles/{idpprofile_id}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str, body:object) -> _APIResponse:
+def updateOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgWxRule
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgIdpProfile
     
     PARAMS
     -----------
@@ -171,7 +148,7 @@ def updateOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str, body:o
     PATH PARAMS
     -----------
     org_id : str
-    wxrules_id : str        
+    idpprofile_id : str        
     
     BODY PARAMS
     -----------
@@ -183,7 +160,7 @@ def updateOrgWxRule(mist_session:_APISession, org_id:str, wxrules_id:str, body:o
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wxrules/{wxrules_id}"
+    uri = f"/api/v1/orgs/{org_id}/idpprofiles/{idpprofile_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     

@@ -30,6 +30,7 @@ from mistapi.api.v1.orgs import devices
 from mistapi.api.v1.orgs import evpn_topologies
 from mistapi.api.v1.orgs import gatewaytemplates
 from mistapi.api.v1.orgs import guests
+from mistapi.api.v1.orgs import idpprofiles
 from mistapi.api.v1.orgs import insights
 from mistapi.api.v1.orgs import inventory
 from mistapi.api.v1.orgs import invites
