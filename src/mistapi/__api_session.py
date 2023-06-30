@@ -82,13 +82,13 @@ class APISession(APIRequest):
         self._load_env(env_file)
 
         if host:
-            self._cloud_uri = host
+            self.set_cloud(host)
         if email:
-            self.email = email
+            self.set_email(email)
         if password:
-            self._password = password
+            self.set_password(password)
         if apitoken:
-            self._apitoken = apitoken
+            self.set_api_token(apitoken)
         self.first_name = ""
         self.last_name = ""
         self.via_sso = False
@@ -141,10 +141,10 @@ class APISession(APIRequest):
             logger.debug(f"apisession:_load_env: loading settings from {env_file}")
             dotenv_path = Path(env_file)
             load_dotenv(dotenv_path=dotenv_path, override=True)
-        else:
-            console.debug("Loading settings from env file")
-            logger.debug(f"apisession:_load_env: loading settings from env file")
-            load_dotenv()
+        # else:
+        #     console.debug("Loading settings from env file")
+        #     logger.debug(f"apisession:_load_env: loading settings from env file")
+        #     load_dotenv()
 
         if os.getenv("MIST_HOST"):
             self.set_cloud(os.getenv("MIST_HOST"))
