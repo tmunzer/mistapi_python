@@ -10,7 +10,6 @@
 --------------------------------------------------------------------------------
 '''
 
-from mistapi.api.v1.sites import webhooks
 from mistapi.api.v1.sites import sites
 from mistapi.api.v1.sites import alarms
 from mistapi.api.v1.sites import anomaly
@@ -53,6 +52,7 @@ from mistapi.api.v1.sites import vbeacons
 from mistapi.api.v1.sites import vpns
 from mistapi.api.v1.sites import wan_client
 from mistapi.api.v1.sites import wan_clients
+from mistapi.api.v1.sites import webhooks
 from mistapi.api.v1.sites import wired_clients
 from mistapi.api.v1.sites import wlans
 from mistapi.api.v1.sites import wxrules

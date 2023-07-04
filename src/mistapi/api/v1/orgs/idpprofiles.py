@@ -14,8 +14,8 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.11", details="function replaced with listOrgIdpProfiles")  
-def getOrgIdpProfiles(mist_session:_APISession, idpprofile_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.12", details="function replaced with listOrgIdpProfiles")  
+def getOrgIdpProfiles(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgIdpProfiles
     
@@ -26,7 +26,7 @@ def getOrgIdpProfiles(mist_session:_APISession, idpprofile_id:str) -> _APIRespon
     
     PATH PARAMS
     -----------
-    idpprofile_id : str        
+    org_id : str        
     
     RETURN
     -----------
@@ -38,7 +38,7 @@ def getOrgIdpProfiles(mist_session:_APISession, idpprofile_id:str) -> _APIRespon
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgIdpProfiles(mist_session:_APISession, idpprofile_id:str) -> _APIResponse:
+def listOrgIdpProfiles(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgIdpProfiles
     
@@ -49,7 +49,7 @@ def listOrgIdpProfiles(mist_session:_APISession, idpprofile_id:str) -> _APIRespo
     
     PATH PARAMS
     -----------
-    idpprofile_id : str        
+    org_id : str        
     
     RETURN
     -----------
@@ -61,7 +61,7 @@ def listOrgIdpProfiles(mist_session:_APISession, idpprofile_id:str) -> _APIRespo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgIdpProfile(mist_session:_APISession, idpprofile_id:str, body:object) -> _APIResponse:
+def createOrgIdpProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/createOrgIdpProfile
     
@@ -72,7 +72,7 @@ def createOrgIdpProfile(mist_session:_APISession, idpprofile_id:str, body:object
     
     PATH PARAMS
     -----------
-    idpprofile_id : str        
+    org_id : str        
     
     BODY PARAMS
     -----------

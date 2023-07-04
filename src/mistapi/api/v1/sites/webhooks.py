@@ -14,49 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:str, site_id:str=None, status_code:int=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgWebhooksDeliveries
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str
-    webhook_id : str        
-    
-    QUERY PARAMS
-    ------------
-    site_id : str
-    status_code : int
-    topic : str{'alarms', 'audits', 'device-updowns', 'ping'}
-      webhook topic
-    start : int
-    end : int
-    duration : str, default: 1d
-    limit : int, default: 100        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{org_id}/webhooks/{webhook_id}/events/search"
-    query_params={}
-    if site_id: query_params["site_id"]=site_id
-    if status_code: query_params["status_code"]=status_code
-    if topic: query_params["topic"]=topic
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.11", details="function replaced with listSiteWebhooks")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.12", details="function replaced with listSiteWebhooks")  
 def getSiteWebhooks(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteWebhooks
@@ -206,7 +164,7 @@ def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, status_code:int=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, status_code:int=None, error:str=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteWebhooksDeliveries
     
@@ -223,6 +181,7 @@ def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_
     QUERY PARAMS
     ------------
     status_code : int
+    error : str
     topic : str{'alarms', 'audits', 'device-updowns', 'occupancy-alerts', 'ping'}
       webhook topic
     start : int
@@ -238,6 +197,7 @@ def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}/events/search"
     query_params={}
     if status_code: query_params["status_code"]=status_code
+    if error: query_params["error"]=error
     if topic: query_params["topic"]=topic
     if start: query_params["start"]=start
     if end: query_params["end"]=end
