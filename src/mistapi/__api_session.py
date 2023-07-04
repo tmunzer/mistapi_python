@@ -50,6 +50,7 @@ class APISession(APIRequest):
         env_file: str = None,
         console_log_level: str = 20,
         logging_log_level: int = 10,
+        show_cli_notif: bool = True
     ):
         """
         PARAMS
@@ -64,8 +65,25 @@ class APISession(APIRequest):
             Mist Cloud to reach (e.g. "api.mist.com"). Can de defined later
         env_file : str
             path to the env file to load. See README.md for allowed variables
-        console_log_level : int
-            param int logging_log_level
+        console_log_level : int, default: 20
+            Log level for the console output. Values are:
+                50 -> CRITICAL
+                40 -> ERROR
+                30 -> WARNING
+                20 -> INFO
+                10 -> DEBUG
+                0  -> DISABLED
+        logging_log_level : int, default: 10
+            Log level for the log file output. Values are:
+                Values:
+                50 -> CRITICAL
+                40 -> ERROR
+                30 -> WARNING
+                20 -> INFO
+                10 -> DEBUG
+                0  -> DISABLED
+        show_cli_notif : bool, default True
+            show/hide package decorative text on the console output
         """
         self._cloud_uri = None
         self.email = None
@@ -76,6 +94,7 @@ class APISession(APIRequest):
         self._session = requests.session()
         self._console_log_level = console_log_level
         self._logging_log_level = logging_log_level
+        self._show_cli_notif = show_cli_notif
 
         console._set_log_level(console_log_level, logging_log_level)
 
@@ -197,11 +216,13 @@ class APISession(APIRequest):
         Display a menu to select the Mist Cloud
         """
         logger.debug(f"apisession:select_cloud")
+        if self._show_cli_notif:
+            print()
+            print(" Mist Cloud Selection ".center(80, "-"))
+            print()
+
         resp = "x"
         i = 0
-        print()
-        print(" Mist Cloud Selection ".center(80, "-"))
-        print()
         for cloud in clouds:
             print(f"{i}) {cloud['short']} (host: {cloud['host']})")
             i += 1
@@ -285,9 +306,10 @@ class APISession(APIRequest):
         Will create and store a session used by other requests.
         """
         logger.debug(f"apisession:_process_login")
-        print()
-        print(" Login/Pwd authentication ".center(80, "-"))
-        print()
+        if self._show_cli_notif:
+            print() 
+            print(" Login/Pwd authentication ".center(80, "-"))
+            print()
 
         self._session = requests.session()
         if not self.email:
@@ -543,9 +565,10 @@ class APISession(APIRequest):
                             self.tags.append(tag)
                     else:
                         setattr(self, key, val)
-                print()
-                print(" Authenticated ".center(80, "-"))
-                print(f"\r\nWelcome {self.first_name} {self.last_name}!\r\n")
+                if self._show_cli_notif:
+                    print()
+                    print(" Authenticated ".center(80, "-"))
+                    print(f"\r\nWelcome {self.first_name} {self.last_name}!\r\n")
                 logger.info(
                     f"apisession:_getself: account used: {self.first_name} {self.last_name}"
                 )
@@ -555,7 +578,6 @@ class APISession(APIRequest):
             console.error("Authentication not valid...\r\n")
             resp = input(
                 f"Do you want to try with new credentials for {self._cloud_uri} (y/N)? "
-                % ()
             )
             if resp.lower() == "y":
                 self._process_login()
