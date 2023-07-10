@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def UnsubscribeSite(mist_session:_APISession, site_id:str) -> _APIResponse:
+def UnsubscribeSiteAlarms(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/UnsubscribeSite
+    API doc: https://doc.mist-lab.fr/#operation/UnsubscribeSiteAlarms
     
     PARAMS
     -----------
@@ -37,9 +37,9 @@ def UnsubscribeSite(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def SubscribeSite(mist_session:_APISession, site_id:str) -> _APIResponse:
+def SubscribeSiteAlarms(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/SubscribeSite
+    API doc: https://doc.mist-lab.fr/#operation/SubscribeSiteAlarms
     
     PARAMS
     -----------

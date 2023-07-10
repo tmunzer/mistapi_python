@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.12", details="function replaced with listOrgDevices")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listOrgDevices")  
 def getOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDevices
@@ -193,7 +193,7 @@ def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, si
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, mac:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, mac:str=None, model:str=None, device_type:str="ap", text:str=None, timestamp:str=None, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDevicesEvents
     
@@ -212,6 +212,8 @@ def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, mac:str=None, m
       device mac
     model : str
       device model
+    device_type : str{'ap', 'switch', 'gateway'}, default: ap
+      device type
     text : str
       event message
     timestamp : str
@@ -232,6 +234,7 @@ def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, mac:str=None, m
     query_params={}
     if mac: query_params["mac"]=mac
     if model: query_params["model"]=model
+    if device_type: query_params["device_type"]=device_type
     if text: query_params["text"]=text
     if timestamp: query_params["timestamp"]=timestamp
     if type: query_params["type"]=type
@@ -320,7 +323,7 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.12", details="function replaced with listOrgApsMacs")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listOrgApsMacs")  
 def getOrgApsMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgApsMacs
@@ -460,7 +463,7 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.12", details="function replaced with listOrgMultiSitesDevicesUpgrades")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listOrgMultiSitesDevicesUpgrades")  
 def getOrgMultiSitesDevicesUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMultiSitesDevicesUpgrades

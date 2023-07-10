@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.12", details="function replaced with listSiteDevices")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listSiteDevices")  
 def getSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDevices
@@ -554,7 +554,7 @@ def multiRestartSiteDevices(mist_session:_APISession, site_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, band_24_bandwith:int=None, band_5_bandwith:int=None, band_6_bandwith:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDevices
     
@@ -600,6 +600,12 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
       Channel of band_5
     band_6_channel : int
       Channel of band_6
+    band_24_bandwith : int
+      Bandwidth of band_24
+    band_5_bandwith : int
+      Bandwidth of band_5
+    band_6_bandwith : int
+      Bandwidth of band_6
     eth0_port_speed : int
       Port speed of eth0
     sort : str{'timestamp', 'mac', 'model', 'sku'}, default: timestamp
@@ -636,6 +642,9 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     if band_24_channel: query_params["band_24_channel"]=band_24_channel
     if band_5_channel: query_params["band_5_channel"]=band_5_channel
     if band_6_channel: query_params["band_6_channel"]=band_6_channel
+    if band_24_bandwith: query_params["band_24_bandwith"]=band_24_bandwith
+    if band_5_bandwith: query_params["band_5_bandwith"]=band_5_bandwith
+    if band_6_bandwith: query_params["band_6_bandwith"]=band_6_bandwith
     if eth0_port_speed: query_params["eth0_port_speed"]=eth0_port_speed
     if sort: query_params["sort"]=sort
     if desc_sort: query_params["desc_sort"]=desc_sort
@@ -647,9 +656,38 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listSiteDevicesUpgrade")  
 def getSiteDevicesUpgrade(mist_session:_APISession, site_id:str, status:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDevicesUpgrade
+    API doc: https://doc.mist-lab.fr/#operation/listSiteDevicesUpgrade
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str        
+    
+    QUERY PARAMS
+    ------------
+    status : str{'downloading', 'completed', 'created', 'downloaded', 'upgrading', 'cancelled', 'failed'}        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/upgrade"
+    query_params={}
+    if status: query_params["status"]=status
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listSiteDevicesUpgrade(mist_session:_APISession, site_id:str, status:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listSiteDevicesUpgrade
     
     PARAMS
     -----------
@@ -749,7 +787,7 @@ def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:st
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.12", details="function replaced with listSiteAvailableDeviceVersions")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listSiteAvailableDeviceVersions")  
 def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap", model:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteAvailableDeviceVersions

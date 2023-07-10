@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.12", details="function replaced with listOrgNacTags")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listOrgNacTags")  
 def getOrgNacTags(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgNacTags
@@ -112,9 +112,9 @@ def getOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIRes
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def DeleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIResponse:
+def deleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/DeleteOrgNacTag
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacTag
     
     PARAMS
     -----------

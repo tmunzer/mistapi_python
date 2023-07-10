@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.12", details="function replaced with listOrgWebhooks")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listOrgWebhooks")  
 def getOrgWebhooks(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgWebhooks
@@ -206,5 +206,28 @@ def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def pingOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/pingOrgWebhook
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    webhook_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/webhooks/{webhook_id}/ping"
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
