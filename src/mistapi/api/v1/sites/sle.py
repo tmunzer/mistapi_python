@@ -72,7 +72,7 @@ def getSiteSleMetricClassifiers(mist_session:_APISession, site_id:str, scope:str
 * device_id if `scope`==`ap`, `scope`==`switch` or `scope`==`gateway`
 * mac if `scope`==`client`
     metric : str
-       values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
+      values from /api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metrics        
     
     RETURN
     -----------

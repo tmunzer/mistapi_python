@@ -40,7 +40,7 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     channel : str
       channel over which ap_mac heard ssid/bssid pair
     seen_on_lan : bool
-      whether the reporting AP see a wireless client (on LAN) connecting to it  
+      whether the reporting AP see a wireless client (on LAN) connecting to it
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -94,7 +94,7 @@ def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, 
     channel : int
       channel over which ap_mac heard ssid/bssid pair
     seen_on_lan : bool
-      whether the reporting AP see a wireless client (on LAN) connecting to it  
+      whether the reporting AP see a wireless client (on LAN) connecting to it
     limit : int, default: 100
     start : int
     end : int

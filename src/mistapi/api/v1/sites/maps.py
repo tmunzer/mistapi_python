@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listSiteMaps")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.42.0", details="function replaced with listSiteMaps")  
 def getSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMaps
@@ -88,7 +88,7 @@ def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:dict=None) -> _APIResponse:
+def importSiteMapsFile(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteMaps
     
@@ -101,30 +101,12 @@ def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile
     -----------
     site_id : str        
     
-    BODY PARAMS
-    -----------
-    auto_deviceprofile_assignment : bool
-        whether to auto assign device to deviceprofile by name
-    csv : str
-        path to the file to upload. csv file for ap name mapping, optional
-    file : str
-        path to the file to upload. ekahau or ibwave file
-    json : dict
-        import_all_floorplans : bool
-        import_height : bool, default: True
-        import_orientation : bool, default: True
-        vendor_name : {'ekahau', 'ibwave'}
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     multipart_form_data = {
-        "auto_deviceprofile_assignment":auto_deviceprofile_assignment,
-        "csv":csv,
-        "file":file,
-        "json":json,
     }
     uri = f"/api/v1/sites/{site_id}/maps/import"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)

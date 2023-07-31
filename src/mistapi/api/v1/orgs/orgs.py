@@ -37,9 +37,9 @@ def createOrg(mist_session:_APISession, body:object) -> _APIResponse:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgInfo(mist_session:_APISession, org_id:str) -> _APIResponse:
+def getOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgInfo
+    API doc: https://doc.mist-lab.fr/#operation/getOrg
     
     PARAMS
     -----------

@@ -37,7 +37,7 @@ def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> _API
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listOrgSsrUpgrades")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.42.0", details="function replaced with listOrgSsrUpgrades")  
 def getOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgSsrUpgrades
@@ -139,9 +139,38 @@ def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSsrUpgradeInfo(mist_session:_APISession, org_id:str, channel:str=None) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.42.0", details="function replaced with listOrgAvailableSsrVersions")  
+def getOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSsrUpgradeInfo
+    API doc: https://doc.mist-lab.fr/#operation/listOrgAvailableSsrVersions
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    QUERY PARAMS
+    ------------
+    channel : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/ssr/versions"
+    query_params={}
+    if channel: query_params["channel"]=channel
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listOrgAvailableSsrVersions
     
     PARAMS
     -----------

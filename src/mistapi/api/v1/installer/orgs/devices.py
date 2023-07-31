@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listInstallerListOfRenctlyClaimedDevices")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.42.0", details="function replaced with listInstallerListOfRenctlyClaimedDevices")  
 def getInstallerListOfRenctlyClaimedDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listInstallerListOfRenctlyClaimedDevices
@@ -140,7 +140,7 @@ def provisionInstallerDevices(mist_session:_APISession, org_id:str, device_mac:s
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
+def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/startInstallerLocateDevice
     
@@ -154,18 +154,13 @@ def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:
     org_id : str
     device_mac : str        
     
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/locate"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listOrgWlans")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.42.0", details="function replaced with listOrgWlans")  
 def getOrgWlans(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgWlans
@@ -86,35 +86,6 @@ def createOrgWlan(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     """
     uri = f"/api/v1/orgs/{org_id}/wlans"
     resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
-    
-def getOrgWlanDerived(mist_session:_APISession, org_id:str, resolve:bool=None) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgWlanDerived
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    resolve : bool
-      whether to resolve SITE_VARS, default is false (as filter, optional)        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/wlans/derived"
-    query_params={}
-    if resolve: query_params["resolve"]=resolve
-    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
 def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:

@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def troubleshootOrgClient(mist_session:_APISession, org_id:str, mac:str=None, site_id:str=None, start:int=None, end:int=None, type:str=None) -> _APIResponse:
+def troubleshootOrg(mist_session:_APISession, org_id:str, mac:str=None, site_id:str=None, start:int=None, end:int=None, type:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/troubleshootOrgClient
+    API doc: https://doc.mist-lab.fr/#operation/troubleshootOrg
     
     PARAMS
     -----------
@@ -30,7 +30,7 @@ def troubleshootOrgClient(mist_session:_APISession, org_id:str, mac:str=None, si
     QUERY PARAMS
     ------------
     mac : str
-      **required** when troubleshooting device
+      **required** when troubleshooting device or a client
     site_id : str
       **required** when troubleshooting site
     start : int

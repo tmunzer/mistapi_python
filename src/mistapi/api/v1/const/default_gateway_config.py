@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getGatawayDefaultConfig(mist_session:_APISession, model:str=None, ha:str=None) -> _APIResponse:
+def getGatawayDefaultConfig(mist_session:_APISession, model:str, ha:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getGatawayDefaultConfig
     

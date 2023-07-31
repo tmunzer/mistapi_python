@@ -230,7 +230,7 @@ class APISession(APIRequest):
             i += 1
 
         print()
-        resp = input(f"Select a Cloud (0 to {i}, or q to exit): ")
+        resp = input(f"Select a Cloud (0 to {i-1}, or q to exit): ")
         logger.info(f"apisession:select_cloud: input is {resp}")
         if resp == "q":
             sys.exit(0)
@@ -239,7 +239,7 @@ class APISession(APIRequest):
         else:
             try:
                 resp_num = int(resp)
-                if resp_num >= 0 and resp_num <= i:
+                if resp_num >= 0 and resp_num < i:
                     logger.info(
                         f"apisession:select_cloud: Mist Cloud is {clouds[resp_num]['host']}"
                     )

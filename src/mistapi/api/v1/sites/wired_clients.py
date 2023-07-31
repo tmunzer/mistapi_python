@@ -64,7 +64,7 @@ def countSiteWiredClients(mist_session:_APISession, site_id:str, distinct:str="m
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str=None, mac:str=None, ip:str=None, port_id:str=None, vlan:str=None, ip_address:str=None, manufacture:str=None, text:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str=None, mac:str=None, ip:str=None, port_id:str=None, vlan:str=None, manufacture:str=None, text:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteWiredClients
     
@@ -89,7 +89,6 @@ def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str
       port id
     vlan : str
       vlan
-    ip_address : str
     manufacture : str
       manufacture
     text : str
@@ -111,7 +110,6 @@ def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str
     if ip: query_params["ip"]=ip
     if port_id: query_params["port_id"]=port_id
     if vlan: query_params["vlan"]=vlan
-    if ip_address: query_params["ip_address"]=ip_address
     if manufacture: query_params["manufacture"]=manufacture
     if text: query_params["text"]=text
     if limit: query_params["limit"]=limit

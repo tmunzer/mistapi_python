@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.41.16", details="function replaced with listSiteWlans")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.42.0", details="function replaced with listSiteWlans")  
 def getSiteWlans(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteWlans
@@ -88,9 +88,39 @@ def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.42.0", details="function replaced with listSiteWlanDerived")  
 def getSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteWlanDerived
+    API doc: https://doc.mist-lab.fr/#operation/listSiteWlanDerived
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str        
+    
+    QUERY PARAMS
+    ------------
+    resolve : bool
+      whether to resolve SITE_VARS        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/wlans/derived"
+    query_params={}
+    if resolve: query_params["resolve"]=resolve
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listSiteWlanDerived
     
     PARAMS
     -----------

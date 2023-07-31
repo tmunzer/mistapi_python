@@ -14,9 +14,33 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.42.0", details="function replaced with listSiteCurdSettings")  
 def getSiteCurdSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCurdSettings
+    API doc: https://doc.mist-lab.fr/#operation/listSiteCurdSettings
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/uisettings"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listSiteCurdSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listSiteCurdSettings
     
     PARAMS
     -----------
@@ -64,9 +88,9 @@ def createSiteCurdSettings(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDerivedCurdSetting(mist_session:_APISession, site_id:str) -> _APIResponse:
+def getSiteCurdSettingDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDerivedCurdSetting
+    API doc: https://doc.mist-lab.fr/#operation/getSiteCurdSettingDerived
     
     PARAMS
     -----------
