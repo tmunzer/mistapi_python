@@ -14,10 +14,10 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.42.0", details="function replaced with listSiteCurdSettings")  
-def getSiteCurdSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.43.0", details="function replaced with listSiteUiSettings")  
+def getSiteUiSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteCurdSettings
+    API doc: https://doc.mist-lab.fr/#operation/listSiteUiSettings
     
     PARAMS
     -----------
@@ -38,9 +38,9 @@ def getSiteCurdSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteCurdSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
+def listSiteUiSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteCurdSettings
+    API doc: https://doc.mist-lab.fr/#operation/listSiteUiSettings
     
     PARAMS
     -----------
@@ -61,9 +61,9 @@ def listSiteCurdSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteCurdSettings(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def createSiteUiSettings(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteCurdSettings
+    API doc: https://doc.mist-lab.fr/#operation/createSiteUiSettings
     
     PARAMS
     -----------
@@ -88,9 +88,9 @@ def createSiteCurdSettings(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteCurdSettingDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
+def getSiteUiSettingDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCurdSettingDerived
+    API doc: https://doc.mist-lab.fr/#operation/getSiteUiSettingDerived
     
     PARAMS
     -----------
@@ -111,9 +111,9 @@ def getSiteCurdSettingDerived(mist_session:_APISession, site_id:str) -> _APIResp
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
+def getSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCurdSetting
+    API doc: https://doc.mist-lab.fr/#operation/getSiteUiSetting
     
     PARAMS
     -----------
@@ -135,9 +135,9 @@ def getSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str) 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
+def deleteSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteCurdSetting
+    API doc: https://doc.mist-lab.fr/#operation/deleteSiteUiSetting
     
     PARAMS
     -----------
@@ -159,9 +159,9 @@ def deleteSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:st
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteCurdSetting(mist_session:_APISession, site_id:str, uisetting_id:str, body:object) -> _APIResponse:
+def updateSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteCurdSetting
+    API doc: https://doc.mist-lab.fr/#operation/updateSiteUiSetting
     
     PARAMS
     -----------
