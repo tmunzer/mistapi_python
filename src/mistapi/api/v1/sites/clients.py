@@ -95,9 +95,9 @@ def disconnectSiteMultipleClients(mist_session:_APISession, site_id:str, body:ob
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteWirelessClientsEvents(mist_session:_APISession, site_id:str, distinct:str=None, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteWirelessClientEvents(mist_session:_APISession, site_id:str, distinct:str=None, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteWirelessClientsEvents
+    API doc: https://doc.mist-lab.fr/#operation/countSiteWirelessClientEvents
     
     PARAMS
     -----------
@@ -155,9 +155,9 @@ def countSiteWirelessClientsEvents(mist_session:_APISession, site_id:str, distin
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWirelessClientsEvents(mist_session:_APISession, site_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteWirelessClientEvents(mist_session:_APISession, site_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, nacrule_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteWirelessClientsEvents
+    API doc: https://doc.mist-lab.fr/#operation/searchSiteWirelessClientEvents
     
     PARAMS
     -----------
@@ -184,6 +184,8 @@ def searchSiteWirelessClientsEvents(mist_session:_APISession, site_id:str, type:
       24 / 5
     wlan_id : str
       wlan_id
+    nacrule_id : str
+      nacrule_id
     limit : int, default: 100
     start : int
     end : int
@@ -203,6 +205,7 @@ def searchSiteWirelessClientsEvents(mist_session:_APISession, site_id:str, type:
     if proto: query_params["proto"]=proto
     if band: query_params["band"]=band
     if wlan_id: query_params["wlan_id"]=wlan_id
+    if nacrule_id: query_params["nacrule_id"]=nacrule_id
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -210,7 +213,7 @@ def searchSiteWirelessClientsEvents(mist_session:_APISession, site_id:str, type:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, ssid:str=None, text:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, ssid:str=None, text:str=None, nacrule_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteWirelessClients
     
@@ -241,6 +244,8 @@ def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str=Non
     ssid : str
     text : str
       partial / full MAC address, hostname, username or ip
+    nacrule_id : str
+      nacrule_id
     limit : int, default: 100
     start : int
     end : int
@@ -262,6 +267,7 @@ def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str=Non
     if ap: query_params["ap"]=ap
     if ssid: query_params["ssid"]=ssid
     if text: query_params["text"]=text
+    if nacrule_id: query_params["nacrule_id"]=nacrule_id
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

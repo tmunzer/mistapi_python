@@ -52,7 +52,7 @@ def countOrgWiredClients(mist_session:_APISession, org_id:str, distinct:str="mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None, device_mac:str=None, mac:str=None, port_id:str=None, vlan:int=None, ip:str=None, manufacture:str=None, text:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None, device_mac:str=None, mac:str=None, port_id:str=None, vlan:int=None, ip:str=None, manufacture:str=None, text:str=None, nacrule_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgWiredClients
     
@@ -80,9 +80,11 @@ def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None
     ip : str
       ip
     manufacture : str
-      client manufacture
+      client manufacturer
     text : str
       single entry of hostname/mac
+    nacrule_id : str
+      nacrule_id
     limit : int, default: 100
     start : int
     end : int
@@ -103,6 +105,7 @@ def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None
     if ip: query_params["ip"]=ip
     if manufacture: query_params["manufacture"]=manufacture
     if text: query_params["text"]=text
+    if nacrule_id: query_params["nacrule_id"]=nacrule_id
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

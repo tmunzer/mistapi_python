@@ -52,9 +52,9 @@ def countSiteWanClients(mist_session:_APISession, site_id:str, distinct:str="mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWanClientsEvents(mist_session:_APISession, site_id:str, type:str=None, mac:str=None, hostname:str=None, ip:str=None, mfg:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchSiteWanClientEvents(mist_session:_APISession, site_id:str, type:str=None, mac:str=None, hostname:str=None, ip:str=None, mfg:str=None, nacrule_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteWanClientsEvents
+    API doc: https://doc.mist-lab.fr/#operation/searchSiteWanClientEvents
     
     PARAMS
     -----------
@@ -77,6 +77,8 @@ def searchSiteWanClientsEvents(mist_session:_APISession, site_id:str, type:str=N
       client IP
     mfg : str
       Manufacture
+    nacrule_id : str
+      nacrule_id
     start : int
     end : int
     duration : str, default: 1d
@@ -95,6 +97,7 @@ def searchSiteWanClientsEvents(mist_session:_APISession, site_id:str, type:str=N
     if hostname: query_params["hostname"]=hostname
     if ip: query_params["ip"]=ip
     if mfg: query_params["mfg"]=mfg
+    if nacrule_id: query_params["nacrule_id"]=nacrule_id
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration

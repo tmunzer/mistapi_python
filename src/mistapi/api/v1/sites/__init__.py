@@ -30,6 +30,7 @@ from mistapi.api.v1.sites import location
 from mistapi.api.v1.sites import maps
 from mistapi.api.v1.sites import mxedges
 from mistapi.api.v1.sites import mxtunnels
+from mistapi.api.v1.sites import nac_clients
 from mistapi.api.v1.sites import networks
 from mistapi.api.v1.sites import otherdevices
 from mistapi.api.v1.sites import pcaps

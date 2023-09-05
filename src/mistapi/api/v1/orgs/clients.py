@@ -78,9 +78,9 @@ def countOrgWirelessClients(mist_session:_APISession, org_id:str, distinct:str="
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgWirelessClientsEvents(mist_session:_APISession, org_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgWirelessClientEvents(mist_session:_APISession, org_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, nacrule_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgWirelessClientsEvents
+    API doc: https://doc.mist-lab.fr/#operation/searchOrgWirelessClientEvents
     
     PARAMS
     -----------
@@ -107,6 +107,8 @@ def searchOrgWirelessClientsEvents(mist_session:_APISession, org_id:str, type:st
       24 / 5
     wlan_id : str
       wlan_id
+    nacrule_id : str
+      nacrule_id
     limit : int, default: 100
     start : int
     end : int
@@ -126,6 +128,7 @@ def searchOrgWirelessClientsEvents(mist_session:_APISession, org_id:str, type:st
     if proto: query_params["proto"]=proto
     if band: query_params["band"]=band
     if wlan_id: query_params["wlan_id"]=wlan_id
+    if nacrule_id: query_params["nacrule_id"]=nacrule_id
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end

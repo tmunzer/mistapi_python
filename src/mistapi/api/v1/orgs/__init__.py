@@ -41,6 +41,7 @@ from mistapi.api.v1.orgs import maps
 from mistapi.api.v1.orgs import mxclusters
 from mistapi.api.v1.orgs import mxedges
 from mistapi.api.v1.orgs import mxtunnels
+from mistapi.api.v1.orgs import nac_clients
 from mistapi.api.v1.orgs import nacrules
 from mistapi.api.v1.orgs import nactags
 from mistapi.api.v1.orgs import networks
