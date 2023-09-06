@@ -470,6 +470,20 @@ def _process_query_params(endpoint_params: object):
     return params
 
 
+def _process_body_params(request_body: object, content_type:str="application/json"):
+    schema = request_body["content"][content_type]["schema"]
+    properties = {}
+    if schema.get("$ref"):
+        print(schema)
+        ref_name = schema["$ref"].split("/")[-1:][0]
+        print(ref_name)
+        properties = openapi_schemas.get(ref_name).get("properties", {})
+        print(properties)
+    else:
+        properties = schema.get("properties", {})
+    return properties
+
+
 def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: str, file_name: str):
     count = 0
     path_params = []
@@ -510,7 +524,7 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
                     endpoint_path,
                     path_params,
                     folder_path,
-                    request_body["content"]["multipart/form-data"].get("schema",{}).get("properties", {}),
+                    _process_body_params(request_body, "multipart/form-data"),
                     f"{file_name}.py"
                 )
             if "application/json" in request_body.get("content"):
@@ -600,6 +614,7 @@ with open(openapi_file, "r") as f:
 
 openapi_paths = openapi_json.get("paths")
 openapi_refs = openapi_json.get("components", {}).get("parameters")
+openapi_schemas = openapi_json.get("components", {}).get("schemas")
 endpoint_count, api_count = start()
 
 print(f"Endpoint: {endpoint_count}")

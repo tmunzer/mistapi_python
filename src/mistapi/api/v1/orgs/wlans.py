@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.0", details="function replaced with listOrgWlans")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.1", details="function replaced with listOrgWlans")  
 def getOrgWlans(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgWlans
@@ -188,7 +188,7 @@ def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
+def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:str, file:str=None, json:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadOrgWlanPortalImage
     
@@ -202,12 +202,21 @@ def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:s
     org_id : str
     wlan_id : str        
     
+    BODY PARAMS
+    -----------
+    file : str
+        path to the file to upload. binary file
+    json : str
+        JSON string describing your upload
+    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     multipart_form_data = {
+        "file":file,
+        "json":json,
     }
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_image"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
