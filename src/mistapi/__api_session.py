@@ -53,6 +53,8 @@ class APISession(APIRequest):
         show_cli_notif: bool = True,
     ):
         """
+        Initialise the APISession class. This class is used to manage Mist API authentication.
+
         PARAMS
         -----------
         email : str
@@ -150,6 +152,9 @@ class APISession(APIRequest):
     ####################################
     # LOAD FUNCTIONS
     def _load_env(self, env_file=None) -> None:
+        '''
+        Load Mist API settings from env file
+        '''
         if env_file:
             if env_file.startswith("~/"):
                 env_file = os.path.join(
@@ -306,12 +311,18 @@ class APISession(APIRequest):
         logger.info(f"apisession:set_api_token: API Token configured")
         console.debug(f"API Token configured")
 
-    def _process_login(self) -> None:
+    def _process_login(self, retry:bool=True) -> None:
         """
         Function to authenticate a user with login/password.
         Will create and store a session used by other requests.
+
+        PARAMS
+        -----------
+        retry : bool, default True
+            if `retry`==True, ask for login/password when authentication is failing
         """
         logger.debug(f"apisession:_process_login")
+        error = None
         if self._show_cli_notif:
             print()
             print(" Login/Pwd authentication ".center(80, "-"))
@@ -332,16 +343,20 @@ class APISession(APIRequest):
             console.info("Authentication successful!")
             self._set_authenticated(True)
         else:
+            error = resp.json().get('detail')
             logger.error(
-                f"apisession:_process_login: authentication failed: {resp.json().get('detail')}"
+                f"apisession:_process_login: authentication failed: {error}"
             )
-            console.error(f"Authentication failed: {resp.json().get('detail')}\r\n")
+            console.error(f"Authentication failed: {error}\r\n")
             self.email = None
             self._password = None
             logger.info(
                 f"apisession:_process_login: email/password cleaned up. Restarting authentication function"
             )
-            self._process_login()
+            if retry:
+                return self._process_login(retry)
+
+        return error
 
     def login(self) -> None:
         """
@@ -368,6 +383,80 @@ class APISession(APIRequest):
             if self.get_authentication_status():
                 logger.info(f"apisession:login: authenticated")
                 self._getself()
+
+    def login_with_return(self, apitoken:str="", email:str="", password:str="", two_factor:str=None):
+        '''
+        Log in on the Mist Cloud.
+        This function will return the authentication result an object with the
+        authentication result and the error message send by the Mist Cloud (if
+        any).
+        Credentials (apitoken or login/pwd) may be provided in the function
+        parameters, otherwise the credentials provided during the class 
+        initialization will be reused.
+
+        PARAMS
+        -----------
+        apitoken : str
+            Optional, API Token to add in the requests headers for 
+            authentication and authorization
+        email : str
+            Optional, user email
+        password : str
+            Optional, user password
+        two_factor : str
+            Optional, 2FA code to send to the Mist Cloud
+
+        RETURN
+        -----------
+        dict
+            success : bool
+                Authentication result
+            message : str
+                Error message from Mist (if any)
+        '''
+        logger.debug(f"apisession:login_with_return")
+        self._session = requests.session()
+        if apitoken:
+            self.set_api_token(apitoken)
+        if email:
+            self.set_email(email)
+        if password:
+            self.set_password(password)
+
+        if self._apitoken:
+            logger.debug(f"apisession:login_with_return: apitoken provided")
+            self._set_authenticated(True)
+            logger.info(f"apisession:login_with_return: get self")
+            uri = "/api/v1/self"
+            logger.info(f'apisession:login_with_return: sending GET request to "{uri}"')
+            resp = self.mist_get(uri)
+
+        elif self.email and self._password:
+            if two_factor:
+                logger.debug(f"apisession:login_with_return: login/pwd provided witht 2FA")
+                error = self._two_factor_authentication(two_factor)
+            else:
+                logger.debug(f"apisession:login_with_return: login/pwd provided w/o 2FA")
+                error = self._process_login(retry=False)
+            if error:
+                logger.error(f"apisession:login_with_return: login/pwd auth faild: {error}")
+                return {"authenticated": False, "error": error}
+            logger.info(f"apisession:login_with_return: get self")
+            uri = "/api/v1/self"
+            logger.info(f'apisession:login_with_return: sending GET request to "{uri}"')
+            resp = self.mist_get(uri)
+
+        else:
+            logger.error(f"apisession:login_with_return: credentials are missing")
+            return {"authenticated": False, "error": "credentials are missing"}
+
+        if resp.status_code == 200 and not resp.data.get("two_factor_required", False):
+            logger.info(f"apisession:login_with_return: access authorized")
+            return {"authenticated": True, "error": ""}
+        else:
+            logger.error(f"apisession:login_with_return: access denied: {resp.data}")
+            return {"authenticated": False, "error": resp.data}
+
 
     def logout(self) -> None:
         """
@@ -407,7 +496,7 @@ class APISession(APIRequest):
         logger.debug(
             f"apisession:_set_authenticated: authentication_status is {authentication_status}"
         )
-        if authentication_status == True:
+        if authentication_status:
             self._authenticated = True
             logger.info(
                 f'apisession:_set_authenticated: session is now "Authenticated"'
@@ -434,7 +523,7 @@ class APISession(APIRequest):
                 self._csrftoken = self._session.cookies["csrftoken" + cookies_ext]
                 self._session.headers.update({"X-CSRFToken": self._csrftoken})
                 logger.info(f"apisession:_set_authenticated: CSRF Token stored")
-        elif authentication_status == False:
+        elif authentication_status is False:
             self._authenticated = False
             logger.info(
                 f'apisession:_set_authenticated: session is now "Unauthenticated"'
@@ -613,6 +702,20 @@ class APISession(APIRequest):
     # PRIVILEGES
 
     def get_privilege_by_org_id(self, org_id: str):
+        '''
+        return the User privileges for the specific org_id. The privileges are 
+        calculated based on the MSP and the Org privileges.
+
+        PARAMS
+        -----------
+        :org_id : str
+            org_id for which the function must return the user's privileges
+
+        RETURN
+        -----------
+        dict
+            user's privileges for the org_id
+        '''
         logger.debug(f"apisession:get_privilege_by_org_id")
         org_priv = next(
             (priv for priv in self.privileges if priv.get("org_id") == org_id), None
@@ -663,7 +766,6 @@ class APISession(APIRequest):
                     logger.warning(
                         f"apisession:get_privilege_by_org_id: unable of find msp {msp_id} privileges in user data"
                     )
-                    return None
                 else:
                     return {
                         "scope": "org",
@@ -675,3 +777,4 @@ class APISession(APIRequest):
                         "orggroup_ids": resp.data.get("orggroup_ids"),
                         "msp_logo_url": resp.data.get("logo_url"),
                     }
+            return {}
