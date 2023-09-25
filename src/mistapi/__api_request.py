@@ -31,6 +31,14 @@ class APIRequest:
         self._count = 0
         
     def get_request_count(self):
+        """
+        Get the number of API requests sent by the script
+
+        RETURN
+        -----------
+        str
+            number of API calls sent
+        """
         return self._count
 
     def _url(self, uri) -> str:
@@ -239,7 +247,7 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
-        try:                 
+        try:
             url = self._url(uri)
             logger.info(f"apirequest:mist_post_file: sending request to {url}")
             logger.debug(f"apirequest:mist_post_file: initial multipart_form_data: {multipart_form_data}")
@@ -250,12 +258,12 @@ class APIRequest:
                     try:
                         if key in ["csv", "file"]:
                             logger.debug(f"apirequest:mist_post_file: reading file: {multipart_form_data[key]}")
-                            f = open(multipart_form_data[key], 'rb') 
-                            generated_multipart_form_data[key] = (os.path.basename(multipart_form_data[key]), f, 'application/octet-stream')                            
+                            f = open(multipart_form_data[key], 'rb')
+                            generated_multipart_form_data[key] = (os.path.basename(multipart_form_data[key]), f, 'application/octet-stream')
                         else:
                             generated_multipart_form_data[key] = (None, json.dumps(multipart_form_data[key]))
                     except:
-                        logger.error(f"apirequest:mist_post_file: multipart_form_data: Unable to parse JSON object {key} with value {multipart_form_data[key]}")  
+                        logger.error(f"apirequest:mist_post_file: multipart_form_data: Unable to parse JSON object {key} with value {multipart_form_data[key]}")
                         logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
             logger.debug(f"apirequest:mist_post_file: final multipart_form_data: {generated_multipart_form_data}")
             resp = self._session.post(url, files=generated_multipart_form_data)
@@ -269,6 +277,6 @@ class APIRequest:
         except Exception as err:
             logger.error(f'apirequest:mist_post_file: Other error occurred: {err}')  # Python 3.6
             logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
-        else: 
+        else:
             self._count += 1
             return APIResponse(url=url, response=resp)
