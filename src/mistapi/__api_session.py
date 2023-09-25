@@ -93,6 +93,7 @@ class APISession(APIRequest):
         self._apitoken = None
         self._csrftoken = None
         self._authenticated = False
+        self._count=0
         self._session = requests.session()
         self._console_log_level = console_log_level
         self._logging_log_level = logging_log_level

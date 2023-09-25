@@ -28,7 +28,10 @@ class APIRequest:
         self._cloud_uri = ""
         self._session = requests.session()
         self.privileges = ""
+        self._count = 0
         
+    def get_request_count(self):
+        return self._count
 
     def _url(self, uri) -> str:
         """
@@ -113,6 +116,7 @@ class APIRequest:
             logger.error(f'apirequest:mist_get: Other error occurred: {err}')  # Python 3.6
             logger.error("apirequest:mist_get: Exception occurred", exc_info=True)
         finally:
+            self._count += 1
             return APIResponse(url=url, response=resp)
 
     def mist_post(self, uri:str,  body:dict=None) -> APIResponse:
@@ -149,6 +153,7 @@ class APIRequest:
             logger.error(f'apirequest:mist_post: Other error occurred: {err}')  # Python 3.6
             logger.error("apirequest:mist_post: Exception occurred", exc_info=True)
         finally: 
+            self._count += 1
             return APIResponse(url=url, response=resp)
 
     def mist_put(self, uri:str, body:dict=None) -> APIResponse:
@@ -185,6 +190,7 @@ class APIRequest:
             logger.error(f'apirequest:mist_put: Other error occurred: {err}')  # Python 3.6
             logger.error("apirequest:mist_put: Exception occurred", exc_info=True)
         finally: 
+            self._count += 1
             return APIResponse(url=url, response=resp)
 
     def mist_delete(self, uri:str, query:dict=None) -> APIResponse:
@@ -213,6 +219,7 @@ class APIRequest:
             logger.error(f'apirequest:mist_delete: Other error occurred: {err}')  # Python 3.6
             logger.error("apirequest:mist_delete: Exception occurred", exc_info=True)
         else: 
+            self._count += 1
             return APIResponse(url=url, response=resp)
 
 
@@ -263,4 +270,5 @@ class APIRequest:
             logger.error(f'apirequest:mist_post_file: Other error occurred: {err}')  # Python 3.6
             logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
         else: 
+            self._count += 1
             return APIResponse(url=url, response=resp)
