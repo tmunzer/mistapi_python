@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.2", details="function replaced with listOrgTickets")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listOrgTickets")  
 def getOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgTickets
@@ -134,7 +134,7 @@ def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status")
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str) -> _APIResponse:
+def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgTicket
     
@@ -148,6 +148,12 @@ def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str) -> _APIRes
     org_id : str
     ticket_id : str        
     
+    QUERY PARAMS
+    ------------
+    start : int
+    end : int
+    duration : str, default: 1d        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -155,6 +161,9 @@ def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str) -> _APIRes
     """
     uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}"
     query_params={}
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -14,39 +14,18 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def generateQrCodeForVerification(mist_session:_APISession, by:str="qrcode") -> _APIResponse:
+def validateOrgIdpCredential(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/generateQrCodeForVerification
+    API doc: https://doc.mist-lab.fr/#operation/validateOrgIdpCredential
     
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
     
-    QUERY PARAMS
-    ------------
-    by : str{'qrcode'}, default: qrcode
-      if `by`==`qrcode`, returns the secret as a qrcode image        
-    
-    RETURN
+    PATH PARAMS
     -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/self/two_factor/token"
-    query_params={}
-    if by: query_params["by"]=by
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def verifyTwoFactor(mist_session:_APISession, body:object) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/verifyTwoFactor
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
+    org_id : str        
     
     BODY PARAMS
     -----------
@@ -58,7 +37,7 @@ def verifyTwoFactor(mist_session:_APISession, body:object) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/self/two_factor/verify"
+    uri = f"/api/v1/orgs/{org_id}/mist_nac/test_idp"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     

@@ -50,7 +50,7 @@ def getOrgStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.2", details="function replaced with listOrgAssetsStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listOrgAssetsStats")  
 def getOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgAssetsStats
@@ -259,8 +259,8 @@ def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.2", details="function replaced with listOrgDevicesStats")  
-def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listOrgDevicesStats")  
+def getOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None, fields:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDevicesStats
     
@@ -275,11 +275,6 @@ def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
-    start : int
-    end : int
-    duration : str, default: 1d
     type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
     status : str{'all', 'connected', 'disconnected'}, default: all
     site_id : str
@@ -287,7 +282,13 @@ def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     evpntopo_id : str
       EVPN Topology ID
     evpn_unused : str
-      if `evpn_unused`==`true`, find EVPN eligible switches which don’t belong to any EVPN Topology yet        
+      if `evpn_unused`==`true`, find EVPN eligible switches which don’t belong to any EVPN Topology yet
+    fields : str
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
@@ -296,21 +297,22 @@ def getOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     """
     uri = f"/api/v1/orgs/{org_id}/stats/devices"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
     if type: query_params["type"]=type
     if status: query_params["status"]=status
     if site_id: query_params["site_id"]=site_id
     if mac: query_params["mac"]=mac
     if evpntopo_id: query_params["evpntopo_id"]=evpntopo_id
     if evpn_unused: query_params["evpn_unused"]=evpn_unused
+    if fields: query_params["fields"]=fields
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None) -> _APIResponse:
+def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None, fields:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDevicesStats
     
@@ -325,11 +327,6 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
-    start : int
-    end : int
-    duration : str, default: 1d
     type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
     status : str{'all', 'connected', 'disconnected'}, default: all
     site_id : str
@@ -337,7 +334,13 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:
     evpntopo_id : str
       EVPN Topology ID
     evpn_unused : str
-      if `evpn_unused`==`true`, find EVPN eligible switches which don’t belong to any EVPN Topology yet        
+      if `evpn_unused`==`true`, find EVPN eligible switches which don’t belong to any EVPN Topology yet
+    fields : str
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
@@ -346,21 +349,22 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, page:int=1, limit:
     """
     uri = f"/api/v1/orgs/{org_id}/stats/devices"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
     if type: query_params["type"]=type
     if status: query_params["status"]=status
     if site_id: query_params["site_id"]=site_id
     if mac: query_params["mac"]=mac
     if evpntopo_id: query_params["evpntopo_id"]=evpntopo_id
     if evpn_unused: query_params["evpn_unused"]=evpn_unused
+    if fields: query_params["fields"]=fields
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.2", details="function replaced with listOrgMxEdgesStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listOrgMxEdgesStats")  
 def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:str="false") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdgesStats

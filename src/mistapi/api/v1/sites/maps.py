@@ -14,8 +14,8 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.2", details="function replaced with listSiteMaps")  
-def getSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listSiteMaps")  
+def getSiteMaps(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMaps
     
@@ -28,6 +28,11 @@ def getSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
     -----------
     site_id : str        
     
+    QUERY PARAMS
+    ------------
+    page : int, default: 1
+    limit : int, default: 100        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -35,10 +40,12 @@ def getSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     uri = f"/api/v1/sites/{site_id}/maps"
     query_params={}
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
+def listSiteMaps(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMaps
     
@@ -51,6 +58,11 @@ def listSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
     -----------
     site_id : str        
     
+    QUERY PARAMS
+    ------------
+    page : int, default: 1
+    limit : int, default: 100        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -58,6 +70,8 @@ def listSiteMaps(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
     uri = f"/api/v1/sites/{site_id}/maps"
     query_params={}
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -592,3 +592,32 @@ def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_nam
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
+def updateOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgOauthAppAccounts
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    app_name : str
+      OAuth application name (Example : zoom, teams, intune        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts"
+    resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+    

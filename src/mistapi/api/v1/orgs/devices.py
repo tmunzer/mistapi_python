@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.2", details="function replaced with listOrgDevices")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listOrgDevices")  
 def getOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDevices
@@ -134,9 +134,9 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str, hostname
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str, site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgDevicesEvents
+    API doc: https://doc.mist-lab.fr/#operation/countOrgDeviceEvents
     
     PARAMS
     -----------
@@ -193,9 +193,9 @@ def countOrgDevicesEvents(mist_session:_APISession, org_id:str, distinct:str, si
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, mac:str=None, model:str=None, device_type:str="ap", text:str=None, timestamp:str=None, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgDeviceEvents(mist_session:_APISession, org_id:str, mac:str=None, model:str=None, device_type:str="ap", text:str=None, timestamp:str=None, type:str=None, last_by:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgDevicesEvents
+    API doc: https://doc.mist-lab.fr/#operation/searchOrgDeviceEvents
     
     PARAMS
     -----------
@@ -220,6 +220,8 @@ def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, mac:str=None, m
       event time
     type : str
       see [listDeviceEventsDefinitions](/#operation/listDeviceEventsDefinitions)
+    last_by : str
+      Return last/recent event for passed in field
     limit : int, default: 100
     start : int
     end : int
@@ -238,6 +240,7 @@ def searchOrgDevicesEvents(mist_session:_APISession, org_id:str, mac:str=None, m
     if text: query_params["text"]=text
     if timestamp: query_params["timestamp"]=timestamp
     if type: query_params["type"]=type
+    if last_by: query_params["last_by"]=last_by
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -323,8 +326,8 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, device_type
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.2", details="function replaced with listOrgApsMacs")  
-def getOrgApsMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listOrgApsMacs")  
+def getOrgApsMacs(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgApsMacs
     
@@ -337,6 +340,11 @@ def getOrgApsMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     -----------
     org_id : str        
     
+    QUERY PARAMS
+    ------------
+    page : int, default: 1
+    limit : int, default: 100        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -344,10 +352,12 @@ def getOrgApsMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     uri = f"/api/v1/orgs/{org_id}/devices/radio_macs"
     query_params={}
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgApsMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
+def listOrgApsMacs(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgApsMacs
     
@@ -360,6 +370,11 @@ def listOrgApsMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     -----------
     org_id : str        
     
+    QUERY PARAMS
+    ------------
+    page : int, default: 1
+    limit : int, default: 100        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -367,6 +382,8 @@ def listOrgApsMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     uri = f"/api/v1/orgs/{org_id}/devices/radio_macs"
     query_params={}
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -463,7 +480,7 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.2", details="function replaced with listOrgMultiSitesDevicesUpgrades")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listOrgMultiSitesDevicesUpgrades")  
 def getOrgMultiSitesDevicesUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMultiSitesDevicesUpgrades

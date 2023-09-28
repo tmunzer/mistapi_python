@@ -14,8 +14,8 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.2", details="function replaced with listOrgNacTags")  
-def getOrgNacTags(mist_session:_APISession, org_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listOrgNacTags")  
+def getOrgNacTags(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgNacTags
     
@@ -28,6 +28,11 @@ def getOrgNacTags(mist_session:_APISession, org_id:str) -> _APIResponse:
     -----------
     org_id : str        
     
+    QUERY PARAMS
+    ------------
+    page : int, default: 1
+    limit : int, default: 100        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -35,10 +40,12 @@ def getOrgNacTags(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     uri = f"/api/v1/orgs/{org_id}/nactags"
     query_params={}
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgNacTags(mist_session:_APISession, org_id:str) -> _APIResponse:
+def listOrgNacTags(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgNacTags
     
@@ -51,6 +58,11 @@ def listOrgNacTags(mist_session:_APISession, org_id:str) -> _APIResponse:
     -----------
     org_id : str        
     
+    QUERY PARAMS
+    ------------
+    page : int, default: 1
+    limit : int, default: 100        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -58,6 +70,8 @@ def listOrgNacTags(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     uri = f"/api/v1/orgs/{org_id}/nactags"
     query_params={}
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -14,6 +14,7 @@ from mistapi.api.v1.sites import sites
 from mistapi.api.v1.sites import alarms
 from mistapi.api.v1.sites import anomaly
 from mistapi.api.v1.sites import apps
+from mistapi.api.v1.sites import aptemplates
 from mistapi.api.v1.sites import assetfilters
 from mistapi.api.v1.sites import assets
 from mistapi.api.v1.sites import beacons
@@ -23,6 +24,7 @@ from mistapi.api.v1.sites import deviceprofiles
 from mistapi.api.v1.sites import devices
 from mistapi.api.v1.sites import events
 from mistapi.api.v1.sites import evpn_topologies
+from mistapi.api.v1.sites import gatewaytemplates
 from mistapi.api.v1.sites import guests
 from mistapi.api.v1.sites import insights
 from mistapi.api.v1.sites import licenses
@@ -32,16 +34,19 @@ from mistapi.api.v1.sites import mxedges
 from mistapi.api.v1.sites import mxtunnels
 from mistapi.api.v1.sites import nac_clients
 from mistapi.api.v1.sites import networks
+from mistapi.api.v1.sites import networktemplates
 from mistapi.api.v1.sites import otherdevices
 from mistapi.api.v1.sites import pcaps
 from mistapi.api.v1.sites import psks
 from mistapi.api.v1.sites import rfdiags
+from mistapi.api.v1.sites import rftemplates
 from mistapi.api.v1.sites import rogues
 from mistapi.api.v1.sites import rrm
 from mistapi.api.v1.sites import rssizones
 from mistapi.api.v1.sites import servicepolicies
 from mistapi.api.v1.sites import services
 from mistapi.api.v1.sites import setting
+from mistapi.api.v1.sites import sitetemplates
 from mistapi.api.v1.sites import skyatp
 from mistapi.api.v1.sites import sle
 from mistapi.api.v1.sites import ssr

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="0.44.2", details="function replaced with listOrgOtherDevices")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listOrgOtherDevices")  
 def getOrgOtherDevices(mist_session:_APISession, org_id:str, vendor:str=None, mac:str=None, serial:str=None, model:str=None, name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgOtherDevices
@@ -122,9 +122,9 @@ def updateOrgOtherDevices(mist_session:_APISession, org_id:str, body:object) -> 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def countOrgOtherDevicesEvents(mist_session:_APISession, org_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgOtherDevicesEvents
+    API doc: https://doc.mist-lab.fr/#operation/countOrgOtherDeviceEvents
     
     PARAMS
     -----------
@@ -160,9 +160,9 @@ def countOrgOtherDevicesEvents(mist_session:_APISession, org_id:str, distinct:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgOtherDevicesEvents(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, device_mac:str=None, model:str=None, vendor:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, device_mac:str=None, model:str=None, vendor:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgOtherDevicesEvents
+    API doc: https://doc.mist-lab.fr/#operation/searchOrgOtherDeviceEvents
     
     PARAMS
     -----------

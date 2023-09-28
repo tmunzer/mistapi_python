@@ -38,6 +38,7 @@ from mistapi.api.v1.orgs import jsi
 from mistapi.api.v1.orgs import licenses
 from mistapi.api.v1.orgs import logs
 from mistapi.api.v1.orgs import maps
+from mistapi.api.v1.orgs import mist_nac
 from mistapi.api.v1.orgs import mxclusters
 from mistapi.api.v1.orgs import mxedges
 from mistapi.api.v1.orgs import mxtunnels
@@ -69,6 +70,7 @@ from mistapi.api.v1.orgs import subscriptions
 from mistapi.api.v1.orgs import templates
 from mistapi.api.v1.orgs import tickets
 from mistapi.api.v1.orgs import troubleshoot
+from mistapi.api.v1.orgs import vars
 from mistapi.api.v1.orgs import vpns
 from mistapi.api.v1.orgs import wan_client
 from mistapi.api.v1.orgs import wan_clients

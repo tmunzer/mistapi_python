@@ -14,42 +14,39 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listNacEventsDefinitions")  
-def getNacEventsDefinitions(mist_session:_APISession) -> _APIResponse:
+def searchOrgVars(mist_session:_APISession, org_id:str, site_id:str=None, vars:str=None, src:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listNacEventsDefinitions
+    API doc: https://doc.mist-lab.fr/#operation/searchOrgVars
     
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
     
-    RETURN
+    PATH PARAMS
     -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/const/nac_events"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
+    org_id : str        
     
-def listNacEventsDefinitions(mist_session:_APISession) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listNacEventsDefinitions
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
+    QUERY PARAMS
+    ------------
+    site_id : str
+    vars : str
+    src : str{'site', 'deviceprofile'}
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/const/nac_events"
+    uri = f"/api/v1/orgs/{org_id}/vars/search"
     query_params={}
+    if site_id: query_params["site_id"]=site_id
+    if vars: query_params["vars"]=vars
+    if src: query_params["src"]=src
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

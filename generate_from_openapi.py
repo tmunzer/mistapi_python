@@ -243,7 +243,7 @@ def _gen_query_code(query_params: list):
 
 ########
 # CRUDS
-def _create_get_deprecated(operation_id: str, endpoint_path: str, path_params: list, query_params: list, folder_path: str, file_name: str):
+def _create_get_deprecated_list(operation_id: str, endpoint_path: str, path_params: list, query_params: list, folder_path: str, file_name: str):
     code_path_params, desc_path_params = _gen_code_params(
         path_params, operation_id)
     code_query_params, desc_query_params = _gen_code_params(
@@ -255,7 +255,31 @@ def _create_get_deprecated(operation_id: str, endpoint_path: str, path_params: l
     old_operation_id = operation_id.replace("list", "get", 1 )
 
     code = f"""
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.60.0", current_version="{version}", details="function replaced with {operation_id}")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="{version}", details="function replaced with {operation_id}")  
+def {old_operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
+{code_desc}
+    uri = f"{endpoint_path}"{code_query}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    """
+
+    file = os.path.join(folder_path, file_name)
+    with open(file, "a+") as f:
+        f.write(code)
+
+def _create_get_deprecated_device_events(operation_id: str, endpoint_path: str, path_params: list, query_params: list, folder_path: str, file_name: str):
+    code_path_params, desc_path_params = _gen_code_params(
+        path_params, operation_id)
+    code_query_params, desc_query_params = _gen_code_params(
+        query_params, operation_id)
+    code_query = _gen_query_code(query_params)
+    code_desc = _gen_description(
+        operation_id, desc_path_params, desc_query_params)
+
+    old_operation_id = operation_id.replace("DeviceEvents", "DevicesEvents", 1 )
+
+    code = f"""
+@deprecation.deprecated(deprecated_in="0.45.0", removed_in="0.60.0", current_version="{version}", details="function replaced with {operation_id}")  
 def {old_operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
 {code_desc}
     uri = f"{endpoint_path}"{code_query}
@@ -268,7 +292,8 @@ def {old_operation_id}(mist_session:_APISession{code_path_params}{code_query_par
         f.write(code)
 
 def _create_get(operation_id: str, endpoint_path: str, path_params: list, query_params: list, folder_path: str, file_name: str):
-    if operation_id.startswith("list"): _create_get_deprecated(operation_id, endpoint_path, path_params, query_params, folder_path, file_name)
+    if operation_id.startswith("list"): _create_get_deprecated_list(operation_id, endpoint_path, path_params, query_params, folder_path, file_name)
+    if operation_id.startswith("DeviceEvents"): _create_get_deprecated_device_events(operation_id, endpoint_path, path_params, query_params, folder_path, file_name)
     code_path_params, desc_path_params = _gen_code_params(
         path_params, operation_id)
     code_query_params, desc_query_params = _gen_code_params(

@@ -14,42 +14,32 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.45", details="function replaced with listNacEventsDefinitions")  
-def getNacEventsDefinitions(mist_session:_APISession) -> _APIResponse:
+def getSiteRfTemplateDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listNacEventsDefinitions
+    API doc: https://doc.mist-lab.fr/#operation/getSiteRfTemplateDerived
     
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
     
-    RETURN
+    PATH PARAMS
     -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/const/nac_events"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
+    site_id : str        
     
-def listNacEventsDefinitions(mist_session:_APISession) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listNacEventsDefinitions
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
+    QUERY PARAMS
+    ------------
+    resolve : bool
+      whether resolve the site variables        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/const/nac_events"
+    uri = f"/api/v1/sites/{site_id}/rftemplates/derived"
     query_params={}
+    if resolve: query_params["resolve"]=resolve
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
