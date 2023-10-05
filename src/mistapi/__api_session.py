@@ -27,6 +27,7 @@ from mistapi.__models.privilege import Privileges
 
 ###### GLOBALS ######
 clouds = [
+    {"short": "APAC 01", "host": "api.ac5.mist.com", "cookies_ext": ".ac5"},
     {"short": "Europe 01", "host": "api.eu.mist.com", "cookies_ext": ".eu"},
     {"short": "Global 01", "host": "api.mist.com", "cookies_ext": ""},
     {"short": "Global 02", "host": "api.gc1.mist.com", "cookies_ext": ".gc1"},

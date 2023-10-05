@@ -108,11 +108,12 @@ True
 
 ----------------------------- Mist Cloud Selection -----------------------------
 
-0) Europe 01 (host: api.eu.mist.com)
-1) Global 01 (host: api.mist.com)
-2) Global 02 (host: api.gc1.mist.com)
-3) Global 03 (host: api.ac2.mist.com)
-4) Global 04 (host: api.gc2.mist.com)
+0) APAC 01 (host: api.ac5.mist.com)
+1) Europe 01 (host: api.eu.mist.com)
+2) Global 01 (host: api.mist.com)
+3) Global 02 (host: api.gc1.mist.com)
+4) Global 03 (host: api.ac2.mist.com)
+5) Global 04 (host: api.gc2.mist.com)
 
 Select a Cloud (0 to 5, or q to exit): 
 ```
