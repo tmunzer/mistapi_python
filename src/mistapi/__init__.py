@@ -15,5 +15,5 @@ from mistapi import api
 from mistapi import cli
 from mistapi.__pagination import get_next, get_all
 
-__version__ = "0.46.0"
+__version__ = "0.46.1"
 __author__ = "Thomas Munzer <tmunzer@juniper.net>"
