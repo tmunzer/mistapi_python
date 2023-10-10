@@ -50,13 +50,13 @@ def get_all(mist_session: _APISession, response: _APIResponse) -> list:
     list
         list of all the items
     """
-    if type(response.data) == list:
+    if isinstance(response.data, list):
         data = response.data.copy()
         while response.next:
             response = get_next(mist_session, response)
             data += response.data
         return data
-    elif type(response.data) == dict and "results" in response.data:
+    elif isinstance(response.data, dict) and "results" in response.data:
         data = response.data["results"].copy()
         while response.next:
             response = get_next(mist_session, response)

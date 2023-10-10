@@ -11,11 +11,12 @@
 This module is providing some functions to simplify Mist API use.
 """
 
-import mistapi as mistapi
-from mistapi.__logger import console
 import sys
 import json
 from tabulate import tabulate
+import mistapi
+from mistapi.__api_response import APIResponse as _APIResponse
+from mistapi.__logger import console
 
 
 ###########################################
@@ -41,13 +42,16 @@ def _test_choice(val, val_max):
 ###########################################
 #### DECORATOR
 def is_authenticated(func):
+    """
+    decorator to test if the mistapi.APISession is authenticaated
+    """
     def wrapper(*args, **kwargs):
         mist_session = args[0]
         if mist_session.get_authentication_status():
             return func(*args, **kwargs)
         else:
             console.critical("Not authenticated... Exiting...")
-            console.critical("Please une the \"login()\" function first...")            
+            console.critical("Please une the \"login()\" function first...")
     return wrapper
 
 ###########################################
@@ -58,12 +62,15 @@ def _forge_privileges(mist_session: mistapi.APISession, msp_id: str):
 
     PARAMS
     -----------
-    :param APISession   mist_session - mistapi session including authentication and Mist host information
-    :param str          msp_id - msp_id of the MSP account to use to generate the privileges
+    mist_session: mistapi.APISession
+        mistapi session including authentication and Mist host information
+    msp_id : str
+        msp_id of the MSP account to use to generate the privileges
 
     RETURN
     -----------
-    :return list - List of ORG privileges
+    list
+        List of ORG privileges
     """
     resp = mistapi.api.v1.msps.orgs.listMspOrgs(mist_session, msp_id)
     orgs = mistapi.get_all(mist_session, resp)
@@ -81,11 +88,13 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
 
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
+    mist_session : mistapi.APISession
+        mistapi session including authentication and Mist host information
 
     RETURN
     -----------
-    :return list - List of ORG privileges
+    list
+        List of ORG privileges
     """
     msp_accounts = [ priv for priv in mist_session.privileges if priv.get("scope") == "msp" ]
     if len(msp_accounts) == 0:
@@ -126,12 +135,15 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
 
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    :param bool allow_many - If user is allowed to select multiple orgs. Default is False
+    mist_session : mistapi.APISession
+        mistapi session including authentication and Mist host information
+    allow_many : bool
+        If user is allowed to select multiple orgs. Default is False
 
     RETURN
     -----------
-    :return list - list of the selected Org ID(s)
+    list
+        list of the selected Org ID(s)
     """
     data = _select_msp(mist_session)
     data = [d for d in data if d.get("name")]
@@ -171,7 +183,8 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
 
         if allow_many:
             resp = input(
-                f'\r\nSelect an Org (0 to {i}, "0,1" for sites 0 and 1, "a" for all, "b" for back or "q" to quit): '
+                f'\r\nSelect an Org (0 to {i}, "0,1" for sites 0 and 1,'
+                f' "a" for all, "b" for back or "q" to quit): '
             )
         else:
             resp = input(f'\r\nSelect an Org (0 to {i}, "b" for back or "q" to quit): ')
@@ -210,13 +223,17 @@ def select_site(
 
     PARAMS
     -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-    :param str org_id - Org ID to request
-    :param bool allow_many - If user is allowed to select multiple orgs. Default is False
+    mist_session : mistapi.APISession
+        mistapi session including authentication and Mist host information
+    org_id : str
+        Org ID to request
+    allow_many : bool
+        If user is allowed to select multiple orgs. Default is False
 
     RETURN
     -----------
-    :return list - list of the selected Site ID(s)
+    list
+        list of the selected Site ID(s)
     """
     i = -1
     site_ids = []
@@ -233,7 +250,7 @@ def select_site(
         if privilege["scope"] == "site" and privilege["org_id"] == org_id:
             site_choices.append({"id": privilege["site_id"], "name": privilege["name"]})
 
-    if site_choices == [] or org_access == True:
+    if not site_choices or org_access:
         site_choices = mistapi.api.v1.orgs.sites.listOrgSites(mist_session, org_id).data
 
     site_choices = sorted(site_choices, key=lambda x: x["name"].lower())
@@ -273,7 +290,23 @@ def select_site(
 
 ###########################################
 #### DATA PROCESSING / DISPLAY
-def extract_field(json_data, field):
+def extract_field(json_data:dict, field:str) -> any:
+    """
+    function to extract the value of a key from complex JSON object
+
+    PARAMS
+    -----------
+    json_data : dict
+        the JSON object containing the value
+    field : str
+        the full path of the key we are looking for. 
+        e.g. parent.child.key
+
+    RETURNS
+    -----------
+    any
+        the value of the key, or "N/A" if the key is not found
+    """
     split_field = field.split(".")
     cur_field = split_field[0]
     next_fields = ".".join(split_field[1:])
@@ -294,10 +327,14 @@ def save_to_csv(
 
     PARAMS
     -----------
-    :param str csv_file - path to the CSV file where to save the data
-    :param list data - list containing the lists to save
-    :param list fields - list of the columns headers
-    :param str csv_separator - character to use to separate the cells. Default is ","
+    csv_file : str
+        path to the CSV file where to save the data
+    data : list
+        list containing the lists to save
+    fields : list
+        list of the columns headers
+    csv_separator : str
+        character to use to separate the cells. Default is ","
     """
     print("saving to file...")
     with open(csv_file, "w") as f:
@@ -321,24 +358,45 @@ def _json_to_array(json_data: object, fields: list) -> list:
     return data
 
 
-def display_list_of_json_as_table(json_list: list, fields: list) -> None:
+def display_list_of_json_as_table(data_list: list, fields: list) -> None:
+    """
+    Function using tabulate to display a list as a table 
+
+    PARAMS
+    -----------
+    data_list : list
+        list to display
+    fields : list
+        List of fields to display. 
+    """
     table = []
-    for data in json_list:
+    for data in data_list:
         table.append(_json_to_array(data, fields))
     print(tabulate(table, headers=fields))
 
 
-def pretty_print(response, fields=None):
+def pretty_print(response:_APIResponse, fields:list=None):
+    """
+    Function using tabulate to display a mistapi Response content as a table 
+
+    PARAMS
+    -----------
+    response : _APIResponse
+        Response from a mistapi Request to the Mist Cloud
+    fields : list
+        List of fields to display. 
+        If None, the function automatically detects all the available fields
+    """
     if "result" in response:
         data = response["result"]
     else:
         data = response
     print("")
-    if type(data) is list:
+    if isinstance(data, list):
         if fields is None:
             fields = "keys"
         print(tabulate(data, headers=fields))
-    elif type(data) == dict:
+    elif isinstance(data, dict):
         print(json.dumps(data, sort_keys=True, indent=4, separators=(",", ": ")))
     else:
         print(data)
