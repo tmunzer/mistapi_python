@@ -23,8 +23,7 @@ from mistapi.__logger import logger, console
 from mistapi.__api_request import APIRequest
 from mistapi.__api_response import APIResponse
 from mistapi.__models.privilege import Privileges
-
-
+from mistapi.__version import __version__
 ###### GLOBALS ######
 clouds = [
     {"short": "APAC 01", "host": "api.ac5.mist.com", "cookies_ext": ".ac5"},
@@ -88,6 +87,7 @@ class APISession(APIRequest):
         show_cli_notif : bool, default True
             show/hide package decorative text on the console output
         """
+        logger.info(f"mistapi:init:package version {__version__}")
         self._cloud_uri = None
         self.email = None
         self._password = None
