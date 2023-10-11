@@ -251,7 +251,8 @@ def select_site(
             site_choices.append({"id": privilege["site_id"], "name": privilege["name"]})
 
     if not site_choices or org_access:
-        site_choices = mistapi.api.v1.orgs.sites.listOrgSites(mist_session, org_id).data
+        response = mistapi.api.v1.orgs.sites.listOrgSites(mist_session, org_id)
+        site_choices = mistapi.get_all(mist_session, response)
 
     site_choices = sorted(site_choices, key=lambda x: x["name"].lower())
     print("\r\nAvailable sites:")
