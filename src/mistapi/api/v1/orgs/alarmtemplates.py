@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.46.4", details="function replaced with listOrgAlarmTemplates")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.0", details="function replaced with listOrgAlarmTemplates")  
 def getOrgAlarmTemplates(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgAlarmTemplates
@@ -102,8 +102,8 @@ def createOrgAlarmTemplate(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.46.4", details="function replaced with listOrgSuppressedAlarms")  
-def getOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.0", details="function replaced with listOrgSuppressedAlarms")  
+def getOrgSuppressedAlarms(mist_session:_APISession, org_id:str, scope:str="site") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgSuppressedAlarms
     
@@ -116,6 +116,10 @@ def getOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> _APIResponse
     -----------
     org_id : str        
     
+    QUERY PARAMS
+    ------------
+    scope : str{'org', 'site'}, default: site        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -123,10 +127,11 @@ def getOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> _APIResponse
     """
     uri = f"/api/v1/orgs/{org_id}/alarmtemplates/suppress"
     query_params={}
+    if scope: query_params["scope"]=scope
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> _APIResponse:
+def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str, scope:str="site") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgSuppressedAlarms
     
@@ -139,6 +144,10 @@ def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> _APIRespons
     -----------
     org_id : str        
     
+    QUERY PARAMS
+    ------------
+    scope : str{'org', 'site'}, default: site        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -146,6 +155,7 @@ def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> _APIRespons
     """
     uri = f"/api/v1/orgs/{org_id}/alarmtemplates/suppress"
     query_params={}
+    if scope: query_params["scope"]=scope
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

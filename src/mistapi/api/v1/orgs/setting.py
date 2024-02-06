@@ -404,7 +404,7 @@ def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> _API
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/setting/juniper/linked_account"
+    uri = f"/api/v1/orgs/{org_id}/setting/juniper/unlink_account"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
@@ -536,7 +536,7 @@ def setupOrgZscalerCredential(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:str, forward:str=None) -> _APIResponse:
+def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:str, forward:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgOauthAppLinkedStatus
     

@@ -118,6 +118,60 @@ def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
+def get-api-v1-orgs-org_id-inventory-create_ha_cluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/get-api-v1-orgs-org_id-inventory-create_ha_cluster
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/inventory/create_ha_cluster"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def deleteOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgGatewayHaCluster
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/inventory/delete_ha_cluster"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
 def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/reevaluateOrgAutoAssignment

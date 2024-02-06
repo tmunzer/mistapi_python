@@ -199,7 +199,7 @@ class APISession(APIRequest):
         """
         logger.debug("apisession:set_cloud")
         self._cloud_uri = None
-        if cloud_uri == "api.mistsys.com":
+        if cloud_uri in ["api.mistsys.com", "api.ac99.mist.com"]:
             self._cloud_uri = cloud_uri
         else:
             for cloud in clouds:
@@ -244,6 +244,8 @@ class APISession(APIRequest):
             sys.exit(0)
         elif resp == "i":
             self._cloud_uri = "api.mistsys.com"
+        elif resp == "c":
+            self._cloud_uri = "api.ac99.mist.com"
         else:
             try:
                 resp_num = int(resp)

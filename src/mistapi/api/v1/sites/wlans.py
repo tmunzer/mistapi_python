@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.46.4", details="function replaced with listSiteWlans")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.0", details="function replaced with listSiteWlans")  
 def getSiteWlans(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteWlans
@@ -102,8 +102,8 @@ def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.46.4", details="function replaced with listSiteWlanDerived")  
-def getSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.0", details="function replaced with listSiteWlanDerived")  
+def getSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None, wlan_id:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteWlanDerived
     
@@ -119,7 +119,9 @@ def getSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None)
     QUERY PARAMS
     ------------
     resolve : bool
-      whether to resolve SITE_VARS        
+      whether to resolve SITE_VARS
+    wlan_id : str
+      filter by WLAN ID        
     
     RETURN
     -----------
@@ -129,10 +131,11 @@ def getSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None)
     uri = f"/api/v1/sites/{site_id}/wlans/derived"
     query_params={}
     if resolve: query_params["resolve"]=resolve
+    if wlan_id: query_params["wlan_id"]=wlan_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
+def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None, wlan_id:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteWlanDerived
     
@@ -148,7 +151,9 @@ def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None
     QUERY PARAMS
     ------------
     resolve : bool
-      whether to resolve SITE_VARS        
+      whether to resolve SITE_VARS
+    wlan_id : str
+      filter by WLAN ID        
     
     RETURN
     -----------
@@ -158,6 +163,7 @@ def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None
     uri = f"/api/v1/sites/{site_id}/wlans/derived"
     query_params={}
     if resolve: query_params["resolve"]=resolve
+    if wlan_id: query_params["wlan_id"]=wlan_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
