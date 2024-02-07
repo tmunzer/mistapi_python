@@ -25,7 +25,7 @@ from mistapi.__api_response import APIResponse
 from mistapi.__models.privilege import Privileges
 from mistapi.__version import __version__
 ###### GLOBALS ######
-clouds = [
+CLOUDS = [
     {"short": "APAC 01", "host": "api.ac5.mist.com", "cookies_ext": ".ac5"},
     {"short": "Europe 01", "host": "api.eu.mist.com", "cookies_ext": ".eu"},
     {"short": "Global 01", "host": "api.mist.com", "cookies_ext": ""},
@@ -202,7 +202,7 @@ class APISession(APIRequest):
         if cloud_uri in ["api.mistsys.com", "api.ac99.mist.com"]:
             self._cloud_uri = cloud_uri
         else:
-            for cloud in clouds:
+            for cloud in CLOUDS:
                 if cloud["host"] == cloud_uri:
                     self._cloud_uri = cloud_uri
         if self._cloud_uri:
@@ -233,7 +233,7 @@ class APISession(APIRequest):
 
         resp = "x"
         i = 0
-        for cloud in clouds:
+        for cloud in CLOUDS:
             print(f"{i}) {cloud['short']} (host: {cloud['host']})")
             i += 1
 
@@ -251,9 +251,9 @@ class APISession(APIRequest):
                 resp_num = int(resp)
                 if resp_num >= 0 and resp_num < i:
                     logger.info(
-                        f"apisession:select_cloud:Mist Cloud is {clouds[resp_num]['host']}"
+                        f"apisession:select_cloud:Mist Cloud is {CLOUDS[resp_num]['host']}"
                     )
-                    self.set_cloud(clouds[resp_num]["host"])
+                    self.set_cloud(CLOUDS[resp_num]["host"])
                 else:
                     print(f"Please enter a number between 0 and {i}.")
                     logger.error(
@@ -620,13 +620,18 @@ class APISession(APIRequest):
             if not self._apitoken:
                 logger.info("apisession:_set_authenticated:processing HTTP cookies")
                 try:
-                    cookies_ext = next(
-                        item["cookies_ext"]
-                        for item in clouds
-                        if item["host"] == self._cloud_uri
-                    )
+                    if self._cloud_uri == "api.mistsys.com":
+                        cookies_ext = ""
+                    elif self._cloud_uri == "api.ac99.mist.com":
+                        cookies_ext= ".ac99"
+                    else:
+                        cookies_ext = next(
+                            item["cookies_ext"]
+                            for item in CLOUDS
+                            if item["host"] == self._cloud_uri
+                        )
                     logger.info(
-                        "apisession:_set_authenticated:HTTP session cookies extracted"
+                        f"apisession:_set_authenticated:HTTP session cookies extracted. Cookies extension is {cookies_ext}"
                     )
                 except:
                     cookies_ext = ""

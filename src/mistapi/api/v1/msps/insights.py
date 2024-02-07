@@ -26,8 +26,7 @@ def getMspSle(mist_session:_APISession, msp_id:str, metric:str, sle:str=None, du
     PATH PARAMS
     -----------
     msp_id : str
-    metric : str
-      see /api/v1/const/insight_metrics for available metrics        
+    metric : str        
     
     QUERY PARAMS
     ------------

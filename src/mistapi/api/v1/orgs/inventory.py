@@ -118,9 +118,9 @@ def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def get-api-v1-orgs-org_id-inventory-create_ha_cluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/get-api-v1-orgs-org_id-inventory-create_ha_cluster
+    API doc: https://doc.mist-lab.fr/#operation/createOrgGatewayHaCluster
     
     PARAMS
     -----------

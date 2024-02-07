@@ -174,7 +174,7 @@ def searchOrgWirelessClients(mist_session:_APISession, org_id:str, site_id:str=N
     ssid : str
       SSID
     text : str
-      partial / full MAC address, hostname
+      partial / full MAC address, hostname, username, psk_name or ip
     limit : int, default: 100
     start : int
     end : int
@@ -333,5 +333,28 @@ def searchOrgWirelessClientSessions(mist_session:_APISession, org_id:str, ap:str
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def reauthOrgDot1xWirelessClient(mist_session:_APISession, org_id:str, client_mac:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/reauthOrgDot1xWirelessClient
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    client_mac : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/clients/{client_mac}/coa"
+    resp = mist_session.mist_post(uri=uri)
     return resp
     

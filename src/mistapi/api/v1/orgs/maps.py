@@ -36,10 +36,10 @@ def importOrgMapsFile(mist_session:_APISession, org_id:str, auto_deviceprofile_a
     file : str
         path to the file to upload. ekahau or ibwave file
     json : dict
-        site_id : str
         import_all_floorplans : bool
         import_height : bool, default: True
         import_orientation : bool, default: True
+        site_id : str
         vendor_name : {'ekahau', 'ibwave'}
     
     RETURN

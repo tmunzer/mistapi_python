@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteNacClients(mist_session:_APISession, site_id:str, distinct:str="type", last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, org_id:str=None, site_id:str=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countSiteNacClients(mist_session:_APISession, site_id:str, distinct:str="type", last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteNacClients
     
@@ -49,10 +49,6 @@ def countSiteNacClients(mist_session:_APISession, site_id:str, distinct:str="typ
       Username presented by the client
     timestamp : float
       start time, in epoch
-    org_id : str
-      org id
-    site_id : str
-      site id if assigned, null if not assigned
     last_ap : str
       AP MAC connected to by client
     mac : str
@@ -88,8 +84,6 @@ def countSiteNacClients(mist_session:_APISession, site_id:str, distinct:str="typ
     if last_ssid: query_params["last_ssid"]=last_ssid
     if last_username: query_params["last_username"]=last_username
     if timestamp: query_params["timestamp"]=timestamp
-    if org_id: query_params["org_id"]=org_id
-    if site_id: query_params["site_id"]=site_id
     if last_ap: query_params["last_ap"]=last_ap
     if mac: query_params["mac"]=mac
     if last_status: query_params["last_status"]=last_status
@@ -232,7 +226,7 @@ def searcSitegNacClientEvents(mist_session:_APISession, site_id:str, type:str=No
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteNacClients(mist_session:_APISession, site_id:str, last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, org_id:str=None, site_id:str=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchSiteNacClients(mist_session:_APISession, site_id:str, last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteNacClients
     
@@ -265,10 +259,6 @@ def searchSiteNacClients(mist_session:_APISession, site_id:str, last_nacrule_id:
       Username presented by the client
     timestamp : float
       start time, in epoch
-    org_id : str
-      org id
-    site_id : str
-      site id if assigned, null if not assigned
     last_ap : str
       AP MAC connected to by client
     mac : str
@@ -303,8 +293,6 @@ def searchSiteNacClients(mist_session:_APISession, site_id:str, last_nacrule_id:
     if last_ssid: query_params["last_ssid"]=last_ssid
     if last_username: query_params["last_username"]=last_username
     if timestamp: query_params["timestamp"]=timestamp
-    if org_id: query_params["org_id"]=org_id
-    if site_id: query_params["site_id"]=site_id
     if last_ap: query_params["last_ap"]=last_ap
     if mac: query_params["mac"]=mac
     if last_status: query_params["last_status"]=last_status

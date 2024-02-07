@@ -243,7 +243,7 @@ def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str=Non
       AP mac where the client has connected to
     ssid : str
     text : str
-      partial / full MAC address, hostname, username or ip
+      partial / full MAC address, hostname, username, psk_name or ip
     nacrule_id : str
       nacrule_id
     limit : int, default: 100
@@ -428,6 +428,29 @@ def unauthorizeSiteMultipleClients(mist_session:_APISession, site_id:str, body:o
     """
     uri = f"/api/v1/sites/{site_id}/clients/unauthorize"
     resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def reauthSiteDot1xWirelessClient(mist_session:_APISession, site_id:str, client_mac:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/reauthSiteDot1xWirelessClient
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    client_mac : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/clients/{client_mac}/coa"
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def disconnectSiteWirelessClient(mist_session:_APISession, site_id:str, client_mac:str) -> _APIResponse:

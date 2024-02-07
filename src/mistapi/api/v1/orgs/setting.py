@@ -213,9 +213,9 @@ def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str) -> _APIRespo
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def getOrgJamfAppLinkedStatus(mist_session:_APISession, org_id:str) -> _APIResponse:
+def getOrgJseInfo(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgJamfAppLinkedStatus
+    API doc: https://doc.mist-lab.fr/#operation/getOrgJseInfo
     
     PARAMS
     -----------
@@ -231,59 +231,9 @@ def getOrgJamfAppLinkedStatus(mist_session:_APISession, org_id:str) -> _APIRespo
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/setting/jamf/link_accounts"
+    uri = f"/api/v1/orgs/{org_id}/setting/jse/info"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def deleteOrgJamfAppAuthorization(mist_session:_APISession, org_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgJamfAppAuthorization
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/setting/jamf/link_accounts"
-    query_params={}
-    resp = mist_session.mist_delete(uri=uri, query=query_params)
-    return resp
-    
-def addOrgJamfAppAuthorization(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/addOrgJamfAppAuthorization
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/setting/jamf/link_accounts"
-    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
 def getOrgJsecCredential(mist_session:_APISession, org_id:str) -> _APIResponse:
@@ -405,6 +355,86 @@ def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> _API
         response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/setting/juniper/unlink_account"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def getOrgNacCrl(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getOrgNacCrl
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/mist_nac_crls"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def importOrgNacCrlFile(mist_session:_APISession, org_id:str, file:str=None, json:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/importOrgNacCrl
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    BODY PARAMS
+    -----------
+    file : str
+        path to the file to upload. a binary .crl file
+    json : str
+        json string with name for .crl file (optional)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    multipart_form_data = {
+        "file":file,
+        "json":json,
+    }
+    uri = f"/api/v1/orgs/{org_id}/setting/mist_nac_crls"
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
+    return resp
+
+def deleteOrgNacCrl(mist_session:_APISession, org_id:str, naccrl_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacCrl
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    naccrl_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/mist_nac_crls/{naccrl_id}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
@@ -549,7 +579,7 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     -----------
     org_id : str
     app_name : str
-      OAuth application name (Example : zoom, teams, intune        
+      OAuth application name        
     
     QUERY PARAMS
     ------------
@@ -580,7 +610,7 @@ def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_nam
     -----------
     org_id : str
     app_name : str
-      OAuth application name (Example : zoom, teams, intune        
+      OAuth application name        
     
     RETURN
     -----------
@@ -590,6 +620,35 @@ def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_nam
     uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/addOrgOauthAppAccounts
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    app_name : str
+      OAuth application name        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts"
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
 def updateOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, body:object) -> _APIResponse:
@@ -605,7 +664,7 @@ def updateOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str
     -----------
     org_id : str
     app_name : str
-      OAuth application name (Example : zoom, teams, intune        
+      OAuth application name        
     
     BODY PARAMS
     -----------

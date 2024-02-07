@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.0", details="function replaced with listSiteServicesDerived")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.2", details="function replaced with listSiteServicesDerived")  
 def getSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteServicesDerived
@@ -73,7 +73,7 @@ def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, org_id:str=None, site_id:str=None, mac:str=None) -> _APIResponse:
+def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteServicePathEvents
     
@@ -107,10 +107,6 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
       Device firmware version
     timestamp : float
       Start time, in epoch
-    org_id : str
-      Org id
-    site_id : str
-      Site id
     mac : str
       MAC address        
     
@@ -131,13 +127,11 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
     if model: query_params["model"]=model
     if version: query_params["version"]=version
     if timestamp: query_params["timestamp"]=timestamp
-    if org_id: query_params["org_id"]=org_id
-    if site_id: query_params["site_id"]=site_id
     if mac: query_params["mac"]=mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, org_id:str=None, site_id:str=None, mac:str=None) -> _APIResponse:
+def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteServicePathEvents
     
@@ -170,10 +164,6 @@ def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=
       Device firmware version
     timestamp : float
       Start time, in epoch
-    org_id : str
-      Org id
-    site_id : str
-      Site id
     mac : str
       MAC address        
     
@@ -193,8 +183,6 @@ def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=
     if model: query_params["model"]=model
     if version: query_params["version"]=version
     if timestamp: query_params["timestamp"]=timestamp
-    if org_id: query_params["org_id"]=org_id
-    if site_id: query_params["site_id"]=site_id
     if mac: query_params["mac"]=mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type", last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, org_id:str=None, site_id:str=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type", last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, site_id:str=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgNacClients
     
@@ -49,8 +49,6 @@ def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type"
       Username presented by the client
     timestamp : float
       start time, in epoch
-    org_id : str
-      org id
     site_id : str
       site id if assigned, null if not assigned
     last_ap : str
@@ -88,7 +86,6 @@ def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type"
     if last_ssid: query_params["last_ssid"]=last_ssid
     if last_username: query_params["last_username"]=last_username
     if timestamp: query_params["timestamp"]=timestamp
-    if org_id: query_params["org_id"]=org_id
     if site_id: query_params["site_id"]=site_id
     if last_ap: query_params["last_ap"]=last_ap
     if mac: query_params["mac"]=mac
@@ -235,7 +232,7 @@ def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgNacClients(mist_session:_APISession, org_id:str, last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, org_id:str=None, site_id:str=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgNacClients(mist_session:_APISession, org_id:str, last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, site_id:str=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgNacClients
     
@@ -268,8 +265,6 @@ def searchOrgNacClients(mist_session:_APISession, org_id:str, last_nacrule_id:st
       Username presented by the client
     timestamp : float
       start time, in epoch
-    org_id : str
-      org id
     site_id : str
       site id if assigned, null if not assigned
     last_ap : str
@@ -306,7 +301,6 @@ def searchOrgNacClients(mist_session:_APISession, org_id:str, last_nacrule_id:st
     if last_ssid: query_params["last_ssid"]=last_ssid
     if last_username: query_params["last_username"]=last_username
     if timestamp: query_params["timestamp"]=timestamp
-    if org_id: query_params["org_id"]=org_id
     if site_id: query_params["site_id"]=site_id
     if last_ap: query_params["last_ap"]=last_ap
     if mac: query_params["mac"]=mac
