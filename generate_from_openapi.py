@@ -1,9 +1,7 @@
-import json
-import yaml
 import os
 import shutil
-import re
 import sys
+import yaml
 
 openapi_file = "./mist_openapi/mist.openapi.yml"
 openapi_json = None
@@ -274,7 +272,7 @@ def _create_get_deprecated_list(operation_id: str, endpoint_path: str, path_para
     old_operation_id = operation_id.replace("list", "get", 1 )
 
     code = f"""
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="{version}", details="function replaced with {operation_id}")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="{version}", details="function replaced with {operation_id}")
 def {old_operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
 {code_desc}
     uri = f"{endpoint_path}"{code_query}
@@ -311,8 +309,10 @@ def {old_operation_id}(mist_session:_APISession{code_path_params}{code_query_par
         f.write(code)
 
 def _create_get(operation_id: str, endpoint_path: str, path_params: list, query_params: list, folder_path: str, file_name: str):
-    if operation_id.startswith("list"): _create_get_deprecated_list(operation_id, endpoint_path, path_params, query_params, folder_path, file_name)
-    if operation_id.startswith("DeviceEvents"): _create_get_deprecated_device_events(operation_id, endpoint_path, path_params, query_params, folder_path, file_name)
+    if operation_id.startswith("list"):
+        _create_get_deprecated_list(operation_id, endpoint_path, path_params, query_params, folder_path, file_name)
+    if operation_id.startswith("DeviceEvents"):
+        _create_get_deprecated_device_events(operation_id, endpoint_path, path_params, query_params, folder_path, file_name)
     code_path_params, desc_path_params = _gen_code_params(
         path_params, operation_id)
     code_query_params, desc_query_params = _gen_code_params(
@@ -400,19 +400,19 @@ def _process_multipart_json(properties:dict) -> dict:
         property_enum = properties[key].get("enum", None)
         property_childs = None
         match properties[key].get("type"):
-            case "boolean": 
+            case "boolean":
                 property_type = "bool"
-            case "string": 
+            case "string":
                 property_type = "str"
-            case "integer": 
+            case "integer":
                 property_type = "int"
-            case "number": 
+            case "number":
                 property_type = "float"
-            case "array": 
+            case "array":
                 property_type = "list"
-            case "binary": 
+            case "binary":
                 property_type = "str"
-            case "object": 
+            case "object":
                 property_type = "dict"
                 if properties[key].get("properties"):
                     property_childs = _process_multipart_json(properties[key]["properties"])
@@ -433,8 +433,8 @@ def _create_post_file(operation_id: str, endpoint_path: str, path_params: list, 
 
     code = f"""
 def {operation_id}File(mist_session:_APISession{code_path_params}"""
-    for key in multipart_form_data:
-        code += f", {key}:{multipart_form_data[key]['property_type']}=None"
+    for key, value in multipart_form_data.items():
+        code += f", {key}:{value['property_type']}=None"
     code +=") -> _APIResponse:"
     code += f"""
 {code_desc}

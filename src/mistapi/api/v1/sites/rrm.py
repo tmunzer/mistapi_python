@@ -63,7 +63,7 @@ def getSiteCurrentRrmConsiderations(mist_session:_APISession, site_id:str, devic
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, device_id:str, band:str, band:str) -> _APIResponse:
+def getSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, device_id:str, band:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentRrmNeighbors
     
@@ -75,9 +75,7 @@ def getSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, device_id:
     PATH PARAMS
     -----------
     site_id : str
-    device_id : str
-    band : str{'24', '5', '6'}
-      802.11 Band        
+    device_id : str        
     
     QUERY PARAMS
     ------------

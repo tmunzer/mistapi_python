@@ -14,8 +14,8 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgUserMacs")  
-def getOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None, for:bool=None, page:int=1, limit:int=100) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.3", details="function replaced with listOrgUserMacs")
+def getOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None, for_guest_wifi:bool=None, cross_site:bool=None, site_id:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgUserMacs
     
@@ -31,7 +31,9 @@ def getOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None, 
     QUERY PARAMS
     ------------
     blacklisted : bool
-    for : bool
+    for_guest_wifi : bool
+    cross_site : bool
+    site_id : str
     page : int, default: 1
     limit : int, default: 100        
     
@@ -43,13 +45,15 @@ def getOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None, 
     uri = f"/api/v1/orgs/{org_id}/usermacs"
     query_params={}
     if blacklisted: query_params["blacklisted"]=blacklisted
-    if for: query_params["for"]=for
+    if for_guest_wifi: query_params["for_guest_wifi"]=for_guest_wifi
+    if cross_site: query_params["cross_site"]=cross_site
+    if site_id: query_params["site_id"]=site_id
     if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None, for:bool=None, page:int=1, limit:int=100) -> _APIResponse:
+def listOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None, for_guest_wifi:bool=None, cross_site:bool=None, site_id:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgUserMacs
     
@@ -65,7 +69,9 @@ def listOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None,
     QUERY PARAMS
     ------------
     blacklisted : bool
-    for : bool
+    for_guest_wifi : bool
+    cross_site : bool
+    site_id : str
     page : int, default: 1
     limit : int, default: 100        
     
@@ -77,7 +83,9 @@ def listOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None,
     uri = f"/api/v1/orgs/{org_id}/usermacs"
     query_params={}
     if blacklisted: query_params["blacklisted"]=blacklisted
-    if for: query_params["for"]=for
+    if for_guest_wifi: query_params["for_guest_wifi"]=for_guest_wifi
+    if cross_site: query_params["cross_site"]=cross_site
+    if site_id: query_params["site_id"]=site_id
     if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
