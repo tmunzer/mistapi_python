@@ -71,7 +71,6 @@ def getOrgSle(mist_session:_APISession, org_id:str, metric:str, sle:str=None, du
     QUERY PARAMS
     ------------
     sle : str
-      see [listInsightMetrics](/#operation/listInsightMetrics) for more details
     duration : str, default: 1d
     interval : str
     start : int

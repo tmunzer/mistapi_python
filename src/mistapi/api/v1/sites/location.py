@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:str=None, type:str="sdkclient", duration:str="1h", resolution:str="default", client_type:str=None, start:int=None, end:int=None) -> _APIResponse:
+def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:str=None, type:str=None, client_type:str=None, duration:str="1d", resolution:str="default", start:int=None, end:int=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteBeamCoverageOverview
     
@@ -30,13 +30,10 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     QUERY PARAMS
     ------------
     map_id : str
-      map_id (filter by map_id)
-    type : str{'sdkclient', 'client', 'asset'}, default: sdkclient
-    duration : str{'1d', '5h', '1h', '30m'}, default: 1h
-      where the start time will be calculated (with end time is now)
-    resolution : str{'default', 'fine'}, default: default
+    type : str{'sdkclient', 'client', 'asset'}
     client_type : str
-      client_type (as filter. optional)
+    duration : str, default: 1d
+    resolution : str{'default', 'fine'}, default: default
     start : int
     end : int        
     
@@ -49,9 +46,9 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     query_params={}
     if map_id: query_params["map_id"]=map_id
     if type: query_params["type"]=type
+    if client_type: query_params["client_type"]=client_type
     if duration: query_params["duration"]=duration
     if resolution: query_params["resolution"]=resolution
-    if client_type: query_params["client_type"]=client_type
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     resp = mist_session.mist_get(uri=uri, query=query_params)
@@ -72,8 +69,7 @@ def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map
     
     QUERY PARAMS
     ------------
-    map_id : str
-      map_id (as filter, optional)        
+    map_id : str        
     
     RETURN
     -----------

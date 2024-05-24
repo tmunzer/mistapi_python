@@ -53,13 +53,9 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     QUERY PARAMS
     ------------
     distinct : str{'ap', 'wcid', 'ssid', 'wlan_id app', 'device_mac', 'src_ip', 'port_id', 'app', 'category', 'service'}
-      Default for wireless devices is `ap`. Default for wired devices is `device_mac`
     device_mac : str
-      MAC of the device
     app : str
-      Application name
-    wired : str
-      If a device is wired or wireless. Default is False.        
+    wired : str        
     
     RETURN
     -----------
@@ -75,7 +71,7 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSiteAssetsStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteAssetsStats")  
 def getSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteAssetsStats
@@ -270,7 +266,7 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSiteBeaconsStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteBeaconsStats")  
 def getSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteBeaconsStats
@@ -413,11 +409,8 @@ def troubleshootSiteCall(mist_session:_APISession, site_id:str, client_mac:str, 
     QUERY PARAMS
     ------------
     meeting_id : str
-      meeting_id
     mac : str
-      device identifier
     app : str
-      Third party app name
     start : int
     end : int
     duration : str, default: 1d
@@ -459,7 +452,6 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", r
     ------------
     distrinct : str{'mac'}, default: mac
     rating : int
-      feedback rating (e.g. "rating=1" or "rating=1,2")
     app : str
     start : str
     end : str        
@@ -495,9 +487,7 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     QUERY PARAMS
     ------------
     mac : str
-      device identifier
     app : str
-      Third party app name
     limit : int, default: 100
     start : int
     end : int
@@ -519,7 +509,94 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSiteWirelessClientsStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteTroubleshootCalls")  
+def getSiteTroubleshootCalls(mist_session:_APISession, site_id:str, client_mac:str, meeting_id:str, mac:str=None, app:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listSiteTroubleshootCalls
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    client_mac : str        
+    
+    QUERY PARAMS
+    ------------
+    meeting_id : str
+    mac : str
+    app : str
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/stats/calls/troubleshoot"
+    query_params={}
+    if meeting_id: query_params["meeting_id"]=meeting_id
+    if mac: query_params["mac"]=mac
+    if app: query_params["app"]=app
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, client_mac:str, meeting_id:str, mac:str=None, app:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listSiteTroubleshootCalls
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    client_mac : str        
+    
+    QUERY PARAMS
+    ------------
+    meeting_id : str
+    mac : str
+    app : str
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/stats/calls/troubleshoot"
+    query_params={}
+    if meeting_id: query_params["meeting_id"]=meeting_id
+    if mac: query_params["mac"]=mac
+    if app: query_params["app"]=app
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteWirelessClientsStats")  
 def getSiteWirelessClientsStats(mist_session:_APISession, site_id:str, wired:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteWirelessClientsStats
@@ -621,7 +698,7 @@ def getSiteWirelessClientStats(mist_session:_APISession, site_id:str, client_mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSiteDevicesStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteDevicesStats")  
 def getSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", status:str="all", page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDevicesStats
@@ -738,7 +815,7 @@ def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSiteDiscoveredAssets")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteDiscoveredAssets")  
 def getSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDiscoveredAssets
@@ -827,9 +904,7 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     QUERY PARAMS
     ------------
     scope : str{'site', 'switch'}, default: site
-      metric scope, optional
     type : str{'inactive_wired_vlans', 'switch_ap_affinity', 'poe_compliance', 'version_compliance'}
-      metric type, inactive_wired_vlans/switch_ap_affinity/poe_compliance/version_compliance, optional
     limit : int, default: 100
     start : int
     end : int
@@ -905,9 +980,7 @@ def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, thre
     QUERY PARAMS
     ------------
     threshold : str
-      configurable # ap per switch threshold, default 12
-    system_name : str
-      system name for switch level metrics, optional        
+    system_name : str        
     
     RETURN
     -----------
@@ -1111,7 +1184,7 @@ def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSiteUnconnectedClientStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteUnconnectedClientStats")  
 def getSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteUnconnectedClientStats
@@ -1160,7 +1233,7 @@ def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSiteMxEdgesStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteMxEdgesStats")  
 def getSiteMxEdgesStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMxEdgesStats
@@ -1282,57 +1355,31 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     QUERY PARAMS
     ------------
     distinct : str{'port_id', 'port_mac', 'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'speed', 'up'}, default: mac
-      port_id, port_mac, full_duplex, mac, neighbor_macneighbor_port_desc, neighbor_system_name, poe_disabled, poe_mode, poe_on, speed, up
     full_duplex : bool
-      indicates full or half duplex
     mac : str
-      device identifier
     neighbor_mac : str
-      Chassis identifier of the chassis type listed
     neighbor_port_desc : str
-      Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
     neighbor_system_name : str
-      Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
     poe_disabled : bool
-      is the POE configured not be disabled.
     poe_mode : str
-      poe mode depending on class E.g. “802.3at”
     poe_on : bool
-      is the device attached to POE
     port_id : str
-      interface name
     port_mac : str
-      interface mac address
     power_draw : float
-      Amount of power being used by the interface at the time the command is executed. Unit in watts.
     tx_pkts : int
-      Output packets
     rx_pkts : int
-      Input packets
     rx_bytes : int
-      Input bytes
     tx_bps : int
-      Output rate
     rx_bps : int
-      Input rate
     tx_mcast_pkts : int
-      Multicast output packets
     tx_bcast_pkts : int
-      Broadcast output packets
     rx_mcast_pkts : int
-      Multicast input packets
     rx_bcast_pkts : int
-      Broadcast input packets
     speed : int
-      port speed
     stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
-      if `up`==`true`
     stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
-      if `up`==`true`
     auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
-      if `up`==`true` && has Authenticator role
     up : bool
-      indicates if interface is up
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -1380,7 +1427,7 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, type:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, active:bool=None, jitter:float=None, loss:float=None, latency:float=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, lte_imsi:str=None, lte_iccid:str=None, lte_imei:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, device_type:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, active:bool=None, jitter:float=None, loss:float=None, latency:float=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, lte_imsi:str=None, lte_iccid:str=None, lte_imei:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSwOrGwPorts
     
@@ -1396,81 +1443,43 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     QUERY PARAMS
     ------------
     full_duplex : bool
-      indicates full or half duplex
     mac : str
-      device identifier
-    type : str{'ap', 'ble', 'switch', 'gateway', 'mxedge', 'nac'}
-      device type
+    device_type : str{'ap', 'ble', 'switch', 'gateway', 'mxedge', 'nac'}
     neighbor_mac : str
-      Chassis identifier of the chassis type listed
     neighbor_port_desc : str
-      Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
     neighbor_system_name : str
-      Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
     poe_disabled : bool
-      is the POE configured not be disabled.
     poe_mode : str
-      poe mode depending on class E.g. “802.3at”
     poe_on : bool
-      is the device attached to POE
     port_id : str
-      interface name
     port_mac : str
-      interface mac address
     power_draw : float
-      Amount of power being used by the interface at the time the command is executed. Unit in watts.
     tx_pkts : int
-      Output packets
     rx_pkts : int
-      Input packets
     rx_bytes : int
-      Input bytes
     tx_bps : int
-      Output rate
     rx_bps : int
-      Input rate
     tx_errors : int
-      Output errors
     rx_errors : int
-      Input errors
     tx_mcast_pkts : int
-      Multicast output packets
     tx_bcast_pkts : int
-      Broadcast output packets
     rx_mcast_pkts : int
-      Multicast input packets
     rx_bcast_pkts : int
-      Broadcast input packets
     speed : int
-      port speed
     mac_limit : int
-      Limit on number of dynamically learned macs
     mac_count : int
-      Number of mac addresses in the forwarding table
     up : bool
-      indicates if interface is up
     active : bool
-      indicates if interface is active/inactive
     jitter : float
-      Last sampled jitter of the interface
     loss : float
-      Last sampled loss of the interface
     latency : float
-      Last sampled latency of the interface
     stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
-      if `up`==`true`
     stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
-      if `up`==`true`
     xcvr_part_number : str
-      Optic Slot Partnumber, Check for null/empty
     auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
-      if `up`==`true` && has Authenticator role
     lte_imsi : str
-      LTE IMSI value, Check for null/empty
     lte_iccid : str
-      LTE ICCID value, Check for null/empty
     lte_imei : str
-      LTE IMEI value, Check for null/empty
     limit : int, default: 100
     start : int
     end : int
@@ -1485,7 +1494,7 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     query_params={}
     if full_duplex: query_params["full_duplex"]=full_duplex
     if mac: query_params["mac"]=mac
-    if type: query_params["type"]=type
+    if device_type: query_params["device_type"]=device_type
     if neighbor_mac: query_params["neighbor_mac"]=neighbor_mac
     if neighbor_port_desc: query_params["neighbor_port_desc"]=neighbor_port_desc
     if neighbor_system_name: query_params["neighbor_system_name"]=neighbor_system_name
@@ -1568,57 +1577,31 @@ def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     QUERY PARAMS
     ------------
     distinct : str{'port_id', 'port_mac', 'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'speed', 'up'}, default: mac
-      port_id, port_mac, full_duplex, mac, neighbor_macneighbor_port_desc, neighbor_system_name, poe_disabled, poe_mode, poe_on, speed, up
     full_duplex : bool
-      indicates full or half duplex
     mac : str
-      device identifier
     neighbor_mac : str
-      Chassis identifier of the chassis type listed
     neighbor_port_desc : str
-      Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
     neighbor_system_name : str
-      Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
     poe_disabled : bool
-      is the POE configured not be disabled.
     poe_mode : str
-      poe mode depending on class E.g. “802.3at”
     poe_on : bool
-      is the device attached to POE
     port_id : str
-      interface name
     port_mac : str
-      interface mac address
     power_draw : float
-      Amount of power being used by the interface at the time the command is executed. Unit in watts.
     tx_pkts : int
-      Output packets
     rx_pkts : int
-      Input packets
     rx_bytes : int
-      Input bytes
     tx_bps : int
-      Output rate
     rx_bps : int
-      Input rate
     tx_mcast_pkts : int
-      Multicast output packets
     tx_bcast_pkts : int
-      Broadcast output packets
     rx_mcast_pkts : int
-      Multicast input packets
     rx_bcast_pkts : int
-      Broadcast input packets
     speed : int
-      port speed
     stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
-      if `up`==`true`
     stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
-      if `up`==`true`
     auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
-      if `up`==`true`
     up : bool
-      indicates if interface is up
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -1682,55 +1665,30 @@ def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     QUERY PARAMS
     ------------
     full_duplex : bool
-      indicates full or half duplex
     mac : str
-      device identifier
     neighbor_mac : str
-      Chassis identifier of the chassis type listed
     neighbor_port_desc : str
-      Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
     neighbor_system_name : str
-      Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
     poe_disabled : bool
-      is the POE configured not be disabled.
     poe_mode : str
-      poe mode depending on class E.g. “802.3at”
     poe_on : bool
-      is the device attached to POE
     port_id : str
-      interface name
     port_mac : str
-      interface mac address
     power_draw : float
-      Amount of power being used by the interface at the time the command is executed. Unit in watts.
     tx_pkts : int
-      Output packets
     rx_pkts : int
-      Input packets
     rx_bytes : int
-      Input bytes
     tx_bps : int
-      Output rate
     rx_bps : int
-      Input rate
     tx_mcast_pkts : int
-      Multicast output packets
     tx_bcast_pkts : int
-      Broadcast output packets
     rx_mcast_pkts : int
-      Multicast input packets
     rx_bcast_pkts : int
-      Broadcast input packets
     speed : int
-      port speed
     stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
-      if `up`==`true`
     stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
-      if `up`==`true`
     auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
-      if `up`==`true` && has Authenticator role
     up : bool
-      indicates if interface is up
     limit : int, default: 100
     start : int
     end : int
@@ -1792,8 +1750,7 @@ def getSiteSwitchesMetrics(mist_session:_APISession, site_id:str, type:str=None,
     ------------
     type : str{'active_ports_summary'}
     scope : str{'site', 'switch'}
-    switch_mac : str
-      switch mac, used only with metric `type`==`active_ports_summary`        
+    switch_mac : str        
     
     RETURN
     -----------
@@ -1831,7 +1788,7 @@ def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSiteZonesStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteZonesStats")  
 def getSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteZonesStats

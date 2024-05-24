@@ -68,23 +68,14 @@ def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None
     QUERY PARAMS
     ------------
     site_id : str
-      Site ID
     device_mac : str
-      device mac
     mac : str
-      client mac
     port_id : str
-      port id
     vlan : int
-      vlan
     ip : str
-      ip
     manufacture : str
-      client manufacturer
     text : str
-      single entry of hostname/mac
     nacrule_id : str
-      nacrule_id
     limit : int, default: 100
     start : int
     end : int

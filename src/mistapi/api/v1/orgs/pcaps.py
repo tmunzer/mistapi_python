@@ -14,56 +14,10 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgGuestAuthorizations")  
-def getOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgPacketCaptures")  
+def getOrgPacketCaptures(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgGuestAuthorizations
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/guests"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def listOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgGuestAuthorizations
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/guests"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:str="auth_method", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgGuestAuthorizations
+    API doc: https://doc.mist-lab.fr/#operation/listOrgPacketCaptures
     
     PARAMS
     -----------
@@ -76,7 +30,6 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     
     QUERY PARAMS
     ------------
-    distinct : str{'auth_method', 'ssid', 'company'}, default: auth_method
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -88,9 +41,8 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/guests/count"
+    uri = f"/api/v1/orgs/{org_id}/pcaps"
     query_params={}
-    if distinct: query_params["distinct"]=distinct
     if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
@@ -99,9 +51,9 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def listOrgPacketCaptures(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgGuestAuthorization
+    API doc: https://doc.mist-lab.fr/#operation/listOrgPacketCaptures
     
     PARAMS
     -----------
@@ -114,9 +66,7 @@ def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:st
     
     QUERY PARAMS
     ------------
-    wlan_id : str
-    auth_method : str
-    ssid : str
+    page : int, default: 1
     limit : int, default: 100
     start : int
     end : int
@@ -127,11 +77,9 @@ def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:st
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/guests/search"
+    uri = f"/api/v1/orgs/{org_id}/pcaps"
     query_params={}
-    if wlan_id: query_params["wlan_id"]=wlan_id
-    if auth_method: query_params["auth_method"]=auth_method
-    if ssid: query_params["ssid"]=ssid
+    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -139,9 +87,9 @@ def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str) -> _APIResponse:
+def getOrgCapturingStatus(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgGuestAuthorization
+    API doc: https://doc.mist-lab.fr/#operation/getOrgCapturingStatus
     
     PARAMS
     -----------
@@ -150,22 +98,21 @@ def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str
     
     PATH PARAMS
     -----------
-    org_id : str
-    guest_mac : str        
+    org_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/guests/{guest_mac}"
+    uri = f"/api/v1/orgs/{org_id}/pcaps/capture"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str) -> _APIResponse:
+def stopOrgPacketCapture(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgGuestAuthorization
+    API doc: https://doc.mist-lab.fr/#operation/stopOrgPacketCapture
     
     PARAMS
     -----------
@@ -174,22 +121,21 @@ def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     
     PATH PARAMS
     -----------
-    org_id : str
-    guest_mac : str        
+    org_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/guests/{guest_mac}"
+    uri = f"/api/v1/orgs/{org_id}/pcaps/capture"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str, body:object) -> _APIResponse:
+def startOrgPacketCapture(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgGuestAuthorization
+    API doc: https://doc.mist-lab.fr/#operation/startOrgPacketCapture
     
     PARAMS
     -----------
@@ -198,8 +144,7 @@ def updateOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     
     PATH PARAMS
     -----------
-    org_id : str
-    guest_mac : str        
+    org_id : str        
     
     BODY PARAMS
     -----------
@@ -211,7 +156,7 @@ def updateOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/guests/{guest_mac}"
-    resp = mist_session.mist_put(uri=uri, body=body)
+    uri = f"/api/v1/orgs/{org_id}/pcaps/capture"
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     

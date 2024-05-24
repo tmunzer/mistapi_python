@@ -18,7 +18,6 @@ from mistapi.api.v1.sites import aptemplates
 from mistapi.api.v1.sites import assetfilters
 from mistapi.api.v1.sites import assets
 from mistapi.api.v1.sites import beacons
-from mistapi.api.v1.sites import call
 from mistapi.api.v1.sites import clients
 from mistapi.api.v1.sites import deviceprofiles
 from mistapi.api.v1.sites import devices

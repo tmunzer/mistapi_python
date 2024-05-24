@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listOrgWebhooks")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgWebhooks")  
 def getOrgWebhooks(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgWebhooks
@@ -178,7 +178,7 @@ def updateOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str, body:
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:str, site_id:str=None, error:str=None, status_code:int=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:str, site_id:str=None, error:str=None, status_code:int=None, status:str=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgWebhooksDeliveries
     
@@ -197,7 +197,8 @@ def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id
     site_id : str
     error : str
     status_code : int
-    topic : str{'alarms', 'audits', 'device-updowns', 'ping'}
+    status : str{'success', 'failure'}
+    topic : str{'alarms', 'audits', 'device-updowns', 'occupancy-alerts', 'ping'}
       webhook topic
     start : int
     end : int
@@ -214,6 +215,7 @@ def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id
     if site_id: query_params["site_id"]=site_id
     if error: query_params["error"]=error
     if status_code: query_params["status_code"]=status_code
+    if status: query_params["status"]=status
     if topic: query_params["topic"]=topic
     if start: query_params["start"]=start
     if end: query_params["end"]=end

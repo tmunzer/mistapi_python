@@ -578,13 +578,11 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str
-      OAuth application name        
+    app_name : str{'zoom', 'teams', 'intune', 'jamf', 'vmware'}        
     
     QUERY PARAMS
     ------------
-    forward : str
-      Mist portal url to which backend needs to redirect after succesful OAuth authorization. **Required** to get the `authorization_url`        
+    forward : str        
     
     RETURN
     -----------
@@ -595,31 +593,6 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     query_params={}
     if forward: query_params["forward"]=forward
     resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_name:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgOauthAppAuthorization
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str
-    app_name : str
-      OAuth application name        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts"
-    query_params={}
-    resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
 def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, body:object) -> _APIResponse:
@@ -634,8 +607,7 @@ def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, b
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str
-      OAuth application name        
+    app_name : str{'zoom', 'teams', 'intune', 'jamf', 'vmware'}        
     
     BODY PARAMS
     -----------
@@ -663,8 +635,7 @@ def updateOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str
-      OAuth application name        
+    app_name : str{'zoom', 'teams', 'intune', 'jamf', 'vmware'}        
     
     BODY PARAMS
     -----------
@@ -678,5 +649,30 @@ def updateOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str
     """
     uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts"
     resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+    
+def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_name:str, account_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgOauthAppAuthorization
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    app_name : str{'zoom', 'teams', 'intune', 'jamf', 'vmware'}
+    account_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts/{account_id}"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     

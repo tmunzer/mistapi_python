@@ -14,66 +14,42 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countOrgCallEvents(mist_session:_APISession, org_id:str, distinct:str=None) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listAppCategoryDefinitions")  
+def getAppCategoryDefinitions(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgCallEvents
+    API doc: https://doc.mist-lab.fr/#operation/listAppCategoryDefinitions
     
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
     
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    distinct : str{'type', 'app'}        
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/call/events/count"
+    uri = f"/api/v1/const/app_categories"
     query_params={}
-    if distinct: query_params["distinct"]=distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgCallEvents(mist_session:_APISession, org_id:str, type:str=None, ap:str=None, mac:str=None, app:str=None) -> _APIResponse:
+def listAppCategoryDefinitions(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgCallEvents
+    API doc: https://doc.mist-lab.fr/#operation/listAppCategoryDefinitions
     
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
     
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    type : str
-      Event Type. See [listCallEventsDefinitions](/#operation/listCallEventsDefinitions)
-    ap : str
-    mac : str
-    app : str        
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/call/events/search"
+    uri = f"/api/v1/const/app_categories"
     query_params={}
-    if type: query_params["type"]=type
-    if ap: query_params["ap"]=ap
-    if mac: query_params["mac"]=mac
-    if app: query_params["app"]=app
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

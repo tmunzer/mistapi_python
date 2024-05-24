@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOAuth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, forward:str=None) -> _APIResponse:
+def getOauth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, forward:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOAuth2AuthorizationUrlForLogin
+    API doc: https://doc.mist-lab.fr/#operation/getOauth2AuthorizationUrlForLogin
     
     PARAMS
     -----------
@@ -42,9 +42,9 @@ def getOAuth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, fo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def unlinkOAuth2Provider(mist_session:_APISession, provider:str) -> _APIResponse:
+def unlinkOauth2Provider(mist_session:_APISession, provider:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unlinkOAuth2Provider
+    API doc: https://doc.mist-lab.fr/#operation/unlinkOauth2Provider
     
     PARAMS
     -----------
@@ -65,9 +65,9 @@ def unlinkOAuth2Provider(mist_session:_APISession, provider:str) -> _APIResponse
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def loginOAuth2(mist_session:_APISession, provider:str, body:object) -> _APIResponse:
+def loginOauth2(mist_session:_APISession, provider:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/loginOAuth2
+    API doc: https://doc.mist-lab.fr/#operation/loginOauth2
     
     PARAMS
     -----------

@@ -19,7 +19,6 @@ from mistapi.api.v1.orgs import apitokens
 from mistapi.api.v1.orgs import aptemplates
 from mistapi.api.v1.orgs import assetfilters
 from mistapi.api.v1.orgs import assets
-from mistapi.api.v1.orgs import call
 from mistapi.api.v1.orgs import cert
 from mistapi.api.v1.orgs import claim
 from mistapi.api.v1.orgs import clients
@@ -43,12 +42,14 @@ from mistapi.api.v1.orgs import mxclusters
 from mistapi.api.v1.orgs import mxedges
 from mistapi.api.v1.orgs import mxtunnels
 from mistapi.api.v1.orgs import nac_clients
+from mistapi.api.v1.orgs import nacportals
 from mistapi.api.v1.orgs import nacrules
 from mistapi.api.v1.orgs import nactags
 from mistapi.api.v1.orgs import networks
 from mistapi.api.v1.orgs import networktemplates
 from mistapi.api.v1.orgs import ocdevices
 from mistapi.api.v1.orgs import otherdevices
+from mistapi.api.v1.orgs import pcaps
 from mistapi.api.v1.orgs import pma
 from mistapi.api.v1.orgs import pskportals
 from mistapi.api.v1.orgs import psks
@@ -70,6 +71,7 @@ from mistapi.api.v1.orgs import subscriptions
 from mistapi.api.v1.orgs import templates
 from mistapi.api.v1.orgs import tickets
 from mistapi.api.v1.orgs import troubleshoot
+from mistapi.api.v1.orgs import usermacs
 from mistapi.api.v1.orgs import vars
 from mistapi.api.v1.orgs import vpns
 from mistapi.api.v1.orgs import wan_client

@@ -31,13 +31,9 @@ def countSiteWiredClients(mist_session:_APISession, site_id:str, distinct:str="m
     ------------
     distinct : str{'port_id', 'vlan', 'mac'}, default: mac
     mac : str
-      client mac
     device_mac : str
-      device mac
     port_id : str
-      port id
     vlan : str
-      vlan
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -80,21 +76,13 @@ def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str
     QUERY PARAMS
     ------------
     device_mac : str
-      device mac
     mac : str
-      client mac
     ip : str
-      client ip
     port_id : str
-      port id
     vlan : str
-      vlan
     manufacture : str
-      manufacture
     text : str
-      single entry of hostname/mac
     nacrule_id : str
-      nacrule_id
     limit : int, default: 100
     start : int
     end : int

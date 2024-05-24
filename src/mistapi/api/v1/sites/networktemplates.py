@@ -29,8 +29,7 @@ def getSiteNetworkTemplateDerived(mist_session:_APISession, site_id:str, resolve
     
     QUERY PARAMS
     ------------
-    resolve : bool
-      whether resolve the site variables        
+    resolve : bool        
     
     RETURN
     -----------

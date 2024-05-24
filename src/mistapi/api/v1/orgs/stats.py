@@ -50,7 +50,7 @@ def getOrgStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listOrgAssetsStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgAssetsStats")  
 def getOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgAssetsStats
@@ -259,7 +259,7 @@ def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listOrgDevicesStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgDevicesStats")  
 def getOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None, fields:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDevicesStats
@@ -280,9 +280,7 @@ def getOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", stat
     site_id : str
     mac : str
     evpntopo_id : str
-      EVPN Topology ID
     evpn_unused : str
-      if `evpn_unused`==`true`, find EVPN eligible switches which don’t belong to any EVPN Topology yet
     fields : str
     page : int, default: 1
     limit : int, default: 100
@@ -332,9 +330,7 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", sta
     site_id : str
     mac : str
     evpntopo_id : str
-      EVPN Topology ID
     evpn_unused : str
-      if `evpn_unused`==`true`, find EVPN eligible switches which don’t belong to any EVPN Topology yet
     fields : str
     page : int, default: 1
     limit : int, default: 100
@@ -364,7 +360,7 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", sta
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listOrgMxEdgesStats")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgMxEdgesStats")  
 def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:str="false") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdgesStats
@@ -385,8 +381,7 @@ def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     start : int
     end : int
     duration : str, default: 1d
-    for_site : str{'true', 'false', 'any'}, default: false
-      filter for site level mist edges        
+    for_site : str{'true', 'false', 'any'}, default: false        
     
     RETURN
     -----------
@@ -424,8 +419,7 @@ def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:
     start : int
     end : int
     duration : str, default: 1d
-    for_site : str{'true', 'false', 'any'}, default: false
-      filter for site level mist edges        
+    for_site : str{'true', 'false', 'any'}, default: false        
     
     RETURN
     -----------
@@ -507,63 +501,34 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     QUERY PARAMS
     ------------
     full_duplex : bool
-      indicates full or half duplex
     mac : str
-      device identifier
     neighbor_mac : str
-      Chassis identifier of the chassis type listed
     neighbor_port_desc : str
-      Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
     neighbor_system_name : str
-      Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
     poe_disabled : bool
-      is the POE configured not be disabled.
     poe_mode : str
-      poe mode depending on class E.g. “802.3at”
     poe_on : bool
-      is the device attached to POE
     port_id : str
-      interface name
     port_mac : str
-      interface mac address
     power_draw : float
-      Amount of power being used by the interface at the time the command is executed. Unit in watts.
     tx_pkts : int
-      Output packets
     rx_pkts : int
-      Input packets
     rx_bytes : int
-      Input bytes
     tx_bps : int
-      Output rate
     rx_bps : int
-      Input rate
     tx_errors : int
-      Output errors
     rx_errors : int
-      Input errors
     tx_mcast_pkts : int
-      Multicast output packets
     tx_bcast_pkts : int
-      Broadcast output packets
     rx_mcast_pkts : int
-      Multicast input packets
     rx_bcast_pkts : int
-      Broadcast input packets
     speed : int
-      port speed
     mac_limit : int
-      Limit on number of dynamically learned macs
     mac_count : int
-      Number of mac addresses in the forwarding table
     up : bool
-      indicates if interface is up
     stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
-      if `up`==`true`
     stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
-      if `up`==`true`
     auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
-      if `up`==`true` && has Authenticator role
     limit : int, default: 100
     start : int
     end : int
@@ -628,57 +593,31 @@ def countOrgSwitchPorts(mist_session:_APISession, org_id:str, distinct:str="mac"
     QUERY PARAMS
     ------------
     distinct : str{'port_id', 'port_mac', 'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'speed', 'up'}, default: mac
-      port_id, port_mac, full_duplex, mac, neighbor_macneighbor_port_desc, neighbor_system_name, poe_disabled, poe_mode, poe_on, speed, up
     full_duplex : bool
-      indicates full or half duplex
     mac : str
-      device identifier
     neighbor_mac : str
-      Chassis identifier of the chassis type listed
     neighbor_port_desc : str
-      Description supplied by the system on the interface E.g. “GigabitEthernet2/0/39”
     neighbor_system_name : str
-      Name supplied by the system on the interface E.g. neighbor system name E.g. “Kumar-Acc-SW.mist.local”
     poe_disabled : bool
-      is the POE configured not be disabled.
     poe_mode : str
-      poe mode depending on class E.g. “802.3at”
     poe_on : bool
-      is the device attached to POE
     port_id : str
-      interface name
     port_mac : str
-      interface mac address
     power_draw : float
-      Amount of power being used by the interface at the time the command is executed. Unit in watts.
     tx_pkts : int
-      Output packets
     rx_pkts : int
-      Input packets
     rx_bytes : int
-      Input bytes
     tx_bps : int
-      Output rate
     rx_bps : int
-      Input rate
     tx_mcast_pkts : int
-      Multicast output packets
     tx_bcast_pkts : int
-      Broadcast output packets
     rx_mcast_pkts : int
-      Multicast input packets
     rx_bcast_pkts : int
-      Broadcast input packets
     speed : int
-      port speed
     stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
-      if `up`==`true`
     stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
-      if `up`==`true`
     auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
-      if `up`==`true`
     up : bool
-      indicates if interface is up
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -726,7 +665,7 @@ def countOrgSwitchPorts(mist_session:_APISession, org_id:str, distinct:str="mac"
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str=None, type:str="wxtunnel") -> _APIResponse:
+def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str="wxtunnel_id", type:str="wxtunnel") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgTunnelsStats
     
@@ -741,9 +680,7 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str=None
     
     QUERY PARAMS
     ------------
-    distinct : str{'auth_algo'}
-      - If `type`==`wxtunnel`: wxtunnel_id / ap / remote_ip / remote_port / state / mxedge_id / mxcluster_id / site_id / peer_mxedge_id; default is wxtunnel_id 
-- If `type`==`wan`: mac / site_id / node / peer_ip / peer_host/ ip / tunnel_name / protocol / auth_algo / encrypt_algo / ike_version / last_event / up
+    distinct : str{'auth_algo', 'wxtunnel_id', 'ap', 'remote_ip', 'remote_port', 'state', 'mxedge_id', 'mxcluster_id', 'site_id', 'peer_mxedge_id', 'mac', 'node', 'peer_ip', 'peer_host', 'ip', 'tunnel_name', 'protocol', 'encrypt_algo', 'ike_version', 'last_event', 'up'}, default: wxtunnel_id
     type : str{'wxtunnel', 'wan'}, default: wxtunnel        
     
     RETURN
@@ -774,34 +711,20 @@ def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str
     QUERY PARAMS
     ------------
     mxcluster_id : str
-      if `type`==`wxtunnel`
     site_id : str
     wxtunnel_id : str
-      if `type`==`wxtunnel`
     ap : str
-      if `type`==`wxtunnel`
     mac : str
-      if `type`==`wan`
     node : str
-      if `type`==`wan`
     peer_ip : str
-      if `type`==`wan`
     peer_host : str
-      if `type`==`wan`
     ip : str
-      if `type`==`wan`
     tunnel_name : str
-      if `type`==`wan`
     protocol : str
-      if `type`==`wan`
     auth_algo : str
-      if `type`==`wan`
     encrypt_algo : str
-      if `type`==`wan`
     ike_version : str
-      if `type`==`wan`
     up : str
-      if `type`==`wan`
     type : str{'wxtunnel', 'wan'}, default: wxtunnel
     limit : int, default: 100
     start : int

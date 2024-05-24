@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getGatawayDefaultConfig(mist_session:_APISession, model:str, ha:str=None) -> _APIResponse:
+def getGatewayDefaultConfig(mist_session:_APISession, model:str, ha:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getGatawayDefaultConfig
+    API doc: https://doc.mist-lab.fr/#operation/getGatewayDefaultConfig
     
     PARAMS
     -----------
@@ -26,9 +26,7 @@ def getGatawayDefaultConfig(mist_session:_APISession, model:str, ha:str=None) ->
     QUERY PARAMS
     ------------
     model : str
-      model the default gateway config is intended (as the default LAN/WAN port can differ)
-    ha : str
-      whether the config is intended for HA        
+    ha : str        
     
     RETURN
     -----------

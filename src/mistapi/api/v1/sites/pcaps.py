@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSitePacketCaptures")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSitePacketCaptures")  
 def getSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", client_mac:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSitePacketCaptures
@@ -35,8 +35,7 @@ def getSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, lim
     start : int
     end : int
     duration : str, default: 1d
-    client_mac : str
-      optional client mac filter        
+    client_mac : str        
     
     RETURN
     -----------
@@ -74,8 +73,7 @@ def listSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, li
     start : int
     end : int
     duration : str, default: 1d
-    client_mac : str
-      optional client mac filter        
+    client_mac : str        
     
     RETURN
     -----------

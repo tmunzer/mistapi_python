@@ -31,7 +31,6 @@ def getMspSle(mist_session:_APISession, msp_id:str, metric:str, sle:str=None, du
     QUERY PARAMS
     ------------
     sle : str
-      see /api/v1/const/insight_metrics for more details
     duration : str, default: 1d
     interval : str
     start : int

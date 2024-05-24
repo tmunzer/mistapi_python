@@ -37,9 +37,9 @@ def getSiteCurrentChannelPlanning(mist_session:_APISession, site_id:str) -> _API
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteCurrentRrmConsiderationsForAnApOnASpecificBand(mist_session:_APISession, site_id:str, device_id:str, band:str) -> _APIResponse:
+def getSiteCurrentRrmConsiderations(mist_session:_APISession, site_id:str, device_id:str, band:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentRrmConsiderationsForAnApOnASpecificBand
+    API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentRrmConsiderations
     
     PARAMS
     -----------
@@ -50,8 +50,8 @@ def getSiteCurrentRrmConsiderationsForAnApOnASpecificBand(mist_session:_APISessi
     -----------
     site_id : str
     device_id : str
-    band : str
-      radio band        
+    band : str{'24', '5', '6'}
+      802.11 Band        
     
     RETURN
     -----------
@@ -63,7 +63,39 @@ def getSiteCurrentRrmConsiderationsForAnApOnASpecificBand(mist_session:_APISessi
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def getSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, device_id:str, band:str, band:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentRrmNeighbors
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str
+    band : str{'24', '5', '6'}
+      802.11 Band        
+    
+    QUERY PARAMS
+    ------------
+    band : str{'24', '5', '6'}
+      802.11 Band        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/rrm/current/devices/{device_id}/neighbors"
+    query_params={}
+    if band: query_params["band"]=band
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRrmEvents
     
@@ -79,6 +111,7 @@ def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str, page:int=1
     QUERY PARAMS
     ------------
     band : str{'24', '5', '6'}
+      802.11 Band
     page : int, default: 1
     limit : int, default: 100
     start : int

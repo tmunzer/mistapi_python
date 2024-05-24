@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteWanClientEvents(mist_session:_APISession, site_id:str, distinct:str="type") -> _APIResponse:
+def countSiteWanClientEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteWanClientEvents
     
@@ -29,7 +29,12 @@ def countSiteWanClientEvents(mist_session:_APISession, site_id:str, distinct:str
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'hostname', 'ip', 'mfg', 'mac'}, default: type        
+    distinct : str{'type', 'hostname', 'ip', 'mfg', 'mac'}, default: type
+    type : str
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -39,6 +44,11 @@ def countSiteWanClientEvents(mist_session:_APISession, site_id:str, distinct:str
     uri = f"/api/v1/sites/{site_id}/wan_client/events/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
+    if type: query_params["type"]=type
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

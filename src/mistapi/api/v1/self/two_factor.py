@@ -25,8 +25,7 @@ def generateSecretFor2faVerification(mist_session:_APISession, by:str="qrcode") 
     
     QUERY PARAMS
     ------------
-    by : str{'qrcode'}, default: qrcode
-      if `by`==`qrcode`, returns the secret as a qrcode image        
+    by : str{'qrcode'}, default: qrcode        
     
     RETURN
     -----------

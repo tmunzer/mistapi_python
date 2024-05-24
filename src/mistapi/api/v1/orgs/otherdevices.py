@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listOrgOtherDevices")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgOtherDevices")  
 def getOrgOtherDevices(mist_session:_APISession, org_id:str, vendor:str=None, mac:str=None, serial:str=None, model:str=None, name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgOtherDevices
@@ -122,7 +122,7 @@ def updateOrgOtherDevices(mist_session:_APISession, org_id:str, body:object) -> 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def countOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="mac", type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgOtherDeviceEvents
     
@@ -138,11 +138,11 @@ def countOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, distinct:str
     QUERY PARAMS
     ------------
     distinct : str{'mac', 'type', 'vendor', 'site_id'}, default: mac
+    type : str
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -152,15 +152,15 @@ def countOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, distinct:str
     uri = f"/api/v1/orgs/{org_id}/otherdevices/events/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
+    if type: query_params["type"]=type
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, device_mac:str=None, model:str=None, vendor:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, device_mac:str=None, model:str=None, vendor:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgOtherDeviceEvents
     
@@ -176,22 +176,15 @@ def searchOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, site_id:str
     QUERY PARAMS
     ------------
     site_id : str
-      site id
     mac : str
-      mac
     device_mac : str
-      mac of attached device
     model : str
-      device model
     vendor : str
-      vendor name
     type : str
-      event type
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -210,7 +203,6 @@ def searchOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, site_id:str
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

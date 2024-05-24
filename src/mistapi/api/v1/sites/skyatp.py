@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, mac:str=None, device_mac:str=None, threat_level:int=None, ip_address:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, mac:str=None, device_mac:str=None, threat_level:int=None, ip_address:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteSkyatpEvents
     
@@ -31,15 +31,10 @@ def countSiteSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="t
     ------------
     distinct : str{'type', 'mac', 'device_mac', 'threat_level'}, default: type
     type : str
-      event type, e.g. cc, fs, mw
     mac : str
-      client MAC
     device_mac : str
-      device MAC
     threat_level : int
-      threat level
     ip_address : str
-    page : int, default: 1
     limit : int, default: 100
     start : int
     end : int
@@ -58,7 +53,6 @@ def countSiteSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="t
     if device_mac: query_params["device_mac"]=device_mac
     if threat_level: query_params["threat_level"]=threat_level
     if ip_address: query_params["ip_address"]=ip_address
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -82,13 +76,9 @@ def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None,
     QUERY PARAMS
     ------------
     type : str
-      event type, e.g. cc, fs, mw
     mac : str
-      client MAC
     device_mac : str
-      device MAC
     threat_level : int
-      threat level
     ip_address : str
     limit : int, default: 100
     start : int

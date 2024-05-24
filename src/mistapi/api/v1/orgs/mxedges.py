@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listOrgMxEdges")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgMxEdges")  
 def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdges
@@ -31,7 +31,6 @@ def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", lim
     QUERY PARAMS
     ------------
     for_sites : str{'any', 'true', 'false'}, default: any
-      filter for site level mist edges
     limit : int, default: 100
     page : int, default: 1        
     
@@ -64,7 +63,6 @@ def listOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", li
     QUERY PARAMS
     ------------
     for_sites : str{'any', 'true', 'false'}, default: any
-      filter for site level mist edges
     limit : int, default: 100
     page : int, default: 1        
     
@@ -179,21 +177,13 @@ def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", 
     ------------
     distinct : str{'model', 'mxcluster_id', 'distro', 'tunterm_version', 'site_id'}, default: model
     mxedge_id : str
-      mist edge id
     site_id : str
-      mist edge site id
     mxcluster_id : str
-      mist edge cluster id
     model : str
-      model name
     distro : str
-      debian code name(buster, bullseye)
     tunterm_version : str
-      tunterm version
     sort : str
-      sort options, -prefix represents DESC order, default is -last_seen
     stats : bool
-      whether to return device stats, default is false
     start : int
     end : int
     duration : str, default: 1d
@@ -224,7 +214,7 @@ def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", page:int=1, limit:int=100) -> _APIResponse:
+def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgSiteMxEdgeEvents
     
@@ -241,17 +231,12 @@ def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str=
     ------------
     distinct : str{'mxedge_id', 'type', 'mxcluster_id', 'package'}, default: mxedge_id
     mxedge_id : str
-      mist edge id
     mxcluster_id : str
-      mist edge cluster id
     type : str
-      mist edge event type [Supported Events](/#operation/listGatewayApplications)
     service : str
-      service running on mist edge(mxagent, tunterm etc)
     start : int
     end : int
     duration : str, default: 1d
-    page : int, default: 1
     limit : int, default: 100        
     
     RETURN
@@ -269,12 +254,11 @@ def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str=
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", page:int=1, limit:int=100) -> _APIResponse:
+def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgMistEdgeEvents
     
@@ -290,17 +274,12 @@ def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=
     QUERY PARAMS
     ------------
     mxedge_id : str
-      mist edge id
     mxcluster_id : str
-      mist edge cluster id
     type : str
-      mist edge event type [Supported Events](/#operation/listGatewayApplications)
     service : str
-      service running on mist edge(mxagent, tunterm etc)
     start : int
     end : int
     duration : str, default: 1d
-    page : int, default: 1
     limit : int, default: 100        
     
     RETURN
@@ -317,7 +296,6 @@ def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
@@ -338,21 +316,13 @@ def searchOrgMxEdges(mist_session:_APISession, org_id:str, mxedge_id:str=None, s
     QUERY PARAMS
     ------------
     mxedge_id : str
-      mist edge id
     site_id : str
-      mist edge site id
     mxcluster_id : str
-      mist edge cluster id
     model : str
-      model name
     distro : str
-      debian code name(buster, bullseye)
     tunterm_version : str
-      tunterm version
     sort : str
-      sort options, -prefix represents DESC order, default is -last_seen
     stats : bool
-      whether to return device stats, default is false
     start : int
     end : int
     duration : str, default: 1d
@@ -409,7 +379,7 @@ def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listOrgMxEdgeUpgrades")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgMxEdgeUpgrades")  
 def getOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdgeUpgrades
@@ -522,8 +492,7 @@ def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="s
     
     QUERY PARAMS
     ------------
-    channel : str{'stable', 'beta', 'alpha'}, default: stable
-      upgrade channel to follow, stable (default) / beta / alpha        
+    channel : str{'stable', 'beta', 'alpha'}, default: stable        
     
     RETURN
     -----------
@@ -612,7 +581,7 @@ def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:ob
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image_number:float) -> _APIResponse:
+def deleteOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image_number:int) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgMxEdgeImage
     
@@ -625,19 +594,19 @@ def deleteOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, im
     -----------
     org_id : str
     mxedge_id : str
-    image_number : float        
+    image_number : int        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}//image{image_number}"
+    uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/image/{image_number}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image_number:float, body:object) -> _APIResponse:
+def addOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image_number:int, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addOrgMxEdgeImage
     
@@ -650,7 +619,7 @@ def addOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image
     -----------
     org_id : str
     mxedge_id : str
-    image_number : float        
+    image_number : int        
     
     BODY PARAMS
     -----------
@@ -662,7 +631,7 @@ def addOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}//image{image_number}"
+    uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/image/{image_number}"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
@@ -730,9 +699,8 @@ def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str
     -----------
     org_id : str
     mxedge_id : str
-    name : str
-    action : str
-      restart or start or stop        
+    name : str{'tunterm', 'radsecproxy', 'mxagent', 'mxocproxy', 'mxdas'}
+    action : str{'restart', 'start', 'stop'}        
     
     RETURN
     -----------
@@ -787,33 +755,5 @@ def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> 
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/unregister"
     resp = mist_session.mist_post(uri=uri)
-    return resp
-    
-def upgradeOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeOrgMxEdge
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str
-    mxedge_id : str        
-    
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/upgrade"
-    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     

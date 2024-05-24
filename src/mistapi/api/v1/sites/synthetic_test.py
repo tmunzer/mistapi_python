@@ -64,3 +64,42 @@ def triggerSiteSyntheticTest(mist_session:_APISession, site_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str=None, port_id:str=None, vlan_id:str=None, by:str=None, reason:str=None, type:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/searchSiteSyntheticTest
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str        
+    
+    QUERY PARAMS
+    ------------
+    mac : str
+    port_id : str
+    vlan_id : str
+    by : str
+    reason : str
+    type : str{'dns', 'arp', 'dhcp', 'curl', 'radius', 'speedtest', 'dhcp6'}
+      synthetic test type        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/synthetic_test/search"
+    query_params={}
+    if mac: query_params["mac"]=mac
+    if port_id: query_params["port_id"]=port_id
+    if vlan_id: query_params["vlan_id"]=vlan_id
+    if by: query_params["by"]=by
+    if reason: query_params["reason"]=reason
+    if type: query_params["type"]=type
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    

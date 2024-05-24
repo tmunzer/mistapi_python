@@ -14,10 +14,10 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgWlans")  
-def getOrgWlans(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgNacPortals")  
+def getOrgNacPortals(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgWlans
+    API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortals
     
     PARAMS
     -----------
@@ -38,16 +38,16 @@ def getOrgWlans(mist_session:_APISession, org_id:str, page:int=1, limit:int=100)
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wlans"
+    uri = f"/api/v1/orgs/{org_id}/nacportals"
     query_params={}
     if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgWlans(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listOrgNacPortals(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgWlans
+    API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortals
     
     PARAMS
     -----------
@@ -68,16 +68,16 @@ def listOrgWlans(mist_session:_APISession, org_id:str, page:int=1, limit:int=100
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wlans"
+    uri = f"/api/v1/orgs/{org_id}/nacportals"
     query_params={}
     if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgWlan(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgNacPortal(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgWlan
+    API doc: https://doc.mist-lab.fr/#operation/createOrgNacPortal
     
     PARAMS
     -----------
@@ -98,13 +98,13 @@ def createOrgWlan(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wlans"
+    uri = f"/api/v1/orgs/{org_id}/nacportals"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
+def getOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgWLAN
+    API doc: https://doc.mist-lab.fr/#operation/getOrgNacPortal
     
     PARAMS
     -----------
@@ -114,21 +114,21 @@ def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIRespons
     PATH PARAMS
     -----------
     org_id : str
-    wlan_id : str        
+    nacportal_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
+    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
+def deleteOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWlan
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacPortal
     
     PARAMS
     -----------
@@ -138,21 +138,21 @@ def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResp
     PATH PARAMS
     -----------
     org_id : str
-    wlan_id : str        
+    nacportal_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
+    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> _APIResponse:
+def updateOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgWlan
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgNacPortal
     
     PARAMS
     -----------
@@ -162,7 +162,7 @@ def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object
     PATH PARAMS
     -----------
     org_id : str
-    wlan_id : str        
+    nacportal_id : str        
     
     BODY PARAMS
     -----------
@@ -174,13 +174,14 @@ def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
+    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgNacPortalSsoLatestFailures")  
+def getOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacportal_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWlanPortalImage
+    API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortalSsoLatestFailures
     
     PARAMS
     -----------
@@ -190,21 +191,34 @@ def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) 
     PATH PARAMS
     -----------
     org_id : str
-    wlan_id : str        
+    nacportal_id : str        
+    
+    QUERY PARAMS
+    ------------
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_image"
+    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/failures"
     query_params={}
-    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
+    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:str, file:str=None, json:str=None) -> _APIResponse:
+def listOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacportal_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/uploadOrgWlanPortalImage
+    API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortalSsoLatestFailures
     
     PARAMS
     -----------
@@ -214,31 +228,34 @@ def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:s
     PATH PARAMS
     -----------
     org_id : str
-    wlan_id : str        
+    nacportal_id : str        
     
-    BODY PARAMS
-    -----------
-    file : str
-        path to the file to upload. binary file
-    json : str
-        JSON string describing your upload
+    QUERY PARAMS
+    ------------
+    page : int, default: 1
+    limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    multipart_form_data = {
-        "file":file,
-        "json":json,
-    }
-    uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_image"
-    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
+    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/failures"
+    query_params={}
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
+    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-
-def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> _APIResponse:
+    
+def getOrgNacPortalSsoSamlMetadata(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgWlanPortalTemplate
+    API doc: https://doc.mist-lab.fr/#operation/getOrgNacPortalSsoSamlMetadata
     
     PARAMS
     -----------
@@ -248,19 +265,39 @@ def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:st
     PATH PARAMS
     -----------
     org_id : str
-    wlan_id : str        
-    
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
+    nacportal_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_template"
-    resp = mist_session.mist_put(uri=uri, body=body)
+    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/saml_metadata"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def downloadOrgNacPortalSsoSamlMetadata(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/downloadOrgNacPortalSsoSamlMetadata
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    nacportal_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/saml_metadata.xml"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

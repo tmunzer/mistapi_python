@@ -30,13 +30,10 @@ def troubleshootOrg(mist_session:_APISession, org_id:str, mac:str=None, site_id:
     QUERY PARAMS
     ------------
     mac : str
-      **required** when troubleshooting device or a client
     site_id : str
-      **required** when troubleshooting site
     start : int
     end : int
-    type : str{'wireless', 'wired', 'wan'}
-      when troubleshooting site, type of network to troubleshoot        
+    type : str{'wireless', 'wired', 'wan'}        
     
     RETURN
     -----------

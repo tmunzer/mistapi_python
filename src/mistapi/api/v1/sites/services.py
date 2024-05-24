@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSiteServicesDerived")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteServicesDerived")  
 def getSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteServicesDerived
@@ -30,8 +30,7 @@ def getSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=N
     
     QUERY PARAMS
     ------------
-    resolve : bool
-      whether resolve the site variables        
+    resolve : bool        
     
     RETURN
     -----------
@@ -59,8 +58,7 @@ def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=
     
     QUERY PARAMS
     ------------
-    resolve : bool
-      whether resolve the site variables        
+    resolve : bool        
     
     RETURN
     -----------
@@ -73,7 +71,7 @@ def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None) -> _APIResponse:
+def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteServicePathEvents
     
@@ -90,25 +88,19 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
     ------------
     distinct : str{'type', 'mac', 'vpn_name', 'vpn_path', 'policy', 'port_id', 'model', 'site_id'}, default: type
     type : str
-      Event type, e.g. GW_SERVICE_PATH_DOWN
     text : str
-      Description of the event including the reason it is triggered
     vpn_name : str
-      Peer name
     vpn_path : str
-      Peer path name
     policy : str
-      Service policy associated with that specific path
     port_id : str
-      Network interface
     model : str
-      Device model
     version : str
-      Device firmware version
     timestamp : float
-      Start time, in epoch
     mac : str
-      MAC address        
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -128,10 +120,14 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
     if version: query_params["version"]=version
     if timestamp: query_params["timestamp"]=timestamp
     if mac: query_params["mac"]=mac
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None) -> _APIResponse:
+def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteServicePathEvents
     
@@ -147,25 +143,19 @@ def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=
     QUERY PARAMS
     ------------
     type : str
-      Event type, e.g. GW_SERVICE_PATH_DOWN
     text : str
-      Description of the event including the reason it is triggered
     vpn_name : str
-      Peer name
     vpn_path : str
-      Peer path name
     policy : str
-      Service policy associated with that specific path
     port_id : str
-      Network interface
     model : str
-      Device model
     version : str
-      Device firmware version
     timestamp : float
-      Start time, in epoch
     mac : str
-      MAC address        
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -184,6 +174,10 @@ def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=
     if version: query_params["version"]=version
     if timestamp: query_params["timestamp"]=timestamp
     if mac: query_params["mac"]=mac
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

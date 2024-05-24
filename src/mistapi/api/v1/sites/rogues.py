@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bssid", type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bssid", type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteRogueEvents
     
@@ -32,16 +32,10 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     distinct : str{'bssid', 'ssid', 'ap', 'type'}, default: bssid
     type : str{'honeypot', 'lan', 'others', 'spoof'}
     ssid : str
-      ssid of the network detected as threat
     bssid : str
-      bssid of the network detected as threat
     ap_mac : str
-      mac of the device that had strongest signal strength for ssid/bssid pair
     channel : str
-      channel over which ap_mac heard ssid/bssid pair
     seen_on_lan : bool
-      whether the reporting AP see a wireless client (on LAN) connecting to it
-    page : int, default: 1
     limit : int, default: 100
     start : int
     end : int
@@ -61,7 +55,6 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     if ap_mac: query_params["ap_mac"]=ap_mac
     if channel: query_params["channel"]=channel
     if seen_on_lan: query_params["seen_on_lan"]=seen_on_lan
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -86,15 +79,10 @@ def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, 
     ------------
     type : str{'honeypot', 'lan', 'others', 'spoof'}
     ssid : str
-      ssid of the network detected as threat
     bssid : str
-      bssid of the network detected as threat
     ap_mac : str
-      mac of the device that had strongest signal strength for ssid/bssid pair
     channel : int
-      channel over which ap_mac heard ssid/bssid pair
     seen_on_lan : bool
-      whether the reporting AP see a wireless client (on LAN) connecting to it
     limit : int, default: 100
     start : int
     end : int

@@ -14,10 +14,10 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listMspOrgGroups")  
-def getMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgUserMacs")  
+def getOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None, for:bool=None, page:int=1, limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspOrgGroups
+    API doc: https://doc.mist-lab.fr/#operation/listOrgUserMacs
     
     PARAMS
     -----------
@@ -26,21 +26,32 @@ def getMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
     PATH PARAMS
     -----------
-    msp_id : str        
+    org_id : str        
+    
+    QUERY PARAMS
+    ------------
+    blacklisted : bool
+    for : bool
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/orggroups"
+    uri = f"/api/v1/orgs/{org_id}/usermacs"
     query_params={}
+    if blacklisted: query_params["blacklisted"]=blacklisted
+    if for: query_params["for"]=for
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
+def listOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None, for:bool=None, page:int=1, limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspOrgGroups
+    API doc: https://doc.mist-lab.fr/#operation/listOrgUserMacs
     
     PARAMS
     -----------
@@ -49,21 +60,32 @@ def listMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
     PATH PARAMS
     -----------
-    msp_id : str        
+    org_id : str        
+    
+    QUERY PARAMS
+    ------------
+    blacklisted : bool
+    for : bool
+    page : int, default: 1
+    limit : int, default: 100        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/orggroups"
+    uri = f"/api/v1/orgs/{org_id}/usermacs"
     query_params={}
+    if blacklisted: query_params["blacklisted"]=blacklisted
+    if for: query_params["for"]=for
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+def createOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createMspOrgGroup
+    API doc: https://doc.mist-lab.fr/#operation/createOrgUserMacs
     
     PARAMS
     -----------
@@ -72,7 +94,7 @@ def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:object) -> _API
     
     PATH PARAMS
     -----------
-    msp_id : str        
+    org_id : str        
     
     BODY PARAMS
     -----------
@@ -84,13 +106,13 @@ def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:object) -> _API
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/orggroups"
+    uri = f"/api/v1/orgs/{org_id}/usermacs"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _APIResponse:
+def deleteOrgUserMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getMspOrgGroup
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgUserMacs
     
     PARAMS
     -----------
@@ -99,46 +121,21 @@ def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _AP
     
     PATH PARAMS
     -----------
-    msp_id : str
-    orggroup_id : str        
+    org_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/deleteMspOrgGroup
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    msp_id : str
-    orggroup_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
+    uri = f"/api/v1/orgs/{org_id}/usermacs/delete"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str, body:object) -> _APIResponse:
+def importOrgUserMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateMspOrgGroup
+    API doc: https://doc.mist-lab.fr/#operation/importOrgUserMacs
     
     PARAMS
     -----------
@@ -147,20 +144,15 @@ def updateMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str, bod
     
     PATH PARAMS
     -----------
-    msp_id : str
-    orggroup_id : str        
-    
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
+    org_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
-    resp = mist_session.mist_put(uri=uri, body=body)
+    uri = f"/api/v1/orgs/{org_id}/usermacs/import"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     

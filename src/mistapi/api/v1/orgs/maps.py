@@ -39,7 +39,7 @@ def importOrgMapsFile(mist_session:_APISession, org_id:str, auto_deviceprofile_a
         import_all_floorplans : bool
         import_height : bool, default: True
         import_orientation : bool, default: True
-        site_id : str
+        site_id : any
         vendor_name : {'ekahau', 'ibwave'}
     
     RETURN

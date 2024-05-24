@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteWirelessClients(mist_session:_APISession, site_id:str, distinct:str, ssid:str=None, ap:str=None, ip_address:str=None, vlan:str=None, hostname:str=None, os:str=None, model:str=None, device:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteWirelessClients(mist_session:_APISession, site_id:str, distinct:str="device", ssid:str=None, ap:str=None, ip_address:str=None, vlan:str=None, hostname:str=None, os:str=None, model:str=None, device:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteWirelessClients
     
@@ -95,7 +95,7 @@ def disconnectSiteMultipleClients(mist_session:_APISession, site_id:str, body:ob
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteWirelessClientEvents(mist_session:_APISession, site_id:str, distinct:str=None, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteWirelessClientEvents(mist_session:_APISession, site_id:str, distinct:str=None, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteWirelessClientEvents
     
@@ -111,22 +111,15 @@ def countSiteWirelessClientEvents(mist_session:_APISession, site_id:str, distinc
     QUERY PARAMS
     ------------
     distinct : str{'type', 'proto', 'band', 'channel', 'wlan_id', 'ssid'}
-      type / proto / band / channel / wlan_id / ssid
     type : str
-      event type, e.g. MARVIS_EVENT_CLIENT_FBT_FAILURE
     reason_code : int
-      for assoc/disassoc events
     ssid : str
-      SSID Name
     ap : str
-      AP MAC
-    proto : str{'b', 'g', 'n', 'ac', 'ax', 'a'}
-      802.11 standard
-    band : str{'24', '5'}
-      24 / 5
+    proto : str{'a', 'b', 'g', 'n', 'ac', 'ax'}
+      a / b / g / n / ac / ax
+    band : str{'24', '5', '6'}
+      802.11 Band
     wlan_id : str
-      wlan_id
-    page : int, default: 1
     limit : int, default: 100
     start : int
     end : int
@@ -147,7 +140,6 @@ def countSiteWirelessClientEvents(mist_session:_APISession, site_id:str, distinc
     if proto: query_params["proto"]=proto
     if band: query_params["band"]=band
     if wlan_id: query_params["wlan_id"]=wlan_id
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -171,21 +163,15 @@ def searchSiteWirelessClientEvents(mist_session:_APISession, site_id:str, type:s
     QUERY PARAMS
     ------------
     type : str
-      event type, e.g. MARVIS_EVENT_CLIENT_FBT_FAILURE
     reason_code : int
-      for assoc/disassoc events
     ssid : str
-      SSID Name
     ap : str
-      AP MAC
-    proto : str{'b', 'g', 'n', 'ac', 'ax', 'a'}
-      802.11 standard
-    band : str{'24', '5'}
-      24 / 5
+    proto : str{'a', 'b', 'g', 'n', 'ac', 'ax'}
+      a / b / g / n / ac / ax
+    band : str{'24', '5', '6'}
+      802.11 Band
     wlan_id : str
-      wlan_id
     nacrule_id : str
-      nacrule_id
     limit : int, default: 100
     start : int
     end : int
@@ -229,23 +215,15 @@ def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str=Non
     QUERY PARAMS
     ------------
     mac : str
-      partial / full MAC address
     ip_address : str
     hostname : str
-      partial / full hostname
     device : str
-      device type, e.g. Mac, Nvidia, iPhone
     os : str
-      os, e.g. Sierra, Yosemite, Windows 10
     model : str
-      model, e.g. “MBP 15 late 2013”, 6, 6s, “8+ GSM”
     ap : str
-      AP mac where the client has connected to
     ssid : str
     text : str
-      partial / full MAC address, hostname, username, psk_name or ip
     nacrule_id : str
-      nacrule_id
     limit : int, default: 100
     start : int
     end : int
@@ -292,21 +270,14 @@ def countSiteWirelessClientSessions(mist_session:_APISession, site_id:str, disti
     ------------
     distinct : str{'ssid', 'wlan_id', 'ap', 'mac', 'client_family', 'client_manufacture', 'client_model', 'client_os'}, default: mac
     ap : str
-      AP MAC
-    band : str
-      24 /5
+    band : str{'24', '5', '6'}
+      802.11 Band
     client_family : str
-      E.g. “Mac”, “iPhone”, “Apple watch”
     client_manufacture : str
-      E.g. “Apple”
     client_model : str
-      E.g. “8+”, “XS”
     client_os : str
-      E.g. “Mojave”, “Windows 10”, “Linux”
     ssid : str
-      SSID
     wlan_id : str
-      wlan_id
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -353,26 +324,17 @@ def searchSiteWirelessClientSessions(mist_session:_APISession, site_id:str, ap:s
     QUERY PARAMS
     ------------
     ap : str
-      AP MAC
-    band : str{'24', '5'}
-      5 / 24
+    band : str{'24', '5', '6'}
+      802.11 Band
     client_family : str
-      E.g. “Mac”, “iPhone”, “Apple watch”
     client_manufacture : str
-      E.g. “Apple”
     client_model : str
-      E.g. “8+”, “XS”
     client_username : str
-      Username
     client_os : str
-      E.g. “Mojave”, “Windows 10”, “Linux”
     ssid : str
-      SSID
     wlan_id : str
-      wlan_id
     psk_id : str
     psk_name : str
-      PSK Name
     limit : int, default: 100
     start : int
     end : int
@@ -492,12 +454,11 @@ def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str
     
     QUERY PARAMS
     ------------
-    type : str{'b', 'g', 'n'}
-      e.g. MARVIS_EVENT_CLIENT_DHCP_STUCK
+    type : str
     proto : str{'a', 'b', 'g', 'n', 'ac', 'ax'}
       a / b / g / n / ac / ax
-    band : str
-      24 / 5
+    band : str{'24', '5', '6'}
+      802.11 Band
     channel : str
     wlan_id : str
     ssid : str

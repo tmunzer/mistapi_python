@@ -14,9 +14,33 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteEvpnTopology(mist_session:_APISession, site_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteEvpnTopologies")  
+def getSiteEvpnTopologies(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteEvpnTopology
+    API doc: https://doc.mist-lab.fr/#operation/listSiteEvpnTopologies
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/evpn_topologies"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listSiteEvpnTopologies(mist_session:_APISession, site_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listSiteEvpnTopologies
     
     PARAMS
     -----------
@@ -64,9 +88,9 @@ def createSiteEvpnTopology(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteEvpnTolopogy(mist_session:_APISession, site_id:str, evpn_topology_id:str) -> _APIResponse:
+def getSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteEvpnTolopogy
+    API doc: https://doc.mist-lab.fr/#operation/getSiteEvpnTopology
     
     PARAMS
     -----------

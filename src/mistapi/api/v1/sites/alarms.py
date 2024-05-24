@@ -84,16 +84,11 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     QUERY PARAMS
     ------------
     distinct : str{'type', 'acked', 'severity', 'group'}, default: type
-      Group by and count the alarms by some distinct field
     ack_admin_name : str
-      Name of the admins who have acked the alarms; accepts multiple values separated by comma
     acked : bool
     type : str
-      Key-name of the alarms; accepts multiple values separated by comma
     severity : str
-      Alarm severity; accepts multiple values separated by comma
     group : str
-      Alarm group name; accepts multiple values separated by comma
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -137,14 +132,10 @@ def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_a
     QUERY PARAMS
     ------------
     type : str
-      Key-name of the alarms; accepts multiple values separated by comma
     ack_admin_name : str
-      Name of the admins who have acked the alarms; accepts multiple values separated by comma
     acked : bool
     severity : str
-      Alarm severity; accepts multiple values separated by comma
     group : str
-      Alarm group name; accepts multiple values separated by comma
     limit : int, default: 100
     start : int
     end : int

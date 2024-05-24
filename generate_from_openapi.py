@@ -1,10 +1,11 @@
 import json
+import yaml
 import os
 import shutil
 import re
 import sys
 
-openapi_file = "./mist_openapi/Mist.openapi.json"
+openapi_file = "./mist_openapi/mist.openapi.yml"
 openapi_json = None
 root_folder = "./src/mistapi/"
 root_api_folder = "api"
@@ -34,20 +35,35 @@ def fprint(message: str):
     print(f"{message}".ljust(80))
 
 
-def get_ref(ref_name: str):
-    data = openapi_refs.get(ref_name)
+def gen_param(data:dict):
     tmp = {}
     if data:
-        tmp = {
-            "name": data["name"].replace(" ", "_").replace("-", "_"),
-            "required": data.get("required", False),
-            "enum": data["schema"].get("enum", None),
-            "type": data["schema"].get("type"),
-            "default": data["schema"].get("default"),
-            "minimum": data["schema"].get("minimum"),
-            "maximum": data["schema"].get("maximum"),
-        }
+        if data["schema"].get("$ref"):
+                ref_name = data["schema"]["$ref"].split("/")[-1:][0]
+                ref = openapi_schemas.get(ref_name)
+                tmp = {
+                    "name": data["name"].replace(" ", "_").replace("-", "_"),
+                    "required": data.get("required", False),
+                    "enum": ref.get("enum", None),
+                    "type": ref.get("type"),
+                    "description": data.get("description"),
+                    "default": ref.get("default"),
+                    "minimum": ref.get("minimum"),
+                    "maximum": ref.get("maximum")
+                }
+        else:
+            tmp = {
+                "name": data["name"].replace(" ", "_").replace("-", "_"),
+                "required": data.get("required", False),
+                "enum": data["schema"].get("enum", None),
+                "type": data["schema"].get("type"),
+                "default": data["schema"].get("default"),
+                "minimum": data["schema"].get("minimum"),
+                "maximum": data["schema"].get("maximum"),
+            }
     return tmp
+
+
 
 ##################################
 # Manage folders and files
@@ -161,7 +177,7 @@ def _gen_code_params(endpoint_params: list, operation_id: str):
         if ptype == "any":
             fprint(
                 f"Unable to convert var type {ptype_src} (opid: {operation_id}, param {param['name']})")
-
+            #print(endpoint_params)
         code_params += f", {param['name']}:{ptype}"
 
         code_params_desc += f"\r\n    {param['name']} : {ptype}"
@@ -177,9 +193,12 @@ def _gen_code_params(endpoint_params: list, operation_id: str):
 def _gen_description_property(property_data:dict):
     property_type = property_data["property_type"]
     property_desc = ""
-    if property_data.get("property_enum"): property_type = str(property_data["property_enum"]).replace("[", "{").replace("]","}")
-    if property_data.get("property_default"): property_type += f", default: {property_data['property_default']}"
-    if property_data.get("property_desc"): property_desc = f"\r\n        {property_data['property_desc']}"
+    if property_data.get("property_enum"):
+        property_type = str(property_data["property_enum"]).replace("[", "{").replace("]","}")
+    if property_data.get("property_default"):
+        property_type += f", default: {property_data['property_default']}"
+    if property_data.get("property_desc"):
+        property_desc = f"\r\n        {property_data['property_desc']}"
     return property_type, property_desc
 
 def _gen_description(operation_id: str, desc_path_params: str, desc_query_params: str = "", with_body:bool=False, multipart_form_data:dict={}):
@@ -460,15 +479,12 @@ def _process_path_params(endpoint_params: object):
     params = []
     for parameter in endpoint_params:
         if parameter.get("$ref"):
-            tmp_param = get_ref(parameter["$ref"].split("/")[-1:][0])
+            ref_name = parameter["$ref"].split("/")[-1:][0]
+            data = openapi_refs.get(ref_name)
+            tmp_param = gen_param(data)
         else:
-            tmp_param = {
-                "name": parameter["name"].replace(" ", "_").replace("-", "_"),
-                "required": parameter.get("required", False),
-                "enum": parameter.get("enum", None),
-                "type": parameter.get("schema", {}).get("type"),
-                "description": parameter.get("description"),
-            }
+            tmp_param = gen_param(parameter)
+
         if tmp_param not in params:
             params.append(tmp_param)
     return params
@@ -478,18 +494,12 @@ def _process_query_params(endpoint_params: object):
     params = []
     for parameter in endpoint_params:
         if parameter.get("$ref"):
-            tmp_param = get_ref(parameter["$ref"].split("/")[-1:][0])
+            ref_name = parameter["$ref"].split("/")[-1:][0]
+            data = openapi_refs.get(ref_name)
+            tmp_param = gen_param(data)
         else:
-            tmp_param = {
-                "name": parameter["name"].replace(" ", "_").replace("-", "_"),
-                "required": parameter.get("required", False),
-                "enum": parameter.get("schema", {}).get("enum", None),
-                "type": parameter.get("schema", {}).get("type"),
-                "description": parameter.get("description"),
-                "default": parameter["schema"].get("default"),
-                "minimum": parameter["schema"].get("minimum"),
-                "maximum": parameter["schema"].get("maximum")
-            }
+            tmp_param = gen_param(parameter)
+
         if tmp_param not in params:
             params.append(tmp_param)
     return params
@@ -524,6 +534,7 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
             folder_path,
             f"{file_name}.py"
         )
+        count += 1
     if endpoint_data.get("delete") and not endpoint_data.get("delete", {}).get("deprecated"):
         query_params = _process_query_params(
             endpoint_data["delete"].get("parameters", []))
@@ -536,6 +547,7 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
             folder_path,
             f"{file_name}.py"
         )
+        count += 1
     if endpoint_data.get("post") and not endpoint_data.get("post", {}).get("deprecated"):
         operation_id = endpoint_data["post"]['operationId']
         request_body = endpoint_data["post"].get("requestBody")
@@ -565,6 +577,7 @@ def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: st
                 folder_path,
                 f"{file_name}.py"
             )
+        count += 1
 
     if endpoint_data.get("put") and not endpoint_data.get("put", {}).get("deprecated"):
         operation_id = endpoint_data["put"]['operationId']
@@ -594,7 +607,6 @@ def _is_totaly_deprecated(endpoint_data:object)->bool:
 def start():
     endpoint_count = 0
     api_count = 0
-
     out = sys.stdout
     count = len(openapi_paths)
     size = 60
@@ -632,7 +644,7 @@ if os.path.exists(f"{root_folder}/{root_api_folder}"):
 #     os.remove("./__init__.py")
 
 with open(openapi_file, "r") as f:
-    openapi_json = json.loads(f.read())
+    openapi_json = yaml.load(f, Loader=yaml.loader.SafeLoader)
 
 openapi_paths = openapi_json.get("paths")
 openapi_refs = openapi_json.get("components", {}).get("parameters")

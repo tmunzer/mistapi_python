@@ -30,39 +30,22 @@ def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type"
     QUERY PARAMS
     ------------
     distinct : str{'type', 'last_nacrule_id', 'auth_type', 'last_vlan_id', 'last_nas_vendor', 'last_username', 'last_ap', 'mac', 'last_ssid', 'last_status', 'mdm_compliance_status', 'mdm_provider'}, default: type
-      NAC Policy Rule ID, if matched
     last_nacrule_id : str
-      NAC Policy Rule ID, if matched
     nacrule_matched : bool
-      NAC Policy Rule Matched
     auth_type : str
-      authentication type, e.g. “eap-tls”, “eap-ttls”, “eap-teap”, “mab”, “device-auth”
     last_vlan_id : str
-      Vlan ID
     last_nas_vendor : str
-      vendor of NAS device
     idp_id : str
-      SSO ID, if present and used
     last_ssid : str
-      SSID
     last_username : str
-      Username presented by the client
     timestamp : float
-      start time, in epoch
     site_id : str
-      site id if assigned, null if not assigned
     last_ap : str
-      AP MAC connected to by client
     mac : str
-      MAC address
     last_status : str
-      Connection status of client i.e “permitted”, “denied, “session_ended”
     type : str
-      Client type i.e. “wireless”, “wired” etc.
     mdm_compliance_status : str
-      MDM compliancy of client i.e “compliant”, “not compliant”
     mdm_provider : str
-      MDM provider of client’s organisation eg “intune”, “jamf”
     start : int
     end : int
     duration : str, default: 1d
@@ -101,7 +84,7 @@ def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type"
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgNacClientEvents
     
@@ -117,11 +100,11 @@ def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str=N
     QUERY PARAMS
     ------------
     distinct : str{'type', 'nacrule_id', 'dryrun_nacrule_id', 'auth_type', 'vlan', 'nas_vendor', 'username', 'ap', 'mac', 'ssid'}
+    type : str
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -131,15 +114,15 @@ def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str=N
     uri = f"/api/v1/orgs/{org_id}/nac_clients/events/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
+    if type: query_params["type"]=type
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None, nacrule_id:str=None, nacrule_matched:bool=None, dryrun_nacrule_id:str=None, dryrun_nacrule_matched:bool=None, auth_type:str=None, vlan:int=None, nas_vendor:str=None, bssid:str=None, idp_id:str=None, idp_role:str=None, resp_attrs:list=None, ssid:str=None, username:str=None, site_id:str=None, ap:str=None, random_mac:bool=None, mac:str=None, timestamp:float=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None, nacrule_id:str=None, nacrule_matched:bool=None, dryrun_nacrule_id:str=None, dryrun_nacrule_matched:bool=None, auth_type:str=None, vlan:int=None, nas_vendor:str=None, bssid:str=None, idp_id:str=None, idp_role:str=None, resp_attrs:list=None, ssid:str=None, username:str=None, site_id:str=None, ap:str=None, random_mac:bool=None, mac:str=None, timestamp:float=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgNacClientEvents
     
@@ -155,48 +138,29 @@ def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None
     QUERY PARAMS
     ------------
     type : str
-      event type, e.g. NAC_CLIENT_PERMIT
     nacrule_id : str
-      NAC Policy Rule ID, if matched
     nacrule_matched : bool
-      NAC Policy Rule Matched
     dryrun_nacrule_id : str
-      NAC Policy Dry Run Rule ID, if present and matched
     dryrun_nacrule_matched : bool
-      True - if dryrun rule present and matched with priority, False - if not matched or not present
     auth_type : str
-      authentication type, e.g. “802.1X”, “MAB”, “DeviceAuth”
     vlan : int
-      Vlan ID
     nas_vendor : str
-      vendor of NAS device
     bssid : str
-      SSID
     idp_id : str
-      SSO ID, if present and used
     idp_role : str
-      IDP returned roles/groups for the user
     resp_attrs : list
       Radius attributes returned by NAC to NAS Devive
     ssid : str
-      SSID
     username : str
-      Username presented by the client
     site_id : str
-      site id
     ap : str
-      AP MAC
     random_mac : bool
-      AP random macMAC
     mac : str
-      MAC address
     timestamp : float
-      start time, in epoch
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -228,7 +192,6 @@ def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -248,37 +211,21 @@ def searchOrgNacClients(mist_session:_APISession, org_id:str, last_nacrule_id:st
     QUERY PARAMS
     ------------
     last_nacrule_id : str
-      NAC Policy Rule ID, if matched
     nacrule_matched : bool
-      NAC Policy Rule Matched
     auth_type : str
-      authentication type, e.g. “eap-tls”, “eap-ttls”, “eap-teap”, “mab”, “device-auth”
     last_vlan_id : str
-      Vlan ID
     last_nas_vendor : str
-      vendor of NAS device
     idp_id : str
-      SSO ID, if present and used
     last_ssid : str
-      SSID
     last_username : str
-      Username presented by the client
     timestamp : float
-      start time, in epoch
     site_id : str
-      site id if assigned, null if not assigned
     last_ap : str
-      AP MAC connected to by client
     mac : str
-      MAC address
     last_status : str
-      Connection status of client i.e “permitted”, “denied, “session_ended”
     type : str
-      Client type i.e. “wireless”, “wired” etc.
     mdm_compliance_status : str
-      MDM compliancy of client i.e “compliant”, “not compliant”
     mdm_provider : str
-      MDM provider of client’s organisation eg “intune”, “jamf”
     start : int
     end : int
     duration : str, default: 1d

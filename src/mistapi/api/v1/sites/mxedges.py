@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listSiteMxEdges")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listSiteMxEdges")  
 def getSiteMxEdges(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMxEdges
@@ -102,7 +102,7 @@ def createSiteMxEdge(mist_session:_APISession, site_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", page:int=1, limit:int=100) -> _APIResponse:
+def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteMxEdgeEvents
     
@@ -119,17 +119,12 @@ def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="m
     ------------
     distinct : str{'mxedge_id', 'type', 'mxcluster_id', 'package'}, default: mxedge_id
     mxedge_id : str
-      mist edge id
     mxcluster_id : str
-      mist edge cluster id
     type : str
-      mist edge event type [Supported Events](/#operation/listGatewayApplications)
     service : str
-      service running on mist edge(mxagent, tunterm etc)
     start : int
     end : int
     duration : str, default: 1d
-    page : int, default: 1
     limit : int, default: 100        
     
     RETURN
@@ -147,12 +142,11 @@ def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="m
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searcSitehMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", page:int=1, limit:int=100) -> _APIResponse:
+def searcSitehMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searcSitehMistEdgeEvents
     
@@ -168,17 +162,12 @@ def searcSitehMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:st
     QUERY PARAMS
     ------------
     mxedge_id : str
-      mist edge id
     mxcluster_id : str
-      mist edge cluster id
     type : str
-      mist edge event type [Supported Events](/#operation/listGatewayApplications)
     service : str
-      service running on mist edge(mxagent, tunterm etc)
     start : int
     end : int
     duration : str, default: 1d
-    page : int, default: 1
     limit : int, default: 100        
     
     RETURN
@@ -195,7 +184,6 @@ def searcSitehMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:st
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

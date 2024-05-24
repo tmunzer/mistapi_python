@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.47.5", details="function replaced with listOrgSites")  
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.0", details="function replaced with listOrgSites")  
 def getOrgSites(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgSites
@@ -156,37 +156,21 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     QUERY PARAMS
     ------------
     analytic_enabled : bool
-      if Advanced Analytic feature is enabled
     app_waking : bool
-      if App Waking feature is enabled
     asset_enabled : bool
-      if Asset Tracking is enabled
     auto_upgrade_enabled : bool
-      if Auto Upgrade feature is enabled
     auto_upgrade_version : str
-      if Auto Upgrade feature is enabled
     country_code : str
-      site country code
     honeypot_enabled : bool
-      if Honeypot detection is enabled
     id : str
-      site id
     locate_unconnected : bool
-      if unconnected client are located
     mesh_enabled : bool
-      if Mesh feature is enabled
     name : str
-      site name
     rogue_enabled : bool
-      if Rogue detection is enabled
     remote_syslog_enabled : bool
-      if Remote Syslog is enabled
     rtsa_enabled : bool
-      if managed mobility feature is enabled
     vna_enabled : bool
-      if Virtual Network Assistant is enabled
     wifi_enabled : bool
-      if WIFI feature is enabled
     limit : int, default: 100
     start : int
     end : int

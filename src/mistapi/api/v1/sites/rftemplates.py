@@ -29,8 +29,7 @@ def getSiteRfTemplateDerived(mist_session:_APISession, site_id:str, resolve:bool
     
     QUERY PARAMS
     ------------
-    resolve : bool
-      whether resolve the site variables        
+    resolve : bool        
     
     RETURN
     -----------

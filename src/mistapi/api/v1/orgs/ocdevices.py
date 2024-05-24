@@ -29,8 +29,7 @@ def getOrgJuniperDevicesCommand(mist_session:_APISession, org_id:str, site_id:st
     
     QUERY PARAMS
     ------------
-    site_id : str
-      site_id would be used for proxy config check of the site and automatic site assignment        
+    site_id : str        
     
     RETURN
     -----------

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str=None, mac:str=None, site_id:str=None, vc_mac:str=None, vc:str=None, unassigned:bool=None, limit:int=100, page:int=1) -> _APIResponse:
+def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str="ap", mac:str=None, site_id:str=None, vc_mac:str=None, vc:str=None, unassigned:bool=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgInventory
     
@@ -30,14 +30,10 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     QUERY PARAMS
     ------------
     serial : str
-      device serial
     model : str
-      device model
-    type : str{'ap', 'switch', 'gateway'}
+    type : str{'ap', 'switch', 'gateway'}, default: ap
     mac : str
-      MAC address
     site_id : str
-      site id if assigned, null if not assigned
     vc_mac : str
     vc : str
     unassigned : bool
@@ -172,7 +168,7 @@ def deleteOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/reevaluateOrgAutoAssignment
     
@@ -185,18 +181,13 @@ def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str, body:objec
     -----------
     org_id : str        
     
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/inventory/reevaluate_auto_assignment"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:

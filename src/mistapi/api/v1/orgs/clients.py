@@ -31,21 +31,13 @@ def countOrgWirelessClients(mist_session:_APISession, org_id:str, distinct:str="
     ------------
     distinct : str{'mac', 'hostname', 'device', 'os', 'model', 'ap', 'vlan', 'ssid', 'ip'}, default: device
     mac : str
-      partial / full MAC address
     hostname : str
-      partial / full hostname
     device : str
-      device type, e.g. Mac, Nvidia, iPhone
     os : str
-      os, e.g. Sierra, Yosemite, Windows 10
     model : str
-      model, e.g. “MBP 15 late 2013”, 6, 6s, “8+ GSM”
     ap : str
-      AP mac where the client has connected to
     vlan : str
-      vlan
     ssid : str
-      SSID
     ip_address : str
     page : int, default: 1
     limit : int, default: 100
@@ -94,21 +86,15 @@ def searchOrgWirelessClientEvents(mist_session:_APISession, org_id:str, type:str
     QUERY PARAMS
     ------------
     type : str
-      event type, e.g. MARVIS_EVENT_CLIENT_FBT_FAILURE
     reason_code : int
-      for assoc/disassoc events
     ssid : str
-      SSID Name
     ap : str
-      AP MAC
-    proto : str{'b', 'g', 'n', 'ac', 'ax', 'a'}
-      802.11 standard
-    band : str{'24', '5'}
-      24 / 5
+    proto : str{'a', 'b', 'g', 'n', 'ac', 'ax'}
+      a / b / g / n / ac / ax
+    band : str{'24', '5', '6'}
+      802.11 Band
     wlan_id : str
-      wlan_id
     nacrule_id : str
-      nacrule_id
     limit : int, default: 100
     start : int
     end : int
@@ -152,29 +138,18 @@ def searchOrgWirelessClients(mist_session:_APISession, org_id:str, site_id:str=N
     QUERY PARAMS
     ------------
     site_id : str
-      Site ID
     mac : str
-      partial / full MAC address
     ip_address : str
     hostname : str
-      partial / full hostname
     device : str
-      device type, e.g. Mac, Nvidia, iPhone
     os : str
-      os, e.g. Sierra, Yosemite, Windows 10
     model : str
-      model, e.g. “MBP 15 late 2013”, 6, 6s, “8+ GSM”
     ap : str
-      AP mac where the client has connected to
     psk_id : str
     psk_name : str
-      PSK Name
     vlan : str
-      vlan
     ssid : str
-      SSID
     text : str
-      partial / full MAC address, hostname, username, psk_name or ip
     limit : int, default: 100
     start : int
     end : int
@@ -207,7 +182,7 @@ def searchOrgWirelessClients(mist_session:_APISession, org_id:str, site_id:str=N
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distinct:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distinct:str="device", ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgWirelessClientsSessions
     
@@ -224,21 +199,14 @@ def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distin
     ------------
     distinct : str{'ssid', 'ap', 'ip', 'vlan', 'hostname', 'os', 'model', 'device'}, default: device
     ap : str
-      AP MAC
-    band : str{'24', '5'}
-      5 / 24
+    band : str{'24', '5', '6'}
+      802.11 Band
     client_family : str
-      E.g. “Mac”, “iPhone”, “Apple watch”
     client_manufacture : str
-      E.g. “Apple”
     client_model : str
-      E.g. “8+”, “XS”
     client_os : str
-      E.g. “Mojave”, “Windows 10”, “Linux”
     ssid : str
-      SSID
     wlan_id : str
-      wlan_id
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -285,26 +253,17 @@ def searchOrgWirelessClientSessions(mist_session:_APISession, org_id:str, ap:str
     QUERY PARAMS
     ------------
     ap : str
-      AP MAC
-    band : str{'24', '5'}
-      5 / 24
+    band : str{'24', '5', '6'}
+      802.11 Band
     client_family : str
-      E.g. “Mac”, “iPhone”, “Apple watch”
     client_manufacture : str
-      E.g. “Apple”
     client_model : str
-      E.g. “8+”, “XS”
     client_username : str
-      Username
     client_os : str
-      E.g. “Mojave”, “Windows 10”, “Linux”
     ssid : str
-      SSID
     wlan_id : str
-      wlan_id
     psk_id : str
     psk_name : str
-      PSK Name
     limit : int, default: 100
     start : int
     end : int
