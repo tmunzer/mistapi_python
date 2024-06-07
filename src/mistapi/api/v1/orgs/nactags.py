@@ -14,8 +14,8 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.3", details="function replaced with listOrgNacTags")
-def getOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, page:int=1, limit:int=100) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgNacTags")
+def getOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, match:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgNacTags
     
@@ -32,6 +32,7 @@ def getOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=
     ------------
     type : str
     name : str
+    match : str
     page : int, default: 1
     limit : int, default: 100        
     
@@ -44,12 +45,13 @@ def getOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=
     query_params={}
     if type: query_params["type"]=type
     if name: query_params["name"]=name
+    if match: query_params["match"]=match
     if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, page:int=1, limit:int=100) -> _APIResponse:
+def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, match:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgNacTags
     
@@ -66,6 +68,7 @@ def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str
     ------------
     type : str
     name : str
+    match : str
     page : int, default: 1
     limit : int, default: 100        
     
@@ -78,6 +81,7 @@ def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str
     query_params={}
     if type: query_params["type"]=type
     if name: query_params["name"]=name
+    if match: query_params["match"]=match
     if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)

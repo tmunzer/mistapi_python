@@ -37,7 +37,7 @@ def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> _API
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.3", details="function replaced with listOrgSsrUpgrades")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgSsrUpgrades")
 def getOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgSsrUpgrades
@@ -111,7 +111,7 @@ def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str, body:object) -> _APIResponse:
+def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/cancelOrgSsrUpgrade
     
@@ -125,21 +125,16 @@ def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str, bo
     org_id : str
     upgrade_id : str        
     
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/ssr/upgrade/{upgrade_id}/cancel"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.3", details="function replaced with listOrgAvailableSsrVersions")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgAvailableSsrVersions")
 def getOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgAvailableSsrVersions

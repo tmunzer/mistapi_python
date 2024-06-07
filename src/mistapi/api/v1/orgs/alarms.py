@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def multiAckOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def ackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/multiAckOrgAlarms
+    API doc: https://doc.mist-lab.fr/#operation/ackOrgMultipleAlarms
     
     PARAMS
     -----------
@@ -144,9 +144,9 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def multiUnackOrgAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def unackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/multiUnackOrgAlarms
+    API doc: https://doc.mist-lab.fr/#operation/unackOrgMultipleAlarms
     
     PARAMS
     -----------

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.3", details="function replaced with listSiteWebhooks")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listSiteWebhooks")
 def getSiteWebhooks(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteWebhooks
@@ -178,7 +178,54 @@ def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, status_code:int=None, error:str=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/countSiteWebhooksDeliveries
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    webhook_id : str        
+    
+    QUERY PARAMS
+    ------------
+    error : str
+    status_code : int
+    status : str{'success', 'failure'}
+      webhook delivery status
+    topic : str{'alarms', 'audits', 'device-updowns', 'occupancy-alerts', 'ping'}
+      webhook topic
+    distinct : str{'status', 'topic', 'status_code', 'webhook_id'}
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}/events/count"
+    query_params={}
+    if error: query_params["error"]=error
+    if status_code: query_params["status_code"]=status_code
+    if status: query_params["status"]=status
+    if topic: query_params["topic"]=topic
+    if distinct: query_params["distinct"]=distinct
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteWebhooksDeliveries
     
@@ -194,8 +241,10 @@ def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_
     
     QUERY PARAMS
     ------------
-    status_code : int
     error : str
+    status_code : int
+    status : str{'success', 'failure'}
+      webhook delivery status
     topic : str{'alarms', 'audits', 'device-updowns', 'occupancy-alerts', 'ping'}
       webhook topic
     start : int
@@ -210,8 +259,9 @@ def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_
     """
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}/events/search"
     query_params={}
-    if status_code: query_params["status_code"]=status_code
     if error: query_params["error"]=error
+    if status_code: query_params["status_code"]=status_code
+    if status: query_params["status"]=status
     if topic: query_params["topic"]=topic
     if start: query_params["start"]=start
     if end: query_params["end"]=end

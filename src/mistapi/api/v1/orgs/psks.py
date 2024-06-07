@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.3", details="function replaced with listOrgPsks")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgPsks")
 def getOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=None, role:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgPsks
@@ -114,9 +114,9 @@ def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIRespo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateOrgMultiPsks(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def updateOrgMultiplePsks(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgMultiPsks
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgMultiplePsks
     
     PARAMS
     -----------
@@ -139,6 +139,33 @@ def updateOrgMultiPsks(mist_session:_APISession, org_id:str, body:object) -> _AP
     """
     uri = f"/api/v1/orgs/{org_id}/psks"
     resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+    
+def deleteOrgPskList(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgPskList
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/psks/delete"
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
 def importOrgPsksFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
@@ -274,7 +301,7 @@ def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str, body:object) -> _APIResponse:
+def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgPskOldPassphrase
     
@@ -288,17 +315,12 @@ def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str, 
     org_id : str
     psk_id : str        
     
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/psks/{psk_id}/delete_old_passphrase"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post(uri=uri)
     return resp
     

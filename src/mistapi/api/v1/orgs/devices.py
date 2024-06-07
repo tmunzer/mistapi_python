@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.3", details="function replaced with listOrgDevices")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgDevices")
 def getOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDevices
@@ -299,7 +299,7 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="a
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.3", details="function replaced with listOrgApsMacs")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgApsMacs")
 def getOrgApsMacs(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgApsMacs
@@ -434,10 +434,10 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.48.3", details="function replaced with listOrgMultiSitesDevicesUpgrades")
-def getOrgMultiSitesDevicesUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgDeviceUpgrades")
+def getOrgDeviceUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgMultiSitesDevicesUpgrades
+    API doc: https://doc.mist-lab.fr/#operation/listOrgDeviceUpgrades
     
     PARAMS
     -----------
@@ -458,9 +458,9 @@ def getOrgMultiSitesDevicesUpgrades(mist_session:_APISession, org_id:str) -> _AP
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgMultiSitesDevicesUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
+def listOrgDeviceUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgMultiSitesDevicesUpgrades
+    API doc: https://doc.mist-lab.fr/#operation/listOrgDeviceUpgrades
     
     PARAMS
     -----------
@@ -481,9 +481,9 @@ def listOrgMultiSitesDevicesUpgrades(mist_session:_APISession, org_id:str) -> _A
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def upgradeOrgMultiSitesDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def upgradeOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeOrgMultiSitesDevices
+    API doc: https://doc.mist-lab.fr/#operation/upgradeOrgDevices
     
     PARAMS
     -----------
@@ -508,9 +508,9 @@ def upgradeOrgMultiSitesDevices(mist_session:_APISession, org_id:str, body:objec
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgMultiSitesUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
+def getOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgMultiSitesUpgrade
+    API doc: https://doc.mist-lab.fr/#operation/getOrgDeviceUpgrade
     
     PARAMS
     -----------

@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def multiAckSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def AckSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/multiAckSiteAlarms
+    API doc: https://doc.mist-lab.fr/#operation/AckSiteMultipleAlarms
     
     PARAMS
     -----------
@@ -84,6 +84,7 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     QUERY PARAMS
     ------------
     distinct : str{'type', 'acked', 'severity', 'group'}, default: type
+      Group by and count the alarms by some distinct field
     ack_admin_name : str
     acked : bool
     type : str
@@ -160,9 +161,9 @@ def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_a
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def multiUnackSiteAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def unackSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/multiUnackSiteAlarms
+    API doc: https://doc.mist-lab.fr/#operation/unackSiteMultipleAlarms
     
     PARAMS
     -----------

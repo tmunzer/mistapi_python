@@ -63,36 +63,6 @@ def getSiteCurrentRrmConsiderations(mist_session:_APISession, site_id:str, devic
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, device_id:str, band:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentRrmNeighbors
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str
-    device_id : str        
-    
-    QUERY PARAMS
-    ------------
-    band : str{'24', '5', '6'}
-      802.11 Band        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/rrm/current/devices/{device_id}/neighbors"
-    query_params={}
-    if band: query_params["band"]=band
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteRrmEvents
@@ -129,6 +99,38 @@ def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str=None, page:
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def getSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, band:str, page:int=1, limit:int=100) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentRrmNeighbors
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    band : str{'24', '5', '6'}
+      802.11 Band        
+    
+    QUERY PARAMS
+    ------------
+    page : int, default: 1
+    limit : int, default: 100        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/rrm/neighbors//band/{band}"
+    query_params={}
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

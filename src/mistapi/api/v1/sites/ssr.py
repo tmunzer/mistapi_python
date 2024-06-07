@@ -38,9 +38,9 @@ def getSiteSsrUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def upgradeSiteSsr(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def upgradeSsr(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeSiteSsr
+    API doc: https://doc.mist-lab.fr/#operation/upgradeSsr
     
     PARAMS
     -----------
