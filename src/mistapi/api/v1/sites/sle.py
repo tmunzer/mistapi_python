@@ -437,7 +437,7 @@ def getSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, sco
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-users"
+    uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted_users"
     query_params={}
     if start: query_params["start"]=start
     if end: query_params["end"]=end

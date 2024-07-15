@@ -36,6 +36,7 @@ def countSiteZoneSessions(mist_session:_APISession, site_id:str, zone_type:str, 
     user : str
     scope_id : str
     scope : str{'site', 'map', 'zone', 'rssizone'}, default: site
+      scope
     page : int, default: 1
     limit : int, default: 100
     start : int

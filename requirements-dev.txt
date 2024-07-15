@@ -2,3 +2,5 @@ requests
 tabulate
 python-dotenv
 deprecation
+twine
+build

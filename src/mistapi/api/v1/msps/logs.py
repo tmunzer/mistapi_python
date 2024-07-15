@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listMspLogs")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listMspLogs")
 def getMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listMspLogs
@@ -34,6 +34,7 @@ def getMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_nam
     admin_name : str
     message : str
     sort : str{'timestamp', '-timestamp', 'site_id', 'admin_id'}
+      sort order
     start : int
     end : int
     limit : int, default: 100
@@ -78,6 +79,7 @@ def listMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_na
     admin_name : str
     message : str
     sort : str{'timestamp', '-timestamp', 'site_id', 'admin_id'}
+      sort order
     start : int
     end : int
     limit : int, default: 100

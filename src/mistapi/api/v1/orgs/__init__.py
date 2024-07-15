@@ -11,7 +11,6 @@
 '''
 
 from mistapi.api.v1.orgs import orgs
-from mistapi.api.v1.orgs import events
 from mistapi.api.v1.orgs import ssr
 from mistapi.api.v1.orgs import admins
 from mistapi.api.v1.orgs import alarms
@@ -27,6 +26,7 @@ from mistapi.api.v1.orgs import clone
 from mistapi.api.v1.orgs import crl
 from mistapi.api.v1.orgs import deviceprofiles
 from mistapi.api.v1.orgs import devices
+from mistapi.api.v1.orgs import events
 from mistapi.api.v1.orgs import evpn_topologies
 from mistapi.api.v1.orgs import gatewaytemplates
 from mistapi.api.v1.orgs import guests
@@ -38,6 +38,7 @@ from mistapi.api.v1.orgs import jsi
 from mistapi.api.v1.orgs import licenses
 from mistapi.api.v1.orgs import logs
 from mistapi.api.v1.orgs import maps
+from mistapi.api.v1.orgs import marvisinvites
 from mistapi.api.v1.orgs import mist_nac
 from mistapi.api.v1.orgs import mxclusters
 from mistapi.api.v1.orgs import mxedges

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgUserMacs")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listOrgUserMacs")
 def getOrgUserMacs(mist_session:_APISession, org_id:str, blacklisted:bool=None, for_guest_wifi:bool=None, cross_site:bool=None, site_id:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgUserMacs
@@ -118,30 +118,7 @@ def createOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteOrgUserMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgUserMacs
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/usermacs/delete"
-    query_params={}
-    resp = mist_session.mist_delete(uri=uri, query=query_params)
-    return resp
-    
-def importOrgUserMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
+def importOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgUserMacs
     
@@ -154,12 +131,99 @@ def importOrgUserMacs(mist_session:_APISession, org_id:str) -> _APIResponse:
     -----------
     org_id : str        
     
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/usermacs/import"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str=None, labels:list=None, page:int=1, limit:int=100) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/searchOrgUserMacs
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    QUERY PARAMS
+    ------------
+    mac : str
+    labels : list
+      optional, array of strings of labels
+    page : int, default: 1
+    limit : int, default: 100        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/usermacs/search"
+    query_params={}
+    if mac: query_params["mac"]=mac
+    if labels: query_params["labels"]=labels
+    if page: query_params["page"]=page
+    if limit: query_params["limit"]=limit
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def getOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getOrgUserMac
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    usermac_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/usermacs/search/{usermac_id}"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def deleteOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgUserMac
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    usermac_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/usermacs/search/{usermac_id}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp

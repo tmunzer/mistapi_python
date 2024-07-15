@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listSiteDevices")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listSiteDevices")
 def getSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDevices
@@ -566,6 +566,7 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     power_constrained : bool
     ip_address : str
     mxtunnel_status : str{'up', 'down'}
+      MxTunnel status, up / down
     mxedge_id : str
     lldp_system_name : str
     lldp_system_desc : str
@@ -579,7 +580,9 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     band_6_bandwith : int
     eth0_port_speed : int
     sort : str{'timestamp', 'mac', 'model', 'sku'}, default: timestamp
+      sort options
     desc_sort : str{'timestamp', 'mac', 'model', 'sku'}
+      sort options in reverse order
     stats : bool
     limit : int, default: 100
     start : int
@@ -650,7 +653,7 @@ def sendSiteDevicesArbitratryBleBeacon(mist_session:_APISession, site_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listSiteDeviceUpgrades")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listSiteDeviceUpgrades")
 def getSiteDeviceUpgrades(mist_session:_APISession, site_id:str, status:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDeviceUpgrades
@@ -835,7 +838,7 @@ def upgradeSiteDevicesFpga(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listSiteAvailableDeviceVersions")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listSiteAvailableDeviceVersions")
 def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap", model:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteAvailableDeviceVersions
@@ -945,30 +948,6 @@ def getSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIR
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def deleteSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteDevice
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str
-    device_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/devices/{device_id}"
-    query_params={}
-    resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
 def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
@@ -1251,7 +1230,7 @@ def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, d
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str, sort:str="false") -> _APIResponse:
+def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str, sort:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceConfigCmd
     
@@ -1267,7 +1246,7 @@ def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str,
     
     QUERY PARAMS
     ------------
-    sort : str{'true', 'false'}, default: false        
+    sort : bool        
     
     RETURN
     -----------
@@ -1357,41 +1336,6 @@ def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str, image_number:int, file:str=None, json:str=None) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/addSiteDeviceImage
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str
-    device_id : str
-    image_number : int        
-    
-    BODY PARAMS
-    -----------
-    file : str
-        path to the file to upload. binary file
-    json : str
-        JSON string describing your upload
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    multipart_form_data = {
-        "file":file,
-        "json":json,
-    }
-    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/image{image_number}"
-    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
-    return resp
-
 def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceIotPort
@@ -1883,6 +1827,34 @@ def getSiteDeviceEvpnDatabase(mist_session:_APISession, site_id:str, device_id:s
         response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_evpn_database"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def getSiteDeviceForwardingTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceForwardingTable
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_forwarding_table"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     

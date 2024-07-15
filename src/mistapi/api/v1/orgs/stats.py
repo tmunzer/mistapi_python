@@ -50,7 +50,7 @@ def getOrgStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgAssetsStats")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listOrgAssetsStats")
 def getOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgAssetsStats
@@ -259,7 +259,7 @@ def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgDevicesStats")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listOrgDevicesStats")
 def getOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None, fields:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDevicesStats
@@ -360,8 +360,8 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", sta
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgMxEdgesStats")
-def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:str="false") -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listOrgMxEdgesStats")
+def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdgesStats
     
@@ -381,7 +381,7 @@ def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     start : int
     end : int
     duration : str, default: 1d
-    for_site : str{'true', 'false', 'any'}, default: false        
+    for_site : bool        
     
     RETURN
     -----------
@@ -399,7 +399,7 @@ def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:str="false") -> _APIResponse:
+def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdgesStats
     
@@ -419,7 +419,7 @@ def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:
     start : int
     end : int
     duration : str, default: 1d
-    for_site : str{'true', 'false', 'any'}, default: false        
+    for_site : bool        
     
     RETURN
     -----------
@@ -527,8 +527,11 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     mac_count : int
     up : bool
     stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+      if `up`==`true`
     stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+      if `up`==`true`
     auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+      if `up`==`true` && has Authenticator role
     limit : int, default: 100
     start : int
     end : int
@@ -615,8 +618,11 @@ def countOrgSwitchPorts(mist_session:_APISession, org_id:str, distinct:str="mac"
     rx_bcast_pkts : int
     speed : int
     stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+      if `up`==`true`
     stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+      if `up`==`true`
     auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+      if `up`==`true`
     up : bool
     page : int, default: 1
     limit : int, default: 100
@@ -681,6 +687,8 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str="wxt
     QUERY PARAMS
     ------------
     distinct : str{'auth_algo', 'wxtunnel_id', 'ap', 'remote_ip', 'remote_port', 'state', 'mxedge_id', 'mxcluster_id', 'site_id', 'peer_mxedge_id', 'mac', 'node', 'peer_ip', 'peer_host', 'ip', 'tunnel_name', 'protocol', 'encrypt_algo', 'ike_version', 'last_event', 'up'}, default: wxtunnel_id
+      - If `type`==`wxtunnel`: wxtunnel_id / ap / remote_ip / remote_port / state / mxedge_id / mxcluster_id / site_id / peer_mxedge_id; default is wxtunnel_id 
+- If `type`==`wan`: mac / site_id / node / peer_ip / peer_host/ ip / tunnel_name / protocol / auth_algo / encrypt_algo / ike_version / last_event / up
     type : str{'wxtunnel', 'wan'}, default: wxtunnel        
     
     RETURN

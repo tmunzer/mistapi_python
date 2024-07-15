@@ -29,7 +29,8 @@ def countSiteNacClients(mist_session:_APISession, site_id:str, distinct:str="typ
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'last_nacrule_id', 'auth_type', 'last_vlan_id', 'last_nas_vendor', 'last_username', 'last_ap', 'mac', 'last_ssid', 'last_status', 'mdm_compliance_status', 'mdm_provider'}, default: type
+    distinct : str{'type', 'last_nacrule_id', 'auth_type', 'last_vlan', 'last_nas_vendor', 'last_username', 'last_ap', 'mac', 'last_ssid', 'last_status', 'mdm_compliance', 'mdm_provider'}, default: type
+      NAC Policy Rule ID, if matched
     last_nacrule_id : str
     nacrule_matched : bool
     auth_type : str
@@ -200,7 +201,7 @@ def searcsearcSiteNacClientEventsacClientEvents(mist_session:_APISession, site_i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, vlan_id:str=None, nas_vendor:str=None, idp_id:str=None, ssid:str=None, username:str=None, timestamp:float=None, ap:str=None, mac:str=None, mxedge_id:str=None, nacrule_name:str=None, status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, vlan:str=None, nas_vendor:str=None, idp_id:str=None, ssid:str=None, username:str=None, timestamp:float=None, ap:str=None, mac:str=None, mxedge_id:str=None, nacrule_name:str=None, status:str=None, type:str=None, mdm_compliance:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteNacClients
     
@@ -218,7 +219,7 @@ def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=N
     nacrule_id : str
     nacrule_matched : bool
     auth_type : str
-    vlan_id : str
+    vlan : str
     nas_vendor : str
     idp_id : str
     ssid : str
@@ -230,7 +231,7 @@ def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=N
     nacrule_name : str
     status : str
     type : str
-    mdm_compliance_status : str
+    mdm_compliance : str
     mdm_provider : str
     start : int
     end : int
@@ -248,7 +249,7 @@ def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=N
     if nacrule_id: query_params["nacrule_id"]=nacrule_id
     if nacrule_matched: query_params["nacrule_matched"]=nacrule_matched
     if auth_type: query_params["auth_type"]=auth_type
-    if vlan_id: query_params["vlan_id"]=vlan_id
+    if vlan: query_params["vlan"]=vlan
     if nas_vendor: query_params["nas_vendor"]=nas_vendor
     if idp_id: query_params["idp_id"]=idp_id
     if ssid: query_params["ssid"]=ssid
@@ -260,7 +261,7 @@ def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=N
     if nacrule_name: query_params["nacrule_name"]=nacrule_name
     if status: query_params["status"]=status
     if type: query_params["type"]=type
-    if mdm_compliance_status: query_params["mdm_compliance_status"]=mdm_compliance_status
+    if mdm_compliance: query_params["mdm_compliance"]=mdm_compliance
     if mdm_provider: query_params["mdm_provider"]=mdm_provider
     if start: query_params["start"]=start
     if end: query_params["end"]=end

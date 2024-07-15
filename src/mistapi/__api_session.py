@@ -29,10 +29,12 @@ CLOUDS = [
     {"short": "APAC 01", "host": "api.ac5.mist.com", "cookies_ext": ".ac5"},
     {"short": "EMEA 01", "host": "api.eu.mist.com", "cookies_ext": ".eu"},
     {"short": "EMEA 02", "host": "api.gc3.mist.com", "cookies_ext": ".gc3"},
+    {"short": "EMEA 03", "host": "api.ac6.mist.com", "cookies_ext": ".ac6"},
     {"short": "Global 01", "host": "api.mist.com", "cookies_ext": ""},
     {"short": "Global 02", "host": "api.gc1.mist.com", "cookies_ext": ".gc1"},
     {"short": "Global 03", "host": "api.ac2.mist.com", "cookies_ext": ".ac2"},
     {"short": "Global 04", "host": "api.gc2.mist.com", "cookies_ext": ".gc2"},
+    {"short": "US GOV", "host": "api.us.mist-federal.com", "cookies_ext": ".us"},
 ]
 
 #### PARAMETERS #####

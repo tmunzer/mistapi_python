@@ -40,7 +40,7 @@ def searchOrgEvents(mist_session:_APISession, org_id:str, type:str=None, start:i
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}//events/search"
+    uri = f"/api/v1/orgs/{org_id}/events/search"
     query_params={}
     if type: query_params["type"]=type
     if start: query_params["start"]=start

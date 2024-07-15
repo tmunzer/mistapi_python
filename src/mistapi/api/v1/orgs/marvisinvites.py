@@ -14,10 +14,10 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listMspSsoRoles")
-def getMspSsoRoles(mist_session:_APISession, msp_id:str) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listOrgMarvisClientInvites")
+def getOrgMarvisClientInvites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspSsoRoles
+    API doc: https://doc.mist-lab.fr/#operation/listOrgMarvisClientInvites
     
     PARAMS
     -----------
@@ -26,21 +26,21 @@ def getMspSsoRoles(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
     PATH PARAMS
     -----------
-    msp_id : str        
+    org_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/ssoroles"
+    uri = f"/api/v1/orgs/{org_id}/marvisinvites"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listMspSsoRoles(mist_session:_APISession, msp_id:str) -> _APIResponse:
+def listOrgMarvisClientInvites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspSsoRoles
+    API doc: https://doc.mist-lab.fr/#operation/listOrgMarvisClientInvites
     
     PARAMS
     -----------
@@ -49,21 +49,21 @@ def listMspSsoRoles(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
     PATH PARAMS
     -----------
-    msp_id : str        
+    org_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/ssoroles"
+    uri = f"/api/v1/orgs/{org_id}/marvisinvites"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+def createOrgMarvisClientInvites(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createMspSsoRole
+    API doc: https://doc.mist-lab.fr/#operation/createOrgMarvisClientInvites
     
     PARAMS
     -----------
@@ -72,7 +72,7 @@ def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> _APIR
     
     PATH PARAMS
     -----------
-    msp_id : str        
+    org_id : str        
     
     BODY PARAMS
     -----------
@@ -84,13 +84,13 @@ def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> _APIR
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/ssoroles"
+    uri = f"/api/v1/orgs/{org_id}/marvisinvites"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _APIResponse:
+def getOrgMarvisClientInvites(mist_session:_APISession, org_id:str, marvisinvite_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteMspSsoRole
+    API doc: https://doc.mist-lab.fr/#operation/getOrgMarvisClientInvites
     
     PARAMS
     -----------
@@ -99,22 +99,46 @@ def deleteMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _A
     
     PATH PARAMS
     -----------
-    msp_id : str
-    ssorole_id : str        
+    org_id : str
+    marvisinvite_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/ssoroles/{ssorole_id}"
+    uri = f"/api/v1/orgs/{org_id}/marvisinvites/{marvisinvite_id}"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def deleteOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgMarvisClientInvite
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    marvisinvite_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/marvisinvites/{marvisinvite_id}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str, body:object) -> _APIResponse:
+def updateOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateMspSsoRole
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgMarvisClientInvite
     
     PARAMS
     -----------
@@ -123,8 +147,8 @@ def updateMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str, body:
     
     PATH PARAMS
     -----------
-    msp_id : str
-    ssorole_id : str        
+    org_id : str
+    marvisinvite_id : str        
     
     BODY PARAMS
     -----------
@@ -136,7 +160,7 @@ def updateMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str, body:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/ssoroles/{ssorole_id}"
+    uri = f"/api/v1/orgs/{org_id}/marvisinvites/{marvisinvite_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     

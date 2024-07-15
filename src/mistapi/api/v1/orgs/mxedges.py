@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgMxEdges")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listOrgMxEdges")
 def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdges
@@ -31,6 +31,7 @@ def getOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", lim
     QUERY PARAMS
     ------------
     for_sites : str{'any', 'true', 'false'}, default: any
+      filter for site level mist edges
     limit : int, default: 100
     page : int, default: 1        
     
@@ -63,6 +64,7 @@ def listOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", li
     QUERY PARAMS
     ------------
     for_sites : str{'any', 'true', 'false'}, default: any
+      filter for site level mist edges
     limit : int, default: 100
     page : int, default: 1        
     
@@ -379,7 +381,7 @@ def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgMxEdgeUpgrades")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listOrgMxEdgeUpgrades")
 def getOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdgeUpgrades
@@ -492,7 +494,8 @@ def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="s
     
     QUERY PARAMS
     ------------
-    channel : str{'stable', 'beta', 'alpha'}, default: stable        
+    channel : str{'stable', 'beta', 'alpha'}, default: stable
+      upgrade channel to follow, stable (default) / beta / alpha        
     
     RETURN
     -----------
@@ -700,7 +703,8 @@ def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str
     org_id : str
     mxedge_id : str
     name : str{'tunterm', 'radsecproxy', 'mxagent', 'mxocproxy', 'mxdas'}
-    action : str{'restart', 'start', 'stop'}        
+    action : str{'restart', 'start', 'stop'}
+      restart or start or stop        
     
     RETURN
     -----------

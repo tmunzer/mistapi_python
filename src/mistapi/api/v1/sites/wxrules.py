@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listSiteWxRules")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listSiteWxRules")
 def getSiteWxRules(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteWxRules
@@ -125,7 +125,7 @@ def getSiteWxRulesDerived(mist_session:_APISession, site_id:str) -> _APIResponse
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str) -> _APIResponse:
+def getSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWxRule
     
@@ -137,19 +137,19 @@ def getSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str) -> _API
     PATH PARAMS
     -----------
     site_id : str
-    wxrules_id : str        
+    wxrule_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/wxrules/{wxrules_id}"
+    uri = f"/api/v1/sites/{site_id}/wxrules/{wxrule_id}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str) -> _APIResponse:
+def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteSiteWxRule
     
@@ -161,19 +161,19 @@ def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str) -> _
     PATH PARAMS
     -----------
     site_id : str
-    wxrules_id : str        
+    wxrule_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/wxrules/{wxrules_id}"
+    uri = f"/api/v1/sites/{site_id}/wxrules/{wxrule_id}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str, body:object) -> _APIResponse:
+def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/updateSiteWxRule
     
@@ -185,7 +185,7 @@ def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str, body
     PATH PARAMS
     -----------
     site_id : str
-    wxrules_id : str        
+    wxrule_id : str        
     
     BODY PARAMS
     -----------
@@ -197,7 +197,7 @@ def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrules_id:str, body
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/wxrules/{wxrules_id}"
+    uri = f"/api/v1/sites/{site_id}/wxrules/{wxrule_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     

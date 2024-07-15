@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgDeviceProfiles")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.0", details="function replaced with listOrgDeviceProfiles")
 def getOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDeviceProfiles
@@ -210,9 +210,9 @@ def assignOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unassignOrgDeviceProfiles(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> _APIResponse:
+def unassignOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unassignOrgDeviceProfiles
+    API doc: https://doc.mist-lab.fr/#operation/unassignOrgDeviceProfile
     
     PARAMS
     -----------
