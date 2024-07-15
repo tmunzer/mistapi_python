@@ -34,7 +34,6 @@ CLOUDS = [
     {"short": "Global 02", "host": "api.gc1.mist.com", "cookies_ext": ".gc1"},
     {"short": "Global 03", "host": "api.ac2.mist.com", "cookies_ext": ".ac2"},
     {"short": "Global 04", "host": "api.gc2.mist.com", "cookies_ext": ".gc2"},
-    {"short": "US GOV", "host": "api.us.mist-federal.com", "cookies_ext": ".us"},
 ]
 
 #### PARAMETERS #####
@@ -201,7 +200,7 @@ class APISession(APIRequest):
         """
         logger.debug("apisession:set_cloud")
         self._cloud_uri = None
-        if cloud_uri in ["api.mistsys.com", "api.ac99.mist.com", "api.gc1.mistsys.com"]:
+        if cloud_uri in ["api.mistsys.com", "api.ac99.mist.com", "api.gc1.mistsys.com", "api.us.mist-federal.com"]:
             self._cloud_uri = cloud_uri
         else:
             for cloud in CLOUDS:
@@ -250,6 +249,8 @@ class APISession(APIRequest):
             self._cloud_uri = "api.ac99.mist.com"
         elif resp == "g":
             self._cloud_uri = "api.gc1.mistsys.com"
+        elif resp == "f":
+            self._cloud_uri = "api.us.mist-federal.com"
         else:
             try:
                 resp_num = int(resp)
@@ -630,6 +631,8 @@ class APISession(APIRequest):
                         cookies_ext= ".ac99"
                     elif self._cloud_uri == "api.gc1.mistsys.com":
                         cookies_ext= ".gc1"
+                    elif self._cloud_uri == "api.us.mist-federal.com":
+                        cookies_ext= ".us"
                     else:
                         cookies_ext = next(
                             item["cookies_ext"]
