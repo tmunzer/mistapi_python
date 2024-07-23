@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.1", details="function replaced with listOrgPsks")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.2", details="function replaced with listOrgPsks")
 def getOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=None, role:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgPsks
@@ -168,6 +168,36 @@ def deleteOrgPskList(mist_session:_APISession, org_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+def importOrgPsksFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/importOrgPsks
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    BODY PARAMS
+    -----------
+    file : str
+        path to the file to upload. 
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    multipart_form_data = {
+        "file":file,
+    }
+    uri = f"/api/v1/orgs/{org_id}/psks/import"
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
+    return resp
+
 def importOrgPsks(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgPsks

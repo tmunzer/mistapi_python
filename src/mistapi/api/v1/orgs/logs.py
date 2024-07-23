@@ -14,10 +14,10 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.1", details="function replaced with listOrgLogs")
-def getOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.2", details="function replaced with listOrgAuditLogs")
+def getOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgLogs
+    API doc: https://doc.mist-lab.fr/#operation/listOrgAuditLogs
     
     PARAMS
     -----------
@@ -60,9 +60,9 @@ def getOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_nam
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgLogs
+    API doc: https://doc.mist-lab.fr/#operation/listOrgAuditLogs
     
     PARAMS
     -----------
@@ -105,9 +105,9 @@ def listOrgLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_na
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgLogs(mist_session:_APISession, org_id:str, distinct:str="admin_name", admin_id:str=None, admin_name:str=None, site_id:str=None, message:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_name", admin_id:str=None, admin_name:str=None, site_id:str=None, message:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgLogs
+    API doc: https://doc.mist-lab.fr/#operation/countOrgAuditLogs
     
     PARAMS
     -----------

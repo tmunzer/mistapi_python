@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.1", details="function replaced with listInstallerListOfRenctlyClaimedDevices")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.2", details="function replaced with listInstallerListOfRenctlyClaimedDevices")
 def getInstallerListOfRenctlyClaimedDevices(mist_session:_APISession, org_id:str, model:str=None, site_name:str=None, site_id:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listInstallerListOfRenctlyClaimedDevices
@@ -237,6 +237,46 @@ def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
+def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name:str, device_mac:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/addInstallerDeviceImage
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    image_name : str
+    device_mac : str        
+    
+    BODY PARAMS
+    -----------
+    auto_deviceprofile_assignment : bool
+        whether to auto assign device to deviceprofile by name
+    csv : str
+        path to the file to upload. csv file for ap name mapping, optional
+    file : str
+        path to the file to upload. ekahau or ibwave file
+    json : any
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    multipart_form_data = {
+        "auto_deviceprofile_assignment":auto_deviceprofile_assignment,
+        "csv":csv,
+        "file":file,
+        "json":json,
+    }
+    uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/{image_name}"
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
+    return resp
+
 def getInstallerDeviceVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getInstallerDeviceVirtualChassis

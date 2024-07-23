@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.1", details="function replaced with listInstallerSites")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.2", details="function replaced with listInstallerSites")
 def getInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listInstallerSites
@@ -89,7 +89,7 @@ def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.1", details="function replaced with listInstallerMaps")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.2", details="function replaced with listInstallerMaps")
 def getInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listInstallerMaps
@@ -138,6 +138,45 @@ def listInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _A
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/importInstallerMap
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    site_name : str        
+    
+    BODY PARAMS
+    -----------
+    auto_deviceprofile_assignment : bool
+        whether to auto assign device to deviceprofile by name
+    csv : str
+        path to the file to upload. csv file for ap name mapping, optional
+    file : str
+        path to the file to upload. ekahau or ibwave file
+    json : any
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    multipart_form_data = {
+        "auto_deviceprofile_assignment":auto_deviceprofile_assignment,
+        "csv":csv,
+        "file":file,
+        "json":json,
+    }
+    uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/import"
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
+    return resp
+
 def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteInstallerMap

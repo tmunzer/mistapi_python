@@ -14,10 +14,10 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.1", details="function replaced with listMspLogs")
-def getMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.2", details="function replaced with listMspAuditLogs")
+def getMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspLogs
+    API doc: https://doc.mist-lab.fr/#operation/listMspAuditLogs
     
     PARAMS
     -----------
@@ -60,9 +60,9 @@ def getMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_nam
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+def listMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspLogs
+    API doc: https://doc.mist-lab.fr/#operation/listMspAuditLogs
     
     PARAMS
     -----------
@@ -105,9 +105,9 @@ def listMspLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_na
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countMspLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_name") -> _APIResponse:
+def countMspAuditLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_name") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countMspLogs
+    API doc: https://doc.mist-lab.fr/#operation/countMspAuditLogs
     
     PARAMS
     -----------

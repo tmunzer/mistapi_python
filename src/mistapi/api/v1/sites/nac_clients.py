@@ -121,9 +121,9 @@ def countSiteNacClientEvents(mist_session:_APISession, site_id:str, distinct:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searcsearcSiteNacClientEventsacClientEvents(mist_session:_APISession, site_id:str, type:str=None, nacrule_id:str=None, nacrule_matched:bool=None, dryrun_nacrule_id:str=None, dryrun_nacrule_matched:bool=None, auth_type:str=None, vlan:int=None, vlan_source:str=None, nas_vendor:str=None, bssid:str=None, idp_id:str=None, idp_role:str=None, idp_username:str=None, resp_attrs:list=None, ssid:str=None, username:str=None, usermac_labels:list=None, ap:str=None, random_mac:bool=None, mac:str=None, lookup_time_taken:float=None, timestamp:float=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchSiteNacClientEvents(mist_session:_APISession, site_id:str, type:str=None, nacrule_id:str=None, nacrule_matched:bool=None, dryrun_nacrule_id:str=None, dryrun_nacrule_matched:bool=None, auth_type:str=None, vlan:int=None, vlan_source:str=None, nas_vendor:str=None, bssid:str=None, idp_id:str=None, idp_role:str=None, idp_username:str=None, resp_attrs:list=None, ssid:str=None, username:str=None, usermac_labels:list=None, ap:str=None, random_mac:bool=None, mac:str=None, lookup_time_taken:float=None, timestamp:float=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searcsearcSiteNacClientEventsacClientEvents
+    API doc: https://doc.mist-lab.fr/#operation/searchSiteNacClientEvents
     
     PARAMS
     -----------

@@ -382,6 +382,39 @@ def getOrgNacCrl(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def importOrgNacCrlFile(mist_session:_APISession, org_id:str, file:str=None, json:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/importOrgNacCrl
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    BODY PARAMS
+    -----------
+    file : str
+        path to the file to upload. a binary .crl file
+    json : str
+        json string with name for .crl file (optional)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    multipart_form_data = {
+        "file":file,
+        "json":json,
+    }
+    uri = f"/api/v1/orgs/{org_id}/setting/mist_nac_crls"
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
+    return resp
+
 def deleteOrgNacCrl(mist_session:_APISession, org_id:str, naccrl_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacCrl

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.1", details="function replaced with listOrgTickets")
+@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.2", details="function replaced with listOrgTickets")
 def getOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgTickets
@@ -195,6 +195,37 @@ def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:ob
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
+def UploadrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_id:str, file:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/UploadrgTicketAttachment
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    ticket_id : str        
+    
+    BODY PARAMS
+    -----------
+    file : str
+        path to the file to upload. ekahau or ibwave file
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    multipart_form_data = {
+        "file":file,
+    }
+    uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}/attachments"
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
+    return resp
+
 def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, attachment_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/GetOrgTicketAttachment
@@ -229,6 +260,39 @@ def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def addOrgTicketCommentFile(mist_session:_APISession, org_id:str, ticket_id:str, comment:str=None, file:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/addOrgTicketComment
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    ticket_id : str        
+    
+    BODY PARAMS
+    -----------
+    comment : str
+    file : str
+        path to the file to upload. 
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    multipart_form_data = {
+        "comment":comment,
+        "file":file,
+    }
+    uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}/comments"
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
+    return resp
+
 def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addOrgTicketComment
