@@ -14,41 +14,6 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.2", details="function replaced with listSiteDevices")
-def getSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, page:int=1, limit:int=100) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteDevices
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str        
-    
-    QUERY PARAMS
-    ------------
-    type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
-    name : str
-    page : int, default: 1
-    limit : int, default: 100        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/devices"
-    query_params={}
-    if type: query_params["type"]=type
-    if name: query_params["name"]=name
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDevices
@@ -653,35 +618,6 @@ def sendSiteDevicesArbitratryBleBeacon(mist_session:_APISession, site_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.2", details="function replaced with listSiteDeviceUpgrades")
-def getSiteDeviceUpgrades(mist_session:_APISession, site_id:str, status:str=None) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteDeviceUpgrades
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str        
-    
-    QUERY PARAMS
-    ------------
-    status : str{'downloading', 'completed', 'created', 'downloaded', 'upgrading', 'cancelled', 'failed'}        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/devices/upgrade"
-    query_params={}
-    if status: query_params["status"]=status
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listSiteDeviceUpgrades(mist_session:_APISession, site_id:str, status:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDeviceUpgrades
@@ -836,37 +772,6 @@ def upgradeSiteDevicesFpga(mist_session:_APISession, site_id:str, body:object) -
     """
     uri = f"/api/v1/sites/{site_id}/devices/upgrade_fpga"
     resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
-    
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.51.2", details="function replaced with listSiteAvailableDeviceVersions")
-def getSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap", model:str=None) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteAvailableDeviceVersions
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str        
-    
-    QUERY PARAMS
-    ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
-    model : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/devices/versions"
-    query_params={}
-    if type: query_params["type"]=type
-    if model: query_params["model"]=model
-    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
 def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap", model:str=None) -> _APIResponse:
@@ -1256,6 +1161,30 @@ def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str,
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/config_cmd"
     query_params={}
     if sort: query_params["sort"]=sort
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def GetSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/GetSiteDeviceHaClusterNode
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/ha"
+    query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
