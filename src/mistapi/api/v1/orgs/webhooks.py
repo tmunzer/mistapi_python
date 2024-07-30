@@ -165,11 +165,11 @@ def countOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:
     ------------
     error : str
     status_code : int
-    status : str{'success', 'failure'}
+    status : str{'failure', 'success'}
       webhook delivery status
     topic : str{'alarms', 'audits', 'device-updowns', 'occupancy-alerts', 'ping'}
       webhook topic
-    distinct : str{'status', 'topic', 'status_code', 'webhook_id'}
+    distinct : str{'status', 'status_code', 'topic', 'webhook_id'}
     start : int
     end : int
     duration : str, default: 1d
@@ -212,7 +212,7 @@ def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id
     ------------
     error : str
     status_code : int
-    status : str{'success', 'failure'}
+    status : str{'failure', 'success'}
       webhook delivery status
     topic : str{'alarms', 'audits', 'device-updowns', 'occupancy-alerts', 'ping'}
       webhook topic

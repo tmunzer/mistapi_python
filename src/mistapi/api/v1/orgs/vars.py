@@ -31,7 +31,7 @@ def searchOrgVars(mist_session:_APISession, org_id:str, site_id:str=None, vars:s
     ------------
     site_id : str
     vars : str
-    src : str{'site', 'deviceprofile'}
+    src : str{'deviceprofile', 'site'}
     limit : int, default: 100
     page : int, default: 1        
     

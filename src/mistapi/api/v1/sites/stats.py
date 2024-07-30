@@ -52,7 +52,7 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     
     QUERY PARAMS
     ------------
-    distinct : str{'ap', 'wcid', 'ssid', 'wlan_id app', 'device_mac', 'src_ip', 'port_id', 'app', 'category', 'service'}
+    distinct : str{'ap', 'app', 'category', 'device_mac', 'port_id', 'service', 'src_ip', 'ssid', 'wcid', 'wlan_id app'}
       Default for wireless devices is `ap`. Default for wired devices is `device_mac`
     device_mac : str
     app : str
@@ -155,7 +155,7 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     
     QUERY PARAMS
     ------------
-    distinct : str{'mac', 'map_id', 'ibeacon_uuid', 'ibeacon_major', 'ibeacon_minor', 'eddystone_uid_namespace', 'eddystone_uid_instance', 'eddystone_url', 'by', 'name', 'device_name'}, default: map_id        
+    distinct : str{'by', 'device_name', 'eddystone_uid_instance', 'eddystone_uid_namespace', 'eddystone_url', 'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'name'}, default: map_id        
     
     RETURN
     -----------
@@ -561,7 +561,7 @@ def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", s
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
+    type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
     status : str{'all', 'connected', 'disconnected'}, default: all
     page : int, default: 1
     limit : int, default: 100        
@@ -681,7 +681,7 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     ------------
     scope : str{'site', 'switch'}, default: site
       metric scope
-    type : str{'inactive_wired_vlans', 'switch_ap_affinity', 'poe_compliance', 'version_compliance'}
+    type : str{'inactive_wired_vlans', 'poe_compliance', 'switch_ap_affinity', 'version_compliance'}
       metric type
     limit : int, default: 100
     start : int
@@ -719,7 +719,7 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     
     QUERY PARAMS
     ------------
-    distinct : str{'system_name', 'version', 'model', 'mgmt_addr'}, default: system_name
+    distinct : str{'mgmt_addr', 'model', 'system_name', 'version'}, default: system_name
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -1070,7 +1070,7 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     
     QUERY PARAMS
     ------------
-    distinct : str{'port_id', 'port_mac', 'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'speed', 'up'}, default: mac
+    distinct : str{'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'port_id', 'port_mac', 'speed', 'up'}, default: mac
     full_duplex : bool
     mac : str
     neighbor_mac : str
@@ -1092,11 +1092,11 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     rx_mcast_pkts : int
     rx_bcast_pkts : int
     speed : int
-    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       if `up`==`true`
-    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
       if `up`==`true`
-    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       if `up`==`true` && has Authenticator role
     up : bool
     page : int, default: 1
@@ -1163,7 +1163,7 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     ------------
     full_duplex : bool
     mac : str
-    device_type : str{'ap', 'ble', 'switch', 'gateway', 'mxedge', 'nac'}
+    device_type : str{'ap', 'ble', 'gateway', 'mxedge', 'nac', 'switch'}
       device type
     neighbor_mac : str
     neighbor_port_desc : str
@@ -1193,12 +1193,12 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     jitter : float
     loss : float
     latency : float
-    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       if `up`==`true`
-    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
       if `up`==`true`
     xcvr_part_number : str
-    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       if `up`==`true` && has Authenticator role
     lte_imsi : str
     lte_iccid : str
@@ -1299,7 +1299,7 @@ def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     
     QUERY PARAMS
     ------------
-    distinct : str{'port_id', 'port_mac', 'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'speed', 'up'}, default: mac
+    distinct : str{'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'port_id', 'port_mac', 'speed', 'up'}, default: mac
     full_duplex : bool
     mac : str
     neighbor_mac : str
@@ -1321,11 +1321,11 @@ def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     rx_mcast_pkts : int
     rx_bcast_pkts : int
     speed : int
-    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       if `up`==`true`
-    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
       if `up`==`true`
-    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       if `up`==`true`
     up : bool
     page : int, default: 1
@@ -1411,11 +1411,11 @@ def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     rx_mcast_pkts : int
     rx_bcast_pkts : int
     speed : int
-    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       if `up`==`true`
-    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
       if `up`==`true`
-    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       if `up`==`true` && has Authenticator role
     up : bool
     limit : int, default: 100
@@ -1557,7 +1557,7 @@ def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_type:str, zone_
     PATH PARAMS
     -----------
     site_id : str
-    zone_type : str{'zones', 'rssizones'}
+    zone_type : str{'rssizones', 'zones'}
     zone_id : str        
     
     RETURN

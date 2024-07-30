@@ -29,7 +29,7 @@ def listOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap", l
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     limit : int, default: 100
     page : int, default: 1        
     

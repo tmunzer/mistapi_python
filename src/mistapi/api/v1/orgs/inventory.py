@@ -31,7 +31,7 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     ------------
     serial : str
     model : str
-    type : str{'ap', 'switch', 'gateway'}, default: ap
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     mac : str
     site_id : str
     vc_mac : str

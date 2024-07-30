@@ -101,7 +101,7 @@ def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct
     
     QUERY PARAMS
     ------------
-    distinct : str{'site_id', 'mac', 'map_id', 'ibeacon_uuid', 'ibeacon_major', 'ibeacon_minor'}        
+    distinct : str{'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'site_id'}        
     
     RETURN
     -----------
@@ -237,7 +237,7 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", sta
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
+    type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
     status : str{'all', 'connected', 'disconnected'}, default: all
     site_id : str
     mac : str
@@ -399,11 +399,11 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     mac_limit : int
     mac_count : int
     up : bool
-    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       if `up`==`true`
-    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
       if `up`==`true`
-    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       if `up`==`true` && has Authenticator role
     limit : int, default: 100
     start : int
@@ -468,7 +468,7 @@ def countOrgSwitchPorts(mist_session:_APISession, org_id:str, distinct:str="mac"
     
     QUERY PARAMS
     ------------
-    distinct : str{'port_id', 'port_mac', 'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'speed', 'up'}, default: mac
+    distinct : str{'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'port_id', 'port_mac', 'speed', 'up'}, default: mac
     full_duplex : bool
     mac : str
     neighbor_mac : str
@@ -490,11 +490,11 @@ def countOrgSwitchPorts(mist_session:_APISession, org_id:str, distinct:str="mac"
     rx_mcast_pkts : int
     rx_bcast_pkts : int
     speed : int
-    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
+    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       if `up`==`true`
-    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
+    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
       if `up`==`true`
-    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       if `up`==`true`
     up : bool
     page : int, default: 1
@@ -559,10 +559,10 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str="wxt
     
     QUERY PARAMS
     ------------
-    distinct : str{'auth_algo', 'wxtunnel_id', 'ap', 'remote_ip', 'remote_port', 'state', 'mxedge_id', 'mxcluster_id', 'site_id', 'peer_mxedge_id', 'mac', 'node', 'peer_ip', 'peer_host', 'ip', 'tunnel_name', 'protocol', 'encrypt_algo', 'ike_version', 'last_event', 'up'}, default: wxtunnel_id
+    distinct : str{'ap', 'auth_algo', 'encrypt_algo', 'ike_version', 'ip', 'last_event', 'mac', 'mxcluster_id', 'mxedge_id', 'node', 'peer_host', 'peer_ip', 'peer_mxedge_id', 'protocol', 'remote_ip', 'remote_port', 'site_id', 'state', 'tunnel_name', 'up', 'wxtunnel_id'}, default: wxtunnel_id
       - If `type`==`wxtunnel`: wxtunnel_id / ap / remote_ip / remote_port / state / mxedge_id / mxcluster_id / site_id / peer_mxedge_id; default is wxtunnel_id 
 - If `type`==`wan`: mac / site_id / node / peer_ip / peer_host/ ip / tunnel_name / protocol / auth_algo / encrypt_algo / ike_version / last_event / up
-    type : str{'wxtunnel', 'wan'}, default: wxtunnel        
+    type : str{'wan', 'wxtunnel'}, default: wxtunnel        
     
     RETURN
     -----------
@@ -606,7 +606,7 @@ def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str
     encrypt_algo : str
     ike_version : str
     up : str
-    type : str{'wxtunnel', 'wan'}, default: wxtunnel
+    type : str{'wan', 'wxtunnel'}, default: wxtunnel
     limit : int, default: 100
     start : int
     end : int

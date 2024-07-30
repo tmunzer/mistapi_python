@@ -29,7 +29,7 @@ def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:s
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
+    type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
     name : str
     page : int, default: 1
     limit : int, default: 100        
@@ -131,7 +131,7 @@ def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, type:st
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     mac : str
     limit : int, default: 100
     start : int
@@ -169,7 +169,7 @@ def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model"
     
     QUERY PARAMS
     ------------
-    distinct : str{'model', 'version', 'map_id', 'hostname', 'mxtunnel_status', 'mxedge_id', 'lldp_system_name', 'lldp_system_desc', 'lldp_port_id', 'lldp_mgmt_addr'}, default: model
+    distinct : str{'hostname', 'lldp_mgmt_addr', 'lldp_port_id', 'lldp_system_desc', 'lldp_system_name', 'map_id', 'model', 'mxedge_id', 'mxtunnel_status', 'version'}, default: model
     hostname : str
     model : str
     mac : str
@@ -229,7 +229,7 @@ def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="m
     
     QUERY PARAMS
     ------------
-    distinct : str{'model', 'type', 'type_code', 'mac'}, default: model
+    distinct : str{'mac', 'model', 'type', 'type_code'}, default: model
     model : str
     type : str
     type_code : str
@@ -367,7 +367,7 @@ def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:st
     
     QUERY PARAMS
     ------------
-    distinct : str{'version', 'name', 'site_id', 'mac'}, default: mac
+    distinct : str{'mac', 'name', 'site_id', 'version'}, default: mac
     page : int, default: 1
     limit : int, default: 100
     start : int
@@ -405,7 +405,7 @@ def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, type:str=
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     mac : str
     version : str
     name : str
@@ -524,13 +524,13 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     QUERY PARAMS
     ------------
     hostname : str
-    type : str{'ap', 'switch', 'gateway'}, default: ap
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     model : str
     mac : str
     version : str
     power_constrained : bool
     ip_address : str
-    mxtunnel_status : str{'up', 'down'}
+    mxtunnel_status : str{'down', 'up'}
       MxTunnel status, up / down
     mxedge_id : str
     lldp_system_name : str
@@ -544,9 +544,9 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     band_5_bandwith : int
     band_6_bandwith : int
     eth0_port_speed : int
-    sort : str{'timestamp', 'mac', 'model', 'sku'}, default: timestamp
+    sort : str{'mac', 'model', 'sku', 'timestamp'}, default: timestamp
       sort options
-    desc_sort : str{'timestamp', 'mac', 'model', 'sku'}
+    desc_sort : str{'mac', 'model', 'sku', 'timestamp'}
       sort options in reverse order
     stats : bool
     limit : int, default: 100
@@ -633,7 +633,7 @@ def listSiteDeviceUpgrades(mist_session:_APISession, site_id:str, status:str=Non
     
     QUERY PARAMS
     ------------
-    status : str{'downloading', 'completed', 'created', 'downloaded', 'upgrading', 'cancelled', 'failed'}        
+    status : str{'cancelled', 'completed', 'created', 'downloaded', 'downloading', 'failed', 'upgrading'}        
     
     RETURN
     -----------
@@ -789,7 +789,7 @@ def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     model : str        
     
     RETURN

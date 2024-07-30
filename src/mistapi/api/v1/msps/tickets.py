@@ -61,7 +61,7 @@ def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status")
     
     QUERY PARAMS
     ------------
-    distinct : str{'status', 'type', 'org_id'}, default: status        
+    distinct : str{'org_id', 'status', 'type'}, default: status        
     
     RETURN
     -----------

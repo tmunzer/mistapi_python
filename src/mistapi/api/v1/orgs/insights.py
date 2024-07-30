@@ -29,7 +29,7 @@ def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int
     
     QUERY PARAMS
     ------------
-    sle : str{'wan', 'wired', 'wifi'}
+    sle : str{'wan', 'wifi', 'wired'}
     start : int
     end : int
     limit : int, default: 100

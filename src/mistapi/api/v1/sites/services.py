@@ -57,7 +57,7 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'mac', 'vpn_name', 'vpn_path', 'policy', 'port_id', 'model', 'site_id'}, default: type
+    distinct : str{'mac', 'model', 'policy', 'port_id', 'site_id', 'type', 'vpn_name', 'vpn_path'}, default: type
     type : str
     text : str
     vpn_name : str

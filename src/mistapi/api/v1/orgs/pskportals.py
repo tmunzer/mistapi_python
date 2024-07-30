@@ -122,7 +122,7 @@ def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="ps
     
     QUERY PARAMS
     ------------
-    distinct : str{'admin_id', 'admin_name', 'psk_name', 'psk_id', 'pskportal_id', 'user_id'}, default: pskportal_id
+    distinct : str{'admin_id', 'admin_name', 'psk_id', 'psk_name', 'pskportal_id', 'user_id'}, default: pskportal_id
     start : int
     end : int
     duration : str, default: 1d

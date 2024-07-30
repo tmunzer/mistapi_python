@@ -29,7 +29,7 @@ def listInstallerDeviceProfiles(mist_session:_APISession, org_id:str, type:str="
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap        
+    type : str{'ap', 'gateway', 'switch'}, default: ap        
     
     RETURN
     -----------

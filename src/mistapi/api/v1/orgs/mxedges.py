@@ -29,7 +29,7 @@ def listOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", li
     
     QUERY PARAMS
     ------------
-    for_sites : str{'any', 'true', 'false'}, default: any
+    for_sites : str{'any', 'false', 'true'}, default: any
       filter for site level mist edges
     limit : int, default: 100
     page : int, default: 1        
@@ -143,7 +143,7 @@ def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", 
     
     QUERY PARAMS
     ------------
-    distinct : str{'model', 'mxcluster_id', 'distro', 'tunterm_version', 'site_id'}, default: model
+    distinct : str{'distro', 'model', 'mxcluster_id', 'site_id', 'tunterm_version'}, default: model
     mxedge_id : str
     site_id : str
     mxcluster_id : str
@@ -197,7 +197,7 @@ def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str=
     
     QUERY PARAMS
     ------------
-    distinct : str{'mxedge_id', 'type', 'mxcluster_id', 'package'}, default: mxedge_id
+    distinct : str{'mxcluster_id', 'mxedge_id', 'package', 'type'}, default: mxedge_id
     mxedge_id : str
     mxcluster_id : str
     type : str
@@ -436,7 +436,7 @@ def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="s
     
     QUERY PARAMS
     ------------
-    channel : str{'stable', 'beta', 'alpha'}, default: stable
+    channel : str{'alpha', 'beta', 'stable'}, default: stable
       upgrade channel to follow, stable (default) / beta / alpha        
     
     RETURN
@@ -644,7 +644,7 @@ def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str
     -----------
     org_id : str
     mxedge_id : str
-    name : str{'tunterm', 'radsecproxy', 'mxagent', 'mxocproxy', 'mxdas'}
+    name : str{'mxagent', 'mxdas', 'mxocproxy', 'radsecproxy', 'tunterm'}
     action : str{'restart', 'start', 'stop'}
       restart or start or stop        
     

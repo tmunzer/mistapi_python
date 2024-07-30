@@ -57,7 +57,7 @@ def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct
     
     QUERY PARAMS
     ------------
-    distinct : str{'auth_method', 'ssid', 'company'}, default: auth_method
+    distinct : str{'auth_method', 'company', 'ssid'}, default: auth_method
     page : int, default: 1
     limit : int, default: 100
     start : int

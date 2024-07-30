@@ -96,7 +96,7 @@ def countOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, distinct:str
     
     QUERY PARAMS
     ------------
-    distinct : str{'mac', 'type', 'vendor', 'site_id'}, default: mac
+    distinct : str{'mac', 'site_id', 'type', 'vendor'}, default: mac
     type : str
     start : int
     end : int

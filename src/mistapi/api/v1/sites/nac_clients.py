@@ -29,7 +29,7 @@ def countSiteNacClients(mist_session:_APISession, site_id:str, distinct:str="typ
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'last_nacrule_id', 'auth_type', 'last_vlan', 'last_nas_vendor', 'last_username', 'last_ap', 'mac', 'last_ssid', 'last_status', 'mdm_compliance', 'mdm_provider'}, default: type
+    distinct : str{'auth_type', 'last_ap', 'last_nacrule_id', 'last_nas_vendor', 'last_ssid', 'last_status', 'last_username', 'last_vlan', 'mac', 'mdm_compliance', 'mdm_provider', 'type'}, default: type
       NAC Policy Rule ID, if matched
     last_nacrule_id : str
     nacrule_matched : bool
@@ -98,7 +98,7 @@ def countSiteNacClientEvents(mist_session:_APISession, site_id:str, distinct:str
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'nacrule_id', 'dryrun_nacrule_id', 'auth_type', 'vlan', 'nas_vendor', 'username', 'ap', 'mac', 'ssid'}
+    distinct : str{'ap', 'auth_type', 'dryrun_nacrule_id', 'mac', 'nacrule_id', 'nas_vendor', 'ssid', 'type', 'username', 'vlan'}
     type : str
     start : int
     end : int

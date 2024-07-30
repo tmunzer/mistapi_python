@@ -29,7 +29,7 @@ def countOrgWiredClients(mist_session:_APISession, org_id:str, distinct:str="mac
     
     QUERY PARAMS
     ------------
-    distinct : str{'port_id', 'vlan', 'mac', 'device_mac', 'site_id', 'type'}, default: mac
+    distinct : str{'device_mac', 'mac', 'port_id', 'site_id', 'type', 'vlan'}, default: mac
     page : int, default: 1
     limit : int, default: 100
     start : int

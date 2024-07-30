@@ -30,7 +30,7 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     QUERY PARAMS
     ------------
     map_id : str
-    type : str{'sdkclient', 'client', 'asset'}
+    type : str{'asset', 'client', 'sdkclient'}
     client_type : str
     duration : str, default: 1d
     resolution : str{'default', 'fine'}, default: default

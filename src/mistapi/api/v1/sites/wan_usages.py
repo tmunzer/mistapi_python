@@ -36,7 +36,7 @@ def countSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_
     policy : str
     tenant : str
     path_type : str
-    distinct : str{'mac', 'peer_mac', 'port_id', 'peer_port_id', 'policy', 'tenant', 'path_type'}, default: policy
+    distinct : str{'mac', 'path_type', 'peer_mac', 'peer_port_id', 'policy', 'port_id', 'tenant'}, default: policy
     page : int, default: 1
     limit : int, default: 100
     start : int

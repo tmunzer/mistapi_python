@@ -86,7 +86,7 @@ def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="m
     
     QUERY PARAMS
     ------------
-    distinct : str{'mxedge_id', 'type', 'mxcluster_id', 'package'}, default: mxedge_id
+    distinct : str{'mxcluster_id', 'mxedge_id', 'package', 'type'}, default: mxedge_id
     mxedge_id : str
     mxcluster_id : str
     type : str

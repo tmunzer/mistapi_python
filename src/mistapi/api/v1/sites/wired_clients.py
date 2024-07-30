@@ -29,7 +29,7 @@ def countSiteWiredClients(mist_session:_APISession, site_id:str, distinct:str="m
     
     QUERY PARAMS
     ------------
-    distinct : str{'port_id', 'vlan', 'mac'}, default: mac
+    distinct : str{'mac', 'port_id', 'vlan'}, default: mac
     mac : str
     device_mac : str
     port_id : str

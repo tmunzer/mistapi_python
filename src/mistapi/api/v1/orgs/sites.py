@@ -86,7 +86,7 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", page:
     
     QUERY PARAMS
     ------------
-    distinct : str{'analytic_enabled', 'app_waking', 'asset_enabled', 'auto_upgrade_enabled', 'auto_upgrade_version', 'country_code', 'honeypot_enabled', 'id', 'locate_unconnected', 'mesh_enabled', 'name', 'rogue_enabled', 'remote_syslog_enabled', 'rtsa_enabled', 'vna_enabled', 'wifi_enabled'}, default: id
+    distinct : str{'analytic_enabled', 'app_waking', 'asset_enabled', 'auto_upgrade_enabled', 'auto_upgrade_version', 'country_code', 'honeypot_enabled', 'id', 'locate_unconnected', 'mesh_enabled', 'name', 'remote_syslog_enabled', 'rogue_enabled', 'rtsa_enabled', 'vna_enabled', 'wifi_enabled'}, default: id
     page : int, default: 1
     limit : int, default: 100
     start : int

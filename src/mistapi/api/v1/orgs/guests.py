@@ -52,7 +52,7 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     
     QUERY PARAMS
     ------------
-    distinct : str{'auth_method', 'ssid', 'company'}, default: auth_method
+    distinct : str{'auth_method', 'company', 'ssid'}, default: auth_method
     page : int, default: 1
     limit : int, default: 100
     start : int

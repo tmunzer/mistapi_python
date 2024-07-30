@@ -32,7 +32,7 @@ def listMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str=None, adm
     site_id : str
     admin_name : str
     message : str
-    sort : str{'timestamp', '-timestamp', 'site_id', 'admin_id'}
+    sort : str{'-timestamp', 'admin_id', 'site_id', 'timestamp'}
       sort order
     start : int
     end : int

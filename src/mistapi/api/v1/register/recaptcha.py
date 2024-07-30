@@ -25,7 +25,7 @@ def getAdminRegistrationInfo(mist_session:_APISession, recaptcha_flavor:str="goo
     
     QUERY PARAMS
     ------------
-    recaptcha_flavor : str{'hcaptcha', 'google'}, default: google        
+    recaptcha_flavor : str{'google', 'hcaptcha'}, default: google        
     
     RETURN
     -----------

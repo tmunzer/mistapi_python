@@ -37,7 +37,7 @@ def listOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgDevices
     
@@ -52,15 +52,16 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     
     QUERY PARAMS
     ------------
-    distinct : str{'hostname', 'site_id', 'model', 'mac', 'version', 'ip', 'mxtunnel_status', 'mxedge_id', 'lldp_system_name', 'lldp_system_desc', 'lldp_port_id', 'lldp_mgmt_addr'}, default: model
+    distinct : str{'hostname', 'ip', 'lldp_mgmt_addr', 'lldp_port_id', 'lldp_system_desc', 'lldp_system_name', 'mac', 'model', 'mxedge_id', 'mxtunnel_status', 'site_id', 'version'}, default: model
     hostname : str
     site_id : str
     model : str
+    managed : str
     mac : str
     version : str
     ip_address : str
-    mxtunnel_status : str{'up', 'down'}
-      MxTunnel status, up / down
+    mxtunnel_status : str{'down', 'up'}
+      MxTunnel status, enum: `up`, `down`
     mxedge_id : str
     lldp_system_name : str
     lldp_system_desc : str
@@ -83,6 +84,7 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     if hostname: query_params["hostname"]=hostname
     if site_id: query_params["site_id"]=site_id
     if model: query_params["model"]=model
+    if managed: query_params["managed"]=managed
     if mac: query_params["mac"]=mac
     if version: query_params["version"]=version
     if ip_address: query_params["ip_address"]=ip_address
@@ -115,7 +117,7 @@ def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="mod
     
     QUERY PARAMS
     ------------
-    distinct : str{'org_id', 'site_id', 'ap', 'apfw', 'model', 'text', 'timestamp', 'type'}, default: model
+    distinct : str{'ap', 'apfw', 'model', 'org_id', 'site_id', 'text', 'timestamp', 'type'}, default: model
     site_id : str
     ap : str
     apfw : str
@@ -167,7 +169,7 @@ def searchOrgDeviceEvents(mist_session:_APISession, org_id:str, mac:str=None, mo
     ------------
     mac : str
     model : str
-    device_type : str{'ap', 'switch', 'gateway'}, default: ap
+    device_type : str{'ap', 'gateway', 'switch'}, default: ap
     text : str
     timestamp : str
     type : str
@@ -213,8 +215,8 @@ def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
-    distinct : str{'mac', 'version', 'name', 'site_id'}
+    type : str{'ap', 'gateway', 'switch'}, default: ap
+    distinct : str{'mac', 'name', 'site_id', 'version'}
     start : int
     end : int
     limit : int, default: 100        
@@ -249,7 +251,7 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="a
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     mac : str
     name : str
     version : str
@@ -328,7 +330,7 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     version : str
     power_constrained : bool
     ip_address : str
-    mxtunnel_status : str{'up', 'down'}
+    mxtunnel_status : str{'down', 'up'}
       MxTunnel status, up / down
     mxedge_id : str
     lldp_system_name : str

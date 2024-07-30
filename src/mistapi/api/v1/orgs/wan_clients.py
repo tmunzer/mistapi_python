@@ -29,7 +29,7 @@ def countOrgWanClients(mist_session:_APISession, org_id:str, distinct:str="mac",
     
     QUERY PARAMS
     ------------
-    distinct : str{'hostname', 'ip', 'mfg', 'mac'}, default: mac
+    distinct : str{'hostname', 'ip', 'mac', 'mfg'}, default: mac
     start : int
     end : int
     duration : str, default: 1d
