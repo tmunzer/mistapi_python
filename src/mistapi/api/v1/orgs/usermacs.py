@@ -79,7 +79,7 @@ def createOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importOrgUserMacsFile(mist_session:_APISession, org_id:str) -> _APIResponse:
+def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgUserMacs
     
@@ -92,12 +92,18 @@ def importOrgUserMacsFile(mist_session:_APISession, org_id:str) -> _APIResponse:
     -----------
     org_id : str        
     
+    BODY PARAMS
+    -----------
+    file : str
+        path to the file to upload. file to updload
+    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     multipart_form_data = {
+        "file":file,
     }
     uri = f"/api/v1/orgs/{org_id}/usermacs/import"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)

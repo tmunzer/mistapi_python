@@ -325,6 +325,36 @@ def exportSiteDevices(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def importSiteDevicesFile(mist_session:_APISession, site_id:str, file:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/importSiteDevices
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str        
+    
+    BODY PARAMS
+    -----------
+    file : str
+        path to the file to upload. file to updload
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    multipart_form_data = {
+        "file":file,
+    }
+    uri = f"/api/v1/sites/{site_id}/devices/import"
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
+    return resp
+
 def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteDevices
