@@ -104,3 +104,26 @@ def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def reauthOrgDot1xWiredClient(mist_session:_APISession, org_id:str, client_mac:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/reauthOrgDot1xWiredClient
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    client_mac : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/wired_clients/{client_mac}/coa"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+    

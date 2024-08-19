@@ -98,7 +98,7 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=None, text:str=None, peer_port_id:str=None, peer_mac:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteServicePathEvents
     
@@ -115,6 +115,8 @@ def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=
     ------------
     type : str
     text : str
+    peer_port_id : str
+    peer_mac : str
     vpn_name : str
     vpn_path : str
     policy : str
@@ -137,6 +139,8 @@ def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=
     query_params={}
     if type: query_params["type"]=type
     if text: query_params["text"]=text
+    if peer_port_id: query_params["peer_port_id"]=peer_port_id
+    if peer_mac: query_params["peer_mac"]=peer_mac
     if vpn_name: query_params["vpn_name"]=vpn_name
     if vpn_path: query_params["vpn_path"]=vpn_path
     if policy: query_params["policy"]=policy

@@ -110,3 +110,26 @@ def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def reauthSiteDot1xWiredClient(mist_session:_APISession, site_id:str, client_mac:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/reauthSiteDot1xWiredClient
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    client_mac : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/wired_clients/{client_mac}/coa"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+    

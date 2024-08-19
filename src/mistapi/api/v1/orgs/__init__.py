@@ -19,6 +19,7 @@ from mistapi.api.v1.orgs import apitokens
 from mistapi.api.v1.orgs import aptemplates
 from mistapi.api.v1.orgs import assetfilters
 from mistapi.api.v1.orgs import assets
+from mistapi.api.v1.orgs import avprofiles
 from mistapi.api.v1.orgs import cert
 from mistapi.api.v1.orgs import claim
 from mistapi.api.v1.orgs import clients
@@ -66,6 +67,7 @@ from mistapi.api.v1.orgs import setting
 from mistapi.api.v1.orgs import sitegroups
 from mistapi.api.v1.orgs import sites
 from mistapi.api.v1.orgs import sitetemplates
+from mistapi.api.v1.orgs import ssl_proxy_cert
 from mistapi.api.v1.orgs import ssoroles
 from mistapi.api.v1.orgs import ssos
 from mistapi.api.v1.orgs import stats

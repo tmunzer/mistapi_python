@@ -1135,6 +1135,57 @@ def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, d
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+def clearSiteDevicePolicyHitCount(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/clearSiteDevicePolicyHitCount
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/clear_policy_hit_count"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+    
+def clearSiteDeviceSession(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/clearSiteDeviceSession
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/clear_session"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
 def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str, sort:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceConfigCmd
@@ -1562,6 +1613,34 @@ def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+def releaseSiteDeviceDhcpLease(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/releaseSiteDeviceDhcpLease
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/release_dhcp_leases"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
 def reprovisionSiteOctermDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/reprovisionSiteOctermDevice
@@ -1763,6 +1842,34 @@ def getSiteDeviceBgpSummary(mist_session:_APISession, site_id:str, device_id:str
         response from the API call
     """
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_bgp_rummary"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def showSiteDeviceDhcpLeases(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceDhcpLeases
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_dhcp_leases"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
