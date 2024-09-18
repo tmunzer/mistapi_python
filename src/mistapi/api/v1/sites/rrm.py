@@ -127,7 +127,7 @@ def getSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, band:str, 
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/rrm/neighbors//band/{band}"
+    uri = f"/api/v1/sites/{site_id}/rrm/neighbors/band/{band}"
     query_params={}
     if page: query_params["page"]=page
     if limit: query_params["limit"]=limit

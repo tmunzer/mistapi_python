@@ -439,6 +439,138 @@ def deleteOrgNacCrl(mist_session:_APISession, org_id:str, naccrl_id:str) -> _API
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
+def getOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getOrgMistScep
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/mist_scep"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def disableOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/disableOrgMistScep
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/mist_scep"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def updateOrgMistScep(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgMistScep
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/mist_scep"
+    resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+    
+def getOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, sso_name_id:str=None, serial_number:str=None, device_id:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getOrgIssuedClientCertificates
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    QUERY PARAMS
+    ------------
+    sso_name_id : str
+    serial_number : str
+    device_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/mist_scep/client_certs"
+    query_params={}
+    if sso_name_id: query_params["sso_name_id"]=sso_name_id
+    if serial_number: query_params["serial_number"]=serial_number
+    if device_id: query_params["device_id"]=device_id
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def revokeOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/revokeOrgIssuedClientCertificates
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/setting/mist_scep/client_certs/revoke"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
 def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/setOrgCustomBucket
@@ -578,7 +710,8 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'zoom', 'teams', 'intune', 'jamf', 'vmware'}        
+    app_name : str{'intune', 'jamf', 'mobicontrol', 'teams', 'vmware', 'zoom'}
+      OAuth application name        
     
     QUERY PARAMS
     ------------
@@ -607,7 +740,8 @@ def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, b
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'zoom', 'teams', 'intune', 'jamf', 'vmware'}        
+    app_name : str{'intune', 'jamf', 'mobicontrol', 'teams', 'vmware', 'zoom'}
+      OAuth application name        
     
     BODY PARAMS
     -----------
@@ -635,7 +769,8 @@ def updateOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'zoom', 'teams', 'intune', 'jamf', 'vmware'}        
+    app_name : str{'intune', 'jamf', 'mobicontrol', 'teams', 'vmware', 'zoom'}
+      OAuth application name        
     
     BODY PARAMS
     -----------
@@ -663,7 +798,8 @@ def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_nam
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'zoom', 'teams', 'intune', 'jamf', 'vmware'}
+    app_name : str{'intune', 'jamf', 'mobicontrol', 'teams', 'vmware', 'zoom'}
+      OAuth application name
     account_id : str        
     
     RETURN

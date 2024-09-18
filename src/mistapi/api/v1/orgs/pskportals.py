@@ -14,37 +14,6 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgPskPortals")
-def getOrgPskPortals(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgPskPortals
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    page : int, default: 1
-    limit : int, default: 100        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/pskportals"
-    query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listOrgPskPortals(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgPskPortals
@@ -102,43 +71,6 @@ def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> _AP
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgPskPortalLogs")
-def getOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgPskPortalLogs
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    start : int
-    end : int
-    duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/pskportals/logs"
-    query_params={}
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgPskPortalLogs
@@ -190,7 +122,7 @@ def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="ps
     
     QUERY PARAMS
     ------------
-    distinct : str{'admin_id', 'admin_name', 'psk_name', 'psk_id', 'pskportal_id', 'user_id'}, default: pskportal_id
+    distinct : str{'admin_id', 'admin_name', 'psk_id', 'psk_name', 'pskportal_id', 'user_id'}, default: pskportal_id
     start : int
     end : int
     duration : str, default: 1d

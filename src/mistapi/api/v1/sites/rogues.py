@@ -29,7 +29,7 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     
     QUERY PARAMS
     ------------
-    distinct : str{'bssid', 'ssid', 'ap', 'type'}, default: bssid
+    distinct : str{'ap', 'bssid', 'ssid', 'type'}, default: bssid
     type : str{'honeypot', 'lan', 'others', 'spoof'}
     ssid : str
     bssid : str

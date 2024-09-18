@@ -83,7 +83,7 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'acked', 'severity', 'group'}, default: type
+    distinct : str{'acked', 'group', 'severity', 'type'}, default: type
       Group by and count the alarms by some distinct field
     ack_admin_name : str
     acked : bool

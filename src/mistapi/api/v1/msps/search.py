@@ -30,6 +30,7 @@ def searchMspOrgGroup(mist_session:_APISession, msp_id:str, type:str, q:str=None
     QUERY PARAMS
     ------------
     type : str{'orgs'}
+      orgs
     q : str
     limit : int, default: 100
     start : int

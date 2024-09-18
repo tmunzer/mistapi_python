@@ -37,30 +37,6 @@ def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> _API
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgSsrUpgrades")
-def getOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSsrUpgrades
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/ssr/upgrade"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgSsrUpgrades
@@ -132,35 +108,6 @@ def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     """
     uri = f"/api/v1/orgs/{org_id}/ssr/upgrade/{upgrade_id}/cancel"
     resp = mist_session.mist_post(uri=uri)
-    return resp
-    
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgAvailableSsrVersions")
-def getOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str=None) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAvailableSsrVersions
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    channel : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/ssr/versions"
-    query_params={}
-    if channel: query_params["channel"]=channel
-    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
 def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str=None) -> _APIResponse:

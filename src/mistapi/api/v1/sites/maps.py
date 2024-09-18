@@ -14,37 +14,6 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listSiteMaps")
-def getSiteMaps(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteMaps
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str        
-    
-    QUERY PARAMS
-    ------------
-    page : int, default: 1
-    limit : int, default: 100        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/maps"
-    query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listSiteMaps(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMaps
@@ -102,7 +71,7 @@ def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:dict=None) -> _APIResponse:
+def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importSiteMaps
     
@@ -123,11 +92,7 @@ def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile
         path to the file to upload. csv file for ap name mapping, optional
     file : str
         path to the file to upload. ekahau or ibwave file
-    json : dict
-        import_all_floorplans : bool
-        import_height : bool, default: True
-        import_orientation : bool, default: True
-        vendor_name : {'ekahau', 'ibwave'}
+    json : any
     
     RETURN
     -----------
@@ -462,7 +427,7 @@ def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:str=None, json:dict=None) -> _APIResponse:
+def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:str=None, json:any=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/replaceSiteMapImage
     
@@ -480,9 +445,7 @@ def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, f
     -----------
     file : str
         path to the file to upload. 
-    json : dict
-        transform : dict
-        If `transform` is provided, all the locations of the objects on the map (AP, Zone, Vbeacon, Beacon) will be transformed as well (relative to the new Map)
+    json : any
     
     RETURN
     -----------

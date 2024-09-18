@@ -84,7 +84,7 @@ def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str=None,
     vlan_id : str
     by : str
     reason : str
-    type : str{'dns', 'arp', 'dhcp', 'curl', 'radius', 'speedtest', 'dhcp6'}
+    type : str{'arp', 'curl', 'dhcp', 'dhcp6', 'dns', 'radius', 'speedtest'}
       synthetic test type        
     
     RETURN

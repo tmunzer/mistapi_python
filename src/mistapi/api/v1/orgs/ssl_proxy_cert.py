@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgPmaDashboards(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def getOrgSslProxyCert(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgPmaDashboards
+    API doc: https://doc.mist-lab.fr/#operation/getOrgSslProxyCert
     
     PARAMS
     -----------
@@ -27,20 +27,13 @@ def listOrgPmaDashboards(mist_session:_APISession, org_id:str, page:int=1, limit
     -----------
     org_id : str        
     
-    QUERY PARAMS
-    ------------
-    page : int, default: 1
-    limit : int, default: 100        
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/pma/dashboards"
+    uri = f"/api/v1/orgs/{org_id}/ssl_proxy_cert"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

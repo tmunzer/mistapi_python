@@ -29,7 +29,7 @@ def countOrgWanClients(mist_session:_APISession, org_id:str, distinct:str="mac",
     
     QUERY PARAMS
     ------------
-    distinct : str{'hostname', 'ip', 'mfg', 'mac'}, default: mac
+    distinct : str{'hostname', 'ip', 'mac', 'mfg', 'network'}, default: mac
     start : int
     end : int
     duration : str, default: 1d
@@ -98,7 +98,7 @@ def searchOrgWanClientEvents(mist_session:_APISession, org_id:str, type:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgWanClients(mist_session:_APISession, org_id:str, mac:str=None, hostname:str=None, ip:str=None, network:str=None, mfg:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgWanClients(mist_session:_APISession, org_id:str, mac:str=None, hostname:str=None, ip:str=None, network:str=None, ip_src:str=None, mfg:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgWanClients
     
@@ -117,6 +117,7 @@ def searchOrgWanClients(mist_session:_APISession, org_id:str, mac:str=None, host
     hostname : str
     ip : str
     network : str
+    ip_src : str
     mfg : str
     start : int
     end : int
@@ -135,6 +136,7 @@ def searchOrgWanClients(mist_session:_APISession, org_id:str, mac:str=None, host
     if hostname: query_params["hostname"]=hostname
     if ip: query_params["ip"]=ip
     if network: query_params["network"]=network
+    if ip_src: query_params["ip_src"]=ip_src
     if mfg: query_params["mfg"]=mfg
     if start: query_params["start"]=start
     if end: query_params["end"]=end

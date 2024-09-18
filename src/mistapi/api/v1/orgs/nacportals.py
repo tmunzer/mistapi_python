@@ -14,37 +14,6 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgNacPortals")
-def getOrgNacPortals(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortals
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    page : int, default: 1
-    limit : int, default: 100        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/nacportals"
-    query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listOrgNacPortals(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortals
@@ -178,8 +147,7 @@ def updateOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str, b
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgNacPortalSsoLatestFailures")
-def getOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacportal_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def listOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacportal_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortalSsoLatestFailures
     
@@ -216,9 +184,9 @@ def getOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacpo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacportal_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def deleteOrgNacPortalImage(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortalSsoLatestFailures
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacPortalImage
     
     PARAMS
     -----------
@@ -230,27 +198,76 @@ def listOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacp
     org_id : str
     nacportal_id : str        
     
-    QUERY PARAMS
-    ------------
-    page : int, default: 1
-    limit : int, default: 100
-    start : int
-    end : int
-    duration : str, default: 1d        
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/portal_image"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def uploadOrgNacPortalImageFile(mist_session:_APISession, org_id:str, nacportal_id:str, file:str=None, json:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/uploadOrgNacPortalImage
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    nacportal_id : str        
+    
+    BODY PARAMS
+    -----------
+    file : str
+        path to the file to upload. Binary file
+    json : str
+        JSON string describing the upload
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/failures"
-    query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    resp = mist_session.mist_get(uri=uri, query=query_params)
+    multipart_form_data = {
+        "file":file,
+        "json":json,
+    }
+    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/portal_image"
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
+    return resp
+
+def updateOrgNacPortalTempalte(mist_session:_APISession, org_id:str, nacportal_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgNacPortalTempalte
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    nacportal_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/portal_template"
+    resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
 def getOrgNacPortalSsoSamlMetadata(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:

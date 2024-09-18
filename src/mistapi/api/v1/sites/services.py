@@ -14,35 +14,6 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listSiteServicesDerived")
-def getSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteServicesDerived
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str        
-    
-    QUERY PARAMS
-    ------------
-    resolve : bool        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/services/derived"
-    query_params={}
-    if resolve: query_params["resolve"]=resolve
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteServicesDerived
@@ -86,7 +57,7 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'mac', 'vpn_name', 'vpn_path', 'policy', 'port_id', 'model', 'site_id'}, default: type
+    distinct : str{'mac', 'model', 'policy', 'port_id', 'site_id', 'type', 'vpn_name', 'vpn_path'}, default: type
     type : str
     text : str
     vpn_name : str
@@ -127,7 +98,7 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=None, text:str=None, peer_port_id:str=None, peer_mac:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteServicePathEvents
     
@@ -144,6 +115,8 @@ def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=
     ------------
     type : str
     text : str
+    peer_port_id : str
+    peer_mac : str
     vpn_name : str
     vpn_path : str
     policy : str
@@ -166,6 +139,8 @@ def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=
     query_params={}
     if type: query_params["type"]=type
     if text: query_params["text"]=text
+    if peer_port_id: query_params["peer_port_id"]=peer_port_id
+    if peer_mac: query_params["peer_mac"]=peer_mac
     if vpn_name: query_params["vpn_name"]=vpn_name
     if vpn_path: query_params["vpn_path"]=vpn_path
     if policy: query_params["policy"]=policy

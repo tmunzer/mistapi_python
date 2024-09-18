@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def importOrgMapsFile(mist_session:_APISession, org_id:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:dict=None) -> _APIResponse:
+def importOrgMapsFile(mist_session:_APISession, org_id:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/importOrgMaps
     
@@ -35,12 +35,7 @@ def importOrgMapsFile(mist_session:_APISession, org_id:str, auto_deviceprofile_a
         path to the file to upload. csv file for ap name mapping, optional
     file : str
         path to the file to upload. ekahau or ibwave file
-    json : dict
-        import_all_floorplans : bool
-        import_height : bool, default: True
-        import_orientation : bool, default: True
-        site_id : any
-        vendor_name : {'ekahau', 'ibwave'}
+    json : any
     
     RETURN
     -----------

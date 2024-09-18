@@ -14,39 +14,6 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgDeviceProfiles")
-def getOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap", limit:int=100, page:int=1) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgDeviceProfiles
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
-    limit : int, default: 100
-    page : int, default: 1        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/deviceprofiles"
-    query_params={}
-    if type: query_params["type"]=type
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDeviceProfiles
@@ -62,7 +29,7 @@ def listOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap", l
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     limit : int, default: 100
     page : int, default: 1        
     
@@ -210,9 +177,9 @@ def assignOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unassignOrgDeviceProfiles(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> _APIResponse:
+def unassignOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unassignOrgDeviceProfiles
+    API doc: https://doc.mist-lab.fr/#operation/unassignOrgDeviceProfile
     
     PARAMS
     -----------

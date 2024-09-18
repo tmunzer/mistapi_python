@@ -29,7 +29,7 @@ def countSiteSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="t
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'mac', 'device_mac', 'threat_level'}, default: type
+    distinct : str{'device_mac', 'mac', 'threat_level', 'type'}, default: type
     type : str
     mac : str
     device_mac : str

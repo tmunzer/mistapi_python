@@ -14,43 +14,6 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listInstallerListOfRenctlyClaimedDevices")
-def getInstallerListOfRenctlyClaimedDevices(mist_session:_APISession, org_id:str, model:str=None, site_name:str=None, site_id:str=None, limit:int=100, page:int=1) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listInstallerListOfRenctlyClaimedDevices
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    model : str
-    site_name : str
-    site_id : str
-    limit : int, default: 100
-    page : int, default: 1        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/installer/orgs/{org_id}/devices"
-    query_params={}
-    if model: query_params["model"]=model
-    if site_name: query_params["site_name"]=site_name
-    if site_id: query_params["site_id"]=site_id
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listInstallerListOfRenctlyClaimedDevices(mist_session:_APISession, org_id:str, model:str=None, site_name:str=None, site_id:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listInstallerListOfRenctlyClaimedDevices
@@ -237,7 +200,7 @@ def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name:str, device_mac:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:dict=None) -> _APIResponse:
+def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name:str, device_mac:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/addInstallerDeviceImage
     
@@ -260,11 +223,7 @@ def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name
         path to the file to upload. csv file for ap name mapping, optional
     file : str
         path to the file to upload. ekahau or ibwave file
-    json : dict
-        import_all_floorplans : bool
-        import_height : bool, default: True
-        import_orientation : bool, default: True
-        vendor_name : {'ekahau', 'ibwave'}
+    json : any
     
     RETURN
     -----------

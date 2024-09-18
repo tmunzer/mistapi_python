@@ -29,6 +29,7 @@ CLOUDS = [
     {"short": "APAC 01", "host": "api.ac5.mist.com", "cookies_ext": ".ac5"},
     {"short": "EMEA 01", "host": "api.eu.mist.com", "cookies_ext": ".eu"},
     {"short": "EMEA 02", "host": "api.gc3.mist.com", "cookies_ext": ".gc3"},
+    {"short": "EMEA 03", "host": "api.ac6.mist.com", "cookies_ext": ".ac6"},
     {"short": "Global 01", "host": "api.mist.com", "cookies_ext": ""},
     {"short": "Global 02", "host": "api.gc1.mist.com", "cookies_ext": ".gc1"},
     {"short": "Global 03", "host": "api.ac2.mist.com", "cookies_ext": ".ac2"},
@@ -51,6 +52,7 @@ class APISession(APIRequest):
         console_log_level: str = 20,
         logging_log_level: int = 10,
         show_cli_notif: bool = True,
+        https_proxy: str = None,
     ):
         """
         Initialise the APISession class. This class is used to manage Mist API authentication.
@@ -86,6 +88,8 @@ class APISession(APIRequest):
                 0  -> DISABLED
         show_cli_notif : bool, default True
             show/hide package decorative text on the console output
+        https_proxy : str, default None
+            HTTPS Proxy to use to send the API Requests
         """
         logger.info(f"mistapi:init:package version {__version__}")
         self._cloud_uri = None
@@ -100,10 +104,14 @@ class APISession(APIRequest):
         self._console_log_level = console_log_level
         self._logging_log_level = logging_log_level
         self._show_cli_notif = show_cli_notif
+        self._proxies = {
+            "https": https_proxy
+        }
 
         console._set_log_level(console_log_level, logging_log_level)
 
         self._load_env(env_file)
+        self._session.proxies.update(self._proxies)
 
         if host:
             self.set_cloud(host)
@@ -185,6 +193,8 @@ class APISession(APIRequest):
             self._console_log_level = os.getenv("CONSOLE_LOG_LEVEL")
         if os.getenv("LOGGING_LOG_LEVEL"):
             self._logging_log_level = os.getenv("LOGGING_LOG_LEVEL")
+        if os.getenv("HTTPS_PROXY"):
+            self._proxies["https"] = os.getenv("HTTPS_PROXY")
 
     ####################################
     # CLOUD FUNCTIONS
@@ -199,7 +209,7 @@ class APISession(APIRequest):
         """
         logger.debug("apisession:set_cloud")
         self._cloud_uri = None
-        if cloud_uri in ["api.mistsys.com", "api.ac99.mist.com", "api.gc1.mistsys.com"]:
+        if cloud_uri in ["api.mistsys.com", "api.ac99.mist.com", "api.gc1.mistsys.com", "api.us.mist-federal.com"]:
             self._cloud_uri = cloud_uri
         else:
             for cloud in CLOUDS:
@@ -248,6 +258,8 @@ class APISession(APIRequest):
             self._cloud_uri = "api.ac99.mist.com"
         elif resp == "g":
             self._cloud_uri = "api.gc1.mistsys.com"
+        elif resp == "f":
+            self._cloud_uri = "api.us.mist-federal.com"
         else:
             try:
                 resp_num = int(resp)
@@ -335,12 +347,20 @@ class APISession(APIRequest):
         try:
             url = f"https://{self._cloud_uri}/api/v1/self"
             headers = {"Authorization": "Token " + apitoken}
-            data = requests.get(url, headers=headers)
+            data = requests.get(url, headers=headers, proxies=self._proxies)
             data_json = data.json()
             logger.debug(
                 f"apisession:_get_api_token_data:"
                 f"info retrieved for token {apitoken[:4]}...{apitoken[-4:]}"
                 )
+        except requests.exceptions.ProxyError as proxy_error:
+            logger.critical("apisession:_get_api_token_data:proxy not valid...")
+            console.critical("Proxy not valid...\r\n")        
+            sys.exit(0)
+        except requests.exceptions.ConnectionError as connexion_error:
+            logger.critical(f"apirequest:mist_post:Connection Error: {connexion_error}")
+            console.critical("Connexion error...\r\n")        
+            sys.exit(0)
         except:
             logger.error(
                 f"apisession:_get_api_token_data:"
@@ -628,6 +648,8 @@ class APISession(APIRequest):
                         cookies_ext= ".ac99"
                     elif self._cloud_uri == "api.gc1.mistsys.com":
                         cookies_ext= ".gc1"
+                    elif self._cloud_uri == "api.us.mist-federal.com":
+                        cookies_ext= ".us"
                     else:
                         cookies_ext = next(
                             item["cookies_ext"]
@@ -781,7 +803,7 @@ class APISession(APIRequest):
         uri = "/api/v1/self"
         logger.info(f'apisession:_getself: sending GET request to "{uri}"')
         resp = self.mist_get(uri)
-        if resp.data:
+        if resp.status_code == 200 and resp.data:
             # Deal with 2FA if needed
             if (
                 resp.data.get("two_factor_required") is True
@@ -814,6 +836,10 @@ class APISession(APIRequest):
                     f"apisession:_getself:account used: {self.first_name} {self.last_name}"
                 )
                 return True
+        elif resp.proxy_error:
+            logger.critical("apisession:_getself:proxy not valid...")
+            console.critical("Proxy not valid...\r\n")        
+            sys.exit(0)
         else:
             logger.error("apisession:_getself:authentication not valid...")
             console.error("Authentication not valid...\r\n")

@@ -50,43 +50,6 @@ def getOrgStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgAssetsStats")
-def getOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAssetsStats
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    page : int, default: 1
-    limit : int, default: 100
-    start : int
-    end : int
-    duration : str, default: 1d        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/stats/assets"
-    query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listOrgAssetsStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgAssetsStats
@@ -138,7 +101,7 @@ def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct
     
     QUERY PARAMS
     ------------
-    distinct : str{'site_id', 'mac', 'map_id', 'ibeacon_uuid', 'ibeacon_major', 'ibeacon_minor'}        
+    distinct : str{'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'site_id'}        
     
     RETURN
     -----------
@@ -259,57 +222,6 @@ def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgDevicesStats")
-def getOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None, fields:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgDevicesStats
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
-    status : str{'all', 'connected', 'disconnected'}, default: all
-    site_id : str
-    mac : str
-    evpntopo_id : str
-    evpn_unused : str
-    fields : str
-    page : int, default: 1
-    limit : int, default: 100
-    start : int
-    end : int
-    duration : str, default: 1d        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/stats/devices"
-    query_params={}
-    if type: query_params["type"]=type
-    if status: query_params["status"]=status
-    if site_id: query_params["site_id"]=site_id
-    if mac: query_params["mac"]=mac
-    if evpntopo_id: query_params["evpntopo_id"]=evpntopo_id
-    if evpn_unused: query_params["evpn_unused"]=evpn_unused
-    if fields: query_params["fields"]=fields
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None, fields:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDevicesStats
@@ -325,7 +237,7 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", sta
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway', 'all'}, default: ap
+    type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
     status : str{'all', 'connected', 'disconnected'}, default: all
     site_id : str
     mac : str
@@ -360,8 +272,7 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", sta
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgMxEdgesStats")
-def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:str="false") -> _APIResponse:
+def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:bool=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdgesStats
     
@@ -381,45 +292,7 @@ def getOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:i
     start : int
     end : int
     duration : str, default: 1d
-    for_site : str{'true', 'false', 'any'}, default: false        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/stats/mxedges"
-    query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if for_site: query_params["for_site"]=for_site
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", for_site:str="false") -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdgesStats
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    page : int, default: 1
-    limit : int, default: 100
-    start : int
-    end : int
-    duration : str, default: 1d
-    for_site : str{'true', 'false', 'any'}, default: false        
+    for_site : bool        
     
     RETURN
     -----------
@@ -526,9 +399,12 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     mac_limit : int
     mac_count : int
     up : bool
-    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
-    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
-    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
+      if `up`==`true`
+    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
+      if `up`==`true`
+    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
+      if `up`==`true` && has Authenticator role
     limit : int, default: 100
     start : int
     end : int
@@ -592,7 +468,7 @@ def countOrgSwitchPorts(mist_session:_APISession, org_id:str, distinct:str="mac"
     
     QUERY PARAMS
     ------------
-    distinct : str{'port_id', 'port_mac', 'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'speed', 'up'}, default: mac
+    distinct : str{'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'port_id', 'port_mac', 'speed', 'up'}, default: mac
     full_duplex : bool
     mac : str
     neighbor_mac : str
@@ -614,9 +490,12 @@ def countOrgSwitchPorts(mist_session:_APISession, org_id:str, distinct:str="mac"
     rx_mcast_pkts : int
     rx_bcast_pkts : int
     speed : int
-    stp_state : str{'forwarding', 'blocking', 'learning', 'listening', 'disabled'}
-    stp_role : str{'designated', 'backup', 'alternate', 'root', 'root-prevented'}
-    auth_state : str{'init', 'authenticated', 'authenticating', 'held'}
+    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
+      if `up`==`true`
+    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
+      if `up`==`true`
+    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
+      if `up`==`true`
     up : bool
     page : int, default: 1
     limit : int, default: 100
@@ -680,8 +559,10 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str="wxt
     
     QUERY PARAMS
     ------------
-    distinct : str{'auth_algo', 'wxtunnel_id', 'ap', 'remote_ip', 'remote_port', 'state', 'mxedge_id', 'mxcluster_id', 'site_id', 'peer_mxedge_id', 'mac', 'node', 'peer_ip', 'peer_host', 'ip', 'tunnel_name', 'protocol', 'encrypt_algo', 'ike_version', 'last_event', 'up'}, default: wxtunnel_id
-    type : str{'wxtunnel', 'wan'}, default: wxtunnel        
+    distinct : str{'ap', 'auth_algo', 'encrypt_algo', 'ike_version', 'ip', 'last_event', 'mac', 'mxcluster_id', 'mxedge_id', 'node', 'peer_host', 'peer_ip', 'peer_mxedge_id', 'protocol', 'remote_ip', 'remote_port', 'site_id', 'state', 'tunnel_name', 'up', 'wxtunnel_id'}, default: wxtunnel_id
+      - If `type`==`wxtunnel`: wxtunnel_id / ap / remote_ip / remote_port / state / mxedge_id / mxcluster_id / site_id / peer_mxedge_id; default is wxtunnel_id 
+- If `type`==`wan`: mac / site_id / node / peer_ip / peer_host/ ip / tunnel_name / protocol / auth_algo / encrypt_algo / ike_version / last_event / up
+    type : str{'wan', 'wxtunnel'}, default: wxtunnel        
     
     RETURN
     -----------
@@ -725,7 +606,7 @@ def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str
     encrypt_algo : str
     ike_version : str
     up : str
-    type : str{'wxtunnel', 'wan'}, default: wxtunnel
+    type : str{'wan', 'wxtunnel'}, default: wxtunnel
     limit : int, default: 100
     start : int
     end : int

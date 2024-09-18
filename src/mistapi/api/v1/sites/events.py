@@ -29,7 +29,8 @@ def getSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str=None, l
     
     QUERY PARAMS
     ------------
-    type : str{'success', 'fail', 'none'}
+    type : str{'fail', 'none', 'success'}
+      event type
     limit : int, default: 100
     start : int
     end : int

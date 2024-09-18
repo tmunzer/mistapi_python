@@ -14,30 +14,6 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgDevices")
-def getOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgDevices
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/devices"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def listOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgDevices
@@ -61,7 +37,7 @@ def listOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgDevices
     
@@ -76,14 +52,16 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     
     QUERY PARAMS
     ------------
-    distinct : str{'hostname', 'site_id', 'model', 'mac', 'version', 'ip', 'mxtunnel_status', 'mxedge_id', 'lldp_system_name', 'lldp_system_desc', 'lldp_port_id', 'lldp_mgmt_addr'}, default: model
+    distinct : str{'hostname', 'ip', 'lldp_mgmt_addr', 'lldp_port_id', 'lldp_system_desc', 'lldp_system_name', 'mac', 'model', 'mxedge_id', 'mxtunnel_status', 'site_id', 'version'}, default: model
     hostname : str
     site_id : str
     model : str
+    managed : str
     mac : str
     version : str
     ip_address : str
-    mxtunnel_status : str{'up', 'down'}
+    mxtunnel_status : str{'down', 'up'}
+      MxTunnel status, enum: `up`, `down`
     mxedge_id : str
     lldp_system_name : str
     lldp_system_desc : str
@@ -106,6 +84,7 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     if hostname: query_params["hostname"]=hostname
     if site_id: query_params["site_id"]=site_id
     if model: query_params["model"]=model
+    if managed: query_params["managed"]=managed
     if mac: query_params["mac"]=mac
     if version: query_params["version"]=version
     if ip_address: query_params["ip_address"]=ip_address
@@ -138,7 +117,7 @@ def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="mod
     
     QUERY PARAMS
     ------------
-    distinct : str{'org_id', 'site_id', 'ap', 'apfw', 'model', 'text', 'timestamp', 'type'}, default: model
+    distinct : str{'ap', 'apfw', 'model', 'org_id', 'site_id', 'text', 'timestamp', 'type'}, default: model
     site_id : str
     ap : str
     apfw : str
@@ -190,7 +169,7 @@ def searchOrgDeviceEvents(mist_session:_APISession, org_id:str, mac:str=None, mo
     ------------
     mac : str
     model : str
-    device_type : str{'ap', 'switch', 'gateway'}, default: ap
+    device_type : str{'ap', 'gateway', 'switch'}, default: ap
     text : str
     timestamp : str
     type : str
@@ -236,8 +215,8 @@ def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
-    distinct : str{'mac', 'version', 'name', 'site_id'}
+    type : str{'ap', 'gateway', 'switch'}, default: ap
+    distinct : str{'mac', 'name', 'site_id', 'version'}
     start : int
     end : int
     limit : int, default: 100        
@@ -272,7 +251,7 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="a
     
     QUERY PARAMS
     ------------
-    type : str{'ap', 'switch', 'gateway'}, default: ap
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     mac : str
     name : str
     version : str
@@ -296,37 +275,6 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="a
     if end: query_params["end"]=end
     if limit: query_params["limit"]=limit
     if duration: query_params["duration"]=duration
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgApsMacs")
-def getOrgApsMacs(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgApsMacs
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    page : int, default: 1
-    limit : int, default: 100        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/devices/radio_macs"
-    query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -382,7 +330,8 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     version : str
     power_constrained : bool
     ip_address : str
-    mxtunnel_status : str{'up', 'down'}
+    mxtunnel_status : str{'down', 'up'}
+      MxTunnel status, up / down
     mxedge_id : str
     lldp_system_name : str
     lldp_system_desc : str
@@ -431,30 +380,6 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-@deprecation.deprecated(deprecated_in="0.37.7", removed_in="0.52.0", current_version="0.50.0", details="function replaced with listOrgDeviceUpgrades")
-def getOrgDeviceUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgDeviceUpgrades
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/devices/upgrade"
-    query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

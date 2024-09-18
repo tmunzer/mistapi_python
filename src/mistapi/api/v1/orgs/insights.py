@@ -29,7 +29,7 @@ def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int
     
     QUERY PARAMS
     ------------
-    sle : str{'wan', 'wired', 'wifi'}
+    sle : str{'wan', 'wifi', 'wired'}
     start : int
     end : int
     limit : int, default: 100
@@ -42,7 +42,7 @@ def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/insights/sites-sle"
+    uri = f"/api/v1/orgs/{org_id}/insights/sites_sle"
     query_params={}
     if sle: query_params["sle"]=sle
     if start: query_params["start"]=start

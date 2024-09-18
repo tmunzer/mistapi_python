@@ -26,7 +26,7 @@ def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'ap', 'switch', 'gateway', 'client'}
+    scope : str{'ap', 'client', 'gateway', 'site', 'switch'}
     scope_id : str
     metric : str
     classifier : str        
@@ -62,7 +62,7 @@ def getSiteSleMetricClassifiers(mist_session:_APISession, site_id:str, scope:str
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'ap', 'switch', 'gateway', 'client'}
+    scope : str{'ap', 'client', 'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -88,7 +88,7 @@ def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'ap', 'switch', 'gateway', 'client'}
+    scope : str{'ap', 'client', 'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -123,7 +123,7 @@ def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, sc
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'ap', 'switch', 'gateway', 'client'}
+    scope : str{'ap', 'client', 'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -132,7 +132,7 @@ def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, sc
     start : int
     end : int
     duration : str, default: 1d
-    fields : str{'wlan', 'device_type', 'device_os', 'band', 'ap', 'server', 'mxedge', 'switch', 'client', 'vlan', 'interface', 'chassis', 'gateway', 'peer_path', 'gateway_zones'}
+    fields : str{'ap', 'band', 'chassis', 'client', 'device_os', 'device_type', 'gateway', 'gateway_zones', 'interface', 'mxedge', 'peer_path', 'server', 'switch', 'vlan', 'wlan'}
     classifier : str        
     
     RETURN
@@ -162,7 +162,7 @@ def getSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope:
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'switch', 'gateway'}
+    scope : str{'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -236,7 +236,7 @@ def getSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str, 
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'switch', 'gateway'}
+    scope : str{'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -273,7 +273,7 @@ def getSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope:
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'switch', 'gateway'}
+    scope : str{'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -347,7 +347,7 @@ def getSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:st
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'switch', 'gateway'}
+    scope : str{'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -421,7 +421,7 @@ def getSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, sco
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'ap'}
+    scope : str{'ap', 'site'}
     scope_id : str
     metric : str        
     
@@ -437,7 +437,7 @@ def getSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, sco
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted-users"
+    uri = f"/api/v1/sites/{site_id}/sle/{scope}/{scope_id}/metric/{metric}/impacted_users"
     query_params={}
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -458,7 +458,7 @@ def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'ap', 'switch', 'gateway', 'client'}
+    scope : str{'ap', 'client', 'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -493,7 +493,7 @@ def getSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, scope_
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'ap', 'switch', 'gateway', 'client'}
+    scope : str{'ap', 'client', 'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -519,7 +519,7 @@ def replaceSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sc
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'ap', 'switch', 'gateway', 'client'}
+    scope : str{'ap', 'client', 'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -549,7 +549,7 @@ def updateSiteSleThreshold(mist_session:_APISession, site_id:str, scope:str, sco
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'ap', 'switch', 'gateway', 'client'}
+    scope : str{'ap', 'client', 'gateway', 'site', 'switch'}
     scope_id : str
     metric : str        
     
@@ -579,7 +579,7 @@ def getSiteSlesMetrics(mist_session:_APISession, site_id:str, scope:str, scope_i
     PATH PARAMS
     -----------
     site_id : str
-    scope : str{'site', 'ap', 'switch', 'gateway', 'client'}
+    scope : str{'ap', 'client', 'gateway', 'site', 'switch'}
     scope_id : str        
     
     RETURN

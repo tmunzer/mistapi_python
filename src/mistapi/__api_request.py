@@ -16,6 +16,7 @@ This module manages API requests with Mist Cloud. It is used to
 
 import os
 import sys
+import re
 import json
 import requests
 from requests.exceptions import HTTPError
@@ -63,6 +64,13 @@ class APIRequest:
         """
         logger.debug(f"apirequest:_url:https://{self._cloud_uri}{uri}")
         return f"https://{self._cloud_uri}{uri}"
+    
+    def _log_proxy(self) -> None:
+        pwd_regex = r':([^:@]*)@'
+        if self._session.proxies.get("https"):
+            logger.info(f"apirequest:sending request to proxy server {re.sub(pwd_regex, ':*********@', self._session.proxies['https'])}")
+            print(f"apirequest:sending request to proxy server {re.sub(pwd_regex, ':*********@', self._session.proxies['https'])}")
+        
 
     def _next_apitoken(self) -> None:
         logger.info(f"apirequest:_next_apitoken:rotating API Token")
@@ -155,14 +163,22 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
+        resp = None
+        proxy_failed = False
         try:
             url = self._url(uri) + self._gen_query(query)
             logger.info(f"apirequest:mist_get:sending request to {url}")
+            self._log_proxy()
             resp = self._session.get(url)
             logger.debug(
                 f"apirequest:mist_get:request headers:{self._remove_auth_from_headers(resp)}"
             )
             resp.raise_for_status()
+        except requests.exceptions.ProxyError as proxy_error:
+            logger.error(f"apirequest:mist_get:Proxy Error: {proxy_error}")  
+            proxy_failed = True
+        except requests.exceptions.ConnectionError as connexion_error:
+            logger.error(f"Capirequest:mist_get:onnection Error: {connexion_error}")
         except HTTPError as http_err:
             if http_err.response.status_code == 429:
                 logger.warning(
@@ -178,7 +194,7 @@ class APIRequest:
             logger.error("apirequest:mist_get:Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp)
+            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
     def mist_post(self, uri: str, body: dict = None) -> APIResponse:
         """
@@ -195,20 +211,29 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
+        resp = None
+        proxy_failed = False
         try:
             url = self._url(uri)
             logger.info(f"apirequest:mist_post:sending request to {url}")
             headers = {"Content-Type": "application/json"}
             logger.debug(f"apirequest:mist_post:Request body:{body}")
             if isinstance(body, str):
+                self._log_proxy()
                 resp = self._session.post(url, data=body, headers=headers)
             else:
+                self._log_proxy()
                 resp = self._session.post(url, json=body, headers=headers)
             logger.debug(
                 f"apirequest:mist_post:request headers:{self._remove_auth_from_headers(resp)}"
             )
             logger.debug(f"apirequest:mist_post:request body:{resp.request.body}")
             resp.raise_for_status()
+        except requests.exceptions.ProxyError as proxy_error:
+            logger.error(f"apirequest:mist_post:Proxy Error: {proxy_error}")  
+            proxy_failed = True
+        except requests.exceptions.ConnectionError as connexion_error:
+            logger.error(f"Capirequest:mist_post:Connection Error: {connexion_error}")
         except HTTPError as http_err:
             if http_err.response.status_code == 429:
                 logger.warning(
@@ -224,7 +249,7 @@ class APIRequest:
             logger.error("apirequest:mist_post: Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp)
+            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
     def mist_put(self, uri: str, body: dict = None) -> APIResponse:
         """
@@ -241,20 +266,29 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
+        resp = None
+        proxy_failed = False
         try:
             url = self._url(uri)
             logger.info(f"apirequest:mist_put:sending request to {url}")
             headers = {"Content-Type": "application/json"}
             logger.debug(f"apirequest:mist_put:Request body:{body}")
             if isinstance(body, str):
+                self._log_proxy()
                 resp = self._session.put(url, data=body, headers=headers)
             else:
+                self._log_proxy()
                 resp = self._session.put(url, json=body, headers=headers)
             logger.debug(
                 f"apirequest:mist_put:request headers:{self._remove_auth_from_headers(resp)}"
             )
             logger.debug(f"apirequest:mist_put:request body:{resp.request.body}")
             resp.raise_for_status()
+        except requests.exceptions.ProxyError as proxy_error:
+            logger.error(f"apirequest:mist_put:Proxy Error: {proxy_error}")  
+            proxy_failed = True
+        except requests.exceptions.ConnectionError as connexion_error:
+            logger.error(f"Capirequest:mist_put:Connection Error: {connexion_error}")
         except HTTPError as http_err:
             if http_err.response.status_code == 429:
                 logger.warning(
@@ -270,7 +304,7 @@ class APIRequest:
             logger.error("apirequest:mist_put: Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp)
+            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
     def mist_delete(self, uri: str, query: dict = None) -> APIResponse:
         """
@@ -286,14 +320,22 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
+        resp = None
+        proxy_failed = False
         try:
             url = self._url(uri) + self._gen_query(query)
             logger.info(f"apirequest:mist_delete:sending request to {url}")
+            self._log_proxy()
             resp = self._session.delete(url)
             logger.debug(
                 f"apirequest:mist_delete:request headers:{self._remove_auth_from_headers(resp)}"
             )
             resp.raise_for_status()
+        except requests.exceptions.ProxyError as proxy_error:
+            logger.error(f"apirequest:mist_delete:Proxy Error: {proxy_error}")  
+            proxy_failed = True
+        except requests.exceptions.ConnectionError as connexion_error:
+            logger.error(f"apirequest:mist_delete:Connection Error: {connexion_error}")
         except HTTPError as http_err:
             if http_err.response.status_code == 429:
                 logger.warning(
@@ -308,7 +350,7 @@ class APIRequest:
             logger.error("apirequest:mist_delete: Exception occurred", exc_info=True)
         else:
             self._count += 1
-            return APIResponse(url=url, response=resp)
+            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
     def mist_post_file(self, uri: str, multipart_form_data: dict = {}) -> APIResponse:
         """
@@ -326,6 +368,8 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
+        resp = None
+        proxy_failed = False
         try:
             url = self._url(uri)
             logger.info(f"apirequest:mist_post_file:sending request to {url}")
@@ -369,6 +413,7 @@ class APIRequest:
                 f"apirequest:mist_post_file:"
                 f"final multipart_form_data:{generated_multipart_form_data}"
             )
+            self._log_proxy()
             resp = self._session.post(url, files=generated_multipart_form_data)
             logger.debug(
                 f"apirequest:mist_post_file:request headers:{self._remove_auth_from_headers(resp)}"
@@ -377,6 +422,11 @@ class APIRequest:
                 f"apirequest:mist_post_file:request body:{self.remove_file_from_body(resp)}"
             )
             resp.raise_for_status()
+        except requests.exceptions.ProxyError as proxy_error:
+            logger.error(f"apirequest:mist_post_file:Proxy Error: {proxy_error}")  
+            proxy_failed = True
+        except requests.exceptions.ConnectionError as connexion_error:
+            logger.error(f"apirequest:mist_post_file:Connection Error: {connexion_error}")
         except HTTPError as http_err:
             if http_err.response.status_code == 429:
                 logger.warning(
@@ -395,4 +445,4 @@ class APIRequest:
             logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
         else:
             self._count += 1
-            return APIResponse(url=url, response=resp)
+            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)

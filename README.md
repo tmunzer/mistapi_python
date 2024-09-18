@@ -55,7 +55,7 @@ MIST_USER | string | None | The login to use if no API Token is provided (apitok
 MIST_PASSWORD | string | None | The password to use if no API Token is provided (apitoken use is prefered) |
 CONSOLE_LOG_LEVEL | int | 20 | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical) |
 LOGGING_LOG_LEVEL | int | 10 | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
-
+HTTPS_PROXY | string | None | configure the package to use an HTTP/HTTPS (e.g. http://user:passowrd@myproxy.com:3128)
 
 An example of the environment file content is:
 ```
@@ -81,8 +81,9 @@ password | str | None | used if login/password is used. Can be defined later |
 apitoken | str | None | used if API Token is used. Can de defined later |
 host | str | None | Mist Cloud to reach (e.g. "api.mist.com"). Can de defined later |
 env_file | str | None | path to the env file to load. See README.md for allowed variables |
-console_log_leve | int | 20 | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical) |
-logging_log_leve | int | 10 | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
+console_log_level | int | 20 | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical) |
+logging_log_level | int | 10 | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
+https_proxy | string | None | configure the package to use an HTTP/HTTPS (e.g. http://user:passowrd@myproxy.com:3128)
 
 ### 2. `login()` function must be called to validate the authentication. 
 

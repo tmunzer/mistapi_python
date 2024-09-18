@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str="ap", mac:str=None, site_id:str=None, vc_mac:str=None, vc:str=None, unassigned:bool=None, limit:int=100, page:int=1) -> _APIResponse:
+def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str="ap", mac:str=None, site_id:str=None, vc_mac:str=None, vc:bool=None, unassigned:bool=False, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getOrgInventory
     
@@ -31,12 +31,12 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     ------------
     serial : str
     model : str
-    type : str{'ap', 'switch', 'gateway'}, default: ap
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     mac : str
     site_id : str
     vc_mac : str
-    vc : str
-    unassigned : bool
+    vc : bool
+    unassigned : bool, default: True
     limit : int, default: 100
     page : int, default: 1        
     

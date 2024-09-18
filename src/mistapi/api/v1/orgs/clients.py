@@ -29,7 +29,7 @@ def countOrgWirelessClients(mist_session:_APISession, org_id:str, distinct:str="
     
     QUERY PARAMS
     ------------
-    distinct : str{'mac', 'hostname', 'device', 'os', 'model', 'ap', 'vlan', 'ssid', 'ip'}, default: device
+    distinct : str{'ap', 'device', 'hostname', 'ip', 'mac', 'model', 'os', 'ssid', 'vlan'}, default: device
     mac : str
     hostname : str
     device : str
@@ -89,7 +89,7 @@ def searchOrgWirelessClientEvents(mist_session:_APISession, org_id:str, type:str
     reason_code : int
     ssid : str
     ap : str
-    proto : str{'a', 'b', 'g', 'n', 'ac', 'ax'}
+    proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
       a / b / g / n / ac / ax
     band : str{'24', '5', '6'}
       802.11 Band
@@ -197,7 +197,7 @@ def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distin
     
     QUERY PARAMS
     ------------
-    distinct : str{'ssid', 'ap', 'ip', 'vlan', 'hostname', 'os', 'model', 'device'}, default: device
+    distinct : str{'ap', 'device', 'hostname', 'ip', 'model', 'os', 'ssid', 'vlan'}, default: device
     ap : str
     band : str{'24', '5', '6'}
       802.11 Band

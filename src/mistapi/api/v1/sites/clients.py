@@ -29,7 +29,7 @@ def countSiteWirelessClients(mist_session:_APISession, site_id:str, distinct:str
     
     QUERY PARAMS
     ------------
-    distinct : str{'ssid', 'ap', 'ip', 'vlan', 'hostname', 'os', 'model', 'device'}, default: device
+    distinct : str{'ap', 'device', 'hostname', 'ip', 'model', 'os', 'ssid', 'vlan'}, default: device
     ssid : str
     ap : str
     ip_address : str
@@ -110,12 +110,12 @@ def countSiteWirelessClientEvents(mist_session:_APISession, site_id:str, distinc
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'proto', 'band', 'channel', 'wlan_id', 'ssid'}
+    distinct : str{'band', 'channel', 'proto', 'ssid', 'type', 'wlan_id'}
     type : str
     reason_code : int
     ssid : str
     ap : str
-    proto : str{'a', 'b', 'g', 'n', 'ac', 'ax'}
+    proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
       a / b / g / n / ac / ax
     band : str{'24', '5', '6'}
       802.11 Band
@@ -166,7 +166,7 @@ def searchSiteWirelessClientEvents(mist_session:_APISession, site_id:str, type:s
     reason_code : int
     ssid : str
     ap : str
-    proto : str{'a', 'b', 'g', 'n', 'ac', 'ax'}
+    proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
       a / b / g / n / ac / ax
     band : str{'24', '5', '6'}
       802.11 Band
@@ -268,7 +268,7 @@ def countSiteWirelessClientSessions(mist_session:_APISession, site_id:str, disti
     
     QUERY PARAMS
     ------------
-    distinct : str{'ssid', 'wlan_id', 'ap', 'mac', 'client_family', 'client_manufacture', 'client_model', 'client_os'}, default: mac
+    distinct : str{'ap', 'client_family', 'client_manufacture', 'client_model', 'client_os', 'mac', 'ssid', 'wlan_id'}, default: mac
     ap : str
     band : str{'24', '5', '6'}
       802.11 Band
@@ -455,7 +455,7 @@ def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str
     QUERY PARAMS
     ------------
     type : str
-    proto : str{'a', 'b', 'g', 'n', 'ac', 'ax'}
+    proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
       a / b / g / n / ac / ax
     band : str{'24', '5', '6'}
       802.11 Band

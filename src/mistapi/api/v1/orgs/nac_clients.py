@@ -29,7 +29,8 @@ def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type"
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'last_nacrule_id', 'auth_type', 'last_vlan_id', 'last_nas_vendor', 'last_username', 'last_ap', 'mac', 'last_ssid', 'last_status', 'mdm_compliance_status', 'mdm_provider'}, default: type
+    distinct : str{'auth_type', 'last_ap', 'last_nacrule_id', 'last_nas_vendor', 'last_ssid', 'last_status', 'last_username', 'last_vlan', 'mac', 'mdm_compliance', 'mdm_provider', 'type'}, default: type
+      NAC Policy Rule ID, if matched
     last_nacrule_id : str
     nacrule_matched : bool
     auth_type : str
@@ -99,7 +100,7 @@ def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str=N
     
     QUERY PARAMS
     ------------
-    distinct : str{'type', 'nacrule_id', 'dryrun_nacrule_id', 'auth_type', 'vlan', 'nas_vendor', 'username', 'ap', 'mac', 'ssid'}
+    distinct : str{'ap', 'auth_type', 'dryrun_nacrule_id', 'mac', 'nacrule_id', 'nas_vendor', 'ssid', 'type', 'username', 'vlan'}
     type : str
     start : int
     end : int
@@ -195,7 +196,7 @@ def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgNacClients(mist_session:_APISession, org_id:str, last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, site_id:str=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgNacClients(mist_session:_APISession, org_id:str, nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, vlan:str=None, nas_vendor:str=None, idp_id:str=None, ssid:str=None, username:str=None, timestamp:float=None, site_id:str=None, ap:str=None, mac:str=None, status:str=None, type:str=None, mdm_compliance:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgNacClients
     
@@ -210,21 +211,21 @@ def searchOrgNacClients(mist_session:_APISession, org_id:str, last_nacrule_id:st
     
     QUERY PARAMS
     ------------
-    last_nacrule_id : str
+    nacrule_id : str
     nacrule_matched : bool
     auth_type : str
-    last_vlan_id : str
-    last_nas_vendor : str
+    vlan : str
+    nas_vendor : str
     idp_id : str
-    last_ssid : str
-    last_username : str
+    ssid : str
+    username : str
     timestamp : float
     site_id : str
-    last_ap : str
+    ap : str
     mac : str
-    last_status : str
+    status : str
     type : str
-    mdm_compliance_status : str
+    mdm_compliance : str
     mdm_provider : str
     start : int
     end : int
@@ -239,21 +240,21 @@ def searchOrgNacClients(mist_session:_APISession, org_id:str, last_nacrule_id:st
     """
     uri = f"/api/v1/orgs/{org_id}/nac_clients/search"
     query_params={}
-    if last_nacrule_id: query_params["last_nacrule_id"]=last_nacrule_id
+    if nacrule_id: query_params["nacrule_id"]=nacrule_id
     if nacrule_matched: query_params["nacrule_matched"]=nacrule_matched
     if auth_type: query_params["auth_type"]=auth_type
-    if last_vlan_id: query_params["last_vlan_id"]=last_vlan_id
-    if last_nas_vendor: query_params["last_nas_vendor"]=last_nas_vendor
+    if vlan: query_params["vlan"]=vlan
+    if nas_vendor: query_params["nas_vendor"]=nas_vendor
     if idp_id: query_params["idp_id"]=idp_id
-    if last_ssid: query_params["last_ssid"]=last_ssid
-    if last_username: query_params["last_username"]=last_username
+    if ssid: query_params["ssid"]=ssid
+    if username: query_params["username"]=username
     if timestamp: query_params["timestamp"]=timestamp
     if site_id: query_params["site_id"]=site_id
-    if last_ap: query_params["last_ap"]=last_ap
+    if ap: query_params["ap"]=ap
     if mac: query_params["mac"]=mac
-    if last_status: query_params["last_status"]=last_status
+    if status: query_params["status"]=status
     if type: query_params["type"]=type
-    if mdm_compliance_status: query_params["mdm_compliance_status"]=mdm_compliance_status
+    if mdm_compliance: query_params["mdm_compliance"]=mdm_compliance
     if mdm_provider: query_params["mdm_provider"]=mdm_provider
     if start: query_params["start"]=start
     if end: query_params["end"]=end

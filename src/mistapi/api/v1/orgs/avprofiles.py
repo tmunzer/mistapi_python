@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteVBeacons(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listOrgAntivirusProfiles(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteVBeacons
+    API doc: https://doc.mist-lab.fr/#operation/listOrgAntivirusProfiles
     
     PARAMS
     -----------
@@ -25,7 +25,7 @@ def listSiteVBeacons(mist_session:_APISession, site_id:str, page:int=1, limit:in
     
     PATH PARAMS
     -----------
-    site_id : str        
+    org_id : str        
     
     QUERY PARAMS
     ------------
@@ -37,16 +37,16 @@ def listSiteVBeacons(mist_session:_APISession, site_id:str, page:int=1, limit:in
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/vbeacons"
+    uri = f"/api/v1/orgs/{org_id}/avprofiles"
     query_params={}
     if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def createOrgAntivirusProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteVBeacon
+    API doc: https://doc.mist-lab.fr/#operation/createOrgAntivirusProfile
     
     PARAMS
     -----------
@@ -55,7 +55,7 @@ def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> _AP
     
     PATH PARAMS
     -----------
-    site_id : str        
+    org_id : str        
     
     BODY PARAMS
     -----------
@@ -67,13 +67,13 @@ def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> _AP
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/vbeacons"
+    uri = f"/api/v1/orgs/{org_id}/avprofiles"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _APIResponse:
+def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteVBeacon
+    API doc: https://doc.mist-lab.fr/#operation/getOrgAntivirusProfile
     
     PARAMS
     -----------
@@ -82,22 +82,22 @@ def getSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _AP
     
     PATH PARAMS
     -----------
-    site_id : str
-    vbeacon_id : str        
+    org_id : str
+    avprofiles_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/vbeacons/{vbeacon_id}"
+    uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofiles_id}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _APIResponse:
+def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteVBeacon
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgAntivirusProfile
     
     PARAMS
     -----------
@@ -106,22 +106,22 @@ def deleteSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> 
     
     PATH PARAMS
     -----------
-    site_id : str
-    vbeacon_id : str        
+    org_id : str
+    avprofiles_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/vbeacons/{vbeacon_id}"
+    uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofiles_id}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str, body:object) -> _APIResponse:
+def updateOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteVBeacon
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgAntivirusProfile
     
     PARAMS
     -----------
@@ -130,8 +130,8 @@ def updateSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str, bod
     
     PATH PARAMS
     -----------
-    site_id : str
-    vbeacon_id : str        
+    org_id : str
+    avprofiles_id : str        
     
     BODY PARAMS
     -----------
@@ -143,7 +143,7 @@ def updateSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str, bod
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/vbeacons/{vbeacon_id}"
+    uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofiles_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     

@@ -24,6 +24,7 @@ class APIResponse:
         self,
         response: Response,
         url: str,
+        proxy_error: bool = False
     ) -> None:
         """
         PARAMS
@@ -37,28 +38,33 @@ class APIResponse:
         self.data = {}
         self.url = url
         self.next = None
-        self.headers = response.headers
-        self.status_code = response.status_code
+        self.headers = None
+        self.status_code = None
+        self.proxy_error = proxy_error
+        
+        if response:
+            self.headers = response.headers
+            self.status_code = response.status_code
 
-        logger.info(
-            f"apiresponse:__init__:response status code: {response.status_code}"
-        )
-        console.debug(f"Response Status Code: {response.status_code}")
-
-        try:
-            self.raw_data = response.content
-            self.data = response.json()
-            self._check_next()
-            logger.debug(f"apiresponse:__init__:HTTP response processed")
-            if self.status_code >= 400 or (
-                isinstance(self.data, dict) and self.data.get("error")
-            ):
-                logger.error(f"apiresponse:__init__:response = {response}")
-                console.debug(f"Response: {self.data}")
-        except Exception as err:
-            logger.error(
-                f"apiresponse:__init__:unable to process HTTP Response: \r\n{err}"
+            logger.info(
+                f"apiresponse:__init__:response status code: {response.status_code}"
             )
+            console.debug(f"Response Status Code: {response.status_code}")
+
+            try:
+                self.raw_data = response.content
+                self.data = response.json()
+                self._check_next()
+                logger.debug(f"apiresponse:__init__:HTTP response processed")
+                if self.status_code >= 400 or (
+                    isinstance(self.data, dict) and self.data.get("error")
+                ):
+                    logger.error(f"apiresponse:__init__:response = {response}")
+                    console.debug(f"Response: {self.data}")
+            except Exception as err:
+                logger.error(
+                    f"apiresponse:__init__:unable to process HTTP Response: \r\n{err}"
+                )
 
     def _check_next(self) -> None:
         logger.debug(f"apiresponse:_check_next")
