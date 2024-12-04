@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteSiteTemplateDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
+def listSiteSiteTemplateDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSiteTemplateDerived
+    API doc: https://doc.mist-lab.fr/#operation/listSiteSiteTemplateDerived
     
     PARAMS
     -----------

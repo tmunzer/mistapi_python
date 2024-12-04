@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_mac:str=None, port_id:str=None, peer_port_id:str=None, policy:str=None, tenant:str=None, path_type:str=None, distinct:str="policy", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_mac:str=None, port_id:str=None, peer_port_id:str=None, policy:str=None, tenant:str=None, path_type:str=None, distinct:str="policy", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteWanUsage
     
@@ -37,11 +37,11 @@ def countSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_
     tenant : str
     path_type : str
     distinct : str{'mac', 'path_type', 'peer_mac', 'peer_port_id', 'policy', 'port_id', 'tenant'}, default: policy
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -58,15 +58,15 @@ def countSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_
     if tenant: query_params["tenant"]=tenant
     if path_type: query_params["path_type"]=path_type
     if distinct: query_params["distinct"]=distinct
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_mac:str=None, port_id:str=None, peer_port_id:str=None, policy:str=None, tenant:str=None, path_type:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_mac:str=None, port_id:str=None, peer_port_id:str=None, policy:str=None, tenant:str=None, path_type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteWanUsage
     
@@ -88,11 +88,11 @@ def searchSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer
     policy : str
     tenant : str
     path_type : str
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -108,11 +108,11 @@ def searchSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer
     if policy: query_params["policy"]=policy
     if tenant: query_params["tenant"]=tenant
     if path_type: query_params["path_type"]=path_type
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+def listMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listMspAuditLogs
     
@@ -36,9 +36,9 @@ def listMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str=None, adm
       sort order
     start : int
     end : int
+    duration : str, default: 1d
     limit : int, default: 100
-    page : int, default: 1
-    duration : str, default: 1d        
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -53,9 +53,9 @@ def listMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str=None, adm
     if sort: query_params["sort"]=sort
     if start: query_params["start"]=start
     if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
     if page: query_params["page"]=page
-    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

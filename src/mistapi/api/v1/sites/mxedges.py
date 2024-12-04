@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteMxEdges(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listSiteMxEdges(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMxEdges
     
@@ -29,8 +29,8 @@ def listSiteMxEdges(mist_session:_APISession, site_id:str, page:int=1, limit:int
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -39,36 +39,9 @@ def listSiteMxEdges(mist_session:_APISession, site_id:str, page:int=1, limit:int
     """
     uri = f"/api/v1/sites/{site_id}/mxedges"
     query_params={}
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def createSiteMxEdge(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteMxEdge
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str        
-    
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/mxedges"
-    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
 def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
@@ -115,7 +88,7 @@ def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="m
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchSiteMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, component:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteMistEdgeEvents
     
@@ -134,6 +107,7 @@ def searchSiteMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:st
     mxcluster_id : str
     type : str
     service : str
+    component : str
     start : int
     end : int
     duration : str, default: 1d
@@ -150,6 +124,7 @@ def searchSiteMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:st
     if mxcluster_id: query_params["mxcluster_id"]=mxcluster_id
     if type: query_params["type"]=type
     if service: query_params["service"]=service
+    if component: query_params["component"]=component
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration

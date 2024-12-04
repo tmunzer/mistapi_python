@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgWxRules(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listOrgWxRules(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgWxRules
     
@@ -29,8 +29,8 @@ def listOrgWxRules(mist_session:_APISession, org_id:str, page:int=1, limit:int=1
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -39,8 +39,8 @@ def listOrgWxRules(mist_session:_APISession, org_id:str, page:int=1, limit:int=1
     """
     uri = f"/api/v1/orgs/{org_id}/wxrules"
     query_params={}
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -69,29 +69,6 @@ def createOrgWxRule(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     """
     uri = f"/api/v1/orgs/{org_id}/wxrules"
     resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
-    
-def getOrgWxRulesDerived(mist_session:_APISession, org_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgWxRulesDerived
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/orgs/{org_id}/wxrules/derived"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
 def getOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str) -> _APIResponse:

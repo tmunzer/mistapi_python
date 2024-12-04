@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteMaps(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listSiteMaps(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMaps
     
@@ -29,8 +29,8 @@ def listSiteMaps(mist_session:_APISession, site_id:str, page:int=1, limit:int=10
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -39,8 +39,8 @@ def listSiteMaps(mist_session:_APISession, site_id:str, page:int=1, limit:int=10
     """
     uri = f"/api/v1/sites/{site_id}/maps"
     query_params={}
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -313,6 +313,77 @@ def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+def getSiteMapAutoZoneStatus(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getSiteMapAutoZoneStatus
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    map_id : str
+    site_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_zones"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def deleteSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteSiteMapAutoZone
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    map_id : str
+    site_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_zones"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def startSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/startSiteMapAutoZone
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    map_id : str
+    site_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_zones"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+    
 def clearSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/clearSiteApAutoOrient
@@ -412,7 +483,6 @@ def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:
     file : str
         path to the file to upload. binary file
     json : str
-        JSON string describing your upload
     
     RETURN
     -----------

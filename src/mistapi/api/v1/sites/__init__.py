@@ -42,6 +42,7 @@ from mistapi.api.v1.sites import rftemplates
 from mistapi.api.v1.sites import rogues
 from mistapi.api.v1.sites import rrm
 from mistapi.api.v1.sites import rssizones
+from mistapi.api.v1.sites import secintelprofiles
 from mistapi.api.v1.sites import servicepolicies
 from mistapi.api.v1.sites import services
 from mistapi.api.v1.sites import setting

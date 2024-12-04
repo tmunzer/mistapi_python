@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, match:str=None, page:int=1, limit:int=100) -> _APIResponse:
+def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, match:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgNacTags
     
@@ -32,8 +32,8 @@ def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str
     type : str
     name : str
     match : str
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -45,8 +45,8 @@ def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str
     if type: query_params["type"]=type
     if name: query_params["name"]=name
     if match: query_params["match"]=match
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

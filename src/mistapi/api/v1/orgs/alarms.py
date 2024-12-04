@@ -68,7 +68,7 @@ def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgAlarms
     
@@ -84,11 +84,11 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page
     QUERY PARAMS
     ------------
     distinct : str
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -98,11 +98,11 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, page
     uri = f"/api/v1/orgs/{org_id}/alarms/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

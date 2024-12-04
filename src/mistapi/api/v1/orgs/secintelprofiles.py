@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteUiSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
+def listOrgSecIntelProfiles(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteUiSettings
+    API doc: https://doc.mist-lab.fr/#operation/listOrgSecIntelProfiles
     
     PARAMS
     -----------
@@ -25,21 +25,21 @@ def listSiteUiSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     
     PATH PARAMS
     -----------
-    site_id : str        
+    org_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/uisettings"
+    uri = f"/api/v1/orgs/{org_id}/secintelprofiles"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteUiSettings(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def createOrgSecIntelProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteUiSettings
+    API doc: https://doc.mist-lab.fr/#operation/createOrgSecIntelProfile
     
     PARAMS
     -----------
@@ -48,7 +48,7 @@ def createSiteUiSettings(mist_session:_APISession, site_id:str, body:object) -> 
     
     PATH PARAMS
     -----------
-    site_id : str        
+    org_id : str        
     
     BODY PARAMS
     -----------
@@ -60,13 +60,13 @@ def createSiteUiSettings(mist_session:_APISession, site_id:str, body:object) -> 
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/uisettings"
+    uri = f"/api/v1/orgs/{org_id}/secintelprofiles"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listSiteUiSettingDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
+def getOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteUiSettingDerived
+    API doc: https://doc.mist-lab.fr/#operation/getOrgSecIntelProfile
     
     PARAMS
     -----------
@@ -75,21 +75,22 @@ def listSiteUiSettingDerived(mist_session:_APISession, site_id:str) -> _APIRespo
     
     PATH PARAMS
     -----------
-    site_id : str        
+    org_id : str
+    secintelprofile_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/uisettings/derived"
+    uri = f"/api/v1/orgs/{org_id}/secintelprofiles/{secintelprofile_id}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
+def deleteOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteUiSetting
+    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSecIntelProfile
     
     PARAMS
     -----------
@@ -98,46 +99,22 @@ def getSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) ->
     
     PATH PARAMS
     -----------
-    site_id : str
-    uisetting_id : str        
+    org_id : str
+    secintelprofile_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/uisettings/{uisetting_id}"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def deleteSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
-    """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteUiSetting
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str
-    uisetting_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/uisettings/{uisetting_id}"
+    uri = f"/api/v1/orgs/{org_id}/secintelprofiles/{secintelprofile_id}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str, body:object) -> _APIResponse:
+def updateOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteUiSetting
+    API doc: https://doc.mist-lab.fr/#operation/updateOrgSecIntelProfile
     
     PARAMS
     -----------
@@ -146,8 +123,8 @@ def updateSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str,
     
     PATH PARAMS
     -----------
-    site_id : str
-    uisetting_id : str        
+    org_id : str
+    secintelprofile_id : str        
     
     BODY PARAMS
     -----------
@@ -159,7 +136,7 @@ def updateSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str,
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/uisettings/{uisetting_id}"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    uri = f"/api/v1/orgs/{org_id}/secintelprofiles/{secintelprofile_id}"
+    resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     

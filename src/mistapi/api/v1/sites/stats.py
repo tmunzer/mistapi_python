@@ -72,7 +72,7 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def listSiteAssetsStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteAssetsStats
     
@@ -87,11 +87,11 @@ def listSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -100,11 +100,11 @@ def listSiteAssetsStats(mist_session:_APISession, site_id:str, page:int=1, limit
     """
     uri = f"/api/v1/sites/{site_id}/stats/assets"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -230,7 +230,7 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def listSiteBeaconsStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteBeaconsStats
     
@@ -245,11 +245,11 @@ def listSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limi
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -258,11 +258,11 @@ def listSiteBeaconsStats(mist_session:_APISession, site_id:str, page:int=1, limi
     """
     uri = f"/api/v1/sites/{site_id}/stats/beacons"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -436,7 +436,41 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, client_mac:str, ap:str=None, meeting_id:str=None, mac:str=None, app:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def getSiteCallsSummary(mist_session:_APISession, site_id:str, ap_mac:str=None, app:str=None, start:int=None, end:int=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/getSiteCallsSummary
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str        
+    
+    QUERY PARAMS
+    ------------
+    ap_mac : str
+    app : str
+    start : int
+    end : int        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/stats/calls/summary"
+    query_params={}
+    if ap_mac: query_params["ap_mac"]=ap_mac
+    if app: query_params["app"]=app
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, ap:str=None, meeting_id:str=None, mac:str=None, app:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteTroubleshootCalls
     
@@ -447,8 +481,7 @@ def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, client_mac:
     
     PATH PARAMS
     -----------
-    site_id : str
-    client_mac : str        
+    site_id : str        
     
     QUERY PARAMS
     ------------
@@ -546,7 +579,7 @@ def getSiteWirelessClientStats(mist_session:_APISession, site_id:str, client_mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", status:str="all", page:int=1, limit:int=100) -> _APIResponse:
+def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", status:str="all", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDevicesStats
     
@@ -563,8 +596,8 @@ def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", s
     ------------
     type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
     status : str{'all', 'connected', 'disconnected'}, default: all
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -575,12 +608,12 @@ def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", s
     query_params={}
     if type: query_params["type"]=type
     if status: query_params["status"]=status
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str, fields:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceStats
     
@@ -594,6 +627,10 @@ def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str) -> 
     site_id : str
     device_id : str        
     
+    QUERY PARAMS
+    ------------
+    fields : str        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -601,6 +638,7 @@ def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str) -> 
     """
     uri = f"/api/v1/sites/{site_id}/stats/devices/{device_id}"
     query_params={}
+    if fields: query_params["fields"]=fields
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -628,7 +666,7 @@ def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDiscoveredAssets
     
@@ -643,11 +681,11 @@ def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, 
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -656,11 +694,11 @@ def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, page:int=1, 
     """
     uri = f"/api/v1/sites/{site_id}/stats/discovered_assets"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -704,7 +742,7 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:str="system_name", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:str="system_name", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteDiscoveredSwitches
     
@@ -720,11 +758,11 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     QUERY PARAMS
     ------------
     distinct : str{'mgmt_addr', 'model', 'system_name', 'version'}, default: system_name
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -734,11 +772,11 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -818,7 +856,7 @@ def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str="1d", start:int=None, end:int=None, page:int=1, limit:int=100) -> _APIResponse:
+def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str="1d", start:int=None, end:int=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteAssetsOfInterest
     
@@ -836,8 +874,8 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     duration : str, default: 1d
     start : int
     end : int
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -849,8 +887,8 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     if duration: query_params["duration"]=duration
     if start: query_params["start"]=start
     if end: query_params["end"]=end
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -877,7 +915,7 @@ def getSiteGatewayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteWirelessClientsStatsByMap
     
@@ -893,11 +931,11 @@ def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -906,11 +944,11 @@ def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_
     """
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/clients"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -986,7 +1024,7 @@ def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteMxEdgesStats
     
@@ -1001,11 +1039,11 @@ def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, page:int=1, limi
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -1014,11 +1052,11 @@ def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, page:int=1, limi
     """
     uri = f"/api/v1/sites/{site_id}/stats/mxedges"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -1055,7 +1093,7 @@ def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str, sta
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteSwOrGwPorts
     
@@ -1099,11 +1137,11 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       if `up`==`true` && has Authenticator role
     up : bool
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -1138,11 +1176,11 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     if stp_role: query_params["stp_role"]=stp_role
     if auth_state: query_params["auth_state"]=auth_state
     if up: query_params["up"]=up
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -1284,7 +1322,7 @@ def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteSwitchPorts
     
@@ -1328,11 +1366,11 @@ def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       if `up`==`true`
     up : bool
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -1367,11 +1405,11 @@ def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     if stp_role: query_params["stp_role"]=stp_role
     if auth_state: query_params["auth_state"]=auth_state
     if up: query_params["up"]=up
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

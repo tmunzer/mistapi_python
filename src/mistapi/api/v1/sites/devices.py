@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, page:int=1, limit:int=100) -> _APIResponse:
+def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteDevices
     
@@ -31,8 +31,8 @@ def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:s
     ------------
     type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
     name : str
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -43,8 +43,8 @@ def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:s
     query_params={}
     if type: query_params["type"]=type
     if name: query_params["name"]=name
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -76,7 +76,7 @@ def getSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_co
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct:str=None, mac:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct:str=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteDeviceConfigHistory
     
@@ -93,11 +93,11 @@ def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct
     ------------
     distinct : str
     mac : str
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -108,11 +108,11 @@ def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct
     query_params={}
     if distinct: query_params["distinct"]=distinct
     if mac: query_params["mac"]=mac
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -154,7 +154,7 @@ def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, type:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model", hostname:str=None, model:str=None, mac:str=None, version:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, map_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model", hostname:str=None, model:str=None, mac:str=None, version:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, map_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteDevices
     
@@ -181,11 +181,11 @@ def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model"
     lldp_port_id : str
     lldp_mgmt_addr : str
     map_id : str
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -206,11 +206,11 @@ def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model"
     if lldp_port_id: query_params["lldp_port_id"]=lldp_port_id
     if lldp_mgmt_addr: query_params["lldp_mgmt_addr"]=lldp_mgmt_addr
     if map_id: query_params["map_id"]=map_id
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -382,7 +382,7 @@ def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _AP
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:str="mac", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteDeviceLastConfig
     
@@ -398,11 +398,11 @@ def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:st
     QUERY PARAMS
     ------------
     distinct : str{'mac', 'name', 'site_id', 'version'}, default: mac
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -412,11 +412,11 @@ def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:st
     uri = f"/api/v1/sites/{site_id}/devices/last_config/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -538,7 +538,7 @@ def restartSiteMultipleDevices(mist_session:_APISession, site_id:str, body:objec
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, band_24_bandwith:int=None, band_5_bandwith:int=None, band_6_bandwith:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, band_24_bandwidth:int=None, band_5_bandwidth:int=None, band_6_bandwidth:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteDevices
     
@@ -570,9 +570,9 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     band_24_channel : int
     band_5_channel : int
     band_6_channel : int
-    band_24_bandwith : int
-    band_5_bandwith : int
-    band_6_bandwith : int
+    band_24_bandwidth : int
+    band_5_bandwidth : int
+    band_6_bandwidth : int
     eth0_port_speed : int
     sort : str{'mac', 'model', 'sku', 'timestamp'}, default: timestamp
       sort options
@@ -607,9 +607,9 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     if band_24_channel: query_params["band_24_channel"]=band_24_channel
     if band_5_channel: query_params["band_5_channel"]=band_5_channel
     if band_6_channel: query_params["band_6_channel"]=band_6_channel
-    if band_24_bandwith: query_params["band_24_bandwith"]=band_24_bandwith
-    if band_5_bandwith: query_params["band_5_bandwith"]=band_5_bandwith
-    if band_6_bandwith: query_params["band_6_bandwith"]=band_6_bandwith
+    if band_24_bandwidth: query_params["band_24_bandwidth"]=band_24_bandwidth
+    if band_5_bandwidth: query_params["band_5_bandwidth"]=band_5_bandwidth
+    if band_6_bandwidth: query_params["band_6_bandwidth"]=band_6_bandwidth
     if eth0_port_speed: query_params["eth0_port_speed"]=eth0_port_speed
     if sort: query_params["sort"]=sort
     if desc_sort: query_params["desc_sort"]=desc_sort
@@ -941,9 +941,9 @@ def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:obj
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def portsBounceFromSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def bounceDevicePort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/portsBounceFromSwitch
+    API doc: https://doc.mist-lab.fr/#operation/bounceDevicePort
     
     PARAMS
     -----------
@@ -1366,7 +1366,6 @@ def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str,
     file : str
         path to the file to upload. binary file
     json : str
-        JSON string describing your upload
     
     RETURN
     -----------
@@ -1768,6 +1767,29 @@ def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+def runSiteSrxTopCommand(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/runSiteSrxTopCommand
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/run_top"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+    
 def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/servicePingFromSsr
@@ -1819,9 +1841,9 @@ def createSiteDeviceShellSession(mist_session:_APISession, site_id:str, device_i
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def getSiteDeviceArpTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteDeviceArpTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceArpTable
+    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceArpTable
     
     PARAMS
     -----------
@@ -1847,9 +1869,9 @@ def getSiteDeviceArpTable(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceBgpSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteDeviceBgpSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceBgpSummary
+    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceBgpSummary
     
     PARAMS
     -----------
@@ -1903,9 +1925,9 @@ def showSiteDeviceDhcpLeases(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceEvpnDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteDeviceEvpnDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceEvpnDatabase
+    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceEvpnDatabase
     
     PARAMS
     -----------
@@ -1931,9 +1953,9 @@ def getSiteDeviceEvpnDatabase(mist_session:_APISession, site_id:str, device_id:s
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceForwardingTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteDeviceForwardingTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceForwardingTable
+    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceForwardingTable
     
     PARAMS
     -----------
@@ -1959,9 +1981,9 @@ def getSiteDeviceForwardingTable(mist_session:_APISession, site_id:str, device_i
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceMacTable
+    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceMacTable
     
     PARAMS
     -----------
@@ -1987,9 +2009,121 @@ def getSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteSsrOspfDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSsrAndSrxRoutes
+    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrOspfDatabase
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_ospf_database"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def showSiteSsrOspfInterfaces(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrOspfInterfaces
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_ospf_interfaces"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def showSiteSsrOspfNeighbors(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrOspfNeighbors
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_ospf_neighbors"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def showSiteSsrOspfSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrOspfSummary
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_ospf_summary"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def showSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrAndSrxRoutes
     
     PARAMS
     -----------
@@ -2015,9 +2149,9 @@ def getSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str,
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSsrServicePath
+    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrServicePath
     
     PARAMS
     -----------
@@ -2043,9 +2177,9 @@ def getSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSsrAndSrxSessions
+    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrAndSrxSessions
     
     PARAMS
     -----------

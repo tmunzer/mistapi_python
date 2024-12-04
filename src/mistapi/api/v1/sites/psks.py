@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=None, name:str=None, page:int=1, limit:int=100) -> _APIResponse:
+def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=None, name:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSitePsks
     
@@ -32,8 +32,8 @@ def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=
     ssid : str
     role : str
     name : str
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -45,8 +45,8 @@ def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=
     if ssid: query_params["ssid"]=ssid
     if role: query_params["role"]=role
     if name: query_params["name"]=name
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

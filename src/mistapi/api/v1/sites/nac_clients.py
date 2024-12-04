@@ -121,7 +121,7 @@ def countSiteNacClientEvents(mist_session:_APISession, site_id:str, distinct:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteNacClientEvents(mist_session:_APISession, site_id:str, type:str=None, nacrule_id:str=None, nacrule_matched:bool=None, dryrun_nacrule_id:str=None, dryrun_nacrule_matched:bool=None, auth_type:str=None, vlan:int=None, vlan_source:str=None, nas_vendor:str=None, bssid:str=None, idp_id:str=None, idp_role:str=None, idp_username:str=None, resp_attrs:list=None, ssid:str=None, username:str=None, usermac_labels:list=None, ap:str=None, random_mac:bool=None, mac:str=None, lookup_time_taken:float=None, timestamp:float=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchSiteNacClientEvents(mist_session:_APISession, site_id:str, type:str=None, nacrule_id:str=None, nacrule_matched:bool=None, dryrun_nacrule_id:str=None, dryrun_nacrule_matched:bool=None, auth_type:str=None, vlan:int=None, nas_vendor:str=None, bssid:str=None, idp_id:str=None, idp_role:str=None, idp_username:str=None, resp_attrs:list=None, ssid:str=None, username:str=None, ap:str=None, random_mac:bool=None, mac:str=None, timestamp:float=None, usermac_label:str=None, text:str=None, nas_ip:str=None, sort:str=None, ingress_vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteNacClientEvents
     
@@ -143,7 +143,6 @@ def searchSiteNacClientEvents(mist_session:_APISession, site_id:str, type:str=No
     dryrun_nacrule_matched : bool
     auth_type : str
     vlan : int
-    vlan_source : str
     nas_vendor : str
     bssid : str
     idp_id : str
@@ -153,13 +152,15 @@ def searchSiteNacClientEvents(mist_session:_APISession, site_id:str, type:str=No
       Radius attributes returned by NAC to NAS Devive
     ssid : str
     username : str
-    usermac_labels : list
-      labels derived from usermac entry
     ap : str
     random_mac : bool
     mac : str
-    lookup_time_taken : float
     timestamp : float
+    usermac_label : str
+    text : str
+    nas_ip : str
+    sort : str
+    ingress_vlan : str
     start : int
     end : int
     duration : str, default: 1d
@@ -179,7 +180,6 @@ def searchSiteNacClientEvents(mist_session:_APISession, site_id:str, type:str=No
     if dryrun_nacrule_matched: query_params["dryrun_nacrule_matched"]=dryrun_nacrule_matched
     if auth_type: query_params["auth_type"]=auth_type
     if vlan: query_params["vlan"]=vlan
-    if vlan_source: query_params["vlan_source"]=vlan_source
     if nas_vendor: query_params["nas_vendor"]=nas_vendor
     if bssid: query_params["bssid"]=bssid
     if idp_id: query_params["idp_id"]=idp_id
@@ -188,12 +188,15 @@ def searchSiteNacClientEvents(mist_session:_APISession, site_id:str, type:str=No
     if resp_attrs: query_params["resp_attrs"]=resp_attrs
     if ssid: query_params["ssid"]=ssid
     if username: query_params["username"]=username
-    if usermac_labels: query_params["usermac_labels"]=usermac_labels
     if ap: query_params["ap"]=ap
     if random_mac: query_params["random_mac"]=random_mac
     if mac: query_params["mac"]=mac
-    if lookup_time_taken: query_params["lookup_time_taken"]=lookup_time_taken
     if timestamp: query_params["timestamp"]=timestamp
+    if usermac_label: query_params["usermac_label"]=usermac_label
+    if text: query_params["text"]=text
+    if nas_ip: query_params["nas_ip"]=nas_ip
+    if sort: query_params["sort"]=sort
+    if ingress_vlan: query_params["ingress_vlan"]=ingress_vlan
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
@@ -201,7 +204,7 @@ def searchSiteNacClientEvents(mist_session:_APISession, site_id:str, type:str=No
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, vlan:str=None, nas_vendor:str=None, idp_id:str=None, ssid:str=None, username:str=None, timestamp:float=None, ap:str=None, mac:str=None, mxedge_id:str=None, nacrule_name:str=None, status:str=None, type:str=None, mdm_compliance:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, vlan:str=None, nas_vendor:str=None, idp_id:str=None, ssid:str=None, username:str=None, timestamp:float=None, ap:str=None, mac:str=None, mxedge_id:str=None, nacrule_name:str=None, status:str=None, type:str=None, mdm_compliance:str=None, mdm_provider:str=None, sort:str=None, ingress_vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteNacClients
     
@@ -233,6 +236,8 @@ def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=N
     type : str
     mdm_compliance : str
     mdm_provider : str
+    sort : str
+    ingress_vlan : str
     start : int
     end : int
     duration : str, default: 1d
@@ -263,6 +268,8 @@ def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=N
     if type: query_params["type"]=type
     if mdm_compliance: query_params["mdm_compliance"]=mdm_compliance
     if mdm_provider: query_params["mdm_provider"]=mdm_provider
+    if sort: query_params["sort"]=sort
+    if ingress_vlan: query_params["ingress_vlan"]=ingress_vlan
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration

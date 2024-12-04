@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgAlarmTemplates(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listOrgAlarmTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgAlarmTemplates
     
@@ -29,8 +29,8 @@ def listOrgAlarmTemplates(mist_session:_APISession, org_id:str, page:int=1, limi
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -39,8 +39,8 @@ def listOrgAlarmTemplates(mist_session:_APISession, org_id:str, page:int=1, limi
     """
     uri = f"/api/v1/orgs/{org_id}/alarmtemplates"
     query_params={}
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -86,7 +86,8 @@ def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str, scope:str="sit
     
     QUERY PARAMS
     ------------
-    scope : str{'org', 'site'}, default: site        
+    scope : str{'org', 'site'}, default: site
+      returns both scopes if not specified        
     
     RETURN
     -----------

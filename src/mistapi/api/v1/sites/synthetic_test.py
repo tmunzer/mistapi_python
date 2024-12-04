@@ -64,7 +64,7 @@ def triggerSiteSyntheticTest(mist_session:_APISession, site_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str=None, port_id:str=None, vlan_id:str=None, by:str=None, reason:str=None, type:str=None) -> _APIResponse:
+def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str=None, port_id:str=None, vlan_id:str=None, by:str=None, reason:str=None, type:str=None, protocol:str=None, tenant:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchSiteSyntheticTest
     
@@ -84,8 +84,11 @@ def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str=None,
     vlan_id : str
     by : str
     reason : str
-    type : str{'arp', 'curl', 'dhcp', 'dhcp6', 'dns', 'radius', 'speedtest'}
-      synthetic test type        
+    type : str{'arp', 'curl', 'dhcp', 'dhcp6', 'dns', 'lan_connectivity', 'radius', 'speedtest'}
+      synthetic test type
+    protocol : str{'ping', 'traceroute'}
+      connectivity protocol
+    tenant : str        
     
     RETURN
     -----------
@@ -100,6 +103,8 @@ def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str=None,
     if by: query_params["by"]=by
     if reason: query_params["reason"]=reason
     if type: query_params["type"]=type
+    if protocol: query_params["protocol"]=protocol
+    if tenant: query_params["tenant"]=tenant
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

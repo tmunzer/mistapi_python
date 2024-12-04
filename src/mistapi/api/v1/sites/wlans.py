@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteWlans(mist_session:_APISession, site_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listSiteWlans(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSiteWlans
     
@@ -29,8 +29,8 @@ def listSiteWlans(mist_session:_APISession, site_id:str, page:int=1, limit:int=1
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -39,8 +39,8 @@ def listSiteWlans(mist_session:_APISession, site_id:str, page:int=1, limit:int=1
     """
     uri = f"/api/v1/sites/{site_id}/wlans"
     query_params={}
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -177,6 +177,30 @@ def updateSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
+def deleteSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWlanPortalImage
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    wlan_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/wlans/{wlan_id}/portal_image"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
 def uploadSiteWlanPortalImageFile(mist_session:_APISession, site_id:str, wlan_id:str, file:str=None, json:str=None) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/uploadSiteWlanPortalImage
@@ -196,7 +220,6 @@ def uploadSiteWlanPortalImageFile(mist_session:_APISession, site_id:str, wlan_id
     file : str
         path to the file to upload. binary file
     json : str
-        JSON string describing your upload
     
     RETURN
     -----------

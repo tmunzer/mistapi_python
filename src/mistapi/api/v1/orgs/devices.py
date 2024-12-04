@@ -37,7 +37,7 @@ def listOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgDevices
     
@@ -67,11 +67,11 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     lldp_system_desc : str
     lldp_port_id : str
     lldp_mgmt_addr : str
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -94,11 +94,11 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     if lldp_system_desc: query_params["lldp_system_desc"]=lldp_system_desc
     if lldp_port_id: query_params["lldp_port_id"]=lldp_port_id
     if lldp_mgmt_addr: query_params["lldp_mgmt_addr"]=lldp_mgmt_addr
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -278,7 +278,7 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="a
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgApsMacs(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listOrgApsMacs(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgApsMacs
     
@@ -293,8 +293,8 @@ def listOrgApsMacs(mist_session:_APISession, org_id:str, page:int=1, limit:int=1
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -303,12 +303,12 @@ def listOrgApsMacs(mist_session:_APISession, org_id:str, page:int=1, limit:int=1
     """
     uri = f"/api/v1/orgs/{org_id}/devices/radio_macs"
     query_params={}
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_bandwith:int=None, band_5_bandwith:int=None, band_6_bandwith:int=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, mxedge_ids:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_bandwidth:int=None, band_5_bandwidth:int=None, band_6_bandwidth:int=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgDevices
     
@@ -333,13 +333,14 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     mxtunnel_status : str{'down', 'up'}
       MxTunnel status, up / down
     mxedge_id : str
+    mxedge_ids : str
     lldp_system_name : str
     lldp_system_desc : str
     lldp_port_id : str
     lldp_mgmt_addr : str
-    band_24_bandwith : int
-    band_5_bandwith : int
-    band_6_bandwith : int
+    band_24_bandwidth : int
+    band_5_bandwidth : int
+    band_6_bandwidth : int
     band_24_channel : int
     band_5_channel : int
     band_6_channel : int
@@ -365,13 +366,14 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     if ip_address: query_params["ip_address"]=ip_address
     if mxtunnel_status: query_params["mxtunnel_status"]=mxtunnel_status
     if mxedge_id: query_params["mxedge_id"]=mxedge_id
+    if mxedge_ids: query_params["mxedge_ids"]=mxedge_ids
     if lldp_system_name: query_params["lldp_system_name"]=lldp_system_name
     if lldp_system_desc: query_params["lldp_system_desc"]=lldp_system_desc
     if lldp_port_id: query_params["lldp_port_id"]=lldp_port_id
     if lldp_mgmt_addr: query_params["lldp_mgmt_addr"]=lldp_mgmt_addr
-    if band_24_bandwith: query_params["band_24_bandwith"]=band_24_bandwith
-    if band_5_bandwith: query_params["band_5_bandwith"]=band_5_bandwith
-    if band_6_bandwith: query_params["band_6_bandwith"]=band_6_bandwith
+    if band_24_bandwidth: query_params["band_24_bandwidth"]=band_24_bandwidth
+    if band_5_bandwidth: query_params["band_5_bandwidth"]=band_5_bandwidth
+    if band_6_bandwidth: query_params["band_6_bandwidth"]=band_6_bandwidth
     if band_24_channel: query_params["band_24_channel"]=band_24_channel
     if band_5_channel: query_params["band_5_channel"]=band_5_channel
     if band_6_channel: query_params["band_6_channel"]=band_6_channel
@@ -454,6 +456,36 @@ def getOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     """
     uri = f"/api/v1/orgs/{org_id}/devices/upgrade/{upgrade_id}"
     query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listOrgAvailableDeviceVersions(mist_session:_APISession, org_id:str, type:str="ap", model:str=None) -> _APIResponse:
+    """
+    API doc: https://doc.mist-lab.fr/#operation/listOrgAvailableDeviceVersions
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    QUERY PARAMS
+    ------------
+    type : str{'ap', 'gateway', 'switch'}, default: ap
+    model : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/devices/versions"
+    query_params={}
+    if type: query_params["type"]=type
+    if model: query_params["model"]=model
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

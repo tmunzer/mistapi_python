@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", interval:str=None) -> _APIResponse:
+def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str, start:int=None, end:int=None, duration:str="1d", interval:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteInsightMetricsForClient
     
@@ -31,12 +31,12 @@ def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
     duration : str, default: 1d
-    interval : str        
+    interval : str
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -45,16 +45,16 @@ def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client
     """
     uri = f"/api/v1/sites/{site_id}/insights/client/{client_mac}/{metric}"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if interval: query_params["interval"]=interval
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", interval:str=None) -> _APIResponse:
+def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str, start:int=None, end:int=None, duration:str="1d", interval:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteInsightMetricsForDevice
     
@@ -71,12 +71,12 @@ def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
     duration : str, default: 1d
-    interval : str        
+    interval : str
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -85,12 +85,12 @@ def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric
     """
     uri = f"/api/v1/sites/{site_id}/insights/device/{device_mac}/{metric}"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if interval: query_params["interval"]=interval
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -168,7 +168,7 @@ def listSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", interval:str=None) -> _APIResponse:
+def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", interval:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteInsightMetrics
     
@@ -184,12 +184,12 @@ def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, pag
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
     duration : str, default: 1d
-    interval : str        
+    interval : str
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -198,12 +198,12 @@ def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, pag
     """
     uri = f"/api/v1/sites/{site_id}/insights/{metric}"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if interval: query_params["interval"]=interval
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

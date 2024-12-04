@@ -42,7 +42,7 @@ def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct:str="auth_method", page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteGuestAuthorizations
     
@@ -58,11 +58,11 @@ def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct
     QUERY PARAMS
     ------------
     distinct : str{'auth_method', 'company', 'ssid'}, default: auth_method
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -72,11 +72,11 @@ def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct
     uri = f"/api/v1/sites/{site_id}/guests/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

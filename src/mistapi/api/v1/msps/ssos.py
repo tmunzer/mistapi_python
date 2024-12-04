@@ -164,9 +164,9 @@ def listMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) -
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+def getMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getMspSsoSamlMetadata
+    API doc: https://doc.mist-lab.fr/#operation/getMspSamlMetadata
     
     PARAMS
     -----------
@@ -188,9 +188,9 @@ def getMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def downloadMspSsoSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+def downloadMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/downloadMspSsoSamlMetadata
+    API doc: https://doc.mist-lab.fr/#operation/downloadMspSamlMetadata
     
     PARAMS
     -----------

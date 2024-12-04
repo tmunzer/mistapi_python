@@ -14,27 +14,22 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listCountryCodes(mist_session:_APISession, extend:bool=None) -> _APIResponse:
+def listMarvisClientVersions(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listCountryCodes
+    API doc: https://doc.mist-lab.fr/#operation/listMarvisClientVersions
     
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
     
-    QUERY PARAMS
-    ------------
-    extend : bool        
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/const/countries"
+    uri = f"/api/v1/const/marvisclient_versions"
     query_params={}
-    if extend: query_params["extend"]=extend
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

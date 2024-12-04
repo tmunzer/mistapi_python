@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listCountryCodes(mist_session:_APISession, extend:bool=None) -> _APIResponse:
+def listStates(mist_session:_APISession, country_code:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listCountryCodes
+    API doc: https://doc.mist-lab.fr/#operation/listStates
     
     PARAMS
     -----------
@@ -25,16 +25,16 @@ def listCountryCodes(mist_session:_APISession, extend:bool=None) -> _APIResponse
     
     QUERY PARAMS
     ------------
-    extend : bool        
+    country_code : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/const/countries"
+    uri = f"/api/v1/const/states"
     query_params={}
-    if extend: query_params["extend"]=extend
+    if country_code: query_params["country_code"]=country_code
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

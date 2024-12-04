@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d", client_mac:str=None) -> _APIResponse:
+def listSitePacketCaptures(mist_session:_APISession, site_id:str, client_mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listSitePacketCaptures
     
@@ -29,12 +29,12 @@ def listSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, li
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
+    client_mac : str
     start : int
     end : int
     duration : str, default: 1d
-    client_mac : str        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -43,12 +43,12 @@ def listSitePacketCaptures(mist_session:_APISession, site_id:str, page:int=1, li
     """
     uri = f"/api/v1/sites/{site_id}/pcaps"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
+    if client_mac: query_params["client_mac"]=client_mac
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
-    if client_mac: query_params["client_mac"]=client_mac
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

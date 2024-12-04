@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteWirelessClients(mist_session:_APISession, site_id:str, distinct:str="device", ssid:str=None, ap:str=None, ip_address:str=None, vlan:str=None, hostname:str=None, os:str=None, model:str=None, device:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteWirelessClients(mist_session:_APISession, site_id:str, distinct:str="device", ssid:str=None, ap:str=None, ip_address:str=None, vlan:str=None, hostname:str=None, os:str=None, model:str=None, device:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteWirelessClients
     
@@ -38,11 +38,11 @@ def countSiteWirelessClients(mist_session:_APISession, site_id:str, distinct:str
     os : str
     model : str
     device : str
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -60,11 +60,11 @@ def countSiteWirelessClients(mist_session:_APISession, site_id:str, distinct:str
     if os: query_params["os"]=os
     if model: query_params["model"]=model
     if device: query_params["device"]=device
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -253,7 +253,7 @@ def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteWirelessClientSessions(mist_session:_APISession, site_id:str, distinct:str="mac", ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteWirelessClientSessions(mist_session:_APISession, site_id:str, distinct:str="mac", ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countSiteWirelessClientSessions
     
@@ -278,11 +278,11 @@ def countSiteWirelessClientSessions(mist_session:_APISession, site_id:str, disti
     client_os : str
     ssid : str
     wlan_id : str
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -300,11 +300,11 @@ def countSiteWirelessClientSessions(mist_session:_APISession, site_id:str, disti
     if client_os: query_params["client_os"]=client_os
     if ssid: query_params["ssid"]=ssid
     if wlan_id: query_params["wlan_id"]=wlan_id
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -438,7 +438,7 @@ def disconnectSiteWirelessClient(mist_session:_APISession, site_id:str, client_m
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, type:str=None, proto:str=None, band:str=None, channel:str=None, wlan_id:str=None, ssid:str=None, start:int=None, end:int=None, page:int=1, limit:int=100, duration:str="1d") -> _APIResponse:
+def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, type:str=None, proto:str=None, band:str=None, channel:str=None, wlan_id:str=None, ssid:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/getSiteEventsForClient
     
@@ -464,9 +464,9 @@ def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str
     ssid : str
     start : int
     end : int
-    page : int, default: 1
+    duration : str, default: 1d
     limit : int, default: 100
-    duration : str, default: 1d        
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -483,9 +483,9 @@ def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str
     if ssid: query_params["ssid"]=ssid
     if start: query_params["start"]=start
     if end: query_params["end"]=end
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -398,9 +398,9 @@ def importOrgNacCrlFile(mist_session:_APISession, org_id:str, file:str=None, jso
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. a binary .crl file
+        path to the file to upload. a PEM or DER formatted CRL file
     json : str
-        json string with name for .crl file (optional)
+        a JSON string with "name" field for CRL file issuer (optional)
     
     RETURN
     -----------

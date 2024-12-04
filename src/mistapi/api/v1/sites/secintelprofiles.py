@@ -14,27 +14,31 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listCountryCodes(mist_session:_APISession, extend:bool=None) -> _APIResponse:
+def listSiteSecIntelProfilesDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listCountryCodes
+    API doc: https://doc.mist-lab.fr/#operation/listSiteSecIntelProfilesDerived
     
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
     
+    PATH PARAMS
+    -----------
+    site_id : str        
+    
     QUERY PARAMS
     ------------
-    extend : bool        
+    resolve : bool        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/const/countries"
+    uri = f"/api/v1/sites/{site_id}/secintelprofiles/derived"
     query_params={}
-    if extend: query_params["extend"]=extend
+    if resolve: query_params["resolve"]=resolve
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

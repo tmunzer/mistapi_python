@@ -37,7 +37,7 @@ def listMspOrgLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listMspOrgStats(mist_session:_APISession, msp_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listMspOrgStats(mist_session:_APISession, msp_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listMspOrgStats
     
@@ -52,8 +52,8 @@ def listMspOrgStats(mist_session:_APISession, msp_id:str, page:int=1, limit:int=
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -62,8 +62,8 @@ def listMspOrgStats(mist_session:_APISession, msp_id:str, page:int=1, limit:int=
     """
     uri = f"/api/v1/msps/{msp_id}/stats/orgs"
     query_params={}
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

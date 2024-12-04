@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgNacPortals(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listOrgNacPortals(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortals
     
@@ -29,8 +29,8 @@ def listOrgNacPortals(mist_session:_APISession, org_id:str, page:int=1, limit:in
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -39,8 +39,8 @@ def listOrgNacPortals(mist_session:_APISession, org_id:str, page:int=1, limit:in
     """
     uri = f"/api/v1/orgs/{org_id}/nacportals"
     query_params={}
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -147,7 +147,7 @@ def updateOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str, b
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def listOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacportal_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def listOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacportal_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortalSsoLatestFailures
     
@@ -163,11 +163,11 @@ def listOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacp
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -176,11 +176,11 @@ def listOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacp
     """
     uri = f"/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/failures"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -270,9 +270,9 @@ def updateOrgNacPortalTempalte(mist_session:_APISession, org_id:str, nacportal_i
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getOrgNacPortalSsoSamlMetadata(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
+def getOrgNacPortalSamlMetadata(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgNacPortalSsoSamlMetadata
+    API doc: https://doc.mist-lab.fr/#operation/getOrgNacPortalSamlMetadata
     
     PARAMS
     -----------
@@ -294,9 +294,9 @@ def getOrgNacPortalSsoSamlMetadata(mist_session:_APISession, org_id:str, nacport
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def downloadOrgNacPortalSsoSamlMetadata(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
+def downloadOrgNacPortalSamlMetadata(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/downloadOrgNacPortalSsoSamlMetadata
+    API doc: https://doc.mist-lab.fr/#operation/downloadOrgNacPortalSamlMetadata
     
     PARAMS
     -----------

@@ -60,6 +60,7 @@ from mistapi.api.v1.orgs import rftemplates
 from mistapi.api.v1.orgs import sdkclients
 from mistapi.api.v1.orgs import sdkinvites
 from mistapi.api.v1.orgs import sdktemplates
+from mistapi.api.v1.orgs import secintelprofiles
 from mistapi.api.v1.orgs import secpolicies
 from mistapi.api.v1.orgs import servicepolicies
 from mistapi.api.v1.orgs import services

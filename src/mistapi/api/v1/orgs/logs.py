@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, limit:int=100, page:int=1, duration:str="1d") -> _APIResponse:
+def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgAuditLogs
     
@@ -36,9 +36,9 @@ def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, adm
       sort order
     start : int
     end : int
+    duration : str, default: 1d
     limit : int, default: 100
-    page : int, default: 1
-    duration : str, default: 1d        
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -53,13 +53,13 @@ def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, adm
     if sort: query_params["sort"]=sort
     if start: query_params["start"]=start
     if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
     if page: query_params["page"]=page
-    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_name", admin_id:str=None, admin_name:str=None, site_id:str=None, message:str=None, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_name", admin_id:str=None, admin_name:str=None, site_id:str=None, message:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/countOrgAuditLogs
     
@@ -79,11 +79,11 @@ def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_
     admin_name : str
     site_id : str
     message : str
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -97,11 +97,11 @@ def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_
     if admin_name: query_params["admin_name"]=admin_name
     if site_id: query_params["site_id"]=site_id
     if message: query_params["message"]=message
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

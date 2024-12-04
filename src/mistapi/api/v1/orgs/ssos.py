@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgSsos(mist_session:_APISession, org_id:str, page:int=1, limit:int=100) -> _APIResponse:
+def listOrgSsos(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgSsos
     
@@ -29,8 +29,8 @@ def listOrgSsos(mist_session:_APISession, org_id:str, page:int=1, limit:int=100)
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100        
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -39,8 +39,8 @@ def listOrgSsos(mist_session:_APISession, org_id:str, page:int=1, limit:int=100)
     """
     uri = f"/api/v1/orgs/{org_id}/ssos"
     query_params={}
-    if page: query_params["page"]=page
     if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -147,7 +147,7 @@ def updateOrgSso(mist_session:_APISession, org_id:str, sso_id:str, body:object) 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, page:int=1, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/listOrgSsoLatestFailures
     
@@ -163,11 +163,11 @@ def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, p
     
     QUERY PARAMS
     ------------
-    page : int, default: 1
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100
+    page : int, default: 1        
     
     RETURN
     -----------
@@ -176,17 +176,17 @@ def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, p
     """
     uri = f"/api/v1/orgs/{org_id}/ssos/{sso_id}/failures"
     query_params={}
-    if page: query_params["page"]=page
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgSsoSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
+def getOrgSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSsoSamlMetadata
+    API doc: https://doc.mist-lab.fr/#operation/getOrgSamlMetadata
     
     PARAMS
     -----------
@@ -208,9 +208,9 @@ def getOrgSsoSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def downloadOrgSsoSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
+def downloadOrgSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/downloadOrgSsoSamlMetadata
+    API doc: https://doc.mist-lab.fr/#operation/downloadOrgSamlMetadata
     
     PARAMS
     -----------

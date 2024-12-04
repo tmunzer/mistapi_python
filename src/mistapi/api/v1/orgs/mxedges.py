@@ -226,7 +226,7 @@ def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, component:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://doc.mist-lab.fr/#operation/searchOrgMistEdgeEvents
     
@@ -245,6 +245,7 @@ def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=
     mxcluster_id : str
     type : str
     service : str
+    component : str
     start : int
     end : int
     duration : str, default: 1d
@@ -261,6 +262,7 @@ def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=
     if mxcluster_id: query_params["mxcluster_id"]=mxcluster_id
     if type: query_params["type"]=type
     if service: query_params["service"]=service
+    if component: query_params["component"]=component
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
@@ -644,7 +646,8 @@ def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str
     -----------
     org_id : str
     mxedge_id : str
-    name : str{'mxagent', 'mxdas', 'mxocproxy', 'radsecproxy', 'tunterm'}
+    name : str{'mxagent', 'mxdas', 'mxnacedge', 'mxocproxy', 'radsecproxy', 'tunterm'}
+      enum: `mxagent`, `mxdas`, `mxnacedge`, `mxocproxy`, `radsecproxy`, `tunterm`
     action : str{'restart', 'start', 'stop'}
       restart or start or stop        
     
