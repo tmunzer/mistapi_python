@@ -16,7 +16,7 @@ import deprecation
 
 def optimizeInstallerRrm(mist_session:_APISession, site_name:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/optimizeInstallerRrm
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/optimize-installer-rrm
     
     PARAMS
     -----------

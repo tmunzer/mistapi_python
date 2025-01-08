@@ -16,7 +16,7 @@ import deprecation
 
 def countOrgWiredClients(mist_session:_APISession, org_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgWiredClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wired/count-org-wired-clients
     
     PARAMS
     -----------
@@ -54,7 +54,7 @@ def countOrgWiredClients(mist_session:_APISession, org_id:str, distinct:str="mac
     
 def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None, device_mac:str=None, mac:str=None, port_id:str=None, vlan:int=None, ip_address:str=None, manufacture:str=None, text:str=None, nacrule_id:str=None, dhcp_hostname:str=None, dhcp_fqdn:str=None, dhcp_client_identifier:str=None, dhcp_vendor_class_identifier:str=None, dhcp_request_params:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgWiredClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wired/search-org-wired-clients
     
     PARAMS
     -----------
@@ -116,7 +116,7 @@ def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None
     
 def reauthOrgDot1xWiredClient(mist_session:_APISession, org_id:str, client_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/reauthOrgDot1xWiredClient
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/reauth-org-dot1x-wired-client
     
     PARAMS
     -----------

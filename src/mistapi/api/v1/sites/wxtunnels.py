@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteWxTunnels(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteWxTunnels
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtunnels/list-site-wx-tunnels
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteWxTunnels(mist_session:_APISession, site_id:str, limit:int=100, page
     
 def createSiteWxTunnel(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteWxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtunnels/create-site-wx-tunnel
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteWxTunnel(mist_session:_APISession, site_id:str, body:object) -> _A
     
 def getSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteWxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtunnels/get-site-wx-tunnel
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> _
     
 def deleteSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtunnels/delete-site-wx-tunnel
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -
     
 def updateSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteWxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtunnels/update-site-wx-tunnel
     
     PARAMS
     -----------

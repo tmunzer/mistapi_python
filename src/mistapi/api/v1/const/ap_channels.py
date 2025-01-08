@@ -16,7 +16,7 @@ import deprecation
 
 def listApChannels(mist_session:_APISession, country_code:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listApChannels
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/list-ap-channels
     
     PARAMS
     -----------

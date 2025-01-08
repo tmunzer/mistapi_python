@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteSsrUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSsrUpgrade
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/get-site-ssr-upgrade
     
     PARAMS
     -----------
@@ -40,7 +40,7 @@ def getSiteSsrUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> 
     
 def upgradeSsr(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeSsr
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-ssr
     
     PARAMS
     -----------

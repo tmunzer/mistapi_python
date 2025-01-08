@@ -16,7 +16,7 @@ import deprecation
 
 def getOrgSslProxyCert(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSslProxyCert
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cert/get-org-ssl-proxy-cert
     
     PARAMS
     -----------

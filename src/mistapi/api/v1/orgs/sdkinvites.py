@@ -16,7 +16,7 @@ import deprecation
 
 def listSdkInvites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSdkInvites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/list-sdk-invites
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listSdkInvites(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def createSdkInvite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSdkInvite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/create-sdk-invite
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def createSdkInvite(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
 def getSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSdkInvite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/get-sdk-invite
     
     PARAMS
     -----------
@@ -90,7 +90,7 @@ def getSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _API
     
 def revokeSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/revokeSdkInvite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/revoke-sdk-invite
     
     PARAMS
     -----------
@@ -114,7 +114,7 @@ def revokeSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _
     
 def updateSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSdkInvite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/update-sdk-invite
     
     PARAMS
     -----------
@@ -142,7 +142,7 @@ def updateSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str, body
     
 def sendSdkInviteEmail(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/sendSdkInviteEmail
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/send-sdk-invite-email
     
     PARAMS
     -----------
@@ -170,7 +170,7 @@ def sendSdkInviteEmail(mist_session:_APISession, org_id:str, sdkinvite_id:str, b
     
 def getSdkInviteQrCode(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSdkInviteQrCode
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/get-sdk-invite-qr-code
     
     PARAMS
     -----------
@@ -194,7 +194,7 @@ def getSdkInviteQrCode(mist_session:_APISession, org_id:str, sdkinvite_id:str) -
     
 def sendSdkInviteSms(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/sendSdkInviteSms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/send-sdk-invite-sms
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteCurrentChannelPlanning(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentChannelPlanning
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rrm/get-site-current-channel-planning
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def getSiteCurrentChannelPlanning(mist_session:_APISession, site_id:str) -> _API
     
 def getSiteCurrentRrmConsiderations(mist_session:_APISession, site_id:str, device_id:str, band:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentRrmConsiderations
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rrm/get-site-current-rrm-considerations
     
     PARAMS
     -----------
@@ -65,7 +65,7 @@ def getSiteCurrentRrmConsiderations(mist_session:_APISession, site_id:str, devic
     
 def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteRrmEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rrm/get-site-rrm-events
     
     PARAMS
     -----------
@@ -104,7 +104,7 @@ def getSiteRrmEvents(mist_session:_APISession, site_id:str, band:str=None, start
     
 def getSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, band:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentRrmNeighbors
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rrm/get-site-current-rrm-neighbors
     
     PARAMS
     -----------
@@ -136,7 +136,7 @@ def getSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, band:str, 
     
 def optimizeSiteRrm(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/optimizeSiteRrm
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/optimize-site-rrm
     
     PARAMS
     -----------

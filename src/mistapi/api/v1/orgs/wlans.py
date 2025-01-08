@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgWlans(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgWlans
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/list-org-wlans
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgWlans(mist_session:_APISession, org_id:str, limit:int=100, page:int=1
     
 def createOrgWlan(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgWlan
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/create-org-wlan
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgWlan(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     
 def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgWLAN
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/get-org-w-l-a-n
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIRespons
     
 def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWlan
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/delete-org-wlan
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResp
     
 def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgWlan
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/update-org-wlan
     
     PARAMS
     -----------
@@ -149,7 +149,7 @@ def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object
     
 def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWlanPortalImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/delete-org-wlan-portal-image
     
     PARAMS
     -----------
@@ -173,7 +173,7 @@ def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) 
     
 def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:str, file:str=None, json:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/uploadOrgWlanPortalImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/upload-org-wlan-portal-image
     
     PARAMS
     -----------
@@ -206,7 +206,7 @@ def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:s
 
 def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgWlanPortalTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/update-org-wlan-portal-template
     
     PARAMS
     -----------

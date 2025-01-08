@@ -16,7 +16,7 @@ import deprecation
 
 def listMspOrgs(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspOrgs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/list-msp-orgs
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listMspOrgs(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
 def createMspOrg(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createMspOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/create-msp-org
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def createMspOrg(mist_session:_APISession, msp_id:str, body:object) -> _APIRespo
     
 def manageMspOrgs(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/manageMspOrgs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/manage-msp-orgs
     
     PARAMS
     -----------
@@ -93,7 +93,7 @@ def manageMspOrgs(mist_session:_APISession, msp_id:str, body:object) -> _APIResp
     
 def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str=None, org_id:str=None, sub_insufficient:bool=None, trial_enabled:bool=None, usage_types:list=None, limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchMspOrgs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/search-msp-orgs
     
     PARAMS
     -----------
@@ -132,7 +132,7 @@ def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str=None, org_id:st
     
 def getMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getMspOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/get-msp-org
     
     PARAMS
     -----------
@@ -156,7 +156,7 @@ def getMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIResponse:
     
 def deleteMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteMspOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/delete-msp-org
     
     PARAMS
     -----------
@@ -180,7 +180,7 @@ def deleteMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIRespon
     
 def updateMspOrg(mist_session:_APISession, msp_id:str, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateMspOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/update-msp-org
     
     PARAMS
     -----------

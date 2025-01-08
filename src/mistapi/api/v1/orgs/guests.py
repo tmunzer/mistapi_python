@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgGuestAuthorizations
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/list-org-guest-authorizations
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIResp
     
 def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgGuestAuthorizations
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/count-org-guest-authorizations
     
     PARAMS
     -----------
@@ -77,7 +77,7 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     
 def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgGuestAuthorization
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/search-org-guest-authorization
     
     PARAMS
     -----------
@@ -117,7 +117,7 @@ def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:st
     
 def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgGuestAuthorization
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/get-org-guest-authorization
     
     PARAMS
     -----------
@@ -141,7 +141,7 @@ def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str
     
 def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgGuestAuthorization
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/delete-org-guest-authorization
     
     PARAMS
     -----------
@@ -165,7 +165,7 @@ def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     
 def updateOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgGuestAuthorization
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/update-org-guest-authorization
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteWxRules(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteWxRules
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/list-site-wx-rules
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteWxRules(mist_session:_APISession, site_id:str, limit:int=100, page:i
     
 def createSiteWxRule(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteWxRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/create-site-wx-rule
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteWxRule(mist_session:_APISession, site_id:str, body:object) -> _API
     
 def ListSiteWxRulesDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/ListSiteWxRulesDerived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/list-site-wx-rules-derived
     
     PARAMS
     -----------
@@ -96,7 +96,7 @@ def ListSiteWxRulesDerived(mist_session:_APISession, site_id:str) -> _APIRespons
     
 def getSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteWxRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/get-site-wx-rule
     
     PARAMS
     -----------
@@ -120,7 +120,7 @@ def getSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIR
     
 def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWxRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/delete-site-wx-rule
     
     PARAMS
     -----------
@@ -144,7 +144,7 @@ def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _A
     
 def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteWxRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/update-site-wx-rule
     
     PARAMS
     -----------

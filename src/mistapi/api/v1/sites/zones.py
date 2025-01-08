@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteZones(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteZones
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/list-site-zones
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteZones(mist_session:_APISession, site_id:str, limit:int=100, page:int
     
 def createSiteZone(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteZone
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/create-site-zone
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteZone(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     
 def getSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteZone
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/get-site-zone
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> _APIRespo
     
 def deleteSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteZone
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/delete-site-zone
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> _APIRe
     
 def updateSiteZone(mist_session:_APISession, site_id:str, zone_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteZone
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/update-site-zone
     
     PARAMS
     -----------

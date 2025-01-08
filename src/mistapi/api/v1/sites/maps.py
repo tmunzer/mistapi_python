@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteMaps(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteMaps
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/list-site-maps
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteMaps(mist_session:_APISession, site_id:str, limit:int=100, page:int=
     
 def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/create-site-map
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     
 def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSiteMaps
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/import-site-maps
     
     PARAMS
     -----------
@@ -111,7 +111,7 @@ def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile
 
 def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/get-site-map
     
     PARAMS
     -----------
@@ -135,7 +135,7 @@ def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIRespons
     
 def deleteSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/delete-site-map
     
     PARAMS
     -----------
@@ -159,7 +159,7 @@ def deleteSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResp
     
 def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/update-site-map
     
     PARAMS
     -----------
@@ -187,7 +187,7 @@ def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object
     
 def deleteSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteApAutoOrientation
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/delete-site-ap-auto-orientation
     
     PARAMS
     -----------
@@ -211,7 +211,7 @@ def deleteSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:st
     
 def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/startSiteApAutoOrientation
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/start-site-ap-auto-orientation
     
     PARAMS
     -----------
@@ -239,7 +239,7 @@ def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str
     
 def getSiteApAutoPlacement(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteApAutoPlacement
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/get-site-ap-auto-placement
     
     PARAMS
     -----------
@@ -263,7 +263,7 @@ def getSiteApAutoPlacement(mist_session:_APISession, site_id:str, map_id:str) ->
     
 def deleteSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteApAutoplacement
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/delete-site-ap-autoplacement
     
     PARAMS
     -----------
@@ -287,7 +287,7 @@ def deleteSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str)
     
 def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/runSiteApAutoplacement
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/run-site-ap-autoplacement
     
     PARAMS
     -----------
@@ -315,7 +315,7 @@ def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, bo
     
 def getSiteMapAutoZoneStatus(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteMapAutoZoneStatus
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-zone/get-site-map-auto-zone-status
     
     PARAMS
     -----------
@@ -339,7 +339,7 @@ def getSiteMapAutoZoneStatus(mist_session:_APISession, map_id:str, site_id:str) 
     
 def deleteSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteMapAutoZone
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-zone/delete-site-map-auto-zone
     
     PARAMS
     -----------
@@ -363,7 +363,7 @@ def deleteSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> 
     
 def startSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/startSiteMapAutoZone
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-zone/start-site-map-auto-zone
     
     PARAMS
     -----------
@@ -386,7 +386,7 @@ def startSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> _
     
 def clearSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearSiteApAutoOrient
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/clear-site-ap-auto-orient
     
     PARAMS
     -----------
@@ -414,7 +414,7 @@ def clearSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, bod
     
 def clearSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearSiteApAutoplacement
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/clear-site-ap-autoplacement
     
     PARAMS
     -----------
@@ -442,7 +442,7 @@ def clearSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, 
     
 def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteMapImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/delete-site-map-image
     
     PARAMS
     -----------
@@ -466,7 +466,7 @@ def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> _AP
     
 def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:str=None, json:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/addSiteMapImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/add-site-map-image
     
     PARAMS
     -----------
@@ -499,7 +499,7 @@ def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:
 
 def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:str=None, json:any=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/replaceSiteMapImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/replace-site-map-image
     
     PARAMS
     -----------
@@ -532,7 +532,7 @@ def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, f
 
 def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/bulkAssignSiteApsToMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/bulk-assign-site-aps-to-map
     
     PARAMS
     -----------
@@ -560,7 +560,7 @@ def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, bo
     
 def confirmSiteApLocalizationData(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/confirmSiteApLocalizationData
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/confirm-site-ap-localization-data
     
     PARAMS
     -----------
@@ -588,7 +588,7 @@ def confirmSiteApLocalizationData(mist_session:_APISession, site_id:str, map_id:
     
 def importSiteWayfindings(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSiteWayfindings
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/import-site-wayfindings
     
     PARAMS
     -----------

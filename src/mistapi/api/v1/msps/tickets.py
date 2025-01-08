@@ -16,7 +16,7 @@ import deprecation
 
 def listMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspTickets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/tickets/list-msp-tickets
     
     PARAMS
     -----------
@@ -48,7 +48,7 @@ def listMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int
     
 def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countMspTickets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/tickets/count-msp-tickets
     
     PARAMS
     -----------

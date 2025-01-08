@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgWxRules(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgWxRules
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/list-org-wx-rules
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgWxRules(mist_session:_APISession, org_id:str, limit:int=100, page:int
     
 def createOrgWxRule(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgWxRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/create-org-wx-rule
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgWxRule(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
 def getOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgWxRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/get-org-wx-rule
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str) -> _APIRes
     
 def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWxRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/delete-org-wx-rule
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str) -> _API
     
 def updateOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgWxRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/update-org-wx-rule
     
     PARAMS
     -----------

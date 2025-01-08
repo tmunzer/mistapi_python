@@ -16,7 +16,7 @@ import deprecation
 
 def listInstallerDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listInstallerDeviceProfiles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-device-profiles
     
     PARAMS
     -----------

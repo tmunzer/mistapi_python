@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgWxTags(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgWxTags
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/list-org-wx-tags
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgWxTags(mist_session:_APISession, org_id:str, limit:int=100, page:int=
     
 def createOrgWxTag(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgWxTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/create-org-wx-tag
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgWxTag(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     
 def getOrgApplicationList(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgApplicationList
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/get-org-application-list
     
     PARAMS
     -----------
@@ -96,7 +96,7 @@ def getOrgApplicationList(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def getOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgWxTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/get-org-wx-tag
     
     PARAMS
     -----------
@@ -120,7 +120,7 @@ def getOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIRespo
     
 def deleteOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWxTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/delete-org-wx-tag
     
     PARAMS
     -----------
@@ -144,7 +144,7 @@ def deleteOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIRe
     
 def updateOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgWxTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/update-org-wx-tag
     
     PARAMS
     -----------
@@ -172,7 +172,7 @@ def updateOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str, body:obje
     
 def getOrgCurrentMatchingClientsOfAWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgCurrentMatchingClientsOfAWxTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/get-org-current-matching-clients-of-a-wx-tag
     
     PARAMS
     -----------

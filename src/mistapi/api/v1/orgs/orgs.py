@@ -16,7 +16,7 @@ import deprecation
 
 def createOrg(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/create-org
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def createOrg(mist_session:_APISession, body:object) -> _APIResponse:
     
 def getOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/get-org
     
     PARAMS
     -----------
@@ -62,7 +62,7 @@ def getOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def deleteOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/delete-org
     
     PARAMS
     -----------
@@ -85,7 +85,7 @@ def deleteOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def updateOrg(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/update-org
     
     PARAMS
     -----------

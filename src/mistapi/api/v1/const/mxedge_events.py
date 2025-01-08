@@ -16,7 +16,7 @@ import deprecation
 
 def listMxEdgeEventsDefinitions(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMxEdgeEventsDefinitions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/events/list-mx-edge-events-definitions
     
     PARAMS
     -----------

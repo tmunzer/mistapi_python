@@ -16,7 +16,7 @@ import deprecation
 
 def createMsp(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createMsp
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/create-msp
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def createMsp(mist_session:_APISession, body:object) -> _APIResponse:
     
 def getMspDetails(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getMspDetails
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/get-msp-details
     
     PARAMS
     -----------
@@ -62,7 +62,7 @@ def getMspDetails(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
 def deleteMsp(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteMsp
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/delete-msp
     
     PARAMS
     -----------
@@ -85,7 +85,7 @@ def deleteMsp(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
 def updateMsp(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateMsp
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/update-msp
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def deleteMspLogo(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteMspLogo
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logo/delete-msp-logo
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def deleteMspLogo(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
 def postMspLogo(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/postMspLogo
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logo/post-msp-logo
     
     PARAMS
     -----------

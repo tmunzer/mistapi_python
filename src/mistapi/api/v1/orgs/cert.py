@@ -16,7 +16,7 @@ import deprecation
 
 def getOrgCertificates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgCertificates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cert/get-org-certificates
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def getOrgCertificates(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def clearOrgCertificates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearOrgCertificates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cert/clear-org-certificates
     
     PARAMS
     -----------

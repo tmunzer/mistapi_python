@@ -16,7 +16,7 @@ import deprecation
 
 def getGatewayDefaultConfig(mist_session:_APISession, model:str, ha:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getGatewayDefaultConfig
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/models/get-gateway-default-config
     
     PARAMS
     -----------

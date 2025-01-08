@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:str=None, type:str=None, client_type:str=None, duration:str="1d", resolution:str="default", start:int=None, end:int=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteBeamCoverageOverview
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-beam-coverage-overview
     
     PARAMS
     -----------
@@ -56,7 +56,7 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     
 def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map_id:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteMachineLearningCurrentStat
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-machine-learning-current-stat
     
     PARAMS
     -----------
@@ -84,7 +84,7 @@ def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map
     
 def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDefaultPlfForModels
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-default-plf-for-models
     
     PARAMS
     -----------
@@ -107,7 +107,7 @@ def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> _APIRes
     
 def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearSiteMlOverwriteForDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/clear-site-ml-overwrite-for-device
     
     PARAMS
     -----------
@@ -131,7 +131,7 @@ def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_
     
 def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/overwriteSiteMlForDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/overwrite-site-ml-for-device
     
     PARAMS
     -----------
@@ -159,7 +159,7 @@ def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:st
     
 def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearSiteMlOverwriteForMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/clear-site-ml-overwrite-for-map
     
     PARAMS
     -----------
@@ -183,7 +183,7 @@ def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str
     
 def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/overwriteSiteMlForMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/overwrite-site-ml-for-map
     
     PARAMS
     -----------
@@ -211,7 +211,7 @@ def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, bod
     
 def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/resetSiteMlStatsByMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/reset-site-ml-stats-by-map
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listSelfAuditLogs(mist_session:_APISession, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSelfAuditLogs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/audit-logs/list-self-audit-logs
     
     PARAMS
     -----------

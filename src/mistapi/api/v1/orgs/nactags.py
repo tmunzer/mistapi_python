@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, match:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgNacTags
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/list-org-nac-tags
     
     PARAMS
     -----------
@@ -52,7 +52,7 @@ def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str
     
 def createOrgNacTag(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgNacTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/create-org-nac-tag
     
     PARAMS
     -----------
@@ -79,7 +79,7 @@ def createOrgNacTag(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
 def getOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgNacTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/get-org-nac-tag
     
     PARAMS
     -----------
@@ -103,7 +103,7 @@ def getOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIRes
     
 def deleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/delete-org-nac-tag
     
     PARAMS
     -----------
@@ -127,7 +127,7 @@ def deleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _API
     
 def updateOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgNacTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/update-org-nac-tag
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def searchOrgEvents(mist_session:_APISession, org_id:str, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/search-org-events
     
     PARAMS
     -----------

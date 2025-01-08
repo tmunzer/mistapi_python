@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgOtherDevices(mist_session:_APISession, org_id:str, vendor:str=None, mac:str=None, serial:str=None, model:str=None, name:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgOtherDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/others/list-org-other-devices
     
     PARAMS
     -----------
@@ -56,7 +56,7 @@ def listOrgOtherDevices(mist_session:_APISession, org_id:str, vendor:str=None, m
     
 def updateOrgOtherDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgOtherDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/others/update-org-other-devices
     
     PARAMS
     -----------
@@ -83,7 +83,7 @@ def updateOrgOtherDevices(mist_session:_APISession, org_id:str, body:object) -> 
     
 def countOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="mac", type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgOtherDeviceEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/others/count-org-other-device-events
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def countOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, distinct:str
     
 def searchOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, device_mac:str=None, model:str=None, vendor:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgOtherDeviceEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/others/search-org-other-device-events
     
     PARAMS
     -----------
@@ -167,7 +167,7 @@ def searchOrgOtherDeviceEvents(mist_session:_APISession, org_id:str, site_id:str
     
 def getOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgOtherDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/others/get-org-other-device
     
     PARAMS
     -----------
@@ -191,7 +191,7 @@ def getOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _
     
 def deleteOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgOtherDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/others/delete-org-other-device
     
     PARAMS
     -----------
@@ -215,7 +215,7 @@ def deleteOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str) -
     
 def updateOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgOtherDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/others/update-org-other-device
     
     PARAMS
     -----------
@@ -243,7 +243,7 @@ def updateOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str, b
     
 def rebootOrgOtherDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/rebootOrgOtherDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/others/reboot-org-other-device
     
     PARAMS
     -----------

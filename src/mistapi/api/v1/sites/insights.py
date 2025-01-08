@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str, start:int=None, end:int=None, duration:str="1d", interval:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteInsightMetricsForClient
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-client
     
     PARAMS
     -----------
@@ -56,7 +56,7 @@ def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client
     
 def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str, start:int=None, end:int=None, duration:str="1d", interval:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteInsightMetricsForDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-device
     
     PARAMS
     -----------
@@ -96,7 +96,7 @@ def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric
     
 def listSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d", interval:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteRogueAPs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/list-site-rogue-a-ps
     
     PARAMS
     -----------
@@ -134,7 +134,7 @@ def listSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, limit
     
 def listSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, start:int=None, end:int=None, duration:str="1d", interval:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteRogueClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/list-site-rogue-clients
     
     PARAMS
     -----------
@@ -170,7 +170,7 @@ def listSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, s
     
 def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", interval:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteInsightMetrics
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics
     
     PARAMS
     -----------

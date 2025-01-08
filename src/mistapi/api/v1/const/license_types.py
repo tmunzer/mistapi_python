@@ -16,7 +16,7 @@ import deprecation
 
 def getLicenseTypes(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getLicenseTypes
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/get-license-types
     
     PARAMS
     -----------

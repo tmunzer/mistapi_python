@@ -16,7 +16,7 @@ import deprecation
 
 def getOrgCrlFile(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgCrlFile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/crl/get-org-crl-file
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def getOrgCrlFile(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def truncateOrgCrlFile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/truncateOrgCrlFile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cert/truncate-org-crl-file
     
     PARAMS
     -----------

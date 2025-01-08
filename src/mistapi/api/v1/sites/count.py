@@ -16,7 +16,7 @@ import deprecation
 
 def countSiteZoneSessions(mist_session:_APISession, site_id:str, zone_type:str, distinct:str="scope_id", user_type:str=None, user:str=None, scope_id:str=None, scope:str="site", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteZoneSessions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/count-site-zone-sessions
     
     PARAMS
     -----------

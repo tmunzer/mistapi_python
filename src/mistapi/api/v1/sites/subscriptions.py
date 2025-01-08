@@ -16,7 +16,7 @@ import deprecation
 
 def UnsubscribeSiteAlarms(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/UnsubscribeSiteAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unsubscribe-site-alarms
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def UnsubscribeSiteAlarms(mist_session:_APISession, site_id:str) -> _APIResponse
     
 def SubscribeSiteAlarms(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/SubscribeSiteAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/subscribe-site-alarms
     
     PARAMS
     -----------

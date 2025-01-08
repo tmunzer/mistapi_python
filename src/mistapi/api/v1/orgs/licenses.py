@@ -16,7 +16,7 @@ import deprecation
 
 def getOrgLicencesSummary(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgLicencesSummary
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/get-org-licences-summary
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def getOrgLicencesSummary(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def moveOrDeleteOrgLicenseToAnotherOrg(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/moveOrDeleteOrgLicenseToAnotherOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/move-or-delete-org-license-to-another-org
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def moveOrDeleteOrgLicenseToAnotherOrg(mist_session:_APISession, org_id:str, bod
     
 def getOrgLicencesBySite(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgLicencesBySite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/get-org-licences-by-site
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def updateSdkClient(mist_session:_APISession, org_id:str, sdkclient_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSdkClient
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/sdk/update-sdk-client
     
     PARAMS
     -----------

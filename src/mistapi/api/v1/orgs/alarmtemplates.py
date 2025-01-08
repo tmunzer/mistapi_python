@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgAlarmTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAlarmTemplates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/list-org-alarm-templates
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgAlarmTemplates(mist_session:_APISession, org_id:str, limit:int=100, p
     
 def createOrgAlarmTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgAlarmTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/create-org-alarm-template
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgAlarmTemplate(mist_session:_APISession, org_id:str, body:object) ->
     
 def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str, scope:str="site") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSuppressedAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/list-org-suppressed-alarms
     
     PARAMS
     -----------
@@ -102,7 +102,7 @@ def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str, scope:str="sit
     
 def unsuppressOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unsuppressOrgSuppressedAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/unsuppress-org-suppressed-alarms
     
     PARAMS
     -----------
@@ -125,7 +125,7 @@ def unsuppressOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> _APIR
     
 def suppressOrgAlarm(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/suppressOrgAlarm
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/suppress-org-alarm
     
     PARAMS
     -----------
@@ -152,7 +152,7 @@ def suppressOrgAlarm(mist_session:_APISession, org_id:str, body:object) -> _APIR
     
 def getOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgAlarmTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/get-org-alarm-template
     
     PARAMS
     -----------
@@ -176,7 +176,7 @@ def getOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:s
     
 def deleteOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgAlarmTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/delete-org-alarm-template
     
     PARAMS
     -----------
@@ -200,7 +200,7 @@ def deleteOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_i
     
 def updateOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgAlarmTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/update-org-alarm-template
     
     PARAMS
     -----------

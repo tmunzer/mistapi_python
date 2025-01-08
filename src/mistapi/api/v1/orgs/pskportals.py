@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgPskPortals(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgPskPortals
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/list-org-psk-portals
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgPskPortals(mist_session:_APISession, org_id:str, limit:int=100, page:
     
 def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgPskPortal
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/create-org-psk-portal
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> _AP
     
 def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgPskPortalLogs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/list-org-psk-portal-logs
     
     PARAMS
     -----------
@@ -109,7 +109,7 @@ def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, e
     
 def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="pskportal_id", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgPskPortalLogs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/count-org-psk-portal-logs
     
     PARAMS
     -----------
@@ -147,7 +147,7 @@ def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="ps
     
 def searchOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1, psk_name:str=None, psk_id:str=None, pskportal_id:str=None, id:str=None, admin_name:str=None, admin_id:str=None, name_id:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgPskPortalLogs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/search-org-psk-portal-logs
     
     PARAMS
     -----------
@@ -197,7 +197,7 @@ def searchOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None,
     
 def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgPskPortal
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/get-org-psk-portal
     
     PARAMS
     -----------
@@ -221,7 +221,7 @@ def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _
     
 def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgPskPortal
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/delete-org-psk-portal
     
     PARAMS
     -----------
@@ -245,7 +245,7 @@ def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -
     
 def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgPskPortal
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/update-org-psk-portal
     
     PARAMS
     -----------
@@ -273,7 +273,7 @@ def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, b
     
 def deleteOrgPskPortalImage(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgPskPortalImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/delete-org-psk-portal-image
     
     PARAMS
     -----------
@@ -297,7 +297,7 @@ def deleteOrgPskPortalImage(mist_session:_APISession, org_id:str, pskportal_id:s
     
 def uploadOrgPskPortalImageFile(mist_session:_APISession, org_id:str, pskportal_id:str, file:str=None, json:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/uploadOrgPskPortalImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/upload-org-psk-portal-image
     
     PARAMS
     -----------
@@ -331,7 +331,7 @@ def uploadOrgPskPortalImageFile(mist_session:_APISession, org_id:str, pskportal_
 
 def updateOrgPskPortalTemplate(mist_session:_APISession, org_id:str, pskportal_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgPskPortalTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/update-org-psk-portal-template
     
     PARAMS
     -----------

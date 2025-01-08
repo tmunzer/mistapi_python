@@ -16,7 +16,7 @@ import deprecation
 
 def listSdkTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSdkTemplates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/list-sdk-templates
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listSdkTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def createSdkTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSdkTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/create-sdk-template
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def createSdkTemplate(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def getSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSdkTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/get-sdk-template
     
     PARAMS
     -----------
@@ -90,7 +90,7 @@ def getSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> 
     
 def deleteSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSdkTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/delete-sdk-template
     
     PARAMS
     -----------
@@ -114,7 +114,7 @@ def deleteSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) 
     
 def updateSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSdkTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/update-sdk-template
     
     PARAMS
     -----------

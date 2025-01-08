@@ -16,7 +16,7 @@ import deprecation
 
 def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=None, name:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSitePsks
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/list-site-psks
     
     PARAMS
     -----------
@@ -52,7 +52,7 @@ def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=
     
 def createSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSitePsk
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/create-site-psk
     
     PARAMS
     -----------
@@ -79,7 +79,7 @@ def createSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     
 def updateSiteMultiplePsks(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteMultiplePsks
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/update-site-multiple-psks
     
     PARAMS
     -----------
@@ -106,7 +106,7 @@ def updateSiteMultiplePsks(mist_session:_APISession, site_id:str, body:object) -
     
 def importSitePsksFile(mist_session:_APISession, site_id:str, file:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSitePsks
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/import-site-psks
     
     PARAMS
     -----------
@@ -136,7 +136,7 @@ def importSitePsksFile(mist_session:_APISession, site_id:str, file:str=None) -> 
 
 def importSitePsks(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSitePsks
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/import-site-psks
     
     PARAMS
     -----------
@@ -163,7 +163,7 @@ def importSitePsks(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     
 def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSitePsk
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/get-site-psk
     
     PARAMS
     -----------
@@ -187,7 +187,7 @@ def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIRespons
     
 def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSitePsk
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/delete-site-psk
     
     PARAMS
     -----------
@@ -211,7 +211,7 @@ def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResp
     
 def updateSitePsk(mist_session:_APISession, site_id:str, psk_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSitePsk
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/update-site-psk
     
     PARAMS
     -----------

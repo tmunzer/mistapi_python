@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSiteRfdiagRecording
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/get-site-site-rfdiag-recording
     
     PARAMS
     -----------
@@ -52,7 +52,7 @@ def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, start:int=
     
 def startSiteRecording(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/startSiteRecording
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/start-site-recording
     
     PARAMS
     -----------
@@ -79,7 +79,7 @@ def startSiteRecording(mist_session:_APISession, site_id:str, body:object) -> _A
     
 def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteRfdiagRecording
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/get-site-rfdiag-recording
     
     PARAMS
     -----------
@@ -103,7 +103,7 @@ def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str)
     
 def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteRfdiagRecording
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/delete-site-rfdiag-recording
     
     PARAMS
     -----------
@@ -127,7 +127,7 @@ def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     
 def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteRfdiagRecording
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/update-site-rfdiag-recording
     
     PARAMS
     -----------
@@ -155,7 +155,7 @@ def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     
 def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/downloadSiteRfdiagRecording
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/download-site-rfdiag-recording
     
     PARAMS
     -----------
@@ -179,7 +179,7 @@ def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id
     
 def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/stopSiteRfdiagRecording
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/stop-site-rfdiag-recording
     
     PARAMS
     -----------

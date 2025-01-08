@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgNetworkTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgNetworkTemplates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/list-org-network-templates
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgNetworkTemplates(mist_session:_APISession, org_id:str, limit:int=100,
     
 def createOrgNetworkTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgNetworkTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/create-org-network-template
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgNetworkTemplate(mist_session:_APISession, org_id:str, body:object) 
     
 def getOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgNetworkTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/get-org-network-template
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_
     
 def deleteOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgNetworkTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/delete-org-network-template
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktempla
     
 def updateOrgNetworkTemplates(mist_session:_APISession, org_id:str, networktemplate_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgNetworkTemplates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/update-org-network-templates
     
     PARAMS
     -----------

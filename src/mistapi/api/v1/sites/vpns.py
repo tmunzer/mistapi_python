@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteVpnsDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteVpnsDerived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vpns/list-site-vpns-derived
     
     PARAMS
     -----------

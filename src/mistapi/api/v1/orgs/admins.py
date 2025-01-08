@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgAdmins(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAdmins
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/admins/list-org-admins
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listOrgAdmins(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def revokeOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/revokeOrgAdmin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/admins/revoke-org-admin
     
     PARAMS
     -----------
@@ -63,7 +63,7 @@ def revokeOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str) -> _APIRe
     
 def updateOrgAdmin(mist_session:_APISession, org_id:str, admin_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgAdmin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/admins/update-org-admin
     
     PARAMS
     -----------

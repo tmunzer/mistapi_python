@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteSetting(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSetting
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/get-site-setting
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def getSiteSetting(mist_session:_APISession, site_id:str) -> _APIResponse:
     
 def updateSiteSettings(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteSettings
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/update-site-settings
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def updateSiteSettings(mist_session:_APISession, site_id:str, body:object) -> _A
     
 def deleteSiteWirelessClientsBlocklist(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWirelessClientsBlocklist
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/delete-site-wireless-clients-blocklist
     
     PARAMS
     -----------
@@ -89,7 +89,7 @@ def deleteSiteWirelessClientsBlocklist(mist_session:_APISession, site_id:str) ->
     
 def createSiteWirelessClientsBlocklist(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteWirelessClientsBlocklist
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/create-site-wireless-clients-blocklist
     
     PARAMS
     -----------
@@ -116,7 +116,7 @@ def createSiteWirelessClientsBlocklist(mist_session:_APISession, site_id:str, bo
     
 def getSiteSettingDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSettingDerived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/get-site-setting-derived
     
     PARAMS
     -----------
@@ -139,7 +139,7 @@ def getSiteSettingDerived(mist_session:_APISession, site_id:str) -> _APIResponse
     
 def getSiteJseInfo(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteJseInfo
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/jse/get-site-jse-info
     
     PARAMS
     -----------
@@ -162,7 +162,7 @@ def getSiteJseInfo(mist_session:_APISession, site_id:str) -> _APIResponse:
     
 def deleteSiteWatchedStations(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWatchedStations
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/delete-site-watched-stations
     
     PARAMS
     -----------
@@ -185,7 +185,7 @@ def deleteSiteWatchedStations(mist_session:_APISession, site_id:str) -> _APIResp
     
 def createSiteWatchedStations(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteWatchedStations
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/create-site-watched-stations
     
     PARAMS
     -----------
@@ -212,7 +212,7 @@ def createSiteWatchedStations(mist_session:_APISession, site_id:str, body:object
     
 def deleteSiteWirelessClientsAllowlist(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWirelessClientsAllowlist
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/delete-site-wireless-clients-allowlist
     
     PARAMS
     -----------
@@ -235,7 +235,7 @@ def deleteSiteWirelessClientsAllowlist(mist_session:_APISession, site_id:str) ->
     
 def createSiteWirelessClientsAllowlist(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteWirelessClientsAllowlist
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/create-site-wireless-clients-allowlist
     
     PARAMS
     -----------

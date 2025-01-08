@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgWebhooks(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgWebhooks
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/webhooks/list-org-webhooks
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgWebhooks(mist_session:_APISession, org_id:str, limit:int=100, page:in
     
 def createOrgWebhook(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgWebhook
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/webhooks/create-org-webhook
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgWebhook(mist_session:_APISession, org_id:str, body:object) -> _APIR
     
 def getOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgWebhook
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/webhooks/get-org-webhook
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _APIR
     
 def deleteOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWebhook
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/webhooks/delete-org-webhook
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _A
     
 def updateOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgWebhook
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/webhooks/update-org-webhook
     
     PARAMS
     -----------
@@ -149,7 +149,7 @@ def updateOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str, body:
     
 def countOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgWebhooksDeliveries
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/webhooks/count-org-webhooks-deliveries
     
     PARAMS
     -----------
@@ -196,7 +196,7 @@ def countOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:
     
 def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgWebhooksDeliveries
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/webhooks/search-org-webhooks-deliveries
     
     PARAMS
     -----------
@@ -241,7 +241,7 @@ def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id
     
 def pingOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/pingOrgWebhook
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/webhooks/ping-org-webhook
     
     PARAMS
     -----------

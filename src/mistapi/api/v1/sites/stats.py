@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/get-site-stats
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def getSiteStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     
 def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, device_mac:str=None, app:str=None, wired:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteApps
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/apps/count-site-apps
     
     PARAMS
     -----------
@@ -74,7 +74,7 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     
 def listSiteAssetsStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteAssetsStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/list-site-assets-stats
     
     PARAMS
     -----------
@@ -110,7 +110,7 @@ def listSiteAssetsStats(mist_session:_APISession, site_id:str, start:int=None, e
     
 def getSiteAssetStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteAssetStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-asset-stats
     
     PARAMS
     -----------
@@ -142,7 +142,7 @@ def getSiteAssetStats(mist_session:_APISession, site_id:str, start:int=None, end
     
 def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteAssets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/count-site-assets
     
     PARAMS
     -----------
@@ -170,7 +170,7 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     
 def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:int=None, ibeacon_minor:int=None, eddystone_uid_namespace:str=None, eddystone_uid_instance:str=None, eddystone_url:str=None, device_name:str=None, by:str=None, name:str=None, ap_mac:str=None, beam:str=None, rssi:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteAssets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/search-site-assets
     
     PARAMS
     -----------
@@ -232,7 +232,7 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     
 def listSiteBeaconsStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteBeaconsStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/beacons/list-site-beacons-stats
     
     PARAMS
     -----------
@@ -268,7 +268,7 @@ def listSiteBeaconsStats(mist_session:_APISession, site_id:str, start:int=None, 
     
 def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, distinct:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteBgpStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/bgp-peers/count-site-bgp-stats
     
     PARAMS
     -----------
@@ -298,7 +298,7 @@ def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, dis
     
 def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteBgpStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/bgp-peers/search-site-bgp-stats
     
     PARAMS
     -----------
@@ -321,7 +321,7 @@ def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     
 def troubleshootSiteCall(mist_session:_APISession, site_id:str, client_mac:str, meeting_id:str, mac:str=None, app:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/troubleshootSiteCall
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/troubleshoot-site-call
     
     PARAMS
     -----------
@@ -364,7 +364,7 @@ def troubleshootSiteCall(mist_session:_APISession, site_id:str, client_mac:str, 
     
 def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", rating:int=None, app:str=None, start:str=None, end:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteCalls
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/count-site-calls
     
     PARAMS
     -----------
@@ -400,7 +400,7 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", r
     
 def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteCalls
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/search-site-calls
     
     PARAMS
     -----------
@@ -438,7 +438,7 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     
 def getSiteCallsSummary(mist_session:_APISession, site_id:str, ap_mac:str=None, app:str=None, start:int=None, end:int=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCallsSummary
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/get-site-calls-summary
     
     PARAMS
     -----------
@@ -472,7 +472,7 @@ def getSiteCallsSummary(mist_session:_APISession, site_id:str, ap_mac:str=None, 
     
 def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, ap:str=None, meeting_id:str=None, mac:str=None, app:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteTroubleshootCalls
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/list-site-troubleshoot-calls
     
     PARAMS
     -----------
@@ -516,7 +516,7 @@ def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, ap:str=None
     
 def listSiteWirelessClientsStats(mist_session:_APISession, site_id:str, wired:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteWirelessClientsStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/list-site-wireless-clients-stats
     
     PARAMS
     -----------
@@ -552,7 +552,7 @@ def listSiteWirelessClientsStats(mist_session:_APISession, site_id:str, wired:bo
     
 def getSiteWirelessClientStats(mist_session:_APISession, site_id:str, client_mac:str, wired:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteWirelessClientStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/get-site-wireless-client-stats
     
     PARAMS
     -----------
@@ -581,7 +581,7 @@ def getSiteWirelessClientStats(mist_session:_APISession, site_id:str, client_mac
     
 def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", status:str="all", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteDevicesStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/list-site-devices-stats
     
     PARAMS
     -----------
@@ -615,7 +615,7 @@ def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", s
     
 def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str, fields:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-device-stats
     
     PARAMS
     -----------
@@ -644,7 +644,7 @@ def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str, fie
     
 def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteAllClientsStatsByDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-all-clients-stats-by-device
     
     PARAMS
     -----------
@@ -668,7 +668,7 @@ def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device
     
 def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteDiscoveredAssets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/list-site-discovered-assets
     
     PARAMS
     -----------
@@ -704,7 +704,7 @@ def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, start:int=No
     
 def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, scope:str="site", type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteDiscoveredSwitchesMetrics
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/search-site-discovered-switches-metrics
     
     PARAMS
     -----------
@@ -744,7 +744,7 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     
 def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:str="system_name", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteDiscoveredSwitches
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/count-site-discovered-switches
     
     PARAMS
     -----------
@@ -782,7 +782,7 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     
 def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, threshold:str=None, system_name:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDiscoveredSwitchesMetrics
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/get-site-discovered-switches-metrics
     
     PARAMS
     -----------
@@ -812,7 +812,7 @@ def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, thre
     
 def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:bool=None, system_name:str=None, hostname:str=None, vendor:str=None, model:str=None, version:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteDiscoveredSwitches
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/search-site-discovered-switches
     
     PARAMS
     -----------
@@ -858,7 +858,7 @@ def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:
     
 def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str="1d", start:int=None, end:int=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteAssetsOfInterest
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-assets-of-interest
     
     PARAMS
     -----------
@@ -894,7 +894,7 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     
 def getSiteGatewayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteGatewayMetrics
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-gateway-metrics
     
     PARAMS
     -----------
@@ -917,7 +917,7 @@ def getSiteGatewayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse
     
 def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteWirelessClientsStatsByMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/get-site-wireless-clients-stats-by-map
     
     PARAMS
     -----------
@@ -954,7 +954,7 @@ def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_
     
 def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDiscoveredAssetByMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-discovered-asset-by-map
     
     PARAMS
     -----------
@@ -978,7 +978,7 @@ def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:st
     
 def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSdkStatsByMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-sdk/get-site-sdk-stats-by-map
     
     PARAMS
     -----------
@@ -1002,7 +1002,7 @@ def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _
     
 def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteUnconnectedClientStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/list-site-unconnected-client-stats
     
     PARAMS
     -----------
@@ -1026,7 +1026,7 @@ def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id
     
 def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteMxEdgesStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/mxedges/list-site-mx-edges-stats
     
     PARAMS
     -----------
@@ -1062,7 +1062,7 @@ def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, start:int=None, 
     
 def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteMxEdgeStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/mxedges/get-site-mx-edge-stats
     
     PARAMS
     -----------
@@ -1095,7 +1095,7 @@ def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str, sta
     
 def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteSwOrGwPorts
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/count-site-sw-or-gw-ports
     
     PARAMS
     -----------
@@ -1186,7 +1186,7 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     
 def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, device_type:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, active:bool=None, jitter:float=None, loss:float=None, latency:float=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, lte_imsi:str=None, lte_iccid:str=None, lte_imei:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteSwOrGwPorts
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/search-site-sw-or-gw-ports
     
     PARAMS
     -----------
@@ -1300,7 +1300,7 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     
 def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSdkStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-sdk/get-site-sdk-stats
     
     PARAMS
     -----------
@@ -1324,7 +1324,7 @@ def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> 
     
 def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteSwitchPorts
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/count-site-switch-ports
     
     PARAMS
     -----------
@@ -1415,7 +1415,7 @@ def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     
 def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteSwitchPorts
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/search-site-switch-ports
     
     PARAMS
     -----------
@@ -1502,7 +1502,7 @@ def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     
 def getSiteSwitchesMetrics(mist_session:_APISession, site_id:str, type:str=None, scope:str=None, switch_mac:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSwitchesMetrics
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-switches-metrics
     
     PARAMS
     -----------
@@ -1534,7 +1534,7 @@ def getSiteSwitchesMetrics(mist_session:_APISession, site_id:str, type:str=None,
     
 def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteWxRulesUsage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/wxrules/get-site-wx-rules-usage
     
     PARAMS
     -----------
@@ -1557,7 +1557,7 @@ def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
     
 def listSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteZonesStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/list-site-zones-stats
     
     PARAMS
     -----------
@@ -1585,7 +1585,7 @@ def listSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) -
     
 def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_type:str, zone_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteZoneStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/get-site-zone-stats
     
     PARAMS
     -----------

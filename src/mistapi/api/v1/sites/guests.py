@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteAllGuestAuthorizations
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/list-site-all-guest-authorizations
     
     PARAMS
     -----------
@@ -44,7 +44,7 @@ def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_i
     
 def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteGuestAuthorizations
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/count-site-guest-authorizations
     
     PARAMS
     -----------
@@ -82,7 +82,7 @@ def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct
     
 def listSiteAllGuestAuthorizationsDerived(mist_session:_APISession, site_id:str, wlan_id:str=None, cross_site:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteAllGuestAuthorizationsDerived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/list-site-all-guest-authorizations-derived
     
     PARAMS
     -----------
@@ -112,7 +112,7 @@ def listSiteAllGuestAuthorizationsDerived(mist_session:_APISession, site_id:str,
     
 def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteGuestAuthorization
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/search-site-guest-authorization
     
     PARAMS
     -----------
@@ -152,7 +152,7 @@ def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:
     
 def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteGuestAuthorization
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/get-site-guest-authorization
     
     PARAMS
     -----------
@@ -176,7 +176,7 @@ def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:s
     
 def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteGuestAuthorization
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/delete-site-guest-authorization
     
     PARAMS
     -----------
@@ -200,7 +200,7 @@ def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_ma
     
 def updateSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteGuestAuthorization
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/update-site-guest-authorization
     
     PARAMS
     -----------

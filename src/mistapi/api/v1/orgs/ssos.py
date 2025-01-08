@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgSsos(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSsos
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/list-org-ssos
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgSsos(mist_session:_APISession, org_id:str, limit:int=100, page:int=1)
     
 def createOrgSso(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgSso
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/create-org-sso
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgSso(mist_session:_APISession, org_id:str, body:object) -> _APIRespo
     
 def getOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSso
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/get-org-sso
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     
 def deleteOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSso
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/delete-org-sso
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> _APIRespon
     
 def updateOrgSso(mist_session:_APISession, org_id:str, sso_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgSso
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/update-org-sso
     
     PARAMS
     -----------
@@ -149,7 +149,7 @@ def updateOrgSso(mist_session:_APISession, org_id:str, sso_id:str, body:object) 
     
 def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSsoLatestFailures
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/list-org-sso-latest-failures
     
     PARAMS
     -----------
@@ -186,7 +186,7 @@ def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, s
     
 def getOrgSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSamlMetadata
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/get-org-saml-metadata
     
     PARAMS
     -----------
@@ -210,7 +210,7 @@ def getOrgSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _API
     
 def downloadOrgSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/downloadOrgSamlMetadata
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/download-org-saml-metadata
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgNacPortals(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortals
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/list-org-nac-portals
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgNacPortals(mist_session:_APISession, org_id:str, limit:int=100, page:
     
 def createOrgNacPortal(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgNacPortal
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/create-org-nac-portal
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgNacPortal(mist_session:_APISession, org_id:str, body:object) -> _AP
     
 def getOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgNacPortal
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/get-org-nac-portal
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str) -> _
     
 def deleteOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacPortal
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/delete-org-nac-portal
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str) -
     
 def updateOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgNacPortal
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/update-org-nac-portal
     
     PARAMS
     -----------
@@ -149,7 +149,7 @@ def updateOrgNacPortal(mist_session:_APISession, org_id:str, nacportal_id:str, b
     
 def listOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacportal_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgNacPortalSsoLatestFailures
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/list-org-nac-portal-sso-latest-failures
     
     PARAMS
     -----------
@@ -186,7 +186,7 @@ def listOrgNacPortalSsoLatestFailures(mist_session:_APISession, org_id:str, nacp
     
 def deleteOrgNacPortalImage(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacPortalImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/delete-org-nac-portal-image
     
     PARAMS
     -----------
@@ -210,7 +210,7 @@ def deleteOrgNacPortalImage(mist_session:_APISession, org_id:str, nacportal_id:s
     
 def uploadOrgNacPortalImageFile(mist_session:_APISession, org_id:str, nacportal_id:str, file:str=None, json:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/uploadOrgNacPortalImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/upload-org-nac-portal-image
     
     PARAMS
     -----------
@@ -244,7 +244,7 @@ def uploadOrgNacPortalImageFile(mist_session:_APISession, org_id:str, nacportal_
 
 def updateOrgNacPortalTempalte(mist_session:_APISession, org_id:str, nacportal_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgNacPortalTempalte
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/update-org-nac-portal-tempalte
     
     PARAMS
     -----------
@@ -272,7 +272,7 @@ def updateOrgNacPortalTempalte(mist_session:_APISession, org_id:str, nacportal_i
     
 def getOrgNacPortalSamlMetadata(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgNacPortalSamlMetadata
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/get-org-nac-portal-saml-metadata
     
     PARAMS
     -----------
@@ -296,7 +296,7 @@ def getOrgNacPortalSamlMetadata(mist_session:_APISession, org_id:str, nacportal_
     
 def downloadOrgNacPortalSamlMetadata(mist_session:_APISession, org_id:str, nacportal_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/downloadOrgNacPortalSamlMetadata
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/download-org-nac-portal-saml-metadata
     
     PARAMS
     -----------

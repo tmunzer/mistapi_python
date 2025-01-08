@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgsVpns(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgsVpns
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/list-orgs-vpns
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgsVpns(mist_session:_APISession, org_id:str, limit:int=100, page:int=1
     
 def createOrgVpns(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgVpns
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/create-org-vpns
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgVpns(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     
 def getOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgVpn
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/get-org-vpn
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIResponse:
     
 def deleteOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgVpn
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/delete-org-vpn
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIRespon
     
 def updateOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgVpn
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/update-org-vpn
     
     PARAMS
     -----------

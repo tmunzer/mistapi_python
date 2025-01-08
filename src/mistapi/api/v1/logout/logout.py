@@ -16,7 +16,7 @@ import deprecation
 
 def logout(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/logout
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/logout/logout
     
     PARAMS
     -----------

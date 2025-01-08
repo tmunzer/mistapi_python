@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgDeviceProfiles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/list-org-device-profiles
     
     PARAMS
     -----------
@@ -48,7 +48,7 @@ def listOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap", l
     
 def createOrgDeviceProfiles(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgDeviceProfiles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/create-org-device-profiles
     
     PARAMS
     -----------
@@ -75,7 +75,7 @@ def createOrgDeviceProfiles(mist_session:_APISession, org_id:str, body:object) -
     
 def getOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgDeviceProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/get-org-device-profile
     
     PARAMS
     -----------
@@ -99,7 +99,7 @@ def getOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:s
     
 def deleteOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgDeviceProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/delete-org-device-profile
     
     PARAMS
     -----------
@@ -123,7 +123,7 @@ def deleteOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     
 def updateOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgDeviceProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/update-org-device-profile
     
     PARAMS
     -----------
@@ -151,7 +151,7 @@ def updateOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     
 def assignOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/assignOrgDeviceProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/assign-org-device-profile
     
     PARAMS
     -----------
@@ -179,7 +179,7 @@ def assignOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_i
     
 def unassignOrgDeviceProfile(mist_session:_APISession, org_id:str, deviceprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unassignOrgDeviceProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/unassign-org-device-profile
     
     PARAMS
     -----------

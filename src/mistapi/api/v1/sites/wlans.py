@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteWlans(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteWlans
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/list-site-wlans
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteWlans(mist_session:_APISession, site_id:str, limit:int=100, page:int
     
 def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteWlan
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/create-site-wlan
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     
 def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None, wlan_id:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteWlanDerived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/list-site-wlan-derived
     
     PARAMS
     -----------
@@ -103,7 +103,7 @@ def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None
     
 def getSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteWlan
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/get-site-wlan
     
     PARAMS
     -----------
@@ -127,7 +127,7 @@ def getSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIRespo
     
 def deleteSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWlan
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/delete-site-wlan
     
     PARAMS
     -----------
@@ -151,7 +151,7 @@ def deleteSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIRe
     
 def updateSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteWlan
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/update-site-wlan
     
     PARAMS
     -----------
@@ -179,7 +179,7 @@ def updateSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str, body:obje
     
 def deleteSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWlanPortalImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/delete-site-wlan-portal-image
     
     PARAMS
     -----------
@@ -203,7 +203,7 @@ def deleteSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str
     
 def uploadSiteWlanPortalImageFile(mist_session:_APISession, site_id:str, wlan_id:str, file:str=None, json:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/uploadSiteWlanPortalImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/upload-site-wlan-portal-image
     
     PARAMS
     -----------
@@ -236,7 +236,7 @@ def uploadSiteWlanPortalImageFile(mist_session:_APISession, site_id:str, wlan_id
 
 def updateSiteWlanPortalTemplate(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteWlanPortalTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/update-site-wlan-portal-template
     
     PARAMS
     -----------

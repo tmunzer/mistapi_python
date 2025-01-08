@@ -16,7 +16,7 @@ import deprecation
 
 def preemptSitesMxTunnel(mist_session:_APISession, site_id:str, mxtunnel_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/preemptSitesMxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/mxedge/preempt-sites-mx-tunnel
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def twoFactor(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/twoFactor
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/login/two-factor
     
     PARAMS
     -----------

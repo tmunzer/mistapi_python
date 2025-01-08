@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgPmaDashboards(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgPmaDashboards
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/premium-analytics/list-org-pma-dashboards
     
     PARAMS
     -----------

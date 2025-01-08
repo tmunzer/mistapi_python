@@ -16,7 +16,7 @@ import deprecation
 
 def activateSdkInvite(mist_session:_APISession, secret:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/activateSdkInvite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/activate-sdk-invite
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listDeviceModels(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listDeviceModels
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/models/list-device-models
     
     PARAMS
     -----------

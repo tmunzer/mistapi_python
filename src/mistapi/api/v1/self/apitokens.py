@@ -16,7 +16,7 @@ import deprecation
 
 def listApiTokens(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listApiTokens
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/list-api-tokens
     
     PARAMS
     -----------
@@ -35,7 +35,7 @@ def listApiTokens(mist_session:_APISession) -> _APIResponse:
     
 def createApiToken(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createApiToken
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/create-api-token
     
     PARAMS
     -----------
@@ -58,7 +58,7 @@ def createApiToken(mist_session:_APISession, body:object) -> _APIResponse:
     
 def getApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getApiToken
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/get-api-token
     
     PARAMS
     -----------
@@ -81,7 +81,7 @@ def getApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
     
 def deleteApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteApiToken
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/delete-api-token
     
     PARAMS
     -----------
@@ -104,7 +104,7 @@ def deleteApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
     
 def updateApiToken(mist_session:_APISession, apitoken_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateApiToken
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/update-api-token
     
     PARAMS
     -----------

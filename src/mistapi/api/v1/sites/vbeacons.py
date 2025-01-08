@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteVBeacons(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteVBeacons
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vbeacons/list-site-v-beacons
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteVBeacons(mist_session:_APISession, site_id:str, limit:int=100, page:
     
 def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteVBeacon
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vbeacons/create-site-v-beacon
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> _AP
     
 def getSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteVBeacon
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vbeacons/get-site-v-beacon
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _AP
     
 def deleteSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteVBeacon
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vbeacons/delete-site-v-beacon
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> 
     
 def updateSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteVBeacon
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vbeacons/update-site-v-beacon
     
     PARAMS
     -----------

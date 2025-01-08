@@ -16,7 +16,7 @@ import deprecation
 
 def listMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspOrgGroups
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/list-msp-org-groups
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
 def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createMspOrgGroup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/create-msp-org-group
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:object) -> _API
     
 def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getMspOrgGroup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/get-msp-org-group
     
     PARAMS
     -----------
@@ -90,7 +90,7 @@ def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _AP
     
 def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteMspOrgGroup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/delete-msp-org-group
     
     PARAMS
     -----------
@@ -114,7 +114,7 @@ def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> 
     
 def updateMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateMspOrgGroup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/update-msp-org-group
     
     PARAMS
     -----------

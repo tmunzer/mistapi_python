@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgRfTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgRfTemplates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/rf-templates/list-org-rf-templates
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgRfTemplates(mist_session:_APISession, org_id:str, limit:int=100, page
     
 def createOrgRfTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgRfTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/rf-templates/create-org-rf-template
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgRfTemplate(mist_session:_APISession, org_id:str, body:object) -> _A
     
 def getOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgRfTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/rf-templates/get-org-rf-template
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str) ->
     
 def deleteOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgRfTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/rf-templates/delete-org-rf-template
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str)
     
 def updateOrgRfTemplate(mist_session:_APISession, org_id:str, rftemplate_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgRfTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/rf-templates/update-org-rf-template
     
     PARAMS
     -----------

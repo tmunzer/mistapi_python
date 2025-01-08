@@ -16,7 +16,7 @@ import deprecation
 
 def cloneOrg(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/cloneOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clone-org
     
     PARAMS
     -----------

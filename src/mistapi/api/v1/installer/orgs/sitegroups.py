@@ -16,7 +16,7 @@ import deprecation
 
 def listInstallerSiteGroups(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listInstallerSiteGroups
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-site-groups
     
     PARAMS
     -----------

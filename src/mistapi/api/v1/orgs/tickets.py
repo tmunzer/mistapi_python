@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgTickets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/list-org-tickets
     
     PARAMS
     -----------
@@ -48,7 +48,7 @@ def listOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int
     
 def createOrgTicket(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgTicket
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/create-org-ticket
     
     PARAMS
     -----------
@@ -75,7 +75,7 @@ def createOrgTicket(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
 def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgTickets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/count-org-tickets
     
     PARAMS
     -----------
@@ -103,7 +103,7 @@ def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status")
     
 def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgTicket
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/get-org-ticket
     
     PARAMS
     -----------
@@ -136,7 +136,7 @@ def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, start:int=
     
 def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgTicket
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/update-org-ticket
     
     PARAMS
     -----------
@@ -164,7 +164,7 @@ def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:ob
     
 def UploadrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_id:str, file:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/UploadrgTicketAttachment
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/uploadrg-ticket-attachment
     
     PARAMS
     -----------
@@ -195,7 +195,7 @@ def UploadrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_id
 
 def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, attachment_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/GetOrgTicketAttachment
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/get-org-ticket-attachment
     
     PARAMS
     -----------
@@ -229,7 +229,7 @@ def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, 
     
 def addOrgTicketCommentFile(mist_session:_APISession, org_id:str, ticket_id:str, comment:str=None, file:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/addOrgTicketComment
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/add-org-ticket-comment
     
     PARAMS
     -----------
@@ -262,7 +262,7 @@ def addOrgTicketCommentFile(mist_session:_APISession, org_id:str, ticket_id:str,
 
 def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/addOrgTicketComment
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/add-org-ticket-comment
     
     PARAMS
     -----------

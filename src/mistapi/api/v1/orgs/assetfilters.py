@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgAssetFilters(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAssetFilters
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/list-org-asset-filters
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgAssetFilters(mist_session:_APISession, org_id:str, limit:int=100, pag
     
 def createOrgAssetFilters(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgAssetFilters
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/create-org-asset-filters
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgAssetFilters(mist_session:_APISession, org_id:str, body:object) -> 
     
 def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgAssetFilter
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/get-org-asset-filter
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) 
     
 def deleteOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgAssetFilter
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/delete-org-asset-filter
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:st
     
 def updateOrgAssetFilters(mist_session:_APISession, org_id:str, assetfilter_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgAssetFilters
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/update-org-asset-filters
     
     PARAMS
     -----------

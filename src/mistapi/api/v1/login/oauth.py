@@ -16,7 +16,7 @@ import deprecation
 
 def getOauth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, forward:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOauth2AuthorizationUrlForLogin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/login/oauth2/get-oauth2-authorization-url-for-login
     
     PARAMS
     -----------
@@ -44,7 +44,7 @@ def getOauth2AuthorizationUrlForLogin(mist_session:_APISession, provider:str, fo
     
 def unlinkOauth2Provider(mist_session:_APISession, provider:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unlinkOauth2Provider
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/login/oauth2/unlink-oauth2-provider
     
     PARAMS
     -----------
@@ -67,7 +67,7 @@ def unlinkOauth2Provider(mist_session:_APISession, provider:str) -> _APIResponse
     
 def loginOauth2(mist_session:_APISession, provider:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/loginOauth2
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/login/oauth2/login-oauth2
     
     PARAMS
     -----------

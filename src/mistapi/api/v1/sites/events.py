@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteRoamingEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/events/get-site-roaming-events
     
     PARAMS
     -----------
@@ -53,7 +53,7 @@ def getSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str=None, l
     
 def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteSystemEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/events/count-site-system-events
     
     PARAMS
     -----------
@@ -91,7 +91,7 @@ def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="t
     
 def searchSiteSystemEvents(mist_session:_APISession, site_id:str, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteSystemEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/events/search-site-system-events
     
     PARAMS
     -----------

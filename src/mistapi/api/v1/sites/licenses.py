@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteLicenseUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteLicenseUsage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/licenses/get-site-license-usage
     
     PARAMS
     -----------

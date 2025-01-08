@@ -16,7 +16,7 @@ import deprecation
 
 def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str="ap", mac:str=None, site_id:str=None, vc_mac:str=None, vc:bool=None, unassigned:bool=False, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgInventory
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/get-org-inventory
     
     PARAMS
     -----------
@@ -62,7 +62,7 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     
 def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/addOrgInventory
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/add-org-inventory
     
     PARAMS
     -----------
@@ -89,7 +89,7 @@ def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
 def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgInventoryAssignment
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/update-org-inventory-assignment
     
     PARAMS
     -----------
@@ -116,7 +116,7 @@ def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:obje
     
 def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", distinct:str="model", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgInventory
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/count-org-inventory
     
     PARAMS
     -----------
@@ -150,7 +150,7 @@ def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", disti
     
 def createOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgGatewayHaCluster
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/create-org-gateway-ha-cluster
     
     PARAMS
     -----------
@@ -177,7 +177,7 @@ def createOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object)
     
 def deleteOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgGatewayHaCluster
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/delete-org-gateway-ha-cluster
     
     PARAMS
     -----------
@@ -204,7 +204,7 @@ def deleteOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object)
     
 def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/reevaluateOrgAutoAssignment
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/reevaluate-org-auto-assignment
     
     PARAMS
     -----------
@@ -226,7 +226,7 @@ def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str) -> _APIRes
     
 def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/replaceOrgDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/replace-org-devices
     
     PARAMS
     -----------
@@ -253,7 +253,7 @@ def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def searchOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", mac:str=None, vc_mac:str=None, master_mac:str=None, site_id:str=None, serial:str=None, master:str=None, sku:str=None, version:str=None, status:str=None, text:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgInventory
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/search-org-inventory
     
     PARAMS
     -----------

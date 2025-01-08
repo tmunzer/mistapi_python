@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteWxTags(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteWxTags
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/list-site-wx-tags
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteWxTags(mist_session:_APISession, site_id:str, limit:int=100, page:in
     
 def createSiteWxTag(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteWxTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/create-site-wx-tag
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteWxTag(mist_session:_APISession, site_id:str, body:object) -> _APIR
     
 def getSiteApplicationList(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteApplicationList
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/get-site-application-list
     
     PARAMS
     -----------
@@ -96,7 +96,7 @@ def getSiteApplicationList(mist_session:_APISession, site_id:str) -> _APIRespons
     
 def getSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteWxTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/get-site-wx-tag
     
     PARAMS
     -----------
@@ -120,7 +120,7 @@ def getSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _APIRes
     
 def deleteSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWxTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/delete-site-wx-tag
     
     PARAMS
     -----------
@@ -144,7 +144,7 @@ def deleteSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _API
     
 def updateSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteWxTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/update-site-wx-tag
     
     PARAMS
     -----------
@@ -172,7 +172,7 @@ def updateSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str, body:ob
     
 def getSiteCurrentMatchingClientsOfAWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCurrentMatchingClientsOfAWxTag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/get-site-current-matching-clients-of-a-wx-tag
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def createOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgUserMacs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/create-org-user-macs
     
     PARAMS
     -----------
@@ -43,7 +43,7 @@ def createOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgUserMacs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/import-org-user-macs
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str=None) -
 
 def importOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgUserMacs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/import-org-user-macs
     
     PARAMS
     -----------
@@ -100,7 +100,7 @@ def importOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str=None, labels:list=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgUserMacs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/search-org-user-macs
     
     PARAMS
     -----------
@@ -135,7 +135,7 @@ def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str=None, labels
     
 def getOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgUserMac
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/get-org-user-mac
     
     PARAMS
     -----------
@@ -159,7 +159,7 @@ def getOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIR
     
 def deleteOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgUserMac
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/delete-org-user-mac
     
     PARAMS
     -----------
@@ -183,7 +183,7 @@ def deleteOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _A
     
 def updateOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgUserMac
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/update-org-user-mac
     
     PARAMS
     -----------

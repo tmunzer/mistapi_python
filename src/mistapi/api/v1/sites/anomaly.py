@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteAnomalyEventsForClient
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/get-site-anomaly-events-for-client
     
     PARAMS
     -----------
@@ -41,7 +41,7 @@ def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_
     
 def getSiteAnomalyEventsforDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteAnomalyEventsforDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/get-site-anomaly-eventsfor-device
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def getSiteAnomalyEventsforDevice(mist_session:_APISession, site_id:str, metric:
     
 def getSiteAnomalyEvents(mist_session:_APISession, site_id:str, metric:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteAnomalyEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/get-site-anomaly-events
     
     PARAMS
     -----------

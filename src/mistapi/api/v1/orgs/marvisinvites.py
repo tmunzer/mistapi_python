@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgMarvisClientInvites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgMarvisClientInvites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/list-org-marvis-client-invites
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listOrgMarvisClientInvites(mist_session:_APISession, org_id:str) -> _APIResp
     
 def createOrgMarvisClientInvites(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgMarvisClientInvites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/create-org-marvis-client-invites
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def createOrgMarvisClientInvites(mist_session:_APISession, org_id:str, body:obje
     
 def getOrgMarvisClientInvites(mist_session:_APISession, org_id:str, marvisinvite_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgMarvisClientInvites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/get-org-marvis-client-invites
     
     PARAMS
     -----------
@@ -90,7 +90,7 @@ def getOrgMarvisClientInvites(mist_session:_APISession, org_id:str, marvisinvite
     
 def deleteOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgMarvisClientInvite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/delete-org-marvis-client-invite
     
     PARAMS
     -----------
@@ -114,7 +114,7 @@ def deleteOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvi
     
 def updateOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgMarvisClientInvite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/update-org-marvis-client-invite
     
     PARAMS
     -----------

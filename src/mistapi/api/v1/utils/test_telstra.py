@@ -16,7 +16,7 @@ import deprecation
 
 def testSiteWlanTelstraSetup(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/testSiteWlanTelstraSetup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/test-site-wlan-telstra-setup
     
     PARAMS
     -----------

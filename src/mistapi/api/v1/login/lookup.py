@@ -16,7 +16,7 @@ import deprecation
 
 def lookup(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/lookup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/lookup/lookup
     
     PARAMS
     -----------

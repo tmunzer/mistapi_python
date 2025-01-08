@@ -16,7 +16,7 @@ import deprecation
 
 def listAppCategoryDefinitions(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listAppCategoryDefinitions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/list-app-category-definitions
     
     PARAMS
     -----------

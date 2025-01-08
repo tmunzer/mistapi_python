@@ -16,7 +16,7 @@ import deprecation
 
 def listMspSsoRoles(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspSsoRoles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso-roles/list-msp-sso-roles
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listMspSsoRoles(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
 def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createMspSsoRole
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso-roles/create-msp-sso-role
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> _APIR
     
 def deleteMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteMspSsoRole
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso-roles/delete-msp-sso-role
     
     PARAMS
     -----------
@@ -90,7 +90,7 @@ def deleteMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _A
     
 def updateMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateMspSsoRole
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso-roles/update-msp-sso-role
     
     PARAMS
     -----------

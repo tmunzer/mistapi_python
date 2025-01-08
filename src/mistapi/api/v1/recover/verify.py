@@ -16,7 +16,7 @@ import deprecation
 
 def verifyRecoverPasssword(mist_session:_APISession, token:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/verifyRecoverPasssword
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/recover-password/verify-recover-passsword
     
     PARAMS
     -----------

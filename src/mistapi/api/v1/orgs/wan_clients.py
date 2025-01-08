@@ -16,7 +16,7 @@ import deprecation
 
 def countOrgWanClients(mist_session:_APISession, org_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgWanClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wan/count-org-wan-clients
     
     PARAMS
     -----------
@@ -54,7 +54,7 @@ def countOrgWanClients(mist_session:_APISession, org_id:str, distinct:str="mac",
     
 def searchOrgWanClientEvents(mist_session:_APISession, org_id:str, type:str=None, mac:str=None, hostname:str=None, ip:str=None, mfg:str=None, nacrule_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgWanClientEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wan/search-org-wan-client-events
     
     PARAMS
     -----------
@@ -100,7 +100,7 @@ def searchOrgWanClientEvents(mist_session:_APISession, org_id:str, type:str=None
     
 def searchOrgWanClients(mist_session:_APISession, org_id:str, mac:str=None, hostname:str=None, ip:str=None, network:str=None, ip_src:str=None, mfg:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgWanClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wan/search-org-wan-clients
     
     PARAMS
     -----------

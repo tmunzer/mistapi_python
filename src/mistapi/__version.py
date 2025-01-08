@@ -1,2 +1,2 @@
-__version__ = "0.53.0"
+__version__ = "0.54.0"
 __author__ = "Thomas Munzer <tmunzer@juniper.net>"

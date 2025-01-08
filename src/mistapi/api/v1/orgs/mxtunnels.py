@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgMxTunnels(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgMxTunnels
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxtunnels/list-org-mx-tunnels
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgMxTunnels(mist_session:_APISession, org_id:str, limit:int=100, page:i
     
 def createOrgMxTunnel(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgMxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxtunnels/create-org-mx-tunnel
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgMxTunnel(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def getOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgMxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxtunnels/get-org-mx-tunnel
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> _AP
     
 def deleteOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgMxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxtunnels/delete-org-mx-tunnel
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> 
     
 def updateOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgMxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxtunnels/update-org-mx-tunnel
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def ackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/ackOrgMultipleAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-multiple-alarms
     
     PARAMS
     -----------
@@ -43,7 +43,7 @@ def ackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) -> _
     
 def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/ackOrgAllAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-all-alarms
     
     PARAMS
     -----------
@@ -70,7 +70,7 @@ def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
 def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/count-org-alarms
     
     PARAMS
     -----------
@@ -108,7 +108,7 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, star
     
 def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/search-org-alarms
     
     PARAMS
     -----------
@@ -146,7 +146,7 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type
     
 def unackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unackOrgMultipleAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/unack-org-multiple-alarms
     
     PARAMS
     -----------
@@ -173,7 +173,7 @@ def unackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) ->
     
 def unackOrgAllArlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unackOrgAllArlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/unack-org-all-arlarms
     
     PARAMS
     -----------
@@ -200,7 +200,7 @@ def unackOrgAllArlarms(mist_session:_APISession, org_id:str, body:object) -> _AP
     
 def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/ackOrgAlarm
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-alarm
     
     PARAMS
     -----------

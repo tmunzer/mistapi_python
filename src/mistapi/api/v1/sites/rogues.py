@@ -16,7 +16,7 @@ import deprecation
 
 def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bssid", type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteRogueEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/count-site-rogue-events
     
     PARAMS
     -----------
@@ -64,7 +64,7 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     
 def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:int=None, seen_on_lan:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteRogueEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/search-site-rogue-events
     
     PARAMS
     -----------
@@ -110,7 +110,7 @@ def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, 
     
 def getSiteRogueAP(mist_session:_APISession, site_id:str, rogue_bssid:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteRogueAP
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/get-site-rogue-a-p
     
     PARAMS
     -----------
@@ -134,7 +134,7 @@ def getSiteRogueAP(mist_session:_APISession, site_id:str, rogue_bssid:str) -> _A
     
 def deauthSiteWirelessClientsConnectedToARogue(mist_session:_APISession, site_id:str, rogue_bssid:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deauthSiteWirelessClientsConnectedToARogue
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/deauth-site-wireless-clients-connected-to-a-rogue
     
     PARAMS
     -----------

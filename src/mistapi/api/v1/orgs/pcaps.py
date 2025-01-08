@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgPacketCaptures(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgPacketCaptures
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/list-org-packet-captures
     
     PARAMS
     -----------
@@ -52,7 +52,7 @@ def listOrgPacketCaptures(mist_session:_APISession, org_id:str, start:int=None, 
     
 def getOrgCapturingStatus(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgCapturingStatus
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/get-org-capturing-status
     
     PARAMS
     -----------
@@ -75,7 +75,7 @@ def getOrgCapturingStatus(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def stopOrgPacketCapture(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/stopOrgPacketCapture
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/stop-org-packet-capture
     
     PARAMS
     -----------
@@ -98,7 +98,7 @@ def stopOrgPacketCapture(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def startOrgPacketCapture(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/startOrgPacketCapture
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/start-org-packet-capture
     
     PARAMS
     -----------

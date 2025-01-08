@@ -16,7 +16,7 @@ import deprecation
 
 def getMspSle(mist_session:_APISession, msp_id:str, metric:str, sle:str=None, duration:str="1d", interval:str=None, start:int=None, end:int=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getMspSle
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sles/get-msp-sle
     
     PARAMS
     -----------

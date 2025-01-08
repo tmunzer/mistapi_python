@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteRssiZones(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteRssiZones
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rssi-zones/list-site-rssi-zones
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteRssiZones(mist_session:_APISession, site_id:str, limit:int=100, page
     
 def createSiteRssiZone(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteRssiZone
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rssi-zones/create-site-rssi-zone
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteRssiZone(mist_session:_APISession, site_id:str, body:object) -> _A
     
 def getSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteRssiZone
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rssi-zones/get-site-rssi-zone
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str) -> _
     
 def deleteSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteRssiZone
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rssi-zones/delete-site-rssi-zone
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str) -
     
 def updateSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteRssiZone
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rssi-zones/update-site-rssi-zone
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAuditLogs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/logs/list-org-audit-logs
     
     PARAMS
     -----------
@@ -61,7 +61,7 @@ def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, adm
     
 def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_name", admin_id:str=None, admin_name:str=None, site_id:str=None, message:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgAuditLogs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/logs/count-org-audit-logs
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listInstallerListOfRenctlyClaimedDevices(mist_session:_APISession, org_id:str, model:str=None, site_name:str=None, site_id:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listInstallerListOfRenctlyClaimedDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-list-of-renctly-claimed-devices
     
     PARAMS
     -----------
@@ -52,7 +52,7 @@ def listInstallerListOfRenctlyClaimedDevices(mist_session:_APISession, org_id:st
     
 def claimInstallerDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/claimInstallerDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/claim-installer-devices
     
     PARAMS
     -----------
@@ -79,7 +79,7 @@ def claimInstallerDevices(mist_session:_APISession, org_id:str, body:object) -> 
     
 def unassignInstallerRecentlyClaimedDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unassignInstallerRecentlyClaimedDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/unassign-installer-recently-claimed-device
     
     PARAMS
     -----------
@@ -103,7 +103,7 @@ def unassignInstallerRecentlyClaimedDevice(mist_session:_APISession, org_id:str,
     
 def provisionInstallerDevices(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/provisionInstallerDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/provision-installer-devices
     
     PARAMS
     -----------
@@ -131,7 +131,7 @@ def provisionInstallerDevices(mist_session:_APISession, org_id:str, device_mac:s
     
 def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/startInstallerLocateDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/start-installer-locate-device
     
     PARAMS
     -----------
@@ -154,7 +154,7 @@ def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:
     
 def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/stopInstallerLocateDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/stop-installer-locate-device
     
     PARAMS
     -----------
@@ -177,7 +177,7 @@ def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:s
     
 def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteInstallerDeviceImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/delete-installer-device-image
     
     PARAMS
     -----------
@@ -202,7 +202,7 @@ def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:
     
 def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name:str, device_mac:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/addInstallerDeviceImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/add-installer-device-image
     
     PARAMS
     -----------
@@ -242,7 +242,7 @@ def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name
 
 def getInstallerDeviceVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getInstallerDeviceVirtualChassis
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/get-installer-device-virtual-chassis
     
     PARAMS
     -----------
@@ -266,7 +266,7 @@ def getInstallerDeviceVirtualChassis(mist_session:_APISession, org_id:str, fpc0_
     
 def createInstallerVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createInstallerVirtualChassis
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/create-installer-virtual-chassis
     
     PARAMS
     -----------
@@ -294,7 +294,7 @@ def createInstallerVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac
     
 def updateInstallerVirtualChassisMember(mist_session:_APISession, org_id:str, fpc0_mac:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateInstallerVirtualChassisMember
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/update-installer-virtual-chassis-member
     
     PARAMS
     -----------

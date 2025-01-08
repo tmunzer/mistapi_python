@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteUiSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteUiSettings
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/list-site-ui-settings
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listSiteUiSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     
 def createSiteUiSettings(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteUiSettings
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/create-site-ui-settings
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def createSiteUiSettings(mist_session:_APISession, site_id:str, body:object) -> 
     
 def listSiteUiSettingDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteUiSettingDerived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/list-site-ui-setting-derived
     
     PARAMS
     -----------
@@ -89,7 +89,7 @@ def listSiteUiSettingDerived(mist_session:_APISession, site_id:str) -> _APIRespo
     
 def getSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteUiSetting
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/get-site-ui-setting
     
     PARAMS
     -----------
@@ -113,7 +113,7 @@ def getSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) ->
     
 def deleteSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteUiSetting
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/delete-site-ui-setting
     
     PARAMS
     -----------
@@ -137,7 +137,7 @@ def deleteSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str)
     
 def updateSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteUiSetting
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/update-site-ui-setting
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def countMspsMarvisActions(mist_session:_APISession, msp_id:str, distinct:str="org_id", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countMspsMarvisActions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/marvis/count-msps-marvis-actions
     
     PARAMS
     -----------

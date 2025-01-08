@@ -16,7 +16,7 @@ import deprecation
 
 def importOrgMapsFile(mist_session:_APISession, org_id:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgMaps
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/maps/import-org-maps
     
     PARAMS
     -----------

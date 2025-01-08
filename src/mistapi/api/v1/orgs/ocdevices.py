@@ -16,7 +16,7 @@ import deprecation
 
 def getOrgJuniperDevicesCommand(mist_session:_APISession, org_id:str, site_id:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgJuniperDevicesCommand
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/get-org-juniper-devices-command
     
     PARAMS
     -----------

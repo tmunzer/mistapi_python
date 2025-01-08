@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgSites(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sites/list-org-sites
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgSites(mist_session:_APISession, org_id:str, limit:int=100, page:int=1
     
 def createOrgSite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgSite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sites/create-org-site
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgSite(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     
 def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgSites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sites/count-org-sites
     
     PARAMS
     -----------
@@ -111,7 +111,7 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", start
     
 def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=None, app_waking:bool=None, asset_enabled:bool=None, auto_upgrade_enabled:bool=None, auto_upgrade_version:str=None, country_code:str=None, honeypot_enabled:bool=None, id:str=None, locate_unconnected:bool=None, mesh_enabled:bool=None, name:str=None, rogue_enabled:bool=None, remote_syslog_enabled:bool=None, rtsa_enabled:bool=None, vna_enabled:bool=None, wifi_enabled:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgSites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sites/search-org-sites
     
     PARAMS
     -----------
@@ -177,7 +177,7 @@ def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=N
     
 def importOrgMapToSiteFile(mist_session:_APISession, org_id:str, site_name:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgMapToSite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/maps/import-org-map-to-site
     
     PARAMS
     -----------

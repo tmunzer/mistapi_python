@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=None, role:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgPsks
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/list-org-psks
     
     PARAMS
     -----------
@@ -52,7 +52,7 @@ def listOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=No
     
 def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgPsk
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/create-org-psk
     
     PARAMS
     -----------
@@ -79,7 +79,7 @@ def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIRespo
     
 def updateOrgMultiplePsks(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgMultiplePsks
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/update-org-multiple-psks
     
     PARAMS
     -----------
@@ -106,7 +106,7 @@ def updateOrgMultiplePsks(mist_session:_APISession, org_id:str, body:object) -> 
     
 def deleteOrgPskList(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgPskList
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/delete-org-psk-list
     
     PARAMS
     -----------
@@ -133,7 +133,7 @@ def deleteOrgPskList(mist_session:_APISession, org_id:str, body:object) -> _APIR
     
 def importOrgPsksFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgPsks
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/import-org-psks
     
     PARAMS
     -----------
@@ -163,7 +163,7 @@ def importOrgPsksFile(mist_session:_APISession, org_id:str, file:str=None) -> _A
 
 def importOrgPsks(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgPsks
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/import-org-psks
     
     PARAMS
     -----------
@@ -190,7 +190,7 @@ def importOrgPsks(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     
 def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgPsk
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/get-org-psk
     
     PARAMS
     -----------
@@ -214,7 +214,7 @@ def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     
 def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgPsk
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/delete-org-psk
     
     PARAMS
     -----------
@@ -238,7 +238,7 @@ def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIRespon
     
 def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgPsk
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/update-org-psk
     
     PARAMS
     -----------
@@ -266,7 +266,7 @@ def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) 
     
 def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgPskOldPassphrase
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/delete-org-psk-old-passphrase
     
     PARAMS
     -----------

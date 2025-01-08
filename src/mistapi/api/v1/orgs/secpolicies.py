@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgSecPolicies(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSecPolicies
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secpolicies/list-org-sec-policies
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgSecPolicies(mist_session:_APISession, org_id:str, limit:int=100, page
     
 def createOrgSecPolicies(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgSecPolicies
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secpolicies/create-org-sec-policies
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgSecPolicies(mist_session:_APISession, org_id:str, body:object) -> _
     
 def getOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSecPolicy
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secpolicies/get-org-sec-policy
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str) -> _
     
 def deleteOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSecPolicy
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secpolicies/delete-org-sec-policy
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str) -
     
 def updateOrgSecPolicies(mist_session:_APISession, org_id:str, secpolicy_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgSecPolicies
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secpolicies/update-org-sec-policies
     
     PARAMS
     -----------

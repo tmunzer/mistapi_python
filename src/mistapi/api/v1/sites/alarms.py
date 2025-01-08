@@ -16,7 +16,7 @@ import deprecation
 
 def AckSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/AckSiteMultipleAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/ack-site-multiple-alarms
     
     PARAMS
     -----------
@@ -43,7 +43,7 @@ def AckSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) ->
     
 def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/ackSiteAllAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/ack-site-all-alarms
     
     PARAMS
     -----------
@@ -70,7 +70,7 @@ def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _API
     
 def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", ack_admin_name:str=None, acked:bool=None, type:str=None, severity:str=None, group:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/count-site-alarms
     
     PARAMS
     -----------
@@ -119,7 +119,7 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     
 def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admin_name:str=None, acked:bool=None, severity:str=None, group:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/search-site-alarms
     
     PARAMS
     -----------
@@ -163,7 +163,7 @@ def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_a
     
 def unackSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unackSiteMultipleAlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-multiple-alarms
     
     PARAMS
     -----------
@@ -190,7 +190,7 @@ def unackSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) 
     
 def unackSiteAllArlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unackSiteAllArlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-all-arlarms
     
     PARAMS
     -----------
@@ -217,7 +217,7 @@ def unackSiteAllArlarms(mist_session:_APISession, site_id:str, body:object) -> _
     
 def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/ackSiteAlarm
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/ack-site-alarm
     
     PARAMS
     -----------
@@ -245,7 +245,7 @@ def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:objec
     
 def unackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unackSiteAlarm
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-alarm
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgTemplates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/list-org-templates
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:i
     
 def createOrgTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/create-org-template
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgTemplate(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/get-org-template
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _AP
     
 def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/delete-org-template
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> 
     
 def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/update-org-template
     
     PARAMS
     -----------
@@ -149,7 +149,7 @@ def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, bod
     
 def cloneOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/cloneOrgTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/clone-org-template
     
     PARAMS
     -----------

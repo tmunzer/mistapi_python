@@ -16,7 +16,7 @@ import deprecation
 
 def countSiteSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, mac:str=None, device_mac:str=None, threat_level:int=None, ip_address:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteSkyatpEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/skyatp/count-site-skyatp-events
     
     PARAMS
     -----------
@@ -62,7 +62,7 @@ def countSiteSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="t
     
 def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str=None, mac:str=None, device_mac:str=None, threat_level:int=None, ip_address:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteSkyatpEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/skyatp/search-site-skyatp-events
     
     PARAMS
     -----------

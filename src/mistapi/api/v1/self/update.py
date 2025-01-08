@@ -16,7 +16,7 @@ import deprecation
 
 def updateSelfEmail(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSelfEmail
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/update-self-email
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def updateSelfEmail(mist_session:_APISession, body:object) -> _APIResponse:
     
 def verifySelfEmail(mist_session:_APISession, token:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/verifySelfEmail
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/verify-self-email
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgWxTunnels(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgWxTunnels
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/list-org-wx-tunnels
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgWxTunnels(mist_session:_APISession, org_id:str, limit:int=100, page:i
     
 def createOrgWxTunnel(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgWxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/create-org-wx-tunnel
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgWxTunnel(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def getOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgWxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/get-org-wx-tunnel
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> _AP
     
 def deleteOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/delete-org-wx-tunnel
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> 
     
 def updateOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgWxTunnel
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/update-org-wx-tunnel
     
     PARAMS
     -----------

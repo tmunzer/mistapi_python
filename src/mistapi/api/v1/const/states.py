@@ -16,7 +16,7 @@ import deprecation
 
 def listStates(mist_session:_APISession, country_code:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listStates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/list-states
     
     PARAMS
     -----------

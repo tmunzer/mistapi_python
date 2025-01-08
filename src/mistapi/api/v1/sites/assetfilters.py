@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteAssetFilters(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteAssetFilters
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/list-site-asset-filters
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteAssetFilters(mist_session:_APISession, site_id:str, limit:int=100, p
     
 def createSiteAssetFilters(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteAssetFilters
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/create-site-asset-filters
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteAssetFilters(mist_session:_APISession, site_id:str, body:object) -
     
 def getSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteAssetFilter
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/get-site-asset-filter
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str
     
 def deleteSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteAssetFilter
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/delete-site-asset-filter
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:
     
 def updateSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteAssetFilter
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/update-site-asset-filter
     
     PARAMS
     -----------

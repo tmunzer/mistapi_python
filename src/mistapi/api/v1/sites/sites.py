@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteInfo(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteInfo
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/get-site-info
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def getSiteInfo(mist_session:_APISession, site_id:str) -> _APIResponse:
     
 def deleteSite(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/delete-site
     
     PARAMS
     -----------
@@ -62,7 +62,7 @@ def deleteSite(mist_session:_APISession, site_id:str) -> _APIResponse:
     
 def updateSiteInfo(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteInfo
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/update-site-info
     
     PARAMS
     -----------

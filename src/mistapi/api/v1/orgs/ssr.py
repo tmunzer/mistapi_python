@@ -16,7 +16,7 @@ import deprecation
 
 def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrg128TRegistrationCommands
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/ssr/get-org128-t-registration-commands
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> _API
     
 def listOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSsrUpgrades
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-ssr-upgrades
     
     PARAMS
     -----------
@@ -62,7 +62,7 @@ def listOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeOrgSsrs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-ssrs
     
     PARAMS
     -----------
@@ -89,7 +89,7 @@ def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     
 def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/cancelOrgSsrUpgrade
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/cancel-org-ssr-upgrade
     
     PARAMS
     -----------
@@ -112,7 +112,7 @@ def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     
 def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAvailableSsrVersions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-available-ssr-versions
     
     PARAMS
     -----------

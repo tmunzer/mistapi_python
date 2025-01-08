@@ -16,7 +16,7 @@ import deprecation
 
 def claimMspLicence(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/claimMspLicence
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/licenses/claim-msp-licence
     
     PARAMS
     -----------

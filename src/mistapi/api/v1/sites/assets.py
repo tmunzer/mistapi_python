@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteAssets(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteAssets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/list-site-assets
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteAssets(mist_session:_APISession, site_id:str, limit:int=100, page:in
     
 def createSiteAsset(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteAsset
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/create-site-asset
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteAsset(mist_session:_APISession, site_id:str, body:object) -> _APIR
     
 def importSiteAssetsFile(mist_session:_APISession, site_id:str, file:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSiteAssets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/import-site-assets
     
     PARAMS
     -----------
@@ -103,7 +103,7 @@ def importSiteAssetsFile(mist_session:_APISession, site_id:str, file:str=None) -
 
 def importSiteAssets(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSiteAssets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/import-site-assets
     
     PARAMS
     -----------
@@ -130,7 +130,7 @@ def importSiteAssets(mist_session:_APISession, site_id:str, body:object) -> _API
     
 def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteAsset
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/get-site-asset
     
     PARAMS
     -----------
@@ -154,7 +154,7 @@ def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIRes
     
 def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteAsset
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/delete-site-asset
     
     PARAMS
     -----------
@@ -178,7 +178,7 @@ def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _API
     
 def updateSiteAsset(mist_session:_APISession, site_id:str, asset_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteAsset
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/update-site-asset
     
     PARAMS
     -----------

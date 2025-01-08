@@ -16,7 +16,7 @@ import deprecation
 
 def getSelf(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSelf
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/get-self
     
     PARAMS
     -----------
@@ -35,7 +35,7 @@ def getSelf(mist_session:_APISession) -> _APIResponse:
     
 def deleteSelf(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSelf
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/delete-self
     
     PARAMS
     -----------
@@ -54,7 +54,7 @@ def deleteSelf(mist_session:_APISession) -> _APIResponse:
     
 def updateSelf(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSelf
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/update-self
     
     PARAMS
     -----------

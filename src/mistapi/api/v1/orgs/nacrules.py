@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgNacRules(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgNacRules
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/list-org-nac-rules
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgNacRules(mist_session:_APISession, org_id:str, limit:int=100, page:in
     
 def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgNacRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/create-org-nac-rule
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> _APIR
     
 def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgNacRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/get-org-nac-rule
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIR
     
 def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/delete-org-nac-rule
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _A
     
 def updateOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgNacRule
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/update-org-nac-rule
     
     PARAMS
     -----------

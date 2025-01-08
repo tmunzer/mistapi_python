@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgSiteTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSiteTemplates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/list-org-site-templates
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgSiteTemplates(mist_session:_APISession, org_id:str, limit:int=100, pa
     
 def createOrgSiteTemplates(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgSiteTemplates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/create-org-site-templates
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgSiteTemplates(mist_session:_APISession, org_id:str, body:object) ->
     
 def getOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSiteTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/get-org-site-template
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str
     
 def deleteOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSiteTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/delete-org-site-template
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:
     
 def updateOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgSiteTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/update-org-site-template
     
     PARAMS
     -----------

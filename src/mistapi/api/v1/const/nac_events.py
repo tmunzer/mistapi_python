@@ -16,7 +16,7 @@ import deprecation
 
 def listNacEventsDefinitions(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listNacEventsDefinitions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/events/list-nac-events-definitions
     
     PARAMS
     -----------

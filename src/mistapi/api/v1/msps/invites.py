@@ -16,7 +16,7 @@ import deprecation
 
 def inviteMspAdmin(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/inviteMspAdmin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/admins/invite-msp-admin
     
     PARAMS
     -----------
@@ -43,7 +43,7 @@ def inviteMspAdmin(mist_session:_APISession, msp_id:str, body:object) -> _APIRes
     
 def uninviteMspAdmin(mist_session:_APISession, msp_id:str, invite_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/uninviteMspAdmin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/admins/uninvite-msp-admin
     
     PARAMS
     -----------
@@ -67,7 +67,7 @@ def uninviteMspAdmin(mist_session:_APISession, msp_id:str, invite_id:str) -> _AP
     
 def updateMspAdminInvite(mist_session:_APISession, msp_id:str, invite_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateMspAdminInvite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/admins/update-msp-admin-invite
     
     PARAMS
     -----------

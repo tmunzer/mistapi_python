@@ -16,7 +16,7 @@ import deprecation
 
 def countSiteNacClients(mist_session:_APISession, site_id:str, distinct:str="type", last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteNacClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/nac/count-site-nac-clients
     
     PARAMS
     -----------
@@ -85,7 +85,7 @@ def countSiteNacClients(mist_session:_APISession, site_id:str, distinct:str="typ
     
 def countSiteNacClientEvents(mist_session:_APISession, site_id:str, distinct:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteNacClientEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/nac/count-site-nac-client-events
     
     PARAMS
     -----------
@@ -123,7 +123,7 @@ def countSiteNacClientEvents(mist_session:_APISession, site_id:str, distinct:str
     
 def searchSiteNacClientEvents(mist_session:_APISession, site_id:str, type:str=None, nacrule_id:str=None, nacrule_matched:bool=None, dryrun_nacrule_id:str=None, dryrun_nacrule_matched:bool=None, auth_type:str=None, vlan:int=None, nas_vendor:str=None, bssid:str=None, idp_id:str=None, idp_role:str=None, idp_username:str=None, resp_attrs:list=None, ssid:str=None, username:str=None, ap:str=None, random_mac:bool=None, mac:str=None, timestamp:float=None, usermac_label:str=None, text:str=None, nas_ip:str=None, sort:str=None, ingress_vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteNacClientEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/nac/search-site-nac-client-events
     
     PARAMS
     -----------
@@ -206,7 +206,7 @@ def searchSiteNacClientEvents(mist_session:_APISession, site_id:str, type:str=No
     
 def searchSiteNacClients(mist_session:_APISession, site_id:str, nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, vlan:str=None, nas_vendor:str=None, idp_id:str=None, ssid:str=None, username:str=None, timestamp:float=None, ap:str=None, mac:str=None, mxedge_id:str=None, nacrule_name:str=None, status:str=None, type:str=None, mdm_compliance:str=None, mdm_provider:str=None, sort:str=None, ingress_vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteNacClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/nac/search-site-nac-clients
     
     PARAMS
     -----------

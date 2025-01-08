@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgServicePolicies(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgServicePolicies
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/list-org-service-policies
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgServicePolicies(mist_session:_APISession, org_id:str, limit:int=100, 
     
 def createOrgServicePolicy(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgServicePolicy
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/create-org-service-policy
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgServicePolicy(mist_session:_APISession, org_id:str, body:object) ->
     
 def getOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgServicePolicy
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/get-org-service-policy
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:s
     
 def deleteOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgServicePolicy
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/delete-org-service-policy
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_i
     
 def updateOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgServicePolicy
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/update-org-service-policy
     
     PARAMS
     -----------

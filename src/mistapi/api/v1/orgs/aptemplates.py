@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgAptemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAptemplates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/ap-templates/list-org-aptemplates
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgAptemplates(mist_session:_APISession, org_id:str, limit:int=100, page
     
 def createOrgAptemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgAptemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/ap-templates/create-org-aptemplate
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgAptemplate(mist_session:_APISession, org_id:str, body:object) -> _A
     
 def getOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgAptemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/ap-templates/get-org-aptemplate
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str) ->
     
 def deleteOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgAptemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/ap-templates/delete-org-aptemplate
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str)
     
 def updateOrgAptemplate(mist_session:_APISession, org_id:str, aptemplate_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgAptemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/ap-templates/update-org-aptemplate
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/list-site-devices
     
     PARAMS
     -----------
@@ -50,7 +50,7 @@ def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:s
     
 def getSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_code:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceRadioChannels
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wireless/get-site-device-radio-channels
     
     PARAMS
     -----------
@@ -78,7 +78,7 @@ def getSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_co
     
 def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct:str=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteDeviceConfigHistory
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-device-config-history
     
     PARAMS
     -----------
@@ -118,7 +118,7 @@ def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct
     
 def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, type:str="ap", mac:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteDeviceConfigHistory
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-config-history
     
     PARAMS
     -----------
@@ -156,7 +156,7 @@ def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, type:st
     
 def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model", hostname:str=None, model:str=None, mac:str=None, version:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, map_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-devices
     
     PARAMS
     -----------
@@ -216,7 +216,7 @@ def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model"
     
 def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="model", model:str=None, type:str=None, type_code:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteDeviceEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-device-events
     
     PARAMS
     -----------
@@ -258,7 +258,7 @@ def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="m
     
 def searchSiteDeviceEvents(mist_session:_APISession, site_id:str, mac:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, last_by:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteDeviceEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-events
     
     PARAMS
     -----------
@@ -304,7 +304,7 @@ def searchSiteDeviceEvents(mist_session:_APISession, site_id:str, mac:str=None, 
     
 def exportSiteDevices(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/exportSiteDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/export-site-devices
     
     PARAMS
     -----------
@@ -327,7 +327,7 @@ def exportSiteDevices(mist_session:_APISession, site_id:str) -> _APIResponse:
     
 def importSiteDevicesFile(mist_session:_APISession, site_id:str, file:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSiteDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/import-site-devices
     
     PARAMS
     -----------
@@ -357,7 +357,7 @@ def importSiteDevicesFile(mist_session:_APISession, site_id:str, file:str=None) 
 
 def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importSiteDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/import-site-devices
     
     PARAMS
     -----------
@@ -384,7 +384,7 @@ def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _AP
     
 def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteDeviceLastConfig
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-device-last-config
     
     PARAMS
     -----------
@@ -422,7 +422,7 @@ def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:st
     
 def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, type:str="ap", mac:str=None, version:str=None, name:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteDeviceLastConfigs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-last-configs
     
     PARAMS
     -----------
@@ -464,7 +464,7 @@ def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, type:str=
     
 def reprovisionSiteAllAps(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/reprovisionSiteAllAps
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/reprovision-site-all-aps
     
     PARAMS
     -----------
@@ -486,7 +486,7 @@ def reprovisionSiteAllAps(mist_session:_APISession, site_id:str) -> _APIResponse
     
 def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/resetSiteAllApsToUseRrm
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/reset-site-all-aps-to-use-rrm
     
     PARAMS
     -----------
@@ -513,7 +513,7 @@ def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) 
     
 def restartSiteMultipleDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/restartSiteMultipleDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/restart-site-multiple-devices
     
     PARAMS
     -----------
@@ -540,7 +540,7 @@ def restartSiteMultipleDevices(mist_session:_APISession, site_id:str, body:objec
     
 def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, band_24_bandwidth:int=None, band_5_bandwidth:int=None, band_6_bandwidth:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-devices
     
     PARAMS
     -----------
@@ -623,7 +623,7 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     
 def sendSiteDevicesArbitratryBleBeacon(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/sendSiteDevicesArbitratryBleBeacon
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/location/send-site-devices-arbitratry-ble-beacon
     
     PARAMS
     -----------
@@ -650,7 +650,7 @@ def sendSiteDevicesArbitratryBleBeacon(mist_session:_APISession, site_id:str, bo
     
 def listSiteDeviceUpgrades(mist_session:_APISession, site_id:str, status:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteDeviceUpgrades
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-site-device-upgrades
     
     PARAMS
     -----------
@@ -678,7 +678,7 @@ def listSiteDeviceUpgrades(mist_session:_APISession, site_id:str, status:str=Non
     
 def upgradeSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeSiteDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-site-devices
     
     PARAMS
     -----------
@@ -705,7 +705,7 @@ def upgradeSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _A
     
 def getSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceUpgrade
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/get-site-device-upgrade
     
     PARAMS
     -----------
@@ -729,7 +729,7 @@ def getSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) 
     
 def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/cancelSiteDeviceUpgrade
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/cancel-site-device-upgrade
     
     PARAMS
     -----------
@@ -752,7 +752,7 @@ def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:st
     
 def upgradeSiteDevicesBios(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeSiteDevicesBios
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-site-devices-bios
     
     PARAMS
     -----------
@@ -779,7 +779,7 @@ def upgradeSiteDevicesBios(mist_session:_APISession, site_id:str, body:object) -
     
 def upgradeSiteDevicesFpga(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeSiteDevicesFpga
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-site-devices-fpga
     
     PARAMS
     -----------
@@ -806,7 +806,7 @@ def upgradeSiteDevicesFpga(mist_session:_APISession, site_id:str, body:object) -
     
 def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap", model:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteAvailableDeviceVersions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-site-available-device-versions
     
     PARAMS
     -----------
@@ -836,7 +836,7 @@ def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:
     
 def zeroizeSiteFipsAllAps(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/zeroizeSiteFipsAllAps
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/zeroize-site-fips-all-aps
     
     PARAMS
     -----------
@@ -863,7 +863,7 @@ def zeroizeSiteFipsAllAps(mist_session:_APISession, site_id:str, body:object) ->
     
 def getSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/get-site-device
     
     PARAMS
     -----------
@@ -887,7 +887,7 @@ def getSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIR
     
 def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/update-site-device
     
     PARAMS
     -----------
@@ -915,7 +915,7 @@ def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:
     
 def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/arpFromDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/arp-from-device
     
     PARAMS
     -----------
@@ -943,7 +943,7 @@ def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:obj
     
 def bounceDevicePort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/bounceDevicePort
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/bounce-device-port
     
     PARAMS
     -----------
@@ -971,7 +971,7 @@ def bounceDevicePort(mist_session:_APISession, site_id:str, device_id:str, body:
     
 def cableTestFromSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/cableTestFromSwitch
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/cable-test-from-switch
     
     PARAMS
     -----------
@@ -999,7 +999,7 @@ def cableTestFromSwitch(mist_session:_APISession, site_id:str, device_id:str, bo
     
 def startSiteSwitchRadiusSyntheticTest(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/startSiteSwitchRadiusSyntheticTest
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/start-site-switch-radius-synthetic-test
     
     PARAMS
     -----------
@@ -1027,7 +1027,7 @@ def startSiteSwitchRadiusSyntheticTest(mist_session:_APISession, site_id:str, de
     
 def clearSiteSsrArpCache(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearSiteSsrArpCache
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/clear-site-ssr-arp-cache
     
     PARAMS
     -----------
@@ -1055,7 +1055,7 @@ def clearSiteSsrArpCache(mist_session:_APISession, site_id:str, device_id:str, b
     
 def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearSiteSsrBgpRoutes
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/clear-site-ssr-bgp-routes
     
     PARAMS
     -----------
@@ -1083,7 +1083,7 @@ def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, 
     
 def clearBpduErrosFromPortsOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearBpduErrosFromPortsOnSwitch
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-bpdu-erros-from-ports-on-switch
     
     PARAMS
     -----------
@@ -1111,7 +1111,7 @@ def clearBpduErrosFromPortsOnSwitch(mist_session:_APISession, site_id:str, devic
     
 def clearSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearSiteDeviceMacTable
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/clear-site-device-mac-table
     
     PARAMS
     -----------
@@ -1139,7 +1139,7 @@ def clearSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str
     
 def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearAllLearnedMacsFromPortOnSwitch
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-all-learned-macs-from-port-on-switch
     
     PARAMS
     -----------
@@ -1167,7 +1167,7 @@ def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, d
     
 def clearSiteDevicePolicyHitCount(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearSiteDevicePolicyHitCount
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/clear-site-device-policy-hit-count
     
     PARAMS
     -----------
@@ -1190,7 +1190,7 @@ def clearSiteDevicePolicyHitCount(mist_session:_APISession, site_id:str, device_
     
 def clearSiteDeviceSession(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/clearSiteDeviceSession
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/clear-site-device-session
     
     PARAMS
     -----------
@@ -1218,7 +1218,7 @@ def clearSiteDeviceSession(mist_session:_APISession, site_id:str, device_id:str,
     
 def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str, sort:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceConfigCmd
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/get-site-device-config-cmd
     
     PARAMS
     -----------
@@ -1247,7 +1247,7 @@ def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str,
     
 def GetSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/GetSiteDeviceHaClusterNode
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wan-cluster/get-site-device-ha-cluster-node
     
     PARAMS
     -----------
@@ -1271,7 +1271,7 @@ def GetSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id:
     
 def deleteSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteDeviceHaCluster
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wan-cluster/delete-site-device-ha-cluster
     
     PARAMS
     -----------
@@ -1295,7 +1295,7 @@ def deleteSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:s
     
 def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteDeviceHaCluster
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wan-cluster/create-site-device-ha-cluster
     
     PARAMS
     -----------
@@ -1323,7 +1323,7 @@ def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:s
     
 def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_number:int) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteDeviceImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/delete-site-device-image
     
     PARAMS
     -----------
@@ -1348,7 +1348,7 @@ def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, 
     
 def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str, image_number:int, file:str=None, json:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/addSiteDeviceImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/add-site-device-image
     
     PARAMS
     -----------
@@ -1382,7 +1382,7 @@ def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str,
 
 def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceIotPort
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wireless/get-site-device-iot-port
     
     PARAMS
     -----------
@@ -1406,7 +1406,7 @@ def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -
     
 def setSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/setSiteDeviceIotPort
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wireless/set-site-device-iot-port
     
     PARAMS
     -----------
@@ -1434,7 +1434,7 @@ def setSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str, b
     
 def deleteSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteLocalSwitchPortConfig
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/delete-site-local-switch-port-config
     
     PARAMS
     -----------
@@ -1458,7 +1458,7 @@ def deleteSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, devic
     
 def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteLocalSwitchPortConfig
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/update-site-local-switch-port-config
     
     PARAMS
     -----------
@@ -1486,7 +1486,7 @@ def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, devic
     
 def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/startSiteLocateDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/start-site-locate-device
     
     PARAMS
     -----------
@@ -1514,7 +1514,7 @@ def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, 
     
 def monitorSiteDeviceTraffic(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/monitorSiteDeviceTraffic
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/monitor-site-device-traffic
     
     PARAMS
     -----------
@@ -1542,7 +1542,7 @@ def monitorSiteDeviceTraffic(mist_session:_APISession, site_id:str, device_id:st
     
 def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/pingFromDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/ping-from-device
     
     PARAMS
     -----------
@@ -1570,7 +1570,7 @@ def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:ob
     
 def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/pollSiteSwitchStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/poll-site-switch-stats
     
     PARAMS
     -----------
@@ -1593,7 +1593,7 @@ def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str) ->
     
 def readoptSiteOctermDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/readoptSiteOctermDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/readopt-site-octerm-device
     
     PARAMS
     -----------
@@ -1616,7 +1616,7 @@ def readoptSiteOctermDevice(mist_session:_APISession, site_id:str, device_id:str
     
 def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/releaseSiteSsrDhcpLease
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/release-site-ssr-dhcp-lease
     
     PARAMS
     -----------
@@ -1644,7 +1644,7 @@ def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str
     
 def releaseSiteDeviceDhcpLease(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/releaseSiteDeviceDhcpLease
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/release-site-device-dhcp-lease
     
     PARAMS
     -----------
@@ -1672,7 +1672,7 @@ def releaseSiteDeviceDhcpLease(mist_session:_APISession, site_id:str, device_id:
     
 def reprovisionSiteOctermDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/reprovisionSiteOctermDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/reprovision-site-octerm-device
     
     PARAMS
     -----------
@@ -1695,7 +1695,7 @@ def reprovisionSiteOctermDevice(mist_session:_APISession, site_id:str, device_id
     
 def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceZtpPassword
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/get-site-device-ztp-password
     
     PARAMS
     -----------
@@ -1718,7 +1718,7 @@ def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:st
     
 def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/testSiteSsrDnsResolution
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/test-site-ssr-dns-resolution
     
     PARAMS
     -----------
@@ -1741,7 +1741,7 @@ def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:st
     
 def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/restartSiteDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/restart-site-device
     
     PARAMS
     -----------
@@ -1769,7 +1769,7 @@ def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body
     
 def runSiteSrxTopCommand(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/runSiteSrxTopCommand
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/run-site-srx-top-command
     
     PARAMS
     -----------
@@ -1792,7 +1792,7 @@ def runSiteSrxTopCommand(mist_session:_APISession, site_id:str, device_id:str) -
     
 def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/servicePingFromSsr
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/service-ping-from-ssr
     
     PARAMS
     -----------
@@ -1820,7 +1820,7 @@ def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, bod
     
 def createSiteDeviceShellSession(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteDeviceShellSession
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/create-site-device-shell-session
     
     PARAMS
     -----------
@@ -1843,7 +1843,7 @@ def createSiteDeviceShellSession(mist_session:_APISession, site_id:str, device_i
     
 def showSiteDeviceArpTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceArpTable
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-arp-table
     
     PARAMS
     -----------
@@ -1871,7 +1871,7 @@ def showSiteDeviceArpTable(mist_session:_APISession, site_id:str, device_id:str,
     
 def showSiteDeviceBgpSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceBgpSummary
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-bgp-summary
     
     PARAMS
     -----------
@@ -1899,7 +1899,7 @@ def showSiteDeviceBgpSummary(mist_session:_APISession, site_id:str, device_id:st
     
 def showSiteDeviceDhcpLeases(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceDhcpLeases
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-dhcp-leases
     
     PARAMS
     -----------
@@ -1927,7 +1927,7 @@ def showSiteDeviceDhcpLeases(mist_session:_APISession, site_id:str, device_id:st
     
 def showSiteDeviceEvpnDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceEvpnDatabase
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-evpn-database
     
     PARAMS
     -----------
@@ -1955,7 +1955,7 @@ def showSiteDeviceEvpnDatabase(mist_session:_APISession, site_id:str, device_id:
     
 def showSiteDeviceForwardingTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceForwardingTable
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-forwarding-table
     
     PARAMS
     -----------
@@ -1983,7 +1983,7 @@ def showSiteDeviceForwardingTable(mist_session:_APISession, site_id:str, device_
     
 def showSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteDeviceMacTable
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-mac-table
     
     PARAMS
     -----------
@@ -2011,7 +2011,7 @@ def showSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str,
     
 def showSiteSsrOspfDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrOspfDatabase
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-ospf-database
     
     PARAMS
     -----------
@@ -2039,7 +2039,7 @@ def showSiteSsrOspfDatabase(mist_session:_APISession, site_id:str, device_id:str
     
 def showSiteSsrOspfInterfaces(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrOspfInterfaces
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-ospf-interfaces
     
     PARAMS
     -----------
@@ -2067,7 +2067,7 @@ def showSiteSsrOspfInterfaces(mist_session:_APISession, site_id:str, device_id:s
     
 def showSiteSsrOspfNeighbors(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrOspfNeighbors
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-ospf-neighbors
     
     PARAMS
     -----------
@@ -2095,7 +2095,7 @@ def showSiteSsrOspfNeighbors(mist_session:_APISession, site_id:str, device_id:st
     
 def showSiteSsrOspfSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrOspfSummary
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-ospf-summary
     
     PARAMS
     -----------
@@ -2123,7 +2123,7 @@ def showSiteSsrOspfSummary(mist_session:_APISession, site_id:str, device_id:str,
     
 def showSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrAndSrxRoutes
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-and-srx-routes
     
     PARAMS
     -----------
@@ -2151,7 +2151,7 @@ def showSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str
     
 def showSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrServicePath
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-service-path
     
     PARAMS
     -----------
@@ -2179,7 +2179,7 @@ def showSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str,
     
 def showSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/showSiteSsrAndSrxSessions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-and-srx-sessions
     
     PARAMS
     -----------
@@ -2207,7 +2207,7 @@ def showSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:s
     
 def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteDeviceSnapshot
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/create-site-device-snapshot
     
     PARAMS
     -----------
@@ -2230,7 +2230,7 @@ def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:st
     
 def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/uploadSiteDeviceSupportFile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/upload-site-device-support-file
     
     PARAMS
     -----------
@@ -2258,7 +2258,7 @@ def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id
     
 def getSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceSyntheticTest
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/get-site-device-synthetic-test
     
     PARAMS
     -----------
@@ -2282,7 +2282,7 @@ def getSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_id:
     
 def triggerSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/triggerSiteDeviceSyntheticTest
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/trigger-site-device-synthetic-test
     
     PARAMS
     -----------
@@ -2310,7 +2310,7 @@ def triggerSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device
     
 def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/tracerouteFromDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/traceroute-from-device
     
     PARAMS
     -----------
@@ -2338,7 +2338,7 @@ def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, b
     
 def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/stopSiteLocateDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/stop-site-locate-device
     
     PARAMS
     -----------
@@ -2361,7 +2361,7 @@ def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str) -
     
 def upgradeDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-device
     
     PARAMS
     -----------
@@ -2389,7 +2389,7 @@ def upgradeDevice(mist_session:_APISession, site_id:str, device_id:str, body:obj
     
 def upgradeDeviceBios(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeDeviceBios
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-device-bios
     
     PARAMS
     -----------
@@ -2417,7 +2417,7 @@ def upgradeDeviceBios(mist_session:_APISession, site_id:str, device_id:str, body
     
 def upgradeDeviceFPGA(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeDeviceFPGA
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-device-f-p-g-a
     
     PARAMS
     -----------
@@ -2445,7 +2445,7 @@ def upgradeDeviceFPGA(mist_session:_APISession, site_id:str, device_id:str, body
     
 def getSiteDeviceVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteDeviceVirtualChassis
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/get-site-device-virtual-chassis
     
     PARAMS
     -----------
@@ -2469,7 +2469,7 @@ def getSiteDeviceVirtualChassis(mist_session:_APISession, site_id:str, device_id
     
 def deleteSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteVirtualChassis
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/delete-site-virtual-chassis
     
     PARAMS
     -----------
@@ -2493,7 +2493,7 @@ def deleteSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:st
     
 def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteVirtualChassis
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/create-site-virtual-chassis
     
     PARAMS
     -----------
@@ -2521,7 +2521,7 @@ def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:st
     
 def updateSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteVirtualChassisMember
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/update-site-virtual-chassis-member
     
     PARAMS
     -----------
@@ -2549,7 +2549,7 @@ def updateSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device
     
 def setSiteVcPort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/setSiteVcPort
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/set-site-vc-port
     
     PARAMS
     -----------

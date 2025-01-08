@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteLanguages(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteLanguages
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/list-site-languages
     
     PARAMS
     -----------

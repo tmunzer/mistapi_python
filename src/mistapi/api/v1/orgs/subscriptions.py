@@ -16,7 +16,7 @@ import deprecation
 
 def unsubscribeOrgAlarmsReports(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unsubscribeOrgAlarmsReports
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/subscriptions/unsubscribe-org-alarms-reports
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def unsubscribeOrgAlarmsReports(mist_session:_APISession, org_id:str) -> _APIRes
     
 def subscribeOrgAlarmsReports(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/subscribeOrgAlarmsReports
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/subscriptions/subscribe-org-alarms-reports
     
     PARAMS
     -----------

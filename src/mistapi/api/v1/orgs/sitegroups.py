@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgSiteGroups(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSiteGroups
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/list-org-site-groups
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgSiteGroups(mist_session:_APISession, org_id:str, limit:int=100, page:
     
 def createOrgSiteGroup(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgSiteGroup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/create-org-site-group
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgSiteGroup(mist_session:_APISession, org_id:str, body:object) -> _AP
     
 def getOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSiteGroup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/get-org-site-group
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> _
     
 def deleteOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSiteGroup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/delete-org-site-group
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -
     
 def updateOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgSiteGroup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/update-org-site-group
     
     PARAMS
     -----------

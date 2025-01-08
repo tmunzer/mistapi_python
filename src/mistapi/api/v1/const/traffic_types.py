@@ -16,7 +16,7 @@ import deprecation
 
 def listTrafficTypes(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listTrafficTypes
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/list-traffic-types
     
     PARAMS
     -----------

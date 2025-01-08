@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None, mac:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgJsiDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/list-org-jsi-devices
     
     PARAMS
     -----------
@@ -52,7 +52,7 @@ def listOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:
     
 def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/adoptOrgJsiDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/adopt-org-jsi-device
     
     PARAMS
     -----------
@@ -75,7 +75,7 @@ def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgJsiDeviceShellSession
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/create-org-jsi-device-shell-session
     
     PARAMS
     -----------
@@ -98,7 +98,7 @@ def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_
     
 def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeOrgJsiDevice
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-jsi-device
     
     PARAMS
     -----------
@@ -126,7 +126,7 @@ def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, bo
     
 def listOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgJsiPastPurchases
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/list-org-jsi-past-purchases
     
     PARAMS
     -----------

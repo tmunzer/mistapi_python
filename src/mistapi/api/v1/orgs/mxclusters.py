@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgMxEdgeClusters(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdgeClusters
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxclusters/list-org-mx-edge-clusters
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgMxEdgeClusters(mist_session:_APISession, org_id:str, limit:int=100, p
     
 def createOrgMxEdgeCluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgMxEdgeCluster
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxclusters/create-org-mx-edge-cluster
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgMxEdgeCluster(mist_session:_APISession, org_id:str, body:object) ->
     
 def getOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeCluster
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxclusters/get-org-mx-edge-cluster
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) 
     
 def deleteOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgMxEdgeCluster
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxclusters/delete-org-mx-edge-cluster
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:st
     
 def updateOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgMxEdgeCluster
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxclusters/update-org-mx-edge-cluster
     
     PARAMS
     -----------

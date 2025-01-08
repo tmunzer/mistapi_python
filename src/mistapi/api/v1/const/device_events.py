@@ -16,7 +16,7 @@ import deprecation
 
 def listDeviceEventsDefinitions(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listDeviceEventsDefinitions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/events/list-device-events-definitions
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgIdpProfiles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgIdpProfiles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/list-org-idp-profiles
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgIdpProfiles(mist_session:_APISession, org_id:str, limit:int=100, page
     
 def createOrgIdpProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgIdpProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/create-org-idp-profile
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgIdpProfile(mist_session:_APISession, org_id:str, body:object) -> _A
     
 def getOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgIdpProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/get-org-idp-profile
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) ->
     
 def deleteOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgIdpProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/delete-org-idp-profile
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str)
     
 def updateOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgIdpProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/update-org-idp-profile
     
     PARAMS
     -----------

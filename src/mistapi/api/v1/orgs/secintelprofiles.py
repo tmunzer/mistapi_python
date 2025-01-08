@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgSecIntelProfiles(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSecIntelProfiles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/list-org-sec-intel-profiles
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listOrgSecIntelProfiles(mist_session:_APISession, org_id:str) -> _APIRespons
     
 def createOrgSecIntelProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgSecIntelProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/create-org-sec-intel-profile
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def createOrgSecIntelProfile(mist_session:_APISession, org_id:str, body:object) 
     
 def getOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSecIntelProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/get-org-sec-intel-profile
     
     PARAMS
     -----------
@@ -90,7 +90,7 @@ def getOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_
     
 def deleteOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSecIntelProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/delete-org-sec-intel-profile
     
     PARAMS
     -----------
@@ -114,7 +114,7 @@ def deleteOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofi
     
 def updateOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgSecIntelProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/update-org-sec-intel-profile
     
     PARAMS
     -----------

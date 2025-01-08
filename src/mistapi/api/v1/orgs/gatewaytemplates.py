@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgGatewayTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgGatewayTemplates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/gateway-templates/list-org-gateway-templates
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgGatewayTemplates(mist_session:_APISession, org_id:str, limit:int=100,
     
 def createOrgGatewayTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgGatewayTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/gateway-templates/create-org-gateway-template
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgGatewayTemplate(mist_session:_APISession, org_id:str, body:object) 
     
 def getOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgGatewayTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/gateway-templates/get-org-gateway-template
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_
     
 def deleteOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgGatewayTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/gateway-templates/delete-org-gateway-template
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytempla
     
 def updateOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgGatewayTemplate
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/gateway-templates/update-org-gateway-template
     
     PARAMS
     -----------

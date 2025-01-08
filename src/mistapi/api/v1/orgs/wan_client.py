@@ -16,7 +16,7 @@ import deprecation
 
 def countOrgWanClientEvents(mist_session:_APISession, org_id:str, distinct:str="type", type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgWanClientEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wan/count-org-wan-client-events
     
     PARAMS
     -----------

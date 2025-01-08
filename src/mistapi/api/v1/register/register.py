@@ -16,7 +16,7 @@ import deprecation
 
 def registerNewAdmin(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/registerNewAdmin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/register-new-admin
     
     PARAMS
     -----------

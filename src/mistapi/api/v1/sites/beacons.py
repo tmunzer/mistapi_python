@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteBeacons(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteBeacons
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/beacons/list-site-beacons
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteBeacons(mist_session:_APISession, site_id:str, limit:int=100, page:i
     
 def createSiteBeacon(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteBeacon
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/beacons/create-site-beacon
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteBeacon(mist_session:_APISession, site_id:str, body:object) -> _API
     
 def getSiteBeacon(mist_session:_APISession, site_id:str, beacon_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteBeacon
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/beacons/get-site-beacon
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getSiteBeacon(mist_session:_APISession, site_id:str, beacon_id:str) -> _APIR
     
 def deleteSiteBeacons(mist_session:_APISession, site_id:str, beacon_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteBeacons
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/beacons/delete-site-beacons
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteSiteBeacons(mist_session:_APISession, site_id:str, beacon_id:str) -> _
     
 def updateSiteBeacons(mist_session:_APISession, site_id:str, beacon_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteBeacons
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/beacons/update-site-beacons
     
     PARAMS
     -----------

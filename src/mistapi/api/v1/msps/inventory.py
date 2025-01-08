@@ -16,7 +16,7 @@ import deprecation
 
 def getMspInventoryByMac(mist_session:_APISession, msp_id:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getMspInventoryByMac
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/inventory/get-msp-inventory-by-mac
     
     PARAMS
     -----------

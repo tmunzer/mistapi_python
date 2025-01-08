@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgSsoRoles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgSsoRoles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso-roles/list-org-sso-roles
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgSsoRoles(mist_session:_APISession, org_id:str, limit:int=100, page:in
     
 def createOrgSsoRole(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgSsoRole
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso-roles/create-org-sso-role
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgSsoRole(mist_session:_APISession, org_id:str, body:object) -> _APIR
     
 def getOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSsoRole
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso-roles/get-org-sso-role
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIR
     
 def deleteOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgSsoRole
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso-roles/delete-org-sso-role
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _A
     
 def updateOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgSsoRole
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso-roles/update-org-sso-role
     
     PARAMS
     -----------

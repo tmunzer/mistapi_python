@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteOtherDevices(mist_session:_APISession, site_id:str, vendor:str=None, mac:str=None, serial:str=None, model:str=None, name:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteOtherDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/others/list-site-other-devices
     
     PARAMS
     -----------
@@ -56,7 +56,7 @@ def listSiteOtherDevices(mist_session:_APISession, site_id:str, vendor:str=None,
     
 def countSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="mac", type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteOtherDeviceEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/others/count-site-other-device-events
     
     PARAMS
     -----------
@@ -94,7 +94,7 @@ def countSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, distinct:s
     
 def searchSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, mac:str=None, device_mac:str=None, vendor:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteOtherDeviceEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/others/search-site-other-device-events
     
     PARAMS
     -----------

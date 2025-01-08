@@ -16,7 +16,7 @@ import deprecation
 
 def listWebhookTopics(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listWebhookTopics
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/list-webhook-topics
     
     PARAMS
     -----------

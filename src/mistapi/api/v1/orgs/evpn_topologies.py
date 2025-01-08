@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgEvpnTopologies(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgEvpnTopologies
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/list-org-evpn-topologies
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgEvpnTopologies(mist_session:_APISession, org_id:str, limit:int=100, p
     
 def createOrgEvpnTopology(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgEvpnTopology
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/create-org-evpn-topology
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgEvpnTopology(mist_session:_APISession, org_id:str, body:object) -> 
     
 def getOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgEvpnTopology
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/get-org-evpn-topology
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:st
     
 def deleteOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgEvpnTopology
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/delete-org-evpn-topology
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id
     
 def updateOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgEvpnTopology
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/update-org-evpn-topology
     
     PARAMS
     -----------

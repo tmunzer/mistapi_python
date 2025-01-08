@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgAssets(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAssets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/list-org-assets
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgAssets(mist_session:_APISession, org_id:str, limit:int=100, page:int=
     
 def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgAsset
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/create-org-asset
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     
 def importOrgAssetsFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgAssets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/import-org-assets
     
     PARAMS
     -----------
@@ -103,7 +103,7 @@ def importOrgAssetsFile(mist_session:_APISession, org_id:str, file:str=None) -> 
 
 def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgAssets
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/import-org-assets
     
     PARAMS
     -----------
@@ -130,7 +130,7 @@ def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
 def getOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgAsset
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/get-org-asset
     
     PARAMS
     -----------
@@ -154,7 +154,7 @@ def getOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIRespo
     
 def deleteOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgAsset
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/delete-org-asset
     
     PARAMS
     -----------
@@ -178,7 +178,7 @@ def deleteOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIRe
     
 def updateOrgAsset(mist_session:_APISession, org_id:str, asset_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgAsset
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/update-org-asset
     
     PARAMS
     -----------

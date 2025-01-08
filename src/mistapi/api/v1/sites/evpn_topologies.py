@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteEvpnTopologies(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteEvpnTopologies
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/list-site-evpn-topologies
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listSiteEvpnTopologies(mist_session:_APISession, site_id:str) -> _APIRespons
     
 def createSiteEvpnTopology(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteEvpnTopology
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/create-site-evpn-topology
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def createSiteEvpnTopology(mist_session:_APISession, site_id:str, body:object) -
     
 def getSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteEvpnTopology
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/get-site-evpn-topology
     
     PARAMS
     -----------
@@ -90,7 +90,7 @@ def getSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:
     
 def deleteSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteEvpnTopology
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/delete-site-evpn-topology
     
     PARAMS
     -----------
@@ -114,7 +114,7 @@ def deleteSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_
     
 def updateSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteEvpnTopology
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/update-site-evpn-topology
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def getOrgSettings(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgSettings
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/get-org-settings
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def getOrgSettings(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgSettings
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/update-org-settings
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def deleteOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgWirelessClientsBlocklist
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/delete-org-wireless-clients-blocklist
     
     PARAMS
     -----------
@@ -89,7 +89,7 @@ def deleteOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str) -> _
     
 def createOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgWirelessClientsBlocklist
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/create-org-wireless-clients-blocklist
     
     PARAMS
     -----------
@@ -116,7 +116,7 @@ def createOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str, body
     
 def deleteOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgCradlepointConnection
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cradlepoint/delete-org-cradlepoint-connection
     
     PARAMS
     -----------
@@ -139,7 +139,7 @@ def deleteOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _API
     
 def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/setupOrgCradlepointConnectionToMist
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cradlepoint/setup-org-cradlepoint-connection-to-mist
     
     PARAMS
     -----------
@@ -166,7 +166,7 @@ def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, bo
     
 def updateOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgCradlepointConnectionToMist
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cradlepoint/update-org-cradlepoint-connection-to-mist
     
     PARAMS
     -----------
@@ -193,7 +193,7 @@ def updateOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, b
     
 def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/syncOrgCradlepointRouters
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cradlepoint/sync-org-cradlepoint-routers
     
     PARAMS
     -----------
@@ -215,7 +215,7 @@ def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str) -> _APIRespo
     
 def getOrgJseInfo(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgJseInfo
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jse/get-org-jse-info
     
     PARAMS
     -----------
@@ -238,7 +238,7 @@ def getOrgJseInfo(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def getOrgJsecCredential(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgJsecCredential
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jse/get-org-jsec-credential
     
     PARAMS
     -----------
@@ -261,7 +261,7 @@ def getOrgJsecCredential(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def deleteOrgJsecCredential(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgJsecCredential
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jse/delete-org-jsec-credential
     
     PARAMS
     -----------
@@ -284,7 +284,7 @@ def deleteOrgJsecCredential(mist_session:_APISession, org_id:str) -> _APIRespons
     
 def setupOrgJsecCredential(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/setupOrgJsecCredential
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jse/setup-org-jsec-credential
     
     PARAMS
     -----------
@@ -311,7 +311,7 @@ def setupOrgJsecCredential(mist_session:_APISession, org_id:str, body:object) ->
     
 def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/linkOrgToJuniperJuniperAccount
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/link-org-to-juniper-juniper-account
     
     PARAMS
     -----------
@@ -338,7 +338,7 @@ def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:ob
     
 def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unlinkOrgFromJuniperCustomerId
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/unlink-org-from-juniper-customer-id
     
     PARAMS
     -----------
@@ -361,7 +361,7 @@ def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> _API
     
 def getOrgNacCrl(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgNacCrl
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-crl/get-org-nac-crl
     
     PARAMS
     -----------
@@ -384,7 +384,7 @@ def getOrgNacCrl(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def importOrgNacCrlFile(mist_session:_APISession, org_id:str, file:str=None, json:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importOrgNacCrl
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-crl/import-org-nac-crl
     
     PARAMS
     -----------
@@ -417,7 +417,7 @@ def importOrgNacCrlFile(mist_session:_APISession, org_id:str, file:str=None, jso
 
 def deleteOrgNacCrl(mist_session:_APISession, org_id:str, naccrl_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgNacCrl
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-crl/delete-org-nac-crl
     
     PARAMS
     -----------
@@ -441,7 +441,7 @@ def deleteOrgNacCrl(mist_session:_APISession, org_id:str, naccrl_id:str) -> _API
     
 def getOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgMistScep
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/get-org-mist-scep
     
     PARAMS
     -----------
@@ -464,7 +464,7 @@ def getOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def disableOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/disableOrgMistScep
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/disable-org-mist-scep
     
     PARAMS
     -----------
@@ -487,7 +487,7 @@ def disableOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def updateOrgMistScep(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgMistScep
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/update-org-mist-scep
     
     PARAMS
     -----------
@@ -514,7 +514,7 @@ def updateOrgMistScep(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def getOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, sso_name_id:str=None, serial_number:str=None, device_id:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgIssuedClientCertificates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/get-org-issued-client-certificates
     
     PARAMS
     -----------
@@ -546,7 +546,7 @@ def getOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, sso_nam
     
 def revokeOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/revokeOrgIssuedClientCertificates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/revoke-org-issued-client-certificates
     
     PARAMS
     -----------
@@ -573,7 +573,7 @@ def revokeOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, body
     
 def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/setOrgCustomBucket
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/set-org-custom-bucket
     
     PARAMS
     -----------
@@ -600,7 +600,7 @@ def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _AP
     
 def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/verifyOrgCustomBucket
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/verify-org-custom-bucket
     
     PARAMS
     -----------
@@ -627,7 +627,7 @@ def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> 
     
 def getOrgZscalerCredential(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgZscalerCredential
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting-zscaler/get-org-zscaler-credential
     
     PARAMS
     -----------
@@ -650,7 +650,7 @@ def getOrgZscalerCredential(mist_session:_APISession, org_id:str) -> _APIRespons
     
 def deleteOrgZscalerCredential(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgZscalerCredential
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting-zscaler/delete-org-zscaler-credential
     
     PARAMS
     -----------
@@ -673,7 +673,7 @@ def deleteOrgZscalerCredential(mist_session:_APISession, org_id:str) -> _APIResp
     
 def setupOrgZscalerCredential(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/setupOrgZscalerCredential
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting-zscaler/setup-org-zscaler-credential
     
     PARAMS
     -----------
@@ -700,7 +700,7 @@ def setupOrgZscalerCredential(mist_session:_APISession, org_id:str, body:object)
     
 def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:str, forward:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgOauthAppLinkedStatus
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/get-org-oauth-app-linked-status
     
     PARAMS
     -----------
@@ -730,7 +730,7 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     
 def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/addOrgOauthAppAccounts
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/add-org-oauth-app-accounts
     
     PARAMS
     -----------
@@ -759,7 +759,7 @@ def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, b
     
 def updateOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgOauthAppAccounts
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/update-org-oauth-app-accounts
     
     PARAMS
     -----------
@@ -788,7 +788,7 @@ def updateOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str
     
 def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_name:str, account_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgOauthAppAuthorization
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/delete-org-oauth-app-authorization
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/list-org-devices
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-devices
     
     PARAMS
     -----------
@@ -104,7 +104,7 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     
 def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="model", site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgDeviceEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-device-events
     
     PARAMS
     -----------
@@ -154,7 +154,7 @@ def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="mod
     
 def searchOrgDeviceEvents(mist_session:_APISession, org_id:str, mac:str=None, model:str=None, device_type:str="ap", text:str=None, timestamp:str=None, type:str=None, last_by:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgDeviceEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-device-events
     
     PARAMS
     -----------
@@ -202,7 +202,7 @@ def searchOrgDeviceEvents(mist_session:_APISession, org_id:str, mac:str=None, mo
     
 def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap", distinct:str=None, start:int=None, end:int=None, limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgDeviceLastConfigs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-device-last-configs
     
     PARAMS
     -----------
@@ -238,7 +238,7 @@ def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap
     
 def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap", mac:str=None, name:str=None, version:str=None, start:int=None, end:int=None, limit:int=100, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgDeviceLastConfigs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-device-last-configs
     
     PARAMS
     -----------
@@ -280,7 +280,7 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="a
     
 def listOrgApsMacs(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgApsMacs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/list-org-aps-macs
     
     PARAMS
     -----------
@@ -310,7 +310,7 @@ def listOrgApsMacs(mist_session:_APISession, org_id:str, limit:int=100, page:int
     
 def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, mxedge_ids:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_bandwidth:int=None, band_5_bandwidth:int=None, band_6_bandwidth:int=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-devices
     
     PARAMS
     -----------
@@ -387,7 +387,7 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     
 def listOrgDeviceUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgDeviceUpgrades
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-device-upgrades
     
     PARAMS
     -----------
@@ -410,7 +410,7 @@ def listOrgDeviceUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def upgradeOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeOrgDevices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-devices
     
     PARAMS
     -----------
@@ -437,7 +437,7 @@ def upgradeOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def getOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgDeviceUpgrade
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/get-org-device-upgrade
     
     PARAMS
     -----------
@@ -461,7 +461,7 @@ def getOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     
 def listOrgAvailableDeviceVersions(mist_session:_APISession, org_id:str, type:str="ap", model:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAvailableDeviceVersions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-available-device-versions
     
     PARAMS
     -----------

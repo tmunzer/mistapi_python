@@ -16,7 +16,7 @@ import deprecation
 
 def listMspAdmins(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspAdmins
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/admins/list-msp-admins
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listMspAdmins(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
 def getMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getMspAdmin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/admins/get-msp-admin
     
     PARAMS
     -----------
@@ -63,7 +63,7 @@ def getMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> _APIRespo
     
 def revokeMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/revokeMspAdmin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/admins/revoke-msp-admin
     
     PARAMS
     -----------
@@ -87,7 +87,7 @@ def revokeMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str) -> _APIRe
     
 def updateMspAdmin(mist_session:_APISession, msp_id:str, admin_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateMspAdmin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/admins/update-msp-admin
     
     PARAMS
     -----------

@@ -16,7 +16,7 @@ import deprecation
 
 def generateSecretFor2faVerification(mist_session:_APISession, by:str="qrcode") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/generateSecretFor2faVerification
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/mfa/generate-secret-for2fa-verification
     
     PARAMS
     -----------
@@ -41,7 +41,7 @@ def generateSecretFor2faVerification(mist_session:_APISession, by:str="qrcode") 
     
 def verifyTwoFactor(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/verifyTwoFactor
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/mfa/verify-two-factor
     
     PARAMS
     -----------

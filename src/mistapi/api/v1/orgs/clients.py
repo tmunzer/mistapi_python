@@ -16,7 +16,7 @@ import deprecation
 
 def countOrgWirelessClients(mist_session:_APISession, org_id:str, distinct:str="device", mac:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, vlan:str=None, ssid:str=None, ip_address:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgWirelessClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/count-org-wireless-clients
     
     PARAMS
     -----------
@@ -72,7 +72,7 @@ def countOrgWirelessClients(mist_session:_APISession, org_id:str, distinct:str="
     
 def searchOrgWirelessClientEvents(mist_session:_APISession, org_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, nacrule_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgWirelessClientEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-client-events
     
     PARAMS
     -----------
@@ -124,7 +124,7 @@ def searchOrgWirelessClientEvents(mist_session:_APISession, org_id:str, type:str
     
 def searchOrgWirelessClients(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, ip_address:str=None, hostname:str=None, band:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, psk_id:str=None, psk_name:str=None, username:str=None, vlan:str=None, ssid:str=None, text:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgWirelessClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-clients
     
     PARAMS
     -----------
@@ -188,7 +188,7 @@ def searchOrgWirelessClients(mist_session:_APISession, org_id:str, site_id:str=N
     
 def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distinct:str="device", ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgWirelessClientsSessions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/count-org-wireless-clients-sessions
     
     PARAMS
     -----------
@@ -243,7 +243,7 @@ def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distin
     
 def searchOrgWirelessClientSessions(mist_session:_APISession, org_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_username:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, psk_id:str=None, psk_name:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgWirelessClientSessions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-client-sessions
     
     PARAMS
     -----------
@@ -300,7 +300,7 @@ def searchOrgWirelessClientSessions(mist_session:_APISession, org_id:str, ap:str
     
 def reauthOrgDot1xWirelessClient(mist_session:_APISession, org_id:str, client_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/reauthOrgDot1xWirelessClient
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/reauth-org-dot1x-wireless-client
     
     PARAMS
     -----------

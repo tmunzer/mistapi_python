@@ -2,6 +2,7 @@ import os
 import shutil
 import sys
 import yaml
+import re
 
 openapi_file = "./mist_openapi/mist.openapi.yml"
 openapi_json = None
@@ -13,10 +14,10 @@ var_translation = {
     "number": "float",
     "string": "str",
     "array": "list",
-    "boolean": "bool"
+    "boolean": "bool",
 }
 
-file_header="""'''
+file_header = """'''
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -29,26 +30,27 @@ file_header="""'''
 '''
 """
 
+
 def fprint(message: str):
     print(f"{message}".ljust(80))
 
 
-def gen_param(data:dict):
+def gen_param(data: dict):
     tmp = {}
     if data:
         if data["schema"].get("$ref"):
-                ref_name = data["schema"]["$ref"].split("/")[-1:][0]
-                ref = openapi_schemas.get(ref_name)
-                tmp = {
-                    "name": data["name"].replace(" ", "_").replace("-", "_"),
-                    "required": data.get("required", False),
-                    "enum": ref.get("enum", None),
-                    "type": ref.get("type"),
-                    "description": data.get("description"),
-                    "default": ref.get("default"),
-                    "minimum": ref.get("minimum"),
-                    "maximum": ref.get("maximum")
-                }
+            ref_name = data["schema"]["$ref"].split("/")[-1:][0]
+            ref = openapi_schemas.get(ref_name)
+            tmp = {
+                "name": data["name"].replace(" ", "_").replace("-", "_"),
+                "required": data.get("required", False),
+                "enum": ref.get("enum", None),
+                "type": ref.get("type"),
+                "description": data.get("description"),
+                "default": ref.get("default"),
+                "minimum": ref.get("minimum"),
+                "maximum": ref.get("maximum"),
+            }
         else:
             tmp = {
                 "name": data["name"].replace(" ", "_").replace("-", "_"),
@@ -60,7 +62,6 @@ def gen_param(data:dict):
                 "maximum": data["schema"].get("maximum"),
             }
     return tmp
-
 
 
 ##################################
@@ -82,17 +83,18 @@ def _init_api_file(file_path: str, file_name: str, import_path: list = []):
     api_file = os.path.join(file_path, file_name)
     init_file = os.path.join(file_path, "__init__.py")
     file_created = _create_or_append_file(
-        f"{api_file}.py", 
+        f"{api_file}.py",
         f"""from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
-""", create_only=True)
+""",
+        create_only=True,
+    )
     if file_created:
         import_from = f"mistapi.{'.'.join(import_path)}"
         if import_from.endswith("."):
             import_from = import_from[:-1]
-        _create_or_append_file(
-            init_file, f"from {import_from} import {file_name}\r\n")
+        _create_or_append_file(init_file, f"from {import_from} import {file_name}\r\n")
 
 
 def _init_folder(folder_path: str, folder_name: str, import_path: list = []):
@@ -105,7 +107,8 @@ def _init_folder(folder_path: str, folder_name: str, import_path: list = []):
             import_from = import_from[:-1]
         if folder_path != root_folder:
             _create_or_append_file(
-                init_file, f"from {import_from} import {folder_name}\r\n")
+                init_file, f"from {import_from} import {folder_name}\r\n"
+            )
 
 
 def _gen_folder_and_file_paths(endpoint: str):
@@ -129,8 +132,9 @@ def _gen_folder_and_file_paths(endpoint: str):
     else:
         folder_path_parts = endpoint_path[0:3]
         file_name = endpoint_path[2:3][0]
-    
-    if file_name=="128routers": file_name="ssr"
+
+    if file_name == "128routers":
+        file_name = "ssr"
     return folder_path_parts, file_name
 
 
@@ -155,7 +159,7 @@ def _gen_code_params_default_value(param: object):
             if param["type"] == "string":
                 code_default = f"=\"{param['default']}\""
             elif param["type"] == "boolean":
-                if param['default'] == "true":
+                if param["default"] == "true":
                     code_default = "=True"
                 else:
                     code_default = "=False"
@@ -174,13 +178,14 @@ def _gen_code_params(endpoint_params: list, operation_id: str):
         ptype = var_translation.get(ptype_src, "any")
         if ptype == "any":
             fprint(
-                f"Unable to convert var type {ptype_src} (opid: {operation_id}, param {param['name']})")
-            #print(endpoint_params)
+                f"Unable to convert var type {ptype_src} (opid: {operation_id}, param {param['name']})"
+            )
+            # print(endpoint_params)
         code_params += f", {param['name']}:{ptype}"
 
         code_params_desc += f"\r\n    {param['name']} : {ptype}"
         if param.get("enum"):
-            code_params_desc += str(param['enum']).replace("[", "{").replace("]","}")
+            code_params_desc += str(param["enum"]).replace("[", "{").replace("]", "}")
         if param.get("default"):
             code_params_desc += f", default: {param['default']}"
         if param.get("description"):
@@ -188,20 +193,44 @@ def _gen_code_params(endpoint_params: list, operation_id: str):
         code_params += _gen_code_params_default_value(param)
     return code_params, code_params_desc
 
-def _gen_description_property(property_data:dict):
+
+def _gen_description_property(property_data: dict):
     property_type = property_data["property_type"]
     property_desc = ""
     if property_data.get("property_enum"):
-        property_type = str(property_data["property_enum"]).replace("[", "{").replace("]","}")
+        property_type = (
+            str(property_data["property_enum"]).replace("[", "{").replace("]", "}")
+        )
     if property_data.get("property_default"):
         property_type += f", default: {property_data['property_default']}"
     if property_data.get("property_desc"):
         property_desc = f"\r\n        {property_data['property_desc']}"
     return property_type, property_desc
 
-def _gen_description(operation_id: str, desc_path_params: str, desc_query_params: str = "", with_body:bool=False, multipart_form_data:dict={}):
+
+def _process_tags(tags:list):
+    result = []
+    splitted_tag = tags[0].split(" ", 1)
+    result.append(splitted_tag[0].strip().lower())
+    if len(splitted_tag)>1:
+        for subcat in splitted_tag[1].split(" - "):
+            result.append(subcat.strip().replace(" ", "-").lower())
+    return "/".join(result)
+
+
+def _gen_description(
+    operation_id: str,
+    tags: list,
+    desc_path_params: str,
+    desc_query_params: str = "",
+    with_body: bool = False,
+    multipart_form_data: dict = {},
+):
+    r = '(?<!^)(?=[A-Z])'
+    operation = re.sub( r, '-', operation_id ).lower()
+    tags_in_url = _process_tags(tags)
     description = f"""    \"\"\"
-    API doc: https://doc.mist-lab.fr/#operation/{operation_id}
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/{tags_in_url}/{operation}
     
     PARAMS
     -----------
@@ -214,33 +243,39 @@ def _gen_description(operation_id: str, desc_path_params: str, desc_query_params
     PATH PARAMS
     -----------{desc_path_params}        
     """
-        
+
     if desc_query_params:
         description += f"""
     QUERY PARAMS
     ------------{desc_query_params}        
     """
-        
+
     if with_body or multipart_form_data:
         description += f"""
     BODY PARAMS
     -----------"""
         if with_body:
             description += f"\r\n    body : dict\r\n        JSON object to send to Mist Cloud (see API doc above for more details)"
-            
+
         if multipart_form_data:
             for key in multipart_form_data:
                 if key in ["csv", "file"]:
                     description += f"\r\n    {key} : {multipart_form_data[key]['property_type']}\r\n        path to the file to upload. {multipart_form_data[key]['property_desc']}"
-                    
+
                 else:
-                    property_type, property_desc = _gen_description_property(multipart_form_data[key])
+                    property_type, property_desc = _gen_description_property(
+                        multipart_form_data[key]
+                    )
                     description += f"\r\n    {key} : {property_type}{property_desc}"
                     if multipart_form_data[key]["property_childs"]:
                         for child in multipart_form_data[key]["property_childs"]:
-                            property_type, property_desc = _gen_description_property(multipart_form_data[key]["property_childs"][child])
-                            description += f"\r\n        {child} : {property_type}{property_desc}"
-        description+="""
+                            property_type, property_desc = _gen_description_property(
+                                multipart_form_data[key]["property_childs"][child]
+                            )
+                            description += (
+                                f"\r\n        {child} : {property_type}{property_desc}"
+                            )
+        description += """
     """
     description += """
     RETURN
@@ -258,18 +293,23 @@ def _gen_query_code(query_params: list):
             code += f"\r\n    if {param['name']}: query_params[\"{param['name']}\"]={param['name']}"
     return code
 
+
 ########
 # CRUDS
-def _create_get_deprecated_device_events(operation_id: str, endpoint_path: str, path_params: list, query_params: list, folder_path: str, file_name: str):
-    code_path_params, desc_path_params = _gen_code_params(
-        path_params, operation_id)
-    code_query_params, desc_query_params = _gen_code_params(
-        query_params, operation_id)
+def _create_get_deprecated_device_events(
+    operation_id: str,
+    endpoint_path: str,
+    path_params: list,
+    query_params: list,
+    folder_path: str,
+    file_name: str,
+):
+    code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
+    code_query_params, desc_query_params = _gen_code_params(query_params, operation_id)
     code_query = _gen_query_code(query_params)
-    code_desc = _gen_description(
-        operation_id, desc_path_params, desc_query_params)
+    code_desc = _gen_description(operation_id, desc_path_params, desc_query_params)
 
-    old_operation_id = operation_id.replace("DeviceEvents", "DevicesEvents", 1 )
+    old_operation_id = operation_id.replace("DeviceEvents", "DevicesEvents", 1)
 
     code = f"""
 @deprecation.deprecated(deprecated_in="0.45.0", removed_in="0.60.0", current_version="{version}", details="function replaced with {operation_id}")  
@@ -284,16 +324,29 @@ def {old_operation_id}(mist_session:_APISession{code_path_params}{code_query_par
     with open(file, "a+") as f:
         f.write(code)
 
-def _create_get(operation_id: str, endpoint_path: str, path_params: list, query_params: list, folder_path: str, file_name: str):
+
+def _create_get(
+    operation_id: str,
+    tags: list,
+    endpoint_path: str,
+    path_params: list,
+    query_params: list,
+    folder_path: str,
+    file_name: str,
+):
     if operation_id.startswith("DeviceEvents"):
-        _create_get_deprecated_device_events(operation_id, endpoint_path, path_params, query_params, folder_path, file_name)
-    code_path_params, desc_path_params = _gen_code_params(
-        path_params, operation_id)
-    code_query_params, desc_query_params = _gen_code_params(
-        query_params, operation_id)
+        _create_get_deprecated_device_events(
+            operation_id,
+            endpoint_path,
+            path_params,
+            query_params,
+            folder_path,
+            file_name,
+        )
+    code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
+    code_query_params, desc_query_params = _gen_code_params(query_params, operation_id)
     code_query = _gen_query_code(query_params)
-    code_desc = _gen_description(
-        operation_id, desc_path_params, desc_query_params)
+    code_desc = _gen_description(operation_id, tags, desc_path_params, desc_query_params)
 
     code = f"""
 def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
@@ -308,14 +361,19 @@ def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}
         f.write(code)
 
 
-def _create_delete(operation_id: str, endpoint_path: str, path_params: list, query_params: list, folder_path: str, file_name: str):
-    code_path_params, desc_path_params = _gen_code_params(
-        path_params, operation_id)
-    code_query_params, desc_query_params = _gen_code_params(
-        query_params, operation_id)
+def _create_delete(
+    operation_id: str,
+    tags: list,
+    endpoint_path: str,
+    path_params: list,
+    query_params: list,
+    folder_path: str,
+    file_name: str,
+):
+    code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
+    code_query_params, desc_query_params = _gen_code_params(query_params, operation_id)
     code_query = _gen_query_code(query_params)
-    code_desc = _gen_description(
-        operation_id, desc_path_params, desc_query_params)
+    code_desc = _gen_description(operation_id, tags, desc_path_params, desc_query_params)
 
     code = f"""
 def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
@@ -330,10 +388,16 @@ def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}
         f.write(code)
 
 
-def _create_post_empty(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, file_name: str):
-    code_path_params, desc_path_params = _gen_code_params(
-        path_params, operation_id)
-    code_desc = _gen_description(operation_id, desc_path_params)
+def _create_post_empty(
+    operation_id: str,
+    tags: list,
+    endpoint_path: str,
+    path_params: list,
+    folder_path: str,
+    file_name: str,
+):
+    code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
+    code_desc = _gen_description(operation_id, tags, desc_path_params)
 
     code = f"""
 def {operation_id}(mist_session:_APISession{code_path_params}) -> _APIResponse:
@@ -348,10 +412,16 @@ def {operation_id}(mist_session:_APISession{code_path_params}) -> _APIResponse:
         f.write(code)
 
 
-def _create_post(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, file_name: str):
-    code_path_params, desc_path_params = _gen_code_params(
-        path_params, operation_id)
-    code_desc = _gen_description(operation_id, desc_path_params, with_body=True)
+def _create_post(
+    operation_id: str,
+    tags: list,
+    endpoint_path: str,
+    path_params: list,
+    folder_path: str,
+    file_name: str,
+):
+    code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
+    code_desc = _gen_description(operation_id, tags, desc_path_params, with_body=True)
 
     code = f"""
 def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _APIResponse:
@@ -366,7 +436,7 @@ def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _
         f.write(code)
 
 
-def _process_multipart_json(properties:dict) -> dict:
+def _process_multipart_json(properties: dict) -> dict:
     multipart_form_data = {}
     for key in properties:
         property_type = "any"
@@ -389,27 +459,39 @@ def _process_multipart_json(properties:dict) -> dict:
             case "object":
                 property_type = "dict"
                 if properties[key].get("properties"):
-                    property_childs = _process_multipart_json(properties[key]["properties"])
+                    property_childs = _process_multipart_json(
+                        properties[key]["properties"]
+                    )
         multipart_form_data[key] = {
             "property_type": property_type,
             "property_desc": properties[key].get("description", ""),
             "property_default": property_default,
             "property_enum": property_enum,
-            "property_childs": property_childs
+            "property_childs": property_childs,
         }
     return multipart_form_data
 
-def _create_post_file(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, properties: dict, file_name: str):
-    code_path_params, desc_path_params = _gen_code_params(
-        path_params, operation_id)
+
+def _create_post_file(
+    operation_id: str,
+    tags: list,
+    endpoint_path: str,
+    path_params: list,
+    folder_path: str,
+    properties: dict,
+    file_name: str,
+):
+    code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
     multipart_form_data = _process_multipart_json(properties)
-    code_desc = _gen_description(operation_id, desc_path_params, multipart_form_data=multipart_form_data)
+    code_desc = _gen_description(
+        operation_id, tags, desc_path_params, multipart_form_data=multipart_form_data
+    )
 
     code = f"""
 def {operation_id}File(mist_session:_APISession{code_path_params}"""
     for key, value in multipart_form_data.items():
         code += f", {key}:{value['property_type']}=None"
-    code +=") -> _APIResponse:"
+    code += ") -> _APIResponse:"
     code += f"""
 {code_desc}
     """
@@ -429,10 +511,16 @@ def {operation_id}File(mist_session:_APISession{code_path_params}"""
         f.write(code)
 
 
-def _create_put(operation_id: str, endpoint_path: str, path_params: list, folder_path: str, file_name: str):
-    code_path_params, desc_path_params = _gen_code_params(
-        path_params, operation_id)
-    code_desc = _gen_description(operation_id, desc_path_params, with_body=True)
+def _create_put(
+    operation_id: str,
+    tags: list,
+    endpoint_path: str,
+    path_params: list,
+    folder_path: str,
+    file_name: str,
+):
+    code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
+    code_desc = _gen_description(operation_id,tags, desc_path_params, with_body=True)
 
     code = f"""
 def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _APIResponse:
@@ -479,7 +567,7 @@ def _process_query_params(endpoint_params: object):
     return params
 
 
-def _process_body_params(request_body: object, content_type:str="application/json"):
+def _process_body_params(request_body: object, content_type: str = "application/json"):
     schema = request_body["content"][content_type]["schema"]
     properties = {}
     if schema.get("$ref"):
@@ -490,83 +578,101 @@ def _process_body_params(request_body: object, content_type:str="application/jso
     return properties
 
 
-def _process_endpoint(endpoint_data: object, endpoint_path: str, folder_path: str, file_name: str):
+def _process_endpoint(
+    endpoint_data: object, endpoint_path: str, folder_path: str, file_name: str
+):
     count = 0
     path_params = []
     query_params = []
     operation_id = ""
+    tags = []
     path_params = _process_path_params(endpoint_data.get("parameters", []))
     if endpoint_data.get("get") and not endpoint_data.get("get", {}).get("deprecated"):
-        query_params = _process_query_params(
-            endpoint_data["get"].get("parameters", []))
-        operation_id = endpoint_data["get"]['operationId']
+        query_params = _process_query_params(endpoint_data["get"].get("parameters", []))
+        operation_id = endpoint_data["get"]["operationId"]
+        tags = endpoint_data["get"]["tags"]
         _create_get(
             operation_id,
+            tags,
             endpoint_path,
             path_params,
             query_params,
             folder_path,
-            f"{file_name}.py"
+            f"{file_name}.py",
         )
         count += 1
-    if endpoint_data.get("delete") and not endpoint_data.get("delete", {}).get("deprecated"):
+    if endpoint_data.get("delete") and not endpoint_data.get("delete", {}).get(
+        "deprecated"
+    ):
         query_params = _process_query_params(
-            endpoint_data["delete"].get("parameters", []))
-        operation_id = endpoint_data["delete"]['operationId']
+            endpoint_data["delete"].get("parameters", [])
+        )
+        operation_id = endpoint_data["delete"]["operationId"]
+        tags = endpoint_data["delete"]["tags"]
         _create_delete(
             operation_id,
+            tags,
             endpoint_path,
             path_params,
             query_params,
             folder_path,
-            f"{file_name}.py"
+            f"{file_name}.py",
         )
         count += 1
-    if endpoint_data.get("post") and not endpoint_data.get("post", {}).get("deprecated"):
-        operation_id = endpoint_data["post"]['operationId']
+    if endpoint_data.get("post") and not endpoint_data.get("post", {}).get(
+        "deprecated"
+    ):
+        operation_id = endpoint_data["post"]["operationId"]
+        tags = endpoint_data["post"]["tags"]
         request_body = endpoint_data["post"].get("requestBody")
         if request_body:
             if "multipart/form-data" in request_body.get("content"):
                 _create_post_file(
                     operation_id,
+                    tags,
                     endpoint_path,
                     path_params,
                     folder_path,
                     _process_body_params(request_body, "multipart/form-data"),
-                    f"{file_name}.py"
+                    f"{file_name}.py",
                 )
             if "application/json" in request_body.get("content"):
                 _create_post(
                     operation_id,
+                    tags,
                     endpoint_path,
                     path_params,
                     folder_path,
-                    f"{file_name}.py"
+                    f"{file_name}.py",
                 )
         else:
             _create_post_empty(
                 operation_id,
+                tags,
                 endpoint_path,
                 path_params,
                 folder_path,
-                f"{file_name}.py"
+                f"{file_name}.py",
             )
         count += 1
 
     if endpoint_data.get("put") and not endpoint_data.get("put", {}).get("deprecated"):
-        operation_id = endpoint_data["put"]['operationId']
+        operation_id = endpoint_data["put"]["operationId"]
+        tags = endpoint_data["put"]["tags"]
         _create_put(
             operation_id,
+            tags,
             endpoint_path,
             path_params,
             folder_path,
-            f"{file_name}.py"
+            f"{file_name}.py",
         )
 
         count += 1
     return count
 
-def _is_totaly_deprecated(endpoint_data:object)->bool:    
+
+def _is_totaly_deprecated(endpoint_data: object) -> bool:
     for crud in ["get", "post", "put", "delete"]:
         if endpoint_data.get(crud, {}):
             if not endpoint_data[crud].get("deprecated"):
@@ -587,7 +693,7 @@ def start():
     i = 0
 
     def show(j):
-        x = int(size*j/count)
+        x = int(size * j / count)
         out.write(f"".ljust(0))
         out.write(f"[{'█'*x}{'.'*(size-x)}]")
         out.write(f"{j}/{count}\r".rjust(9))
@@ -598,18 +704,21 @@ def start():
             endpoint_data = openapi_paths[endpoint_path]
             if not _is_totaly_deprecated(endpoint_data):
                 folder_path, file_name = _init_endpoint(endpoint_path)
-                api_count += _process_endpoint(endpoint_data,
-                                            endpoint_path, folder_path, file_name)
+                api_count += _process_endpoint(
+                    endpoint_data, endpoint_path, folder_path, file_name
+                )
                 endpoint_count += 1
-        show(i+1)
+        show(i + 1)
         i += 1
     out.write("\n")
     out.flush()
 
-    #_create_get_next()
+    # _create_get_next()
     return endpoint_count, api_count
-############################################################################################################ 
-############################################################################################################ 
+
+
+############################################################################################################
+############################################################################################################
 
 version = sys.argv[1]
 if os.path.exists(f"{root_folder}/{root_api_folder}"):

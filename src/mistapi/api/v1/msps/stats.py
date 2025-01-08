@@ -16,7 +16,7 @@ import deprecation
 
 def listMspOrgLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspOrgLicenses
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/licenses/list-msp-org-licenses
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listMspOrgLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
 def listMspOrgStats(mist_session:_APISession, msp_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspOrgStats
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/list-msp-org-stats
     
     PARAMS
     -----------

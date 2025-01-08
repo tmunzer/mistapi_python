@@ -16,7 +16,7 @@ import deprecation
 
 def listMspLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspLicenses
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/licenses/list-msp-licenses
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listMspLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
 def moveOrDeleteMspLicenseToAnotherOrg(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/moveOrDeleteMspLicenseToAnotherOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/licenses/move-or-delete-msp-license-to-another-org
     
     PARAMS
     -----------

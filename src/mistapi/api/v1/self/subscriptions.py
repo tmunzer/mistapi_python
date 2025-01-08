@@ -16,7 +16,7 @@ import deprecation
 
 def listAlarmSubscriptions(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listAlarmSubscriptions
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/alarms/list-alarm-subscriptions
     
     PARAMS
     -----------

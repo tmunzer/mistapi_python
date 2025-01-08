@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdges
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/list-org-mx-edges
     
     PARAMS
     -----------
@@ -49,7 +49,7 @@ def listOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", li
     
 def createOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgMxEdge
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/create-org-mx-edge
     
     PARAMS
     -----------
@@ -76,7 +76,7 @@ def createOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     
 def assignOrgMxEdgeToSite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/assignOrgMxEdgeToSite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/assign-org-mx-edge-to-site
     
     PARAMS
     -----------
@@ -103,7 +103,7 @@ def assignOrgMxEdgeToSite(mist_session:_APISession, org_id:str, body:object) -> 
     
 def claimOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/claimOrgMxEdge
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/claim-org-mx-edge
     
     PARAMS
     -----------
@@ -130,7 +130,7 @@ def claimOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     
 def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", mxedge_id:str=None, site_id:str=None, mxcluster_id:str=None, model:str=None, distro:str=None, tunterm_version:str=None, sort:str=None, stats:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgMxEdges
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/count-org-mx-edges
     
     PARAMS
     -----------
@@ -184,7 +184,7 @@ def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", 
     
 def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countOrgSiteMxEdgeEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/count-org-site-mx-edge-events
     
     PARAMS
     -----------
@@ -228,7 +228,7 @@ def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str=
     
 def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, component:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgMistEdgeEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/search-org-mist-edge-events
     
     PARAMS
     -----------
@@ -272,7 +272,7 @@ def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=
     
 def searchOrgMxEdges(mist_session:_APISession, org_id:str, mxedge_id:str=None, site_id:str=None, mxcluster_id:str=None, model:str=None, distro:str=None, tunterm_version:str=None, sort:str=None, stats:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchOrgMxEdges
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/search-org-mx-edges
     
     PARAMS
     -----------
@@ -324,7 +324,7 @@ def searchOrgMxEdges(mist_session:_APISession, org_id:str, mxedge_id:str=None, s
     
 def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unassignOrgMxEdgeFromSite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/unassign-org-mx-edge-from-site
     
     PARAMS
     -----------
@@ -351,7 +351,7 @@ def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object)
     
 def listOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgMxEdgeUpgrades
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-mx-edge-upgrades
     
     PARAMS
     -----------
@@ -374,7 +374,7 @@ def listOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def upgradeOrgMxEdges(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/upgradeOrgMxEdges
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-mx-edges
     
     PARAMS
     -----------
@@ -401,7 +401,7 @@ def upgradeOrgMxEdges(mist_session:_APISession, org_id:str, body:object) -> _API
     
 def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeUpgrade
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/get-org-mx-edge-upgrade
     
     PARAMS
     -----------
@@ -425,7 +425,7 @@ def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     
 def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="stable") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdgeUpgradeInfo
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/get-org-mx-edge-upgrade-info
     
     PARAMS
     -----------
@@ -454,7 +454,7 @@ def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="s
     
 def getOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgMxEdge
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/get-org-mx-edge
     
     PARAMS
     -----------
@@ -478,7 +478,7 @@ def getOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIRes
     
 def deleteOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgMxEdge
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/delete-org-mx-edge
     
     PARAMS
     -----------
@@ -502,7 +502,7 @@ def deleteOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _API
     
 def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgMxEdge
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/update-org-mx-edge
     
     PARAMS
     -----------
@@ -530,7 +530,7 @@ def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:ob
     
 def deleteOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image_number:int) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgMxEdgeImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/delete-org-mx-edge-image
     
     PARAMS
     -----------
@@ -555,7 +555,7 @@ def deleteOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, im
     
 def addOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image_number:int, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/addOrgMxEdgeImage
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/add-org-mx-edge-image
     
     PARAMS
     -----------
@@ -584,7 +584,7 @@ def addOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image
     
 def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/restartOrgMxEdge
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/restart-org-mx-edge
     
     PARAMS
     -----------
@@ -607,7 +607,7 @@ def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _AP
     
 def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/bounceOrgMxEdgeDataPorts
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/bounce-org-mx-edge-data-ports
     
     PARAMS
     -----------
@@ -635,7 +635,7 @@ def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str
     
 def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str, name:str, action:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/controlOrgMxEdgeServices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/control-org-mx-edge-services
     
     PARAMS
     -----------
@@ -662,7 +662,7 @@ def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str
     
 def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/uploadOrgMxEdgeSupportFiles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/upload-org-mx-edge-support-files
     
     PARAMS
     -----------
@@ -685,7 +685,7 @@ def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:
     
 def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/unregisterOrgMxEdge
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/unregister-org-mx-edge
     
     PARAMS
     -----------

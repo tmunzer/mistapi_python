@@ -16,7 +16,7 @@ import deprecation
 
 def getSiteSyntheticTestStatus(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteSyntheticTestStatus
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/get-site-synthetic-test-status
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def getSiteSyntheticTestStatus(mist_session:_APISession, site_id:str) -> _APIRes
     
 def triggerSiteSyntheticTest(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/triggerSiteSyntheticTest
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/trigger-site-synthetic-test
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def triggerSiteSyntheticTest(mist_session:_APISession, site_id:str, body:object)
     
 def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str=None, port_id:str=None, vlan_id:str=None, by:str=None, reason:str=None, type:str=None, protocol:str=None, tenant:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteSyntheticTest
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/search-site-synthetic-test
     
     PARAMS
     -----------

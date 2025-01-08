@@ -16,7 +16,7 @@ import deprecation
 
 def listSupportedOtherDeviceModels(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSupportedOtherDeviceModels
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/models/list-supported-other-device-models
     
     PARAMS
     -----------

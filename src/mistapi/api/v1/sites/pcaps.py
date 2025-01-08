@@ -16,7 +16,7 @@ import deprecation
 
 def listSitePacketCaptures(mist_session:_APISession, site_id:str, client_mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSitePacketCaptures
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/list-site-packet-captures
     
     PARAMS
     -----------
@@ -54,7 +54,7 @@ def listSitePacketCaptures(mist_session:_APISession, site_id:str, client_mac:str
     
 def getSiteCapturingStatus(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteCapturingStatus
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/get-site-capturing-status
     
     PARAMS
     -----------
@@ -77,7 +77,7 @@ def getSiteCapturingStatus(mist_session:_APISession, site_id:str) -> _APIRespons
     
 def stopSitePacketCapture(mist_session:_APISession, site_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/stopSitePacketCapture
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/stop-site-packet-capture
     
     PARAMS
     -----------
@@ -100,7 +100,7 @@ def stopSitePacketCapture(mist_session:_APISession, site_id:str) -> _APIResponse
     
 def startSitePacketCapture(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/startSitePacketCapture
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/start-site-packet-capture
     
     PARAMS
     -----------
@@ -127,7 +127,7 @@ def startSitePacketCapture(mist_session:_APISession, site_id:str, body:object) -
     
 def updateSitePacketCapture(mist_session:_APISession, site_id:str, pcap_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSitePacketCapture
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/update-site-packet-capture
     
     PARAMS
     -----------

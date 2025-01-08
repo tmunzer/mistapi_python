@@ -16,7 +16,7 @@ import deprecation
 
 def inviteOrgAdmin(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/inviteOrgAdmin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/admins/invite-org-admin
     
     PARAMS
     -----------
@@ -43,7 +43,7 @@ def inviteOrgAdmin(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     
 def uninviteOrgAdmin(mist_session:_APISession, org_id:str, invite_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/uninviteOrgAdmin
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/admins/uninvite-org-admin
     
     PARAMS
     -----------
@@ -67,7 +67,7 @@ def uninviteOrgAdmin(mist_session:_APISession, org_id:str, invite_id:str) -> _AP
     
 def updateOrgAdminInvite(mist_session:_APISession, org_id:str, invite_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgAdminInvite
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/admins/update-org-admin-invite
     
     PARAMS
     -----------

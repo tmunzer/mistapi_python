@@ -16,7 +16,7 @@ import deprecation
 
 def getAdminRegistrationInfo(mist_session:_APISession, recaptcha_flavor:str="google") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getAdminRegistrationInfo
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/get-admin-registration-info
     
     PARAMS
     -----------

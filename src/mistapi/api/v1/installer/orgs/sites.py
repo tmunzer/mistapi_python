@@ -16,7 +16,7 @@ import deprecation
 
 def listInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listInstallerSites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-sites
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     
 def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrUpdateInstallerSites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/create-or-update-installer-sites
     
     PARAMS
     -----------
@@ -67,7 +67,7 @@ def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name
     
 def listInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listInstallerMaps
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-maps
     
     PARAMS
     -----------
@@ -91,7 +91,7 @@ def listInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _A
     
 def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/importInstallerMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/import-installer-map
     
     PARAMS
     -----------
@@ -130,7 +130,7 @@ def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, 
 
 def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteInstallerMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/delete-installer-map
     
     PARAMS
     -----------
@@ -155,7 +155,7 @@ def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     
 def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createInstallerMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/create-installer-map
     
     PARAMS
     -----------
@@ -184,7 +184,7 @@ def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     
 def updateInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateInstallerMap
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/update-installer-map
     
     PARAMS
     -----------

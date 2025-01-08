@@ -16,7 +16,7 @@ import deprecation
 
 def getOauth2UrlForLinking(mist_session:_APISession, provider:str, forward:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOauth2UrlForLinking
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/oauth2/get-oauth2-url-for-linking
     
     PARAMS
     -----------
@@ -44,7 +44,7 @@ def getOauth2UrlForLinking(mist_session:_APISession, provider:str, forward:str=N
     
 def linkOauth2MistAccount(mist_session:_APISession, provider:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/linkOauth2MistAccount
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/oauth2/link-oauth2-mist-account
     
     PARAMS
     -----------

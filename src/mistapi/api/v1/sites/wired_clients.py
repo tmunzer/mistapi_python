@@ -16,7 +16,7 @@ import deprecation
 
 def countSiteWiredClients(mist_session:_APISession, site_id:str, distinct:str="mac", mac:str=None, device_mac:str=None, port_id:str=None, vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteWiredClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wired/count-site-wired-clients
     
     PARAMS
     -----------
@@ -62,7 +62,7 @@ def countSiteWiredClients(mist_session:_APISession, site_id:str, distinct:str="m
     
 def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str=None, mac:str=None, ip:str=None, port_id:str=None, vlan:str=None, manufacture:str=None, text:str=None, nacrule_id:str=None, dhcp_hostname:str=None, dhcp_fqdn:str=None, dhcp_client_identifier:str=None, dhcp_vendor_class_identifier:str=None, dhcp_request_params:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteWiredClients
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wired/search-site-wired-clients
     
     PARAMS
     -----------
@@ -122,7 +122,7 @@ def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str
     
 def reauthSiteDot1xWiredClient(mist_session:_APISession, site_id:str, client_mac:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/reauthSiteDot1xWiredClient
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/reauth-site-dot1x-wired-client
     
     PARAMS
     -----------

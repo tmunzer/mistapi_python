@@ -16,7 +16,7 @@ import deprecation
 
 def listOrgAntivirusProfiles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listOrgAntivirusProfiles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/list-org-antivirus-profiles
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listOrgAntivirusProfiles(mist_session:_APISession, org_id:str, limit:int=100
     
 def createOrgAntivirusProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createOrgAntivirusProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/create-org-antivirus-profile
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createOrgAntivirusProfile(mist_session:_APISession, org_id:str, body:object)
     
 def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getOrgAntivirusProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/get-org-antivirus-profile
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:s
     
 def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteOrgAntivirusProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/delete-org-antivirus-profile
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_i
     
 def updateOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateOrgAntivirusProfile
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/update-org-antivirus-profile
     
     PARAMS
     -----------

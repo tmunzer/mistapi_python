@@ -16,7 +16,7 @@ import deprecation
 
 def listMspSsos(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspSsos
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/list-msp-ssos
     
     PARAMS
     -----------
@@ -39,7 +39,7 @@ def listMspSsos(mist_session:_APISession, msp_id:str) -> _APIResponse:
     
 def createMspSso(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createMspSso
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/create-msp-sso
     
     PARAMS
     -----------
@@ -66,7 +66,7 @@ def createMspSso(mist_session:_APISession, msp_id:str, body:object) -> _APIRespo
     
 def getMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getMspSso
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/get-msp-sso
     
     PARAMS
     -----------
@@ -90,7 +90,7 @@ def getMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     
 def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteMspSso
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/delete-msp-sso
     
     PARAMS
     -----------
@@ -114,7 +114,7 @@ def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIRespon
     
 def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateMspSso
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/update-msp-sso
     
     PARAMS
     -----------
@@ -142,7 +142,7 @@ def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:object) 
     
 def listMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listMspSsoLatestFailures
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/list-msp-sso-latest-failures
     
     PARAMS
     -----------
@@ -166,7 +166,7 @@ def listMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) -
     
 def getMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getMspSamlMetadata
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/get-msp-saml-metadata
     
     PARAMS
     -----------
@@ -190,7 +190,7 @@ def getMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _API
     
 def downloadMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/downloadMspSamlMetadata
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/download-msp-saml-metadata
     
     PARAMS
     -----------

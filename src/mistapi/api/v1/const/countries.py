@@ -16,7 +16,7 @@ import deprecation
 
 def listCountryCodes(mist_session:_APISession, extend:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listCountryCodes
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/list-country-codes
     
     PARAMS
     -----------

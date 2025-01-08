@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteSiteTemplateDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteSiteTemplateDerived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/site-templates/list-site-site-template-derived
     
     PARAMS
     -----------

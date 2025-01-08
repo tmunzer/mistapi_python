@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteWebhooks(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteWebhooks
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/list-site-webhooks
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteWebhooks(mist_session:_APISession, site_id:str, limit:int=100, page:
     
 def createSiteWebhook(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/createSiteWebhook
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/create-site-webhook
     
     PARAMS
     -----------
@@ -73,7 +73,7 @@ def createSiteWebhook(mist_session:_APISession, site_id:str, body:object) -> _AP
     
 def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteWebhook
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/get-site-webhook
     
     PARAMS
     -----------
@@ -97,7 +97,7 @@ def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _AP
     
 def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteWebhook
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/delete-site-webhook
     
     PARAMS
     -----------
@@ -121,7 +121,7 @@ def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> 
     
 def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteWebhook
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/update-site-webhook
     
     PARAMS
     -----------
@@ -149,7 +149,7 @@ def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, bod
     
 def countSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteWebhooksDeliveries
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/count-site-webhooks-deliveries
     
     PARAMS
     -----------
@@ -196,7 +196,7 @@ def countSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_i
     
 def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteWebhooksDeliveries
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/search-site-webhooks-deliveries
     
     PARAMS
     -----------
@@ -241,7 +241,7 @@ def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_
     
 def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/pingSiteWebhook
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/ping-site-webhook
     
     PARAMS
     -----------

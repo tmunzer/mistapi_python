@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteMxEdges(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteMxEdges
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/list-site-mx-edges
     
     PARAMS
     -----------
@@ -46,7 +46,7 @@ def listSiteMxEdges(mist_session:_APISession, site_id:str, limit:int=100, page:i
     
 def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteMxEdgeEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/count-site-mx-edge-events
     
     PARAMS
     -----------
@@ -90,7 +90,7 @@ def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="m
     
 def searchSiteMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, component:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteMistEdgeEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/search-site-mist-edge-events
     
     PARAMS
     -----------
@@ -134,7 +134,7 @@ def searchSiteMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:st
     
 def getSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/getSiteMxEdge
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/get-site-mx-edge
     
     PARAMS
     -----------
@@ -158,7 +158,7 @@ def getSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> _APIR
     
 def deleteSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/deleteSiteMxEdge
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/delete-site-mx-edge
     
     PARAMS
     -----------
@@ -182,7 +182,7 @@ def deleteSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str) -> _A
     
 def updateSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/updateSiteMxEdge
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/update-site-mx-edge
     
     PARAMS
     -----------
@@ -210,7 +210,7 @@ def updateSiteMxEdge(mist_session:_APISession, site_id:str, mxedge_id:str, body:
     
 def uploadSiteMxEdgeSupportFiles(mist_session:_APISession, site_id:str, mxedge_id:str) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/uploadSiteMxEdgeSupportFiles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/upload-site-mx-edge-support-files
     
     PARAMS
     -----------

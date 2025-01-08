@@ -16,7 +16,7 @@ import deprecation
 
 def troubleshootOrg(mist_session:_APISession, org_id:str, mac:str=None, site_id:str=None, start:int=None, end:int=None, type:str=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/troubleshootOrg
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/marvis/troubleshoot-org
     
     PARAMS
     -----------

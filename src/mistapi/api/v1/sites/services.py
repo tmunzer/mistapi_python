@@ -16,7 +16,7 @@ import deprecation
 
 def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/listSiteServicesDerived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/services/list-site-services-derived
     
     PARAMS
     -----------
@@ -44,7 +44,7 @@ def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=
     
 def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/countSiteServicePathEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/services/count-site-service-path-events
     
     PARAMS
     -----------
@@ -100,7 +100,7 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
     
 def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=None, text:str=None, peer_port_id:str=None, peer_mac:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/searchSiteServicePathEvents
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/services/search-site-service-path-events
     
     PARAMS
     -----------

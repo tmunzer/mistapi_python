@@ -16,7 +16,7 @@ import deprecation
 
 def testSiteWlanTwilioSetup(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://doc.mist-lab.fr/#operation/testSiteWlanTwilioSetup
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/test-site-wlan-twilio-setup
     
     PARAMS
     -----------
