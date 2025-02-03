@@ -37,7 +37,7 @@ def listOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, type:str="ap", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-devices
     
@@ -67,6 +67,7 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     lldp_system_desc : str
     lldp_port_id : str
     lldp_mgmt_addr : str
+    type : str{'ap', 'gateway', 'switch'}, default: ap
     start : int
     end : int
     duration : str, default: 1d
@@ -94,6 +95,7 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     if lldp_system_desc: query_params["lldp_system_desc"]=lldp_system_desc
     if lldp_port_id: query_params["lldp_port_id"]=lldp_port_id
     if lldp_mgmt_addr: query_params["lldp_mgmt_addr"]=lldp_mgmt_addr
+    if type: query_params["type"]=type
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
@@ -169,7 +171,7 @@ def searchOrgDeviceEvents(mist_session:_APISession, org_id:str, mac:str=None, mo
     ------------
     mac : str
     model : str
-    device_type : str{'ap', 'gateway', 'switch'}, default: ap
+    device_type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
     text : str
     timestamp : str
     type : str
@@ -308,7 +310,7 @@ def listOrgApsMacs(mist_session:_APISession, org_id:str, limit:int=100, page:int
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, mxedge_ids:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_bandwidth:int=None, band_5_bandwidth:int=None, band_6_bandwidth:int=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, eth0_port_speed:int=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, ext_ip:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, mxedge_ids:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, lldp_power_allocated:int=None, lldp_power_draw:int=None, band_24_bandwidth:int=None, band_5_bandwidth:int=None, band_6_bandwidth:int=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, band_24_power:int=None, band_5_power:int=None, band_6_power:int=None, eth0_port_speed:int=None, type:str="ap", limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-devices
     
@@ -328,6 +330,7 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     model : str
     mac : str
     version : str
+    ext_ip : str
     power_constrained : bool
     ip_address : str
     mxtunnel_status : str{'down', 'up'}
@@ -338,13 +341,20 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     lldp_system_desc : str
     lldp_port_id : str
     lldp_mgmt_addr : str
+    lldp_power_allocated : int
+    lldp_power_draw : int
     band_24_bandwidth : int
     band_5_bandwidth : int
     band_6_bandwidth : int
     band_24_channel : int
     band_5_channel : int
     band_6_channel : int
+    band_24_power : int
+    band_5_power : int
+    band_6_power : int
     eth0_port_speed : int
+    type : str{'ap', 'gateway', 'switch'}, default: ap
+      Type of device. enum: `ap`, `gateway`, `switch`
     limit : int, default: 100
     start : int
     end : int
@@ -362,6 +372,7 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     if model: query_params["model"]=model
     if mac: query_params["mac"]=mac
     if version: query_params["version"]=version
+    if ext_ip: query_params["ext_ip"]=ext_ip
     if power_constrained: query_params["power_constrained"]=power_constrained
     if ip_address: query_params["ip_address"]=ip_address
     if mxtunnel_status: query_params["mxtunnel_status"]=mxtunnel_status
@@ -371,13 +382,19 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     if lldp_system_desc: query_params["lldp_system_desc"]=lldp_system_desc
     if lldp_port_id: query_params["lldp_port_id"]=lldp_port_id
     if lldp_mgmt_addr: query_params["lldp_mgmt_addr"]=lldp_mgmt_addr
+    if lldp_power_allocated: query_params["lldp_power_allocated"]=lldp_power_allocated
+    if lldp_power_draw: query_params["lldp_power_draw"]=lldp_power_draw
     if band_24_bandwidth: query_params["band_24_bandwidth"]=band_24_bandwidth
     if band_5_bandwidth: query_params["band_5_bandwidth"]=band_5_bandwidth
     if band_6_bandwidth: query_params["band_6_bandwidth"]=band_6_bandwidth
     if band_24_channel: query_params["band_24_channel"]=band_24_channel
     if band_5_channel: query_params["band_5_channel"]=band_5_channel
     if band_6_channel: query_params["band_6_channel"]=band_6_channel
+    if band_24_power: query_params["band_24_power"]=band_24_power
+    if band_5_power: query_params["band_5_power"]=band_5_power
+    if band_6_power: query_params["band_6_power"]=band_6_power
     if eth0_port_speed: query_params["eth0_port_speed"]=eth0_port_speed
+    if type: query_params["type"]=type
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
@@ -457,6 +474,29 @@ def getOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     uri = f"/api/v1/orgs/{org_id}/devices/upgrade/{upgrade_id}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def cancelOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/cancel-org-device-upgrade
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    upgrade_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/devices/upgrade/{upgrade_id}/cancel"
+    resp = mist_session.mist_post(uri=uri)
     return resp
     
 def listOrgAvailableDeviceVersions(mist_session:_APISession, org_id:str, type:str="ap", model:str=None) -> _APIResponse:

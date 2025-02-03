@@ -34,7 +34,7 @@ def troubleshootOrg(mist_session:_APISession, org_id:str, mac:str=None, site_id:
     start : int
     end : int
     type : str{'wan', 'wired', 'wireless'}
-      when troubleshooting site, type of network to troubleshoot        
+      When troubleshooting site, type of network to troubleshoot        
     
     RETURN
     -----------

@@ -218,7 +218,7 @@ def uploadSiteWlanPortalImageFile(mist_session:_APISession, site_id:str, wlan_id
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. binary file
+        path to the file to upload. Binary file
     json : str
     
     RETURN

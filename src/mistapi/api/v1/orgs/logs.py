@@ -33,7 +33,7 @@ def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, adm
     admin_name : str
     message : str
     sort : str{'-timestamp', 'admin_id', 'site_id', 'timestamp'}
-      sort order
+      Sort order
     start : int
     end : int
     duration : str, default: 1d

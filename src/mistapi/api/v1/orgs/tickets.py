@@ -179,7 +179,7 @@ def UploadrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_id
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. ekahau or ibwave file
+        path to the file to upload. Ekahau or ibwave file
     
     RETURN
     -----------

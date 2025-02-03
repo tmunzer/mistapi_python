@@ -30,11 +30,11 @@ def importOrgMapsFile(mist_session:_APISession, org_id:str, auto_deviceprofile_a
     BODY PARAMS
     -----------
     auto_deviceprofile_assignment : bool
-        whether to auto assign device to deviceprofile by name
+        Whether to auto assign device to deviceprofile by name
     csv : str
-        path to the file to upload. csv file for ap name mapping, optional
+        path to the file to upload. CSV file for ap name mapping, optional
     file : str
-        path to the file to upload. ekahau or ibwave file
+        path to the file to upload. Ekahau or ibwave file
     json : any
     
     RETURN

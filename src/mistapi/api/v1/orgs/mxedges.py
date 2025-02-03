@@ -30,7 +30,7 @@ def listOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", li
     QUERY PARAMS
     ------------
     for_sites : str{'any', 'false', 'true'}, default: any
-      filter for site level mist edges
+      Filter for site level mist edges
     limit : int, default: 100
     page : int, default: 1        
     
@@ -439,7 +439,7 @@ def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="s
     QUERY PARAMS
     ------------
     channel : str{'alpha', 'beta', 'stable'}, default: stable
-      upgrade channel to follow, stable (default) / beta / alpha        
+      Upgrade channel to follow, stable (default) / beta / alpha        
     
     RETURN
     -----------
@@ -649,7 +649,7 @@ def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str
     name : str{'mxagent', 'mxdas', 'mxnacedge', 'mxocproxy', 'radsecproxy', 'tunterm'}
       enum: `mxagent`, `mxdas`, `mxnacedge`, `mxocproxy`, `radsecproxy`, `tunterm`
     action : str{'restart', 'start', 'stop'}
-      restart or start or stop        
+      Restart or start or stop        
     
     RETURN
     -----------

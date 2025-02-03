@@ -32,11 +32,11 @@ def countSiteZoneSessions(mist_session:_APISession, site_id:str, zone_type:str, 
     ------------
     distinct : str{'scope', 'scope_id', 'user', 'user_type'}, default: scope_id
     user_type : str{'asset', 'client', 'sdkclient'}
-      user type
+      User type
     user : str
     scope_id : str
     scope : str{'map', 'rssizone', 'site', 'zone'}, default: site
-      scope
+      Scope
     start : int
     end : int
     duration : str, default: 1d

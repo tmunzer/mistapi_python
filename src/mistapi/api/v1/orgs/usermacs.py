@@ -57,7 +57,7 @@ def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str=None) -
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. file to updload
+        path to the file to upload. File to updload
     
     RETURN
     -----------
@@ -115,7 +115,7 @@ def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str=None, labels
     ------------
     mac : str
     labels : list
-      optional, array of strings of labels
+      Optional, array of strings of labels
     limit : int, default: 100
     page : int, default: 1        
     

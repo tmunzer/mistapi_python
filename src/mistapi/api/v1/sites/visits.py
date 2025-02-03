@@ -31,11 +31,11 @@ def searchSiteZoneSessions(mist_session:_APISession, site_id:str, zone_type:str,
     QUERY PARAMS
     ------------
     user_type : str{'asset', 'client', 'sdkclient'}
-      user type, client (default) / sdkclient / asset
+      User type, client (default) / sdkclient / asset
     user : str
     scope_id : str
     scope : str{'map', 'rssizone', 'site', 'zone'}, default: site
-      scope
+      Scope
     start : int
     end : int
     duration : str, default: 1d

@@ -718,9 +718,9 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     QUERY PARAMS
     ------------
     scope : str{'site', 'switch'}, default: site
-      metric scope
+      Metric scope
     type : str{'inactive_wired_vlans', 'poe_compliance', 'switch_ap_affinity', 'version_compliance'}
-      metric type
+      Metric type
     limit : int, default: 100
     start : int
     end : int
@@ -1131,11 +1131,11 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     rx_bcast_pkts : int
     speed : int
     stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
-      if `up`==`true`
+      If `up`==`true`
     stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
-      if `up`==`true`
+      If `up`==`true`
     auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
-      if `up`==`true` && has Authenticator role
+      If `up`==`true` && has Authenticator role
     up : bool
     start : int
     end : int
@@ -1202,7 +1202,7 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     full_duplex : bool
     mac : str
     device_type : str{'ap', 'ble', 'gateway', 'mxedge', 'nac', 'switch'}
-      device type
+      Device type
     neighbor_mac : str
     neighbor_port_desc : str
     neighbor_system_name : str
@@ -1232,12 +1232,12 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     loss : float
     latency : float
     stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
-      if `up`==`true`
+      If `up`==`true`
     stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
-      if `up`==`true`
+      If `up`==`true`
     xcvr_part_number : str
     auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
-      if `up`==`true` && has Authenticator role
+      If `up`==`true` && has Authenticator role
     lte_imsi : str
     lte_iccid : str
     lte_imei : str
@@ -1298,6 +1298,53 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def listSiteRssiZonesStats(mist_session:_APISession, site_id:str) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/list-site-rssi-zones-stats
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/stats/rssizones"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def getSiteRssiZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/get-site-rssi-zone-stats
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    zone_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/stats/rssizones/{zone_id}"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
 def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-sdk/get-site-sdk-stats
@@ -1319,184 +1366,6 @@ def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> 
     """
     uri = f"/api/v1/sites/{site_id}/stats/sdkclients/{sdkclient_id}"
     query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def countSiteSwitchPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/count-site-switch-ports
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str        
-    
-    QUERY PARAMS
-    ------------
-    distinct : str{'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'port_id', 'port_mac', 'speed', 'up'}, default: mac
-    full_duplex : bool
-    mac : str
-    neighbor_mac : str
-    neighbor_port_desc : str
-    neighbor_system_name : str
-    poe_disabled : bool
-    poe_mode : str
-    poe_on : bool
-    port_id : str
-    port_mac : str
-    power_draw : float
-    tx_pkts : int
-    rx_pkts : int
-    rx_bytes : int
-    tx_bps : int
-    rx_bps : int
-    tx_mcast_pkts : int
-    tx_bcast_pkts : int
-    rx_mcast_pkts : int
-    rx_bcast_pkts : int
-    speed : int
-    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
-      if `up`==`true`
-    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
-      if `up`==`true`
-    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
-      if `up`==`true`
-    up : bool
-    start : int
-    end : int
-    duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/stats/switch_ports/count"
-    query_params={}
-    if distinct: query_params["distinct"]=distinct
-    if full_duplex: query_params["full_duplex"]=full_duplex
-    if mac: query_params["mac"]=mac
-    if neighbor_mac: query_params["neighbor_mac"]=neighbor_mac
-    if neighbor_port_desc: query_params["neighbor_port_desc"]=neighbor_port_desc
-    if neighbor_system_name: query_params["neighbor_system_name"]=neighbor_system_name
-    if poe_disabled: query_params["poe_disabled"]=poe_disabled
-    if poe_mode: query_params["poe_mode"]=poe_mode
-    if poe_on: query_params["poe_on"]=poe_on
-    if port_id: query_params["port_id"]=port_id
-    if port_mac: query_params["port_mac"]=port_mac
-    if power_draw: query_params["power_draw"]=power_draw
-    if tx_pkts: query_params["tx_pkts"]=tx_pkts
-    if rx_pkts: query_params["rx_pkts"]=rx_pkts
-    if rx_bytes: query_params["rx_bytes"]=rx_bytes
-    if tx_bps: query_params["tx_bps"]=tx_bps
-    if rx_bps: query_params["rx_bps"]=rx_bps
-    if tx_mcast_pkts: query_params["tx_mcast_pkts"]=tx_mcast_pkts
-    if tx_bcast_pkts: query_params["tx_bcast_pkts"]=tx_bcast_pkts
-    if rx_mcast_pkts: query_params["rx_mcast_pkts"]=rx_mcast_pkts
-    if rx_bcast_pkts: query_params["rx_bcast_pkts"]=rx_bcast_pkts
-    if speed: query_params["speed"]=speed
-    if stp_state: query_params["stp_state"]=stp_state
-    if stp_role: query_params["stp_role"]=stp_role
-    if auth_state: query_params["auth_state"]=auth_state
-    if up: query_params["up"]=up
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
-def searchSiteSwitchPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/search-site-switch-ports
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str        
-    
-    QUERY PARAMS
-    ------------
-    full_duplex : bool
-    mac : str
-    neighbor_mac : str
-    neighbor_port_desc : str
-    neighbor_system_name : str
-    poe_disabled : bool
-    poe_mode : str
-    poe_on : bool
-    port_id : str
-    port_mac : str
-    power_draw : float
-    tx_pkts : int
-    rx_pkts : int
-    rx_bytes : int
-    tx_bps : int
-    rx_bps : int
-    tx_mcast_pkts : int
-    tx_bcast_pkts : int
-    rx_mcast_pkts : int
-    rx_bcast_pkts : int
-    speed : int
-    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
-      if `up`==`true`
-    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
-      if `up`==`true`
-    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
-      if `up`==`true` && has Authenticator role
-    up : bool
-    limit : int, default: 100
-    start : int
-    end : int
-    duration : str, default: 1d        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/stats/switch_ports/search"
-    query_params={}
-    if full_duplex: query_params["full_duplex"]=full_duplex
-    if mac: query_params["mac"]=mac
-    if neighbor_mac: query_params["neighbor_mac"]=neighbor_mac
-    if neighbor_port_desc: query_params["neighbor_port_desc"]=neighbor_port_desc
-    if neighbor_system_name: query_params["neighbor_system_name"]=neighbor_system_name
-    if poe_disabled: query_params["poe_disabled"]=poe_disabled
-    if poe_mode: query_params["poe_mode"]=poe_mode
-    if poe_on: query_params["poe_on"]=poe_on
-    if port_id: query_params["port_id"]=port_id
-    if port_mac: query_params["port_mac"]=port_mac
-    if power_draw: query_params["power_draw"]=power_draw
-    if tx_pkts: query_params["tx_pkts"]=tx_pkts
-    if rx_pkts: query_params["rx_pkts"]=rx_pkts
-    if rx_bytes: query_params["rx_bytes"]=rx_bytes
-    if tx_bps: query_params["tx_bps"]=tx_bps
-    if rx_bps: query_params["rx_bps"]=rx_bps
-    if tx_mcast_pkts: query_params["tx_mcast_pkts"]=tx_mcast_pkts
-    if tx_bcast_pkts: query_params["tx_bcast_pkts"]=tx_bcast_pkts
-    if rx_mcast_pkts: query_params["rx_mcast_pkts"]=rx_mcast_pkts
-    if rx_bcast_pkts: query_params["rx_bcast_pkts"]=rx_bcast_pkts
-    if speed: query_params["speed"]=speed
-    if stp_state: query_params["stp_state"]=stp_state
-    if stp_role: query_params["stp_role"]=stp_role
-    if auth_state: query_params["auth_state"]=auth_state
-    if up: query_params["up"]=up
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -1583,7 +1452,7 @@ def listSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None) -
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_type:str, zone_id:str) -> _APIResponse:
+def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/get-site-zone-stats
     
@@ -1595,7 +1464,6 @@ def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_type:str, zone_
     PATH PARAMS
     -----------
     site_id : str
-    zone_type : str{'rssizones', 'zones'}
     zone_id : str        
     
     RETURN
@@ -1603,7 +1471,7 @@ def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_type:str, zone_
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/stats/{zone_type}/{zone_id}"
+    uri = f"/api/v1/sites/{site_id}/stats/zones/{zone_id}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

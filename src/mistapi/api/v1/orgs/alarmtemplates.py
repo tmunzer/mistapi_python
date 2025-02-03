@@ -87,7 +87,7 @@ def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str, scope:str="sit
     QUERY PARAMS
     ------------
     scope : str{'org', 'site'}, default: site
-      returns both scopes if not specified        
+      Returns both scopes if not specified        
     
     RETURN
     -----------

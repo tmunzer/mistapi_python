@@ -111,7 +111,7 @@ def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str=None, org_id:st
     sub_insufficient : bool
     trial_enabled : bool
     usage_types : list
-      a list of types that enabled by usage
+      List of types that enabled by usage
     limit : int, default: 100        
     
     RETURN

@@ -341,7 +341,7 @@ def importSiteDevicesFile(mist_session:_APISession, site_id:str, file:str=None) 
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. file to updload
+        path to the file to upload. File to updload
     
     RETURN
     -----------
@@ -513,7 +513,7 @@ def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) 
     
 def restartSiteMultipleDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/restart-site-multiple-devices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/restart-site-multiple-devices
     
     PARAMS
     -----------
@@ -575,9 +575,9 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     band_6_bandwidth : int
     eth0_port_speed : int
     sort : str{'mac', 'model', 'sku', 'timestamp'}, default: timestamp
-      sort options
+      Sort options
     desc_sort : str{'mac', 'model', 'sku', 'timestamp'}
-      sort options in reverse order
+      Sort options in reverse order
     stats : bool
     limit : int, default: 100
     start : int
@@ -663,7 +663,7 @@ def listSiteDeviceUpgrades(mist_session:_APISession, site_id:str, status:str=Non
     
     QUERY PARAMS
     ------------
-    status : str{'cancelled', 'completed', 'created', 'downloaded', 'downloading', 'failed', 'upgrading'}        
+    status : str{'cancelled', 'completed', 'created', 'downloaded', 'downloading', 'failed', 'queued', 'upgrading'}        
     
     RETURN
     -----------
@@ -1364,7 +1364,7 @@ def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str,
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. binary file
+        path to the file to upload. Binary file
     json : str
     
     RETURN
