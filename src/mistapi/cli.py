@@ -116,7 +116,13 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
             if resp == "q":
                 sys.exit(0)
             elif resp.lower() == "n":
-                return [priv for priv in mist_session.privileges if not priv.get("msp_id")]
+                standalones = []
+                for priv in mist_session.privileges:
+                    msp = [msp for msp in msp_accounts if msp.get("msp_id") == priv.get("msp_id", "xyz")]
+                    if not msp:
+                        standalones.append(priv)
+                return standalones
+                # return [priv for priv in mist_session.privileges if not priv.get("msp_id")]
             else:
                 tested_val = _test_choice(resp, i)
                 if tested_val >= 0:
