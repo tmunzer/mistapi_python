@@ -34,6 +34,7 @@ CLOUDS = [
     {"short": "Global 02", "host": "api.gc1.mist.com", "cookies_ext": ".gc1"},
     {"short": "Global 03", "host": "api.ac2.mist.com", "cookies_ext": ".ac2"},
     {"short": "Global 04", "host": "api.gc2.mist.com", "cookies_ext": ".gc2"},
+    {"short": "Global 05", "host": "api.gc4.mist.com", "cookies_ext": ".gc4"},
 ]
 
 #### PARAMETERS #####

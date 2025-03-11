@@ -423,7 +423,7 @@ def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="stable") -> _APIResponse:
+def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="stable", distro:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/get-org-mx-edge-upgrade-info
     
@@ -439,7 +439,8 @@ def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="s
     QUERY PARAMS
     ------------
     channel : str{'alpha', 'beta', 'stable'}, default: stable
-      Upgrade channel to follow, stable (default) / beta / alpha        
+      Upgrade channel to follow, stable (default) / beta / alpha
+    distro : str        
     
     RETURN
     -----------
@@ -449,6 +450,7 @@ def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="s
     uri = f"/api/v1/orgs/{org_id}/mxedges/version"
     query_params={}
     if channel: query_params["channel"]=channel
+    if distro: query_params["distro"]=distro
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -630,6 +632,34 @@ def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str
         response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/services/tunterm/bounce_port"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
+def disconnectOrgMxEdgeTuntermAps(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/disconnect-org-mx-edge-tunterm-aps
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str
+    mxedge_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/services/tunterm/disconnect_aps"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str="ap", mac:str=None, site_id:str=None, vc_mac:str=None, vc:bool=None, unassigned:bool=False, limit:int=100, page:int=1) -> _APIResponse:
+def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str="ap", mac:str=None, site_id:str=None, vc_mac:str=None, vc:bool=None, unassigned:bool=False, modified_after:int=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/get-org-inventory
     
@@ -37,6 +37,7 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     vc_mac : str
     vc : bool
     unassigned : bool, default: True
+    modified_after : int
     limit : int, default: 100
     page : int, default: 1        
     
@@ -55,6 +56,7 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     if vc_mac: query_params["vc_mac"]=vc_mac
     if vc: query_params["vc"]=vc
     if unassigned: query_params["unassigned"]=unassigned
+    if modified_after: query_params["modified_after"]=modified_after
     if limit: query_params["limit"]=limit
     if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)

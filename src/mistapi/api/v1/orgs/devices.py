@@ -310,7 +310,7 @@ def listOrgApsMacs(mist_session:_APISession, org_id:str, limit:int=100, page:int
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, site_id:str=None, model:str=None, mac:str=None, version:str=None, ext_ip:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, mxedge_ids:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, lldp_power_allocated:int=None, lldp_power_draw:int=None, band_24_bandwidth:int=None, band_5_bandwidth:int=None, band_6_bandwidth:int=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, band_24_power:int=None, band_5_power:int=None, band_6_power:int=None, eth0_port_speed:int=None, type:str="ap", limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgDevices(mist_session:_APISession, org_id:str, band_24_bandwidth:int=None, band_24_channel:int=None, band_24_power:int=None, band_5_bandwidth:int=None, band_5_channel:int=None, band_5_power:int=None, band_6_bandwidth:int=None, band_6_channel:int=None, band_6_power:int=None, cpu:str=None, clustered:str=None, eth0_port_speed:int=None, evpntopo_id:str=None, ext_ip:str=None, hostname:str=None, ip_address:str=None, last_config_status:str=None, last_hostname:str=None, lldp_mgmt_addr:str=None, lldp_port_id:str=None, lldp_power_allocated:int=None, lldp_power_draw:int=None, lldp_system_desc:str=None, lldp_system_name:str=None, mac:str=None, model:str=None, mxedge_id:str=None, mxedge_ids:str=None, mxtunnel_status:str=None, node:str=None, node0_mac:str=None, node1_mac:str=None, power_constrained:bool=None, site_id:str=None, t128agent_version:str=None, version:str=None, type:str="ap", limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-devices
     
@@ -325,34 +325,43 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     
     QUERY PARAMS
     ------------
-    hostname : str
-    site_id : str
-    model : str
-    mac : str
-    version : str
+    band_24_bandwidth : int
+    band_24_channel : int
+    band_24_power : int
+    band_5_bandwidth : int
+    band_5_channel : int
+    band_5_power : int
+    band_6_bandwidth : int
+    band_6_channel : int
+    band_6_power : int
+    cpu : str
+    clustered : str
+    eth0_port_speed : int
+    evpntopo_id : str
     ext_ip : str
-    power_constrained : bool
+    hostname : str
     ip_address : str
-    mxtunnel_status : str{'down', 'up'}
-      MxTunnel status, up / down
-    mxedge_id : str
-    mxedge_ids : str
-    lldp_system_name : str
-    lldp_system_desc : str
-    lldp_port_id : str
+    last_config_status : str
+    last_hostname : str
     lldp_mgmt_addr : str
+    lldp_port_id : str
     lldp_power_allocated : int
     lldp_power_draw : int
-    band_24_bandwidth : int
-    band_5_bandwidth : int
-    band_6_bandwidth : int
-    band_24_channel : int
-    band_5_channel : int
-    band_6_channel : int
-    band_24_power : int
-    band_5_power : int
-    band_6_power : int
-    eth0_port_speed : int
+    lldp_system_desc : str
+    lldp_system_name : str
+    mac : str
+    model : str
+    mxedge_id : str
+    mxedge_ids : str
+    mxtunnel_status : str{'down', 'up'}
+      If `type`==`ap`, MxTunnel status, up / down
+    node : str
+    node0_mac : str
+    node1_mac : str
+    power_constrained : bool
+    site_id : str
+    t128agent_version : str
+    version : str
     type : str{'ap', 'gateway', 'switch'}, default: ap
       Type of device. enum: `ap`, `gateway`, `switch`
     limit : int, default: 100
@@ -367,33 +376,42 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, hostname:str=None, si
     """
     uri = f"/api/v1/orgs/{org_id}/devices/search"
     query_params={}
-    if hostname: query_params["hostname"]=hostname
-    if site_id: query_params["site_id"]=site_id
-    if model: query_params["model"]=model
-    if mac: query_params["mac"]=mac
-    if version: query_params["version"]=version
+    if band_24_bandwidth: query_params["band_24_bandwidth"]=band_24_bandwidth
+    if band_24_channel: query_params["band_24_channel"]=band_24_channel
+    if band_24_power: query_params["band_24_power"]=band_24_power
+    if band_5_bandwidth: query_params["band_5_bandwidth"]=band_5_bandwidth
+    if band_5_channel: query_params["band_5_channel"]=band_5_channel
+    if band_5_power: query_params["band_5_power"]=band_5_power
+    if band_6_bandwidth: query_params["band_6_bandwidth"]=band_6_bandwidth
+    if band_6_channel: query_params["band_6_channel"]=band_6_channel
+    if band_6_power: query_params["band_6_power"]=band_6_power
+    if cpu: query_params["cpu"]=cpu
+    if clustered: query_params["clustered"]=clustered
+    if eth0_port_speed: query_params["eth0_port_speed"]=eth0_port_speed
+    if evpntopo_id: query_params["evpntopo_id"]=evpntopo_id
     if ext_ip: query_params["ext_ip"]=ext_ip
-    if power_constrained: query_params["power_constrained"]=power_constrained
+    if hostname: query_params["hostname"]=hostname
     if ip_address: query_params["ip_address"]=ip_address
-    if mxtunnel_status: query_params["mxtunnel_status"]=mxtunnel_status
-    if mxedge_id: query_params["mxedge_id"]=mxedge_id
-    if mxedge_ids: query_params["mxedge_ids"]=mxedge_ids
-    if lldp_system_name: query_params["lldp_system_name"]=lldp_system_name
-    if lldp_system_desc: query_params["lldp_system_desc"]=lldp_system_desc
-    if lldp_port_id: query_params["lldp_port_id"]=lldp_port_id
+    if last_config_status: query_params["last_config_status"]=last_config_status
+    if last_hostname: query_params["last_hostname"]=last_hostname
     if lldp_mgmt_addr: query_params["lldp_mgmt_addr"]=lldp_mgmt_addr
+    if lldp_port_id: query_params["lldp_port_id"]=lldp_port_id
     if lldp_power_allocated: query_params["lldp_power_allocated"]=lldp_power_allocated
     if lldp_power_draw: query_params["lldp_power_draw"]=lldp_power_draw
-    if band_24_bandwidth: query_params["band_24_bandwidth"]=band_24_bandwidth
-    if band_5_bandwidth: query_params["band_5_bandwidth"]=band_5_bandwidth
-    if band_6_bandwidth: query_params["band_6_bandwidth"]=band_6_bandwidth
-    if band_24_channel: query_params["band_24_channel"]=band_24_channel
-    if band_5_channel: query_params["band_5_channel"]=band_5_channel
-    if band_6_channel: query_params["band_6_channel"]=band_6_channel
-    if band_24_power: query_params["band_24_power"]=band_24_power
-    if band_5_power: query_params["band_5_power"]=band_5_power
-    if band_6_power: query_params["band_6_power"]=band_6_power
-    if eth0_port_speed: query_params["eth0_port_speed"]=eth0_port_speed
+    if lldp_system_desc: query_params["lldp_system_desc"]=lldp_system_desc
+    if lldp_system_name: query_params["lldp_system_name"]=lldp_system_name
+    if mac: query_params["mac"]=mac
+    if model: query_params["model"]=model
+    if mxedge_id: query_params["mxedge_id"]=mxedge_id
+    if mxedge_ids: query_params["mxedge_ids"]=mxedge_ids
+    if mxtunnel_status: query_params["mxtunnel_status"]=mxtunnel_status
+    if node: query_params["node"]=node
+    if node0_mac: query_params["node0_mac"]=node0_mac
+    if node1_mac: query_params["node1_mac"]=node1_mac
+    if power_constrained: query_params["power_constrained"]=power_constrained
+    if site_id: query_params["site_id"]=site_id
+    if t128agent_version: query_params["t128agent_version"]=t128agent_version
+    if version: query_params["version"]=version
     if type: query_params["type"]=type
     if limit: query_params["limit"]=limit
     if start: query_params["start"]=start

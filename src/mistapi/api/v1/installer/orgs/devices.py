@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listInstallerListOfRenctlyClaimedDevices(mist_session:_APISession, org_id:str, model:str=None, site_name:str=None, site_id:str=None, limit:int=100, page:int=1) -> _APIResponse:
+def listInstallerListOfRecentlyClaimedDevices(mist_session:_APISession, org_id:str, model:str=None, site_name:str=None, site_id:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-list-of-renctly-claimed-devices
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-list-of-recently-claimed-devices
     
     PARAMS
     -----------

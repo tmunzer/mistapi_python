@@ -13,14 +13,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 ## Features
-This package is build from the [Mist OpenAPI specifications](https://doc.mist-lab.fr) and is designed to simplify the use of the Mist APIs with Python scripts.
+This package is built from the [Mist OpenAPI specifications](https://doc.mist-lab.fr) and is designed to simplify the use of the Mist APIs with Python scripts.
 
 * Manage Mist Authentication with login/password (and 2FA if required) or API Token
 * Provide interactive user inputs for login and org/site selections
 * Provide easy access to Mist APIs endpoints and documentation
 
 ## Installation
-This Python Package can be install with `pip`:
+This Python Package can be installed with `pip`:
 ```python3
 # Linux/macOS
 python3 -m pip install mistapi
@@ -47,15 +47,15 @@ However, it is possible to set them in an `.env` file. The location of this file
 ```
 
 ### Environment Variables
-| Variable Name | Type | Default | Comment |
-| ------------- | ---- |  ------ | ------- |
-MIST_HOST | string | None | The Mist Cloud to use. It must be the "api" one (e.g. `api.mist.com`, `api.eu.mist.com`, ...) |
-MIST_APITOKEN | string | None | The API Token to use.  |
-MIST_USER | string | None | The login to use if no API Token is provided (apitoken use is prefered) |
-MIST_PASSWORD | string | None | The password to use if no API Token is provided (apitoken use is prefered) |
-CONSOLE_LOG_LEVEL | int | 20 | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical) |
-LOGGING_LOG_LEVEL | int | 10 | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
-HTTPS_PROXY | string | None | configure the package to use an HTTP/HTTPS (e.g. http://user:passowrd@myproxy.com:3128)
+| Variable Name     | Type   | Default | Comment                                                                                                                                                                                                                                                                   |
+|-------------------|--------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| MIST_HOST         | string | None    | The Mist Cloud to use. It must be the "api" one (e.g. `api.mist.com`, `api.eu.mist.com`, ...)                                                                                                                                                                             |
+| MIST_APITOKEN     | string | None    | The API Token to use.                                                                                                                                                                                                                                                     |
+| MIST_USER         | string | None    | The login to use if no API Token is provided (apitoken use is preferred)                                                                                                                                                                                                  |
+| MIST_PASSWORD     | string | None    | The password to use if no API Token is provided (apitoken use is preferred)                                                                                                                                                                                               |
+| CONSOLE_LOG_LEVEL | int    | 20      | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical)                                                                                                                    |
+| LOGGING_LOG_LEVEL | int    | 10      | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
+| HTTPS_PROXY       | string | None    | configure the package to use an HTTP/HTTPS (e.g. http://user:passowrd@myproxy.com:3128)                                                                                                                                                                                   |
 
 An example of the environment file content is:
 ```
@@ -66,28 +66,28 @@ MIST_APITOKEN = xxxxxx
 ## Usage
 Usage examples are available in the [mist_library repository](https://github.com/tmunzer/mist_library).
 
-To use it, 
-### 1. `APISession` must be instanciated:
+To use it:
+### 1. `APISession` must be instantiated:
 ```python3
 >>> import mistapi
 >>> apisession = mistapi.APISession()
 ```
 This class accepts different parameters, all optionals:
 
-| Parameter Name | Type | Default | Comment |
-| ------------- | ---- |  ------ | ------- |
-email | str | None | used if login/password is used. Can be defined later |
-password | str | None | used if login/password is used. Can be defined later |
-apitoken | str | None | used if API Token is used. Can de defined later |
-host | str | None | Mist Cloud to reach (e.g. "api.mist.com"). Can de defined later |
-env_file | str | None | path to the env file to load. See README.md for allowed variables |
-console_log_level | int | 20 | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical) |
-logging_log_level | int | 10 | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
-https_proxy | string | None | configure the package to use an HTTP/HTTPS (e.g. http://user:passowrd@myproxy.com:3128)
+| Parameter Name    | Type   | Default | Comment                                                                                                                                                                                                                                                                   |
+|-------------------|--------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| email             | str    | None    | used if login/password is used. Can be defined later                                                                                                                                                                                                                      |
+| password          | str    | None    | used if login/password is used. Can be defined later                                                                                                                                                                                                                      |
+| apitoken          | str    | None    | used if API Token is used. Can de defined later                                                                                                                                                                                                                           |
+| host              | str    | None    | Mist Cloud to reach (e.g. "api.mist.com"). Can de defined later                                                                                                                                                                                                           |
+| env_file          | str    | None    | path to the env file to load. See README.md for allowed variables                                                                                                                                                                                                         |
+| console_log_level | int    | 20      | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical)                                                                                                                    |
+| logging_log_level | int    | 10      | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
+| https_proxy       | string | None    | configure the package to use an HTTP/HTTPS (e.g. http://user:passowrd@myproxy.com:3128)                                                                                                                                                                                   |
 
 ### 2. `login()` function must be called to validate the authentication. 
 
-#### 2.1. If the env file is provided and all the required information are valid, the session is validated:
+#### 2.1. If the env file is provided and all the required information is valid, the session is validated:
 ```python3
 >>> import mistapi
 >>> apisession = mistapi.APISession(env_file="~/.mist_env")
@@ -147,7 +147,7 @@ Welcome Thomas Munzer!
 [{'model': 'AP41', 'type': 'ap', 'ap_type': 'aph', 'description': 'AP-41', 'display': 'AP41', 'has_wifi_band5': True, 'has_wifi_band24': True, 'has_scanning_radio': True, 'has_usb': True, 'has_vble': True, 'vble': {'power': 8, 'beacon_rate': 4, 'beams': 8}, 'band24': {'max_clients': 128, 'max_power': 19, 'min_power': 8}, 'fcc_dfs_ok': ...
 ```
 
-## Usefull functions
+## Useful functions
 * easily find an Org Id from the current account with `mistapi.cli.select_org(apisession)`
 ```python3
 >>> mistapi.cli.select_org(apisession)
@@ -175,7 +175,9 @@ Select a Site (0 to 6, or q to exit): 0
 ```
 
 * get the next page or all the pages from a request
-For some requests, the Mist Cloud is using pagination to limit the size of the response. The required information the find the next page can either in the HTTP header (headers `X-Page-Total`, `X-Page-Limit` and `X-Page-Page`) or with the `next` key in the json document. To make it easier to request the next page or all the pages, the `mistapi` package is prossessing the response to extract or generate the URI to retrieve the next page.
+For some requests, the Mist Cloud is using pagination to limit the size of the response. 
+The required information the find the next page can either in the HTTP header (headers `X-Page-Total`, `X-Page-Limit` and `X-Page-Page`) or with the `next` key in the JSON document.
+To make it easier to request the next page or all the pages, the `mistapi` package  is possessing the response to extract or generate the URI to retrieve the next page.
 ```python3
 >>> response = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(apisession, my_org_id, duration="1d")
 >>> len(response.data["results"])
@@ -197,7 +199,8 @@ To get the next page, use the `mistapi.get_next()` function. The returned respon
 >>> len(response_2.data["results"])
 100
 ```
-To retrieve all the pages, use the `mistapi.get_all()` function. The returned response will be a list with the concatained data from all the Mist responses:
+To retrieve all the pages, use the `mistapi.get_all()` function.
+The returned response will be a list with all the data from all the Mist responses:
 ```python3
 >>> response = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(apisession, my_org_id, duration="1d")
 >>> len(response.data["results"])

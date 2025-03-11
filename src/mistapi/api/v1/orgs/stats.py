@@ -199,7 +199,7 @@ def countOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
+def searchOrgBgpStats(mist_session:_APISession, org_id:str, mac:str=None, neighbor_mac:str=None, site_id:str=None, vrf_name:str=None, start:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/bgp-peers/search-org-bgp-stats
     
@@ -212,6 +212,16 @@ def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     -----------
     org_id : str        
     
+    QUERY PARAMS
+    ------------
+    mac : str
+    neighbor_mac : str
+    site_id : str
+    vrf_name : str
+    start : int
+    duration : str, default: 1d
+    limit : int, default: 100        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -219,6 +229,13 @@ def searchOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     uri = f"/api/v1/orgs/{org_id}/stats/bgp_peers/search"
     query_params={}
+    if mac: query_params["mac"]=mac
+    if neighbor_mac: query_params["neighbor_mac"]=neighbor_mac
+    if site_id: query_params["site_id"]=site_id
+    if vrf_name: query_params["vrf_name"]=vrf_name
+    if start: query_params["start"]=start
+    if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -630,7 +647,7 @@ def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, mac:str=None, site_id:str=None, type:str=None, start:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/vpn-peers/search-org-peer-path-stats
     
@@ -645,8 +662,10 @@ def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None,
     
     QUERY PARAMS
     ------------
+    mac : str
+    site_id : str
+    type : str{'ipsec', 'srv'}
     start : int
-    end : int
     duration : str, default: 1d
     limit : int, default: 100        
     
@@ -657,8 +676,10 @@ def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, start:int=None,
     """
     uri = f"/api/v1/orgs/{org_id}/stats/vpn_peers/search"
     query_params={}
+    if mac: query_params["mac"]=mac
+    if site_id: query_params["site_id"]=site_id
+    if type: query_params["type"]=type
     if start: query_params["start"]=start
-    if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)

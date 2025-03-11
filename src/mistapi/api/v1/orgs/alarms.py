@@ -106,7 +106,7 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, star
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type:str=None, status:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/search-org-alarms
     
@@ -123,6 +123,7 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type
     ------------
     site_id : str
     type : str
+    status : str
     start : int
     end : int
     duration : str, default: 1d
@@ -137,6 +138,7 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type
     query_params={}
     if site_id: query_params["site_id"]=site_id
     if type: query_params["type"]=type
+    if status: query_params["status"]=status
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
@@ -171,9 +173,9 @@ def unackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unackOrgAllArlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def unackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/unack-org-all-arlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/unack-org-all-alarms
     
     PARAMS
     -----------

@@ -242,9 +242,9 @@ def uploadOrgNacPortalImageFile(mist_session:_APISession, org_id:str, nacportal_
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def updateOrgNacPortalTempalte(mist_session:_APISession, org_id:str, nacportal_id:str, body:object) -> _APIResponse:
+def updateOrgNacPortalTemplate(mist_session:_APISession, org_id:str, nacportal_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/update-org-nac-portal-tempalte
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/update-org-nac-portal-template
     
     PARAMS
     -----------

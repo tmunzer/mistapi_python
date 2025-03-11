@@ -57,7 +57,7 @@ def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str=None) -
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. File to updload
+        path to the file to upload. File to upload
     
     RETURN
     -----------

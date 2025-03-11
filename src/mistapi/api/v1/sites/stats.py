@@ -362,7 +362,7 @@ def troubleshootSiteCall(mist_session:_APISession, site_id:str, client_mac:str, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", rating:int=None, app:str=None, start:str=None, end:str=None) -> _APIResponse:
+def countSiteCalls(mist_session:_APISession, site_id:str, distinct:str="mac", rating:int=None, app:str=None, start:str=None, end:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/count-site-calls
     
@@ -377,7 +377,7 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", r
     
     QUERY PARAMS
     ------------
-    distrinct : str{'mac'}, default: mac
+    distinct : str{'mac'}, default: mac
     rating : int
     app : str
     start : str
@@ -390,7 +390,7 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distrinct:str="mac", r
     """
     uri = f"/api/v1/sites/{site_id}/stats/calls/count"
     query_params={}
-    if distrinct: query_params["distrinct"]=distrinct
+    if distinct: query_params["distinct"]=distinct
     if rating: query_params["rating"]=rating
     if app: query_params["app"]=app
     if start: query_params["start"]=start
@@ -1184,7 +1184,7 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, mac:str=None, device_type:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, active:bool=None, jitter:float=None, loss:float=None, latency:float=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, lte_imsi:str=None, lte_iccid:str=None, lte_imei:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, disabled:bool=None, mac:str=None, device_type:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, active:bool=None, jitter:float=None, loss:float=None, latency:float=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, lte_imsi:str=None, lte_iccid:str=None, lte_imei:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/search-site-sw-or-gw-ports
     
@@ -1200,6 +1200,7 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     QUERY PARAMS
     ------------
     full_duplex : bool
+    disabled : bool
     mac : str
     device_type : str{'ap', 'ble', 'gateway', 'mxedge', 'nac', 'switch'}
       Device type
@@ -1254,6 +1255,7 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     uri = f"/api/v1/sites/{site_id}/stats/ports/search"
     query_params={}
     if full_duplex: query_params["full_duplex"]=full_duplex
+    if disabled: query_params["disabled"]=disabled
     if mac: query_params["mac"]=mac
     if device_type: query_params["device_type"]=device_type
     if neighbor_mac: query_params["neighbor_mac"]=neighbor_mac

@@ -341,7 +341,7 @@ def importSiteDevicesFile(mist_session:_APISession, site_id:str, file:str=None) 
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. File to updload
+        path to the file to upload. File to upload
     
     RETURN
     -----------
@@ -621,9 +621,9 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def sendSiteDevicesArbitratryBleBeacon(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def sendSiteDevicesArbitraryBleBeacon(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/location/send-site-devices-arbitratry-ble-beacon
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/location/send-site-devices-arbitrary-ble-beacon
     
     PARAMS
     -----------
@@ -1081,9 +1081,9 @@ def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearBpduErrosFromPortsOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def clearBpduErrorsFromPortsOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-bpdu-erros-from-ports-on-switch
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-bpdu-errors-from-ports-on-switch
     
     PARAMS
     -----------
@@ -1818,6 +1818,34 @@ def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, bod
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+def changeSiteSwitchVcPortMode(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/change-site-switch-vc-port-mode
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/set_vc_port_mode"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
 def createSiteDeviceShellSession(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/create-site-device-shell-session
@@ -2009,9 +2037,9 @@ def showSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str,
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteSsrOspfDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteGatewayOspfDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-ospf-database
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-database
     
     PARAMS
     -----------
@@ -2037,9 +2065,9 @@ def showSiteSsrOspfDatabase(mist_session:_APISession, site_id:str, device_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteSsrOspfInterfaces(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteGatewayOspfInterfaces(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-ospf-interfaces
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-interfaces
     
     PARAMS
     -----------
@@ -2065,9 +2093,9 @@ def showSiteSsrOspfInterfaces(mist_session:_APISession, site_id:str, device_id:s
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteSsrOspfNeighbors(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteGatewayOspfNeighbors(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-ospf-neighbors
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-neighbors
     
     PARAMS
     -----------
@@ -2093,9 +2121,9 @@ def showSiteSsrOspfNeighbors(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteSsrOspfSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+def showSiteGatewayOspfSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-ospf-summary
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-summary
     
     PARAMS
     -----------

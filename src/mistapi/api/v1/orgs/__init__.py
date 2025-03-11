@@ -12,6 +12,7 @@
 
 from mistapi.api.v1.orgs import orgs
 from mistapi.api.v1.orgs import ssr
+from mistapi.api.v1.orgs import aamwprofiles
 from mistapi.api.v1.orgs import admins
 from mistapi.api.v1.orgs import alarms
 from mistapi.api.v1.orgs import alarmtemplates

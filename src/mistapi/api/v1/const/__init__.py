@@ -21,6 +21,7 @@ from mistapi.api.v1.const import countries
 from mistapi.api.v1.const import default_gateway_config
 from mistapi.api.v1.const import device_events
 from mistapi.api.v1.const import device_models
+from mistapi.api.v1.const import fingerprint_types
 from mistapi.api.v1.const import gateway_applications
 from mistapi.api.v1.const import insight_metrics
 from mistapi.api.v1.const import languages

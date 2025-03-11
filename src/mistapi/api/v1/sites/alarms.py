@@ -188,9 +188,9 @@ def unackSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unackSiteAllArlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def unackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-all-arlarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-all-alarms
     
     PARAMS
     -----------

@@ -71,7 +71,7 @@ def createOrgAntivirusProfile(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:str) -> _APIResponse:
+def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/get-org-antivirus-profile
     
@@ -83,19 +83,19 @@ def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:s
     PATH PARAMS
     -----------
     org_id : str
-    avprofiles_id : str        
+    avprofile_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofiles_id}"
+    uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofile_id}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:str) -> _APIResponse:
+def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/delete-org-antivirus-profile
     
@@ -107,19 +107,19 @@ def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_i
     PATH PARAMS
     -----------
     org_id : str
-    avprofiles_id : str        
+    avprofile_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofiles_id}"
+    uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofile_id}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_id:str, body:object) -> _APIResponse:
+def updateOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str, body:object) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/update-org-antivirus-profile
     
@@ -131,7 +131,7 @@ def updateOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_i
     PATH PARAMS
     -----------
     org_id : str
-    avprofiles_id : str        
+    avprofile_id : str        
     
     BODY PARAMS
     -----------
@@ -143,7 +143,7 @@ def updateOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofiles_i
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofiles_id}"
+    uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofile_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     

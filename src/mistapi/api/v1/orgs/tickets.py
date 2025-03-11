@@ -162,9 +162,9 @@ def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:ob
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def UploadrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_id:str, file:str=None) -> _APIResponse:
+def UploadOrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_id:str, file:str=None) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/uploadrg-ticket-attachment
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/upload-org-ticket-attachment
     
     PARAMS
     -----------

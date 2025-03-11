@@ -39,9 +39,9 @@ def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAnomalyEventsforDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str) -> _APIResponse:
+def getSiteAnomalyEventsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/get-site-anomaly-eventsfor-device
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/get-site-anomaly-events-for-device
     
     PARAMS
     -----------
