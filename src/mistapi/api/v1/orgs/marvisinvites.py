@@ -37,9 +37,9 @@ def listOrgMarvisClientInvites(mist_session:_APISession, org_id:str) -> _APIResp
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgMarvisClientInvites(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgMarvisClientInvite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/create-org-marvis-client-invites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/create-org-marvis-client-invite
     
     PARAMS
     -----------
@@ -64,9 +64,9 @@ def createOrgMarvisClientInvites(mist_session:_APISession, org_id:str, body:obje
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgMarvisClientInvites(mist_session:_APISession, org_id:str, marvisinvite_id:str) -> _APIResponse:
+def getOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/get-org-marvis-client-invites
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/get-org-marvis-client-invite
     
     PARAMS
     -----------

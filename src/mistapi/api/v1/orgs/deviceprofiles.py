@@ -46,9 +46,9 @@ def listOrgDeviceProfiles(mist_session:_APISession, org_id:str, type:str="ap", l
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgDeviceProfiles(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgDeviceProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/create-org-device-profiles
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/create-org-device-profile
     
     PARAMS
     -----------

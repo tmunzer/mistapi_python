@@ -95,9 +95,9 @@ def getSiteBeacon(mist_session:_APISession, site_id:str, beacon_id:str) -> _APIR
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteBeacons(mist_session:_APISession, site_id:str, beacon_id:str) -> _APIResponse:
+def deleteSiteBeacon(mist_session:_APISession, site_id:str, beacon_id:str) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/beacons/delete-site-beacons
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/beacons/delete-site-beacon
     
     PARAMS
     -----------
@@ -119,9 +119,9 @@ def deleteSiteBeacons(mist_session:_APISession, site_id:str, beacon_id:str) -> _
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteBeacons(mist_session:_APISession, site_id:str, beacon_id:str, body:object) -> _APIResponse:
+def updateSiteBeacon(mist_session:_APISession, site_id:str, beacon_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/beacons/update-site-beacons
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/beacons/update-site-beacon
     
     PARAMS
     -----------

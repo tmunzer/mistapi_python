@@ -724,6 +724,7 @@ class APISession(APIRequest):
             api response for the POST /api/v1/self/apitokens request
         """
         logger.debug("apisession:create_api_token")
+        body={}
         if token_name:
             body = {"name": token_name}
         logger.info(

@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgCertificates(mist_session:_APISession, org_id:str) -> _APIResponse:
+def listOrgCertificates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cert/get-org-certificates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cert/list-org-certificates
     
     PARAMS
     -----------

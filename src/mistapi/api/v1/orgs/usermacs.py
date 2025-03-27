@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def createOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgUserMac(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/create-org-user-macs
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/create-org-user-mac
     
     PARAMS
     -----------

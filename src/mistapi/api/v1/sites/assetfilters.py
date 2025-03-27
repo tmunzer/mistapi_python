@@ -44,9 +44,9 @@ def listSiteAssetFilters(mist_session:_APISession, site_id:str, limit:int=100, p
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteAssetFilters(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+def createSiteAssetFilter(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/create-site-asset-filters
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/create-site-asset-filter
     
     PARAMS
     -----------

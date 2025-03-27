@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgsVpns(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+def listOrgVpns(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/list-orgs-vpns
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/list-org-vpns
     
     PARAMS
     -----------
@@ -44,9 +44,9 @@ def listOrgsVpns(mist_session:_APISession, org_id:str, limit:int=100, page:int=1
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgVpns(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgVpn(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/create-org-vpns
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/create-org-vpn
     
     PARAMS
     -----------

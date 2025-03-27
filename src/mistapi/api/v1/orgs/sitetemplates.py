@@ -44,9 +44,9 @@ def listOrgSiteTemplates(mist_session:_APISession, org_id:str, limit:int=100, pa
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSiteTemplates(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgSiteTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/create-org-site-templates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/create-org-site-template
     
     PARAMS
     -----------

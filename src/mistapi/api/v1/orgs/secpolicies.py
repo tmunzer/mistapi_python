@@ -44,9 +44,9 @@ def listOrgSecPolicies(mist_session:_APISession, org_id:str, limit:int=100, page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSecPolicies(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgSecPolicy(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/security-policies/create-org-sec-policies
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/security-policies/create-org-sec-policy
     
     PARAMS
     -----------
@@ -119,9 +119,9 @@ def deleteOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str) -
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgSecPolicies(mist_session:_APISession, org_id:str, secpolicy_id:str, body:object) -> _APIResponse:
+def updateOrgSecPolicy(mist_session:_APISession, org_id:str, secpolicy_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/security-policies/update-org-sec-policies
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/security-policies/update-org-sec-policy
     
     PARAMS
     -----------

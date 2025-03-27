@@ -664,7 +664,7 @@ def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, mac:str=None, s
     ------------
     mac : str
     site_id : str
-    type : str{'ipsec', 'srv'}
+    type : str{'ipsec', 'svr'}
     start : int
     duration : str, default: 1d
     limit : int, default: 100        

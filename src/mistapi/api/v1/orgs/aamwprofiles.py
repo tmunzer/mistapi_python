@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgAssetFilters(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+def listOrgAAMWProfiles(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/list-org-asset-filters
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/list-org-a-a-m-w-profiles
     
     PARAMS
     -----------
@@ -27,26 +27,19 @@ def listOrgAssetFilters(mist_session:_APISession, org_id:str, limit:int=100, pag
     -----------
     org_id : str        
     
-    QUERY PARAMS
-    ------------
-    limit : int, default: 100
-    page : int, default: 1        
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/assetfilters"
+    uri = f"/api/v1/orgs/{org_id}/aamwprofiles"
     query_params={}
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgAssetFilter(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def createOrgAAMWProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/create-org-asset-filter
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/create-org-a-a-m-w-profile
     
     PARAMS
     -----------
@@ -67,13 +60,13 @@ def createOrgAssetFilter(mist_session:_APISession, org_id:str, body:object) -> _
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/assetfilters"
+    uri = f"/api/v1/orgs/{org_id}/aamwprofiles"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> _APIResponse:
+def getOrgAAMWProfile(mist_session:_APISession, org_id:str, aamwprofile_id:str) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/get-org-asset-filter
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/get-org-a-a-m-w-profile
     
     PARAMS
     -----------
@@ -83,21 +76,21 @@ def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) 
     PATH PARAMS
     -----------
     org_id : str
-    assetfilter_id : str        
+    aamwprofile_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/assetfilters/{assetfilter_id}"
+    uri = f"/api/v1/orgs/{org_id}/aamwprofiles/{aamwprofile_id}"
     query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> _APIResponse:
+def deleteOrgAAMWProfile(mist_session:_APISession, org_id:str, aamwprofile_id:str) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/delete-org-asset-filter
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/delete-org-a-a-m-w-profile
     
     PARAMS
     -----------
@@ -107,21 +100,21 @@ def deleteOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:st
     PATH PARAMS
     -----------
     org_id : str
-    assetfilter_id : str        
+    aamwprofile_id : str        
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/assetfilters/{assetfilter_id}"
+    uri = f"/api/v1/orgs/{org_id}/aamwprofiles/{aamwprofile_id}"
     query_params={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str, body:object) -> _APIResponse:
+def updateOrgAAMWProfile(mist_session:_APISession, org_id:str, aamwprofile_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/update-org-asset-filter
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/update-org-a-a-m-w-profile
     
     PARAMS
     -----------
@@ -131,7 +124,7 @@ def updateOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:st
     PATH PARAMS
     -----------
     org_id : str
-    assetfilter_id : str        
+    aamwprofile_id : str        
     
     BODY PARAMS
     -----------
@@ -143,7 +136,7 @@ def updateOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:st
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs/{org_id}/assetfilters/{assetfilter_id}"
+    uri = f"/api/v1/orgs/{org_id}/aamwprofiles/{aamwprofile_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     

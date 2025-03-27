@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteEvpnTopologies(mist_session:_APISession, site_id:str) -> _APIResponse:
+def listSiteEvpnTopologies(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/list-site-evpn-topologies
     
@@ -27,6 +27,11 @@ def listSiteEvpnTopologies(mist_session:_APISession, site_id:str) -> _APIRespons
     -----------
     site_id : str        
     
+    QUERY PARAMS
+    ------------
+    limit : int, default: 100
+    page : int, default: 1        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -34,6 +39,8 @@ def listSiteEvpnTopologies(mist_session:_APISession, site_id:str) -> _APIRespons
     """
     uri = f"/api/v1/sites/{site_id}/evpn_topologies"
     query_params={}
+    if limit: query_params["limit"]=limit
+    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

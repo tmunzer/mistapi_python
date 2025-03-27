@@ -119,9 +119,9 @@ def deleteOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktempla
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgNetworkTemplates(mist_session:_APISession, org_id:str, networktemplate_id:str, body:object) -> _APIResponse:
+def updateOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_id:str, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/update-org-network-templates
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/update-org-network-template
     
     PARAMS
     -----------

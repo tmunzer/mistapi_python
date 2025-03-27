@@ -48,9 +48,9 @@ def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_code:str=None) -> _APIResponse:
+def listSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_code:str=None) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wireless/get-site-device-radio-channels
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wireless/list-site-device-radio-channels
     
     PARAMS
     -----------

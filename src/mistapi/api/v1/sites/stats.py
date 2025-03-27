@@ -108,38 +108,6 @@ def listSiteAssetsStats(mist_session:_APISession, site_id:str, start:int=None, e
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAssetStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-asset-stats
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str        
-    
-    QUERY PARAMS
-    ------------
-    start : int
-    end : int
-    duration : str, default: 1d        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/stats/assets/asset_id"
-    query_params={}
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    
 def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/count-site-assets
@@ -224,6 +192,39 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     if beam: query_params["beam"]=beam
     if rssi: query_params["rssi"]=rssi
     if limit: query_params["limit"]=limit
+    if start: query_params["start"]=start
+    if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def getSiteAssetStats(mist_session:_APISession, site_id:str, asset_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-asset-stats
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    site_id : str
+    asset_id : str        
+    
+    QUERY PARAMS
+    ------------
+    start : int
+    end : int
+    duration : str, default: 1d        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/stats/assets/{asset_id}"
+    query_params={}
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
@@ -780,9 +781,9 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, threshold:str=None, system_name:str=None) -> _APIResponse:
+def listSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, threshold:str=None, system_name:str=None) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/get-site-discovered-switches-metrics
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/list-site-discovered-switches-metrics
     
     PARAMS
     -----------
