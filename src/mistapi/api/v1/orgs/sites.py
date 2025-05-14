@@ -71,7 +71,7 @@ def createOrgSite(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sites/count-org-sites
     
@@ -90,8 +90,7 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", start
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -105,7 +104,6 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

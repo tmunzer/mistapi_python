@@ -46,7 +46,7 @@ def listMspTickets(mist_session:_APISession, msp_id:str, start:int=None, end:int
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status") -> _APIResponse:
+def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/tickets/count-msp-tickets
     
@@ -61,7 +61,8 @@ def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status")
     
     QUERY PARAMS
     ------------
-    distinct : str{'org_id', 'status', 'type'}, default: status        
+    distinct : str{'org_id', 'status', 'type'}, default: status
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -71,6 +72,7 @@ def countMspTickets(mist_session:_APISession, msp_id:str, distinct:str="status")
     uri = f"/api/v1/msps/{msp_id}/tickets/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

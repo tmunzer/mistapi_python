@@ -68,7 +68,7 @@ def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/count-org-alarms
     
@@ -87,8 +87,7 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, star
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -102,7 +101,6 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, star
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

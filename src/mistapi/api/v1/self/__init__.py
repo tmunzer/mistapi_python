@@ -12,6 +12,7 @@
 
 from mistapi.api.v1.self import self
 from mistapi.api.v1.self import apitokens
+from mistapi.api.v1.self import login_failures
 from mistapi.api.v1.self import logs
 from mistapi.api.v1.self import oauth
 from mistapi.api.v1.self import subscriptions

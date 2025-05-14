@@ -110,7 +110,7 @@ def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str=None) -> _APIResponse:
+def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str="stable", mac:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-available-ssr-versions
     
@@ -125,7 +125,9 @@ def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:st
     
     QUERY PARAMS
     ------------
-    channel : str        
+    channel : str{'alpha', 'beta', 'stable'}, default: stable
+      SSR version channel
+    mac : str        
     
     RETURN
     -----------
@@ -135,6 +137,7 @@ def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:st
     uri = f"/api/v1/orgs/{org_id}/ssr/versions"
     query_params={}
     if channel: query_params["channel"]=channel
+    if mac: query_params["mac"]=mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -107,7 +107,7 @@ def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, e
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="pskportal_id", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="pskportal_id", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/count-org-psk-portal-logs
     
@@ -126,8 +126,7 @@ def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="ps
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -141,7 +140,6 @@ def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="ps
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

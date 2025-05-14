@@ -59,7 +59,7 @@ def listMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str=None, adm
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countMspAuditLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_name") -> _APIResponse:
+def countMspAuditLogs(mist_session:_APISession, msp_id:str, limit:int=100, distinct:str="admin_name") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logs/count-msp-audit-logs
     
@@ -74,6 +74,7 @@ def countMspAuditLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_
     
     QUERY PARAMS
     ------------
+    limit : int, default: 100
     distinct : str{'admin_id', 'admin_name', 'message', 'org_id'}, default: admin_name        
     
     RETURN
@@ -83,6 +84,7 @@ def countMspAuditLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_
     """
     uri = f"/api/v1/msps/{msp_id}/logs/count"
     query_params={}
+    if limit: query_params["limit"]=limit
     if distinct: query_params["distinct"]=distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

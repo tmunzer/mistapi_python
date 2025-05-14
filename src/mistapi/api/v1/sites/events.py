@@ -51,7 +51,7 @@ def listSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/events/count-site-system-events
     
@@ -68,10 +68,10 @@ def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="t
     ------------
     distinct : str{'type'}, default: type
     type : str
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -82,10 +82,10 @@ def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="t
     query_params={}
     if distinct: query_params["distinct"]=distinct
     if type: query_params["type"]=type
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -14,9 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgLicencesSummary(mist_session:_APISession, org_id:str) -> _APIResponse:
+def getOrgLicensesSummary(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/get-org-licences-summary
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/get-org-licenses-summary
     
     PARAMS
     -----------
@@ -64,9 +64,9 @@ def moveOrDeleteOrgLicenseToAnotherOrg(mist_session:_APISession, org_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getOrgLicencesBySite(mist_session:_APISession, org_id:str) -> _APIResponse:
+def getOrgLicensesBySite(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/get-org-licences-by-site
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/get-org-licenses-by-site
     
     PARAMS
     -----------

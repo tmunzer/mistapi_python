@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bssid", type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bssid", type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/count-site-rogue-events
     
@@ -36,10 +36,10 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     ap_mac : str
     channel : str
     seen_on_lan : bool
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -55,10 +55,10 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     if ap_mac: query_params["ap_mac"]=ap_mac
     if channel: query_params["channel"]=channel
     if seen_on_lan: query_params["seen_on_lan"]=seen_on_lan
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -37,7 +37,7 @@ def listOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, type:str="ap", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, type:str="ap", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-devices
     
@@ -71,8 +71,7 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -100,11 +99,10 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="model", site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="model", site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-device-events
     
@@ -127,10 +125,10 @@ def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="mod
     text : str
     timestamp : str
     type : str
-    limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
+    duration : str, default: 1d
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -147,10 +145,10 @@ def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="mod
     if text: query_params["text"]=text
     if timestamp: query_params["timestamp"]=timestamp
     if type: query_params["type"]=type
-    if limit: query_params["limit"]=limit
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -202,7 +200,7 @@ def searchOrgDeviceEvents(mist_session:_APISession, org_id:str, mac:str=None, mo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap", distinct:str=None, start:int=None, end:int=None, limit:int=100) -> _APIResponse:
+def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap", distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-device-last-configs
     
@@ -221,6 +219,7 @@ def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap
     distinct : str{'mac', 'name', 'site_id', 'version'}
     start : int
     end : int
+    duration : str, default: 1d
     limit : int, default: 100        
     
     RETURN
@@ -234,6 +233,7 @@ def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap
     if distinct: query_params["distinct"]=distinct
     if start: query_params["start"]=start
     if end: query_params["end"]=end
+    if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
@@ -417,6 +417,29 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, band_24_bandwidth:int
     if start: query_params["start"]=start
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
+def listOrgDevicesSummary(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/list-org-devices-summary
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/devices/summary"
+    query_params={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

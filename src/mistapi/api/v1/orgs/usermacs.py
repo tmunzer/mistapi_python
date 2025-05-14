@@ -41,6 +41,60 @@ def createOrgUserMac(mist_session:_APISession, org_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
+def updateOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/update-org-multiple-user-macs
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/usermacs"
+    resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+    
+def deleteOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/delete-org-multiple-user-macs
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/usermacs/delete"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+    
 def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/import-org-user-macs

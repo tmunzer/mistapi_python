@@ -37,7 +37,7 @@ def listOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIResp
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/count-org-guest-authorizations
     
@@ -56,8 +56,7 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -71,7 +70,6 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

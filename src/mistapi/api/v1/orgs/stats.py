@@ -86,7 +86,7 @@ def listOrgAssetsStats(mist_session:_APISession, org_id:str, start:int=None, end
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct:str=None) -> _APIResponse:
+def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct:str=None, limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/assets/count-org-assets-by-distance-field
     
@@ -101,7 +101,8 @@ def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct
     
     QUERY PARAMS
     ------------
-    distinct : str{'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'site_id'}        
+    distinct : str{'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'site_id'}
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -111,6 +112,7 @@ def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct
     uri = f"/api/v1/orgs/{org_id}/stats/assets/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -176,7 +178,7 @@ def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
+def countOrgBgpStats(mist_session:_APISession, org_id:str, limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/bgp-peers/count-org-bgp-stats
     
@@ -189,6 +191,10 @@ def countOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     -----------
     org_id : str        
     
+    QUERY PARAMS
+    ------------
+    limit : int, default: 100        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -196,6 +202,7 @@ def countOrgBgpStats(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     uri = f"/api/v1/orgs/{org_id}/stats/bgp_peers/count"
     query_params={}
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -289,7 +296,7 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", sta
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, for_site:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, for_site:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/mxedges/list-org-mx-edges-stats
     
@@ -304,7 +311,8 @@ def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, for_site:bool=None
     
     QUERY PARAMS
     ------------
-    for_site : bool
+    for_site : str{'all', 'true', 'false'}
+      Filter for site level mist edges
     start : int
     end : int
     duration : str, default: 1d
@@ -511,7 +519,7 @@ def listOrgSiteStats(mist_session:_APISession, org_id:str, start:int=None, end:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str="wxtunnel_id", type:str="wxtunnel") -> _APIResponse:
+def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str="wxtunnel_id", type:str="wxtunnel", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/tunnels/count-org-tunnels-stats
     
@@ -529,7 +537,8 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str="wxt
     distinct : str{'ap', 'auth_algo', 'encrypt_algo', 'ike_version', 'ip', 'last_event', 'mac', 'mxcluster_id', 'mxedge_id', 'node', 'peer_host', 'peer_ip', 'peer_mxedge_id', 'protocol', 'remote_ip', 'remote_port', 'site_id', 'state', 'tunnel_name', 'up', 'wxtunnel_id'}, default: wxtunnel_id
       - If `type`==`wxtunnel`: wxtunnel_id / ap / remote_ip / remote_port / state / mxedge_id / mxcluster_id / site_id / peer_mxedge_id; default is wxtunnel_id 
 - If `type`==`wan`: mac / site_id / node / peer_ip / peer_host/ ip / tunnel_name / protocol / auth_algo / encrypt_algo / ike_version / last_event / up
-    type : str{'wan', 'wxtunnel'}, default: wxtunnel        
+    type : str{'wan', 'wxtunnel'}, default: wxtunnel
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -540,6 +549,7 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str="wxt
     query_params={}
     if distinct: query_params["distinct"]=distinct
     if type: query_params["type"]=type
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -609,7 +619,7 @@ def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/vpn-peers/count-org-peer-path-stats
     
@@ -628,8 +638,7 @@ def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=Non
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -643,7 +652,6 @@ def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=Non
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -14,30 +14,22 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def claimMspLicense(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+def getSelfLoginFailures(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/licenses/claim-msp-license
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/get-self-login-failures
     
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
     
-    PATH PARAMS
-    -----------
-    msp_id : str        
-    
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps/{msp_id}/claim"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    uri = f"/api/v1/self/login_failures"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

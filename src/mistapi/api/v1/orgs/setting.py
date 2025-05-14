@@ -783,7 +783,7 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'teams', 'vmware', 'zdx', 'zoom'}
+    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
       OAuth application name        
     
     QUERY PARAMS
@@ -813,7 +813,7 @@ def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, b
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'teams', 'vmware', 'zdx', 'zoom'}
+    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
       OAuth application name        
     
     BODY PARAMS
@@ -842,7 +842,7 @@ def updateOrgOauthAppAccount(mist_session:_APISession, org_id:str, app_name:str,
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'teams', 'vmware', 'zdx', 'zoom'}
+    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
       OAuth application name        
     
     BODY PARAMS
@@ -871,7 +871,7 @@ def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_nam
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'teams', 'vmware', 'zdx', 'zoom'}
+    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
       OAuth application name
     account_id : str        
     

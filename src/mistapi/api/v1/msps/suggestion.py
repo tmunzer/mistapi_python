@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countMspsMarvisActions(mist_session:_APISession, msp_id:str, distinct:str="org_id", limit:int=100, page:int=1) -> _APIResponse:
+def countMspsMarvisActions(mist_session:_APISession, msp_id:str, distinct:str="org_id", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/marvis/count-msps-marvis-actions
     
@@ -30,8 +30,7 @@ def countMspsMarvisActions(mist_session:_APISession, msp_id:str, distinct:str="o
     QUERY PARAMS
     ------------
     distinct : str{'org_id', 'status'}, default: org_id
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -42,7 +41,6 @@ def countMspsMarvisActions(mist_session:_APISession, msp_id:str, distinct:str="o
     query_params={}
     if distinct: query_params["distinct"]=distinct
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

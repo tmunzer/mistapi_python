@@ -94,7 +94,7 @@ def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgClientFingerprints(mist_session:_APISession, site_id:str, distinct:str="family", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgClientFingerprints(mist_session:_APISession, site_id:str, distinct:str="family", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-fingerprints/count-org-client-fingerprints
     
@@ -113,8 +113,7 @@ def countOrgClientFingerprints(mist_session:_APISession, site_id:str, distinct:s
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -128,11 +127,10 @@ def countOrgClientFingerprints(mist_session:_APISession, site_id:str, distinct:s
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgClientFingerprints(mist_session:_APISession, site_id:str, family:str=None, model:str=None, mfg:str=None, os:str=None, os_type:str=None, mac:str=None, sort:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d", interval:str=None) -> _APIResponse:
+def searchOrgClientFingerprints(mist_session:_APISession, site_id:str, family:str=None, client_type:str=None, model:str=None, mfg:str=None, os:str=None, os_type:str=None, mac:str=None, sort:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d", interval:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-fingerprints/search-org-client-fingerprints
     
@@ -148,6 +146,8 @@ def searchOrgClientFingerprints(mist_session:_APISession, site_id:str, family:st
     QUERY PARAMS
     ------------
     family : str
+    client_type : str{'wireless', 'wired'}
+      Whether client is wired or wireless
     model : str
     mfg : str
     os : str
@@ -168,6 +168,7 @@ def searchOrgClientFingerprints(mist_session:_APISession, site_id:str, family:st
     uri = f"/api/v1/sites/{site_id}/insights/fingerprints/search"
     query_params={}
     if family: query_params["family"]=family
+    if client_type: query_params["client_type"]=client_type
     if model: query_params["model"]=model
     if mfg: query_params["mfg"]=mfg
     if os: query_params["os"]=os

@@ -73,7 +73,7 @@ def createOrgTicket(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status") -> _APIResponse:
+def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/count-org-tickets
     
@@ -88,7 +88,8 @@ def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status")
     
     QUERY PARAMS
     ------------
-    distinct : str{'status', 'type'}, default: status        
+    distinct : str{'status', 'type'}, default: status
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -98,6 +99,7 @@ def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status")
     uri = f"/api/v1/orgs/{org_id}/tickets/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

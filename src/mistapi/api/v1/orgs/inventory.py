@@ -116,7 +116,7 @@ def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", distinct:str="model", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", distinct:str="model", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/count-org-inventory
     
@@ -133,8 +133,7 @@ def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", disti
     ------------
     type : str{'ap', 'gateway', 'switch'}, default: ap
     distinct : str{'model', 'status', 'site_id', 'sku', 'version'}, default: model
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -146,7 +145,6 @@ def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", disti
     if type: query_params["type"]=type
     if distinct: query_params["distinct"]=distinct
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -37,7 +37,7 @@ def getSiteStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, device_mac:str=None, app:str=None, wired:str=None) -> _APIResponse:
+def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, device_mac:str=None, app:str=None, wired:str=None, limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/apps/count-site-apps
     
@@ -56,7 +56,8 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
       Default for wireless devices is `ap`. Default for wired devices is `device_mac`
     device_mac : str
     app : str
-    wired : str        
+    wired : str
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -69,6 +70,7 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     if device_mac: query_params["device_mac"]=device_mac
     if app: query_params["app"]=app
     if wired: query_params["wired"]=wired
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -108,7 +110,7 @@ def listSiteAssetsStats(mist_session:_APISession, site_id:str, start:int=None, e
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id") -> _APIResponse:
+def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/count-site-assets
     
@@ -123,7 +125,8 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     
     QUERY PARAMS
     ------------
-    distinct : str{'by', 'device_name', 'eddystone_uid_instance', 'eddystone_uid_namespace', 'eddystone_url', 'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'name'}, default: map_id        
+    distinct : str{'by', 'device_name', 'eddystone_uid_instance', 'eddystone_uid_namespace', 'eddystone_url', 'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'name'}, default: map_id
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -133,6 +136,7 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     uri = f"/api/v1/sites/{site_id}/stats/assets/count"
     query_params={}
     if distinct: query_params["distinct"]=distinct
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -267,7 +271,7 @@ def listSiteBeaconsStats(mist_session:_APISession, site_id:str, start:int=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, distinct:str=None) -> _APIResponse:
+def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, distinct:str=None, limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/bgp-peers/count-site-bgp-stats
     
@@ -283,7 +287,8 @@ def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, dis
     QUERY PARAMS
     ------------
     state : str
-    distinct : str        
+    distinct : str
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -294,6 +299,7 @@ def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, dis
     query_params={}
     if state: query_params["state"]=state
     if distinct: query_params["distinct"]=distinct
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -363,7 +369,7 @@ def troubleshootSiteCall(mist_session:_APISession, site_id:str, client_mac:str, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteCalls(mist_session:_APISession, site_id:str, distinct:str="mac", rating:int=None, app:str=None, start:str=None, end:str=None) -> _APIResponse:
+def countSiteCalls(mist_session:_APISession, site_id:str, distinct:str="mac", rating:int=None, app:str=None, start:str=None, end:str=None, limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/count-site-calls
     
@@ -382,7 +388,8 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distinct:str="mac", ra
     rating : int
     app : str
     start : str
-    end : str        
+    end : str
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -396,6 +403,7 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distinct:str="mac", ra
     if app: query_params["app"]=app
     if start: query_params["start"]=start
     if end: query_params["end"]=end
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -743,7 +751,7 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:str="system_name", start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:str="system_name", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/count-site-discovered-switches
     
@@ -762,8 +770,7 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -777,7 +784,6 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -1094,7 +1100,7 @@ def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str, sta
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/count-site-sw-or-gw-ports
     
@@ -1141,8 +1147,7 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -1181,7 +1186,6 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -59,7 +59,7 @@ def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, adm
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_name", admin_id:str=None, admin_name:str=None, site_id:str=None, message:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_name", admin_id:str=None, admin_name:str=None, site_id:str=None, message:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/logs/count-org-audit-logs
     
@@ -82,8 +82,7 @@ def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1        
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -101,7 +100,6 @@ def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_
     if end: query_params["end"]=end
     if duration: query_params["duration"]=duration
     if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
