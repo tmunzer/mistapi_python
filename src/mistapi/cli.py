@@ -346,7 +346,7 @@ def save_to_csv(
     print("saving to file...")
     with open(csv_file, "w") as f:
         for column in fields:
-            f.write(f"{column},")
+            f.write(f"{column}{csv_separator}")
         f.write("\r\n")
         for row in data:
             for field in row:
