@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def getOrgStats(mist_session:_APISession, org_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/get-org-stats
     
@@ -50,7 +50,7 @@ def getOrgStats(mist_session:_APISession, org_id:str, start:int=None, end:int=No
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgAssetsStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def listOrgAssetsStats(mist_session:_APISession, org_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/assets/list-org-assets-stats
     
@@ -86,7 +86,7 @@ def listOrgAssetsStats(mist_session:_APISession, org_id:str, start:int=None, end
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct:str=None, limit:int=100) -> _APIResponse:
+def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct:str|None=None, limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/assets/count-org-assets-by-distance-field
     
@@ -116,7 +116,7 @@ def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, device_name:str=None, name:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:str=None, ibeacon_minor:str=None, eddystone_uid_namespace:str=None, eddystone_uid_instance:str=None, eddystone_url:str=None, ap_mac:str=None, beam:int=None, rssi:int=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str|None=None, mac:str|None=None, device_name:str|None=None, name:str|None=None, map_id:str|None=None, ibeacon_uuid:str|None=None, ibeacon_major:str|None=None, ibeacon_minor:str|None=None, eddystone_uid_namespace:str|None=None, eddystone_uid_instance:str|None=None, eddystone_url:str|None=None, ap_mac:str|None=None, beam:int|None=None, rssi:int|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/assets/search-org-assets
     
@@ -206,7 +206,7 @@ def countOrgBgpStats(mist_session:_APISession, org_id:str, limit:int=100) -> _AP
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgBgpStats(mist_session:_APISession, org_id:str, mac:str=None, neighbor_mac:str=None, site_id:str=None, vrf_name:str=None, start:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgBgpStats(mist_session:_APISession, org_id:str, mac:str|None=None, neighbor_mac:str|None=None, site_id:str|None=None, vrf_name:str|None=None, start:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/bgp-peers/search-org-bgp-stats
     
@@ -246,7 +246,7 @@ def searchOrgBgpStats(mist_session:_APISession, org_id:str, mac:str=None, neighb
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None, fields:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", status:str="all", site_id:str|None=None, mac:str|None=None, evpntopo_id:str|None=None, evpn_unused:str|None=None, fields:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/devices/list-org-devices-stats
     
@@ -296,7 +296,30 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", sta
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, for_site:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def deleteOrgMarvisClient(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/delete-org-marvis-client
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/stats/marvisclients"
+    query_params={}
+    resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+    
+def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, for_site:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/mxedges/list-org-mx-edges-stats
     
@@ -335,7 +358,7 @@ def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, for_site:str=None,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgMxEdgeStats(mist_session:_APISession, org_id:str, mxedge_id:str, for_site:bool=None) -> _APIResponse:
+def getOrgMxEdgeStats(mist_session:_APISession, org_id:str, mxedge_id:str, for_site:bool|None=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/mxedges/get-org-mx-edge-stats
     
@@ -388,7 +411,7 @@ def getOrgOtherDeviceStats(mist_session:_APISession, org_id:str, device_mac:str)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool|None=None, mac:str|None=None, neighbor_mac:str|None=None, neighbor_port_desc:str|None=None, neighbor_system_name:str|None=None, poe_disabled:bool|None=None, poe_mode:str|None=None, poe_on:bool|None=None, port_id:str|None=None, port_mac:str|None=None, power_draw:float|None=None, tx_pkts:int|None=None, rx_pkts:int|None=None, rx_bytes:int|None=None, tx_bps:int|None=None, rx_bps:int|None=None, tx_errors:int|None=None, rx_errors:int|None=None, tx_mcast_pkts:int|None=None, tx_bcast_pkts:int|None=None, rx_mcast_pkts:int|None=None, rx_bcast_pkts:int|None=None, speed:int|None=None, mac_limit:int|None=None, mac_count:int|None=None, up:bool|None=None, stp_state:str|None=None, stp_role:str|None=None, auth_state:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/ports/search-org-sw-or-gw-ports
     
@@ -483,7 +506,7 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgSiteStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def listOrgSiteStats(mist_session:_APISession, org_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/sites/list-org-site-stats
     
@@ -553,7 +576,7 @@ def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str="wxt
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str=None, site_id:str=None, wxtunnel_id:str=None, ap:str=None, mac:str=None, node:str=None, peer_ip:str=None, peer_host:str=None, ip:str=None, tunnel_name:str=None, protocol:str=None, auth_algo:str=None, encrypt_algo:str=None, ike_version:str=None, up:str=None, type:str="wxtunnel", limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str|None=None, site_id:str|None=None, wxtunnel_id:str|None=None, ap:str|None=None, mac:str|None=None, node:str|None=None, peer_ip:str|None=None, peer_host:str|None=None, ip:str|None=None, tunnel_name:str|None=None, protocol:str|None=None, auth_algo:str|None=None, encrypt_algo:str|None=None, ike_version:str|None=None, up:str|None=None, type:str="wxtunnel", limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/tunnels/search-org-tunnels-stats
     
@@ -619,7 +642,7 @@ def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/vpn-peers/count-org-peer-path-stats
     
@@ -655,7 +678,7 @@ def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, mac:str=None, site_id:str=None, type:str=None, start:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, mac:str|None=None, site_id:str|None=None, type:str|None=None, start:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/vpn-peers/search-org-peer-path-stats
     

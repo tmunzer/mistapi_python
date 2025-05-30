@@ -37,6 +37,28 @@ def listOrgCertificates(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
+def rotateOrgCertificate(mist_session:_APISession, org_id:str) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cert/rotate-org-certificate
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    org_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/orgs/{org_id}/cert/apply_pending"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+    
 def clearOrgCertificates(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/cert/clear-org-certificates

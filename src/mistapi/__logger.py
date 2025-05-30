@@ -78,6 +78,3 @@ class Console:
 console = Console()
 logger = logging.getLogger("mistapi")
 logger.setLevel(logging.DEBUG)
-
-
-

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str|None=None, admin_name:str|None=None, message:str|None=None, sort:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/logs/list-org-audit-logs
     
@@ -59,7 +59,7 @@ def listOrgAuditLogs(mist_session:_APISession, org_id:str, site_id:str=None, adm
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_name", admin_id:str=None, admin_name:str=None, site_id:str=None, message:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgAuditLogs(mist_session:_APISession, org_id:str, distinct:str="admin_name", admin_id:str|None=None, admin_name:str|None=None, site_id:str|None=None, message:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/logs/count-org-audit-logs
     

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countOrgWiredClients(mist_session:_APISession, org_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgWiredClients(mist_session:_APISession, org_id:str, distinct:str="mac", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wired/count-org-wired-clients
     
@@ -50,7 +50,7 @@ def countOrgWiredClients(mist_session:_APISession, org_id:str, distinct:str="mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None, device_mac:str=None, mac:str=None, port_id:str=None, vlan:int=None, ip_address:str=None, manufacture:str=None, text:str=None, auth_state:str=None, auth_method:str=None, nacrule_id:str=None, dhcp_hostname:str=None, dhcp_fqdn:str=None, dhcp_client_identifier:str=None, dhcp_vendor_class_identifier:str=None, dhcp_request_params:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgWiredClients(mist_session:_APISession, org_id:str, auth_state:str|None=None, auth_method:str|None=None, site_id:str|None=None, device_mac:str|None=None, mac:str|None=None, port_id:str|None=None, vlan:int|None=None, ip_address:str|None=None, manufacture:str|None=None, text:str|None=None, nacrule_id:str|None=None, dhcp_hostname:str|None=None, dhcp_fqdn:str|None=None, dhcp_client_identifier:str|None=None, dhcp_vendor_class_identifier:str|None=None, dhcp_request_params:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wired/search-org-wired-clients
     
@@ -65,6 +65,8 @@ def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None
     
     QUERY PARAMS
     ------------
+    auth_state : str
+    auth_method : str
     site_id : str
     device_mac : str
     mac : str
@@ -73,8 +75,6 @@ def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None
     ip_address : str
     manufacture : str
     text : str
-    auth_state : str
-    auth_method : str
     nacrule_id : str
     dhcp_hostname : str
     dhcp_fqdn : str
@@ -93,6 +93,8 @@ def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None
     """
     uri = f"/api/v1/orgs/{org_id}/wired_clients/search"
     query_params={}
+    if auth_state: query_params["auth_state"]=auth_state
+    if auth_method: query_params["auth_method"]=auth_method
     if site_id: query_params["site_id"]=site_id
     if device_mac: query_params["device_mac"]=device_mac
     if mac: query_params["mac"]=mac
@@ -101,8 +103,6 @@ def searchOrgWiredClients(mist_session:_APISession, org_id:str, site_id:str=None
     if ip_address: query_params["ip_address"]=ip_address
     if manufacture: query_params["manufacture"]=manufacture
     if text: query_params["text"]=text
-    if auth_state: query_params["auth_state"]=auth_state
-    if auth_method: query_params["auth_method"]=auth_method
     if nacrule_id: query_params["nacrule_id"]=nacrule_id
     if dhcp_hostname: query_params["dhcp_hostname"]=dhcp_hostname
     if dhcp_fqdn: query_params["dhcp_fqdn"]=dhcp_fqdn

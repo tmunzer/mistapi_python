@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteWirelessClients(mist_session:_APISession, site_id:str, distinct:str="device", ssid:str=None, ap:str=None, ip_address:str=None, vlan:str=None, hostname:str=None, os:str=None, model:str=None, device:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteWirelessClients(mist_session:_APISession, site_id:str, distinct:str="device", ssid:str|None=None, ap:str|None=None, ip_address:str|None=None, vlan:str|None=None, hostname:str|None=None, os:str|None=None, model:str|None=None, device:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wireless/count-site-wireless-clients
     
@@ -93,7 +93,7 @@ def disconnectSiteMultipleClients(mist_session:_APISession, site_id:str, body:ob
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteWirelessClientEvents(mist_session:_APISession, site_id:str, distinct:str=None, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteWirelessClientEvents(mist_session:_APISession, site_id:str, distinct:str|None=None, type:str|None=None, reason_code:int|None=None, ssid:str|None=None, ap:str|None=None, proto:str|None=None, band:str|None=None, wlan_id:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wireless/count-site-wireless-client-events
     
@@ -145,7 +145,7 @@ def countSiteWirelessClientEvents(mist_session:_APISession, site_id:str, distinc
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWirelessClientEvents(mist_session:_APISession, site_id:str, type:str=None, reason_code:int=None, ssid:str=None, ap:str=None, proto:str=None, band:str=None, wlan_id:str=None, nacrule_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteWirelessClientEvents(mist_session:_APISession, site_id:str, type:str|None=None, reason_code:int|None=None, ssid:str|None=None, ap:str|None=None, proto:str|None=None, band:str|None=None, wlan_id:str|None=None, nacrule_id:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wireless/search-site-wireless-client-events
     
@@ -197,7 +197,7 @@ def searchSiteWirelessClientEvents(mist_session:_APISession, site_id:str, type:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str=None, ip_address:str=None, hostname:str=None, device:str=None, os:str=None, model:str=None, ap:str=None, ssid:str=None, text:str=None, nacrule_id:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str|None=None, ip_address:str|None=None, hostname:str|None=None, device:str|None=None, os:str|None=None, model:str|None=None, ap:str|None=None, ssid:str|None=None, text:str|None=None, nacrule_id:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wireless/search-site-wireless-clients
     
@@ -251,7 +251,7 @@ def searchSiteWirelessClients(mist_session:_APISession, site_id:str, mac:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteWirelessClientSessions(mist_session:_APISession, site_id:str, distinct:str="mac", ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteWirelessClientSessions(mist_session:_APISession, site_id:str, distinct:str="mac", ap:str|None=None, band:str|None=None, client_family:str|None=None, client_manufacture:str|None=None, client_model:str|None=None, client_os:str|None=None, ssid:str|None=None, wlan_id:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wireless/count-site-wireless-client-sessions
     
@@ -304,7 +304,7 @@ def countSiteWirelessClientSessions(mist_session:_APISession, site_id:str, disti
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWirelessClientSessions(mist_session:_APISession, site_id:str, ap:str=None, band:str=None, client_family:str=None, client_manufacture:str=None, client_model:str=None, client_username:str=None, client_os:str=None, ssid:str=None, wlan_id:str=None, psk_id:str=None, psk_name:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteWirelessClientSessions(mist_session:_APISession, site_id:str, ap:str|None=None, band:str|None=None, client_family:str|None=None, client_manufacture:str|None=None, client_model:str|None=None, client_username:str|None=None, client_os:str|None=None, ssid:str|None=None, wlan_id:str|None=None, psk_id:str|None=None, psk_name:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wireless/search-site-wireless-client-sessions
     
@@ -434,7 +434,7 @@ def disconnectSiteWirelessClient(mist_session:_APISession, site_id:str, client_m
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, type:str=None, proto:str=None, band:str=None, channel:str=None, wlan_id:str=None, ssid:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def getSiteEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, type:str|None=None, proto:str|None=None, band:str|None=None, channel:str|None=None, wlan_id:str|None=None, ssid:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wireless/get-site-events-for-client
     

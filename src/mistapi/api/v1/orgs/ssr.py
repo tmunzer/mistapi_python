@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> _APIResponse:
+def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str, ttl:int|None=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/ssr/get-org128-t-registration-commands
     
@@ -27,6 +27,10 @@ def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> _API
     -----------
     org_id : str        
     
+    QUERY PARAMS
+    ------------
+    ttl : int        
+    
     RETURN
     -----------
     mistapi.APIResponse
@@ -34,6 +38,7 @@ def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str) -> _API
     """
     uri = f"/api/v1/orgs/{org_id}/128routers/register_cmd"
     query_params={}
+    if ttl: query_params["ttl"]=ttl
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
@@ -110,7 +115,7 @@ def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str="stable", mac:str=None) -> _APIResponse:
+def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str="stable", mac:str|None=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-available-ssr-versions
     

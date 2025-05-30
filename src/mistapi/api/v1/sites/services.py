@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
+def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool|None=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/services/list-site-services-derived
     
@@ -42,7 +42,7 @@ def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str=None, text:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str|None=None, text:str|None=None, vpn_name:str|None=None, vpn_path:str|None=None, policy:str|None=None, port_id:str|None=None, model:str|None=None, version:str|None=None, timestamp:float|None=None, mac:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/services/count-site-service-path-events
     
@@ -98,7 +98,7 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str=None, text:str=None, peer_port_id:str=None, peer_mac:str=None, vpn_name:str=None, vpn_path:str=None, policy:str=None, port_id:str=None, model:str=None, version:str=None, timestamp:float=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str|None=None, text:str|None=None, peer_port_id:str|None=None, peer_mac:str|None=None, vpn_name:str|None=None, vpn_path:str|None=None, policy:str|None=None, port_id:str|None=None, model:str|None=None, version:str|None=None, timestamp:float|None=None, mac:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/services/search-site-service-path-events
     

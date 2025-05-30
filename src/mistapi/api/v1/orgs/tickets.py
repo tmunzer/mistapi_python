@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def listOrgTickets(mist_session:_APISession, org_id:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/list-org-tickets
     
@@ -103,7 +103,7 @@ def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status",
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/get-org-ticket
     
@@ -195,7 +195,7 @@ def UploadOrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_i
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, attachment_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, attachment_id:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/get-org-ticket-attachment
     

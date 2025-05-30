@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str=None, mac:str=None, site_id:str=None, vc_mac:str=None, vc:bool=None, unassigned:bool=False, modified_after:int=None, limit:int=100, page:int=1) -> _APIResponse:
+def getOrgInventory(mist_session:_APISession, org_id:str, serial:str|None=None, model:str|None=None, type:str|None=None, mac:str|None=None, site_id:str|None=None, vc_mac:str|None=None, vc:bool|None=None, unassigned:bool=False, modified_after:int|None=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/get-org-inventory
     
@@ -251,7 +251,7 @@ def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", mac:str=None, vc_mac:str=None, master_mac:str=None, site_id:str=None, serial:str=None, master:str=None, sku:str=None, version:str=None, status:str=None, text:str=None, limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", mac:str|None=None, vc_mac:str|None=None, master_mac:str|None=None, site_id:str|None=None, serial:str|None=None, master:str|None=None, sku:str|None=None, version:str|None=None, status:str|None=None, text:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/search-org-inventory
     

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str=None, admin_name:str=None, message:str=None, sort:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def listMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str|None=None, admin_name:str|None=None, message:str|None=None, sort:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logs/list-msp-audit-logs
     
@@ -59,7 +59,7 @@ def listMspAuditLogs(mist_session:_APISession, msp_id:str, site_id:str=None, adm
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countMspAuditLogs(mist_session:_APISession, msp_id:str, limit:int=100, distinct:str="admin_name") -> _APIResponse:
+def countMspAuditLogs(mist_session:_APISession, msp_id:str, distinct:str="admin_name", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logs/count-msp-audit-logs
     
@@ -74,8 +74,8 @@ def countMspAuditLogs(mist_session:_APISession, msp_id:str, limit:int=100, disti
     
     QUERY PARAMS
     ------------
-    limit : int, default: 100
-    distinct : str{'admin_id', 'admin_name', 'message', 'org_id'}, default: admin_name        
+    distinct : str{'admin_id', 'admin_name', 'message', 'org_id'}, default: admin_name
+    limit : int, default: 100        
     
     RETURN
     -----------
@@ -84,8 +84,8 @@ def countMspAuditLogs(mist_session:_APISession, msp_id:str, limit:int=100, disti
     """
     uri = f"/api/v1/msps/{msp_id}/logs/count"
     query_params={}
-    if limit: query_params["limit"]=limit
     if distinct: query_params["distinct"]=distinct
+    if limit: query_params["limit"]=limit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

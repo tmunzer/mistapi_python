@@ -147,7 +147,7 @@ def updateOrgSso(mist_session:_APISession, org_id:str, sso_id:str, body:object) 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/list-org-sso-latest-failures
     

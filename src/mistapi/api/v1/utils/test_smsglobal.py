@@ -14,31 +14,26 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteNetworkTemplateDerived(mist_session:_APISession, site_id:str, resolve:bool|None=None) -> _APIResponse:
+def testSiteWlanSmsGlobal(mist_session:_APISession, body:object) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/network-templates/list-site-network-template-derived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/test-site-wlan-sms-global
     
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
     
-    PATH PARAMS
+    BODY PARAMS
     -----------
-    site_id : str        
-    
-    QUERY PARAMS
-    ------------
-    resolve : bool        
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
     
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/networktemplates/derived"
-    query_params={}
-    if resolve: query_params["resolve"]=resolve
-    resp = mist_session.mist_get(uri=uri, query=query_params)
+    uri = f"/api/v1/utils/test_smsglobal"
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     

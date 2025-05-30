@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type", last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, site_id:str=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type", last_nacrule_id:str|None=None, nacrule_matched:bool|None=None, auth_type:str|None=None, last_vlan_id:str|None=None, last_nas_vendor:str|None=None, idp_id:str|None=None, last_ssid:str|None=None, last_username:str|None=None, timestamp:float|None=None, site_id:str|None=None, last_ap:str|None=None, mac:str|None=None, last_status:str|None=None, type:str|None=None, mdm_compliance_status:str|None=None, mdm_provider:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/nac/count-org-nac-clients
     
@@ -83,7 +83,7 @@ def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type"
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str|None=None, type:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/nac/count-org-nac-client-events
     
@@ -121,7 +121,7 @@ def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str=N
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None, nacrule_id:str=None, nacrule_matched:bool=None, dryrun_nacrule_id:str=None, dryrun_nacrule_matched:bool=None, auth_type:str=None, vlan:int=None, nas_vendor:str=None, bssid:str=None, idp_id:str=None, idp_role:str=None, idp_username:str=None, resp_attrs:list=None, ssid:str=None, username:str=None, site_id:str=None, ap:str=None, random_mac:bool=None, mac:str=None, timestamp:float=None, usermac_label:str=None, text:str=None, nas_ip:str=None, sort:str=None, ingress_vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str|None=None, nacrule_id:str|None=None, nacrule_matched:bool|None=None, dryrun_nacrule_id:str|None=None, dryrun_nacrule_matched:bool|None=None, auth_type:str|None=None, vlan:int|None=None, nas_vendor:str|None=None, bssid:str|None=None, idp_id:str|None=None, idp_role:str|None=None, idp_username:str|None=None, resp_attrs:list|None=None, ssid:str|None=None, username:str|None=None, site_id:str|None=None, ap:str|None=None, random_mac:bool|None=None, mac:str|None=None, timestamp:float|None=None, usermac_label:str|None=None, text:str|None=None, nas_ip:str|None=None, sort:str|None=None, ingress_vlan:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/nac/search-org-nac-client-events
     
@@ -206,7 +206,7 @@ def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgNacClients(mist_session:_APISession, org_id:str, nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, vlan:str=None, nas_vendor:str=None, idp_id:str=None, ssid:str=None, username:str=None, timestamp:float=None, site_id:str=None, ap:str=None, mac:str=None, status:str=None, type:str=None, mdm_compliance:str=None, mdm_provider:str=None, sort:str=None, ingress_vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgNacClients(mist_session:_APISession, org_id:str, nacrule_id:str|None=None, nacrule_matched:bool|None=None, auth_type:str|None=None, vlan:str|None=None, nas_vendor:str|None=None, idp_id:str|None=None, ssid:str|None=None, username:str|None=None, timestamp:float|None=None, site_id:str|None=None, ap:str|None=None, mac:str|None=None, mdm_managed:bool|None=None, status:str|None=None, type:str|None=None, mdm_compliance:str|None=None, mdm_provider:str|None=None, sort:str|None=None, usermac_label:list|None=None, ingress_vlan:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/nac/search-org-nac-clients
     
@@ -233,11 +233,14 @@ def searchOrgNacClients(mist_session:_APISession, org_id:str, nacrule_id:str=Non
     site_id : str
     ap : str
     mac : str
+    mdm_managed : bool
     status : str
     type : str
     mdm_compliance : str
     mdm_provider : str
     sort : str
+    usermac_label : list
+      Labels derived from usermac entry
     ingress_vlan : str
     start : int
     end : int
@@ -264,11 +267,13 @@ def searchOrgNacClients(mist_session:_APISession, org_id:str, nacrule_id:str=Non
     if site_id: query_params["site_id"]=site_id
     if ap: query_params["ap"]=ap
     if mac: query_params["mac"]=mac
+    if mdm_managed: query_params["mdm_managed"]=mdm_managed
     if status: query_params["status"]=status
     if type: query_params["type"]=type
     if mdm_compliance: query_params["mdm_compliance"]=mdm_compliance
     if mdm_provider: query_params["mdm_provider"]=mdm_provider
     if sort: query_params["sort"]=sort
+    if usermac_label: query_params["usermac_label"]=usermac_label
     if ingress_vlan: query_params["ingress_vlan"]=ingress_vlan
     if start: query_params["start"]=start
     if end: query_params["end"]=end

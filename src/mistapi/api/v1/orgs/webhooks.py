@@ -147,7 +147,7 @@ def updateOrgWebhook(mist_session:_APISession, org_id:str, webhook_id:str, body:
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def countOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:str, error:str|None=None, status_code:int|None=None, status:str|None=None, topic:str|None=None, distinct:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/webhooks/count-org-webhooks-deliveries
     
@@ -194,7 +194,7 @@ def countOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgWebhooksDeliveries(mist_session:_APISession, org_id:str, webhook_id:str, error:str|None=None, status_code:int|None=None, status:str|None=None, topic:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/webhooks/search-org-webhooks-deliveries
     

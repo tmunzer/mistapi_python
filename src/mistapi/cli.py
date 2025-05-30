@@ -43,7 +43,7 @@ def _test_choice(val, val_max):
 #### DECORATOR
 def is_authenticated(func):
     """
-    decorator to test if the mistapi.APISession is authenticaated
+    decorator to test if the mistapi.APISession is authenticated
     """
     def wrapper(*args, **kwargs):
         mist_session = args[0]

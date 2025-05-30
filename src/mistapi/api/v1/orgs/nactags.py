@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, match:str=None, limit:int=100, page:int=1) -> _APIResponse:
+def listOrgNacTags(mist_session:_APISession, org_id:str, type:str|None=None, name:str|None=None, match:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/list-org-nac-tags
     
@@ -32,7 +32,7 @@ def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str
     type : str{'egress_vlan_names', 'gbp_tag', 'match', 'radius_attrs', 'radius_group', 'radius_vendor_attrs', 'session_timeout', 'username_attr', 'vlan'}
       Type of NAC Tag. enum: `egress_vlan_names`, `gbp_tag`, `match`, `radius_attrs`, `radius_group`, `radius_vendor_attrs`, `session_timeout`, `username_attr`, `vlan`
     name : str
-    match : str{'cert_cn', 'cert_issuer', 'cert_san', 'cert_serial', 'cert_sub', 'cert_template', 'client_mac', 'idp_role', 'ingress_vlan', 'mdm_status', 'nas_ip', 'radius_group', 'realm', 'ssid', 'user_name', 'usermac_label'}
+    match : str{'cert_cn', 'cert_issuer', 'cert_san', 'cert_serial', 'cert_sub', 'cert_template', 'client_mac', 'hostname', 'idp_role', 'ingress_vlan', 'mdm_status', 'nas_ip', 'radius_group', 'realm', 'ssid', 'user_name', 'usermac_label'}
       if `type`==`match`, Type of NAC Tag. enum: `cert_cn`, `cert_issuer`, `cert_san`, `cert_serial`, `cert_sub`, `cert_template`, `client_mac`, `idp_role`, `ingress_vlan`, `mdm_status`, `nas_ip`, `radius_group`, `realm`, `ssid`, `user_name`, `usermac_label`
     limit : int, default: 100
     page : int, default: 1        

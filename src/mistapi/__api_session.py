@@ -102,6 +102,7 @@ class APISession(APIRequest):
         self._authenticated = False
         self._count = 0
         self._session = requests.session()
+        self._session.headers["Accept"] = "application/json, application/vnd.api+json"
         self._console_log_level = console_log_level
         self._logging_log_level = logging_log_level
         self._show_cli_notif = show_cli_notif
@@ -210,7 +211,12 @@ class APISession(APIRequest):
         """
         logger.debug("apisession:set_cloud")
         self._cloud_uri = None
-        if cloud_uri in ["api.mistsys.com", "api.ac99.mist.com", "api.gc1.mistsys.com", "api.us.mist-federal.com"]:
+        if cloud_uri in [
+            "api.mistsys.com",
+            "api.ac99.mist.com",
+            "api.gc1.mistsys.com",
+            "api.us.mist-federal.com"
+            ]:
             self._cloud_uri = cloud_uri
         else:
             for cloud in CLOUDS:
@@ -360,7 +366,7 @@ class APISession(APIRequest):
             sys.exit(0)
         except requests.exceptions.ConnectionError as connexion_error:
             logger.critical(f"apirequest:mist_post:Connection Error: {connexion_error}")
-            console.critical("Connexion error...\r\n")        
+            console.critical("Connexion error...\r\n")
             sys.exit(0)
         except:
             logger.error(
@@ -507,7 +513,7 @@ class APISession(APIRequest):
                 self._set_authenticated(True)
             if not self._authenticated:
                 self._process_login()
-            # if successfuly authenticated
+            # if successfully authenticated
             if self.get_authentication_status():
                 logger.info("apisession:login:authenticated")
                 self._getself()
@@ -568,7 +574,7 @@ class APISession(APIRequest):
         elif self.email and self._password:
             if two_factor:
                 logger.debug(
-                    "apisession:login_with_return:login/pwd provided witht 2FA"
+                    "apisession:login_with_return:login/pwd provided with 2FA"
                 )
                 error = self._two_factor_authentication(two_factor)
             else:
@@ -578,7 +584,7 @@ class APISession(APIRequest):
                 error = self._process_login(retry=False)
             if error:
                 logger.error(
-                    f"apisession:login_with_return:login/pwd auth faild: {error}"
+                    f"apisession:login_with_return:login/pwd auth failed: {error}"
                 )
                 return {"authenticated": False, "error": error}
             logger.info("apisession:login_with_return:get self")
@@ -782,9 +788,9 @@ class APISession(APIRequest):
         resp = self._session.post(self._url(uri), json=body)
         if resp.status_code == 200:
             logger.info(
-                "apisession:_two_factor_authentication:2FA authentication successed"
+                "apisession:_two_factor_authentication:2FA authentication succeed"
             )
-            console.info("2FA authentication successed")
+            console.info("2FA authentication succeeded")
             self._set_authenticated(True)
             return True
         else:
@@ -840,7 +846,7 @@ class APISession(APIRequest):
                 return True
         elif resp.proxy_error:
             logger.critical("apisession:_getself:proxy not valid...")
-            console.critical("Proxy not valid...\r\n")        
+            console.critical("Proxy not valid...\r\n")
             sys.exit(0)
         else:
             logger.error("apisession:_getself:authentication not valid...")

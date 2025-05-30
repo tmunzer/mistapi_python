@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None, mac:str=None) -> _APIResponse:
+def listOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str|None=None, serial:str|None=None, mac:str|None=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/list-org-jsi-devices
     
@@ -124,7 +124,7 @@ def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None) -> _APIResponse:
+def listOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str|None=None, serial:str|None=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/list-org-jsi-past-purchases
     

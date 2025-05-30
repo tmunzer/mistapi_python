@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteWiredClients(mist_session:_APISession, site_id:str, distinct:str="mac", mac:str=None, device_mac:str=None, port_id:str=None, vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteWiredClients(mist_session:_APISession, site_id:str, distinct:str="mac", mac:str|None=None, device_mac:str|None=None, port_id:str|None=None, vlan:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wired/count-site-wired-clients
     
@@ -58,7 +58,7 @@ def countSiteWiredClients(mist_session:_APISession, site_id:str, distinct:str="m
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str=None, mac:str=None, ip:str=None, port_id:str=None, vlan:str=None, manufacture:str=None, text:str=None, nacrule_id:str=None, dhcp_hostname:str=None, dhcp_fqdn:str=None, dhcp_client_identifier:str=None, dhcp_vendor_class_identifier:str=None, dhcp_request_params:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str|None=None, mac:str|None=None, ip:str|None=None, port_id:str|None=None, vlan:str|None=None, manufacture:str|None=None, text:str|None=None, nacrule_id:str|None=None, dhcp_hostname:str|None=None, dhcp_fqdn:str|None=None, dhcp_client_identifier:str|None=None, dhcp_vendor_class_identifier:str|None=None, dhcp_request_params:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wired/search-site-wired-clients
     

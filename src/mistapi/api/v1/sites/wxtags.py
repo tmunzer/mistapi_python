@@ -170,27 +170,3 @@ def updateSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str, body:ob
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getSiteCurrentMatchingClientsOfAWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/get-site-current-matching-clients-of-a-wx-tag
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    site_id : str
-    wxtag_id : str        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-    uri = f"/api/v1/sites/{site_id}/wxtags/{wxtag_id}/clients"
-    query_params={}
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-    

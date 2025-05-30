@@ -91,7 +91,7 @@ def manageMspOrgs(mist_session:_APISession, msp_id:str, body:object) -> _APIResp
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str=None, org_id:str=None, sub_insufficient:bool=None, trial_enabled:bool=None, usage_types:list=None, limit:int=100) -> _APIResponse:
+def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str|None=None, org_id:str|None=None, sub_insufficient:bool|None=None, trial_enabled:bool|None=None, usage_types:list|None=None, limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/search-msp-orgs
     

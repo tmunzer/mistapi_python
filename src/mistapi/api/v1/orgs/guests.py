@@ -37,7 +37,7 @@ def listOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIResp
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:str="auth_method", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/count-org-guest-authorizations
     
@@ -73,7 +73,7 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:str|None=None, auth_method:str|None=None, ssid:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/search-org-guest-authorization
     

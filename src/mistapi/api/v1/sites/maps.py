@@ -185,6 +185,30 @@ def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
+def getSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/get-site-ap-auto-orientation
+    
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+    
+    PATH PARAMS
+    -----------
+    map_id : str
+    site_id : str        
+    
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_orient"
+    query_params={}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+    
 def deleteSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/delete-site-ap-auto-orientation

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id:str=None) -> _APIResponse:
+def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id:str|None=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/list-site-all-guest-authorizations
     
@@ -42,7 +42,7 @@ def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct:str="auth_method", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/count-site-guest-authorizations
     
@@ -78,7 +78,7 @@ def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteAllGuestAuthorizationsDerived(mist_session:_APISession, site_id:str, wlan_id:str=None, cross_site:bool=None) -> _APIResponse:
+def listSiteAllGuestAuthorizationsDerived(mist_session:_APISession, site_id:str, wlan_id:str|None=None, cross_site:bool|None=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/list-site-all-guest-authorizations-derived
     
@@ -108,7 +108,7 @@ def listSiteAllGuestAuthorizationsDerived(mist_session:_APISession, site_id:str,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:str|None=None, auth_method:str|None=None, ssid:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/search-site-guest-authorization
     

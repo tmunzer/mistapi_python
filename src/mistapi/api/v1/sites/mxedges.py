@@ -44,7 +44,7 @@ def listSiteMxEdges(mist_session:_APISession, site_id:str, limit:int=100, page:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="mxedge_id", mxedge_id:str|None=None, mxcluster_id:str|None=None, type:str|None=None, service:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/count-site-mx-edge-events
     
@@ -88,7 +88,7 @@ def countSiteMxEdgeEvents(mist_session:_APISession, site_id:str, distinct:str="m
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, component:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchSiteMistEdgeEvents(mist_session:_APISession, site_id:str, mxedge_id:str|None=None, mxcluster_id:str|None=None, type:str|None=None, service:str|None=None, component:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/search-site-mist-edge-events
     

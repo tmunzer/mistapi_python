@@ -22,7 +22,7 @@ class APIResponse:
 
     def __init__(
         self,
-        response: Response,
+        response: Response| None ,
         url: str,
         proxy_error: bool = False
     ) -> None:
@@ -42,7 +42,7 @@ class APIResponse:
         self.status_code = None
         self.proxy_error = proxy_error
         
-        if response:
+        if response is not None:
             self.headers = response.headers
             self.status_code = response.status_code
 
@@ -55,7 +55,7 @@ class APIResponse:
                 self.raw_data = response.content
                 self.data = response.json()
                 self._check_next()
-                logger.debug(f"apiresponse:__init__:HTTP response processed")
+                logger.debug("apiresponse:__init__:HTTP response processed")
                 if self.status_code >= 400 or (
                     isinstance(self.data, dict) and self.data.get("error")
                 ):
@@ -67,19 +67,23 @@ class APIResponse:
                 )
 
     def _check_next(self) -> None:
-        logger.debug(f"apiresponse:_check_next")
+        logger.debug("apiresponse:_check_next")
         if "next" in self.data:
             self.next = self.data["next"]
             logger.debug(f"apiresponse:_check_next:set next to {self.next}")
-        else:
-            total = self.headers.get("X-Page-Total")
-            limit = self.headers.get("X-Page-Limit")
-            page = self.headers.get("X-Page-Page")
-            if total and limit and page:
+        elif self.headers:
+            total_str = self.headers.get("X-Page-Total")
+            limit_str = self.headers.get("X-Page-Limit")
+            page_str = self.headers.get("X-Page-Page")
+            if total_str and limit_str and page_str:
                 try:
-                    total = int(total)
-                    limit = int(limit)
-                    page = int(page)
+                    total = int(total_str)
+                    limit = int(limit_str)
+                    page = int(page_str)
+                    if limit * page < total:
+                        uri = f"/api/{self.url.split('/api/')[1]}"
+                        self.next = uri.replace(f"page={page}", f"page={page+1}")
+                        logger.debug(f"apiresponse:_check_next:set next to {self.next}")
                 except:
                     logger.error(
                         f"apiresponse:_check_next:"
@@ -92,7 +96,3 @@ class APIResponse:
                         f"Unable to convert total "
                         f"({total})/limit({limit})/page({page}) to int"
                     )
-                if limit * page < total:
-                    uri = f"/api/{self.url.split('/api/')[1]}"
-                    self.next = uri.replace(f"page={page}", f"page={page+1}")
-                    logger.debug(f"apiresponse:_check_next:set next to {self.next}")

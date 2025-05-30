@@ -68,7 +68,7 @@ def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", ack_admin_name:str=None, acked:bool=None, type:str=None, severity:str=None, group:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", ack_admin_name:str|None=None, acked:bool|None=None, type:str|None=None, severity:str|None=None, group:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/count-site-alarms
     
@@ -115,7 +115,7 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admin_name:str=None, acked:bool=None, severity:str=None, group:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str|None=None, ack_admin_name:str|None=None, acked:bool|None=None, severity:str|None=None, group:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/search-site-alarms
     

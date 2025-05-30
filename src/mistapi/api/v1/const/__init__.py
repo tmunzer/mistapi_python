@@ -12,6 +12,7 @@
 
 from mistapi.api.v1.const import alarm_defs
 from mistapi.api.v1.const import ap_channels
+from mistapi.api.v1.const import ap_esl_versions
 from mistapi.api.v1.const import ap_led_status
 from mistapi.api.v1.const import app_categories
 from mistapi.api.v1.const import app_subcategories

@@ -1,0 +1,14 @@
+{
+    "apimatic.notifications.whenApiFileIsDetected.enabled": false,
+    "pylint.args": [
+        "--disable=logging-fstring-interpolation",
+        "--disable=logging-format-interpolation",
+    ],
+    "cSpell.words": [
+        "apirequest",
+        "apiresponse",
+        "keepit",
+        "notif",
+        "werein"
+    ]
+}

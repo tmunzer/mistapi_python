@@ -68,7 +68,7 @@ def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/count-org-alarms
     
@@ -104,7 +104,7 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, star
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type:str=None, status:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str|None=None, type:str|None=None, status:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/search-org-alarms
     

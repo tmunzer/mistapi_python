@@ -152,7 +152,7 @@ def importOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str=None, labels:list=None, limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str|None=None, labels:list|None=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/search-org-user-macs
     

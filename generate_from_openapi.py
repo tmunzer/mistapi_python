@@ -4,7 +4,7 @@ import sys
 import yaml
 import re
 
-openapi_file = "./mist_openapi/mist.openapi.yml"
+openapi_file = "./mist_openapi/mist.openapi.yaml"
 openapi_json = None
 root_folder = "./src/mistapi/"
 root_api_folder = "api"
@@ -166,7 +166,7 @@ def _gen_code_params_default_value(param: object):
             else:
                 code_default = f"={param['default']}"
         else:
-            code_default = "=None"
+            code_default = "|None=None"
     return code_default
 
 

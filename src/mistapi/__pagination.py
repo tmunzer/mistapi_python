@@ -27,7 +27,7 @@ def get_next(mist_session: _APISession, response: _APIResponse) -> _APIResponse:
     RETURN
     -----------
     mistapi.APIResponse
-        response from the API call passed in parameteer
+        response from the API call passed in parameter
     """
     if response.next:
         return mist_session.mist_get(response.next)

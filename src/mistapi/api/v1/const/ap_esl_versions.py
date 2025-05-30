@@ -14,31 +14,22 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteNetworkTemplateDerived(mist_session:_APISession, site_id:str, resolve:bool|None=None) -> _APIResponse:
+def listApLEslVersions(mist_session:_APISession) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/network-templates/list-site-network-template-derived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/list-ap-l-esl-versions
     
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
     
-    PATH PARAMS
-    -----------
-    site_id : str        
-    
-    QUERY PARAMS
-    ------------
-    resolve : bool        
-    
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/sites/{site_id}/networktemplates/derived"
+    uri = f"/api/v1/const/ap_esl_versions"
     query_params={}
-    if resolve: query_params["resolve"]=resolve
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     

@@ -62,7 +62,7 @@ class APIRequest:
         str
             Full URL where to send the request to (e.g. "https://api.mist.com/api/v1/...")
         """
-        logger.debug(f"apirequest:_url:https://{self._cloud_uri}{uri}")
+        logger.debug("apirequest:_url:https://%s%s", self._cloud_uri, uri)
         return f"https://{self._cloud_uri}{uri}"
     
     def _log_proxy(self) -> None:
@@ -73,7 +73,7 @@ class APIRequest:
         
 
     def _next_apitoken(self) -> None:
-        logger.info(f"apirequest:_next_apitoken:rotating API Token")
+        logger.info("apirequest:_next_apitoken:rotating API Token")
         logger.debug(
             f"apirequest:_next_apitoken:current API Token is "
             f"{self._apitoken[self._apitoken_index][:4]}..."
@@ -99,13 +99,13 @@ class APIRequest:
                 " Request limit has been reached for the current one"
             )
             logger.critical(
-                " For large organization, it is recommanded to configure"
+                " For large organization, it is recommended to configure"
                 " multiple API Tokens (comma separated list) to avoid this issue"
             )
             logger.critical(" Exiting...")
             sys.exit(255)
 
-    def _gen_query(self, query: object) -> str:
+    def _gen_query(self, query: dict|None) -> str:
         logger.debug(f"apirequest:_gen_query:processing query {query}")
         html_query = "?"
         if query:
@@ -132,22 +132,23 @@ class APIRequest:
         keepit = True
         werein = False
         request_body = ""
-        for i in resp.request.body.decode("utf-8", errors="ignore").split("\r\n"):
-            if i.startswith(
-                'Content-Disposition: form-data; name="file";'
-            ) or i.startswith('Content-Disposition: form-data; name="csv";'):
-                werein = True
-            elif i == "" and werein:
-                keepit = False
-            elif i.startswith("--") and not keepit:
-                request_body += "\r\n"
-                werein = False
-                keepit = True
-            if keepit:
-                request_body += f"\r\n{i}"
+        if isinstance(resp.request.body, bytes):
+            for i in resp.request.body.decode("utf-8", errors="ignore").split("\r\n"):
+                if i.startswith(
+                    'Content-Disposition: form-data; name="file";'
+                ) or i.startswith('Content-Disposition: form-data; name="csv";'):
+                    werein = True
+                elif i == "" and werein:
+                    keepit = False
+                elif i.startswith("--") and not keepit:
+                    request_body += "\r\n"
+                    werein = False
+                    keepit = True
+                if keepit:
+                    request_body += f"\r\n{i}"
         return request_body
 
-    def mist_get(self, uri: str, query: dict = None) -> APIResponse:
+    def mist_get(self, uri: str, query: dict|None = None) -> APIResponse:
         """
         GET HTTP Request
 
@@ -175,10 +176,10 @@ class APIRequest:
             )
             resp.raise_for_status()
         except requests.exceptions.ProxyError as proxy_error:
-            logger.error(f"apirequest:mist_get:Proxy Error: {proxy_error}")  
+            logger.error(f"apirequest:mist_get:Proxy Error: {proxy_error}")
             proxy_failed = True
         except requests.exceptions.ConnectionError as connexion_error:
-            logger.error(f"Capirequest:mist_get:onnection Error: {connexion_error}")
+            logger.error(f"apirequest:mist_get:Connection Error: {connexion_error}")
         except HTTPError as http_err:
             if http_err.response.status_code == 429:
                 logger.warning(
@@ -188,7 +189,8 @@ class APIRequest:
                 self._next_apitoken()
                 return self.mist_get(uri, query)
             logger.error(f"apirequest:mist_get:HTTP error occurred: {http_err}")
-            logger.error(f"apirequest:mist_get:HTTP error description: {resp.json()}")
+            if resp:
+                logger.error(f"apirequest:mist_get:HTTP error description: {resp.json()}")
         except Exception as err:
             logger.error(f"apirequest:mist_get:Other error occurred: {err}")
             logger.error("apirequest:mist_get:Exception occurred", exc_info=True)
@@ -196,7 +198,7 @@ class APIRequest:
             self._count += 1
             return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_post(self, uri: str, body: dict = None) -> APIResponse:
+    def mist_post(self, uri: str, body: dict | None = None) -> APIResponse:
         """
         POST HTTP Request
 
@@ -243,7 +245,8 @@ class APIRequest:
                 self._next_apitoken()
                 return self.mist_post(uri, body)
             logger.error(f"apirequest:mist_post: HTTP error occurred: {http_err}")
-            logger.error(f"apirequest:mist_post: HTTP error description: {resp.json()}")
+            if resp:
+                logger.error(f"apirequest:mist_post: HTTP error description: {resp.json()}")
         except Exception as err:
             logger.error(f"apirequest:mist_post: Other error occurred: {err}")
             logger.error("apirequest:mist_post: Exception occurred", exc_info=True)
@@ -251,7 +254,7 @@ class APIRequest:
             self._count += 1
             return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_put(self, uri: str, body: dict = None) -> APIResponse:
+    def mist_put(self, uri: str, body: dict | None = None) -> APIResponse:
         """
         PUT HTTP Request
 
@@ -288,7 +291,7 @@ class APIRequest:
             logger.error(f"apirequest:mist_put:Proxy Error: {proxy_error}")  
             proxy_failed = True
         except requests.exceptions.ConnectionError as connexion_error:
-            logger.error(f"Capirequest:mist_put:Connection Error: {connexion_error}")
+            logger.error(f"apirequest:mist_put:Connection Error: {connexion_error}")
         except HTTPError as http_err:
             if http_err.response.status_code == 429:
                 logger.warning(
@@ -298,7 +301,8 @@ class APIRequest:
                 self._next_apitoken()
                 return self.mist_put(uri, body)
             logger.error(f"apirequest:mist_put: HTTP error occurred: {http_err}")
-            logger.error(f"apirequest:mist_put: HTTP error description: {resp.json()}")
+            if resp:
+                logger.error(f"apirequest:mist_put: HTTP error description: {resp.json()}")
         except Exception as err:
             logger.error(f"apirequest:mist_put: Other error occurred: {err}")
             logger.error("apirequest:mist_put: Exception occurred", exc_info=True)
@@ -306,7 +310,7 @@ class APIRequest:
             self._count += 1
             return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_delete(self, uri: str, query: dict = None) -> APIResponse:
+    def mist_delete(self, uri: str, query: dict | None = None) -> APIResponse:
         """
         DELETE HTTP Request
 
@@ -339,7 +343,7 @@ class APIRequest:
         except HTTPError as http_err:
             if http_err.response.status_code == 429:
                 logger.warning(
-                    f"apirequest:mist_delete:"
+                    "apirequest:mist_delete:"
                     "got HTTP Error 429 from Mist. Will try with next API Token"
                 )
                 self._next_apitoken()
@@ -348,7 +352,7 @@ class APIRequest:
         except Exception as err:
             logger.error(f"apirequest:mist_delete: Other error occurred: {err}")
             logger.error("apirequest:mist_delete: Exception occurred", exc_info=True)
-        else:
+        finally:
             self._count += 1
             return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
@@ -436,13 +440,11 @@ class APIRequest:
                 self._next_apitoken()
                 return self.mist_post_file(uri, multipart_form_data)
             logger.error(f"apirequest:mist_post_file: HTTP error occurred: {http_err}")
-            logger.error(
-                f"apirequest:mist_post_file: HTTP error description: {resp.json()}"
-            )
-            return resp
+            if resp:
+                logger.error(f"apirequest:mist_post_file: HTTP error description: {resp.json()}")
         except Exception as err:
             logger.error(f"apirequest:mist_post_file: Other error occurred: {err}")
             logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
-        else:
+        finally:
             self._count += 1
             return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
