@@ -22,7 +22,7 @@ class APIResponse:
 
     def __init__(
         self,
-        response: Response| None ,
+        response: Response ,
         url: str,
         proxy_error: bool = False
     ) -> None:

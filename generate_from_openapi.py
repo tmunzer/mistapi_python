@@ -165,8 +165,10 @@ def _gen_code_params_default_value(param: object):
                     code_default = "=False"
             else:
                 code_default = f"={param['default']}"
-        else:
-            code_default = "|None=None"
+        else:            
+            #code_default = "|None=None"
+            # TODO fix for python 3.9
+            code_default = "=None"
     return code_default
 
 

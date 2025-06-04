@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str=None, start:int=None, end:int=None, duration:str="1d", interval:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sles/get-org-sites-sle
     
@@ -54,7 +54,7 @@ def getOrgSitesSle(mist_session:_APISession, org_id:str, sle:str|None=None, star
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgSle(mist_session:_APISession, org_id:str, metric:str, sle:str|None=None, duration:str="1d", interval:str|None=None, start:int|None=None, end:int|None=None) -> _APIResponse:
+def getOrgSle(mist_session:_APISession, org_id:str, metric:str, sle:str=None, duration:str="1d", interval:str=None, start:int=None, end:int=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sles/get-org-sle
     

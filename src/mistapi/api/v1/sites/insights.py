@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str, start:int=None, end:int=None, duration:str="1d", interval:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-client
     
@@ -54,7 +54,7 @@ def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str, start:int=None, end:int=None, duration:str="1d", interval:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-device
     
@@ -94,7 +94,7 @@ def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgClientFingerprints(mist_session:_APISession, site_id:str, distinct:str="family", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgClientFingerprints(mist_session:_APISession, site_id:str, distinct:str="family", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-fingerprints/count-org-client-fingerprints
     
@@ -130,7 +130,7 @@ def countOrgClientFingerprints(mist_session:_APISession, site_id:str, distinct:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgClientFingerprints(mist_session:_APISession, site_id:str, family:str|None=None, client_type:str|None=None, model:str|None=None, mfg:str|None=None, os:str|None=None, os_type:str|None=None, mac:str|None=None, sort:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None) -> _APIResponse:
+def searchOrgClientFingerprints(mist_session:_APISession, site_id:str, family:str=None, client_type:str=None, model:str=None, mfg:str=None, os:str=None, os_type:str=None, mac:str=None, sort:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d", interval:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-fingerprints/search-org-client-fingerprints
     
@@ -183,7 +183,7 @@ def searchOrgClientFingerprints(mist_session:_APISession, site_id:str, family:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteRogueAPs(mist_session:_APISession, site_id:str, type:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None) -> _APIResponse:
+def listSiteRogueAPs(mist_session:_APISession, site_id:str, type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d", interval:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/list-site-rogue-a-ps
     
@@ -221,7 +221,7 @@ def listSiteRogueAPs(mist_session:_APISession, site_id:str, type:str|None=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None) -> _APIResponse:
+def listSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, start:int=None, end:int=None, duration:str="1d", interval:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/list-site-rogue-clients
     
@@ -257,7 +257,7 @@ def listSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", interval:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics
     

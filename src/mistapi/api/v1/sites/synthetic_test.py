@@ -41,7 +41,7 @@ def triggerSiteSyntheticTest(mist_session:_APISession, site_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str|None=None, port_id:str|None=None, vlan_id:str|None=None, by:str|None=None, reason:str|None=None, type:str|None=None, protocol:str|None=None, tenant:str|None=None) -> _APIResponse:
+def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str=None, port_id:str=None, vlan_id:str=None, by:str=None, reason:str=None, type:str=None, protocol:str=None, tenant:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/search-site-synthetic-test
     

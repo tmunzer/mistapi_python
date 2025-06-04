@@ -105,7 +105,7 @@ class APIRequest:
             logger.critical(" Exiting...")
             sys.exit(255)
 
-    def _gen_query(self, query: dict|None) -> str:
+    def _gen_query(self, query: dict) -> str:
         logger.debug(f"apirequest:_gen_query:processing query {query}")
         html_query = "?"
         if query:
@@ -148,7 +148,7 @@ class APIRequest:
                     request_body += f"\r\n{i}"
         return request_body
 
-    def mist_get(self, uri: str, query: dict|None = None) -> APIResponse:
+    def mist_get(self, uri: str, query: dict = None) -> APIResponse:
         """
         GET HTTP Request
 
@@ -198,7 +198,7 @@ class APIRequest:
             self._count += 1
             return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_post(self, uri: str, body: dict | None = None) -> APIResponse:
+    def mist_post(self, uri: str, body: dict = None) -> APIResponse:
         """
         POST HTTP Request
 
@@ -254,7 +254,7 @@ class APIRequest:
             self._count += 1
             return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_put(self, uri: str, body: dict | None = None) -> APIResponse:
+    def mist_put(self, uri: str, body: dict = None) -> APIResponse:
         """
         PUT HTTP Request
 
@@ -310,7 +310,7 @@ class APIRequest:
             self._count += 1
             return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_delete(self, uri: str, query: dict | None = None) -> APIResponse:
+    def mist_delete(self, uri: str, query: dict = None) -> APIResponse:
         """
         DELETE HTTP Request
 

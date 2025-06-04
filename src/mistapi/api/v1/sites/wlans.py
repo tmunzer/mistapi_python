@@ -71,7 +71,7 @@ def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool|None=None, wlan_id:str|None=None) -> _APIResponse:
+def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None, wlan_id:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/list-site-wlan-derived
     

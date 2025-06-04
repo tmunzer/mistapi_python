@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteGatewayTemplateDerived(mist_session:_APISession, site_id:str, resolve:bool|None=None) -> _APIResponse:
+def listSiteGatewayTemplateDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/gateway-templates/list-site-gateway-template-derived
     

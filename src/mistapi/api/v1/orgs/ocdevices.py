@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgJuniperDevicesCommand(mist_session:_APISession, org_id:str, site_id:str|None=None) -> _APIResponse:
+def getOrgJuniperDevicesCommand(mist_session:_APISession, org_id:str, site_id:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/get-org-juniper-devices-command
     

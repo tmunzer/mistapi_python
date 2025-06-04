@@ -535,7 +535,7 @@ def updateOrgMistScep(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def listOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, sso_name_id:str|None=None, serial_number:str|None=None, device_id:str|None=None) -> _APIResponse:
+def listOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, sso_name_id:str=None, serial_number:str=None, device_id:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/list-org-issued-client-certificates
     

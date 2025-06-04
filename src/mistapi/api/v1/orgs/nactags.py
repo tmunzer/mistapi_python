@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgNacTags(mist_session:_APISession, org_id:str, type:str|None=None, name:str|None=None, match:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, match:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/list-org-nac-tags
     

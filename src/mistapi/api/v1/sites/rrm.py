@@ -63,7 +63,7 @@ def getSiteCurrentRrmConsiderations(mist_session:_APISession, site_id:str, devic
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteRrmEvents(mist_session:_APISession, site_id:str, band:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def listSiteRrmEvents(mist_session:_APISession, site_id:str, band:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rrm/list-site-rrm-events
     

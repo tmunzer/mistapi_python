@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOauth2UrlForLinking(mist_session:_APISession, provider:str, forward:str|None=None) -> _APIResponse:
+def getOauth2UrlForLinking(mist_session:_APISession, provider:str, forward:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/oauth2/get-oauth2-url-for-linking
     

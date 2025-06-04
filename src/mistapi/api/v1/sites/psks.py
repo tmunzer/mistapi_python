@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSitePsks(mist_session:_APISession, site_id:str, ssid:str|None=None, role:str|None=None, name:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=None, name:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/list-site-psks
     

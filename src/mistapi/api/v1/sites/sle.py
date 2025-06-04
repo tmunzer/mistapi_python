@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, classifier:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+def getSiteSleClassifierDetails(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, classifier:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-classifier-details
     
@@ -76,7 +76,7 @@ def listSiteSleMetricClassifiers(mist_session:_APISession, site_id:str, scope:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-histogram
     
@@ -111,7 +111,7 @@ def getSiteSleHistogram(mist_session:_APISession, site_id:str, scope:str, scope_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", fields:str|None=None, classifier:str|None=None) -> _APIResponse:
+def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", fields:str=None, classifier:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-impact-summary
     
@@ -150,7 +150,7 @@ def getSiteSleImpactSummary(mist_session:_APISession, site_id:str, scope:str, sc
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", classifier:str|None=None) -> _APIResponse:
+def listSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/list-site-sle-impacted-applications
     
@@ -187,7 +187,7 @@ def listSiteSleImpactedApplications(mist_session:_APISession, site_id:str, scope
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteSleImpactedAps(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", classifier:str|None=None) -> _APIResponse:
+def listSiteSleImpactedAps(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/list-site-sle-impacted-aps
     
@@ -224,7 +224,7 @@ def listSiteSleImpactedAps(mist_session:_APISession, site_id:str, scope:str, sco
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", classifier:str|None=None) -> _APIResponse:
+def listSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/list-site-sle-impacted-chassis
     
@@ -261,7 +261,7 @@ def listSiteSleImpactedChassis(mist_session:_APISession, site_id:str, scope:str,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", classifier:str|None=None) -> _APIResponse:
+def listSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/list-site-sle-impacted-wired-clients
     
@@ -298,7 +298,7 @@ def listSiteSleImpactedWiredClients(mist_session:_APISession, site_id:str, scope
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteSleImpactedGateways(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", classifier:str|None=None) -> _APIResponse:
+def listSiteSleImpactedGateways(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/list-site-sle-impacted-gateways
     
@@ -335,7 +335,7 @@ def listSiteSleImpactedGateways(mist_session:_APISession, site_id:str, scope:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", classifier:str|None=None) -> _APIResponse:
+def listSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/list-site-sle-impacted-interfaces
     
@@ -372,7 +372,7 @@ def listSiteSleImpactedInterfaces(mist_session:_APISession, site_id:str, scope:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteSleImpactedSwitches(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", classifier:str|None=None) -> _APIResponse:
+def listSiteSleImpactedSwitches(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/list-site-sle-impacted-switches
     
@@ -409,7 +409,7 @@ def listSiteSleImpactedSwitches(mist_session:_APISession, site_id:str, scope:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", classifier:str|None=None) -> _APIResponse:
+def listSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d", classifier:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/list-site-sle-impacted-wireless-clients
     
@@ -446,7 +446,7 @@ def listSiteSleImpactedWirelessClients(mist_session:_APISession, site_id:str, sc
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+def getSiteSleSummary(mist_session:_APISession, site_id:str, scope:str, scope_id:str, metric:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-summary
     

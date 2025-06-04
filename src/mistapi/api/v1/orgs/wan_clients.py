@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countOrgWanClients(mist_session:_APISession, org_id:str, distinct:str="mac", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgWanClients(mist_session:_APISession, org_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wan/count-org-wan-clients
     
@@ -50,7 +50,7 @@ def countOrgWanClients(mist_session:_APISession, org_id:str, distinct:str="mac",
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgWanClientEvents(mist_session:_APISession, org_id:str, type:str|None=None, mac:str|None=None, hostname:str|None=None, ip:str|None=None, mfg:str|None=None, nacrule_id:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgWanClientEvents(mist_session:_APISession, org_id:str, type:str=None, mac:str=None, hostname:str=None, ip:str=None, mfg:str=None, nacrule_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wan/search-org-wan-client-events
     
@@ -96,7 +96,7 @@ def searchOrgWanClientEvents(mist_session:_APISession, org_id:str, type:str|None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgWanClients(mist_session:_APISession, org_id:str, mac:str|None=None, hostname:str|None=None, ip:str|None=None, network:str|None=None, ip_src:str|None=None, mfg:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgWanClients(mist_session:_APISession, org_id:str, mac:str=None, hostname:str=None, ip:str=None, network:str=None, ip_src:str=None, mfg:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wan/search-org-wan-clients
     

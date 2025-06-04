@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgPsks(mist_session:_APISession, org_id:str, name:str|None=None, ssid:str|None=None, role:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+def listOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=None, role:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/list-org-psks
     

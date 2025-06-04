@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def searchOrgVars(mist_session:_APISession, org_id:str, site_id:str|None=None, var:str|None=None, src:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgVars(mist_session:_APISession, org_id:str, site_id:str=None, var:str=None, src:str=None, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vars/search-org-vars
     

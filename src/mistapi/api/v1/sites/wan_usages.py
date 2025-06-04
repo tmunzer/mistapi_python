@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteWanUsage(mist_session:_APISession, site_id:str, mac:str|None=None, peer_mac:str|None=None, port_id:str|None=None, peer_port_id:str|None=None, policy:str|None=None, tenant:str|None=None, path_type:str|None=None, distinct:str="policy", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_mac:str=None, port_id:str=None, peer_port_id:str=None, policy:str=None, tenant:str=None, path_type:str=None, distinct:str="policy", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wan-usages/count-site-wan-usage
     
@@ -64,7 +64,7 @@ def countSiteWanUsage(mist_session:_APISession, site_id:str, mac:str|None=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWanUsage(mist_session:_APISession, site_id:str, mac:str|None=None, peer_mac:str|None=None, port_id:str|None=None, peer_port_id:str|None=None, policy:str|None=None, tenant:str|None=None, path_type:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_mac:str=None, port_id:str=None, peer_port_id:str=None, policy:str=None, tenant:str=None, path_type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wan-usages/search-site-wan-usage
     

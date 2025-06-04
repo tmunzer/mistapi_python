@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:str|None=None, type:str|None=None, client_type:str|None=None, duration:str="1d", resolution:str="default", start:int|None=None, end:int|None=None) -> _APIResponse:
+def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:str=None, type:str=None, client_type:str=None, duration:str="1d", resolution:str="default", start:int=None, end:int=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-beam-coverage-overview
     
@@ -54,7 +54,7 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map_id:str|None=None) -> _APIResponse:
+def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map_id:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-machine-learning-current-stat
     

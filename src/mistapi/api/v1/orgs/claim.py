@@ -41,7 +41,7 @@ def claimOrgLicense(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def GetOrgLicenseAsyncClaimStatus(mist_session:_APISession, org_id:str, detail:bool|None=None) -> _APIResponse:
+def GetOrgLicenseAsyncClaimStatus(mist_session:_APISession, org_id:str, detail:bool=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/get-org-license-async-claim-status
     

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteSecIntelProfilesDerived(mist_session:_APISession, site_id:str, resolve:bool|None=None) -> _APIResponse:
+def listSiteSecIntelProfilesDerived(mist_session:_APISession, site_id:str, resolve:bool=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/secintel-profiles/list-site-sec-intel-profiles-derived
     

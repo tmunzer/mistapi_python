@@ -71,7 +71,7 @@ def createOrgSite(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sites/count-org-sites
     
@@ -107,7 +107,7 @@ def countOrgSites(mist_session:_APISession, org_id:str, distinct:str="id", start
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool|None=None, app_waking:bool|None=None, asset_enabled:bool|None=None, auto_upgrade_enabled:bool|None=None, auto_upgrade_version:str|None=None, country_code:str|None=None, honeypot_enabled:bool|None=None, id:str|None=None, locate_unconnected:bool|None=None, mesh_enabled:bool|None=None, name:str|None=None, rogue_enabled:bool|None=None, remote_syslog_enabled:bool|None=None, rtsa_enabled:bool|None=None, vna_enabled:bool|None=None, wifi_enabled:bool|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+def searchOrgSites(mist_session:_APISession, org_id:str, analytic_enabled:bool=None, app_waking:bool=None, asset_enabled:bool=None, auto_upgrade_enabled:bool=None, auto_upgrade_version:str=None, country_code:str=None, honeypot_enabled:bool=None, id:str=None, locate_unconnected:bool=None, mesh_enabled:bool=None, name:str=None, rogue_enabled:bool=None, remote_syslog_enabled:bool=None, rtsa_enabled:bool=None, vna_enabled:bool=None, wifi_enabled:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sites/search-org-sites
     

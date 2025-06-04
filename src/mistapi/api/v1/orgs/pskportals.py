@@ -71,7 +71,7 @@ def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> _AP
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/list-org-psk-portal-logs
     
@@ -107,7 +107,7 @@ def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int|None=No
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="pskportal_id", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="pskportal_id", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/count-org-psk-portal-logs
     
@@ -143,7 +143,7 @@ def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="ps
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1, psk_name:str|None=None, psk_id:str|None=None, pskportal_id:str|None=None, id:str|None=None, admin_name:str|None=None, admin_id:str|None=None, name_id:str|None=None) -> _APIResponse:
+def searchOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1, psk_name:str=None, psk_id:str=None, pskportal_id:str=None, id:str=None, admin_name:str=None, admin_id:str=None, name_id:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/search-org-psk-portal-logs
     

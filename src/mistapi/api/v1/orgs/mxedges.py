@@ -128,7 +128,7 @@ def claimOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", mxedge_id:str|None=None, site_id:str|None=None, mxcluster_id:str|None=None, model:str|None=None, distro:str|None=None, tunterm_version:str|None=None, sort:str|None=None, stats:bool|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", mxedge_id:str=None, site_id:str=None, mxcluster_id:str=None, model:str=None, distro:str=None, tunterm_version:str=None, sort:str=None, stats:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/count-org-mx-edges
     
@@ -180,7 +180,7 @@ def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str="mxedge_id", mxedge_id:str|None=None, mxcluster_id:str|None=None, type:str|None=None, service:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/count-org-site-mx-edge-events
     
@@ -224,7 +224,7 @@ def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str|None=None, mxcluster_id:str|None=None, type:str|None=None, service:str|None=None, component:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, component:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/search-org-mist-edge-events
     
@@ -268,7 +268,7 @@ def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str|
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgMxEdges(mist_session:_APISession, org_id:str, mxedge_id:str|None=None, site_id:str|None=None, mxcluster_id:str|None=None, model:str|None=None, distro:str|None=None, tunterm_version:str|None=None, sort:str|None=None, stats:bool|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+def searchOrgMxEdges(mist_session:_APISession, org_id:str, mxedge_id:str=None, site_id:str=None, mxcluster_id:str=None, model:str=None, distro:str=None, tunterm_version:str=None, sort:str=None, stats:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/search-org-mx-edges
     
@@ -421,7 +421,7 @@ def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="stable", distro:str|None=None) -> _APIResponse:
+def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="stable", distro:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/get-org-mx-edge-upgrade-info
     

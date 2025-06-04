@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bssid", type:str|None=None, ssid:str|None=None, bssid:str|None=None, ap_mac:str|None=None, channel:str|None=None, seen_on_lan:bool|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bssid", type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:str=None, seen_on_lan:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/count-site-rogue-events
     
@@ -62,7 +62,7 @@ def countSiteRogueEvents(mist_session:_APISession, site_id:str, distinct:str="bs
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str|None=None, ssid:str|None=None, bssid:str|None=None, ap_mac:str|None=None, channel:int|None=None, seen_on_lan:bool|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+def searchSiteRogueEvents(mist_session:_APISession, site_id:str, type:str=None, ssid:str=None, bssid:str=None, ap_mac:str=None, channel:int=None, seen_on_lan:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/search-site-rogue-events
     

@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def troubleshootOrg(mist_session:_APISession, org_id:str, mac:str|None=None, site_id:str|None=None, start:int|None=None, end:int|None=None, type:str|None=None) -> _APIResponse:
+def troubleshootOrg(mist_session:_APISession, org_id:str, mac:str=None, site_id:str=None, start:int=None, end:int=None, type:str=None) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/marvis/troubleshoot-org
     
