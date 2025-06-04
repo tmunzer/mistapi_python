@@ -888,18 +888,12 @@ class APISession(APIRequest):
         )
         if org_priv:
             logger.info(
-                f"apisession:get_privilege_by_org_id:"
-                f"org {org_id} privileges found in user info"
+                "apisession:get_privilege_by_org_id:"
+                "org %s privileges found in user info",
+                org_id
             )
-            logger.debug(f"apisession:get_privilege_by_org_id: {org_priv}")
-            return {
-                "scope": org_priv.scope,
-                "role": org_priv.role,
-                "org_id": org_priv.org_id,
-                "name": org_priv.name,
-                "site_id": getattr(org_priv, "site_id", None),
-                "msp_id": getattr(org_priv, "msp_id", None),
-            }
+            logger.debug("apisession:get_privilege_by_org_id: %s", org_priv)
+            return org_priv
         else:
             logger.warn(
                 f"apisession:get_privilege_by_org_id:"
