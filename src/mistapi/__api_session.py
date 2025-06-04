@@ -12,18 +12,20 @@ This module provide the APISession class, which is used to manage authentication
 and HTTP session (if login/password is used) with Mist Cloud.
 """
 
-from pathlib import Path
-from getpass import getpass
 import os
 import sys
+from getpass import getpass
+from pathlib import Path
+
 import requests
 from dotenv import load_dotenv
 
-from mistapi.__logger import logger, console
 from mistapi.__api_request import APIRequest
 from mistapi.__api_response import APIResponse
+from mistapi.__logger import console, logger
 from mistapi.__models.privilege import Privileges
 from mistapi.__version import __version__
+
 ###### GLOBALS ######
 CLOUDS = [
     {"short": "APAC 01", "host": "api.ac5.mist.com", "cookies_ext": ".ac5"},
@@ -106,9 +108,7 @@ class APISession(APIRequest):
         self._console_log_level = console_log_level
         self._logging_log_level = logging_log_level
         self._show_cli_notif = show_cli_notif
-        self._proxies = {
-            "https": https_proxy
-        }
+        self._proxies = {"https": https_proxy}
 
         console._set_log_level(console_log_level, logging_log_level)
 
@@ -150,7 +150,10 @@ class APISession(APIRequest):
             if hasattr(self, field) and getattr(self, field) != "":
                 string += f"{field}:\r\n"
                 if field == "privileges":
-                    string += Privileges(self.privileges).display()
+                    if isinstance(self.privileges, Privileges):
+                        string += self.privileges.display()
+                    else:
+                        string += Privileges(self.privileges).display()
                     string += "\r\n"
                 elif field == "tags":
                     for tag in self.tags:
@@ -192,9 +195,16 @@ class APISession(APIRequest):
         if os.getenv("MIST_PASSWORD"):
             self.set_password(os.getenv("MIST_PASSWORD"))
         if os.getenv("CONSOLE_LOG_LEVEL"):
-            self._console_log_level = os.getenv("CONSOLE_LOG_LEVEL")
+            try:
+                self._console_log_level = int(os.getenv("CONSOLE_LOG_LEVEL"))
+            except ValueError:
+                self._console_log_level = 20  # Default fallback
+
         if os.getenv("LOGGING_LOG_LEVEL"):
-            self._logging_log_level = os.getenv("LOGGING_LOG_LEVEL")
+            try:
+                self._logging_log_level = int(os.getenv("LOGGING_LOG_LEVEL"))
+            except ValueError:
+                self._logging_log_level = 10  # Default fallback
         if os.getenv("HTTPS_PROXY"):
             self._proxies["https"] = os.getenv("HTTPS_PROXY")
 
@@ -215,8 +225,8 @@ class APISession(APIRequest):
             "api.mistsys.com",
             "api.ac99.mist.com",
             "api.gc1.mistsys.com",
-            "api.us.mist-federal.com"
-            ]:
+            "api.us.mist-federal.com",
+        ]:
             self._cloud_uri = cloud_uri
         else:
             for cloud in CLOUDS:
@@ -277,9 +287,7 @@ class APISession(APIRequest):
                     self.set_cloud(CLOUDS[resp_num]["host"])
                 else:
                     print(f"Please enter a number between 0 and {i}.")
-                    logger.error(
-                        f"apisession:select_cloud:{resp} is not a valid input"
-                    )
+                    logger.error(f"apisession:select_cloud:{resp} is not a valid input")
                     self.select_cloud()
             except:
                 print("\r\nPlease enter a number.")
@@ -336,15 +344,15 @@ class APISession(APIRequest):
         apitokens_out = []
         for token in apitokens_in:
             token = token.strip()
-            if token and not token in apitokens_out:
+            if token and token not in apitokens_out:
                 apitokens_out.append(token)
         logger.info(f"apisession:set_api_token:found {len(apitokens_out)} API Tokens")
         if self._check_api_tokens(apitokens_out):
             self._apitoken = apitokens_out
             self._apitoken_index = 0
-            self._session.headers.update({
-                "Authorization": "Token " + self._apitoken[self._apitoken_index]
-                })
+            self._session.headers.update(
+                {"Authorization": "Token " + self._apitoken[self._apitoken_index]}
+            )
             logger.info("apisession:set_api_token:API Token configured")
             console.debug("API Token configured")
 
@@ -359,10 +367,10 @@ class APISession(APIRequest):
             logger.debug(
                 f"apisession:_get_api_token_data:"
                 f"info retrieved for token {apitoken[:4]}...{apitoken[-4:]}"
-                )
-        except requests.exceptions.ProxyError as proxy_error:
+            )
+        except requests.exceptions.ProxyError:
             logger.critical("apisession:_get_api_token_data:proxy not valid...")
-            console.critical("Proxy not valid...\r\n")        
+            console.critical("Proxy not valid...\r\n")
             sys.exit(0)
         except requests.exceptions.ConnectionError as connexion_error:
             logger.critical(f"apirequest:mist_post:Connection Error: {connexion_error}")
@@ -373,7 +381,9 @@ class APISession(APIRequest):
                 f"apisession:_get_api_token_data:"
                 f"unable to retrieve info for token {apitoken[:4]}...{apitoken[-4:]}"
             )
-            logger.error("apirequest:_get_api_token_data: Exception occurred", exc_info=True)
+            logger.error(
+                "apirequest:_get_api_token_data: Exception occurred", exc_info=True
+            )
             return (None, None)
 
         if data_json.get("email"):
@@ -420,7 +430,7 @@ class APISession(APIRequest):
             primary_token_value = ""
             for token in apitokens:
                 token_value = f"{token[:4]}...{token[-4:]}"
-                (token_type, token_privileges ) = self._get_api_token_data(token)
+                (token_type, token_privileges) = self._get_api_token_data(token)
                 if len(primary_token_privileges) == 0:
                     primary_token_privileges = token_privileges
                     primary_token_type = token_type
@@ -430,18 +440,18 @@ class APISession(APIRequest):
                         f"apisession:_check_api_tokens:"
                         f"{token_type} API Token {token_value} has same privileges as "
                         f"the {primary_token_type} API Token {primary_token_value}"
-                        )
+                    )
                 else:
                     logger.critical(
                         f"apisession:_check_api_tokens:"
                         f"{token_type} API Token {token_value} has different privileges "
                         f"than the {primary_token_type} API Token {primary_token_value}"
-                        )
+                    )
                     logger.critical(" /!\\ API TOKEN CRITICAL ERROR /!\\")
                     logger.critical(
                         " When using multiple API Tokens, be sure they are all linked"
                         " to the same Org/User, and all have the same privileges"
-                        )
+                    )
                     logger.critical(" Exiting...")
                     sys.exit(255)
         return True
@@ -573,14 +583,10 @@ class APISession(APIRequest):
 
         elif self.email and self._password:
             if two_factor:
-                logger.debug(
-                    "apisession:login_with_return:login/pwd provided with 2FA"
-                )
+                logger.debug("apisession:login_with_return:login/pwd provided with 2FA")
                 error = self._two_factor_authentication(two_factor)
             else:
-                logger.debug(
-                    "apisession:login_with_return:login/pwd provided w/o 2FA"
-                )
+                logger.debug("apisession:login_with_return:login/pwd provided w/o 2FA")
                 error = self._process_login(retry=False)
             if error:
                 logger.error(
@@ -643,20 +649,18 @@ class APISession(APIRequest):
         )
         if authentication_status:
             self._authenticated = True
-            logger.info(
-                f'apisession:_set_authenticated: session is now "Authenticated"'
-            )
+            logger.info('apisession:_set_authenticated: session is now "Authenticated"')
             if not self._apitoken:
                 logger.info("apisession:_set_authenticated:processing HTTP cookies")
                 try:
                     if self._cloud_uri == "api.mistsys.com":
                         cookies_ext = ""
                     elif self._cloud_uri == "api.ac99.mist.com":
-                        cookies_ext= ".ac99"
+                        cookies_ext = ".ac99"
                     elif self._cloud_uri == "api.gc1.mistsys.com":
-                        cookies_ext= ".gc1"
+                        cookies_ext = ".gc1"
                     elif self._cloud_uri == "api.us.mist-federal.com":
-                        cookies_ext= ".us"
+                        cookies_ext = ".us"
                     else:
                         cookies_ext = next(
                             item["cookies_ext"]
@@ -680,7 +684,7 @@ class APISession(APIRequest):
         elif authentication_status is False:
             self._authenticated = False
             logger.info(
-                f'apisession:_set_authenticated: session is now "Unauthenticated"'
+                'apisession:_set_authenticated: session is now "Unauthenticated"'
             )
             self._csrftoken = ""
             del self._session
@@ -710,7 +714,7 @@ class APISession(APIRequest):
             api response for the GET /api/v1/self request
         """
         logger.info(
-            f'apisession:get_api_token: Sending GET request to "/api/v1/self/apitokens"'
+            'apisession:get_api_token: Sending GET request to "/api/v1/self/apitokens"'
         )
         resp = self.mist_get("/api/v1/self/apitokens")
         return resp
@@ -730,12 +734,12 @@ class APISession(APIRequest):
             api response for the POST /api/v1/self/apitokens request
         """
         logger.debug("apisession:create_api_token")
-        body={}
+        body = {}
         if token_name:
             body = {"name": token_name}
         logger.info(
             f"apisession:create_api_token:"
-            f"sending POST request to \"/api/v1/self/apitokens\" with name \"{token_name}\""
+            f'sending POST request to "/api/v1/self/apitokens" with name "{token_name}"'
         )
         resp = self.mist_post("/api/v1/self/apitokens", body=body)
         return resp
@@ -757,7 +761,7 @@ class APISession(APIRequest):
         logger.debug("apisession:delete_api_token")
         logger.info(
             f"apisession:delete_api_token:"
-            f"sending DELETE request to \"/api/v1/self/apitokens\" with token_id \"{apitoken_id}\""
+            f'sending DELETE request to "/api/v1/self/apitokens" with token_id "{apitoken_id}"'
         )
         uri = f"https://{self._cloud_uri}/api/v1/self/apitokens/{apitoken_id}"
         resp = self._session.delete(uri)
@@ -880,7 +884,7 @@ class APISession(APIRequest):
         """
         logger.debug("apisession:get_privilege_by_org_id")
         org_priv = next(
-            (priv for priv in self.privileges if priv.get("org_id") == org_id), None
+            (priv for priv in self.privileges.privileges if priv.org_id == org_id), None
         )
         if org_priv:
             logger.info(
@@ -888,7 +892,14 @@ class APISession(APIRequest):
                 f"org {org_id} privileges found in user info"
             )
             logger.debug(f"apisession:get_privilege_by_org_id: {org_priv}")
-            return org_priv
+            return {
+                "scope": org_priv.scope,
+                "role": org_priv.role,
+                "org_id": org_priv.org_id,
+                "name": org_priv.name,
+                "site_id": getattr(org_priv, "site_id", None),
+                "msp_id": getattr(org_priv, "msp_id", None),
+            }
         else:
             logger.warn(
                 f"apisession:get_privilege_by_org_id:"
