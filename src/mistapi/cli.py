@@ -36,8 +36,9 @@ def _test_choice(val, val_max):
             return val_int
         else:
             return -1
-    except:
+    except ValueError:
         return -2
+
 
 ###########################################
 #### DECORATOR
@@ -45,14 +46,17 @@ def is_authenticated(func):
     """
     decorator to test if the mistapi.APISession is authenticated
     """
+
     def wrapper(*args, **kwargs):
         mist_session = args[0]
         if mist_session.get_authentication_status():
             return func(*args, **kwargs)
         else:
             console.critical("Not authenticated... Exiting...")
-            console.critical("Please une the \"login()\" function first...")
+            console.critical('Please une the "login()" function first...')
+
     return wrapper
+
 
 ###########################################
 #### CLI SELECTIONS
@@ -79,6 +83,7 @@ def _forge_privileges(mist_session: mistapi.APISession, msp_id: str):
         custom_privileges.append(mist_session.get_privilege_by_org_id(org["id"]))
     return custom_privileges
 
+
 @is_authenticated
 def _select_msp(mist_session: mistapi.APISession) -> list:
     """
@@ -96,7 +101,9 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
     list
         List of ORG privileges
     """
-    msp_accounts = [ priv for priv in mist_session.privileges if priv.get("scope") == "msp" ]
+    msp_accounts = [
+        priv for priv in mist_session.privileges if priv.get("scope") == "msp"
+    ]
     if len(msp_accounts) == 0:
         return mist_session.privileges
     else:
@@ -118,7 +125,11 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
             elif resp.lower() == "n":
                 standalones = []
                 for priv in mist_session.privileges:
-                    msp = [msp for msp in msp_accounts if msp.get("msp_id") == priv.get("msp_id", "xyz")]
+                    msp = [
+                        msp
+                        for msp in msp_accounts
+                        if msp.get("msp_id") == priv.get("msp_id", "xyz")
+                    ]
                     if not msp:
                         standalones.append(priv)
                 return standalones
@@ -126,11 +137,14 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
             else:
                 tested_val = _test_choice(resp, i)
                 if tested_val >= 0:
-                    return _forge_privileges(mist_session, msp_accounts[tested_val]["msp_id"])
+                    return _forge_privileges(
+                        mist_session, msp_accounts[tested_val]["msp_id"]
+                    )
                 elif tested_val == -1:
                     print(f"{resp} is not part of the possibilities.")
                 elif tested_val == -2:
                     print("Only numbers are allowed.")
+
 
 @is_authenticated
 def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
@@ -160,14 +174,14 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
         resp_ids = []
         print("\r\nAvailable organizations:")
         for privilege in data:
-            if privilege["scope"] == "org" and not privilege["org_id"] in org_ids:
+            if privilege["scope"] == "org" and privilege["org_id"] not in org_ids:
                 i += 1
                 org_ids.append(privilege["org_id"])
                 print(f"{i}) {privilege['name']} (id: {privilege['org_id']})")
 
         orgs_with_sites = []
         for privilege in data:
-            if privilege["scope"] == "site" and not privilege["org_id"] in org_ids:
+            if privilege["scope"] == "site" and privilege["org_id"] not in org_ids:
                 index = _search_org(orgs_with_sites, privilege["org_id"])
                 if index is None:
                     i += 1
@@ -178,7 +192,10 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
                             "org_id": privilege["org_id"],
                             "name": privilege["name"],
                             "sites": [
-                                {"site_id": privilege["site_id"], "name": privilege["name"]}
+                                {
+                                    "site_id": privilege["site_id"],
+                                    "name": privilege["name"],
+                                }
                             ],
                         }
                     )
@@ -218,6 +235,7 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
                     selection_validated = False
             if selection_validated:
                 return resp_ids
+
 
 @is_authenticated
 def select_site(
@@ -297,7 +315,7 @@ def select_site(
 
 ###########################################
 #### DATA PROCESSING / DISPLAY
-def extract_field(json_data:dict, field:str) -> any:
+def extract_field(json_data: dict, field: str) -> any:
     """
     function to extract the value of a key from complex JSON object
 
@@ -306,7 +324,7 @@ def extract_field(json_data:dict, field:str) -> any:
     json_data : dict
         the JSON object containing the value
     field : str
-        the full path of the key we are looking for. 
+        the full path of the key we are looking for.
         e.g. parent.child.key
 
     RETURNS
@@ -367,14 +385,14 @@ def _json_to_array(json_data: object, fields: list) -> list:
 
 def display_list_of_json_as_table(data_list: list, fields: list) -> None:
     """
-    Function using tabulate to display a list as a table 
+    Function using tabulate to display a list as a table
 
     PARAMS
     -----------
     data_list : list
         list to display
     fields : list
-        List of fields to display. 
+        List of fields to display.
     """
     table = []
     for data in data_list:
@@ -382,16 +400,16 @@ def display_list_of_json_as_table(data_list: list, fields: list) -> None:
     print(tabulate(table, headers=fields))
 
 
-def pretty_print(response:_APIResponse, fields:list=None):
+def pretty_print(response: _APIResponse, fields: list = None) -> None:
     """
-    Function using tabulate to display a mistapi Response content as a table 
+    Function using tabulate to display a mistapi Response content as a table
 
     PARAMS
     -----------
     response : _APIResponse
         Response from a mistapi Request to the Mist Cloud
     fields : list
-        List of fields to display. 
+        List of fields to display.
         If None, the function automatically detects all the available fields
     """
     if "result" in response:

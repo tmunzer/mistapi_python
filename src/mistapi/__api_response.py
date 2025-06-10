@@ -20,12 +20,7 @@ class APIResponse:
     Class used to pass API Responses
     """
 
-    def __init__(
-        self,
-        response: Response ,
-        url: str,
-        proxy_error: bool = False
-    ) -> None:
+    def __init__(self, response: Response, url: str, proxy_error: bool = False) -> None:
         """
         PARAMS
         -----------
@@ -41,7 +36,7 @@ class APIResponse:
         self.headers = None
         self.status_code = None
         self.proxy_error = proxy_error
-        
+
         if response is not None:
             self.headers = response.headers
             self.status_code = response.status_code
@@ -82,17 +77,17 @@ class APIResponse:
                     page = int(page_str)
                     if limit * page < total:
                         uri = f"/api/{self.url.split('/api/')[1]}"
-                        self.next = uri.replace(f"page={page}", f"page={page+1}")
+                        self.next = uri.replace(f"page={page}", f"page={page + 1}")
                         logger.debug(f"apiresponse:_check_next:set next to {self.next}")
-                except:
+                except ValueError:
                     logger.error(
                         f"apiresponse:_check_next:"
-                        f"unable to convert total({total})/limit({limit})/page({page}) to int"
+                        f"unable to convert total({total_str})/limit({limit_str})/page({page_str}) to int"
                     )
                     logger.error(
-                        "apirequest:mist_post_file:Exception occurred", exc_info=True
+                        "apiresponse:_check_next:Exception occurred", exc_info=True
                     )
                     console.error(
                         f"Unable to convert total "
-                        f"({total})/limit({limit})/page({page}) to int"
+                        f"({total_str})/limit({limit_str})/page({page_str}) to int"
                     )
