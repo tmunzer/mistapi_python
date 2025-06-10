@@ -212,7 +212,7 @@ def _init_endpoint(endpoint: str):
         tuple: (full_folder_path, file_name)
     """
     full_folder_path = root_folder
-    full_import_path = []
+    full_import_path: list[str] = []
     folder_path_parts, file_name = _gen_folder_and_file_paths(endpoint)
 
     # Create nested folder structure
@@ -230,7 +230,7 @@ def _init_endpoint(endpoint: str):
 # Generate functions
 
 
-def _gen_code_params_default_value(param: object):
+def _gen_code_params_default_value(param: dict):
     """
     Generate default value code for function parameters.
 
@@ -811,7 +811,7 @@ def {operation_id}(mist_session:_APISession{code_path_params}, body:dict) -> _AP
 # PARAMS - Parameter processing functions
 
 
-def _process_path_params(endpoint_params: object):
+def _process_path_params(endpoint_params: dict):
     """
     Process path parameters from OpenAPI endpoint definition.
 
@@ -837,7 +837,7 @@ def _process_path_params(endpoint_params: object):
     return params
 
 
-def _process_query_params(endpoint_params: object):
+def _process_query_params(endpoint_params: dict):
     """
     Process query parameters from OpenAPI endpoint definition.
 
@@ -863,7 +863,7 @@ def _process_query_params(endpoint_params: object):
     return params
 
 
-def _process_body_params(request_body: object, content_type: str = "application/json"):
+def _process_body_params(request_body: dict, content_type: str = "application/json"):
     """
     Process request body parameters from OpenAPI definition.
 
@@ -888,7 +888,7 @@ def _process_body_params(request_body: object, content_type: str = "application/
 
 
 def _process_endpoint(
-    endpoint_data: object, endpoint_path: str, folder_path: str, file_name: str
+    endpoint_data: dict, endpoint_path: str, folder_path: str, file_name: str
 ):
     """
     Process a single API endpoint and generate corresponding functions.
@@ -1006,7 +1006,7 @@ def _process_endpoint(
     return count
 
 
-def _is_totaly_deprecated(endpoint_data: object) -> bool:
+def _is_totaly_deprecated(endpoint_data: dict) -> bool:
     """
     Check if an endpoint is completely deprecated (all HTTP methods are deprecated).
 

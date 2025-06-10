@@ -25,7 +25,7 @@ class TestAPISessionInitialisation:
         assert isolated_session._cloud_uri == ""
         assert isolated_session.email is None
         assert isolated_session._password is None
-        assert isolated_session._apitoken is None
+        assert isolated_session._apitoken == []
         assert not isolated_session._authenticated
         assert isolated_session._console_log_level == 50  # Set in fixture
         assert isolated_session._logging_log_level == 10
