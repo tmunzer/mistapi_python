@@ -14,24 +14,24 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def cloneOrg(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+def cloneOrg(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clone-org
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     BODY PARAMS
     -----------
     body : dict
         JSON object to send to Mist Cloud (see API doc above for more details)
-    
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -40,4 +40,3 @@ def cloneOrg(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
     uri = f"/api/v1/orgs/{org_id}/clone"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
-    

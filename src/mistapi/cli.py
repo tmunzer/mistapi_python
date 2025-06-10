@@ -11,9 +11,12 @@
 This module is providing some functions to simplify Mist API use.
 """
 
-import sys
 import json
+import sys
+from typing import Any
+
 from tabulate import tabulate
+
 import mistapi
 from mistapi.__api_response import APIResponse as _APIResponse
 from mistapi.__logger import console
@@ -102,18 +105,20 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
         List of ORG privileges
     """
     msp_accounts = [
-        priv for priv in mist_session.privileges if priv.get("scope") == "msp"
+        priv
+        for priv in mist_session.privileges.privileges
+        if priv.get("scope") == "msp"
     ]
     if len(msp_accounts) == 0:
-        return mist_session.privileges
+        return mist_session.privileges.privileges
     else:
-        msp_accounts = sorted(msp_accounts, key=lambda x: x["name"].lower())
+        msp_accounts = sorted(msp_accounts, key=lambda x: x.get("name").lower())
         while True:
             i = -1
             print("\r\nAvailable MSP Accounts:")
             for privilege in msp_accounts:
                 i += 1
-                print(f"{i}) {privilege['name']} (id: {privilege['msp_id']})")
+                print(f"{i}) {privilege.get('name')} (id: {privilege.get('msp_id')})")
             print()
             print("n) Orgs not linked to an MSP account")
             print()
@@ -123,22 +128,22 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
             if resp == "q":
                 sys.exit(0)
             elif resp.lower() == "n":
-                standalones = []
-                for priv in mist_session.privileges:
+                standalone = []
+                for priv in mist_session.privileges.privileges:
                     msp = [
                         msp
                         for msp in msp_accounts
                         if msp.get("msp_id") == priv.get("msp_id", "xyz")
                     ]
                     if not msp:
-                        standalones.append(priv)
-                return standalones
+                        standalone.append(priv)
+                return standalone
                 # return [priv for priv in mist_session.privileges if not priv.get("msp_id")]
             else:
                 tested_val = _test_choice(resp, i)
                 if tested_val >= 0:
                     return _forge_privileges(
-                        mist_session, msp_accounts[tested_val]["msp_id"]
+                        mist_session, msp_accounts[tested_val].get("msp_id")
                     )
                 elif tested_val == -1:
                     print(f"{resp} is not part of the possibilities.")
@@ -170,8 +175,8 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
     data = sorted(data, key=lambda x: x["name"].lower())
     while True:
         i = -1
-        org_ids = []
-        resp_ids = []
+        org_ids: list[str] = []
+        resp_ids: list[str] = []
         print("\r\nAvailable organizations:")
         for privilege in data:
             if privilege["scope"] == "org" and privilege["org_id"] not in org_ids:
@@ -179,7 +184,7 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
                 org_ids.append(privilege["org_id"])
                 print(f"{i}) {privilege['name']} (id: {privilege['org_id']})")
 
-        orgs_with_sites = []
+        orgs_with_sites: list[dict] = []
         for privilege in data:
             if privilege["scope"] == "site" and privilege["org_id"] not in org_ids:
                 index = _search_org(orgs_with_sites, privilege["org_id"])
@@ -219,11 +224,11 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
             return org_ids
         else:
             selection_validated = True
-            resp = resp.split(",")
-            if not allow_many and len(resp) > 1:
-                print(f"Only one org is allowed, you selected {len(resp)}")
+            resp_splitted = resp.split(",")
+            if not allow_many and len(resp_splitted) > 1:
+                print(f"Only one org is allowed, you selected {len(resp_splitted)}")
                 return select_org(mist_session, allow_many)
-            for num in resp:
+            for num in resp_splitted:
                 tested_val = _test_choice(num, i)
                 if tested_val >= 0:
                     resp_ids.append(org_ids[tested_val])
@@ -268,11 +273,13 @@ def select_site(
     if org_id is None:
         org_id = select_org(mist_session)[0]
 
-    for privilege in mist_session.privileges:
-        if privilege["scope"] == "org" and privilege["org_id"] == org_id:
+    for privilege in mist_session.privileges.privileges:
+        if privilege.get("scope") == "org" and privilege.get("org_id") == org_id:
             org_access = True
-        if privilege["scope"] == "site" and privilege["org_id"] == org_id:
-            site_choices.append({"id": privilege["site_id"], "name": privilege["name"]})
+        if privilege.get("scope") == "site" and privilege.get("org_id") == org_id:
+            site_choices.append(
+                {"id": privilege.get("site_id"), "name": privilege.get("name")}
+            )
 
     if not site_choices or org_access:
         response = mistapi.api.v1.orgs.sites.listOrgSites(mist_session, org_id)
@@ -296,11 +303,11 @@ def select_site(
     elif resp.lower() == "a" and allow_many:
         return site_ids
     else:
-        resp = resp.split(",")
-        if not allow_many and len(resp) > 1:
-            print(f"Only one site is allowed, you selected {len(resp)}")
+        splitted_resp = resp.split(",")
+        if not allow_many and len(splitted_resp) > 1:
+            print(f"Only one site is allowed, you selected {len(splitted_resp)}")
             return select_site(mist_session, org_id, allow_many)
-        for num in resp:
+        for num in splitted_resp:
             tested_val = _test_choice(num, i)
             if tested_val >= 0:
                 resp_ids.append(site_choices[tested_val]["id"])
@@ -314,8 +321,7 @@ def select_site(
 
 
 ###########################################
-#### DATA PROCESSING / DISPLAY
-def extract_field(json_data: dict, field: str) -> any:
+def extract_field(json_data: dict, field: str) -> Any:
     """
     function to extract the value of a key from complex JSON object
 
@@ -376,7 +382,7 @@ def save_to_csv(
             f.write("\r\n")
 
 
-def _json_to_array(json_data: object, fields: list) -> list:
+def _json_to_array(json_data: dict, fields: list) -> list:
     data = []
     for field in fields:
         data.append(json_data.get(field, ""))
@@ -400,7 +406,7 @@ def display_list_of_json_as_table(data_list: list, fields: list) -> None:
     print(tabulate(table, headers=fields))
 
 
-def pretty_print(response: _APIResponse, fields: list = None) -> None:
+def pretty_print(response: _APIResponse, fields: list | None = None) -> None:
     """
     Function using tabulate to display a mistapi Response content as a table
 
@@ -412,14 +418,16 @@ def pretty_print(response: _APIResponse, fields: list = None) -> None:
         List of fields to display.
         If None, the function automatically detects all the available fields
     """
-    if "result" in response:
-        data = response["result"]
+    if hasattr(response, "data") and "result" in response.data:
+        data = response.data["result"]
+    elif hasattr(response, "data"):
+        data = response.data
     else:
         data = response
     print("")
     if isinstance(data, list):
         if fields is None:
-            fields = "keys"
+            fields = ["keys"]
         print(tabulate(data, headers=fields))
     elif isinstance(data, dict):
         print(json.dumps(data, sort_keys=True, indent=4, separators=(",", ": ")))

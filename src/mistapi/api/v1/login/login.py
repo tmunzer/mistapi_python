@@ -14,20 +14,20 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def login(mist_session:_APISession, body:object) -> _APIResponse:
+def login(mist_session:_APISession, body:dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/login/login
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     BODY PARAMS
     -----------
     body : dict
         JSON object to send to Mist Cloud (see API doc above for more details)
-    
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -36,4 +36,3 @@ def login(mist_session:_APISession, body:object) -> _APIResponse:
     uri = f"/api/v1/login"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
-    

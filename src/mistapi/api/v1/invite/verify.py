@@ -17,16 +17,16 @@ import deprecation
 def verifyAdminInvite(mist_session:_APISession, token:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/verify-admin-invite
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    token : str        
-    
+    token : str
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -35,4 +35,3 @@ def verifyAdminInvite(mist_session:_APISession, token:str) -> _APIResponse:
     uri = f"/api/v1/invite/verify/{token}"
     resp = mist_session.mist_post(uri=uri)
     return resp
-    

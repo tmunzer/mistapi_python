@@ -14,14 +14,18 @@ This module manages API requests with Mist Cloud. It is used to
 * report error if any
 """
 
-import os
-import sys
-import re
 import json
+import os
+import re
+import sys
+from typing import Any
+
 import requests
 from requests.exceptions import HTTPError
+
 from mistapi.__api_response import APIResponse
 from mistapi.__logger import logger
+from mistapi.__models.privilege import Privileges
 
 
 class APIRequest:
@@ -29,13 +33,13 @@ class APIRequest:
     Class handling API Request to the Mist Cloud
     """
 
-    def __init__(self):
-        self._cloud_uri = ""
+    def __init__(self) -> None:
+        self._cloud_uri: str = ""
         self._session = requests.session()
-        self.privileges = ""
-        self._count = 0
-        self._apitoken = []
-        self._apitoken_index = -1
+        self.privileges: Privileges = Privileges([])
+        self._count: int = 0
+        self._apitoken: list[str] = []
+        self._apitoken_index: int = -1
 
     def get_request_count(self):
         """
@@ -108,7 +112,7 @@ class APIRequest:
             logger.critical(" Exiting...")
             sys.exit(255)
 
-    def _gen_query(self, query: dict) -> str:
+    def _gen_query(self, query: dict[str, str] | None) -> str:
         logger.debug(f"apirequest:_gen_query:processing query {query}")
         html_query = "?"
         if query:
@@ -151,7 +155,7 @@ class APIRequest:
                     request_body += f"\r\n{i}"
         return request_body
 
-    def mist_get(self, uri: str, query: dict = None) -> APIResponse:
+    def mist_get(self, uri: str, query: dict[str, str] | None = None) -> APIResponse:
         """
         GET HTTP Request
 
@@ -201,9 +205,9 @@ class APIRequest:
             logger.error("apirequest:mist_get:Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_post(self, uri: str, body: dict = None) -> APIResponse:
+    def mist_post(self, uri: str, body: dict | None = None) -> APIResponse:
         """
         POST HTTP Request
 
@@ -234,7 +238,7 @@ class APIRequest:
             logger.debug(
                 f"apirequest:mist_post:request headers:{self._remove_auth_from_headers(resp)}"
             )
-            logger.debug(f"apirequest:mist_post:request body:{resp.request.body}")
+            logger.debug("apirequest:mist_post:request body: %s", resp.request.body)
             resp.raise_for_status()
         except requests.exceptions.ProxyError as proxy_error:
             logger.error(f"apirequest:mist_post:Proxy Error: {proxy_error}")
@@ -261,7 +265,7 @@ class APIRequest:
             self._count += 1
             return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_put(self, uri: str, body: dict = None) -> APIResponse:
+    def mist_put(self, uri: str, body: dict | None = None) -> APIResponse:
         """
         PUT HTTP Request
 
@@ -292,7 +296,7 @@ class APIRequest:
             logger.debug(
                 f"apirequest:mist_put:request headers:{self._remove_auth_from_headers(resp)}"
             )
-            logger.debug(f"apirequest:mist_put:request body:{resp.request.body}")
+            logger.debug("apirequest:mist_put:request body:%s", resp.request.body)
             resp.raise_for_status()
         except requests.exceptions.ProxyError as proxy_error:
             logger.error(f"apirequest:mist_put:Proxy Error: {proxy_error}")
@@ -319,7 +323,7 @@ class APIRequest:
             self._count += 1
             return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_delete(self, uri: str, query: dict = None) -> APIResponse:
+    def mist_delete(self, uri: str, query: dict | None = None) -> APIResponse:
         """
         DELETE HTTP Request
 
@@ -389,7 +393,7 @@ class APIRequest:
             logger.debug(
                 f"apirequest:mist_post_file:initial multipart_form_data:{multipart_form_data}"
             )
-            generated_multipart_form_data = {}
+            generated_multipart_form_data: dict[str, Any] = {}
             for key in multipart_form_data:
                 logger.debug(
                     f"apirequest:mist_post_file:"

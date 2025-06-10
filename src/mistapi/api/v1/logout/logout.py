@@ -17,12 +17,12 @@ import deprecation
 def logout(mist_session:_APISession) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/logout/logout
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -31,4 +31,3 @@ def logout(mist_session:_APISession) -> _APIResponse:
     uri = f"/api/v1/logout"
     resp = mist_session.mist_post(uri=uri)
     return resp
-    

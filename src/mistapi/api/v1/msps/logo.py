@@ -17,44 +17,44 @@ import deprecation
 def deleteMspLogo(mist_session:_APISession, msp_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logo/delete-msp-logo
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    msp_id : str        
-    
+    msp_id : str
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     uri = f"/api/v1/msps/{msp_id}/logo"
-    query_params={}
+    query_params:dict[str, str]={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
-    
-def postMspLogo(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+
+def postMspLogo(mist_session:_APISession, msp_id:str, body:dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logo/post-msp-logo
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    msp_id : str        
-    
+    msp_id : str
+
     BODY PARAMS
     -----------
     body : dict
         JSON object to send to Mist Cloud (see API doc above for more details)
-    
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -63,4 +63,3 @@ def postMspLogo(mist_session:_APISession, msp_id:str, body:object) -> _APIRespon
     uri = f"/api/v1/msps/{msp_id}/logo"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
-    

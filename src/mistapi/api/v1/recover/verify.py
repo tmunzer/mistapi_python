@@ -17,16 +17,16 @@ import deprecation
 def verifyRecoverPassword(mist_session:_APISession, token:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/recover-password/verify-recover-password
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    token : str        
-    
+    token : str
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -35,4 +35,3 @@ def verifyRecoverPassword(mist_session:_APISession, token:str) -> _APIResponse:
     uri = f"/api/v1/recover/verify/{token}"
     resp = mist_session.mist_post(uri=uri)
     return resp
-    

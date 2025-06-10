@@ -14,24 +14,24 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def claimMspLicense(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+def claimMspLicense(mist_session:_APISession, msp_id:str, body:dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/licenses/claim-msp-license
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    msp_id : str        
-    
+    msp_id : str
+
     BODY PARAMS
     -----------
     body : dict
         JSON object to send to Mist Cloud (see API doc above for more details)
-    
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -40,4 +40,3 @@ def claimMspLicense(mist_session:_APISession, msp_id:str, body:object) -> _APIRe
     uri = f"/api/v1/msps/{msp_id}/claim"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
-    

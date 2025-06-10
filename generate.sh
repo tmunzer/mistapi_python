@@ -12,7 +12,7 @@ git pull
 cd ..
 
 echo "Updating version in pyproject.toml to $1"
-sed -e "s/version = .*/version = \"$1\"/g" pyproject.toml > new_pyproject.toml 
+sed -e "s/version = .*/version = \"$1\"/g" pyproject.toml > new_pyproject.toml
 mv new_pyproject.toml pyproject.toml
 
 echo "Updating version in __version.py to $1"

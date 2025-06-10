@@ -19,6 +19,7 @@ from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
+from requests import Response, Session
 
 from mistapi.__api_request import APIRequest
 from mistapi.__api_response import APIResponse
@@ -29,9 +30,11 @@ from mistapi.__version import __version__
 ###### GLOBALS ######
 CLOUDS = [
     {"short": "APAC 01", "host": "api.ac5.mist.com", "cookies_ext": ".ac5"},
+    {"short": "APAC 03", "host": "api.gc7.mist.com", "cookies_ext": ".gc7"},
     {"short": "EMEA 01", "host": "api.eu.mist.com", "cookies_ext": ".eu"},
     {"short": "EMEA 02", "host": "api.gc3.mist.com", "cookies_ext": ".gc3"},
     {"short": "EMEA 03", "host": "api.ac6.mist.com", "cookies_ext": ".ac6"},
+    {"short": "EMEA 04", "host": "api.gc6.mist.com", "cookies_ext": ".gc6"},
     {"short": "Global 01", "host": "api.mist.com", "cookies_ext": ""},
     {"short": "Global 02", "host": "api.gc1.mist.com", "cookies_ext": ".gc1"},
     {"short": "Global 03", "host": "api.ac2.mist.com", "cookies_ext": ".ac2"},
@@ -47,16 +50,16 @@ class APISession(APIRequest):
 
     def __init__(
         self,
-        email: str = None,
-        password: str = None,
-        apitoken: str = None,
-        host: str = None,
-        env_file: str = None,
-        console_log_level: str = 20,
+        email: str | None = None,
+        password: str | None = None,
+        apitoken: str | None = None,
+        host: str | None = None,
+        env_file: str | None = None,
+        console_log_level: int = 20,
         logging_log_level: int = 10,
         show_cli_notif: bool = True,
-        https_proxy: str = None,
-    ):
+        https_proxy: str | None = None,
+    ) -> None:
         """
         Initialise the APISession class. This class is used to manage Mist API authentication.
 
@@ -94,16 +97,17 @@ class APISession(APIRequest):
         https_proxy : str, default None
             HTTPS Proxy to use to send the API Requests
         """
+        super().__init__()
         logger.info("mistapi:init:package version %s", __version__)
-        self._cloud_uri = None
-        self.email = None
-        self._password = None
-        self._apitoken = None
-        self._apitoken_index = -1
-        self._csrftoken = None
-        self._authenticated = False
-        self._count = 0
-        self._session = requests.session()
+        self._cloud_uri: str = ""
+        self.email: str | None = None
+        self._password: str | None = None
+        self._apitoken: list[str] = []
+        self._apitoken_index: int = -1
+        self._csrftoken: str | None = None
+        self._authenticated: bool = False
+        self._count: int = 0
+        self._session: Session = requests.session()
         self._session.headers["Accept"] = "application/json, application/vnd.api+json"
         self._console_log_level = console_log_level
         self._logging_log_level = logging_log_level
@@ -113,7 +117,9 @@ class APISession(APIRequest):
         console._set_log_level(console_log_level, logging_log_level)
 
         self._load_env(env_file)
-        self._session.proxies.update(self._proxies)
+        # Filter out None values before updating proxies
+        filtered_proxies = {k: v for k, v in self._proxies.items() if v is not None}
+        self._session.proxies.update(filtered_proxies)
 
         if host:
             self.set_cloud(host)
@@ -123,17 +129,17 @@ class APISession(APIRequest):
             self.set_password(password)
         if apitoken:
             self.set_api_token(apitoken)
-        self.first_name = ""
-        self.last_name = ""
-        self.via_sso = False
-        self.tags = []
+        self.first_name: str = ""
+        self.last_name: str = ""
+        self.via_sso: bool = False
+        self.tags: list[str] = []
 
-        self.privileges = Privileges([])
-        self.session_expiry = ""
+        self.privileges: Privileges = Privileges([])
+        self.session_expiry: int = -1
 
         logger.debug("apisession:__init__: API Session initialized")
 
-    def __str__(self):
+    def __str__(self) -> str:
         fields = [
             "email",
             "first_name",
@@ -186,25 +192,36 @@ class APISession(APIRequest):
         #     logger.debug(f"apisession:_load_env:loading settings from env file")
         #     load_dotenv()
 
-        if os.getenv("MIST_HOST"):
-            self.set_cloud(os.getenv("MIST_HOST"))
-        if os.getenv("MIST_APITOKEN"):
-            self.set_api_token(os.getenv("MIST_APITOKEN"))
-        if os.getenv("MIST_USER"):
-            self.set_email(os.getenv("MIST_USER"))
-        if os.getenv("MIST_PASSWORD"):
-            self.set_password(os.getenv("MIST_PASSWORD"))
-        if os.getenv("CONSOLE_LOG_LEVEL"):
+        mist_host = os.getenv("MIST_HOST")
+        if mist_host:
+            self.set_cloud(mist_host)
+
+        mist_apitoken = os.getenv("MIST_APITOKEN")
+        if mist_apitoken:
+            self.set_api_token(mist_apitoken)
+
+        mist_user = os.getenv("MIST_USER")
+        if mist_user:
+            self.set_email(mist_user)
+
+        mist_password = os.getenv("MIST_PASSWORD")
+        if mist_password:
+            self.set_password(mist_password)
+
+        console_log_level_env = os.getenv("CONSOLE_LOG_LEVEL")
+        if console_log_level_env:
             try:
-                self._console_log_level = int(os.getenv("CONSOLE_LOG_LEVEL"))
+                self._console_log_level = int(console_log_level_env)
             except ValueError:
                 self._console_log_level = 20  # Default fallback
 
-        if os.getenv("LOGGING_LOG_LEVEL"):
+        logging_log_level_env = os.getenv("LOGGING_LOG_LEVEL")
+        if logging_log_level_env:
             try:
-                self._logging_log_level = int(os.getenv("LOGGING_LOG_LEVEL"))
+                self._logging_log_level = int(logging_log_level_env)
             except ValueError:
                 self._logging_log_level = 10  # Default fallback
+
         if os.getenv("HTTPS_PROXY"):
             self._proxies["https"] = os.getenv("HTTPS_PROXY")
 
@@ -220,7 +237,7 @@ class APISession(APIRequest):
             Mist FQDN to reach ("api.mist.com", "api.eu.mist.com", ...)
         """
         logger.debug("apisession:set_cloud")
-        self._cloud_uri = None
+        self._cloud_uri = ""
         if cloud_uri in [
             "api.mistsys.com",
             "api.ac99.mist.com",
@@ -299,7 +316,7 @@ class APISession(APIRequest):
 
     ####################################
     # AUTH FUNCTIONS
-    def set_email(self, email: str = None) -> None:
+    def set_email(self, email: str | None = None) -> None:
         """
         Set the user email
 
@@ -316,7 +333,7 @@ class APISession(APIRequest):
         logger.info("apisession:set_email:email configured to %s", self.email)
         console.debug(f"Email configured to {self.email}")
 
-    def set_password(self, password: str = None) -> None:
+    def set_password(self, password: str | None = None) -> None:
         """
         Set the user password
 
@@ -344,7 +361,7 @@ class APISession(APIRequest):
         """
         logger.debug("apisession:set_api_token")
         apitokens_in = apitoken.split(",")
-        apitokens_out = []
+        apitokens_out: list[str] = []
         for token in apitokens_in:
             token = token.strip()
             if token and token not in apitokens_out:
@@ -359,13 +376,17 @@ class APISession(APIRequest):
             logger.info("apisession:set_api_token:API Token configured")
             console.debug("API Token configured")
 
-    def _get_api_token_data(self, apitoken) -> (str, list):
+    def _get_api_token_data(self, apitoken) -> tuple[str | None, list | None]:
         token_privileges = []
         token_type = "org"
         try:
             url = f"https://{self._cloud_uri}/api/v1/self"
             headers = {"Authorization": "Token " + apitoken}
-            data = requests.get(url, headers=headers, proxies=self._proxies, timeout=30)
+            # Filter out None values from proxies
+            filtered_proxies = {k: v for k, v in self._proxies.items() if v is not None}
+            data = requests.get(
+                url, headers=headers, proxies=filtered_proxies or None, timeout=30
+            )
             data_json = data.json()
             logger.debug(
                 "apisession:_get_api_token_data:info retrieved for token %s...%s",
@@ -424,7 +445,7 @@ class APISession(APIRequest):
                 )
         return (token_type, token_privileges)
 
-    def _check_api_tokens(self, apitokens) -> None:
+    def _check_api_tokens(self, apitokens) -> bool:
         """
         Function used when multiple API tokens are provided, to validate they
         have same privileges
@@ -437,13 +458,13 @@ class APISession(APIRequest):
                 "apisession:_check_api_tokens:there is only 1 API token. No check required"
             )
         else:
-            primary_token_privileges = []
-            primary_token_type = ""
-            primary_token_value = ""
+            primary_token_privileges: list[str] = []
+            primary_token_type: str | None = ""
+            primary_token_value: str = ""
             for token in apitokens:
                 token_value = f"{token[:4]}...{token[-4:]}"
                 (token_type, token_privileges) = self._get_api_token_data(token)
-                if len(primary_token_privileges) == 0:
+                if len(primary_token_privileges) == 0 and token_privileges:
                     primary_token_privileges = token_privileges
                     primary_token_type = token_type
                     primary_token_value = token_value
@@ -476,7 +497,7 @@ class APISession(APIRequest):
                     sys.exit(255)
         return True
 
-    def _process_login(self, retry: bool = True) -> None:
+    def _process_login(self, retry: bool = True) -> str | None:
         """
         Function to authenticate a user with login/password.
         Will create and store a session used by other requests.
@@ -487,7 +508,7 @@ class APISession(APIRequest):
             if `retry`==True, ask for login/password when authentication is failing
         """
         logger.debug("apisession:_process_login")
-        error = None
+        error: str | None = None
         if self._show_cli_notif:
             print()
             print(" Login/Pwd authentication ".center(80, "-"))
@@ -553,8 +574,8 @@ class APISession(APIRequest):
         apitoken: str = "",
         email: str = "",
         password: str = "",
-        two_factor: str = None,
-    ):
+        two_factor: str | None = None,
+    ) -> dict:
         """
         Log in on the Mist Cloud.
         This function will return the authentication result an object with the
@@ -606,15 +627,23 @@ class APISession(APIRequest):
         elif self.email and self._password:
             if two_factor:
                 logger.debug("apisession:login_with_return:login/pwd provided with 2FA")
-                error = self._two_factor_authentication(two_factor)
+                if self._two_factor_authentication(two_factor):
+                    logger.error(
+                        "apisession:login_with_return:login/pwd auth failed: 2FA authentication failed"
+                    )
+                    return {
+                        "authenticated": False,
+                        "error": "2FA authentication failed",
+                    }
             else:
                 logger.debug("apisession:login_with_return:login/pwd provided w/o 2FA")
-                error = self._process_login(retry=False)
-            if error:
-                logger.error(
-                    "apisession:login_with_return:login/pwd auth failed: %s", error
-                )
-                return {"authenticated": False, "error": error}
+                error_login = self._process_login(retry=False)
+                if error_login:
+                    logger.error(
+                        "apisession:login_with_return:login/pwd auth failed: %s",
+                        error_login,
+                    )
+                    return {"authenticated": False, "error": error_login}
             logger.info("apisession:login_with_return:get self")
             uri = "/api/v1/self"
             logger.info(
@@ -748,7 +777,7 @@ class APISession(APIRequest):
         resp = self.mist_get("/api/v1/self/apitokens")
         return resp
 
-    def create_api_token(self, token_name: str = None) -> APIResponse:
+    def create_api_token(self, token_name: str | None = None) -> APIResponse:
         """
         Create a new API Token with the current account (user/org)
 
@@ -774,7 +803,7 @@ class APISession(APIRequest):
         resp = self.mist_post("/api/v1/self/apitokens", body=body)
         return resp
 
-    def delete_api_token(self, apitoken_id: str) -> APIResponse:
+    def delete_api_token(self, apitoken_id: str) -> Response:
         """
         Delete an API Token based on its token_id
 
@@ -839,7 +868,7 @@ class APISession(APIRequest):
             )
             return False
 
-    def _getself(self) -> None:
+    def _getself(self) -> bool:
         """
         Retrieve information about the current user and store them in the current object.
         """
@@ -889,14 +918,15 @@ class APISession(APIRequest):
         else:
             logger.error("apisession:_getself:authentication not valid...")
             console.error("Authentication not valid...\r\n")
-            resp = input(
+            user_resp = input(
                 f"Do you want to try with new credentials for {self._cloud_uri} (y/N)? "
             )
-            if resp.lower() == "y":
+            if user_resp.lower() == "y":
                 self._process_login()
                 return self._getself()
             else:
                 sys.exit(0)
+        return False
 
     ####################################
     # PRIVILEGES
@@ -918,7 +948,12 @@ class APISession(APIRequest):
         """
         logger.debug("apisession:get_privilege_by_org_id")
         org_priv = next(
-            (priv for priv in self.privileges if priv.get("org_id") == org_id), None
+            (
+                priv
+                for priv in self.privileges.privileges
+                if priv.get("org_id") == org_id
+            ),
+            None,
         )
         if org_priv:
             logger.info(
@@ -966,7 +1001,7 @@ class APISession(APIRequest):
                 msp_priv = next(
                     (
                         priv
-                        for priv in self.privileges
+                        for priv in self.privileges.privileges
                         if priv.get("scope") == "msp" and priv.get("msp_id") == msp_id
                     ),
                     None,
@@ -982,9 +1017,9 @@ class APISession(APIRequest):
                         "scope": "org",
                         "org_id": org_id,
                         "name": resp.data.get("name"),
-                        "role": msp_priv["role"],
+                        "role": msp_priv.get("role"),
                         "msp_id": msp_id,
-                        "msp_name": msp_priv["name"],
+                        "msp_name": msp_priv.get("name"),
                         "orggroup_ids": resp.data.get("orggroup_ids"),
                         "msp_logo_url": resp.data.get("logo_url"),
                     }

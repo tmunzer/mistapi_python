@@ -17,51 +17,53 @@ import deprecation
 def listOrgNacRules(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/list-org-nac-rules
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     limit : int, default: 100
-    page : int, default: 1        
-    
+    page : int, default: 1
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nacrules"
-    query_params={}
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
+    query_params:dict[str, str]={}
+    if limit:
+        query_params["limit"]=str(limit)
+    if page:
+        query_params["page"]=str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+
+def createOrgNacRule(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/create-org-nac-rule
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     BODY PARAMS
     -----------
     body : dict
         JSON object to send to Mist Cloud (see API doc above for more details)
-    
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -70,74 +72,74 @@ def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> _APIR
     uri = f"/api/v1/orgs/{org_id}/nacrules"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
-    
+
 def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/get-org-nac-rule
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
     org_id : str
-    nacrule_id : str        
-    
+    nacrule_id : str
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nacrules/{nacrule_id}"
-    query_params={}
+    query_params:dict[str, str]={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
+
 def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/delete-org-nac-rule
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
     org_id : str
-    nacrule_id : str        
-    
+    nacrule_id : str
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     uri = f"/api/v1/orgs/{org_id}/nacrules/{nacrule_id}"
-    query_params={}
+    query_params:dict[str, str]={}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
-    
-def updateOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str, body:object) -> _APIResponse:
+
+def updateOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str, body:dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/update-org-nac-rule
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
     org_id : str
-    nacrule_id : str        
-    
+    nacrule_id : str
+
     BODY PARAMS
     -----------
     body : dict
         JSON object to send to Mist Cloud (see API doc above for more details)
-    
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -146,4 +148,3 @@ def updateOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str, body:
     uri = f"/api/v1/orgs/{org_id}/nacrules/{nacrule_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
-    

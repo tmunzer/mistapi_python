@@ -306,7 +306,7 @@ def isolate_env_vars():
 
 
 # Markers for test categorisation
-def pytest_configure(config):
+def pytest_configure(config) -> None:
     """Configure custom markers"""
     config.addinivalue_line("markers", "unit: Unit tests")
     config.addinivalue_line("markers", "integration: Integration tests")

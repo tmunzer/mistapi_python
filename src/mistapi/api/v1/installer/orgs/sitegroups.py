@@ -17,23 +17,22 @@ import deprecation
 def listInstallerSiteGroups(mist_session:_APISession, org_id:str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-site-groups
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
     uri = f"/api/v1/installer/orgs/{org_id}/sitegroups"
-    query_params={}
+    query_params:dict[str, str]={}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
