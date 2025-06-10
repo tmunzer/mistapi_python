@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listInstallerListOfRecentlyClaimedDevices(mist_session:_APISession, org_id:str, model:str=None, site_name:str=None, site_id:str=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listInstallerListOfRecentlyClaimedDevices(mist_session:_APISession, org_id:str, model:str=None, site_name:str=None, site_id:str=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-list-of-recently-claimed-devices
     
@@ -50,7 +53,8 @@ def listInstallerListOfRecentlyClaimedDevices(mist_session:_APISession, org_id:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def claimInstallerDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def claimInstallerDevices(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/claim-installer-devices
     
@@ -77,7 +81,8 @@ def claimInstallerDevices(mist_session:_APISession, org_id:str, body:object) -> 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unassignInstallerRecentlyClaimedDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+@sync_async_compatible
+def unassignInstallerRecentlyClaimedDevice(mist_session:_APISession, org_id:str, device_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/unassign-installer-recently-claimed-device
     
@@ -101,7 +106,8 @@ def unassignInstallerRecentlyClaimedDevice(mist_session:_APISession, org_id:str,
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def provisionInstallerDevices(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def provisionInstallerDevices(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/provision-installer-devices
     
@@ -129,7 +135,8 @@ def provisionInstallerDevices(mist_session:_APISession, org_id:str, device_mac:s
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+@sync_async_compatible
+def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/start-installer-locate-device
     
@@ -152,7 +159,8 @@ def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+@sync_async_compatible
+def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/stop-installer-locate-device
     
@@ -175,7 +183,8 @@ def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:s
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:str, device_mac:str) -> _APIResponse:
+@sync_async_compatible
+def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:str, device_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/delete-installer-device-image
     
@@ -200,7 +209,7 @@ def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name:str, device_mac:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
+def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name:str, device_mac:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/add-installer-device-image
     
@@ -240,7 +249,8 @@ def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def getInstallerDeviceVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac:str) -> _APIResponse:
+@sync_async_compatible
+def getInstallerDeviceVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/get-installer-device-virtual-chassis
     
@@ -264,7 +274,8 @@ def getInstallerDeviceVirtualChassis(mist_session:_APISession, org_id:str, fpc0_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createInstallerVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createInstallerVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/create-installer-virtual-chassis
     
@@ -292,7 +303,8 @@ def createInstallerVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateInstallerVirtualChassisMember(mist_session:_APISession, org_id:str, fpc0_mac:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateInstallerVirtualChassisMember(mist_session:_APISession, org_id:str, fpc0_mac:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/update-installer-virtual-chassis-member
     

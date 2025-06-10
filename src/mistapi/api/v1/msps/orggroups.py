@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
+@sync_async_compatible
+def listMspOrgGroups(mist_session:_APISession, msp_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/list-msp-org-groups
     
@@ -37,7 +40,8 @@ def listMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/create-msp-org-group
     
@@ -64,7 +68,8 @@ def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _APIResponse:
+@sync_async_compatible
+def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/get-msp-org-group
     
@@ -88,7 +93,8 @@ def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _AP
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/delete-msp-org-group
     
@@ -112,7 +118,8 @@ def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/update-msp-org-group
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgWxTunnels(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgWxTunnels(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/list-org-wx-tunnels
     
@@ -44,7 +47,8 @@ def listOrgWxTunnels(mist_session:_APISession, org_id:str, limit:int=100, page:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgWxTunnel(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgWxTunnel(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/create-org-wx-tunnel
     
@@ -71,7 +75,8 @@ def createOrgWxTunnel(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/get-org-wx-tunnel
     
@@ -95,7 +100,8 @@ def getOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> _AP
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/delete-org-wx-tunnel
     
@@ -119,7 +125,8 @@ def deleteOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgWxTunnel(mist_session:_APISession, org_id:str, wxtunnel_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/update-org-wx-tunnel
     

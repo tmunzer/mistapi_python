@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgAntivirusProfiles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgAntivirusProfiles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/list-org-antivirus-profiles
     
@@ -44,7 +47,8 @@ def listOrgAntivirusProfiles(mist_session:_APISession, org_id:str, limit:int=100
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgAntivirusProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgAntivirusProfile(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/create-org-antivirus-profile
     
@@ -71,7 +75,8 @@ def createOrgAntivirusProfile(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/get-org-antivirus-profile
     
@@ -95,7 +100,8 @@ def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/delete-org-antivirus-profile
     
@@ -119,7 +125,8 @@ def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/update-org-antivirus-profile
     

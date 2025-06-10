@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None, mac:str=None) -> _APIResponse:
+@sync_async_compatible
+def listOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None, mac:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/list-org-jsi-devices
     
@@ -50,7 +53,8 @@ def listOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/adopt-org-jsi-device
     
@@ -73,7 +77,8 @@ def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+@sync_async_compatible
+def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/create-org-jsi-device-shell-session
     
@@ -96,7 +101,8 @@ def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-jsi-device
     
@@ -124,7 +130,8 @@ def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None) -> _APIResponse:
+@sync_async_compatible
+def listOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str=None, serial:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/list-org-jsi-past-purchases
     

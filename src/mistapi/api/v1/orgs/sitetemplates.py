@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgSiteTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgSiteTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/list-org-site-templates
     
@@ -44,7 +47,8 @@ def listOrgSiteTemplates(mist_session:_APISession, org_id:str, limit:int=100, pa
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSiteTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgSiteTemplate(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/create-org-site-template
     
@@ -71,7 +75,8 @@ def createOrgSiteTemplate(mist_session:_APISession, org_id:str, body:object) -> 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/get-org-site-template
     
@@ -95,7 +100,8 @@ def getOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/delete-org-site-template
     
@@ -119,7 +125,8 @@ def deleteOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgSiteTemplate(mist_session:_APISession, org_id:str, sitetemplate_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/site-templates/update-org-site-template
     

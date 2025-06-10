@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgApiTokens(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listOrgApiTokens(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/list-org-api-tokens
     
@@ -37,7 +40,8 @@ def listOrgApiTokens(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgApiToken(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgApiToken(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/create-org-api-token
     
@@ -64,7 +68,8 @@ def createOrgApiToken(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/get-org-api-token
     
@@ -88,7 +93,8 @@ def getOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> _AP
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/delete-org-api-token
     
@@ -112,7 +118,8 @@ def deleteOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/update-org-api-token
     

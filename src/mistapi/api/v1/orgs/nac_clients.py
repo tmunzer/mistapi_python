@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type", last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, site_id:str=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type", last_nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, last_vlan_id:str=None, last_nas_vendor:str=None, idp_id:str=None, last_ssid:str=None, last_username:str=None, timestamp:float=None, site_id:str=None, last_ap:str=None, mac:str=None, last_status:str=None, type:str=None, mdm_compliance_status:str=None, mdm_provider:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/nac/count-org-nac-clients
     
@@ -83,7 +86,8 @@ def countOrgNacClients(mist_session:_APISession, org_id:str, distinct:str="type"
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/nac/count-org-nac-client-events
     
@@ -121,7 +125,8 @@ def countOrgNacClientEvents(mist_session:_APISession, org_id:str, distinct:str=N
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None, nacrule_id:str=None, nacrule_matched:bool=None, dryrun_nacrule_id:str=None, dryrun_nacrule_matched:bool=None, auth_type:str=None, vlan:int=None, nas_vendor:str=None, bssid:str=None, idp_id:str=None, idp_role:str=None, idp_username:str=None, resp_attrs:list=None, ssid:str=None, username:str=None, site_id:str=None, ap:str=None, random_mac:bool=None, mac:str=None, timestamp:float=None, usermac_label:str=None, text:str=None, nas_ip:str=None, sort:str=None, ingress_vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None, nacrule_id:str=None, nacrule_matched:bool=None, dryrun_nacrule_id:str=None, dryrun_nacrule_matched:bool=None, auth_type:str=None, vlan:int=None, nas_vendor:str=None, bssid:str=None, idp_id:str=None, idp_role:str=None, idp_username:str=None, resp_attrs:list=None, ssid:str=None, username:str=None, site_id:str=None, ap:str=None, random_mac:bool=None, mac:str=None, timestamp:float=None, usermac_label:str=None, text:str=None, nas_ip:str=None, sort:str=None, ingress_vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/nac/search-org-nac-client-events
     
@@ -206,7 +211,8 @@ def searchOrgNacClientEvents(mist_session:_APISession, org_id:str, type:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgNacClients(mist_session:_APISession, org_id:str, nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, vlan:str=None, nas_vendor:str=None, idp_id:str=None, ssid:str=None, username:str=None, timestamp:float=None, site_id:str=None, ap:str=None, mac:str=None, mdm_managed:bool=None, status:str=None, type:str=None, mdm_compliance:str=None, mdm_provider:str=None, sort:str=None, usermac_label:list=None, ingress_vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def searchOrgNacClients(mist_session:_APISession, org_id:str, nacrule_id:str=None, nacrule_matched:bool=None, auth_type:str=None, vlan:str=None, nas_vendor:str=None, idp_id:str=None, ssid:str=None, username:str=None, timestamp:float=None, site_id:str=None, ap:str=None, mac:str=None, mdm_managed:bool=None, status:str=None, type:str=None, mdm_compliance:str=None, mdm_provider:str=None, sort:str=None, usermac_label:list=None, ingress_vlan:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/nac/search-org-nac-clients
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgNetworks(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgNetworks(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/networks/list-org-networks
     
@@ -44,7 +47,8 @@ def listOrgNetworks(mist_session:_APISession, org_id:str, limit:int=100, page:in
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgNetwork(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgNetwork(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/networks/create-org-network
     
@@ -71,7 +75,8 @@ def createOrgNetwork(mist_session:_APISession, org_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/networks/get-org-network
     
@@ -95,7 +100,8 @@ def getOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> _APIR
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/networks/delete-org-network
     
@@ -119,7 +125,8 @@ def deleteOrgNetwork(mist_session:_APISession, org_id:str, network_id:str) -> _A
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgNetwork(mist_session:_APISession, org_id:str, network_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgNetwork(mist_session:_APISession, org_id:str, network_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/networks/update-org-network
     

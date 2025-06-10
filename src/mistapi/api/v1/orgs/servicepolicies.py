@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgServicePolicies(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgServicePolicies(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/list-org-service-policies
     
@@ -44,7 +47,8 @@ def listOrgServicePolicies(mist_session:_APISession, org_id:str, limit:int=100, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgServicePolicy(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgServicePolicy(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/create-org-service-policy
     
@@ -71,7 +75,8 @@ def createOrgServicePolicy(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/get-org-service-policy
     
@@ -95,7 +100,8 @@ def getOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/delete-org-service-policy
     
@@ -119,7 +125,8 @@ def deleteOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_i
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/update-org-service-policy
     

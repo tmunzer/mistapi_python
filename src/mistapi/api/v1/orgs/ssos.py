@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgSsos(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgSsos(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/list-org-ssos
     
@@ -44,7 +47,8 @@ def listOrgSsos(mist_session:_APISession, org_id:str, limit:int=100, page:int=1)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSso(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgSso(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/create-org-sso
     
@@ -71,7 +75,8 @@ def createOrgSso(mist_session:_APISession, org_id:str, body:object) -> _APIRespo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/get-org-sso
     
@@ -95,7 +100,8 @@ def getOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/delete-org-sso
     
@@ -119,7 +125,8 @@ def deleteOrgSso(mist_session:_APISession, org_id:str, sso_id:str) -> _APIRespon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgSso(mist_session:_APISession, org_id:str, sso_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgSso(mist_session:_APISession, org_id:str, sso_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/update-org-sso
     
@@ -147,7 +154,8 @@ def updateOrgSso(mist_session:_APISession, org_id:str, sso_id:str, body:object) 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/list-org-sso-latest-failures
     
@@ -184,7 +192,8 @@ def listOrgSsoLatestFailures(mist_session:_APISession, org_id:str, sso_id:str, s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/get-org-saml-metadata
     
@@ -208,7 +217,8 @@ def getOrgSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _API
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def downloadOrgSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> _APIResponse:
+@sync_async_compatible
+def downloadOrgSamlMetadata(mist_session:_APISession, org_id:str, sso_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso/download-org-saml-metadata
     

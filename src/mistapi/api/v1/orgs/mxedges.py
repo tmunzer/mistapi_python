@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/list-org-mx-edges
     
@@ -47,7 +50,8 @@ def listOrgMxEdges(mist_session:_APISession, org_id:str, for_sites:str="any", li
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/create-org-mx-edge
     
@@ -74,7 +78,8 @@ def createOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def assignOrgMxEdgeToSite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def assignOrgMxEdgeToSite(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/assign-org-mx-edge-to-site
     
@@ -101,7 +106,8 @@ def assignOrgMxEdgeToSite(mist_session:_APISession, org_id:str, body:object) -> 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def claimOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def claimOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/claim-org-mx-edge
     
@@ -128,7 +134,8 @@ def claimOrgMxEdge(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", mxedge_id:str=None, site_id:str=None, mxcluster_id:str=None, model:str=None, distro:str=None, tunterm_version:str=None, sort:str=None, stats:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", mxedge_id:str=None, site_id:str=None, mxcluster_id:str=None, model:str=None, distro:str=None, tunterm_version:str=None, sort:str=None, stats:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/count-org-mx-edges
     
@@ -180,7 +187,8 @@ def countOrgMxEdges(mist_session:_APISession, org_id:str, distinct:str="model", 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str="mxedge_id", mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/count-org-site-mx-edge-events
     
@@ -224,7 +232,8 @@ def countOrgSiteMxEdgeEvents(mist_session:_APISession, org_id:str, distinct:str=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, component:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=None, mxcluster_id:str=None, type:str=None, service:str=None, component:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/search-org-mist-edge-events
     
@@ -268,7 +277,8 @@ def searchOrgMistEdgeEvents(mist_session:_APISession, org_id:str, mxedge_id:str=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgMxEdges(mist_session:_APISession, org_id:str, mxedge_id:str=None, site_id:str=None, mxcluster_id:str=None, model:str=None, distro:str=None, tunterm_version:str=None, sort:str=None, stats:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def searchOrgMxEdges(mist_session:_APISession, org_id:str, mxedge_id:str=None, site_id:str=None, mxcluster_id:str=None, model:str=None, distro:str=None, tunterm_version:str=None, sort:str=None, stats:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/search-org-mx-edges
     
@@ -320,7 +330,8 @@ def searchOrgMxEdges(mist_session:_APISession, org_id:str, mxedge_id:str=None, s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/unassign-org-mx-edge-from-site
     
@@ -347,7 +358,8 @@ def unassignOrgMxEdgeFromSite(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-mx-edge-upgrades
     
@@ -370,7 +382,8 @@ def listOrgMxEdgeUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def upgradeOrgMxEdges(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def upgradeOrgMxEdges(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-mx-edges
     
@@ -397,7 +410,8 @@ def upgradeOrgMxEdges(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/get-org-mx-edge-upgrade
     
@@ -421,7 +435,8 @@ def getOrgMxEdgeUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="stable", distro:str=None) -> _APIResponse:
+@sync_async_compatible
+def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="stable", distro:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/get-org-mx-edge-upgrade-info
     
@@ -452,7 +467,8 @@ def getOrgMxEdgeUpgradeInfo(mist_session:_APISession, org_id:str, channel:str="s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/get-org-mx-edge
     
@@ -476,7 +492,8 @@ def getOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIRes
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/delete-org-mx-edge
     
@@ -500,7 +517,8 @@ def deleteOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _API
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/update-org-mx-edge
     
@@ -528,7 +546,8 @@ def updateOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str, body:ob
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image_number:int) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image_number:int) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/delete-org-mx-edge-image
     
@@ -553,7 +572,8 @@ def deleteOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, im
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image_number:int, body:object) -> _APIResponse:
+@sync_async_compatible
+def addOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image_number:int, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/add-org-mx-edge-image
     
@@ -582,7 +602,8 @@ def addOrgMxEdgeImage(mist_session:_APISession, org_id:str, mxedge_id:str, image
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
+@sync_async_compatible
+def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/restart-org-mx-edge
     
@@ -605,7 +626,8 @@ def restartOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _AP
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/bounce-org-mx-edge-data-ports
     
@@ -633,7 +655,8 @@ def bounceOrgMxEdgeDataPorts(mist_session:_APISession, org_id:str, mxedge_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def disconnectOrgMxEdgeTuntermAps(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def disconnectOrgMxEdgeTuntermAps(mist_session:_APISession, org_id:str, mxedge_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/disconnect-org-mx-edge-tunterm-aps
     
@@ -661,7 +684,8 @@ def disconnectOrgMxEdgeTuntermAps(mist_session:_APISession, org_id:str, mxedge_i
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str, name:str, action:str) -> _APIResponse:
+@sync_async_compatible
+def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str, name:str, action:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/control-org-mx-edge-services
     
@@ -688,7 +712,8 @@ def controlOrgMxEdgeServices(mist_session:_APISession, org_id:str, mxedge_id:str
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
+@sync_async_compatible
+def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/upload-org-mx-edge-support-files
     
@@ -711,7 +736,8 @@ def uploadOrgMxEdgeSupportFiles(mist_session:_APISession, org_id:str, mxedge_id:
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> _APIResponse:
+@sync_async_compatible
+def unregisterOrgMxEdge(mist_session:_APISession, org_id:str, mxedge_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/unregister-org-mx-edge
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgSiteGroups(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgSiteGroups(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/list-org-site-groups
     
@@ -44,7 +47,8 @@ def listOrgSiteGroups(mist_session:_APISession, org_id:str, limit:int=100, page:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSiteGroup(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgSiteGroup(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/create-org-site-group
     
@@ -71,7 +75,8 @@ def createOrgSiteGroup(mist_session:_APISession, org_id:str, body:object) -> _AP
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/get-org-site-group
     
@@ -95,7 +100,8 @@ def getOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> _
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/delete-org-site-group
     
@@ -119,7 +125,8 @@ def deleteOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/update-org-site-group
     

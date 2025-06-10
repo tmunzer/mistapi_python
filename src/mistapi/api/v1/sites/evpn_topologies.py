@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteEvpnTopologies(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteEvpnTopologies(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/list-site-evpn-topologies
     
@@ -44,7 +47,8 @@ def listSiteEvpnTopologies(mist_session:_APISession, site_id:str, limit:int=100,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteEvpnTopology(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteEvpnTopology(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/create-site-evpn-topology
     
@@ -71,7 +75,8 @@ def createSiteEvpnTopology(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/get-site-evpn-topology
     
@@ -95,7 +100,8 @@ def getSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/delete-site-evpn-topology
     
@@ -119,7 +125,8 @@ def deleteSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/update-site-evpn-topology
     

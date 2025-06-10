@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgPacketCaptures(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgPacketCaptures(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/list-org-packet-captures
     
@@ -50,7 +53,8 @@ def listOrgPacketCaptures(mist_session:_APISession, org_id:str, start:int=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgCapturingStatus(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgCapturingStatus(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/get-org-capturing-status
     
@@ -73,7 +77,8 @@ def getOrgCapturingStatus(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def stopOrgPacketCapture(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def stopOrgPacketCapture(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/stop-org-packet-capture
     
@@ -96,7 +101,8 @@ def stopOrgPacketCapture(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def startOrgPacketCapture(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def startOrgPacketCapture(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/start-org-packet-capture
     

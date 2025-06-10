@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgAssetFilters(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgAssetFilters(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/list-org-asset-filters
     
@@ -44,7 +47,8 @@ def listOrgAssetFilters(mist_session:_APISession, org_id:str, limit:int=100, pag
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgAssetFilter(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgAssetFilter(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/create-org-asset-filter
     
@@ -71,7 +75,8 @@ def createOrgAssetFilter(mist_session:_APISession, org_id:str, body:object) -> _
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/get-org-asset-filter
     
@@ -95,7 +100,8 @@ def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/delete-org-asset-filter
     
@@ -119,7 +125,8 @@ def deleteOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:st
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/update-org-asset-filter
     

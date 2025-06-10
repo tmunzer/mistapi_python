@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def ackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def ackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-multiple-alarms
     
@@ -41,7 +44,8 @@ def ackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) -> _
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-all-alarms
     
@@ -68,7 +72,8 @@ def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/count-org-alarms
     
@@ -104,7 +109,8 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str=None, star
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type:str=None, status:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type:str=None, status:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/search-org-alarms
     
@@ -144,7 +150,8 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str=None, type
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def unackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def unackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/unack-org-multiple-alarms
     
@@ -171,7 +178,8 @@ def unackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def unackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/unack-org-all-alarms
     
@@ -198,7 +206,8 @@ def unackOrgAllAlarms(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-alarm
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:str=None, type:str=None, client_type:str=None, duration:str="1d", resolution:str="default", start:int=None, end:int=None) -> _APIResponse:
+@sync_async_compatible
+def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:str=None, type:str=None, client_type:str=None, duration:str="1d", resolution:str="default", start:int=None, end:int=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-beam-coverage-overview
     
@@ -54,7 +57,8 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map_id:str=None) -> _APIResponse:
+@sync_async_compatible
+def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map_id:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-machine-learning-current-stat
     
@@ -82,7 +86,8 @@ def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-default-plf-for-models
     
@@ -105,7 +110,8 @@ def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> _APIRes
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/clear-site-ml-overwrite-for-device
     
@@ -129,7 +135,8 @@ def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/overwrite-site-ml-for-device
     
@@ -157,7 +164,8 @@ def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/clear-site-ml-overwrite-for-map
     
@@ -181,7 +189,8 @@ def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/overwrite-site-ml-for-map
     
@@ -209,7 +218,8 @@ def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/reset-site-ml-stats-by-map
     

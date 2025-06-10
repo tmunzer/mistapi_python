@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def inviteOrgAdmin(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def inviteOrgAdmin(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/admins/invite-org-admin
     
@@ -41,7 +44,8 @@ def inviteOrgAdmin(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def uninviteOrgAdmin(mist_session:_APISession, org_id:str, invite_id:str) -> _APIResponse:
+@sync_async_compatible
+def uninviteOrgAdmin(mist_session:_APISession, org_id:str, invite_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/admins/uninvite-org-admin
     
@@ -65,7 +69,8 @@ def uninviteOrgAdmin(mist_session:_APISession, org_id:str, invite_id:str) -> _AP
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAdminInvite(mist_session:_APISession, org_id:str, invite_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgAdminInvite(mist_session:_APISession, org_id:str, invite_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/admins/update-org-admin-invite
     

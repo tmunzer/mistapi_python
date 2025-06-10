@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def updateSelfEmail(mist_session:_APISession, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSelfEmail(mist_session:_APISession, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/update-self-email
     
@@ -37,7 +40,8 @@ def updateSelfEmail(mist_session:_APISession, body:object) -> _APIResponse:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def verifySelfEmail(mist_session:_APISession, token:str) -> _APIResponse:
+@sync_async_compatible
+def verifySelfEmail(mist_session:_APISession, token:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/verify-self-email
     

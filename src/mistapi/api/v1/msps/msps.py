@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def createMsp(mist_session:_APISession, body:object) -> _APIResponse:
+@sync_async_compatible
+def createMsp(mist_session:_APISession, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/create-msp
     
@@ -37,7 +40,8 @@ def createMsp(mist_session:_APISession, body:object) -> _APIResponse:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getMspDetails(mist_session:_APISession, msp_id:str) -> _APIResponse:
+@sync_async_compatible
+def getMspDetails(mist_session:_APISession, msp_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/get-msp-details
     
@@ -60,7 +64,8 @@ def getMspDetails(mist_session:_APISession, msp_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteMsp(mist_session:_APISession, msp_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteMsp(mist_session:_APISession, msp_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/delete-msp
     
@@ -83,7 +88,8 @@ def deleteMsp(mist_session:_APISession, msp_id:str) -> _APIResponse:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMsp(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateMsp(mist_session:_APISession, msp_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/update-msp
     

@@ -20,6 +20,7 @@ import re
 import json
 import requests
 from requests.exceptions import HTTPError
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse
 from mistapi.__logger import logger
 
@@ -148,6 +149,7 @@ class APIRequest:
                     request_body += f"\r\n{i}"
         return request_body
 
+    @sync_async_compatible
     def mist_get(self, uri: str, query: dict = None) -> APIResponse:
         """
         GET HTTP Request
@@ -196,8 +198,9 @@ class APIRequest:
             logger.error("apirequest:mist_get:Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
+    @sync_async_compatible
     def mist_post(self, uri: str, body: dict = None) -> APIResponse:
         """
         POST HTTP Request
@@ -252,8 +255,9 @@ class APIRequest:
             logger.error("apirequest:mist_post: Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
+    @sync_async_compatible
     def mist_put(self, uri: str, body: dict = None) -> APIResponse:
         """
         PUT HTTP Request
@@ -308,8 +312,9 @@ class APIRequest:
             logger.error("apirequest:mist_put: Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
+    @sync_async_compatible
     def mist_delete(self, uri: str, query: dict = None) -> APIResponse:
         """
         DELETE HTTP Request
@@ -354,8 +359,9 @@ class APIRequest:
             logger.error("apirequest:mist_delete: Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
+    @sync_async_compatible
     def mist_post_file(self, uri: str, multipart_form_data: dict = {}) -> APIResponse:
         """
         POST HTTP Request
@@ -405,9 +411,11 @@ class APIRequest:
                             )
                     except:
                         logger.error(
-                            f"apirequest:mist_post_file:multipart_form_data:"
-                            f"Unable to parse JSON object {key} "
-                            f"with value {multipart_form_data[key]}"
+                            "apirequest:mist_post_file:multipart_form_data:"
+                            "Unable to parse JSON object %s "
+                            "with value %s",
+                            key,
+                            multipart_form_data[key]
                         )
                         logger.error(
                             "apirequest:mist_post_file: Exception occurred",
@@ -447,4 +455,4 @@ class APIRequest:
             logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)

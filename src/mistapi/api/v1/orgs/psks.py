@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=None, role:str=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=None, role:str=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/list-org-psks
     
@@ -50,7 +53,8 @@ def listOrgPsks(mist_session:_APISession, org_id:str, name:str=None, ssid:str=No
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/create-org-psk
     
@@ -77,7 +81,8 @@ def createOrgPsk(mist_session:_APISession, org_id:str, body:object) -> _APIRespo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateOrgMultiplePsks(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgMultiplePsks(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/update-org-multiple-psks
     
@@ -104,7 +109,8 @@ def updateOrgMultiplePsks(mist_session:_APISession, org_id:str, body:object) -> 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgPskList(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgPskList(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/delete-org-psk-list
     
@@ -131,7 +137,7 @@ def deleteOrgPskList(mist_session:_APISession, org_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importOrgPsksFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
+def importOrgPsksFile(mist_session:_APISession, org_id:str, file:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/import-org-psks
     
@@ -161,7 +167,8 @@ def importOrgPsksFile(mist_session:_APISession, org_id:str, file:str=None) -> _A
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def importOrgPsks(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def importOrgPsks(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/import-org-psks
     
@@ -188,7 +195,8 @@ def importOrgPsks(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/get-org-psk
     
@@ -212,7 +220,8 @@ def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/delete-org-psk
     
@@ -236,7 +245,8 @@ def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIRespon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/update-org-psk
     
@@ -264,7 +274,8 @@ def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:object) 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/delete-org-psk-old-passphrase
     

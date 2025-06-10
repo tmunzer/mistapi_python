@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgSsoRoles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgSsoRoles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso-roles/list-org-sso-roles
     
@@ -44,7 +47,8 @@ def listOrgSsoRoles(mist_session:_APISession, org_id:str, limit:int=100, page:in
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSsoRole(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgSsoRole(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso-roles/create-org-sso-role
     
@@ -71,7 +75,8 @@ def createOrgSsoRole(mist_session:_APISession, org_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso-roles/get-org-sso-role
     
@@ -95,7 +100,8 @@ def getOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIR
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso-roles/delete-org-sso-role
     
@@ -119,7 +125,8 @@ def deleteOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str) -> _A
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgSsoRole(mist_session:_APISession, org_id:str, ssorole_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sso-roles/update-org-sso-role
     

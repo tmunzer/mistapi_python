@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteVBeacons(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteVBeacons(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vbeacons/list-site-v-beacons
     
@@ -44,7 +47,8 @@ def listSiteVBeacons(mist_session:_APISession, site_id:str, limit:int=100, page:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vbeacons/create-site-v-beacon
     
@@ -71,7 +75,8 @@ def createSiteVBeacon(mist_session:_APISession, site_id:str, body:object) -> _AP
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vbeacons/get-site-v-beacon
     
@@ -95,7 +100,8 @@ def getSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _AP
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vbeacons/delete-site-v-beacon
     
@@ -119,7 +125,8 @@ def deleteSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteVBeacon(mist_session:_APISession, site_id:str, vbeacon_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/vbeacons/update-site-v-beacon
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgVpns(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgVpns(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/list-org-vpns
     
@@ -44,7 +47,8 @@ def listOrgVpns(mist_session:_APISession, org_id:str, limit:int=100, page:int=1)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgVpn(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgVpn(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/create-org-vpn
     
@@ -71,7 +75,8 @@ def createOrgVpn(mist_session:_APISession, org_id:str, body:object) -> _APIRespo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/get-org-vpn
     
@@ -95,7 +100,8 @@ def getOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/delete-org-vpn
     
@@ -119,7 +125,8 @@ def deleteOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str) -> _APIRespon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgVpn(mist_session:_APISession, org_id:str, vpn_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vpns/update-org-vpn
     

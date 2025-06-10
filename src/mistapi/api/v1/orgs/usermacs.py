@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def createOrgUserMac(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgUserMac(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/create-org-user-mac
     
@@ -41,7 +44,8 @@ def createOrgUserMac(mist_session:_APISession, org_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/update-org-multiple-user-macs
     
@@ -68,7 +72,8 @@ def updateOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/delete-org-multiple-user-macs
     
@@ -95,7 +100,7 @@ def deleteOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
+def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/import-org-user-macs
     
@@ -125,7 +130,8 @@ def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str=None) -
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def importOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def importOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/import-org-user-macs
     
@@ -152,7 +158,8 @@ def importOrgUserMacs(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str=None, labels:list=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str=None, labels:list=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/search-org-user-macs
     
@@ -187,7 +194,8 @@ def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str=None, labels
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/get-org-user-mac
     
@@ -211,7 +219,8 @@ def getOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIR
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/delete-org-user-mac
     
@@ -235,7 +244,8 @@ def deleteOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _A
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/update-org-user-mac
     

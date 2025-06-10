@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listInstallerSites(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-sites
     
@@ -37,7 +40,8 @@ def listInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/create-or-update-installer-sites
     
@@ -65,7 +69,8 @@ def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def listInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _APIResponse:
+@sync_async_compatible
+def listInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-maps
     
@@ -89,7 +94,7 @@ def listInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _A
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
+def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/import-installer-map
     
@@ -128,7 +133,8 @@ def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, 
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/delete-installer-map
     
@@ -153,7 +159,8 @@ def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/create-installer-map
     
@@ -182,7 +189,8 @@ def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/update-installer-map
     

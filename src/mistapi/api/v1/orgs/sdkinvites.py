@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSdkInvites(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listSdkInvites(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/list-sdk-invites
     
@@ -37,7 +40,8 @@ def listSdkInvites(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSdkInvite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSdkInvite(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/create-sdk-invite
     
@@ -64,7 +68,8 @@ def createSdkInvite(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/get-sdk-invite
     
@@ -88,7 +93,8 @@ def getSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _API
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def revokeSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _APIResponse:
+@sync_async_compatible
+def revokeSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/revoke-sdk-invite
     
@@ -112,7 +118,8 @@ def revokeSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/update-sdk-invite
     
@@ -140,7 +147,8 @@ def updateSdkInvite(mist_session:_APISession, org_id:str, sdkinvite_id:str, body
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def sendSdkInviteEmail(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def sendSdkInviteEmail(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/send-sdk-invite-email
     
@@ -168,7 +176,8 @@ def sendSdkInviteEmail(mist_session:_APISession, org_id:str, sdkinvite_id:str, b
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSdkInviteQrCode(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSdkInviteQrCode(mist_session:_APISession, org_id:str, sdkinvite_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/get-sdk-invite-qr-code
     
@@ -192,7 +201,8 @@ def getSdkInviteQrCode(mist_session:_APISession, org_id:str, sdkinvite_id:str) -
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def sendSdkInviteSms(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def sendSdkInviteSms(mist_session:_APISession, org_id:str, sdkinvite_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/send-sdk-invite-sms
     

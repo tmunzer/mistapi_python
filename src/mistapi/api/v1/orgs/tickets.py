@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def listOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/list-org-tickets
     
@@ -46,7 +49,8 @@ def listOrgTickets(mist_session:_APISession, org_id:str, start:int=None, end:int
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgTicket(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgTicket(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/create-org-ticket
     
@@ -73,7 +77,8 @@ def createOrgTicket(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/count-org-tickets
     
@@ -103,7 +108,8 @@ def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status",
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/get-org-ticket
     
@@ -136,7 +142,8 @@ def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, start:int=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/update-org-ticket
     
@@ -164,7 +171,7 @@ def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:ob
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def UploadOrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_id:str, file:str=None) -> _APIResponse:
+def UploadOrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_id:str, file:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/upload-org-ticket-attachment
     
@@ -195,7 +202,8 @@ def UploadOrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_i
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, attachment_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, attachment_id:str, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/get-org-ticket-attachment
     
@@ -229,7 +237,7 @@ def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def addOrgTicketCommentFile(mist_session:_APISession, org_id:str, ticket_id:str, comment:str=None, file:str=None) -> _APIResponse:
+def addOrgTicketCommentFile(mist_session:_APISession, org_id:str, ticket_id:str, comment:str=None, file:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/add-org-ticket-comment
     
@@ -262,7 +270,8 @@ def addOrgTicketCommentFile(mist_session:_APISession, org_id:str, ticket_id:str,
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/add-org-ticket-comment
     

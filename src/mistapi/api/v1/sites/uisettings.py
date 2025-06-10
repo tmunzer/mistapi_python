@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteUiSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def listSiteUiSettings(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/list-site-ui-settings
     
@@ -37,7 +40,8 @@ def listSiteUiSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteUiSettings(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteUiSettings(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/create-site-ui-settings
     
@@ -64,7 +68,8 @@ def createSiteUiSettings(mist_session:_APISession, site_id:str, body:object) -> 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listSiteUiSettingDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def listSiteUiSettingDerived(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/list-site-ui-setting-derived
     
@@ -87,7 +92,8 @@ def listSiteUiSettingDerived(mist_session:_APISession, site_id:str) -> _APIRespo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/get-site-ui-setting
     
@@ -111,7 +117,8 @@ def getSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/delete-site-ui-setting
     
@@ -135,7 +142,8 @@ def deleteSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str)
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/update-site-ui-setting
     

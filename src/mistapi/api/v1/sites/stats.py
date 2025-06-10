@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteStats(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteStats(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/get-site-stats
     
@@ -37,7 +40,8 @@ def getSiteStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, device_mac:str=None, app:str=None, wired:str=None, limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, device_mac:str=None, app:str=None, wired:str=None, limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/apps/count-site-apps
     
@@ -74,7 +78,8 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str=None, devi
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteAssetsStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteAssetsStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/list-site-assets-stats
     
@@ -110,7 +115,8 @@ def listSiteAssetsStats(mist_session:_APISession, site_id:str, start:int=None, e
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/count-site-assets
     
@@ -140,7 +146,8 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:int=None, ibeacon_minor:int=None, eddystone_uid_namespace:str=None, eddystone_uid_instance:str=None, eddystone_url:str=None, device_name:str=None, by:str=None, name:str=None, ap_mac:str=None, beam:str=None, rssi:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:int=None, ibeacon_minor:int=None, eddystone_uid_namespace:str=None, eddystone_uid_instance:str=None, eddystone_url:str=None, device_name:str=None, by:str=None, name:str=None, ap_mac:str=None, beam:str=None, rssi:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/search-site-assets
     
@@ -202,7 +209,8 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str=None, map_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAssetStats(mist_session:_APISession, site_id:str, asset_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def getSiteAssetStats(mist_session:_APISession, site_id:str, asset_id:str, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-asset-stats
     
@@ -235,7 +243,8 @@ def getSiteAssetStats(mist_session:_APISession, site_id:str, asset_id:str, start
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteBeaconsStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteBeaconsStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/beacons/list-site-beacons-stats
     
@@ -271,7 +280,8 @@ def listSiteBeaconsStats(mist_session:_APISession, site_id:str, start:int=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, distinct:str=None, limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, distinct:str=None, limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/bgp-peers/count-site-bgp-stats
     
@@ -303,7 +313,8 @@ def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str=None, dis
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/bgp-peers/search-site-bgp-stats
     
@@ -326,7 +337,8 @@ def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def troubleshootSiteCall(mist_session:_APISession, site_id:str, client_mac:str, meeting_id:str, mac:str=None, app:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def troubleshootSiteCall(mist_session:_APISession, site_id:str, client_mac:str, meeting_id:str, mac:str=None, app:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/troubleshoot-site-call
     
@@ -369,7 +381,8 @@ def troubleshootSiteCall(mist_session:_APISession, site_id:str, client_mac:str, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteCalls(mist_session:_APISession, site_id:str, distinct:str="mac", rating:int=None, app:str=None, start:str=None, end:str=None, limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteCalls(mist_session:_APISession, site_id:str, distinct:str="mac", rating:int=None, app:str=None, start:str=None, end:str=None, limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/count-site-calls
     
@@ -407,7 +420,8 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distinct:str="mac", ra
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/search-site-calls
     
@@ -445,7 +459,8 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str=None, app:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteCallsSummary(mist_session:_APISession, site_id:str, ap_mac:str=None, app:str=None, start:int=None, end:int=None) -> _APIResponse:
+@sync_async_compatible
+def getSiteCallsSummary(mist_session:_APISession, site_id:str, ap_mac:str=None, app:str=None, start:int=None, end:int=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/get-site-calls-summary
     
@@ -479,7 +494,8 @@ def getSiteCallsSummary(mist_session:_APISession, site_id:str, ap_mac:str=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, ap:str=None, meeting_id:str=None, mac:str=None, app:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, ap:str=None, meeting_id:str=None, mac:str=None, app:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/list-site-troubleshoot-calls
     
@@ -523,7 +539,8 @@ def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, ap:str=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteWirelessClientsStats(mist_session:_APISession, site_id:str, wired:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def listSiteWirelessClientsStats(mist_session:_APISession, site_id:str, wired:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/list-site-wireless-clients-stats
     
@@ -559,7 +576,8 @@ def listSiteWirelessClientsStats(mist_session:_APISession, site_id:str, wired:bo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteWirelessClientStats(mist_session:_APISession, site_id:str, client_mac:str, wired:bool=None) -> _APIResponse:
+@sync_async_compatible
+def getSiteWirelessClientStats(mist_session:_APISession, site_id:str, client_mac:str, wired:bool=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/get-site-wireless-client-stats
     
@@ -588,7 +606,8 @@ def getSiteWirelessClientStats(mist_session:_APISession, site_id:str, client_mac
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", status:str="all", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", status:str="all", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/list-site-devices-stats
     
@@ -622,7 +641,8 @@ def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str, fields:str=None) -> _APIResponse:
+@sync_async_compatible
+def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str, fields:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-device-stats
     
@@ -651,7 +671,8 @@ def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str, fie
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-all-clients-stats-by-device
     
@@ -675,7 +696,8 @@ def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/list-site-discovered-assets
     
@@ -711,7 +733,8 @@ def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, start:int=No
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, scope:str="site", type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, scope:str="site", type:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/search-site-discovered-switches-metrics
     
@@ -751,7 +774,8 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:str="system_name", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:str="system_name", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/count-site-discovered-switches
     
@@ -787,7 +811,8 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, threshold:str=None, system_name:str=None) -> _APIResponse:
+@sync_async_compatible
+def listSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, threshold:str=None, system_name:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/list-site-discovered-switches-metrics
     
@@ -817,7 +842,8 @@ def listSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, thr
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:bool=None, system_name:str=None, hostname:str=None, vendor:str=None, model:str=None, version:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:bool=None, system_name:str=None, hostname:str=None, vendor:str=None, model:str=None, version:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/search-site-discovered-switches
     
@@ -863,7 +889,8 @@ def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str="1d", start:int=None, end:int=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str="1d", start:int=None, end:int=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-assets-of-interest
     
@@ -899,7 +926,8 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteGatewayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteGatewayMetrics(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-gateway-metrics
     
@@ -922,7 +950,8 @@ def getSiteGatewayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/get-site-wireless-clients-stats-by-map
     
@@ -959,7 +988,8 @@ def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-discovered-asset-by-map
     
@@ -983,7 +1013,8 @@ def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-sdk/get-site-sdk-stats-by-map
     
@@ -1007,7 +1038,8 @@ def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/list-site-unconnected-client-stats
     
@@ -1031,7 +1063,8 @@ def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/mxedges/list-site-mx-edges-stats
     
@@ -1067,7 +1100,8 @@ def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, start:int=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/mxedges/get-site-mx-edge-stats
     
@@ -1100,7 +1134,8 @@ def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str, sta
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, up:bool=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/count-site-sw-or-gw-ports
     
@@ -1189,7 +1224,8 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, disabled:bool=None, mac:str=None, device_type:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, active:bool=None, jitter:float=None, loss:float=None, latency:float=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, lte_imsi:str=None, lte_iccid:str=None, lte_imei:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool=None, disabled:bool=None, mac:str=None, device_type:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, active:bool=None, jitter:float=None, loss:float=None, latency:float=None, stp_state:str=None, stp_role:str=None, xcvr_part_number:str=None, auth_state:str=None, lte_imsi:str=None, lte_iccid:str=None, lte_imei:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/search-site-sw-or-gw-ports
     
@@ -1305,7 +1341,8 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteRssiZonesStats(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def listSiteRssiZonesStats(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/list-site-rssi-zones-stats
     
@@ -1328,7 +1365,8 @@ def listSiteRssiZonesStats(mist_session:_APISession, site_id:str) -> _APIRespons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteRssiZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteRssiZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/get-site-rssi-zone-stats
     
@@ -1352,7 +1390,8 @@ def getSiteRssiZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-sdk/get-site-sdk-stats
     
@@ -1376,7 +1415,8 @@ def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteSwitchesMetrics(mist_session:_APISession, site_id:str, type:str=None, scope:str=None, switch_mac:str=None) -> _APIResponse:
+@sync_async_compatible
+def getSiteSwitchesMetrics(mist_session:_APISession, site_id:str, type:str=None, scope:str=None, switch_mac:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-switches-metrics
     
@@ -1408,7 +1448,8 @@ def getSiteSwitchesMetrics(mist_session:_APISession, site_id:str, type:str=None,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/wxrules/get-site-wx-rules-usage
     
@@ -1431,7 +1472,8 @@ def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None, min_duration:int=None) -> _APIResponse:
+@sync_async_compatible
+def listSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None, min_duration:int=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/list-site-zones-stats
     
@@ -1461,7 +1503,8 @@ def listSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str=None, m
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/get-site-zone-stats
     

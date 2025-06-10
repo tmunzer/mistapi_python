@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSelf(mist_session:_APISession) -> _APIResponse:
+@sync_async_compatible
+def getSelf(mist_session:_APISession) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/get-self
     
@@ -33,7 +36,8 @@ def getSelf(mist_session:_APISession) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSelf(mist_session:_APISession) -> _APIResponse:
+@sync_async_compatible
+def deleteSelf(mist_session:_APISession) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/delete-self
     
@@ -52,7 +56,8 @@ def deleteSelf(mist_session:_APISession) -> _APIResponse:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSelf(mist_session:_APISession, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSelf(mist_session:_APISession, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/update-self
     

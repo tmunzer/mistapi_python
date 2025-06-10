@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSdkTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listSdkTemplates(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/list-sdk-templates
     
@@ -37,7 +40,8 @@ def listSdkTemplates(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSdkTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSdkTemplate(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/create-sdk-template
     
@@ -64,7 +68,8 @@ def createSdkTemplate(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/get-sdk-template
     
@@ -88,7 +93,8 @@ def getSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/delete-sdk-template
     
@@ -112,7 +118,8 @@ def deleteSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str) 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSdkTemplate(mist_session:_APISession, org_id:str, sdktemplate_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/update-sdk-template
     

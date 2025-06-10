@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgLicensesSummary(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgLicensesSummary(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/get-org-licenses-summary
     
@@ -37,7 +40,8 @@ def getOrgLicensesSummary(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def moveOrDeleteOrgLicenseToAnotherOrg(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def moveOrDeleteOrgLicenseToAnotherOrg(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/move-or-delete-org-license-to-another-org
     
@@ -64,7 +68,8 @@ def moveOrDeleteOrgLicenseToAnotherOrg(mist_session:_APISession, org_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getOrgLicensesBySite(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgLicensesBySite(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/get-org-licenses-by-site
     

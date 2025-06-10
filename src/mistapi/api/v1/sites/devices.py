@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:str=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/list-site-devices
     
@@ -48,7 +51,8 @@ def listSiteDevices(mist_session:_APISession, site_id:str, type:str="ap", name:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_code:str=None) -> _APIResponse:
+@sync_async_compatible
+def listSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_code:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wireless/list-site-device-radio-channels
     
@@ -76,7 +80,8 @@ def listSiteDeviceRadioChannels(mist_session:_APISession, site_id:str, country_c
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct:str=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct:str=None, mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-device-config-history
     
@@ -114,7 +119,8 @@ def countSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, type:str="ap", mac:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, type:str="ap", mac:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-config-history
     
@@ -152,7 +158,8 @@ def searchSiteDeviceConfigHistory(mist_session:_APISession, site_id:str, type:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model", hostname:str=None, model:str=None, mac:str=None, version:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, map_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model", hostname:str=None, model:str=None, mac:str=None, version:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, map_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-devices
     
@@ -210,7 +217,8 @@ def countSiteDevices(mist_session:_APISession, site_id:str, distinct:str="model"
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="model", model:str=None, type:str=None, type_code:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="model", model:str=None, type:str=None, type_code:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-device-events
     
@@ -252,7 +260,8 @@ def countSiteDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="m
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDeviceEvents(mist_session:_APISession, site_id:str, mac:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, last_by:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteDeviceEvents(mist_session:_APISession, site_id:str, mac:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, last_by:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-events
     
@@ -298,7 +307,8 @@ def searchSiteDeviceEvents(mist_session:_APISession, site_id:str, mac:str=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def exportSiteDevices(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def exportSiteDevices(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/export-site-devices
     
@@ -321,7 +331,7 @@ def exportSiteDevices(mist_session:_APISession, site_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def importSiteDevicesFile(mist_session:_APISession, site_id:str, file:str=None) -> _APIResponse:
+def importSiteDevicesFile(mist_session:_APISession, site_id:str, file:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/import-site-devices
     
@@ -351,7 +361,8 @@ def importSiteDevicesFile(mist_session:_APISession, site_id:str, file:str=None) 
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/import-site-devices
     
@@ -378,7 +389,8 @@ def importSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _AP
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-device-last-config
     
@@ -414,7 +426,8 @@ def countSiteDeviceLastConfig(mist_session:_APISession, site_id:str, distinct:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, type:str="ap", mac:str=None, version:str=None, name:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, type:str="ap", mac:str=None, version:str=None, name:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-last-configs
     
@@ -456,7 +469,8 @@ def searchSiteDeviceLastConfigs(mist_session:_APISession, site_id:str, type:str=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def reprovisionSiteAllDevices(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def reprovisionSiteAllDevices(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/reprovision-site-all-devices
     
@@ -478,7 +492,8 @@ def reprovisionSiteAllDevices(mist_session:_APISession, site_id:str) -> _APIResp
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/reset-site-all-aps-to-use-rrm
     
@@ -505,7 +520,8 @@ def resetSiteAllApsToUseRrm(mist_session:_APISession, site_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def restartSiteMultipleDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def restartSiteMultipleDevices(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/restart-site-multiple-devices
     
@@ -532,7 +548,8 @@ def restartSiteMultipleDevices(mist_session:_APISession, site_id:str, body:objec
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, band_24_bandwidth:int=None, band_5_bandwidth:int=None, band_6_bandwidth:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, type:str="ap", model:str=None, mac:str=None, version:str=None, power_constrained:bool=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, band_24_channel:int=None, band_5_channel:int=None, band_6_channel:int=None, band_24_bandwidth:int=None, band_5_bandwidth:int=None, band_6_bandwidth:int=None, eth0_port_speed:int=None, sort:str="timestamp", desc_sort:str=None, stats:bool=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-devices
     
@@ -615,7 +632,8 @@ def searchSiteDevices(mist_session:_APISession, site_id:str, hostname:str=None, 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def sendSiteDevicesArbitraryBleBeacon(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def sendSiteDevicesArbitraryBleBeacon(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/location/send-site-devices-arbitrary-ble-beacon
     
@@ -642,7 +660,8 @@ def sendSiteDevicesArbitraryBleBeacon(mist_session:_APISession, site_id:str, bod
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listSiteDeviceUpgrades(mist_session:_APISession, site_id:str, status:str=None) -> _APIResponse:
+@sync_async_compatible
+def listSiteDeviceUpgrades(mist_session:_APISession, site_id:str, status:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-site-device-upgrades
     
@@ -670,7 +689,8 @@ def listSiteDeviceUpgrades(mist_session:_APISession, site_id:str, status:str=Non
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def upgradeSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def upgradeSiteDevices(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-site-devices
     
@@ -697,7 +717,8 @@ def upgradeSiteDevices(mist_session:_APISession, site_id:str, body:object) -> _A
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/get-site-device-upgrade
     
@@ -721,7 +742,8 @@ def getSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> _APIResponse:
+@sync_async_compatible
+def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/cancel-site-device-upgrade
     
@@ -744,7 +766,8 @@ def cancelSiteDeviceUpgrade(mist_session:_APISession, site_id:str, upgrade_id:st
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def upgradeSiteDevicesBios(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def upgradeSiteDevicesBios(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-site-devices-bios
     
@@ -771,7 +794,8 @@ def upgradeSiteDevicesBios(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def upgradeSiteDevicesFpga(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def upgradeSiteDevicesFpga(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-site-devices-fpga
     
@@ -798,7 +822,8 @@ def upgradeSiteDevicesFpga(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap", model:str=None) -> _APIResponse:
+@sync_async_compatible
+def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:str="ap", model:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-site-available-device-versions
     
@@ -828,7 +853,8 @@ def listSiteAvailableDeviceVersions(mist_session:_APISession, site_id:str, type:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def zeroizeSiteFipsAllAps(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def zeroizeSiteFipsAllAps(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/zeroize-site-fips-all-aps
     
@@ -855,7 +881,8 @@ def zeroizeSiteFipsAllAps(mist_session:_APISession, site_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/get-site-device
     
@@ -879,7 +906,8 @@ def getSiteDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIR
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/update-site-device
     
@@ -907,7 +935,8 @@ def updateSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/arp-from-device
     
@@ -935,7 +964,8 @@ def arpFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:obj
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def bounceDevicePort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def bounceDevicePort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/bounce-device-port
     
@@ -963,7 +993,8 @@ def bounceDevicePort(mist_session:_APISession, site_id:str, device_id:str, body:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def cableTestFromSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def cableTestFromSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/cable-test-from-switch
     
@@ -991,7 +1022,8 @@ def cableTestFromSwitch(mist_session:_APISession, site_id:str, device_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def startSiteSwitchRadiusSyntheticTest(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def startSiteSwitchRadiusSyntheticTest(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/start-site-switch-radius-synthetic-test
     
@@ -1019,7 +1051,8 @@ def startSiteSwitchRadiusSyntheticTest(mist_session:_APISession, site_id:str, de
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearSiteSsrArpCache(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def clearSiteSsrArpCache(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/clear-site-ssr-arp-cache
     
@@ -1047,7 +1080,8 @@ def clearSiteSsrArpCache(mist_session:_APISession, site_id:str, device_id:str, b
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/clear-site-ssr-bgp-routes
     
@@ -1075,7 +1109,8 @@ def clearSiteSsrBgpRoutes(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearBpduErrorsFromPortsOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def clearBpduErrorsFromPortsOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-bpdu-errors-from-ports-on-switch
     
@@ -1103,7 +1138,8 @@ def clearBpduErrorsFromPortsOnSwitch(mist_session:_APISession, site_id:str, devi
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def clearSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/clear-site-device-mac-table
     
@@ -1131,7 +1167,8 @@ def clearSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-all-learned-macs-from-port-on-switch
     
@@ -1159,7 +1196,8 @@ def clearAllLearnedMacsFromPortOnSwitch(mist_session:_APISession, site_id:str, d
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearSiteDevicePolicyHitCount(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def clearSiteDevicePolicyHitCount(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/clear-site-device-policy-hit-count
     
@@ -1182,7 +1220,8 @@ def clearSiteDevicePolicyHitCount(mist_session:_APISession, site_id:str, device_
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def clearSiteDeviceSession(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def clearSiteDeviceSession(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/clear-site-device-session
     
@@ -1210,7 +1249,8 @@ def clearSiteDeviceSession(mist_session:_APISession, site_id:str, device_id:str,
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str, sort:bool=None) -> _APIResponse:
+@sync_async_compatible
+def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str, sort:bool=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/get-site-device-config-cmd
     
@@ -1239,7 +1279,8 @@ def getSiteDeviceConfigCmd(mist_session:_APISession, site_id:str, device_id:str,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def GetSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def GetSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wan-cluster/get-site-device-ha-cluster-node
     
@@ -1263,7 +1304,8 @@ def GetSiteDeviceHaClusterNode(mist_session:_APISession, site_id:str, device_id:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wan-cluster/delete-site-device-ha-cluster
     
@@ -1287,7 +1329,8 @@ def deleteSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:s
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wan-cluster/create-site-device-ha-cluster
     
@@ -1315,7 +1358,8 @@ def createSiteDeviceHaCluster(mist_session:_APISession, site_id:str, device_id:s
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_number:int) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, image_number:int) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/delete-site-device-image
     
@@ -1340,7 +1384,7 @@ def deleteSiteDeviceImage(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str, image_number:int, file:str=None, json:str=None) -> _APIResponse:
+def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str, image_number:int, file:str=None, json:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/add-site-device-image
     
@@ -1374,7 +1418,8 @@ def addSiteDeviceImageFile(mist_session:_APISession, site_id:str, device_id:str,
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wireless/get-site-device-iot-port
     
@@ -1398,7 +1443,8 @@ def getSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str) -
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def setSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def setSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wireless/set-site-device-iot-port
     
@@ -1426,7 +1472,8 @@ def setSiteDeviceIotPort(mist_session:_APISession, site_id:str, device_id:str, b
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/delete-site-local-switch-port-config
     
@@ -1450,7 +1497,8 @@ def deleteSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, devic
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/update-site-local-switch-port-config
     
@@ -1478,7 +1526,8 @@ def updateSiteLocalSwitchPortConfig(mist_session:_APISession, site_id:str, devic
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/start-site-locate-device
     
@@ -1506,7 +1555,8 @@ def startSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def monitorSiteDeviceTraffic(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def monitorSiteDeviceTraffic(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/monitor-site-device-traffic
     
@@ -1534,7 +1584,8 @@ def monitorSiteDeviceTraffic(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/ping-from-device
     
@@ -1562,7 +1613,8 @@ def pingFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:ob
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/poll-site-switch-stats
     
@@ -1585,7 +1637,8 @@ def pollSiteSwitchStats(mist_session:_APISession, site_id:str, device_id:str) ->
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def readoptSiteOctermDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def readoptSiteOctermDevice(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/readopt-site-octerm-device
     
@@ -1608,7 +1661,8 @@ def readoptSiteOctermDevice(mist_session:_APISession, site_id:str, device_id:str
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/release-site-ssr-dhcp-lease
     
@@ -1636,7 +1690,8 @@ def releaseSiteSsrDhcpLease(mist_session:_APISession, site_id:str, device_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def releaseSiteDeviceDhcpLease(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def releaseSiteDeviceDhcpLease(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/release-site-device-dhcp-lease
     
@@ -1664,7 +1719,8 @@ def releaseSiteDeviceDhcpLease(mist_session:_APISession, site_id:str, device_id:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def reprovisionSiteOctermDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def reprovisionSiteOctermDevice(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/reprovision-site-octerm-device
     
@@ -1687,7 +1743,8 @@ def reprovisionSiteOctermDevice(mist_session:_APISession, site_id:str, device_id
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/get-site-device-ztp-password
     
@@ -1710,7 +1767,8 @@ def getSiteDeviceZtpPassword(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/test-site-ssr-dns-resolution
     
@@ -1733,7 +1791,8 @@ def testSiteSsrDnsResolution(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/restart-site-device
     
@@ -1761,7 +1820,8 @@ def restartSiteDevice(mist_session:_APISession, site_id:str, device_id:str, body
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def runSiteSrxTopCommand(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def runSiteSrxTopCommand(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/run-site-srx-top-command
     
@@ -1784,7 +1844,8 @@ def runSiteSrxTopCommand(mist_session:_APISession, site_id:str, device_id:str) -
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/service-ping-from-ssr
     
@@ -1812,7 +1873,8 @@ def servicePingFromSsr(mist_session:_APISession, site_id:str, device_id:str, bod
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def setSiteApAntennaMode(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def setSiteApAntennaMode(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/set-site-ap-antenna-mode
     
@@ -1840,7 +1902,8 @@ def setSiteApAntennaMode(mist_session:_APISession, site_id:str, device_id:str, b
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def changeSiteSwitchVcPortMode(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def changeSiteSwitchVcPortMode(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/change-site-switch-vc-port-mode
     
@@ -1868,7 +1931,8 @@ def changeSiteSwitchVcPortMode(mist_session:_APISession, site_id:str, device_id:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def createSiteDeviceShellSession(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteDeviceShellSession(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/create-site-device-shell-session
     
@@ -1896,7 +1960,8 @@ def createSiteDeviceShellSession(mist_session:_APISession, site_id:str, device_i
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteDeviceArpTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteDeviceArpTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-arp-table
     
@@ -1924,7 +1989,8 @@ def showSiteDeviceArpTable(mist_session:_APISession, site_id:str, device_id:str,
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteDeviceBgpSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteDeviceBgpSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-bgp-summary
     
@@ -1952,7 +2018,8 @@ def showSiteDeviceBgpSummary(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteDeviceDhcpLeases(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteDeviceDhcpLeases(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-dhcp-leases
     
@@ -1980,7 +2047,8 @@ def showSiteDeviceDhcpLeases(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteDeviceEvpnDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteDeviceEvpnDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-evpn-database
     
@@ -2008,7 +2076,8 @@ def showSiteDeviceEvpnDatabase(mist_session:_APISession, site_id:str, device_id:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteDeviceForwardingTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteDeviceForwardingTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-forwarding-table
     
@@ -2036,7 +2105,8 @@ def showSiteDeviceForwardingTable(mist_session:_APISession, site_id:str, device_
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-mac-table
     
@@ -2064,7 +2134,8 @@ def showSiteDeviceMacTable(mist_session:_APISession, site_id:str, device_id:str,
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteGatewayOspfDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteGatewayOspfDatabase(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-database
     
@@ -2092,7 +2163,8 @@ def showSiteGatewayOspfDatabase(mist_session:_APISession, site_id:str, device_id
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteGatewayOspfInterfaces(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteGatewayOspfInterfaces(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-interfaces
     
@@ -2120,7 +2192,8 @@ def showSiteGatewayOspfInterfaces(mist_session:_APISession, site_id:str, device_
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteGatewayOspfNeighbors(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteGatewayOspfNeighbors(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-neighbors
     
@@ -2148,7 +2221,8 @@ def showSiteGatewayOspfNeighbors(mist_session:_APISession, site_id:str, device_i
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteGatewayOspfSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteGatewayOspfSummary(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-summary
     
@@ -2176,7 +2250,8 @@ def showSiteGatewayOspfSummary(mist_session:_APISession, site_id:str, device_id:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-and-srx-routes
     
@@ -2204,7 +2279,8 @@ def showSiteSsrAndSrxRoutes(mist_session:_APISession, site_id:str, device_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-service-path
     
@@ -2232,7 +2308,8 @@ def showSiteSsrServicePath(mist_session:_APISession, site_id:str, device_id:str,
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def showSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def showSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-and-srx-sessions
     
@@ -2260,7 +2337,8 @@ def showSiteSsrAndSrxSessions(mist_session:_APISession, site_id:str, device_id:s
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/create-site-device-snapshot
     
@@ -2283,7 +2361,8 @@ def createSiteDeviceSnapshot(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/upload-site-device-support-file
     
@@ -2311,7 +2390,8 @@ def uploadSiteDeviceSupportFile(mist_session:_APISession, site_id:str, device_id
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/get-site-device-synthetic-test
     
@@ -2335,7 +2415,8 @@ def getSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_id:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def triggerSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def triggerSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/trigger-site-device-synthetic-test
     
@@ -2363,7 +2444,8 @@ def triggerSiteDeviceSyntheticTest(mist_session:_APISession, site_id:str, device
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/traceroute-from-device
     
@@ -2391,7 +2473,8 @@ def tracerouteFromDevice(mist_session:_APISession, site_id:str, device_id:str, b
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/stop-site-locate-device
     
@@ -2414,7 +2497,8 @@ def stopSiteLocateDevice(mist_session:_APISession, site_id:str, device_id:str) -
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def upgradeDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def upgradeDevice(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-device
     
@@ -2442,7 +2526,8 @@ def upgradeDevice(mist_session:_APISession, site_id:str, device_id:str, body:obj
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def upgradeDeviceBios(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def upgradeDeviceBios(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-device-bios
     
@@ -2470,7 +2555,8 @@ def upgradeDeviceBios(mist_session:_APISession, site_id:str, device_id:str, body
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def upgradeDeviceFPGA(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def upgradeDeviceFPGA(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-device-f-p-g-a
     
@@ -2498,7 +2584,8 @@ def upgradeDeviceFPGA(mist_session:_APISession, site_id:str, device_id:str, body
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteDeviceVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteDeviceVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/get-site-device-virtual-chassis
     
@@ -2522,7 +2609,8 @@ def getSiteDeviceVirtualChassis(mist_session:_APISession, site_id:str, device_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/delete-site-virtual-chassis
     
@@ -2546,7 +2634,8 @@ def deleteSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/create-site-virtual-chassis
     
@@ -2574,7 +2663,8 @@ def createSiteVirtualChassis(mist_session:_APISession, site_id:str, device_id:st
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/update-site-virtual-chassis-member
     
@@ -2602,7 +2692,8 @@ def updateSiteVirtualChassisMember(mist_session:_APISession, site_id:str, device
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def convertSiteVirtualChassisToVirtualMac(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+@sync_async_compatible
+def convertSiteVirtualChassisToVirtualMac(mist_session:_APISession, site_id:str, device_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/convert-site-virtual-chassis-to-virtual-mac
     
@@ -2625,7 +2716,8 @@ def convertSiteVirtualChassisToVirtualMac(mist_session:_APISession, site_id:str,
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def setSiteVcPort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def setSiteVcPort(mist_session:_APISession, site_id:str, device_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/set-site-vc-port
     

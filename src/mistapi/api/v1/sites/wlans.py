@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteWlans(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteWlans(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/list-site-wlans
     
@@ -44,7 +47,8 @@ def listSiteWlans(mist_session:_APISession, site_id:str, limit:int=100, page:int
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/create-site-wlan
     
@@ -71,7 +75,8 @@ def createSiteWlan(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None, wlan_id:str=None) -> _APIResponse:
+@sync_async_compatible
+def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None, wlan_id:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/list-site-wlan-derived
     
@@ -101,7 +106,8 @@ def listSiteWlanDerived(mist_session:_APISession, site_id:str, resolve:bool=None
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/get-site-wlan
     
@@ -125,7 +131,8 @@ def getSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIRespo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/delete-site-wlan
     
@@ -149,7 +156,8 @@ def deleteSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIRe
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/update-site-wlan
     
@@ -177,7 +185,8 @@ def updateSiteWlan(mist_session:_APISession, site_id:str, wlan_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/delete-site-wlan-portal-image
     
@@ -201,7 +210,7 @@ def deleteSiteWlanPortalImage(mist_session:_APISession, site_id:str, wlan_id:str
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def uploadSiteWlanPortalImageFile(mist_session:_APISession, site_id:str, wlan_id:str, file:str=None, json:str=None) -> _APIResponse:
+def uploadSiteWlanPortalImageFile(mist_session:_APISession, site_id:str, wlan_id:str, file:str=None, json:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/upload-site-wlan-portal-image
     
@@ -234,7 +243,8 @@ def uploadSiteWlanPortalImageFile(mist_session:_APISession, site_id:str, wlan_id
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def updateSiteWlanPortalTemplate(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteWlanPortalTemplate(mist_session:_APISession, site_id:str, wlan_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/update-site-wlan-portal-template
     

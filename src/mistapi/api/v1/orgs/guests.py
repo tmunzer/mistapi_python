@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/list-org-guest-authorizations
     
@@ -37,7 +40,8 @@ def listOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIResp
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/count-org-guest-authorizations
     
@@ -73,7 +77,8 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/search-org-guest-authorization
     
@@ -113,7 +118,8 @@ def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/get-org-guest-authorization
     
@@ -137,7 +143,8 @@ def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/delete-org-guest-authorization
     
@@ -161,7 +168,8 @@ def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/update-org-guest-authorization
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgWlans(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgWlans(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/list-org-wlans
     
@@ -44,7 +47,8 @@ def listOrgWlans(mist_session:_APISession, org_id:str, limit:int=100, page:int=1
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgWlan(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgWlan(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/create-org-wlan
     
@@ -71,7 +75,8 @@ def createOrgWlan(mist_session:_APISession, org_id:str, body:object) -> _APIResp
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/get-org-w-l-a-n
     
@@ -95,7 +100,8 @@ def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIRespons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/delete-org-wlan
     
@@ -119,7 +125,8 @@ def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResp
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/update-org-wlan
     
@@ -147,7 +154,8 @@ def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:object
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/delete-org-wlan-portal-image
     
@@ -171,7 +179,7 @@ def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:str, file:str=None, json:str=None) -> _APIResponse:
+def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:str, file:str=None, json:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/upload-org-wlan-portal-image
     
@@ -204,7 +212,8 @@ def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:s
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/update-org-wlan-portal-template
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgAlarmTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgAlarmTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/list-org-alarm-templates
     
@@ -44,7 +47,8 @@ def listOrgAlarmTemplates(mist_session:_APISession, org_id:str, limit:int=100, p
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgAlarmTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgAlarmTemplate(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/create-org-alarm-template
     
@@ -71,7 +75,8 @@ def createOrgAlarmTemplate(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str, scope:str="site") -> _APIResponse:
+@sync_async_compatible
+def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str, scope:str="site") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/list-org-suppressed-alarms
     
@@ -100,7 +105,8 @@ def listOrgSuppressedAlarms(mist_session:_APISession, org_id:str, scope:str="sit
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def unsuppressOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def unsuppressOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/unsuppress-org-suppressed-alarms
     
@@ -123,7 +129,8 @@ def unsuppressOrgSuppressedAlarms(mist_session:_APISession, org_id:str) -> _APIR
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def suppressOrgAlarm(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def suppressOrgAlarm(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/suppress-org-alarm
     
@@ -150,7 +157,8 @@ def suppressOrgAlarm(mist_session:_APISession, org_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/get-org-alarm-template
     
@@ -174,7 +182,8 @@ def getOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/delete-org-alarm-template
     
@@ -198,7 +207,8 @@ def deleteOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_i
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgAlarmTemplate(mist_session:_APISession, org_id:str, alarmtemplate_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarm-templates/update-org-alarm-template
     

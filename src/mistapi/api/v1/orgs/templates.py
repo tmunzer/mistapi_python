@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/list-org-templates
     
@@ -44,7 +47,8 @@ def listOrgTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgTemplate(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgTemplate(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/create-org-template
     
@@ -71,7 +75,8 @@ def createOrgTemplate(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/get-org-template
     
@@ -95,7 +100,8 @@ def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _AP
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/delete-org-template
     
@@ -119,7 +125,8 @@ def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/update-org-template
     
@@ -147,7 +154,8 @@ def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def cloneOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def cloneOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/clone-org-template
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgAssets(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgAssets(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/list-org-assets
     
@@ -44,7 +47,8 @@ def listOrgAssets(mist_session:_APISession, org_id:str, limit:int=100, page:int=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/create-org-asset
     
@@ -71,7 +75,7 @@ def createOrgAsset(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importOrgAssetsFile(mist_session:_APISession, org_id:str, file:str=None) -> _APIResponse:
+def importOrgAssetsFile(mist_session:_APISession, org_id:str, file:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/import-org-assets
     
@@ -101,7 +105,8 @@ def importOrgAssetsFile(mist_session:_APISession, org_id:str, file:str=None) -> 
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/import-org-assets
     
@@ -128,7 +133,8 @@ def importOrgAssets(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/get-org-asset
     
@@ -152,7 +158,8 @@ def getOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIRespo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/delete-org-asset
     
@@ -176,7 +183,8 @@ def deleteOrgAsset(mist_session:_APISession, org_id:str, asset_id:str) -> _APIRe
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgAsset(mist_session:_APISession, org_id:str, asset_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgAsset(mist_session:_APISession, org_id:str, asset_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/update-org-asset
     

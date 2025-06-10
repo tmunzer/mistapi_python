@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=None, name:str=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=None, name:str=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/list-site-psks
     
@@ -50,7 +53,8 @@ def listSitePsks(mist_session:_APISession, site_id:str, ssid:str=None, role:str=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSitePsk(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/create-site-psk
     
@@ -77,7 +81,8 @@ def createSitePsk(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateSiteMultiplePsks(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteMultiplePsks(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/update-site-multiple-psks
     
@@ -104,7 +109,7 @@ def updateSiteMultiplePsks(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def importSitePsksFile(mist_session:_APISession, site_id:str, file:str=None) -> _APIResponse:
+def importSitePsksFile(mist_session:_APISession, site_id:str, file:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/import-site-psks
     
@@ -134,7 +139,8 @@ def importSitePsksFile(mist_session:_APISession, site_id:str, file:str=None) -> 
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def importSitePsks(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def importSitePsks(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/import-site-psks
     
@@ -161,7 +167,8 @@ def importSitePsks(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/get-site-psk
     
@@ -185,7 +192,8 @@ def getSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIRespons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/delete-site-psk
     
@@ -209,7 +217,8 @@ def deleteSitePsk(mist_session:_APISession, site_id:str, psk_id:str) -> _APIResp
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSitePsk(mist_session:_APISession, site_id:str, psk_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSitePsk(mist_session:_APISession, site_id:str, psk_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/update-site-psk
     

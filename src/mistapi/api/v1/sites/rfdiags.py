@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/get-site-site-rfdiag-recording
     
@@ -50,7 +53,8 @@ def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, start:int=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def startSiteRecording(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def startSiteRecording(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/start-site-recording
     
@@ -77,7 +81,8 @@ def startSiteRecording(mist_session:_APISession, site_id:str, body:object) -> _A
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/get-site-rfdiag-recording
     
@@ -101,7 +106,8 @@ def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/delete-site-rfdiag-recording
     
@@ -125,7 +131,8 @@ def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/update-site-rfdiag-recording
     
@@ -153,7 +160,8 @@ def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
+@sync_async_compatible
+def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/download-site-rfdiag-recording
     
@@ -177,7 +185,8 @@ def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
+@sync_async_compatible
+def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/stop-site-rfdiag-recording
     

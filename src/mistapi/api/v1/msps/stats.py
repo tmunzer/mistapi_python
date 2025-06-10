@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listMspOrgLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
+@sync_async_compatible
+def listMspOrgLicenses(mist_session:_APISession, msp_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/licenses/list-msp-org-licenses
     
@@ -37,7 +40,8 @@ def listMspOrgLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listMspOrgStats(mist_session:_APISession, msp_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listMspOrgStats(mist_session:_APISession, msp_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/list-msp-org-stats
     

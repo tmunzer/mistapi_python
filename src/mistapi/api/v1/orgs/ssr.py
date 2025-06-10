@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str, ttl:int=None) -> _APIResponse:
+@sync_async_compatible
+def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str, ttl:int=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/ssr/get-org128-t-registration-commands
     
@@ -42,7 +45,8 @@ def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str, ttl:int
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-ssr-upgrades
     
@@ -65,7 +69,8 @@ def listOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-ssrs
     
@@ -92,7 +97,8 @@ def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
+@sync_async_compatible
+def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/cancel-org-ssr-upgrade
     
@@ -115,7 +121,8 @@ def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str="stable", mac:str=None) -> _APIResponse:
+@sync_async_compatible
+def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str="stable", mac:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-available-ssr-versions
     

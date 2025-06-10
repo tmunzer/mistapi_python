@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgNacRules(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgNacRules(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/list-org-nac-rules
     
@@ -44,7 +47,8 @@ def listOrgNacRules(mist_session:_APISession, org_id:str, limit:int=100, page:in
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/create-org-nac-rule
     
@@ -71,7 +75,8 @@ def createOrgNacRule(mist_session:_APISession, org_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/get-org-nac-rule
     
@@ -95,7 +100,8 @@ def getOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIR
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/delete-org-nac-rule
     
@@ -119,7 +125,8 @@ def deleteOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str) -> _A
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgNacRule(mist_session:_APISession, org_id:str, nacrule_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-rules/update-org-nac-rule
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listOrgDevices(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/list-org-devices
     
@@ -37,7 +40,8 @@ def listOrgDevices(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, type:str="ap", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", hostname:str=None, site_id:str=None, model:str=None, managed:str=None, mac:str=None, version:str=None, ip_address:str=None, mxtunnel_status:str=None, mxedge_id:str=None, lldp_system_name:str=None, lldp_system_desc:str=None, lldp_port_id:str=None, lldp_mgmt_addr:str=None, type:str="ap", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-devices
     
@@ -102,7 +106,8 @@ def countOrgDevices(mist_session:_APISession, org_id:str, distinct:str="model", 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="model", site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="model", site_id:str=None, ap:str=None, apfw:str=None, model:str=None, text:str=None, timestamp:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-device-events
     
@@ -152,7 +157,8 @@ def countOrgDeviceEvents(mist_session:_APISession, org_id:str, distinct:str="mod
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDeviceEvents(mist_session:_APISession, org_id:str, mac:str=None, model:str=None, device_type:str="ap", text:str=None, timestamp:str=None, type:str=None, last_by:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchOrgDeviceEvents(mist_session:_APISession, org_id:str, mac:str=None, model:str=None, device_type:str="ap", text:str=None, timestamp:str=None, type:str=None, last_by:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-device-events
     
@@ -200,7 +206,8 @@ def searchOrgDeviceEvents(mist_session:_APISession, org_id:str, mac:str=None, mo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap", distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap", distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-device-last-configs
     
@@ -238,7 +245,8 @@ def countOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap", mac:str=None, name:str=None, version:str=None, start:int=None, end:int=None, limit:int=100, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="ap", mac:str=None, name:str=None, version:str=None, start:int=None, end:int=None, limit:int=100, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-device-last-configs
     
@@ -280,7 +288,8 @@ def searchOrgDeviceLastConfigs(mist_session:_APISession, org_id:str, type:str="a
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgApsMacs(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgApsMacs(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/list-org-aps-macs
     
@@ -310,7 +319,8 @@ def listOrgApsMacs(mist_session:_APISession, org_id:str, limit:int=100, page:int
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgDevices(mist_session:_APISession, org_id:str, band_24_bandwidth:int=None, band_24_channel:int=None, band_24_power:int=None, band_5_bandwidth:int=None, band_5_channel:int=None, band_5_power:int=None, band_6_bandwidth:int=None, band_6_channel:int=None, band_6_power:int=None, cpu:str=None, clustered:str=None, eth0_port_speed:int=None, evpntopo_id:str=None, ext_ip:str=None, hostname:str=None, ip_address:str=None, last_config_status:str=None, last_hostname:str=None, lldp_mgmt_addr:str=None, lldp_port_id:str=None, lldp_power_allocated:int=None, lldp_power_draw:int=None, lldp_system_desc:str=None, lldp_system_name:str=None, mac:str=None, model:str=None, mxedge_id:str=None, mxedge_ids:str=None, mxtunnel_status:str=None, node:str=None, node0_mac:str=None, node1_mac:str=None, power_constrained:bool=None, site_id:str=None, t128agent_version:str=None, version:str=None, type:str="ap", limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchOrgDevices(mist_session:_APISession, org_id:str, band_24_bandwidth:int=None, band_24_channel:int=None, band_24_power:int=None, band_5_bandwidth:int=None, band_5_channel:int=None, band_5_power:int=None, band_6_bandwidth:int=None, band_6_channel:int=None, band_6_power:int=None, cpu:str=None, clustered:str=None, eth0_port_speed:int=None, evpntopo_id:str=None, ext_ip:str=None, hostname:str=None, ip_address:str=None, last_config_status:str=None, last_hostname:str=None, lldp_mgmt_addr:str=None, lldp_port_id:str=None, lldp_power_allocated:int=None, lldp_power_draw:int=None, lldp_system_desc:str=None, lldp_system_name:str=None, mac:str=None, model:str=None, mxedge_id:str=None, mxedge_ids:str=None, mxtunnel_status:str=None, node:str=None, node0_mac:str=None, node1_mac:str=None, power_constrained:bool=None, site_id:str=None, t128agent_version:str=None, version:str=None, type:str="ap", limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-devices
     
@@ -420,7 +430,8 @@ def searchOrgDevices(mist_session:_APISession, org_id:str, band_24_bandwidth:int
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgDevicesSummary(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listOrgDevicesSummary(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/list-org-devices-summary
     
@@ -443,7 +454,8 @@ def listOrgDevicesSummary(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listOrgDeviceUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listOrgDeviceUpgrades(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-device-upgrades
     
@@ -466,7 +478,8 @@ def listOrgDeviceUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def upgradeOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def upgradeOrgDevices(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-devices
     
@@ -493,7 +506,8 @@ def upgradeOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/get-org-device-upgrade
     
@@ -517,7 +531,8 @@ def getOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def cancelOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
+@sync_async_compatible
+def cancelOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/cancel-org-device-upgrade
     
@@ -540,7 +555,8 @@ def cancelOrgDeviceUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str)
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def listOrgAvailableDeviceVersions(mist_session:_APISession, org_id:str, type:str="ap", model:str=None) -> _APIResponse:
+@sync_async_compatible
+def listOrgAvailableDeviceVersions(mist_session:_APISession, org_id:str, type:str="ap", model:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-available-device-versions
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def AckSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def AckSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/ack-site-multiple-alarms
     
@@ -41,7 +44,8 @@ def AckSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/ack-site-all-alarms
     
@@ -68,7 +72,8 @@ def ackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", ack_admin_name:str=None, acked:bool=None, type:str=None, severity:str=None, group:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", ack_admin_name:str=None, acked:bool=None, type:str=None, severity:str=None, group:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/count-site-alarms
     
@@ -115,7 +120,8 @@ def countSiteAlarms(mist_session:_APISession, site_id:str, distinct:str="type", 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admin_name:str=None, acked:bool=None, severity:str=None, group:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_admin_name:str=None, acked:bool=None, severity:str=None, group:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/search-site-alarms
     
@@ -159,7 +165,8 @@ def searchSiteAlarms(mist_session:_APISession, site_id:str, type:str=None, ack_a
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def unackSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def unackSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-multiple-alarms
     
@@ -186,7 +193,8 @@ def unackSiteMultipleAlarms(mist_session:_APISession, site_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def unackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-all-alarms
     
@@ -213,7 +221,8 @@ def unackSiteAllAlarms(mist_session:_APISession, site_id:str, body:object) -> _A
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/ack-site-alarm
     
@@ -241,7 +250,8 @@ def ackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:objec
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def unackSiteAlarm(mist_session:_APISession, site_id:str, alarm_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-alarm
     

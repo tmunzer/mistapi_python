@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteWxTunnels(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteWxTunnels(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtunnels/list-site-wx-tunnels
     
@@ -44,7 +47,8 @@ def listSiteWxTunnels(mist_session:_APISession, site_id:str, limit:int=100, page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteWxTunnel(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteWxTunnel(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtunnels/create-site-wx-tunnel
     
@@ -71,7 +75,8 @@ def createSiteWxTunnel(mist_session:_APISession, site_id:str, body:object) -> _A
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtunnels/get-site-wx-tunnel
     
@@ -95,7 +100,8 @@ def getSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> _
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtunnels/delete-site-wx-tunnel
     
@@ -119,7 +125,8 @@ def deleteSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str) -
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteWxTunnel(mist_session:_APISession, site_id:str, wxtunnel_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtunnels/update-site-wx-tunnel
     

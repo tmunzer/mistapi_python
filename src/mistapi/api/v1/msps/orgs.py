@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listMspOrgs(mist_session:_APISession, msp_id:str) -> _APIResponse:
+@sync_async_compatible
+def listMspOrgs(mist_session:_APISession, msp_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/list-msp-orgs
     
@@ -37,7 +40,8 @@ def listMspOrgs(mist_session:_APISession, msp_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createMspOrg(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createMspOrg(mist_session:_APISession, msp_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/create-msp-org
     
@@ -64,7 +68,8 @@ def createMspOrg(mist_session:_APISession, msp_id:str, body:object) -> _APIRespo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def manageMspOrgs(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def manageMspOrgs(mist_session:_APISession, msp_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/manage-msp-orgs
     
@@ -91,7 +96,8 @@ def manageMspOrgs(mist_session:_APISession, msp_id:str, body:object) -> _APIResp
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str=None, org_id:str=None, sub_insufficient:bool=None, trial_enabled:bool=None, usage_types:list=None, limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str=None, org_id:str=None, sub_insufficient:bool=None, trial_enabled:bool=None, usage_types:list=None, limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/search-msp-orgs
     
@@ -130,7 +136,8 @@ def searchMspOrgs(mist_session:_APISession, msp_id:str, name:str=None, org_id:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/get-msp-org
     
@@ -154,7 +161,8 @@ def getMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/delete-msp-org
     
@@ -178,7 +186,8 @@ def deleteMspOrg(mist_session:_APISession, msp_id:str, org_id:str) -> _APIRespon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMspOrg(mist_session:_APISession, msp_id:str, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateMspOrg(mist_session:_APISession, msp_id:str, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/update-msp-org
     

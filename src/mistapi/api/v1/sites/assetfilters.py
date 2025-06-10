@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteAssetFilters(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteAssetFilters(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/list-site-asset-filters
     
@@ -44,7 +47,8 @@ def listSiteAssetFilters(mist_session:_APISession, site_id:str, limit:int=100, p
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteAssetFilter(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteAssetFilter(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/create-site-asset-filter
     
@@ -71,7 +75,8 @@ def createSiteAssetFilter(mist_session:_APISession, site_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/get-site-asset-filter
     
@@ -95,7 +100,8 @@ def getSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/delete-site-asset-filter
     
@@ -119,7 +125,8 @@ def deleteSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteAssetFilter(mist_session:_APISession, site_id:str, assetfilter_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/update-site-asset-filter
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgWxTags(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgWxTags(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/list-org-wx-tags
     
@@ -44,7 +47,8 @@ def listOrgWxTags(mist_session:_APISession, org_id:str, limit:int=100, page:int=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgWxTag(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgWxTag(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/create-org-wx-tag
     
@@ -71,7 +75,8 @@ def createOrgWxTag(mist_session:_APISession, org_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgApplicationList(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgApplicationList(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/get-org-application-list
     
@@ -94,7 +99,8 @@ def getOrgApplicationList(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/get-org-wx-tag
     
@@ -118,7 +124,8 @@ def getOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIRespo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/delete-org-wx-tag
     
@@ -142,7 +149,8 @@ def deleteOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIRe
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/update-org-wx-tag
     
@@ -170,7 +178,8 @@ def updateOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getOrgCurrentMatchingClientsOfAWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgCurrentMatchingClientsOfAWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/get-org-current-matching-clients-of-a-wx-tag
     

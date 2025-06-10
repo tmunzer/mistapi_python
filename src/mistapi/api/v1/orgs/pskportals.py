@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgPskPortals(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgPskPortals(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/list-org-psk-portals
     
@@ -44,7 +47,8 @@ def listOrgPskPortals(mist_session:_APISession, org_id:str, limit:int=100, page:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/create-org-psk-portal
     
@@ -71,7 +75,8 @@ def createOrgPskPortal(mist_session:_APISession, org_id:str, body:object) -> _AP
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/list-org-psk-portal-logs
     
@@ -107,7 +112,8 @@ def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, e
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="pskportal_id", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="pskportal_id", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/count-org-psk-portal-logs
     
@@ -143,7 +149,8 @@ def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="ps
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1, psk_name:str=None, psk_id:str=None, pskportal_id:str=None, id:str=None, admin_name:str=None, admin_id:str=None, name_id:str=None) -> _APIResponse:
+@sync_async_compatible
+def searchOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1, psk_name:str=None, psk_id:str=None, pskportal_id:str=None, id:str=None, admin_name:str=None, admin_id:str=None, name_id:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/search-org-psk-portal-logs
     
@@ -193,7 +200,8 @@ def searchOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int=None,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/get-org-psk-portal
     
@@ -217,7 +225,8 @@ def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/delete-org-psk-portal
     
@@ -241,7 +250,8 @@ def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/update-org-psk-portal
     
@@ -269,7 +279,8 @@ def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, b
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgPskPortalImage(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgPskPortalImage(mist_session:_APISession, org_id:str, pskportal_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/delete-org-psk-portal-image
     
@@ -293,7 +304,7 @@ def deleteOrgPskPortalImage(mist_session:_APISession, org_id:str, pskportal_id:s
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def uploadOrgPskPortalImageFile(mist_session:_APISession, org_id:str, pskportal_id:str, file:str=None, json:str=None) -> _APIResponse:
+def uploadOrgPskPortalImageFile(mist_session:_APISession, org_id:str, pskportal_id:str, file:str=None, json:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/upload-org-psk-portal-image
     
@@ -327,7 +338,8 @@ def uploadOrgPskPortalImageFile(mist_session:_APISession, org_id:str, pskportal_
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def updateOrgPskPortalTemplate(mist_session:_APISession, org_id:str, pskportal_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgPskPortalTemplate(mist_session:_APISession, org_id:str, pskportal_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/update-org-psk-portal-template
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgIdpProfiles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgIdpProfiles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/list-org-idp-profiles
     
@@ -44,7 +47,8 @@ def listOrgIdpProfiles(mist_session:_APISession, org_id:str, limit:int=100, page
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgIdpProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgIdpProfile(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/create-org-idp-profile
     
@@ -71,7 +75,8 @@ def createOrgIdpProfile(mist_session:_APISession, org_id:str, body:object) -> _A
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/get-org-idp-profile
     
@@ -95,7 +100,8 @@ def getOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/delete-org-idp-profile
     
@@ -119,7 +125,8 @@ def deleteOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str)
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/update-org-idp-profile
     

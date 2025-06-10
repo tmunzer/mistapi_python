@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def searchOrgVars(mist_session:_APISession, org_id:str, site_id:str=None, var:str=None, src:str=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def searchOrgVars(mist_session:_APISession, org_id:str, site_id:str=None, var:str=None, src:str=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vars/search-org-vars
     

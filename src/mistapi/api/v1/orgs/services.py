@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgServices(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgServices(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/services/list-org-services
     
@@ -44,7 +47,8 @@ def listOrgServices(mist_session:_APISession, org_id:str, limit:int=100, page:in
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgService(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgService(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/services/create-org-service
     
@@ -71,7 +75,8 @@ def createOrgService(mist_session:_APISession, org_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgService(mist_session:_APISession, org_id:str, service_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgService(mist_session:_APISession, org_id:str, service_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/services/get-org-service
     
@@ -95,7 +100,8 @@ def getOrgService(mist_session:_APISession, org_id:str, service_id:str) -> _APIR
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgService(mist_session:_APISession, org_id:str, service_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgService(mist_session:_APISession, org_id:str, service_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/services/delete-org-service
     
@@ -119,7 +125,8 @@ def deleteOrgService(mist_session:_APISession, org_id:str, service_id:str) -> _A
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgService(mist_session:_APISession, org_id:str, service_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgService(mist_session:_APISession, org_id:str, service_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/services/update-org-service
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def createOrg(mist_session:_APISession, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrg(mist_session:_APISession, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/create-org
     
@@ -37,7 +40,8 @@ def createOrg(mist_session:_APISession, body:object) -> _APIResponse:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrg(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/get-org
     
@@ -60,7 +64,8 @@ def getOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrg(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/delete-org
     
@@ -83,7 +88,8 @@ def deleteOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrg(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrg(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/update-org
     

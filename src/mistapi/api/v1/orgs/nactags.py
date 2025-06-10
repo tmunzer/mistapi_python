@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, match:str=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str=None, match:str=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/list-org-nac-tags
     
@@ -52,7 +55,8 @@ def listOrgNacTags(mist_session:_APISession, org_id:str, type:str=None, name:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgNacTag(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgNacTag(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/create-org-nac-tag
     
@@ -79,7 +83,8 @@ def createOrgNacTag(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/get-org-nac-tag
     
@@ -103,7 +108,8 @@ def getOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIRes
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/delete-org-nac-tag
     
@@ -127,7 +133,8 @@ def deleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _API
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/update-org-nac-tag
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteAssets(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteAssets(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/list-site-assets
     
@@ -44,7 +47,8 @@ def listSiteAssets(mist_session:_APISession, site_id:str, limit:int=100, page:in
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteAsset(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteAsset(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/create-site-asset
     
@@ -71,7 +75,7 @@ def createSiteAsset(mist_session:_APISession, site_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteAssetsFile(mist_session:_APISession, site_id:str, file:str=None) -> _APIResponse:
+def importSiteAssetsFile(mist_session:_APISession, site_id:str, file:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/import-site-assets
     
@@ -101,7 +105,8 @@ def importSiteAssetsFile(mist_session:_APISession, site_id:str, file:str=None) -
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def importSiteAssets(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def importSiteAssets(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/import-site-assets
     
@@ -128,7 +133,8 @@ def importSiteAssets(mist_session:_APISession, site_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/get-site-asset
     
@@ -152,7 +158,8 @@ def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIRes
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/delete-site-asset
     
@@ -176,7 +183,8 @@ def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _API
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteAsset(mist_session:_APISession, site_id:str, asset_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteAsset(mist_session:_APISession, site_id:str, asset_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/update-site-asset
     

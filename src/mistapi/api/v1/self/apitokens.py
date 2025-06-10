@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listApiTokens(mist_session:_APISession) -> _APIResponse:
+@sync_async_compatible
+def listApiTokens(mist_session:_APISession) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/list-api-tokens
     
@@ -33,7 +36,8 @@ def listApiTokens(mist_session:_APISession) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createApiToken(mist_session:_APISession, body:object) -> _APIResponse:
+@sync_async_compatible
+def createApiToken(mist_session:_APISession, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/create-api-token
     
@@ -56,7 +60,8 @@ def createApiToken(mist_session:_APISession, body:object) -> _APIResponse:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
+@sync_async_compatible
+def getApiToken(mist_session:_APISession, apitoken_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/get-api-token
     
@@ -79,7 +84,8 @@ def getApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteApiToken(mist_session:_APISession, apitoken_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/delete-api-token
     
@@ -102,7 +108,8 @@ def deleteApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateApiToken(mist_session:_APISession, apitoken_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateApiToken(mist_session:_APISession, apitoken_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/update-api-token
     

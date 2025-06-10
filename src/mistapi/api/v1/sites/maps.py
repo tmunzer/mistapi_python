@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteMaps(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteMaps(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/list-site-maps
     
@@ -44,7 +47,8 @@ def listSiteMaps(mist_session:_APISession, site_id:str, limit:int=100, page:int=
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/create-site-map
     
@@ -71,7 +75,7 @@ def createSiteMap(mist_session:_APISession, site_id:str, body:object) -> _APIRes
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> _APIResponse:
+def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile_assignment:bool=None, csv:str=None, file:str=None, json:any=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/import-site-maps
     
@@ -109,7 +113,8 @@ def importSiteMapsFile(mist_session:_APISession, site_id:str, auto_deviceprofile
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/get-site-map
     
@@ -133,7 +138,8 @@ def getSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIRespons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/delete-site-map
     
@@ -157,7 +163,8 @@ def deleteSiteMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResp
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/update-site-map
     
@@ -185,7 +192,8 @@ def updateSiteMap(mist_session:_APISession, site_id:str, map_id:str, body:object
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/get-site-ap-auto-orientation
     
@@ -209,7 +217,8 @@ def getSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/delete-site-ap-auto-orientation
     
@@ -233,7 +242,8 @@ def deleteSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:st
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/start-site-ap-auto-orientation
     
@@ -261,7 +271,8 @@ def startSiteApAutoOrientation(mist_session:_APISession, map_id:str, site_id:str
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteApAutoPlacement(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteApAutoPlacement(mist_session:_APISession, site_id:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/get-site-ap-auto-placement
     
@@ -285,7 +296,8 @@ def getSiteApAutoPlacement(mist_session:_APISession, site_id:str, map_id:str) ->
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/delete-site-ap-autoplacement
     
@@ -309,7 +321,8 @@ def deleteSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str)
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/run-site-ap-autoplacement
     
@@ -337,7 +350,8 @@ def runSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteMapAutoZoneStatus(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteMapAutoZoneStatus(mist_session:_APISession, map_id:str, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-zone/get-site-map-auto-zone-status
     
@@ -361,7 +375,8 @@ def getSiteMapAutoZoneStatus(mist_session:_APISession, map_id:str, site_id:str) 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-zone/delete-site-map-auto-zone
     
@@ -385,7 +400,8 @@ def deleteSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def startSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def startSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-zone/start-site-map-auto-zone
     
@@ -408,7 +424,8 @@ def startSiteMapAutoZone(mist_session:_APISession, map_id:str, site_id:str) -> _
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def clearSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def clearSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/clear-site-ap-auto-orient
     
@@ -436,7 +453,8 @@ def clearSiteApAutoOrient(mist_session:_APISession, site_id:str, map_id:str, bod
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def clearSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def clearSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/clear-site-ap-autoplacement
     
@@ -464,7 +482,8 @@ def clearSiteApAutoplacement(mist_session:_APISession, site_id:str, map_id:str, 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/delete-site-map-image
     
@@ -488,7 +507,7 @@ def deleteSiteMapImage(mist_session:_APISession, site_id:str, map_id:str) -> _AP
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:str=None, json:str=None) -> _APIResponse:
+def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:str=None, json:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/add-site-map-image
     
@@ -521,7 +540,7 @@ def addSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:str=None, json:any=None) -> _APIResponse:
+def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, file:str=None, json:any=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/replace-site-map-image
     
@@ -554,7 +573,8 @@ def replaceSiteMapImageFile(mist_session:_APISession, site_id:str, map_id:str, f
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/bulk-assign-site-aps-to-map
     
@@ -582,7 +602,8 @@ def bulkAssignSiteApsToMap(mist_session:_APISession, site_id:str, map_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def confirmSiteApLocalizationData(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def confirmSiteApLocalizationData(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/confirm-site-ap-localization-data
     
@@ -610,7 +631,8 @@ def confirmSiteApLocalizationData(mist_session:_APISession, site_id:str, map_id:
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def importSiteWayfindings(mist_session:_APISession, site_id:str, map_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def importSiteWayfindings(mist_session:_APISession, site_id:str, map_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/import-site-wayfindings
     

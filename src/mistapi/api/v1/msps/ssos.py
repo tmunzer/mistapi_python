@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listMspSsos(mist_session:_APISession, msp_id:str) -> _APIResponse:
+@sync_async_compatible
+def listMspSsos(mist_session:_APISession, msp_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/list-msp-ssos
     
@@ -37,7 +40,8 @@ def listMspSsos(mist_session:_APISession, msp_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createMspSso(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createMspSso(mist_session:_APISession, msp_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/create-msp-sso
     
@@ -64,7 +68,8 @@ def createMspSso(mist_session:_APISession, msp_id:str, body:object) -> _APIRespo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+@sync_async_compatible
+def getMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/get-msp-sso
     
@@ -88,7 +93,8 @@ def getMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/delete-msp-sso
     
@@ -112,7 +118,8 @@ def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIRespon
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/update-msp-sso
     
@@ -140,7 +147,8 @@ def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:object) 
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def listMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+@sync_async_compatible
+def listMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/list-msp-sso-latest-failures
     
@@ -164,7 +172,8 @@ def listMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) -
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+@sync_async_compatible
+def getMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/get-msp-saml-metadata
     
@@ -188,7 +197,8 @@ def getMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _API
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def downloadMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+@sync_async_compatible
+def downloadMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/download-msp-saml-metadata
     

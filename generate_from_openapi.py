@@ -84,7 +84,9 @@ def _init_api_file(file_path: str, file_name: str, import_path: list = []):
     init_file = os.path.join(file_path, "__init__.py")
     file_created = _create_or_append_file(
         f"{api_file}.py",
-        f"""from mistapi import APISession as _APISession
+        f"""from typing import Union, Awaitable
+from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 """,
@@ -314,8 +316,9 @@ def _create_get_deprecated_device_events(
     old_operation_id = operation_id.replace("DeviceEvents", "DevicesEvents", 1)
 
     code = f"""
-@deprecation.deprecated(deprecated_in="0.45.0", removed_in="0.60.0", current_version="{version}", details="function replaced with {operation_id}")  
-def {old_operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
+@deprecation.deprecated(deprecated_in="0.45.0", removed_in="0.60.0", current_version="{version}", details="function replaced with {operation_id}")
+@sync_async_compatible
+def {old_operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> Union[_APIResponse, Awaitable[_APIResponse]]:
 {code_desc}
     uri = f"{endpoint_path}"{code_query}
     resp = mist_session.mist_get(uri=uri, query=query_params)
@@ -351,7 +354,8 @@ def _create_get(
     code_desc = _gen_description(operation_id, tags, desc_path_params, desc_query_params)
 
     code = f"""
-def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
+@sync_async_compatible
+def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> Union[_APIResponse, Awaitable[_APIResponse]]:
 {code_desc}
     uri = f"{endpoint_path}"{code_query}
     resp = mist_session.mist_get(uri=uri, query=query_params)
@@ -378,7 +382,8 @@ def _create_delete(
     code_desc = _gen_description(operation_id, tags, desc_path_params, desc_query_params)
 
     code = f"""
-def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> _APIResponse:
+@sync_async_compatible
+def {operation_id}(mist_session:_APISession{code_path_params}{code_query_params}) -> Union[_APIResponse, Awaitable[_APIResponse]]:
 {code_desc}
     uri = f"{endpoint_path}"{code_query}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
@@ -402,7 +407,8 @@ def _create_post_empty(
     code_desc = _gen_description(operation_id, tags, desc_path_params)
 
     code = f"""
-def {operation_id}(mist_session:_APISession{code_path_params}) -> _APIResponse:
+@sync_async_compatible
+def {operation_id}(mist_session:_APISession{code_path_params}) -> Union[_APIResponse, Awaitable[_APIResponse]]:
 {code_desc}
     uri = f"{endpoint_path}"
     resp = mist_session.mist_post(uri=uri)
@@ -426,7 +432,8 @@ def _create_post(
     code_desc = _gen_description(operation_id, tags, desc_path_params, with_body=True)
 
     code = f"""
-def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _APIResponse:
+@sync_async_compatible
+def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
 {code_desc}
     uri = f"{endpoint_path}"
     resp = mist_session.mist_post(uri=uri, body=body)
@@ -493,7 +500,7 @@ def _create_post_file(
 def {operation_id}File(mist_session:_APISession{code_path_params}"""
     for key, value in multipart_form_data.items():
         code += f", {key}:{value['property_type']}=None"
-    code += ") -> _APIResponse:"
+    code += ") -> Union[_APIResponse, Awaitable[_APIResponse]]:"
     code += f"""
 {code_desc}
     """
@@ -525,7 +532,8 @@ def _create_put(
     code_desc = _gen_description(operation_id,tags, desc_path_params, with_body=True)
 
     code = f"""
-def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> _APIResponse:
+@sync_async_compatible
+def {operation_id}(mist_session:_APISession{code_path_params}, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
 {code_desc}
     uri = f"{endpoint_path}"
     resp = mist_session.mist_put(uri=uri, body=body)

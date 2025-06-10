@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgMxEdgeClusters(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listOrgMxEdgeClusters(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxclusters/list-org-mx-edge-clusters
     
@@ -44,7 +47,8 @@ def listOrgMxEdgeClusters(mist_session:_APISession, org_id:str, limit:int=100, p
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgMxEdgeCluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgMxEdgeCluster(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxclusters/create-org-mx-edge-cluster
     
@@ -71,7 +75,8 @@ def createOrgMxEdgeCluster(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxclusters/get-org-mx-edge-cluster
     
@@ -95,7 +100,8 @@ def getOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) 
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxclusters/delete-org-mx-edge-cluster
     
@@ -119,7 +125,8 @@ def deleteOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:st
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgMxEdgeCluster(mist_session:_APISession, org_id:str, mxcluster_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxclusters/update-org-mx-edge-cluster
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteWebhooks(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteWebhooks(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/list-site-webhooks
     
@@ -44,7 +47,8 @@ def listSiteWebhooks(mist_session:_APISession, site_id:str, limit:int=100, page:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteWebhook(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteWebhook(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/create-site-webhook
     
@@ -71,7 +75,8 @@ def createSiteWebhook(mist_session:_APISession, site_id:str, body:object) -> _AP
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/get-site-webhook
     
@@ -95,7 +100,8 @@ def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _AP
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/delete-site-webhook
     
@@ -119,7 +125,8 @@ def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> 
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/update-site-webhook
     
@@ -147,7 +154,8 @@ def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, bod
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def countSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/count-site-webhooks-deliveries
     
@@ -194,7 +202,8 @@ def countSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, error:str=None, status_code:int=None, status:str=None, topic:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/search-site-webhooks-deliveries
     
@@ -239,7 +248,8 @@ def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
+@sync_async_compatible
+def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/ping-site-webhook
     

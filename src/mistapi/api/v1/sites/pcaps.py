@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSitePacketCaptures(mist_session:_APISession, site_id:str, client_mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSitePacketCaptures(mist_session:_APISession, site_id:str, client_mac:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/list-site-packet-captures
     
@@ -52,7 +55,8 @@ def listSitePacketCaptures(mist_session:_APISession, site_id:str, client_mac:str
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteCapturingStatus(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteCapturingStatus(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/get-site-capturing-status
     
@@ -75,7 +79,8 @@ def getSiteCapturingStatus(mist_session:_APISession, site_id:str) -> _APIRespons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def stopSitePacketCapture(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def stopSitePacketCapture(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/stop-site-packet-capture
     
@@ -98,7 +103,8 @@ def stopSitePacketCapture(mist_session:_APISession, site_id:str) -> _APIResponse
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def startSitePacketCapture(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def startSitePacketCapture(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/start-site-packet-capture
     
@@ -125,7 +131,8 @@ def startSitePacketCapture(mist_session:_APISession, site_id:str, body:object) -
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateSitePacketCapture(mist_session:_APISession, site_id:str, pcap_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSitePacketCapture(mist_session:_APISession, site_id:str, pcap_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/update-site-packet-capture
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteZones(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteZones(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/list-site-zones
     
@@ -44,7 +47,8 @@ def listSiteZones(mist_session:_APISession, site_id:str, limit:int=100, page:int
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteZone(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteZone(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/create-site-zone
     
@@ -71,7 +75,8 @@ def createSiteZone(mist_session:_APISession, site_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/get-site-zone
     
@@ -95,7 +100,8 @@ def getSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> _APIRespo
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/delete-site-zone
     
@@ -119,7 +125,8 @@ def deleteSiteZone(mist_session:_APISession, site_id:str, zone_id:str) -> _APIRe
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteZone(mist_session:_APISession, site_id:str, zone_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteZone(mist_session:_APISession, site_id:str, zone_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/update-site-zone
     

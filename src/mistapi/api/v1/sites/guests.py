@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id:str=None) -> _APIResponse:
+@sync_async_compatible
+def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/list-site-all-guest-authorizations
     
@@ -42,7 +45,8 @@ def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct:str="auth_method", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/count-site-guest-authorizations
     
@@ -78,7 +82,8 @@ def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteAllGuestAuthorizationsDerived(mist_session:_APISession, site_id:str, wlan_id:str=None, cross_site:bool=None) -> _APIResponse:
+@sync_async_compatible
+def listSiteAllGuestAuthorizationsDerived(mist_session:_APISession, site_id:str, wlan_id:str=None, cross_site:bool=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/list-site-all-guest-authorizations-derived
     
@@ -108,7 +113,8 @@ def listSiteAllGuestAuthorizationsDerived(mist_session:_APISession, site_id:str,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+@sync_async_compatible
+def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:str=None, auth_method:str=None, ssid:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/search-site-guest-authorization
     
@@ -148,7 +154,8 @@ def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/get-site-guest-authorization
     
@@ -172,7 +179,8 @@ def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/delete-site-guest-authorization
     
@@ -196,7 +204,8 @@ def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_ma
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/update-site-guest-authorization
     

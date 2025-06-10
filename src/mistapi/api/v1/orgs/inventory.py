@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str=None, mac:str=None, site_id:str=None, vc_mac:str=None, vc:bool=None, unassigned:bool=False, modified_after:int=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model:str=None, type:str=None, mac:str=None, site_id:str=None, vc_mac:str=None, vc:bool=None, unassigned:bool=False, modified_after:int=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/get-org-inventory
     
@@ -62,7 +65,8 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str=None, model
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/add-org-inventory
     
@@ -89,7 +93,8 @@ def addOrgInventory(mist_session:_APISession, org_id:str, body:object) -> _APIRe
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/update-org-inventory-assignment
     
@@ -116,7 +121,8 @@ def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:obje
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", distinct:str="model", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", distinct:str="model", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/count-org-inventory
     
@@ -148,7 +154,8 @@ def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", disti
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/create-org-gateway-ha-cluster
     
@@ -175,7 +182,8 @@ def createOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/delete-org-gateway-ha-cluster
     
@@ -202,7 +210,8 @@ def deleteOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:object)
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/reevaluate-org-auto-assignment
     
@@ -224,7 +233,8 @@ def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str) -> _APIRes
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/replace-org-devices
     
@@ -251,7 +261,8 @@ def replaceOrgDevices(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def searchOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", mac:str=None, vc_mac:str=None, master_mac:str=None, site_id:str=None, serial:str=None, master:str=None, sku:str=None, version:str=None, status:str=None, text:str=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def searchOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", mac:str=None, vc_mac:str=None, master_mac:str=None, site_id:str=None, serial:str=None, master:str=None, sku:str=None, version:str=None, status:str=None, text:str=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/search-org-inventory
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteWxTags(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteWxTags(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/list-site-wx-tags
     
@@ -44,7 +47,8 @@ def listSiteWxTags(mist_session:_APISession, site_id:str, limit:int=100, page:in
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteWxTag(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteWxTag(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/create-site-wx-tag
     
@@ -71,7 +75,8 @@ def createSiteWxTag(mist_session:_APISession, site_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getSiteApplicationList(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteApplicationList(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/get-site-application-list
     
@@ -94,7 +99,8 @@ def getSiteApplicationList(mist_session:_APISession, site_id:str) -> _APIRespons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/get-site-wx-tag
     
@@ -118,7 +124,8 @@ def getSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _APIRes
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/delete-site-wx-tag
     
@@ -142,7 +149,8 @@ def deleteSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str) -> _API
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteWxTag(mist_session:_APISession, site_id:str, wxtag_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxtags/update-site-wx-tag
     

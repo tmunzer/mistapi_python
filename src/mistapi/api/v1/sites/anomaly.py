@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/get-site-anomaly-events-for-client
     
@@ -39,7 +42,8 @@ def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteAnomalyEventsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteAnomalyEventsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/get-site-anomaly-events-for-device
     
@@ -64,7 +68,8 @@ def getSiteAnomalyEventsForDevice(mist_session:_APISession, site_id:str, metric:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def listSiteAnomalyEvents(mist_session:_APISession, site_id:str, metric:str) -> _APIResponse:
+@sync_async_compatible
+def listSiteAnomalyEvents(mist_session:_APISession, site_id:str, metric:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/list-site-anomaly-events
     

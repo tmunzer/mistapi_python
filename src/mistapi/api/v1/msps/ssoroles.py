@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listMspSsoRoles(mist_session:_APISession, msp_id:str) -> _APIResponse:
+@sync_async_compatible
+def listMspSsoRoles(mist_session:_APISession, msp_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso-roles/list-msp-sso-roles
     
@@ -37,7 +40,8 @@ def listMspSsoRoles(mist_session:_APISession, msp_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso-roles/create-msp-sso-role
     
@@ -64,7 +68,8 @@ def createMspSsoRole(mist_session:_APISession, msp_id:str, body:object) -> _APIR
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def deleteMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso-roles/delete-msp-sso-role
     
@@ -88,7 +93,8 @@ def deleteMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str) -> _A
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateMspSsoRole(mist_session:_APISession, msp_id:str, ssorole_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso-roles/update-msp-sso-role
     

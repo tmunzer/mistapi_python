@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteOtherDevices(mist_session:_APISession, site_id:str, vendor:str=None, mac:str=None, serial:str=None, model:str=None, name:str=None, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteOtherDevices(mist_session:_APISession, site_id:str, vendor:str=None, mac:str=None, serial:str=None, model:str=None, name:str=None, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/others/list-site-other-devices
     
@@ -54,7 +57,8 @@ def listSiteOtherDevices(mist_session:_APISession, site_id:str, vendor:str=None,
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def countSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="mac", type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def countSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="mac", type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/others/count-site-other-device-events
     
@@ -92,7 +96,8 @@ def countSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, distinct:s
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def searchSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, mac:str=None, device_mac:str=None, vendor:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+@sync_async_compatible
+def searchSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, mac:str=None, device_mac:str=None, vendor:str=None, type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/others/search-site-other-device-events
     

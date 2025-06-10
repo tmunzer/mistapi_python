@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgMarvisClientInvites(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listOrgMarvisClientInvites(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/marvis-invites/list-org-marvis-client-invites
     
@@ -37,7 +40,8 @@ def listOrgMarvisClientInvites(mist_session:_APISession, org_id:str) -> _APIResp
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgMarvisClientInvite(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgMarvisClientInvite(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/marvis-invites/create-org-marvis-client-invite
     
@@ -64,7 +68,8 @@ def createOrgMarvisClientInvite(mist_session:_APISession, org_id:str, body:objec
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/marvis-invites/get-org-marvis-client-invite
     
@@ -88,7 +93,8 @@ def getOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/marvis-invites/delete-org-marvis-client-invite
     
@@ -112,7 +118,8 @@ def deleteOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvi
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgMarvisClientInvite(mist_session:_APISession, org_id:str, marvisinvite_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/marvis-invites/update-org-marvis-client-invite
     

@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listSiteWxRules(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+@sync_async_compatible
+def listSiteWxRules(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/list-site-wx-rules
     
@@ -44,7 +47,8 @@ def listSiteWxRules(mist_session:_APISession, site_id:str, limit:int=100, page:i
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createSiteWxRule(mist_session:_APISession, site_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createSiteWxRule(mist_session:_APISession, site_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/create-site-wx-rule
     
@@ -71,7 +75,8 @@ def createSiteWxRule(mist_session:_APISession, site_id:str, body:object) -> _API
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def ListSiteWxRulesDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
+@sync_async_compatible
+def ListSiteWxRulesDerived(mist_session:_APISession, site_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/list-site-wx-rules-derived
     
@@ -94,7 +99,8 @@ def ListSiteWxRulesDerived(mist_session:_APISession, site_id:str) -> _APIRespons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIResponse:
+@sync_async_compatible
+def getSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/get-site-wx-rule
     
@@ -118,7 +124,8 @@ def getSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIR
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/delete-site-wx-rule
     
@@ -142,7 +149,8 @@ def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _A
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/update-site-wx-rule
     

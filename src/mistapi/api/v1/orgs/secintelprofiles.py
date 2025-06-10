@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def listOrgSecIntelProfiles(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def listOrgSecIntelProfiles(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/list-org-sec-intel-profiles
     
@@ -37,7 +40,8 @@ def listOrgSecIntelProfiles(mist_session:_APISession, org_id:str) -> _APIRespons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def createOrgSecIntelProfile(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgSecIntelProfile(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/create-org-sec-intel-profile
     
@@ -64,7 +68,8 @@ def createOrgSecIntelProfile(mist_session:_APISession, org_id:str, body:object) 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/get-org-sec-intel-profile
     
@@ -88,7 +93,8 @@ def getOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/delete-org-sec-intel-profile
     
@@ -112,7 +118,8 @@ def deleteOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofi
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/update-org-sec-intel-profile
     

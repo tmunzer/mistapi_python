@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOrgSettings(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgSettings(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/get-org-settings
     
@@ -37,7 +40,8 @@ def getOrgSettings(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/update-org-settings
     
@@ -64,7 +68,8 @@ def updateOrgSettings(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/delete-org-wireless-clients-blocklist
     
@@ -87,7 +92,8 @@ def deleteOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str) -> _
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def createOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def createOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/create-org-wireless-clients-blocklist
     
@@ -114,7 +120,8 @@ def createOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str, body
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def testOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def testOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/test-org-cradlepoint-connection
     
@@ -137,7 +144,8 @@ def testOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _APIRe
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/delete-org-cradlepoint-connection
     
@@ -160,7 +168,8 @@ def deleteOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _API
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/setup-org-cradlepoint-connection-to-mist
     
@@ -187,7 +196,8 @@ def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, bo
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/update-org-cradlepoint-connection-to-mist
     
@@ -214,7 +224,8 @@ def updateOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, b
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/sync-org-cradlepoint-routers
     
@@ -236,7 +247,8 @@ def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str) -> _APIRespo
     resp = mist_session.mist_post(uri=uri)
     return resp
     
-def getOrgJseInfo(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgJseInfo(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-jse/get-org-jse-info
     
@@ -259,7 +271,8 @@ def getOrgJseInfo(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def getOrgJseIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgJseIntegration(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-jse/get-org-jse-integration
     
@@ -282,7 +295,8 @@ def getOrgJseIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgJseIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgJseIntegration(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-jse/delete-org-jse-integration
     
@@ -305,7 +319,8 @@ def deleteOrgJseIntegration(mist_session:_APISession, org_id:str) -> _APIRespons
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def setupOrgJseIntegration(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def setupOrgJseIntegration(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-jse/setup-org-jse-integration
     
@@ -332,7 +347,8 @@ def setupOrgJseIntegration(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-juniper/link-org-to-juniper-juniper-account
     
@@ -359,7 +375,8 @@ def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:ob
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-juniper/unlink-org-from-juniper-customer-id
     
@@ -382,7 +399,8 @@ def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> _API
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def getOrgNacCrl(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgNacCrl(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-crl/get-org-nac-crl
     
@@ -405,7 +423,7 @@ def getOrgNacCrl(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def importOrgNacCrlFile(mist_session:_APISession, org_id:str, file:str=None, json:str=None) -> _APIResponse:
+def importOrgNacCrlFile(mist_session:_APISession, org_id:str, file:str=None, json:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-crl/import-org-nac-crl
     
@@ -438,7 +456,8 @@ def importOrgNacCrlFile(mist_session:_APISession, org_id:str, file:str=None, jso
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def deleteOrgNacCrl(mist_session:_APISession, org_id:str, naccrl_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgNacCrl(mist_session:_APISession, org_id:str, naccrl_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-crl/delete-org-nac-crl
     
@@ -462,7 +481,8 @@ def deleteOrgNacCrl(mist_session:_APISession, org_id:str, naccrl_id:str) -> _API
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def getOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgMistScep(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/get-org-mist-scep
     
@@ -485,7 +505,8 @@ def getOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def disableOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def disableOrgMistScep(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/disable-org-mist-scep
     
@@ -508,7 +529,8 @@ def disableOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def updateOrgMistScep(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgMistScep(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/update-org-mist-scep
     
@@ -535,7 +557,8 @@ def updateOrgMistScep(mist_session:_APISession, org_id:str, body:object) -> _API
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def listOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, sso_name_id:str=None, serial_number:str=None, device_id:str=None) -> _APIResponse:
+@sync_async_compatible
+def listOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, sso_name_id:str=None, serial_number:str=None, device_id:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/list-org-issued-client-certificates
     
@@ -567,7 +590,8 @@ def listOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, sso_na
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def revokeOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def revokeOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/revoke-org-issued-client-certificates
     
@@ -594,7 +618,8 @@ def revokeOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, body
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/set-org-custom-bucket
     
@@ -621,7 +646,8 @@ def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _AP
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/verify-org-custom-bucket
     
@@ -648,7 +674,8 @@ def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:object) -> 
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgSkyAtpIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgSkyAtpIntegration(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/get-org-sky-atp-integration
     
@@ -671,7 +698,8 @@ def getOrgSkyAtpIntegration(mist_session:_APISession, org_id:str) -> _APIRespons
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgSkyAtpIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgSkyAtpIntegration(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/delete-org-sky-atp-integration
     
@@ -694,7 +722,8 @@ def deleteOrgSkyAtpIntegration(mist_session:_APISession, org_id:str) -> _APIResp
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def setupOrgAtpIntegration(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def setupOrgAtpIntegration(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/setup-org-atp-integration
     
@@ -721,7 +750,8 @@ def setupOrgAtpIntegration(mist_session:_APISession, org_id:str, body:object) ->
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def udpateOrgAtpIntegration(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def udpateOrgAtpIntegration(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/udpate-org-atp-integration
     
@@ -748,7 +778,8 @@ def udpateOrgAtpIntegration(mist_session:_APISession, org_id:str, body:object) -
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def udpateOrgAtpAllowedList(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def udpateOrgAtpAllowedList(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/udpate-org-atp-allowed-list
     
@@ -775,7 +806,8 @@ def udpateOrgAtpAllowedList(mist_session:_APISession, org_id:str, body:object) -
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def udpateOrgAtpBlockedList(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def udpateOrgAtpBlockedList(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/udpate-org-atp-blocked-list
     
@@ -802,7 +834,8 @@ def udpateOrgAtpBlockedList(mist_session:_APISession, org_id:str, body:object) -
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def getOrgZscalerIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgZscalerIntegration(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-zscaler/get-org-zscaler-integration
     
@@ -825,7 +858,8 @@ def getOrgZscalerIntegration(mist_session:_APISession, org_id:str) -> _APIRespon
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def deleteOrgZscalerIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgZscalerIntegration(mist_session:_APISession, org_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-zscaler/delete-org-zscaler-integration
     
@@ -848,7 +882,8 @@ def deleteOrgZscalerIntegration(mist_session:_APISession, org_id:str) -> _APIRes
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
     
-def setupOrgZscalerIntegration(mist_session:_APISession, org_id:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def setupOrgZscalerIntegration(mist_session:_APISession, org_id:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-zscaler/setup-org-zscaler-integration
     
@@ -875,7 +910,8 @@ def setupOrgZscalerIntegration(mist_session:_APISession, org_id:str, body:object
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:str, forward:str) -> _APIResponse:
+@sync_async_compatible
+def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:str, forward:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/get-org-oauth-app-linked-status
     
@@ -905,7 +941,8 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/add-org-oauth-app-accounts
     
@@ -934,7 +971,8 @@ def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, b
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
     
-def updateOrgOauthAppAccount(mist_session:_APISession, org_id:str, app_name:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def updateOrgOauthAppAccount(mist_session:_APISession, org_id:str, app_name:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/update-org-oauth-app-account
     
@@ -963,7 +1001,8 @@ def updateOrgOauthAppAccount(mist_session:_APISession, org_id:str, app_name:str,
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
     
-def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_name:str, account_id:str) -> _APIResponse:
+@sync_async_compatible
+def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_name:str, account_id:str) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/delete-org-oauth-app-authorization
     

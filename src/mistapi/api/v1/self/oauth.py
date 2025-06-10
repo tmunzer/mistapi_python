@@ -10,11 +10,14 @@
 --------------------------------------------------------------------------------
 '''
 
+from typing import Union, Awaitable
 from mistapi import APISession as _APISession
+from mistapi.__decorator import sync_async_compatible
 from mistapi.__api_response import APIResponse as _APIResponse
 import deprecation
 
-def getOauth2UrlForLinking(mist_session:_APISession, provider:str, forward:str=None) -> _APIResponse:
+@sync_async_compatible
+def getOauth2UrlForLinking(mist_session:_APISession, provider:str, forward:str=None) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/oauth2/get-oauth2-url-for-linking
     
@@ -42,7 +45,8 @@ def getOauth2UrlForLinking(mist_session:_APISession, provider:str, forward:str=N
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
     
-def linkOauth2MistAccount(mist_session:_APISession, provider:str, body:object) -> _APIResponse:
+@sync_async_compatible
+def linkOauth2MistAccount(mist_session:_APISession, provider:str, body:object) -> Union[_APIResponse, Awaitable[_APIResponse]]:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/oauth2/link-oauth2-mist-account
     
