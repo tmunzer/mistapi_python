@@ -1,14 +1,23 @@
-
 from tabulate import tabulate
+
 
 class Privileges:
     def __init__(self, privileges):
         self.privileges = []
         for privilege in privileges:
-            self.privileges.append(_Privilege(privilege))           
+            self.privileges.append(_Privilege(privilege))
 
     def __str__(self):
-        columns_headers = ["scope", "role", "name", "site_id", "org_name", "org_id", 'msp_name', "msp_id" ]
+        columns_headers = [
+            "scope",
+            "role",
+            "name",
+            "site_id",
+            "org_name",
+            "org_id",
+            "msp_name",
+            "msp_id",
+        ]
         table = []
         for entry in self.privileges:
             temp = []
@@ -22,7 +31,7 @@ class Privileges:
 
     def display(self):
         return str(self)
-        
+
 
 class _Privilege:
     def __init__(self, privilege):
@@ -39,11 +48,20 @@ class _Privilege:
         for key, val in privilege.items():
             setattr(self, key, val)
 
-
-
     def __str__(self):
-        fields = ["scope", "role", "org_id", "org_name", "msp_id", "msp_name",
-                  "orggroup_ids", "name", "role", "site_id", "sitegroup_ids"]
+        fields = [
+            "scope",
+            "role",
+            "org_id",
+            "org_name",
+            "msp_id",
+            "msp_name",
+            "orggroup_ids",
+            "name",
+            "role",
+            "site_id",
+            "sitegroup_ids",
+        ]
         string = ""
         for field in fields:
             if getattr(self, field) != "":

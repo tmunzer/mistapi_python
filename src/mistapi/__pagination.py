@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,10 +8,11 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+
 
 def get_next(mist_session: _APISession, response: _APIResponse) -> _APIResponse:
     """
@@ -33,6 +34,7 @@ def get_next(mist_session: _APISession, response: _APIResponse) -> _APIResponse:
         return mist_session.mist_get(response.next)
     else:
         return None
+
 
 def get_all(mist_session: _APISession, response: _APIResponse) -> list:
     """

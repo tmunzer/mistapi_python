@@ -69,3 +69,5 @@ update: ## Update dependencies
 
 sync: ## Sync dependencies
 	uv sync
+
+check: clean format lint pre-commit test ## Run all checks and tests
