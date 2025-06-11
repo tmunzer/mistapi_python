@@ -378,7 +378,7 @@ class APISession(APIRequest):
 
     def _get_api_token_data(self, apitoken) -> tuple[str | None, list | None]:
         token_privileges = []
-        token_type = "org"
+        token_type = "org"  # nosec bandit B105
         try:
             url = f"https://{self._cloud_uri}/api/v1/self"
             headers = {"Authorization": "Token " + apitoken}
@@ -416,7 +416,7 @@ class APISession(APIRequest):
             return (None, None)
 
         if data_json.get("email"):
-            token_type = "user"
+            token_type = "user"  # nosec bandit B105
 
         for priv in data_json.get("privileges"):
             tmp = {
@@ -571,9 +571,9 @@ class APISession(APIRequest):
 
     def login_with_return(
         self,
-        apitoken: str = "",
-        email: str = "",
-        password: str = "",
+        apitoken: str | None = None,
+        email: str | None = None,
+        password: str | None = None,
         two_factor: str | None = None,
     ) -> dict:
         """

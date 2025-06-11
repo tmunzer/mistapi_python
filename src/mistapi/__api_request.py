@@ -70,7 +70,7 @@ class APIRequest:
         return f"https://{self._cloud_uri}{uri}"
 
     def _log_proxy(self) -> None:
-        pwd_regex = r":([^:@]*)@"
+        pwd_regex = r":([^:@]*)@"  # nosec bandit B105
         if self._session.proxies.get("https"):
             logger.info(
                 f"apirequest:sending request to proxy server {re.sub(pwd_regex, ':*********@', self._session.proxies['https'])}"
