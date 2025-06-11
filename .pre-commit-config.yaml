@@ -21,6 +21,7 @@ repos:
       - id: check-yaml
       - id: check-toml
       - id: check-json
+        exclude: ".vscode/"
       - id: check-added-large-files
       - id: detect-private-key
       - id: check-ast
@@ -35,7 +36,8 @@ repos:
     rev: v1.15.0
     hooks:
       - id: mypy
-        additional_dependencies: [types-requests, pydantic]
+        additional_dependencies:
+          [types-requests, pydantic, types-pyyaml, types-tabulate]
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.8.3
