@@ -13,7 +13,7 @@
 import logging
 import os
 
-os.system("")
+os.system("")  # nosec bandit B605 B607
 
 
 def magenta(text):
