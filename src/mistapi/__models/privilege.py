@@ -1,39 +1,6 @@
-from typing import Any
+from typing import Any, Iterator
 
 from tabulate import tabulate
-
-
-class Privileges:
-    def __init__(self, privileges: list[dict]) -> None:
-        self.privileges: list[_Privilege] = []
-        for privilege in privileges:
-            self.privileges.append(_Privilege(privilege))
-
-    def __str__(self) -> str:
-        columns_headers = [
-            "scope",
-            "role",
-            "name",
-            "site_id",
-            "org_name",
-            "org_id",
-            "msp_name",
-            "msp_id",
-            "views",
-        ]
-        table = []
-        for entry in self.privileges:
-            temp = []
-            for field in columns_headers:
-                if hasattr(entry, field):
-                    temp.append(str(getattr(entry, field)))
-                else:
-                    temp.append("")
-            table.append(temp)
-        return tabulate(table, columns_headers)
-
-    def display(self):
-        return str(self)
 
 
 class _Privilege:
@@ -77,3 +44,42 @@ class _Privilege:
             return getattr(self, key)
         else:
             return default
+
+
+class Privileges:
+    def __init__(self, privileges: list[dict]) -> None:
+        self.privileges: list[_Privilege] = []
+        for privilege in privileges:
+            self.privileges.append(_Privilege(privilege))
+
+    def __iter__(self) -> Iterator[_Privilege]:
+        """Return an iterator over the privileges."""
+        if not self.privileges:
+            return iter([])
+        return iter(self.privileges)
+
+    def __str__(self) -> str:
+        columns_headers = [
+            "scope",
+            "role",
+            "name",
+            "site_id",
+            "org_name",
+            "org_id",
+            "msp_name",
+            "msp_id",
+            "views",
+        ]
+        table = []
+        for entry in self.privileges:
+            temp = []
+            for field in columns_headers:
+                if hasattr(entry, field):
+                    temp.append(str(getattr(entry, field)))
+                else:
+                    temp.append("")
+            table.append(temp)
+        return tabulate(table, columns_headers)
+
+    def display(self):
+        return str(self)

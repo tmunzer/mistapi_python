@@ -20,6 +20,7 @@ from tabulate import tabulate
 import mistapi
 from mistapi.__api_response import APIResponse as _APIResponse
 from mistapi.__logger import console
+from mistapi.__models.privilege import Privileges
 
 
 ###########################################
@@ -63,7 +64,7 @@ def is_authenticated(func):
 
 ###########################################
 #### CLI SELECTIONS
-def _forge_privileges(mist_session: mistapi.APISession, msp_id: str):
+def _forge_privileges(mist_session: mistapi.APISession, msp_id: str) -> Privileges:
     """
     Function to generate user privileges for Orgs belonging to a MSP Account
 
@@ -84,11 +85,11 @@ def _forge_privileges(mist_session: mistapi.APISession, msp_id: str):
     custom_privileges = []
     for org in orgs:
         custom_privileges.append(mist_session.get_privilege_by_org_id(org["id"]))
-    return custom_privileges
+    return Privileges(custom_privileges)
 
 
 @is_authenticated
-def _select_msp(mist_session: mistapi.APISession) -> list:
+def _select_msp(mist_session: mistapi.APISession) -> Privileges:
     """
     Function to list all the Mist MSPs allowed for the current user
     and ask to pick one. Return the list org ORG privileges based
@@ -105,12 +106,10 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
         List of ORG privileges
     """
     msp_accounts = [
-        priv
-        for priv in mist_session.privileges.privileges
-        if priv.get("scope") == "msp"
+        priv for priv in mist_session.privileges if priv.get("scope") == "msp"
     ]
     if len(msp_accounts) == 0:
-        return mist_session.privileges.privileges
+        return mist_session.privileges
     else:
         msp_accounts = sorted(msp_accounts, key=lambda x: x.get("name").lower())
         while True:
@@ -128,8 +127,8 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
             if resp == "q":
                 sys.exit(0)
             elif resp.lower() == "n":
-                standalone = []
-                for priv in mist_session.privileges.privileges:
+                standalone: list = []
+                for priv in mist_session.privileges:
                     msp = [
                         msp
                         for msp in msp_accounts
@@ -137,7 +136,7 @@ def _select_msp(mist_session: mistapi.APISession) -> list:
                     ]
                     if not msp:
                         standalone.append(priv)
-                return standalone
+                return Privileges(standalone)
                 # return [priv for priv in mist_session.privileges if not priv.get("msp_id")]
             else:
                 tested_val = _test_choice(resp, i)
@@ -172,41 +171,52 @@ def select_org(mist_session: mistapi.APISession, allow_many=False) -> list:
     """
     data = _select_msp(mist_session)
     data = [d for d in data if d.get("name")]
-    data = sorted(data, key=lambda x: x["name"].lower())
+    data = sorted(data, key=lambda x: x.get("name").lower())
     while True:
         i = -1
         org_ids: list[str] = []
         resp_ids: list[str] = []
         print("\r\nAvailable organizations:")
         for privilege in data:
-            if privilege["scope"] == "org" and privilege["org_id"] not in org_ids:
+            if (
+                privilege.get("scope") == "org"
+                and privilege.get("org_id") not in org_ids
+            ):
                 i += 1
-                org_ids.append(privilege["org_id"])
-                print(f"{i}) {privilege['name']} (id: {privilege['org_id']})")
+                org_ids.append(privilege.get("org_id"))
+                print(f"{i}) {privilege.get('name')} (id: {privilege.get('org_id')})")
 
         orgs_with_sites: list[dict] = []
         for privilege in data:
-            if privilege["scope"] == "site" and privilege["org_id"] not in org_ids:
-                index = _search_org(orgs_with_sites, privilege["org_id"])
+            if (
+                privilege.get("scope") == "site"
+                and privilege.get("org_id") not in org_ids
+            ):
+                index = _search_org(orgs_with_sites, privilege.get("org_id"))
                 if index is None:
                     i += 1
-                    org_ids.append(privilege["org_id"])
-                    print(f"{i}) {privilege['name']} (id: {privilege['org_id']})")
+                    org_ids.append(privilege.get("org_id"))
+                    print(
+                        f"{i}) {privilege.get('name')} (id: {privilege.get('org_id')})"
+                    )
                     orgs_with_sites.append(
                         {
-                            "org_id": privilege["org_id"],
-                            "name": privilege["name"],
+                            "org_id": privilege.get("org_id"),
+                            "name": privilege.get("name"),
                             "sites": [
                                 {
-                                    "site_id": privilege["site_id"],
-                                    "name": privilege["name"],
+                                    "site_id": privilege.get("site_id"),
+                                    "name": privilege.get("name"),
                                 }
                             ],
                         }
                     )
                 else:
                     orgs_with_sites[index]["sites"].append(
-                        {"site_id": privilege["site_id"], "name": privilege["name"]}
+                        {
+                            "site_id": privilege.get("site_id"),
+                            "name": privilege.get("name"),
+                        }
                     )
 
         if allow_many:
@@ -273,7 +283,7 @@ def select_site(
     if org_id is None:
         org_id = select_org(mist_session)[0]
 
-    for privilege in mist_session.privileges.privileges:
+    for privilege in mist_session.privileges:
         if privilege.get("scope") == "org" and privilege.get("org_id") == org_id:
             org_access = True
         if privilege.get("scope") == "site" and privilege.get("org_id") == org_id:

@@ -948,11 +948,7 @@ class APISession(APIRequest):
         """
         logger.debug("apisession:get_privilege_by_org_id")
         org_priv = next(
-            (
-                priv
-                for priv in self.privileges.privileges
-                if priv.get("org_id") == org_id
-            ),
+            (priv for priv in self.privileges if priv.get("org_id") == org_id),
             None,
         )
         if org_priv:
@@ -1001,7 +997,7 @@ class APISession(APIRequest):
                 msp_priv = next(
                     (
                         priv
-                        for priv in self.privileges.privileges
+                        for priv in self.privileges
                         if priv.get("scope") == "msp" and priv.get("msp_id") == msp_id
                     ),
                     None,
