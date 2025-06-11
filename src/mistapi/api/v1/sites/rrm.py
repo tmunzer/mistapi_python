@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getSiteCurrentChannelPlanning(mist_session:_APISession, site_id:str) -> _APIResponse:
+
+def getSiteCurrentChannelPlanning(
+    mist_session: _APISession, site_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rrm/get-site-current-channel-planning
 
@@ -32,12 +34,16 @@ def getSiteCurrentChannelPlanning(mist_session:_APISession, site_id:str) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rrm/current"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteCurrentRrmConsiderations(mist_session:_APISession, site_id:str, device_id:str, band:str) -> _APIResponse:
+
+def getSiteCurrentRrmConsiderations(
+    mist_session: _APISession, site_id: str, device_id: str, band: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rrm/get-site-current-rrm-considerations
 
@@ -58,12 +64,23 @@ def getSiteCurrentRrmConsiderations(mist_session:_APISession, site_id:str, devic
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rrm/current/devices/{device_id}/band/{band}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteRrmEvents(mist_session:_APISession, site_id:str, band:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteRrmEvents(
+    mist_session: _APISession,
+    site_id: str,
+    band: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rrm/list-site-rrm-events
 
@@ -91,24 +108,28 @@ def listSiteRrmEvents(mist_session:_APISession, site_id:str, band:str|None=None,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rrm/events"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if band:
-        query_params["band"]=str(band)
+        query_params["band"] = str(band)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, band:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteCurrentRrmNeighbors(
+    mist_session: _APISession, site_id: str, band: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rrm/list-site-current-rrm-neighbors
 
@@ -133,16 +154,20 @@ def listSiteCurrentRrmNeighbors(mist_session:_APISession, site_id:str, band:str,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rrm/neighbors/band/{band}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def optimizeSiteRrm(mist_session:_APISession, site_id:str, body:dict) -> _APIResponse:
+
+def optimizeSiteRrm(
+    mist_session: _APISession, site_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/optimize-site-rrm
 
@@ -165,6 +190,7 @@ def optimizeSiteRrm(mist_session:_APISession, site_id:str, body:dict) -> _APIRes
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rrm/optimize"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,21 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str|None=None, serial:str|None=None, mac:str|None=None) -> _APIResponse:
+
+def listOrgJsiDevices(
+    mist_session: _APISession,
+    org_id: str,
+    limit: int = 100,
+    page: int = 1,
+    model: str | None = None,
+    serial: str | None = None,
+    mac: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/list-org-jsi-devices
 
@@ -40,22 +48,24 @@ def listOrgJsiDevices(mist_session:_APISession, org_id:str, limit:int=100, page:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/jsi/devices"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if serial:
-        query_params["serial"]=str(serial)
+        query_params["serial"] = str(serial)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def adoptOrgJsiDevice(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/adopt-org-jsi-device
 
@@ -73,12 +83,16 @@ def adoptOrgJsiDevice(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/jsi/devices/outbound_ssh_cmd"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+
+def createOrgJsiDeviceShellSession(
+    mist_session: _APISession, org_id: str, device_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/create-org-jsi-device-shell-session
 
@@ -97,11 +111,15 @@ def createOrgJsiDeviceShellSession(mist_session:_APISession, org_id:str, device_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/jsi/devices/{device_mac}/shell"
     resp = mist_session.mist_post(uri=uri)
     return resp
 
-def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, body:dict) -> _APIResponse:
+
+def upgradeOrgJsiDevice(
+    mist_session: _APISession, org_id: str, device_mac: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-jsi-device
 
@@ -125,11 +143,20 @@ def upgradeOrgJsiDevice(mist_session:_APISession, org_id:str, device_mac:str, bo
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/jsi/devices/{device_mac}/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def listOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100, page:int=1, model:str|None=None, serial:str|None=None) -> _APIResponse:
+
+def listOrgJsiPastPurchases(
+    mist_session: _APISession,
+    org_id: str,
+    limit: int = 100,
+    page: int = 1,
+    model: str | None = None,
+    serial: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/list-org-jsi-past-purchases
 
@@ -154,15 +181,16 @@ def listOrgJsiPastPurchases(mist_session:_APISession, org_id:str, limit:int=100,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/jsi/inventory"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if serial:
-        query_params["serial"]=str(serial)
+        query_params["serial"] = str(serial)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listMspSsos(mist_session:_APISession, msp_id:str) -> _APIResponse:
+
+def listMspSsos(mist_session: _APISession, msp_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/list-msp-ssos
 
@@ -32,12 +32,14 @@ def listMspSsos(mist_session:_APISession, msp_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/ssos"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createMspSso(mist_session:_APISession, msp_id:str, body:dict) -> _APIResponse:
+
+def createMspSso(mist_session: _APISession, msp_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/create-msp-sso
 
@@ -60,11 +62,13 @@ def createMspSso(mist_session:_APISession, msp_id:str, body:dict) -> _APIRespons
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/ssos"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+
+def getMspSso(mist_session: _APISession, msp_id: str, sso_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/get-msp-sso
 
@@ -83,12 +87,14 @@ def getMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+
+def deleteMspSso(mist_session: _APISession, msp_id: str, sso_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/delete-msp-sso
 
@@ -107,12 +113,16 @@ def deleteMspSso(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIRespon
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:dict) -> _APIResponse:
+
+def updateMspSso(
+    mist_session: _APISession, msp_id: str, sso_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/update-msp-sso
 
@@ -136,11 +146,15 @@ def updateMspSso(mist_session:_APISession, msp_id:str, sso_id:str, body:dict) ->
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def listMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+
+def listMspSsoLatestFailures(
+    mist_session: _APISession, msp_id: str, sso_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/list-msp-sso-latest-failures
 
@@ -159,12 +173,16 @@ def listMspSsoLatestFailures(mist_session:_APISession, msp_id:str, sso_id:str) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}/failures"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+
+def getMspSamlMetadata(
+    mist_session: _APISession, msp_id: str, sso_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/get-msp-saml-metadata
 
@@ -183,12 +201,16 @@ def getMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}/metadata"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def downloadMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) -> _APIResponse:
+
+def downloadMspSamlMetadata(
+    mist_session: _APISession, msp_id: str, sso_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/download-msp-saml-metadata
 
@@ -207,7 +229,8 @@ def downloadMspSamlMetadata(mist_session:_APISession, msp_id:str, sso_id:str) ->
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}/metadata.xml"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

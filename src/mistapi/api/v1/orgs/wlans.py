@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgWlans(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgWlans(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/list-org-wlans
 
@@ -37,16 +39,18 @@ def listOrgWlans(mist_session:_APISession, org_id:str, limit:int=100, page:int=1
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wlans"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgWlan(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgWlan(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/create-org-wlan
 
@@ -69,11 +73,13 @@ def createOrgWlan(mist_session:_APISession, org_id:str, body:dict) -> _APIRespon
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wlans"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
+
+def getOrgWLAN(mist_session: _APISession, org_id: str, wlan_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/get-org-w-l-a-n
 
@@ -92,12 +98,14 @@ def getOrgWLAN(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIRespons
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
+
+def deleteOrgWlan(mist_session: _APISession, org_id: str, wlan_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/delete-org-wlan
 
@@ -116,12 +124,16 @@ def deleteOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResp
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:dict) -> _APIResponse:
+
+def updateOrgWlan(
+    mist_session: _APISession, org_id: str, wlan_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/update-org-wlan
 
@@ -145,11 +157,15 @@ def updateOrgWlan(mist_session:_APISession, org_id:str, wlan_id:str, body:dict) 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) -> _APIResponse:
+
+def deleteOrgWlanPortalImage(
+    mist_session: _APISession, org_id: str, wlan_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/delete-org-wlan-portal-image
 
@@ -168,12 +184,20 @@ def deleteOrgWlanPortalImage(mist_session:_APISession, org_id:str, wlan_id:str) 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_image"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:str, file:str|None=None, json:str|None=None) -> _APIResponse:
+
+def uploadOrgWlanPortalImageFile(
+    mist_session: _APISession,
+    org_id: str,
+    wlan_id: str,
+    file: str | None = None,
+    json: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/upload-org-wlan-portal-image
 
@@ -198,15 +222,19 @@ def uploadOrgWlanPortalImageFile(mist_session:_APISession, org_id:str, wlan_id:s
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "file":file,
-        "json":json,
+        "file": file,
+        "json": json,
     }
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_image"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:str, body:dict) -> _APIResponse:
+
+def updateOrgWlanPortalTemplate(
+    mist_session: _APISession, org_id: str, wlan_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/update-org-wlan-portal-template
 
@@ -230,6 +258,7 @@ def updateOrgWlanPortalTemplate(mist_session:_APISession, org_id:str, wlan_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wlans/{wlan_id}/portal_template"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

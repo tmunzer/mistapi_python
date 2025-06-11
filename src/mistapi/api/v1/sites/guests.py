@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_id:str|None=None) -> _APIResponse:
+
+def listSiteAllGuestAuthorizations(
+    mist_session: _APISession, site_id: str, wlan_id: str | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/list-site-all-guest-authorizations
 
@@ -36,14 +38,24 @@ def listSiteAllGuestAuthorizations(mist_session:_APISession, site_id:str, wlan_i
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/guests"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if wlan_id:
-        query_params["wlan_id"]=str(wlan_id)
+        query_params["wlan_id"] = str(wlan_id)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct:str="auth_method", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteGuestAuthorizations(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "auth_method",
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/count-site-guest-authorizations
 
@@ -69,22 +81,29 @@ def countSiteGuestAuthorizations(mist_session:_APISession, site_id:str, distinct
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/guests/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteAllGuestAuthorizationsDerived(mist_session:_APISession, site_id:str, wlan_id:str|None=None, cross_site:bool|None=None) -> _APIResponse:
+
+def listSiteAllGuestAuthorizationsDerived(
+    mist_session: _APISession,
+    site_id: str,
+    wlan_id: str | None = None,
+    cross_site: bool | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/list-site-all-guest-authorizations-derived
 
@@ -107,16 +126,28 @@ def listSiteAllGuestAuthorizationsDerived(mist_session:_APISession, site_id:str,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/guests/derived"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if wlan_id:
-        query_params["wlan_id"]=str(wlan_id)
+        query_params["wlan_id"] = str(wlan_id)
     if cross_site:
-        query_params["cross_site"]=str(cross_site)
+        query_params["cross_site"] = str(cross_site)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:str|None=None, auth_method:str|None=None, ssid:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchSiteGuestAuthorization(
+    mist_session: _APISession,
+    site_id: str,
+    wlan_id: str | None = None,
+    auth_method: str | None = None,
+    ssid: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/search-site-guest-authorization
 
@@ -144,26 +175,30 @@ def searchSiteGuestAuthorization(mist_session:_APISession, site_id:str, wlan_id:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/guests/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if wlan_id:
-        query_params["wlan_id"]=str(wlan_id)
+        query_params["wlan_id"] = str(wlan_id)
     if auth_method:
-        query_params["auth_method"]=str(auth_method)
+        query_params["auth_method"] = str(auth_method)
     if ssid:
-        query_params["ssid"]=str(ssid)
+        query_params["ssid"] = str(ssid)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> _APIResponse:
+
+def getSiteGuestAuthorization(
+    mist_session: _APISession, site_id: str, guest_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/get-site-guest-authorization
 
@@ -182,12 +217,16 @@ def getSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/guests/{guest_mac}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str) -> _APIResponse:
+
+def deleteSiteGuestAuthorization(
+    mist_session: _APISession, site_id: str, guest_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/delete-site-guest-authorization
 
@@ -206,12 +245,16 @@ def deleteSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_ma
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/guests/{guest_mac}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_mac:str, body:dict) -> _APIResponse:
+
+def updateSiteGuestAuthorization(
+    mist_session: _APISession, site_id: str, guest_mac: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/update-site-guest-authorization
 
@@ -235,6 +278,7 @@ def updateSiteGuestAuthorization(mist_session:_APISession, site_id:str, guest_ma
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/guests/{guest_mac}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

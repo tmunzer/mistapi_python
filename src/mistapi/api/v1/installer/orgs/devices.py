@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,21 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listInstallerListOfRecentlyClaimedDevices(mist_session:_APISession, org_id:str, model:str|None=None, site_name:str|None=None, site_id:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def listInstallerListOfRecentlyClaimedDevices(
+    mist_session: _APISession,
+    org_id: str,
+    model: str | None = None,
+    site_name: str | None = None,
+    site_id: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-list-of-recently-claimed-devices
 
@@ -40,22 +48,26 @@ def listInstallerListOfRecentlyClaimedDevices(mist_session:_APISession, org_id:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/devices"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if site_name:
-        query_params["site_name"]=str(site_name)
+        query_params["site_name"] = str(site_name)
     if site_id:
-        query_params["site_id"]=str(site_id)
+        query_params["site_id"] = str(site_id)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def claimInstallerDevices(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def claimInstallerDevices(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/claim-installer-devices
 
@@ -78,11 +90,15 @@ def claimInstallerDevices(mist_session:_APISession, org_id:str, body:dict) -> _A
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/devices"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def unassignInstallerRecentlyClaimedDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+
+def unassignInstallerRecentlyClaimedDevice(
+    mist_session: _APISession, org_id: str, device_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/unassign-installer-recently-claimed-device
 
@@ -101,12 +117,16 @@ def unassignInstallerRecentlyClaimedDevice(mist_session:_APISession, org_id:str,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def provisionInstallerDevices(mist_session:_APISession, org_id:str, device_mac:str, body:dict) -> _APIResponse:
+
+def provisionInstallerDevices(
+    mist_session: _APISession, org_id: str, device_mac: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/provision-installer-devices
 
@@ -130,11 +150,15 @@ def provisionInstallerDevices(mist_session:_APISession, org_id:str, device_mac:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+
+def startInstallerLocateDevice(
+    mist_session: _APISession, org_id: str, device_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/start-installer-locate-device
 
@@ -153,11 +177,15 @@ def startInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/locate"
     resp = mist_session.mist_post(uri=uri)
     return resp
 
-def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+
+def stopInstallerLocateDevice(
+    mist_session: _APISession, org_id: str, device_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/stop-installer-locate-device
 
@@ -176,11 +204,15 @@ def stopInstallerLocateDevice(mist_session:_APISession, org_id:str, device_mac:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/unlocate"
     resp = mist_session.mist_post(uri=uri)
     return resp
 
-def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:str, device_mac:str) -> _APIResponse:
+
+def deleteInstallerDeviceImage(
+    mist_session: _APISession, org_id: str, image_name: str, device_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/delete-installer-device-image
 
@@ -200,12 +232,23 @@ def deleteInstallerDeviceImage(mist_session:_APISession, org_id:str, image_name:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/{image_name}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name:str, device_mac:str, auto_deviceprofile_assignment:bool|None=None, csv:str|None=None, file:str|None=None, json:dict|None=None) -> _APIResponse:
+
+def addInstallerDeviceImageFile(
+    mist_session: _APISession,
+    org_id: str,
+    image_name: str,
+    device_mac: str,
+    auto_deviceprofile_assignment: bool | None = None,
+    csv: str | None = None,
+    file: str | None = None,
+    json: dict | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/add-installer-device-image
 
@@ -235,17 +278,21 @@ def addInstallerDeviceImageFile(mist_session:_APISession, org_id:str, image_name
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "auto_deviceprofile_assignment":auto_deviceprofile_assignment,
-        "csv":csv,
-        "file":file,
-        "json":json,
+        "auto_deviceprofile_assignment": auto_deviceprofile_assignment,
+        "csv": csv,
+        "file": file,
+        "json": json,
     }
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{device_mac}/{image_name}"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def getInstallerDeviceVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac:str) -> _APIResponse:
+
+def getInstallerDeviceVirtualChassis(
+    mist_session: _APISession, org_id: str, fpc0_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/get-installer-device-virtual-chassis
 
@@ -264,12 +311,16 @@ def getInstallerDeviceVirtualChassis(mist_session:_APISession, org_id:str, fpc0_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{fpc0_mac}/vc"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createInstallerVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac:str, body:dict) -> _APIResponse:
+
+def createInstallerVirtualChassis(
+    mist_session: _APISession, org_id: str, fpc0_mac: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/create-installer-virtual-chassis
 
@@ -293,11 +344,15 @@ def createInstallerVirtualChassis(mist_session:_APISession, org_id:str, fpc0_mac
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{fpc0_mac}/vc"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def updateInstallerVirtualChassisMember(mist_session:_APISession, org_id:str, fpc0_mac:str, body:dict) -> _APIResponse:
+
+def updateInstallerVirtualChassisMember(
+    mist_session: _APISession, org_id: str, fpc0_mac: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/update-installer-virtual-chassis-member
 
@@ -321,6 +376,7 @@ def updateInstallerVirtualChassisMember(mist_session:_APISession, org_id:str, fp
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/devices/{fpc0_mac}/vc"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

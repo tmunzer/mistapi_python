@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgWxTags(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgWxTags(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/list-org-wx-tags
 
@@ -37,16 +39,18 @@ def listOrgWxTags(mist_session:_APISession, org_id:str, limit:int=100, page:int=
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxtags"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgWxTag(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgWxTag(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/create-org-wx-tag
 
@@ -69,11 +73,13 @@ def createOrgWxTag(mist_session:_APISession, org_id:str, body:dict) -> _APIRespo
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxtags"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgApplicationList(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def getOrgApplicationList(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/get-org-application-list
 
@@ -91,12 +97,14 @@ def getOrgApplicationList(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxtags/apps"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
+
+def getOrgWxTag(mist_session: _APISession, org_id: str, wxtag_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/get-org-wx-tag
 
@@ -115,12 +123,16 @@ def getOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIRespo
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxtags/{wxtag_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
+
+def deleteOrgWxTag(
+    mist_session: _APISession, org_id: str, wxtag_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/delete-org-wx-tag
 
@@ -139,12 +151,16 @@ def deleteOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxtags/{wxtag_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str, body:dict) -> _APIResponse:
+
+def updateOrgWxTag(
+    mist_session: _APISession, org_id: str, wxtag_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/update-org-wx-tag
 
@@ -168,11 +184,15 @@ def updateOrgWxTag(mist_session:_APISession, org_id:str, wxtag_id:str, body:dict
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxtags/{wxtag_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def getOrgCurrentMatchingClientsOfAWxTag(mist_session:_APISession, org_id:str, wxtag_id:str) -> _APIResponse:
+
+def getOrgCurrentMatchingClientsOfAWxTag(
+    mist_session: _APISession, org_id: str, wxtag_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/get-org-current-matching-clients-of-a-wx-tag
 
@@ -191,7 +211,8 @@ def getOrgCurrentMatchingClientsOfAWxTag(mist_session:_APISession, org_id:str, w
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxtags/{wxtag_id}/clients"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

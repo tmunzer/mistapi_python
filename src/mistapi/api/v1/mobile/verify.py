@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def activateSdkInvite(mist_session:_APISession, secret:str, body:dict) -> _APIResponse:
+
+def activateSdkInvite(
+    mist_session: _APISession, secret: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/activate-sdk-invite
 
@@ -37,6 +39,7 @@ def activateSdkInvite(mist_session:_APISession, secret:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/mobile/verify/{secret}"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool|None=None) -> _APIResponse:
+
+def listSiteServicesDerived(
+    mist_session: _APISession, site_id: str, resolve: bool | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/services/list-site-services-derived
 
@@ -36,14 +38,34 @@ def listSiteServicesDerived(mist_session:_APISession, site_id:str, resolve:bool|
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/services/derived"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if resolve:
-        query_params["resolve"]=str(resolve)
+        query_params["resolve"] = str(resolve)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str|None=None, text:str|None=None, vpn_name:str|None=None, vpn_path:str|None=None, policy:str|None=None, port_id:str|None=None, model:str|None=None, version:str|None=None, timestamp:float|None=None, mac:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteServicePathEvents(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "type",
+    type: str | None = None,
+    text: str | None = None,
+    vpn_name: str | None = None,
+    vpn_path: str | None = None,
+    policy: str | None = None,
+    port_id: str | None = None,
+    model: str | None = None,
+    version: str | None = None,
+    timestamp: float | None = None,
+    mac: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/services/count-site-service-path-events
 
@@ -79,42 +101,63 @@ def countSiteServicePathEvents(mist_session:_APISession, site_id:str, distinct:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/services/events/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if text:
-        query_params["text"]=str(text)
+        query_params["text"] = str(text)
     if vpn_name:
-        query_params["vpn_name"]=str(vpn_name)
+        query_params["vpn_name"] = str(vpn_name)
     if vpn_path:
-        query_params["vpn_path"]=str(vpn_path)
+        query_params["vpn_path"] = str(vpn_path)
     if policy:
-        query_params["policy"]=str(policy)
+        query_params["policy"] = str(policy)
     if port_id:
-        query_params["port_id"]=str(port_id)
+        query_params["port_id"] = str(port_id)
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if version:
-        query_params["version"]=str(version)
+        query_params["version"] = str(version)
     if timestamp:
-        query_params["timestamp"]=str(timestamp)
+        query_params["timestamp"] = str(timestamp)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str|None=None, text:str|None=None, peer_port_id:str|None=None, peer_mac:str|None=None, vpn_name:str|None=None, vpn_path:str|None=None, policy:str|None=None, port_id:str|None=None, model:str|None=None, version:str|None=None, timestamp:float|None=None, mac:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def searchSiteServicePathEvents(
+    mist_session: _APISession,
+    site_id: str,
+    type: str | None = None,
+    text: str | None = None,
+    peer_port_id: str | None = None,
+    peer_mac: str | None = None,
+    vpn_name: str | None = None,
+    vpn_path: str | None = None,
+    policy: str | None = None,
+    port_id: str | None = None,
+    model: str | None = None,
+    version: str | None = None,
+    timestamp: float | None = None,
+    mac: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/services/search-site-service-path-events
 
@@ -151,39 +194,40 @@ def searchSiteServicePathEvents(mist_session:_APISession, site_id:str, type:str|
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/services/events/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if text:
-        query_params["text"]=str(text)
+        query_params["text"] = str(text)
     if peer_port_id:
-        query_params["peer_port_id"]=str(peer_port_id)
+        query_params["peer_port_id"] = str(peer_port_id)
     if peer_mac:
-        query_params["peer_mac"]=str(peer_mac)
+        query_params["peer_mac"] = str(peer_mac)
     if vpn_name:
-        query_params["vpn_name"]=str(vpn_name)
+        query_params["vpn_name"] = str(vpn_name)
     if vpn_path:
-        query_params["vpn_path"]=str(vpn_path)
+        query_params["vpn_path"] = str(vpn_path)
     if policy:
-        query_params["policy"]=str(policy)
+        query_params["policy"] = str(policy)
     if port_id:
-        query_params["port_id"]=str(port_id)
+        query_params["port_id"] = str(port_id)
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if version:
-        query_params["version"]=str(version)
+        query_params["version"] = str(version)
     if timestamp:
-        query_params["timestamp"]=str(timestamp)
+        query_params["timestamp"] = str(timestamp)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

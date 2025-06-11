@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteWxRules(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteWxRules(
+    mist_session: _APISession, site_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/list-site-wx-rules
 
@@ -37,16 +39,20 @@ def listSiteWxRules(mist_session:_APISession, site_id:str, limit:int=100, page:i
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wxrules"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createSiteWxRule(mist_session:_APISession, site_id:str, body:dict) -> _APIResponse:
+
+def createSiteWxRule(
+    mist_session: _APISession, site_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/create-site-wx-rule
 
@@ -69,11 +75,13 @@ def createSiteWxRule(mist_session:_APISession, site_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wxrules"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def ListSiteWxRulesDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
+
+def ListSiteWxRulesDerived(mist_session: _APISession, site_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/list-site-wx-rules-derived
 
@@ -91,12 +99,16 @@ def ListSiteWxRulesDerived(mist_session:_APISession, site_id:str) -> _APIRespons
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wxrules/derived"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIResponse:
+
+def getSiteWxRule(
+    mist_session: _APISession, site_id: str, wxrule_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/get-site-wx-rule
 
@@ -115,12 +127,16 @@ def getSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIR
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wxrules/{wxrule_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _APIResponse:
+
+def deleteSiteWxRule(
+    mist_session: _APISession, site_id: str, wxrule_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/delete-site-wx-rule
 
@@ -139,12 +155,16 @@ def deleteSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str) -> _A
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wxrules/{wxrule_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str, body:dict) -> _APIResponse:
+
+def updateSiteWxRule(
+    mist_session: _APISession, site_id: str, wxrule_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wxrules/update-site-wx-rule
 
@@ -168,6 +188,7 @@ def updateSiteWxRule(mist_session:_APISession, site_id:str, wxrule_id:str, body:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wxrules/{wxrule_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

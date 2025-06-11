@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listStates(mist_session:_APISession, country_code:str) -> _APIResponse:
+
+def listStates(mist_session: _APISession, country_code: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/list-states
 
@@ -32,9 +32,10 @@ def listStates(mist_session:_APISession, country_code:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/const/states"
-    query_params:dict[str, str]={}
+
+    uri = "/api/v1/const/states"
+    query_params: dict[str, str] = {}
     if country_code:
-        query_params["country_code"]=str(country_code)
+        query_params["country_code"] = str(country_code)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

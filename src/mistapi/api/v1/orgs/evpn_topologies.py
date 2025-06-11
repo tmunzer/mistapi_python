@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgEvpnTopologies(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgEvpnTopologies(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/list-org-evpn-topologies
 
@@ -37,16 +39,20 @@ def listOrgEvpnTopologies(mist_session:_APISession, org_id:str, limit:int=100, p
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/evpn_topologies"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgEvpnTopology(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgEvpnTopology(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/create-org-evpn-topology
 
@@ -69,11 +75,15 @@ def createOrgEvpnTopology(mist_session:_APISession, org_id:str, body:dict) -> _A
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/evpn_topologies"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:str) -> _APIResponse:
+
+def getOrgEvpnTopology(
+    mist_session: _APISession, org_id: str, evpn_topology_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/get-org-evpn-topology
 
@@ -92,12 +102,16 @@ def getOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/evpn_topologies/{evpn_topology_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:str) -> _APIResponse:
+
+def deleteOrgEvpnTopology(
+    mist_session: _APISession, org_id: str, evpn_topology_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/delete-org-evpn-topology
 
@@ -116,12 +130,16 @@ def deleteOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/evpn_topologies/{evpn_topology_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id:str, body:dict) -> _APIResponse:
+
+def updateOrgEvpnTopology(
+    mist_session: _APISession, org_id: str, evpn_topology_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/update-org-evpn-topology
 
@@ -145,6 +163,7 @@ def updateOrgEvpnTopology(mist_session:_APISession, org_id:str, evpn_topology_id
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/evpn_topologies/{evpn_topology_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

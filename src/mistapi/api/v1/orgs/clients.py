@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,30 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def countOrgWirelessClients(mist_session:_APISession, org_id:str, distinct:str="device", mac:str|None=None, hostname:str|None=None, device:str|None=None, os:str|None=None, model:str|None=None, ap:str|None=None, vlan:str|None=None, ssid:str|None=None, ip_address:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countOrgWirelessClients(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str = "device",
+    mac: str | None = None,
+    hostname: str | None = None,
+    device: str | None = None,
+    os: str | None = None,
+    model: str | None = None,
+    ap: str | None = None,
+    vlan: str | None = None,
+    ssid: str | None = None,
+    ip_address: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/count-org-wireless-clients
 
@@ -49,40 +66,57 @@ def countOrgWirelessClients(mist_session:_APISession, org_id:str, distinct:str="
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/clients/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if hostname:
-        query_params["hostname"]=str(hostname)
+        query_params["hostname"] = str(hostname)
     if device:
-        query_params["device"]=str(device)
+        query_params["device"] = str(device)
     if os:
-        query_params["os"]=str(os)
+        query_params["os"] = str(os)
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if ap:
-        query_params["ap"]=str(ap)
+        query_params["ap"] = str(ap)
     if vlan:
-        query_params["vlan"]=str(vlan)
+        query_params["vlan"] = str(vlan)
     if ssid:
-        query_params["ssid"]=str(ssid)
+        query_params["ssid"] = str(ssid)
     if ip_address:
-        query_params["ip_address"]=str(ip_address)
+        query_params["ip_address"] = str(ip_address)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchOrgWirelessClientEvents(mist_session:_APISession, org_id:str, type:str|None=None, reason_code:int|None=None, ssid:str|None=None, ap:str|None=None, proto:str|None=None, band:str|None=None, wlan_id:str|None=None, nacrule_id:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchOrgWirelessClientEvents(
+    mist_session: _APISession,
+    org_id: str,
+    type: str | None = None,
+    reason_code: int | None = None,
+    ssid: str | None = None,
+    ap: str | None = None,
+    proto: str | None = None,
+    band: str | None = None,
+    wlan_id: str | None = None,
+    nacrule_id: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-client-events
 
@@ -117,36 +151,60 @@ def searchOrgWirelessClientEvents(mist_session:_APISession, org_id:str, type:str
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/clients/events/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if reason_code:
-        query_params["reason_code"]=str(reason_code)
+        query_params["reason_code"] = str(reason_code)
     if ssid:
-        query_params["ssid"]=str(ssid)
+        query_params["ssid"] = str(ssid)
     if ap:
-        query_params["ap"]=str(ap)
+        query_params["ap"] = str(ap)
     if proto:
-        query_params["proto"]=str(proto)
+        query_params["proto"] = str(proto)
     if band:
-        query_params["band"]=str(band)
+        query_params["band"] = str(band)
     if wlan_id:
-        query_params["wlan_id"]=str(wlan_id)
+        query_params["wlan_id"] = str(wlan_id)
     if nacrule_id:
-        query_params["nacrule_id"]=str(nacrule_id)
+        query_params["nacrule_id"] = str(nacrule_id)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchOrgWirelessClients(mist_session:_APISession, org_id:str, site_id:str|None=None, mac:str|None=None, ip_address:str|None=None, hostname:str|None=None, band:str|None=None, device:str|None=None, os:str|None=None, model:str|None=None, ap:str|None=None, psk_id:str|None=None, psk_name:str|None=None, username:str|None=None, vlan:str|None=None, ssid:str|None=None, text:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchOrgWirelessClients(
+    mist_session: _APISession,
+    org_id: str,
+    site_id: str | None = None,
+    mac: str | None = None,
+    ip_address: str | None = None,
+    hostname: str | None = None,
+    band: str | None = None,
+    device: str | None = None,
+    os: str | None = None,
+    model: str | None = None,
+    ap: str | None = None,
+    psk_id: str | None = None,
+    psk_name: str | None = None,
+    username: str | None = None,
+    vlan: str | None = None,
+    ssid: str | None = None,
+    text: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-clients
 
@@ -186,50 +244,68 @@ def searchOrgWirelessClients(mist_session:_APISession, org_id:str, site_id:str|N
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/clients/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if site_id:
-        query_params["site_id"]=str(site_id)
+        query_params["site_id"] = str(site_id)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if ip_address:
-        query_params["ip_address"]=str(ip_address)
+        query_params["ip_address"] = str(ip_address)
     if hostname:
-        query_params["hostname"]=str(hostname)
+        query_params["hostname"] = str(hostname)
     if band:
-        query_params["band"]=str(band)
+        query_params["band"] = str(band)
     if device:
-        query_params["device"]=str(device)
+        query_params["device"] = str(device)
     if os:
-        query_params["os"]=str(os)
+        query_params["os"] = str(os)
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if ap:
-        query_params["ap"]=str(ap)
+        query_params["ap"] = str(ap)
     if psk_id:
-        query_params["psk_id"]=str(psk_id)
+        query_params["psk_id"] = str(psk_id)
     if psk_name:
-        query_params["psk_name"]=str(psk_name)
+        query_params["psk_name"] = str(psk_name)
     if username:
-        query_params["username"]=str(username)
+        query_params["username"] = str(username)
     if vlan:
-        query_params["vlan"]=str(vlan)
+        query_params["vlan"] = str(vlan)
     if ssid:
-        query_params["ssid"]=str(ssid)
+        query_params["ssid"] = str(ssid)
     if text:
-        query_params["text"]=str(text)
+        query_params["text"] = str(text)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distinct:str="device", ap:str|None=None, band:str|None=None, client_family:str|None=None, client_manufacture:str|None=None, client_model:str|None=None, client_os:str|None=None, ssid:str|None=None, wlan_id:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countOrgWirelessClientsSessions(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str = "device",
+    ap: str | None = None,
+    band: str | None = None,
+    client_family: str | None = None,
+    client_manufacture: str | None = None,
+    client_model: str | None = None,
+    client_os: str | None = None,
+    ssid: str | None = None,
+    wlan_id: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/count-org-wireless-clients-sessions
 
@@ -264,38 +340,58 @@ def countOrgWirelessClientsSessions(mist_session:_APISession, org_id:str, distin
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/clients/sessions/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if ap:
-        query_params["ap"]=str(ap)
+        query_params["ap"] = str(ap)
     if band:
-        query_params["band"]=str(band)
+        query_params["band"] = str(band)
     if client_family:
-        query_params["client_family"]=str(client_family)
+        query_params["client_family"] = str(client_family)
     if client_manufacture:
-        query_params["client_manufacture"]=str(client_manufacture)
+        query_params["client_manufacture"] = str(client_manufacture)
     if client_model:
-        query_params["client_model"]=str(client_model)
+        query_params["client_model"] = str(client_model)
     if client_os:
-        query_params["client_os"]=str(client_os)
+        query_params["client_os"] = str(client_os)
     if ssid:
-        query_params["ssid"]=str(ssid)
+        query_params["ssid"] = str(ssid)
     if wlan_id:
-        query_params["wlan_id"]=str(wlan_id)
+        query_params["wlan_id"] = str(wlan_id)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchOrgWirelessClientSessions(mist_session:_APISession, org_id:str, ap:str|None=None, band:str|None=None, client_family:str|None=None, client_manufacture:str|None=None, client_model:str|None=None, client_username:str|None=None, client_os:str|None=None, ssid:str|None=None, wlan_id:str|None=None, psk_id:str|None=None, psk_name:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchOrgWirelessClientSessions(
+    mist_session: _APISession,
+    org_id: str,
+    ap: str | None = None,
+    band: str | None = None,
+    client_family: str | None = None,
+    client_manufacture: str | None = None,
+    client_model: str | None = None,
+    client_username: str | None = None,
+    client_os: str | None = None,
+    ssid: str | None = None,
+    wlan_id: str | None = None,
+    psk_id: str | None = None,
+    psk_name: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-client-sessions
 
@@ -332,42 +428,46 @@ def searchOrgWirelessClientSessions(mist_session:_APISession, org_id:str, ap:str
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/clients/sessions/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if ap:
-        query_params["ap"]=str(ap)
+        query_params["ap"] = str(ap)
     if band:
-        query_params["band"]=str(band)
+        query_params["band"] = str(band)
     if client_family:
-        query_params["client_family"]=str(client_family)
+        query_params["client_family"] = str(client_family)
     if client_manufacture:
-        query_params["client_manufacture"]=str(client_manufacture)
+        query_params["client_manufacture"] = str(client_manufacture)
     if client_model:
-        query_params["client_model"]=str(client_model)
+        query_params["client_model"] = str(client_model)
     if client_username:
-        query_params["client_username"]=str(client_username)
+        query_params["client_username"] = str(client_username)
     if client_os:
-        query_params["client_os"]=str(client_os)
+        query_params["client_os"] = str(client_os)
     if ssid:
-        query_params["ssid"]=str(ssid)
+        query_params["ssid"] = str(ssid)
     if wlan_id:
-        query_params["wlan_id"]=str(wlan_id)
+        query_params["wlan_id"] = str(wlan_id)
     if psk_id:
-        query_params["psk_id"]=str(psk_id)
+        query_params["psk_id"] = str(psk_id)
     if psk_name:
-        query_params["psk_name"]=str(psk_name)
+        query_params["psk_name"] = str(psk_name)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def reauthOrgDot1xWirelessClient(mist_session:_APISession, org_id:str, client_mac:str) -> _APIResponse:
+
+def reauthOrgDot1xWirelessClient(
+    mist_session: _APISession, org_id: str, client_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/reauth-org-dot1x-wireless-client
 
@@ -386,6 +486,7 @@ def reauthOrgDot1xWirelessClient(mist_session:_APISession, org_id:str, client_ma
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/clients/{client_mac}/coa"
     resp = mist_session.mist_post(uri=uri)
     return resp

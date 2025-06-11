@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgMxTunnels(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgMxTunnels(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxtunnels/list-org-mx-tunnels
 
@@ -37,16 +39,20 @@ def listOrgMxTunnels(mist_session:_APISession, org_id:str, limit:int=100, page:i
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/mxtunnels"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgMxTunnel(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgMxTunnel(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxtunnels/create-org-mx-tunnel
 
@@ -69,11 +75,15 @@ def createOrgMxTunnel(mist_session:_APISession, org_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/mxtunnels"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> _APIResponse:
+
+def getOrgMxTunnel(
+    mist_session: _APISession, org_id: str, mxtunnel_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxtunnels/get-org-mx-tunnel
 
@@ -92,12 +102,16 @@ def getOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> _AP
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/mxtunnels/{mxtunnel_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> _APIResponse:
+
+def deleteOrgMxTunnel(
+    mist_session: _APISession, org_id: str, mxtunnel_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxtunnels/delete-org-mx-tunnel
 
@@ -116,12 +130,16 @@ def deleteOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/mxtunnels/{mxtunnel_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str, body:dict) -> _APIResponse:
+
+def updateOrgMxTunnel(
+    mist_session: _APISession, org_id: str, mxtunnel_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxtunnels/update-org-mx-tunnel
 
@@ -145,6 +163,7 @@ def updateOrgMxTunnel(mist_session:_APISession, org_id:str, mxtunnel_id:str, bod
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/mxtunnels/{mxtunnel_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

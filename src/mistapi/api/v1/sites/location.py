@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,23 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:str|None=None, type:str|None=None, client_type:str|None=None, duration:str="1d", resolution:str="default", start:int|None=None, end:int|None=None) -> _APIResponse:
+
+def getSiteBeamCoverageOverview(
+    mist_session: _APISession,
+    site_id: str,
+    map_id: str | None = None,
+    type: str | None = None,
+    client_type: str | None = None,
+    duration: str = "1d",
+    resolution: str = "default",
+    start: int | None = None,
+    end: int | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-beam-coverage-overview
 
@@ -42,26 +52,30 @@ def getSiteBeamCoverageOverview(mist_session:_APISession, site_id:str, map_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/location/coverage"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if map_id:
-        query_params["map_id"]=str(map_id)
+        query_params["map_id"] = str(map_id)
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if client_type:
-        query_params["client_type"]=str(client_type)
+        query_params["client_type"] = str(client_type)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if resolution:
-        query_params["resolution"]=str(resolution)
+        query_params["resolution"] = str(resolution)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map_id:str|None=None) -> _APIResponse:
+
+def getSiteMachineLearningCurrentStat(
+    mist_session: _APISession, site_id: str, map_id: str | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-machine-learning-current-stat
 
@@ -83,14 +97,16 @@ def getSiteMachineLearningCurrentStat(mist_session:_APISession, site_id:str, map
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/location/ml/current"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if map_id:
-        query_params["map_id"]=str(map_id)
+        query_params["map_id"] = str(map_id)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> _APIResponse:
+
+def getSiteDefaultPlfForModels(mist_session: _APISession, site_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-default-plf-for-models
 
@@ -108,12 +124,16 @@ def getSiteDefaultPlfForModels(mist_session:_APISession, site_id:str) -> _APIRes
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/location/ml/defaults"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+
+def clearSiteMlOverwriteForDevice(
+    mist_session: _APISession, site_id: str, device_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/clear-site-ml-overwrite-for-device
 
@@ -132,12 +152,16 @@ def clearSiteMlOverwriteForDevice(mist_session:_APISession, site_id:str, device_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/location/ml/device/{device_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:str, body:dict) -> _APIResponse:
+
+def overwriteSiteMlForDevice(
+    mist_session: _APISession, site_id: str, device_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/overwrite-site-ml-for-device
 
@@ -161,11 +185,15 @@ def overwriteSiteMlForDevice(mist_session:_APISession, site_id:str, device_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/location/ml/device/{device_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+
+def clearSiteMlOverwriteForMap(
+    mist_session: _APISession, site_id: str, map_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/clear-site-ml-overwrite-for-map
 
@@ -184,12 +212,16 @@ def clearSiteMlOverwriteForMap(mist_session:_APISession, site_id:str, map_id:str
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/location/ml/map/{map_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, body:dict) -> _APIResponse:
+
+def overwriteSiteMlForMap(
+    mist_session: _APISession, site_id: str, map_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/overwrite-site-ml-for-map
 
@@ -213,11 +245,15 @@ def overwriteSiteMlForMap(mist_session:_APISession, site_id:str, map_id:str, bod
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/location/ml/map/{map_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+
+def resetSiteMlStatsByMap(
+    mist_session: _APISession, site_id: str, map_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/reset-site-ml-stats-by-map
 
@@ -236,6 +272,7 @@ def resetSiteMlStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/location/ml/reset/map/{map_id}"
     resp = mist_session.mist_post(uri=uri)
     return resp

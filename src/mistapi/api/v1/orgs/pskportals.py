@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgPskPortals(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgPskPortals(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/list-org-psk-portals
 
@@ -37,16 +39,20 @@ def listOrgPskPortals(mist_session:_APISession, org_id:str, limit:int=100, page:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pskportals"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgPskPortal(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgPskPortal(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/create-org-psk-portal
 
@@ -69,11 +75,21 @@ def createOrgPskPortal(mist_session:_APISession, org_id:str, body:dict) -> _APIR
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pskportals"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgPskPortalLogs(
+    mist_session: _APISession,
+    org_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/list-org-psk-portal-logs
 
@@ -99,22 +115,32 @@ def listOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int|None=No
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pskportals/logs"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="pskportal_id", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countOrgPskPortalLogs(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str = "pskportal_id",
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/count-org-psk-portal-logs
 
@@ -140,22 +166,39 @@ def countOrgPskPortalLogs(mist_session:_APISession, org_id:str, distinct:str="ps
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pskportals/logs/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1, psk_name:str|None=None, psk_id:str|None=None, pskportal_id:str|None=None, id:str|None=None, admin_name:str|None=None, admin_id:str|None=None, name_id:str|None=None) -> _APIResponse:
+
+def searchOrgPskPortalLogs(
+    mist_session: _APISession,
+    org_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+    psk_name: str | None = None,
+    psk_id: str | None = None,
+    pskportal_id: str | None = None,
+    id: str | None = None,
+    admin_name: str | None = None,
+    admin_id: str | None = None,
+    name_id: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/search-org-psk-portal-logs
 
@@ -188,36 +231,40 @@ def searchOrgPskPortalLogs(mist_session:_APISession, org_id:str, start:int|None=
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pskportals/logs/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     if psk_name:
-        query_params["psk_name"]=str(psk_name)
+        query_params["psk_name"] = str(psk_name)
     if psk_id:
-        query_params["psk_id"]=str(psk_id)
+        query_params["psk_id"] = str(psk_id)
     if pskportal_id:
-        query_params["pskportal_id"]=str(pskportal_id)
+        query_params["pskportal_id"] = str(pskportal_id)
     if id:
-        query_params["id"]=str(id)
+        query_params["id"] = str(id)
     if admin_name:
-        query_params["admin_name"]=str(admin_name)
+        query_params["admin_name"] = str(admin_name)
     if admin_id:
-        query_params["admin_id"]=str(admin_id)
+        query_params["admin_id"] = str(admin_id)
     if name_id:
-        query_params["name_id"]=str(name_id)
+        query_params["name_id"] = str(name_id)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
+
+def getOrgPskPortal(
+    mist_session: _APISession, org_id: str, pskportal_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/get-org-psk-portal
 
@@ -236,12 +283,16 @@ def getOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pskportals/{pskportal_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
+
+def deleteOrgPskPortal(
+    mist_session: _APISession, org_id: str, pskportal_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/delete-org-psk-portal
 
@@ -260,12 +311,16 @@ def deleteOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pskportals/{pskportal_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, body:dict) -> _APIResponse:
+
+def updateOrgPskPortal(
+    mist_session: _APISession, org_id: str, pskportal_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/update-org-psk-portal
 
@@ -289,11 +344,15 @@ def updateOrgPskPortal(mist_session:_APISession, org_id:str, pskportal_id:str, b
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pskportals/{pskportal_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def deleteOrgPskPortalImage(mist_session:_APISession, org_id:str, pskportal_id:str) -> _APIResponse:
+
+def deleteOrgPskPortalImage(
+    mist_session: _APISession, org_id: str, pskportal_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/delete-org-psk-portal-image
 
@@ -312,12 +371,20 @@ def deleteOrgPskPortalImage(mist_session:_APISession, org_id:str, pskportal_id:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pskportals/{pskportal_id}/portal_image"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def uploadOrgPskPortalImageFile(mist_session:_APISession, org_id:str, pskportal_id:str, file:str|None=None, json:str|None=None) -> _APIResponse:
+
+def uploadOrgPskPortalImageFile(
+    mist_session: _APISession,
+    org_id: str,
+    pskportal_id: str,
+    file: str | None = None,
+    json: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/upload-org-psk-portal-image
 
@@ -343,15 +410,19 @@ def uploadOrgPskPortalImageFile(mist_session:_APISession, org_id:str, pskportal_
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "file":file,
-        "json":json,
+        "file": file,
+        "json": json,
     }
     uri = f"/api/v1/orgs/{org_id}/pskportals/{pskportal_id}/portal_image"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def updateOrgPskPortalTemplate(mist_session:_APISession, org_id:str, pskportal_id:str, body:dict) -> _APIResponse:
+
+def updateOrgPskPortalTemplate(
+    mist_session: _APISession, org_id: str, pskportal_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/update-org-psk-portal-template
 
@@ -375,6 +446,7 @@ def updateOrgPskPortalTemplate(mist_session:_APISession, org_id:str, pskportal_i
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pskportals/{pskportal_id}/portal_template"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

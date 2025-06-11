@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listAppCategoryDefinitions(mist_session:_APISession) -> _APIResponse:
+
+def listAppCategoryDefinitions(mist_session: _APISession) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/constants/definitions/list-app-category-definitions
 
@@ -28,7 +28,8 @@ def listAppCategoryDefinitions(mist_session:_APISession) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/const/app_categories"
-    query_params:dict[str, str]={}
+
+    uri = "/api/v1/const/app_categories"
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

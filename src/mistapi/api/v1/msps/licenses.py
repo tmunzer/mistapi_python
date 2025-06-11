@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listMspLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
+
+def listMspLicenses(mist_session: _APISession, msp_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/licenses/list-msp-licenses
 
@@ -32,12 +32,16 @@ def listMspLicenses(mist_session:_APISession, msp_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/licenses"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def moveOrDeleteMspLicenseToAnotherOrg(mist_session:_APISession, msp_id:str, body:dict) -> _APIResponse:
+
+def moveOrDeleteMspLicenseToAnotherOrg(
+    mist_session: _APISession, msp_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/licenses/move-or-delete-msp-license-to-another-org
 
@@ -60,6 +64,7 @@ def moveOrDeleteMspLicenseToAnotherOrg(mist_session:_APISession, msp_id:str, bod
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/licenses"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

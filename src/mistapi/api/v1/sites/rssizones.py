@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteRssiZones(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteRssiZones(
+    mist_session: _APISession, site_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rssi-zones/list-site-rssi-zones
 
@@ -37,16 +39,20 @@ def listSiteRssiZones(mist_session:_APISession, site_id:str, limit:int=100, page
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rssizones"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createSiteRssiZone(mist_session:_APISession, site_id:str, body:dict) -> _APIResponse:
+
+def createSiteRssiZone(
+    mist_session: _APISession, site_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rssi-zones/create-site-rssi-zone
 
@@ -69,11 +75,15 @@ def createSiteRssiZone(mist_session:_APISession, site_id:str, body:dict) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rssizones"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str) -> _APIResponse:
+
+def getSiteRssiZone(
+    mist_session: _APISession, site_id: str, rssizone_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rssi-zones/get-site-rssi-zone
 
@@ -92,12 +102,16 @@ def getSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str) -> _
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rssizones/{rssizone_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str) -> _APIResponse:
+
+def deleteSiteRssiZone(
+    mist_session: _APISession, site_id: str, rssizone_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rssi-zones/delete-site-rssi-zone
 
@@ -116,12 +130,16 @@ def deleteSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rssizones/{rssizone_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str, body:dict) -> _APIResponse:
+
+def updateSiteRssiZone(
+    mist_session: _APISession, site_id: str, rssizone_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rssi-zones/update-site-rssi-zone
 
@@ -145,6 +163,7 @@ def updateSiteRssiZone(mist_session:_APISession, site_id:str, rssizone_id:str, b
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rssizones/{rssizone_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
+
+def listMspOrgGroups(mist_session: _APISession, msp_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/list-msp-org-groups
 
@@ -32,12 +32,16 @@ def listMspOrgGroups(mist_session:_APISession, msp_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/orggroups"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:dict) -> _APIResponse:
+
+def createMspOrgGroup(
+    mist_session: _APISession, msp_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/create-msp-org-group
 
@@ -60,11 +64,15 @@ def createMspOrgGroup(mist_session:_APISession, msp_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/orggroups"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _APIResponse:
+
+def getMspOrgGroup(
+    mist_session: _APISession, msp_id: str, orggroup_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/get-msp-org-group
 
@@ -83,12 +91,16 @@ def getMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _AP
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> _APIResponse:
+
+def deleteMspOrgGroup(
+    mist_session: _APISession, msp_id: str, orggroup_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/delete-msp-org-group
 
@@ -107,12 +119,16 @@ def deleteMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str, body:dict) -> _APIResponse:
+
+def updateMspOrgGroup(
+    mist_session: _APISession, msp_id: str, orggroup_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/org-groups/update-msp-org-group
 
@@ -136,6 +152,7 @@ def updateMspOrgGroup(mist_session:_APISession, msp_id:str, orggroup_id:str, bod
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/orggroups/{orggroup_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

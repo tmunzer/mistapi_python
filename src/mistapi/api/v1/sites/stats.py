@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getSiteStats(mist_session:_APISession, site_id:str) -> _APIResponse:
+
+def getSiteStats(mist_session: _APISession, site_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/get-site-stats
 
@@ -32,12 +32,22 @@ def getSiteStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countSiteApps(mist_session:_APISession, site_id:str, distinct:str|None=None, device_mac:str|None=None, app:str|None=None, wired:str|None=None, limit:int=100) -> _APIResponse:
+
+def countSiteApps(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str | None = None,
+    device_mac: str | None = None,
+    app: str | None = None,
+    wired: str | None = None,
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/apps/count-site-apps
 
@@ -64,22 +74,32 @@ def countSiteApps(mist_session:_APISession, site_id:str, distinct:str|None=None,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/apps/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if device_mac:
-        query_params["device_mac"]=str(device_mac)
+        query_params["device_mac"] = str(device_mac)
     if app:
-        query_params["app"]=str(app)
+        query_params["app"] = str(app)
     if wired:
-        query_params["wired"]=str(wired)
+        query_params["wired"] = str(wired)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteAssetsStats(mist_session:_APISession, site_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteAssetsStats(
+    mist_session: _APISession,
+    site_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/list-site-assets-stats
 
@@ -105,22 +125,26 @@ def listSiteAssetsStats(mist_session:_APISession, site_id:str, start:int|None=No
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/assets"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id", limit:int=100) -> _APIResponse:
+
+def countSiteAssets(
+    mist_session: _APISession, site_id: str, distinct: str = "map_id", limit: int = 100
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/count-site-assets
 
@@ -143,16 +167,39 @@ def countSiteAssets(mist_session:_APISession, site_id:str, distinct:str="map_id"
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/assets/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str|None=None, map_id:str|None=None, ibeacon_uuid:str|None=None, ibeacon_major:int|None=None, ibeacon_minor:int|None=None, eddystone_uid_namespace:str|None=None, eddystone_uid_instance:str|None=None, eddystone_url:str|None=None, device_name:str|None=None, by:str|None=None, name:str|None=None, ap_mac:str|None=None, beam:str|None=None, rssi:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchSiteAssets(
+    mist_session: _APISession,
+    site_id: str,
+    mac: str | None = None,
+    map_id: str | None = None,
+    ibeacon_uuid: str | None = None,
+    ibeacon_major: int | None = None,
+    ibeacon_minor: int | None = None,
+    eddystone_uid_namespace: str | None = None,
+    eddystone_uid_instance: str | None = None,
+    eddystone_url: str | None = None,
+    device_name: str | None = None,
+    by: str | None = None,
+    name: str | None = None,
+    ap_mac: str | None = None,
+    beam: str | None = None,
+    rssi: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/search-site-assets
 
@@ -191,48 +238,57 @@ def searchSiteAssets(mist_session:_APISession, site_id:str, mac:str|None=None, m
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/assets/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if map_id:
-        query_params["map_id"]=str(map_id)
+        query_params["map_id"] = str(map_id)
     if ibeacon_uuid:
-        query_params["ibeacon_uuid"]=str(ibeacon_uuid)
+        query_params["ibeacon_uuid"] = str(ibeacon_uuid)
     if ibeacon_major:
-        query_params["ibeacon_major"]=str(ibeacon_major)
+        query_params["ibeacon_major"] = str(ibeacon_major)
     if ibeacon_minor:
-        query_params["ibeacon_minor"]=str(ibeacon_minor)
+        query_params["ibeacon_minor"] = str(ibeacon_minor)
     if eddystone_uid_namespace:
-        query_params["eddystone_uid_namespace"]=str(eddystone_uid_namespace)
+        query_params["eddystone_uid_namespace"] = str(eddystone_uid_namespace)
     if eddystone_uid_instance:
-        query_params["eddystone_uid_instance"]=str(eddystone_uid_instance)
+        query_params["eddystone_uid_instance"] = str(eddystone_uid_instance)
     if eddystone_url:
-        query_params["eddystone_url"]=str(eddystone_url)
+        query_params["eddystone_url"] = str(eddystone_url)
     if device_name:
-        query_params["device_name"]=str(device_name)
+        query_params["device_name"] = str(device_name)
     if by:
-        query_params["by"]=str(by)
+        query_params["by"] = str(by)
     if name:
-        query_params["name"]=str(name)
+        query_params["name"] = str(name)
     if ap_mac:
-        query_params["ap_mac"]=str(ap_mac)
+        query_params["ap_mac"] = str(ap_mac)
     if beam:
-        query_params["beam"]=str(beam)
+        query_params["beam"] = str(beam)
     if rssi:
-        query_params["rssi"]=str(rssi)
+        query_params["rssi"] = str(rssi)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteAssetStats(mist_session:_APISession, site_id:str, asset_id:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def getSiteAssetStats(
+    mist_session: _APISession,
+    site_id: str,
+    asset_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-asset-stats
 
@@ -257,18 +313,28 @@ def getSiteAssetStats(mist_session:_APISession, site_id:str, asset_id:str, start
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/assets/{asset_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteBeaconsStats(mist_session:_APISession, site_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteBeaconsStats(
+    mist_session: _APISession,
+    site_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/beacons/list-site-beacons-stats
 
@@ -294,22 +360,30 @@ def listSiteBeaconsStats(mist_session:_APISession, site_id:str, start:int|None=N
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/beacons"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str|None=None, distinct:str|None=None, limit:int=100) -> _APIResponse:
+
+def countSiteBgpStats(
+    mist_session: _APISession,
+    site_id: str,
+    state: str | None = None,
+    distinct: str | None = None,
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/bgp-peers/count-site-bgp-stats
 
@@ -333,18 +407,20 @@ def countSiteBgpStats(mist_session:_APISession, site_id:str, state:str|None=None
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/bgp_peers/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if state:
-        query_params["state"]=str(state)
+        query_params["state"] = str(state)
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> _APIResponse:
+
+def searchSiteBgpStats(mist_session: _APISession, site_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/bgp-peers/search-site-bgp-stats
 
@@ -362,12 +438,26 @@ def searchSiteBgpStats(mist_session:_APISession, site_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/bgp_peers/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def troubleshootSiteCall(mist_session:_APISession, site_id:str, client_mac:str, meeting_id:str, mac:str|None=None, app:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def troubleshootSiteCall(
+    mist_session: _APISession,
+    site_id: str,
+    client_mac: str,
+    meeting_id: str,
+    mac: str | None = None,
+    app: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/troubleshoot-site-call
 
@@ -397,28 +487,39 @@ def troubleshootSiteCall(mist_session:_APISession, site_id:str, client_mac:str, 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/calls/client/{client_mac}/troubleshoot"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if meeting_id:
-        query_params["meeting_id"]=str(meeting_id)
+        query_params["meeting_id"] = str(meeting_id)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if app:
-        query_params["app"]=str(app)
+        query_params["app"] = str(app)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countSiteCalls(mist_session:_APISession, site_id:str, distinct:str="mac", rating:int|None=None, app:str|None=None, start:str|None=None, end:str|None=None, limit:int=100) -> _APIResponse:
+
+def countSiteCalls(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "mac",
+    rating: int | None = None,
+    app: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/count-site-calls
 
@@ -445,24 +546,35 @@ def countSiteCalls(mist_session:_APISession, site_id:str, distinct:str="mac", ra
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/calls/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if rating:
-        query_params["rating"]=str(rating)
+        query_params["rating"] = str(rating)
     if app:
-        query_params["app"]=str(app)
+        query_params["app"] = str(app)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str|None=None, app:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchSiteCalls(
+    mist_session: _APISession,
+    site_id: str,
+    mac: str | None = None,
+    app: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/search-site-calls
 
@@ -489,24 +601,33 @@ def searchSiteCalls(mist_session:_APISession, site_id:str, mac:str|None=None, ap
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/calls/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if app:
-        query_params["app"]=str(app)
+        query_params["app"] = str(app)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteCallsSummary(mist_session:_APISession, site_id:str, ap_mac:str|None=None, app:str|None=None, start:int|None=None, end:int|None=None) -> _APIResponse:
+
+def getSiteCallsSummary(
+    mist_session: _APISession,
+    site_id: str,
+    ap_mac: str | None = None,
+    app: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/get-site-calls-summary
 
@@ -531,20 +652,34 @@ def getSiteCallsSummary(mist_session:_APISession, site_id:str, ap_mac:str|None=N
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/calls/summary"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if ap_mac:
-        query_params["ap_mac"]=str(ap_mac)
+        query_params["ap_mac"] = str(ap_mac)
     if app:
-        query_params["app"]=str(app)
+        query_params["app"] = str(app)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, ap:str|None=None, meeting_id:str|None=None, mac:str|None=None, app:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteTroubleshootCalls(
+    mist_session: _APISession,
+    site_id: str,
+    ap: str | None = None,
+    meeting_id: str | None = None,
+    mac: str | None = None,
+    app: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/list-site-troubleshoot-calls
 
@@ -574,30 +709,40 @@ def listSiteTroubleshootCalls(mist_session:_APISession, site_id:str, ap:str|None
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/calls/troubleshoot"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if ap:
-        query_params["ap"]=str(ap)
+        query_params["ap"] = str(ap)
     if meeting_id:
-        query_params["meeting_id"]=str(meeting_id)
+        query_params["meeting_id"] = str(meeting_id)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if app:
-        query_params["app"]=str(app)
+        query_params["app"] = str(app)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteWirelessClientsStats(mist_session:_APISession, site_id:str, wired:bool|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def listSiteWirelessClientsStats(
+    mist_session: _APISession,
+    site_id: str,
+    wired: bool | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/list-site-wireless-clients-stats
 
@@ -623,22 +768,26 @@ def listSiteWirelessClientsStats(mist_session:_APISession, site_id:str, wired:bo
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/clients"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if wired:
-        query_params["wired"]=str(wired)
+        query_params["wired"] = str(wired)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteWirelessClientStats(mist_session:_APISession, site_id:str, client_mac:str, wired:bool|None=None) -> _APIResponse:
+
+def getSiteWirelessClientStats(
+    mist_session: _APISession, site_id: str, client_mac: str, wired: bool | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/get-site-wireless-client-stats
 
@@ -661,14 +810,23 @@ def getSiteWirelessClientStats(mist_session:_APISession, site_id:str, client_mac
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/clients/{client_mac}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if wired:
-        query_params["wired"]=str(wired)
+        query_params["wired"] = str(wired)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", status:str="all", limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteDevicesStats(
+    mist_session: _APISession,
+    site_id: str,
+    type: str = "ap",
+    status: str = "all",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/list-site-devices-stats
 
@@ -693,20 +851,24 @@ def listSiteDevicesStats(mist_session:_APISession, site_id:str, type:str="ap", s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/devices"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if status:
-        query_params["status"]=str(status)
+        query_params["status"] = str(status)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str, fields:str|None=None) -> _APIResponse:
+
+def getSiteDeviceStats(
+    mist_session: _APISession, site_id: str, device_id: str, fields: str | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-device-stats
 
@@ -729,14 +891,18 @@ def getSiteDeviceStats(mist_session:_APISession, site_id:str, device_id:str, fie
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/devices/{device_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if fields:
-        query_params["fields"]=str(fields)
+        query_params["fields"] = str(fields)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device_id:str) -> _APIResponse:
+
+def getSiteAllClientsStatsByDevice(
+    mist_session: _APISession, site_id: str, device_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-all-clients-stats-by-device
 
@@ -755,12 +921,22 @@ def getSiteAllClientsStatsByDevice(mist_session:_APISession, site_id:str, device
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/devices/{device_id}/clients"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteDiscoveredAssets(
+    mist_session: _APISession,
+    site_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/list-site-discovered-assets
 
@@ -786,22 +962,33 @@ def listSiteDiscoveredAssets(mist_session:_APISession, site_id:str, start:int|No
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/discovered_assets"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, scope:str="site", type:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchSiteDiscoveredSwitchesMetrics(
+    mist_session: _APISession,
+    site_id: str,
+    scope: str = "site",
+    type: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/search-site-discovered-switches-metrics
 
@@ -830,24 +1017,34 @@ def searchSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switch_metrics/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if scope:
-        query_params["scope"]=str(scope)
+        query_params["scope"] = str(scope)
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:str="system_name", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteDiscoveredSwitches(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "system_name",
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/count-site-discovered-switches
 
@@ -873,22 +1070,29 @@ def countSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, distinct:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, threshold:str|None=None, system_name:str|None=None) -> _APIResponse:
+
+def listSiteDiscoveredSwitchesMetrics(
+    mist_session: _APISession,
+    site_id: str,
+    threshold: str | None = None,
+    system_name: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/list-site-discovered-switches-metrics
 
@@ -911,16 +1115,31 @@ def listSiteDiscoveredSwitchesMetrics(mist_session:_APISession, site_id:str, thr
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/metrics"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if threshold:
-        query_params["threshold"]=str(threshold)
+        query_params["threshold"] = str(threshold)
     if system_name:
-        query_params["system_name"]=str(system_name)
+        query_params["system_name"] = str(system_name)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:bool|None=None, system_name:str|None=None, hostname:str|None=None, vendor:str|None=None, model:str|None=None, version:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchSiteDiscoveredSwitches(
+    mist_session: _APISession,
+    site_id: str,
+    adopted: bool | None = None,
+    system_name: str | None = None,
+    hostname: str | None = None,
+    vendor: str | None = None,
+    model: str | None = None,
+    version: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/search-site-discovered-switches
 
@@ -951,32 +1170,42 @@ def searchSiteDiscoveredSwitches(mist_session:_APISession, site_id:str, adopted:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/discovered_switches/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if adopted:
-        query_params["adopted"]=str(adopted)
+        query_params["adopted"] = str(adopted)
     if system_name:
-        query_params["system_name"]=str(system_name)
+        query_params["system_name"] = str(system_name)
     if hostname:
-        query_params["hostname"]=str(hostname)
+        query_params["hostname"] = str(hostname)
     if vendor:
-        query_params["vendor"]=str(vendor)
+        query_params["vendor"] = str(vendor)
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if version:
-        query_params["version"]=str(version)
+        query_params["version"] = str(version)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str="1d", start:int|None=None, end:int|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def getSiteAssetsOfInterest(
+    mist_session: _APISession,
+    site_id: str,
+    duration: str = "1d",
+    start: int | None = None,
+    end: int | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-assets-of-interest
 
@@ -1002,22 +1231,24 @@ def getSiteAssetsOfInterest(mist_session:_APISession, site_id:str, duration:str=
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/filtered_assets"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteGatewayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse:
+
+def getSiteGatewayMetrics(mist_session: _APISession, site_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-gateway-metrics
 
@@ -1035,12 +1266,23 @@ def getSiteGatewayMetrics(mist_session:_APISession, site_id:str) -> _APIResponse
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/gateways/metrics"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def getSiteWirelessClientsStatsByMap(
+    mist_session: _APISession,
+    site_id: str,
+    map_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/get-site-wireless-clients-stats-by-map
 
@@ -1067,22 +1309,26 @@ def getSiteWirelessClientsStatsByMap(mist_session:_APISession, site_id:str, map_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/clients"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+
+def getSiteDiscoveredAssetByMap(
+    mist_session: _APISession, site_id: str, map_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-discovered-asset-by-map
 
@@ -1101,12 +1347,16 @@ def getSiteDiscoveredAssetByMap(mist_session:_APISession, site_id:str, map_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/discovered_assets"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+
+def getSiteSdkStatsByMap(
+    mist_session: _APISession, site_id: str, map_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-sdk/get-site-sdk-stats-by-map
 
@@ -1125,12 +1375,16 @@ def getSiteSdkStatsByMap(mist_session:_APISession, site_id:str, map_id:str) -> _
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/sdkclients"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id:str) -> _APIResponse:
+
+def listSiteUnconnectedClientStats(
+    mist_session: _APISession, site_id: str, map_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/list-site-unconnected-client-stats
 
@@ -1149,12 +1403,22 @@ def listSiteUnconnectedClientStats(mist_session:_APISession, site_id:str, map_id
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/unconnected_clients"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteMxEdgesStats(
+    mist_session: _APISession,
+    site_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/mxedges/list-site-mx-edges-stats
 
@@ -1180,22 +1444,31 @@ def listSiteMxEdgesStats(mist_session:_APISession, site_id:str, start:int|None=N
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/mxedges"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def getSiteMxEdgeStats(
+    mist_session: _APISession,
+    site_id: str,
+    mxedge_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/mxedges/get-site-mx-edge-stats
 
@@ -1220,18 +1493,53 @@ def getSiteMxEdgeStats(mist_session:_APISession, site_id:str, mxedge_id:str, sta
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/mxedges/{mxedge_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="mac", full_duplex:bool|None=None, mac:str|None=None, neighbor_mac:str|None=None, neighbor_port_desc:str|None=None, neighbor_system_name:str|None=None, poe_disabled:bool|None=None, poe_mode:str|None=None, poe_on:bool|None=None, port_id:str|None=None, port_mac:str|None=None, power_draw:float|None=None, tx_pkts:int|None=None, rx_pkts:int|None=None, rx_bytes:int|None=None, tx_bps:int|None=None, rx_bps:int|None=None, tx_mcast_pkts:int|None=None, tx_bcast_pkts:int|None=None, rx_mcast_pkts:int|None=None, rx_bcast_pkts:int|None=None, speed:int|None=None, stp_state:str|None=None, stp_role:str|None=None, auth_state:str|None=None, up:bool|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteSwOrGwPorts(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "mac",
+    full_duplex: bool | None = None,
+    mac: str | None = None,
+    neighbor_mac: str | None = None,
+    neighbor_port_desc: str | None = None,
+    neighbor_system_name: str | None = None,
+    poe_disabled: bool | None = None,
+    poe_mode: str | None = None,
+    poe_on: bool | None = None,
+    port_id: str | None = None,
+    port_mac: str | None = None,
+    power_draw: float | None = None,
+    tx_pkts: int | None = None,
+    rx_pkts: int | None = None,
+    rx_bytes: int | None = None,
+    tx_bps: int | None = None,
+    rx_bps: int | None = None,
+    tx_mcast_pkts: int | None = None,
+    tx_bcast_pkts: int | None = None,
+    rx_mcast_pkts: int | None = None,
+    rx_bcast_pkts: int | None = None,
+    speed: int | None = None,
+    stp_state: str | None = None,
+    stp_role: str | None = None,
+    auth_state: str | None = None,
+    up: bool | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/count-site-sw-or-gw-ports
 
@@ -1285,72 +1593,120 @@ def countSiteSwOrGwPorts(mist_session:_APISession, site_id:str, distinct:str="ma
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/ports/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if full_duplex:
-        query_params["full_duplex"]=str(full_duplex)
+        query_params["full_duplex"] = str(full_duplex)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if neighbor_mac:
-        query_params["neighbor_mac"]=str(neighbor_mac)
+        query_params["neighbor_mac"] = str(neighbor_mac)
     if neighbor_port_desc:
-        query_params["neighbor_port_desc"]=str(neighbor_port_desc)
+        query_params["neighbor_port_desc"] = str(neighbor_port_desc)
     if neighbor_system_name:
-        query_params["neighbor_system_name"]=str(neighbor_system_name)
+        query_params["neighbor_system_name"] = str(neighbor_system_name)
     if poe_disabled:
-        query_params["poe_disabled"]=str(poe_disabled)
+        query_params["poe_disabled"] = str(poe_disabled)
     if poe_mode:
-        query_params["poe_mode"]=str(poe_mode)
+        query_params["poe_mode"] = str(poe_mode)
     if poe_on:
-        query_params["poe_on"]=str(poe_on)
+        query_params["poe_on"] = str(poe_on)
     if port_id:
-        query_params["port_id"]=str(port_id)
+        query_params["port_id"] = str(port_id)
     if port_mac:
-        query_params["port_mac"]=str(port_mac)
+        query_params["port_mac"] = str(port_mac)
     if power_draw:
-        query_params["power_draw"]=str(power_draw)
+        query_params["power_draw"] = str(power_draw)
     if tx_pkts:
-        query_params["tx_pkts"]=str(tx_pkts)
+        query_params["tx_pkts"] = str(tx_pkts)
     if rx_pkts:
-        query_params["rx_pkts"]=str(rx_pkts)
+        query_params["rx_pkts"] = str(rx_pkts)
     if rx_bytes:
-        query_params["rx_bytes"]=str(rx_bytes)
+        query_params["rx_bytes"] = str(rx_bytes)
     if tx_bps:
-        query_params["tx_bps"]=str(tx_bps)
+        query_params["tx_bps"] = str(tx_bps)
     if rx_bps:
-        query_params["rx_bps"]=str(rx_bps)
+        query_params["rx_bps"] = str(rx_bps)
     if tx_mcast_pkts:
-        query_params["tx_mcast_pkts"]=str(tx_mcast_pkts)
+        query_params["tx_mcast_pkts"] = str(tx_mcast_pkts)
     if tx_bcast_pkts:
-        query_params["tx_bcast_pkts"]=str(tx_bcast_pkts)
+        query_params["tx_bcast_pkts"] = str(tx_bcast_pkts)
     if rx_mcast_pkts:
-        query_params["rx_mcast_pkts"]=str(rx_mcast_pkts)
+        query_params["rx_mcast_pkts"] = str(rx_mcast_pkts)
     if rx_bcast_pkts:
-        query_params["rx_bcast_pkts"]=str(rx_bcast_pkts)
+        query_params["rx_bcast_pkts"] = str(rx_bcast_pkts)
     if speed:
-        query_params["speed"]=str(speed)
+        query_params["speed"] = str(speed)
     if stp_state:
-        query_params["stp_state"]=str(stp_state)
+        query_params["stp_state"] = str(stp_state)
     if stp_role:
-        query_params["stp_role"]=str(stp_role)
+        query_params["stp_role"] = str(stp_role)
     if auth_state:
-        query_params["auth_state"]=str(auth_state)
+        query_params["auth_state"] = str(auth_state)
     if up:
-        query_params["up"]=str(up)
+        query_params["up"] = str(up)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:bool|None=None, disabled:bool|None=None, mac:str|None=None, device_type:str|None=None, neighbor_mac:str|None=None, neighbor_port_desc:str|None=None, neighbor_system_name:str|None=None, poe_disabled:bool|None=None, poe_mode:str|None=None, poe_on:bool|None=None, port_id:str|None=None, port_mac:str|None=None, power_draw:float|None=None, tx_pkts:int|None=None, rx_pkts:int|None=None, rx_bytes:int|None=None, tx_bps:int|None=None, rx_bps:int|None=None, tx_errors:int|None=None, rx_errors:int|None=None, tx_mcast_pkts:int|None=None, tx_bcast_pkts:int|None=None, rx_mcast_pkts:int|None=None, rx_bcast_pkts:int|None=None, speed:int|None=None, mac_limit:int|None=None, mac_count:int|None=None, up:bool|None=None, active:bool|None=None, jitter:float|None=None, loss:float|None=None, latency:float|None=None, stp_state:str|None=None, stp_role:str|None=None, xcvr_part_number:str|None=None, auth_state:str|None=None, lte_imsi:str|None=None, lte_iccid:str|None=None, lte_imei:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchSiteSwOrGwPorts(
+    mist_session: _APISession,
+    site_id: str,
+    full_duplex: bool | None = None,
+    disabled: bool | None = None,
+    mac: str | None = None,
+    device_type: str | None = None,
+    neighbor_mac: str | None = None,
+    neighbor_port_desc: str | None = None,
+    neighbor_system_name: str | None = None,
+    poe_disabled: bool | None = None,
+    poe_mode: str | None = None,
+    poe_on: bool | None = None,
+    port_id: str | None = None,
+    port_mac: str | None = None,
+    power_draw: float | None = None,
+    tx_pkts: int | None = None,
+    rx_pkts: int | None = None,
+    rx_bytes: int | None = None,
+    tx_bps: int | None = None,
+    rx_bps: int | None = None,
+    tx_errors: int | None = None,
+    rx_errors: int | None = None,
+    tx_mcast_pkts: int | None = None,
+    tx_bcast_pkts: int | None = None,
+    rx_mcast_pkts: int | None = None,
+    rx_bcast_pkts: int | None = None,
+    speed: int | None = None,
+    mac_limit: int | None = None,
+    mac_count: int | None = None,
+    up: bool | None = None,
+    active: bool | None = None,
+    jitter: float | None = None,
+    loss: float | None = None,
+    latency: float | None = None,
+    stp_state: str | None = None,
+    stp_role: str | None = None,
+    xcvr_part_number: str | None = None,
+    auth_state: str | None = None,
+    lte_imsi: str | None = None,
+    lte_iccid: str | None = None,
+    lte_imei: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/search-site-sw-or-gw-ports
 
@@ -1418,98 +1774,100 @@ def searchSiteSwOrGwPorts(mist_session:_APISession, site_id:str, full_duplex:boo
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/ports/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if full_duplex:
-        query_params["full_duplex"]=str(full_duplex)
+        query_params["full_duplex"] = str(full_duplex)
     if disabled:
-        query_params["disabled"]=str(disabled)
+        query_params["disabled"] = str(disabled)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if device_type:
-        query_params["device_type"]=str(device_type)
+        query_params["device_type"] = str(device_type)
     if neighbor_mac:
-        query_params["neighbor_mac"]=str(neighbor_mac)
+        query_params["neighbor_mac"] = str(neighbor_mac)
     if neighbor_port_desc:
-        query_params["neighbor_port_desc"]=str(neighbor_port_desc)
+        query_params["neighbor_port_desc"] = str(neighbor_port_desc)
     if neighbor_system_name:
-        query_params["neighbor_system_name"]=str(neighbor_system_name)
+        query_params["neighbor_system_name"] = str(neighbor_system_name)
     if poe_disabled:
-        query_params["poe_disabled"]=str(poe_disabled)
+        query_params["poe_disabled"] = str(poe_disabled)
     if poe_mode:
-        query_params["poe_mode"]=str(poe_mode)
+        query_params["poe_mode"] = str(poe_mode)
     if poe_on:
-        query_params["poe_on"]=str(poe_on)
+        query_params["poe_on"] = str(poe_on)
     if port_id:
-        query_params["port_id"]=str(port_id)
+        query_params["port_id"] = str(port_id)
     if port_mac:
-        query_params["port_mac"]=str(port_mac)
+        query_params["port_mac"] = str(port_mac)
     if power_draw:
-        query_params["power_draw"]=str(power_draw)
+        query_params["power_draw"] = str(power_draw)
     if tx_pkts:
-        query_params["tx_pkts"]=str(tx_pkts)
+        query_params["tx_pkts"] = str(tx_pkts)
     if rx_pkts:
-        query_params["rx_pkts"]=str(rx_pkts)
+        query_params["rx_pkts"] = str(rx_pkts)
     if rx_bytes:
-        query_params["rx_bytes"]=str(rx_bytes)
+        query_params["rx_bytes"] = str(rx_bytes)
     if tx_bps:
-        query_params["tx_bps"]=str(tx_bps)
+        query_params["tx_bps"] = str(tx_bps)
     if rx_bps:
-        query_params["rx_bps"]=str(rx_bps)
+        query_params["rx_bps"] = str(rx_bps)
     if tx_errors:
-        query_params["tx_errors"]=str(tx_errors)
+        query_params["tx_errors"] = str(tx_errors)
     if rx_errors:
-        query_params["rx_errors"]=str(rx_errors)
+        query_params["rx_errors"] = str(rx_errors)
     if tx_mcast_pkts:
-        query_params["tx_mcast_pkts"]=str(tx_mcast_pkts)
+        query_params["tx_mcast_pkts"] = str(tx_mcast_pkts)
     if tx_bcast_pkts:
-        query_params["tx_bcast_pkts"]=str(tx_bcast_pkts)
+        query_params["tx_bcast_pkts"] = str(tx_bcast_pkts)
     if rx_mcast_pkts:
-        query_params["rx_mcast_pkts"]=str(rx_mcast_pkts)
+        query_params["rx_mcast_pkts"] = str(rx_mcast_pkts)
     if rx_bcast_pkts:
-        query_params["rx_bcast_pkts"]=str(rx_bcast_pkts)
+        query_params["rx_bcast_pkts"] = str(rx_bcast_pkts)
     if speed:
-        query_params["speed"]=str(speed)
+        query_params["speed"] = str(speed)
     if mac_limit:
-        query_params["mac_limit"]=str(mac_limit)
+        query_params["mac_limit"] = str(mac_limit)
     if mac_count:
-        query_params["mac_count"]=str(mac_count)
+        query_params["mac_count"] = str(mac_count)
     if up:
-        query_params["up"]=str(up)
+        query_params["up"] = str(up)
     if active:
-        query_params["active"]=str(active)
+        query_params["active"] = str(active)
     if jitter:
-        query_params["jitter"]=str(jitter)
+        query_params["jitter"] = str(jitter)
     if loss:
-        query_params["loss"]=str(loss)
+        query_params["loss"] = str(loss)
     if latency:
-        query_params["latency"]=str(latency)
+        query_params["latency"] = str(latency)
     if stp_state:
-        query_params["stp_state"]=str(stp_state)
+        query_params["stp_state"] = str(stp_state)
     if stp_role:
-        query_params["stp_role"]=str(stp_role)
+        query_params["stp_role"] = str(stp_role)
     if xcvr_part_number:
-        query_params["xcvr_part_number"]=str(xcvr_part_number)
+        query_params["xcvr_part_number"] = str(xcvr_part_number)
     if auth_state:
-        query_params["auth_state"]=str(auth_state)
+        query_params["auth_state"] = str(auth_state)
     if lte_imsi:
-        query_params["lte_imsi"]=str(lte_imsi)
+        query_params["lte_imsi"] = str(lte_imsi)
     if lte_iccid:
-        query_params["lte_iccid"]=str(lte_iccid)
+        query_params["lte_iccid"] = str(lte_iccid)
     if lte_imei:
-        query_params["lte_imei"]=str(lte_imei)
+        query_params["lte_imei"] = str(lte_imei)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteRssiZonesStats(mist_session:_APISession, site_id:str) -> _APIResponse:
+
+def listSiteRssiZonesStats(mist_session: _APISession, site_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/list-site-rssi-zones-stats
 
@@ -1527,12 +1885,16 @@ def listSiteRssiZonesStats(mist_session:_APISession, site_id:str) -> _APIRespons
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/rssizones"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteRssiZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
+
+def getSiteRssiZoneStats(
+    mist_session: _APISession, site_id: str, zone_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/get-site-rssi-zone-stats
 
@@ -1551,12 +1913,16 @@ def getSiteRssiZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/rssizones/{zone_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> _APIResponse:
+
+def getSiteSdkStats(
+    mist_session: _APISession, site_id: str, sdkclient_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-sdk/get-site-sdk-stats
 
@@ -1575,12 +1941,20 @@ def getSiteSdkStats(mist_session:_APISession, site_id:str, sdkclient_id:str) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/sdkclients/{sdkclient_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteSwitchesMetrics(mist_session:_APISession, site_id:str, type:str|None=None, scope:str|None=None, switch_mac:str|None=None) -> _APIResponse:
+
+def getSiteSwitchesMetrics(
+    mist_session: _APISession,
+    site_id: str,
+    type: str | None = None,
+    scope: str | None = None,
+    switch_mac: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/get-site-switches-metrics
 
@@ -1604,18 +1978,20 @@ def getSiteSwitchesMetrics(mist_session:_APISession, site_id:str, type:str|None=
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/switches/metrics"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if scope:
-        query_params["scope"]=str(scope)
+        query_params["scope"] = str(scope)
     if switch_mac:
-        query_params["switch_mac"]=str(switch_mac)
+        query_params["switch_mac"] = str(switch_mac)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
+
+def getSiteWxRulesUsage(mist_session: _APISession, site_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/wxrules/get-site-wx-rules-usage
 
@@ -1633,12 +2009,19 @@ def getSiteWxRulesUsage(mist_session:_APISession, site_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/wxrules"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str|None=None, min_duration:int|None=None) -> _APIResponse:
+
+def listSiteZonesStats(
+    mist_session: _APISession,
+    site_id: str,
+    map_id: str | None = None,
+    min_duration: int | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/list-site-zones-stats
 
@@ -1661,16 +2044,20 @@ def listSiteZonesStats(mist_session:_APISession, site_id:str, map_id:str|None=No
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/zones"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if map_id:
-        query_params["map_id"]=str(map_id)
+        query_params["map_id"] = str(map_id)
     if min_duration:
-        query_params["min_duration"]=str(min_duration)
+        query_params["min_duration"] = str(min_duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> _APIResponse:
+
+def getSiteZoneStats(
+    mist_session: _APISession, site_id: str, zone_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/zones/get-site-zone-stats
 
@@ -1689,7 +2076,8 @@ def getSiteZoneStats(mist_session:_APISession, site_id:str, zone_id:str) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/stats/zones/{zone_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

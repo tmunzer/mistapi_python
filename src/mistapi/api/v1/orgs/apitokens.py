@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgApiTokens(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def listOrgApiTokens(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/list-org-api-tokens
 
@@ -32,12 +32,16 @@ def listOrgApiTokens(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/apitokens"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgApiToken(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgApiToken(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/create-org-api-token
 
@@ -60,11 +64,15 @@ def createOrgApiToken(mist_session:_APISession, org_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/apitokens"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> _APIResponse:
+
+def getOrgApiToken(
+    mist_session: _APISession, org_id: str, apitoken_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/get-org-api-token
 
@@ -83,12 +91,16 @@ def getOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> _AP
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/apitokens/{apitoken_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> _APIResponse:
+
+def deleteOrgApiToken(
+    mist_session: _APISession, org_id: str, apitoken_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/delete-org-api-token
 
@@ -107,12 +119,16 @@ def deleteOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/apitokens/{apitoken_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str, body:dict) -> _APIResponse:
+
+def updateOrgApiToken(
+    mist_session: _APISession, org_id: str, apitoken_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/update-org-api-token
 
@@ -136,6 +152,7 @@ def updateOrgApiToken(mist_session:_APISession, org_id:str, apitoken_id:str, bod
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/apitokens/{apitoken_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

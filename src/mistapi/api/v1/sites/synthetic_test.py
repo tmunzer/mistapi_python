@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def triggerSiteSyntheticTest(mist_session:_APISession, site_id:str, body:dict) -> _APIResponse:
+
+def triggerSiteSyntheticTest(
+    mist_session: _APISession, site_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/trigger-site-synthetic-test
 
@@ -37,11 +39,24 @@ def triggerSiteSyntheticTest(mist_session:_APISession, site_id:str, body:dict) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/synthetic_test"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str|None=None, port_id:str|None=None, vlan_id:str|None=None, by:str|None=None, reason:str|None=None, type:str|None=None, protocol:str|None=None, tenant:str|None=None) -> _APIResponse:
+
+def searchSiteSyntheticTest(
+    mist_session: _APISession,
+    site_id: str,
+    mac: str | None = None,
+    port_id: str | None = None,
+    vlan_id: str | None = None,
+    by: str | None = None,
+    reason: str | None = None,
+    type: str | None = None,
+    protocol: str | None = None,
+    tenant: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/search-site-synthetic-test
 
@@ -72,23 +87,24 @@ def searchSiteSyntheticTest(mist_session:_APISession, site_id:str, mac:str|None=
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/synthetic_test/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if port_id:
-        query_params["port_id"]=str(port_id)
+        query_params["port_id"] = str(port_id)
     if vlan_id:
-        query_params["vlan_id"]=str(vlan_id)
+        query_params["vlan_id"] = str(vlan_id)
     if by:
-        query_params["by"]=str(by)
+        query_params["by"] = str(by)
     if reason:
-        query_params["reason"]=str(reason)
+        query_params["reason"] = str(reason)
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if protocol:
-        query_params["protocol"]=str(protocol)
+        query_params["protocol"] = str(protocol)
     if tenant:
-        query_params["tenant"]=str(tenant)
+        query_params["tenant"] = str(tenant)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def registerNewAdmin(mist_session:_APISession, body:dict) -> _APIResponse:
+
+def registerNewAdmin(mist_session: _APISession, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/register-new-admin
 
@@ -33,6 +33,7 @@ def registerNewAdmin(mist_session:_APISession, body:dict) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/register"
+
+    uri = "/api/v1/register"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgAAMWProfiles(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def listOrgAAMWProfiles(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/list-org-a-a-m-w-profiles
 
@@ -32,12 +32,16 @@ def listOrgAAMWProfiles(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/aamwprofiles"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgAAMWProfile(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgAAMWProfile(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/create-org-a-a-m-w-profile
 
@@ -60,11 +64,15 @@ def createOrgAAMWProfile(mist_session:_APISession, org_id:str, body:dict) -> _AP
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/aamwprofiles"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgAAMWProfile(mist_session:_APISession, org_id:str, aamwprofile_id:str) -> _APIResponse:
+
+def getOrgAAMWProfile(
+    mist_session: _APISession, org_id: str, aamwprofile_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/get-org-a-a-m-w-profile
 
@@ -83,12 +91,16 @@ def getOrgAAMWProfile(mist_session:_APISession, org_id:str, aamwprofile_id:str) 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/aamwprofiles/{aamwprofile_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgAAMWProfile(mist_session:_APISession, org_id:str, aamwprofile_id:str) -> _APIResponse:
+
+def deleteOrgAAMWProfile(
+    mist_session: _APISession, org_id: str, aamwprofile_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/delete-org-a-a-m-w-profile
 
@@ -107,12 +119,16 @@ def deleteOrgAAMWProfile(mist_session:_APISession, org_id:str, aamwprofile_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/aamwprofiles/{aamwprofile_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgAAMWProfile(mist_session:_APISession, org_id:str, aamwprofile_id:str, body:dict) -> _APIResponse:
+
+def updateOrgAAMWProfile(
+    mist_session: _APISession, org_id: str, aamwprofile_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/update-org-a-a-m-w-profile
 
@@ -136,6 +152,7 @@ def updateOrgAAMWProfile(mist_session:_APISession, org_id:str, aamwprofile_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/aamwprofiles/{aamwprofile_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

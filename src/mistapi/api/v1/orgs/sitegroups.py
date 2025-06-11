@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgSiteGroups(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgSiteGroups(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/list-org-site-groups
 
@@ -37,16 +39,20 @@ def listOrgSiteGroups(mist_session:_APISession, org_id:str, limit:int=100, page:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/sitegroups"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgSiteGroup(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgSiteGroup(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/create-org-site-group
 
@@ -69,11 +75,15 @@ def createOrgSiteGroup(mist_session:_APISession, org_id:str, body:dict) -> _APIR
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/sitegroups"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> _APIResponse:
+
+def getOrgSiteGroup(
+    mist_session: _APISession, org_id: str, sitegroup_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/get-org-site-group
 
@@ -92,12 +102,16 @@ def getOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> _
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/sitegroups/{sitegroup_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -> _APIResponse:
+
+def deleteOrgSiteGroup(
+    mist_session: _APISession, org_id: str, sitegroup_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/delete-org-site-group
 
@@ -116,12 +130,16 @@ def deleteOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/sitegroups/{sitegroup_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str, body:dict) -> _APIResponse:
+
+def updateOrgSiteGroup(
+    mist_session: _APISession, org_id: str, sitegroup_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sitegroups/update-org-site-group
 
@@ -145,6 +163,7 @@ def updateOrgSiteGroup(mist_session:_APISession, org_id:str, sitegroup_id:str, b
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/sitegroups/{sitegroup_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

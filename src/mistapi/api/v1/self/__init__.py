@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,14 +8,28 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
-from mistapi.api.v1.self import self
-from mistapi.api.v1.self import apitokens
-from mistapi.api.v1.self import login_failures
-from mistapi.api.v1.self import logs
-from mistapi.api.v1.self import oauth
-from mistapi.api.v1.self import subscriptions
-from mistapi.api.v1.self import two_factor
-from mistapi.api.v1.self import update
-from mistapi.api.v1.self import usage
+from mistapi.api.v1.self import (
+    self,
+    apitokens,
+    login_failures,
+    logs,
+    oauth,
+    subscriptions,
+    two_factor,
+    update,
+    usage,
+)
+
+__all__ = [
+    "self",
+    "apitokens",
+    "login_failures",
+    "logs",
+    "oauth",
+    "subscriptions",
+    "two_factor",
+    "update",
+    "usage",
+]

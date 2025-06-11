@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,11 +8,22 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
-from mistapi.api.v1.installer.orgs import alarmtemplates
-from mistapi.api.v1.installer.orgs import deviceprofiles
-from mistapi.api.v1.installer.orgs import devices
-from mistapi.api.v1.installer.orgs import rftemplates
-from mistapi.api.v1.installer.orgs import sitegroups
-from mistapi.api.v1.installer.orgs import sites
+from mistapi.api.v1.installer.orgs import (
+    alarmtemplates,
+    deviceprofiles,
+    devices,
+    rftemplates,
+    sitegroups,
+    sites,
+)
+
+__all__ = [
+    "alarmtemplates",
+    "deviceprofiles",
+    "devices",
+    "rftemplates",
+    "sitegroups",
+    "sites",
+]

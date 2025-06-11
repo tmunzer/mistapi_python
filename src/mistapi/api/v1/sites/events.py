@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,21 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def listSiteRoamingEvents(
+    mist_session: _APISession,
+    site_id: str,
+    type: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/events/list-site-roaming-events
 
@@ -41,22 +49,33 @@ def listSiteRoamingEvents(mist_session:_APISession, site_id:str, type:str|None=N
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/events/fast_roam"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteSystemEvents(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "type",
+    type: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/events/count-site-system-events
 
@@ -83,24 +102,34 @@ def countSiteSystemEvents(mist_session:_APISession, site_id:str, distinct:str="t
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/events/system/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteSystemEvents(mist_session:_APISession, site_id:str, type:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchSiteSystemEvents(
+    mist_session: _APISession,
+    site_id: str,
+    type: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/events/search-site-system-events
 
@@ -126,17 +155,18 @@ def searchSiteSystemEvents(mist_session:_APISession, site_id:str, type:str|None=
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/events/system/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

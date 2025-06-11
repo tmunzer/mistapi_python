@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def updateSelfEmail(mist_session:_APISession, body:dict) -> _APIResponse:
+
+def updateSelfEmail(mist_session: _APISession, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/update-self-email
 
@@ -33,11 +33,13 @@ def updateSelfEmail(mist_session:_APISession, body:dict) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/self/update"
+
+    uri = "/api/v1/self/update"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def verifySelfEmail(mist_session:_APISession, token:str) -> _APIResponse:
+
+def verifySelfEmail(mist_session: _APISession, token: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/account/verify-self-email
 
@@ -55,7 +57,8 @@ def verifySelfEmail(mist_session:_APISession, token:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/self/update/verify/{token}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

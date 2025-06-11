@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def createMsp(mist_session:_APISession, body:dict) -> _APIResponse:
+
+def createMsp(mist_session: _APISession, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/create-msp
 
@@ -33,11 +33,13 @@ def createMsp(mist_session:_APISession, body:dict) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/msps"
+
+    uri = "/api/v1/msps"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getMspDetails(mist_session:_APISession, msp_id:str) -> _APIResponse:
+
+def getMspDetails(mist_session: _APISession, msp_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/get-msp-details
 
@@ -55,12 +57,14 @@ def getMspDetails(mist_session:_APISession, msp_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteMsp(mist_session:_APISession, msp_id:str) -> _APIResponse:
+
+def deleteMsp(mist_session: _APISession, msp_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/delete-msp
 
@@ -78,12 +82,14 @@ def deleteMsp(mist_session:_APISession, msp_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateMsp(mist_session:_APISession, msp_id:str, body:dict) -> _APIResponse:
+
+def updateMsp(mist_session: _APISession, msp_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/update-msp
 
@@ -106,6 +112,7 @@ def updateMsp(mist_session:_APISession, msp_id:str, body:dict) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

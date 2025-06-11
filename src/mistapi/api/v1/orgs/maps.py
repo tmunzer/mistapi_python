@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,20 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def importOrgMapsFile(mist_session:_APISession, org_id:str, auto_deviceprofile_assignment:bool|None=None, csv:str|None=None, file:str|None=None, json:dict|None=None) -> _APIResponse:
+
+def importOrgMapsFile(
+    mist_session: _APISession,
+    org_id: str,
+    auto_deviceprofile_assignment: bool | None = None,
+    csv: str | None = None,
+    file: str | None = None,
+    json: dict | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/maps/import-org-maps
 
@@ -42,11 +49,12 @@ def importOrgMapsFile(mist_session:_APISession, org_id:str, auto_deviceprofile_a
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "auto_deviceprofile_assignment":auto_deviceprofile_assignment,
-        "csv":csv,
-        "file":file,
-        "json":json,
+        "auto_deviceprofile_assignment": auto_deviceprofile_assignment,
+        "csv": csv,
+        "file": file,
+        "json": json,
     }
     uri = f"/api/v1/orgs/{org_id}/maps/import"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)

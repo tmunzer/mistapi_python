@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def claimMspLicense(mist_session:_APISession, msp_id:str, body:dict) -> _APIResponse:
+
+def claimMspLicense(mist_session: _APISession, msp_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/licenses/claim-msp-license
 
@@ -37,6 +37,7 @@ def claimMspLicense(mist_session:_APISession, msp_id:str, body:dict) -> _APIResp
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/claim"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

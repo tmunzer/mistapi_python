@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,21 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgPacketCaptures(mist_session:_APISession, org_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgPacketCaptures(
+    mist_session: _APISession,
+    org_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/list-org-packet-captures
 
@@ -40,22 +48,24 @@ def listOrgPacketCaptures(mist_session:_APISession, org_id:str, start:int|None=N
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pcaps"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getOrgCapturingStatus(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def getOrgCapturingStatus(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/get-org-capturing-status
 
@@ -73,12 +83,14 @@ def getOrgCapturingStatus(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pcaps/capture"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def stopOrgPacketCapture(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def stopOrgPacketCapture(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/stop-org-packet-capture
 
@@ -96,12 +108,16 @@ def stopOrgPacketCapture(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pcaps/capture"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def startOrgPacketCapture(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def startOrgPacketCapture(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/start-org-packet-capture
 
@@ -124,6 +140,7 @@ def startOrgPacketCapture(mist_session:_APISession, org_id:str, body:dict) -> _A
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/pcaps/capture"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

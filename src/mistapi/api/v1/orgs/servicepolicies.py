@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgServicePolicies(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgServicePolicies(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/list-org-service-policies
 
@@ -37,16 +39,20 @@ def listOrgServicePolicies(mist_session:_APISession, org_id:str, limit:int=100, 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/servicepolicies"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgServicePolicy(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgServicePolicy(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/create-org-service-policy
 
@@ -69,11 +75,15 @@ def createOrgServicePolicy(mist_session:_APISession, org_id:str, body:dict) -> _
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/servicepolicies"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> _APIResponse:
+
+def getOrgServicePolicy(
+    mist_session: _APISession, org_id: str, servicepolicy_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/get-org-service-policy
 
@@ -92,12 +102,16 @@ def getOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/servicepolicies/{servicepolicy_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str) -> _APIResponse:
+
+def deleteOrgServicePolicy(
+    mist_session: _APISession, org_id: str, servicepolicy_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/delete-org-service-policy
 
@@ -116,12 +130,16 @@ def deleteOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_i
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/servicepolicies/{servicepolicy_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_id:str, body:dict) -> _APIResponse:
+
+def updateOrgServicePolicy(
+    mist_session: _APISession, org_id: str, servicepolicy_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/service-policies/update-org-service-policy
 
@@ -145,6 +163,7 @@ def updateOrgServicePolicy(mist_session:_APISession, org_id:str, servicepolicy_i
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/servicepolicies/{servicepolicy_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

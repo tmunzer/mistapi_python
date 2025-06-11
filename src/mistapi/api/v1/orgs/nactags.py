@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,21 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgNacTags(mist_session:_APISession, org_id:str, type:str|None=None, name:str|None=None, match:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgNacTags(
+    mist_session: _APISession,
+    org_id: str,
+    type: str | None = None,
+    name: str | None = None,
+    match: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/list-org-nac-tags
 
@@ -42,22 +50,24 @@ def listOrgNacTags(mist_session:_APISession, org_id:str, type:str|None=None, nam
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/nactags"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if name:
-        query_params["name"]=str(name)
+        query_params["name"] = str(name)
     if match:
-        query_params["match"]=str(match)
+        query_params["match"] = str(match)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgNacTag(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgNacTag(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/create-org-nac-tag
 
@@ -80,11 +90,15 @@ def createOrgNacTag(mist_session:_APISession, org_id:str, body:dict) -> _APIResp
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/nactags"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIResponse:
+
+def getOrgNacTag(
+    mist_session: _APISession, org_id: str, nactag_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/get-org-nac-tag
 
@@ -103,12 +117,16 @@ def getOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIRes
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/nactags/{nactag_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _APIResponse:
+
+def deleteOrgNacTag(
+    mist_session: _APISession, org_id: str, nactag_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/delete-org-nac-tag
 
@@ -127,12 +145,16 @@ def deleteOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/nactags/{nactag_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str, body:dict) -> _APIResponse:
+
+def updateOrgNacTag(
+    mist_session: _APISession, org_id: str, nactag_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/update-org-nac-tag
 
@@ -156,6 +178,7 @@ def updateOrgNacTag(mist_session:_APISession, org_id:str, nactag_id:str, body:di
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/nactags/{nactag_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

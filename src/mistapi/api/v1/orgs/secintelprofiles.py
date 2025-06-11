@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgSecIntelProfiles(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def listOrgSecIntelProfiles(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/list-org-sec-intel-profiles
 
@@ -32,12 +32,16 @@ def listOrgSecIntelProfiles(mist_session:_APISession, org_id:str) -> _APIRespons
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/secintelprofiles"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgSecIntelProfile(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgSecIntelProfile(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/create-org-sec-intel-profile
 
@@ -60,11 +64,15 @@ def createOrgSecIntelProfile(mist_session:_APISession, org_id:str, body:dict) ->
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/secintelprofiles"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str) -> _APIResponse:
+
+def getOrgSecIntelProfile(
+    mist_session: _APISession, org_id: str, secintelprofile_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/get-org-sec-intel-profile
 
@@ -83,12 +91,16 @@ def getOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/secintelprofiles/{secintelprofile_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str) -> _APIResponse:
+
+def deleteOrgSecIntelProfile(
+    mist_session: _APISession, org_id: str, secintelprofile_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/delete-org-sec-intel-profile
 
@@ -107,12 +119,16 @@ def deleteOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofi
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/secintelprofiles/{secintelprofile_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofile_id:str, body:dict) -> _APIResponse:
+
+def updateOrgSecIntelProfile(
+    mist_session: _APISession, org_id: str, secintelprofile_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/update-org-sec-intel-profile
 
@@ -136,6 +152,7 @@ def updateOrgSecIntelProfile(mist_session:_APISession, org_id:str, secintelprofi
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/secintelprofiles/{secintelprofile_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

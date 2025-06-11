@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgNetworkTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgNetworkTemplates(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/list-org-network-templates
 
@@ -37,16 +39,20 @@ def listOrgNetworkTemplates(mist_session:_APISession, org_id:str, limit:int=100,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/networktemplates"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgNetworkTemplate(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgNetworkTemplate(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/create-org-network-template
 
@@ -69,11 +75,15 @@ def createOrgNetworkTemplate(mist_session:_APISession, org_id:str, body:dict) ->
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/networktemplates"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_id:str) -> _APIResponse:
+
+def getOrgNetworkTemplate(
+    mist_session: _APISession, org_id: str, networktemplate_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/get-org-network-template
 
@@ -92,12 +102,16 @@ def getOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/networktemplates/{networktemplate_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_id:str) -> _APIResponse:
+
+def deleteOrgNetworkTemplate(
+    mist_session: _APISession, org_id: str, networktemplate_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/delete-org-network-template
 
@@ -116,12 +130,16 @@ def deleteOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktempla
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/networktemplates/{networktemplate_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktemplate_id:str, body:dict) -> _APIResponse:
+
+def updateOrgNetworkTemplate(
+    mist_session: _APISession, org_id: str, networktemplate_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/network-templates/update-org-network-template
 
@@ -145,6 +163,7 @@ def updateOrgNetworkTemplate(mist_session:_APISession, org_id:str, networktempla
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/networktemplates/{networktemplate_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

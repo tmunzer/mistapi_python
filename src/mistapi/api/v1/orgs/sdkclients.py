@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def updateSdkClient(mist_session:_APISession, org_id:str, sdkclient_id:str, body:dict) -> _APIResponse:
+
+def updateSdkClient(
+    mist_session: _APISession, org_id: str, sdkclient_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/sdk/update-sdk-client
 
@@ -38,6 +40,7 @@ def updateSdkClient(mist_session:_APISession, org_id:str, sdkclient_id:str, body
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/sdkclients/{sdkclient_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

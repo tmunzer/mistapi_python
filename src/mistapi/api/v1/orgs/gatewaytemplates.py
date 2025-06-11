@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgGatewayTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgGatewayTemplates(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/gateway-templates/list-org-gateway-templates
 
@@ -37,16 +39,20 @@ def listOrgGatewayTemplates(mist_session:_APISession, org_id:str, limit:int=100,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/gatewaytemplates"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgGatewayTemplate(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgGatewayTemplate(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/gateway-templates/create-org-gateway-template
 
@@ -69,11 +75,15 @@ def createOrgGatewayTemplate(mist_session:_APISession, org_id:str, body:dict) ->
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/gatewaytemplates"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str) -> _APIResponse:
+
+def getOrgGatewayTemplate(
+    mist_session: _APISession, org_id: str, gatewaytemplate_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/gateway-templates/get-org-gateway-template
 
@@ -92,12 +102,16 @@ def getOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/gatewaytemplates/{gatewaytemplate_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str) -> _APIResponse:
+
+def deleteOrgGatewayTemplate(
+    mist_session: _APISession, org_id: str, gatewaytemplate_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/gateway-templates/delete-org-gateway-template
 
@@ -116,12 +130,16 @@ def deleteOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytempla
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/gatewaytemplates/{gatewaytemplate_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytemplate_id:str, body:dict) -> _APIResponse:
+
+def updateOrgGatewayTemplate(
+    mist_session: _APISession, org_id: str, gatewaytemplate_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/gateway-templates/update-org-gateway-template
 
@@ -145,6 +163,7 @@ def updateOrgGatewayTemplate(mist_session:_APISession, org_id:str, gatewaytempla
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/gatewaytemplates/{gatewaytemplate_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

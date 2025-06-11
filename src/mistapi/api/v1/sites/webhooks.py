@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteWebhooks(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteWebhooks(
+    mist_session: _APISession, site_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/list-site-webhooks
 
@@ -37,16 +39,20 @@ def listSiteWebhooks(mist_session:_APISession, site_id:str, limit:int=100, page:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/webhooks"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createSiteWebhook(mist_session:_APISession, site_id:str, body:dict) -> _APIResponse:
+
+def createSiteWebhook(
+    mist_session: _APISession, site_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/create-site-webhook
 
@@ -69,11 +75,15 @@ def createSiteWebhook(mist_session:_APISession, site_id:str, body:dict) -> _APIR
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/webhooks"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
+
+def getSiteWebhook(
+    mist_session: _APISession, site_id: str, webhook_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/get-site-webhook
 
@@ -92,12 +102,16 @@ def getSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _AP
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
+
+def deleteSiteWebhook(
+    mist_session: _APISession, site_id: str, webhook_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/delete-site-webhook
 
@@ -116,12 +130,16 @@ def deleteSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, body:dict) -> _APIResponse:
+
+def updateSiteWebhook(
+    mist_session: _APISession, site_id: str, webhook_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/update-site-webhook
 
@@ -145,11 +163,26 @@ def updateSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str, bod
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def countSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, error:str|None=None, status_code:int|None=None, status:str|None=None, topic:str|None=None, distinct:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteWebhooksDeliveries(
+    mist_session: _APISession,
+    site_id: str,
+    webhook_id: str,
+    error: str | None = None,
+    status_code: int | None = None,
+    status: str | None = None,
+    topic: str | None = None,
+    distinct: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/count-site-webhooks-deliveries
 
@@ -182,30 +215,44 @@ def countSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_i
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}/events/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if error:
-        query_params["error"]=str(error)
+        query_params["error"] = str(error)
     if status_code:
-        query_params["status_code"]=str(status_code)
+        query_params["status_code"] = str(status_code)
     if status:
-        query_params["status"]=str(status)
+        query_params["status"] = str(status)
     if topic:
-        query_params["topic"]=str(topic)
+        query_params["topic"] = str(topic)
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_id:str, error:str|None=None, status_code:int|None=None, status:str|None=None, topic:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def searchSiteWebhooksDeliveries(
+    mist_session: _APISession,
+    site_id: str,
+    webhook_id: str,
+    error: str | None = None,
+    status_code: int | None = None,
+    status: str | None = None,
+    topic: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/search-site-webhooks-deliveries
 
@@ -237,28 +284,32 @@ def searchSiteWebhooksDeliveries(mist_session:_APISession, site_id:str, webhook_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}/events/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if error:
-        query_params["error"]=str(error)
+        query_params["error"] = str(error)
     if status_code:
-        query_params["status_code"]=str(status_code)
+        query_params["status_code"] = str(status_code)
     if status:
-        query_params["status"]=str(status)
+        query_params["status"] = str(status)
     if topic:
-        query_params["topic"]=str(topic)
+        query_params["topic"] = str(topic)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _APIResponse:
+
+def pingSiteWebhook(
+    mist_session: _APISession, site_id: str, webhook_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/webhooks/ping-site-webhook
 
@@ -277,6 +328,7 @@ def pingSiteWebhook(mist_session:_APISession, site_id:str, webhook_id:str) -> _A
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/webhooks/{webhook_id}/ping"
     resp = mist_session.mist_post(uri=uri)
     return resp

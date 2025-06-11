@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,21 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def getSiteSiteRfdiagRecording(
+    mist_session: _APISession,
+    site_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/get-site-site-rfdiag-recording
 
@@ -40,22 +48,26 @@ def getSiteSiteRfdiagRecording(mist_session:_APISession, site_id:str, start:int|
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rfdiags"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def startSiteRecording(mist_session:_APISession, site_id:str, body:dict) -> _APIResponse:
+
+def startSiteRecording(
+    mist_session: _APISession, site_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/start-site-recording
 
@@ -78,11 +90,15 @@ def startSiteRecording(mist_session:_APISession, site_id:str, body:dict) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rfdiags"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
+
+def getSiteRfdiagRecording(
+    mist_session: _APISession, site_id: str, rfdiag_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/get-site-rfdiag-recording
 
@@ -101,12 +117,16 @@ def getSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str)
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
+
+def deleteSiteRfdiagRecording(
+    mist_session: _APISession, site_id: str, rfdiag_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/delete-site-rfdiag-recording
 
@@ -125,12 +145,16 @@ def deleteSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str, body:dict) -> _APIResponse:
+
+def updateSiteRfdiagRecording(
+    mist_session: _APISession, site_id: str, rfdiag_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/update-site-rfdiag-recording
 
@@ -154,11 +178,15 @@ def updateSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
+
+def downloadSiteRfdiagRecording(
+    mist_session: _APISession, site_id: str, rfdiag_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/download-site-rfdiag-recording
 
@@ -177,12 +205,16 @@ def downloadSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}/download"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str) -> _APIResponse:
+
+def stopSiteRfdiagRecording(
+    mist_session: _APISession, site_id: str, rfdiag_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rfdiags/stop-site-rfdiag-recording
 
@@ -201,6 +233,7 @@ def stopSiteRfdiagRecording(mist_session:_APISession, site_id:str, rfdiag_id:str
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/rfdiags/{rfdiag_id}/stop"
     resp = mist_session.mist_post(uri=uri)
     return resp

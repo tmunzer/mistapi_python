@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgIdpProfiles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgIdpProfiles(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/list-org-idp-profiles
 
@@ -37,16 +39,20 @@ def listOrgIdpProfiles(mist_session:_APISession, org_id:str, limit:int=100, page
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/idpprofiles"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgIdpProfile(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgIdpProfile(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/create-org-idp-profile
 
@@ -69,11 +75,15 @@ def createOrgIdpProfile(mist_session:_APISession, org_id:str, body:dict) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/idpprofiles"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) -> _APIResponse:
+
+def getOrgIdpProfile(
+    mist_session: _APISession, org_id: str, idpprofile_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/get-org-idp-profile
 
@@ -92,12 +102,16 @@ def getOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) ->
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/idpprofiles/{idpprofile_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str) -> _APIResponse:
+
+def deleteOrgIdpProfile(
+    mist_session: _APISession, org_id: str, idpprofile_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/delete-org-idp-profile
 
@@ -116,12 +130,16 @@ def deleteOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str)
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/idpprofiles/{idpprofile_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str, body:dict) -> _APIResponse:
+
+def updateOrgIdpProfile(
+    mist_session: _APISession, org_id: str, idpprofile_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/idp-profiles/update-org-idp-profile
 
@@ -145,6 +163,7 @@ def updateOrgIdpProfile(mist_session:_APISession, org_id:str, idpprofile_id:str,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/idpprofiles/{idpprofile_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

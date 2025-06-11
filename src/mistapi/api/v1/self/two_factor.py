@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def generateSecretFor2faVerification(mist_session:_APISession, by:str="qrcode") -> _APIResponse:
+
+def generateSecretFor2faVerification(
+    mist_session: _APISession, by: str = "qrcode"
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/mfa/generate-secret-for2fa-verification
 
@@ -33,14 +35,16 @@ def generateSecretFor2faVerification(mist_session:_APISession, by:str="qrcode") 
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/self/two_factor/token"
-    query_params:dict[str, str]={}
+
+    uri = "/api/v1/self/two_factor/token"
+    query_params: dict[str, str] = {}
     if by:
-        query_params["by"]=str(by)
+        query_params["by"] = str(by)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def verifyTwoFactor(mist_session:_APISession, body:dict) -> _APIResponse:
+
+def verifyTwoFactor(mist_session: _APISession, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/mfa/verify-two-factor
 
@@ -59,6 +63,7 @@ def verifyTwoFactor(mist_session:_APISession, body:dict) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/self/two_factor/verify"
+
+    uri = "/api/v1/self/two_factor/verify"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

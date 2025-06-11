@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgAntivirusProfiles(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgAntivirusProfiles(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/list-org-antivirus-profiles
 
@@ -37,16 +39,20 @@ def listOrgAntivirusProfiles(mist_session:_APISession, org_id:str, limit:int=100
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/avprofiles"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgAntivirusProfile(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgAntivirusProfile(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/create-org-antivirus-profile
 
@@ -69,11 +75,15 @@ def createOrgAntivirusProfile(mist_session:_APISession, org_id:str, body:dict) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/avprofiles"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str) -> _APIResponse:
+
+def getOrgAntivirusProfile(
+    mist_session: _APISession, org_id: str, avprofile_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/get-org-antivirus-profile
 
@@ -92,12 +102,16 @@ def getOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofile_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str) -> _APIResponse:
+
+def deleteOrgAntivirusProfile(
+    mist_session: _APISession, org_id: str, avprofile_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/delete-org-antivirus-profile
 
@@ -116,12 +130,16 @@ def deleteOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofile_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id:str, body:dict) -> _APIResponse:
+
+def updateOrgAntivirusProfile(
+    mist_session: _APISession, org_id: str, avprofile_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/antivirus-profiles/update-org-antivirus-profile
 
@@ -145,6 +163,7 @@ def updateOrgAntivirusProfile(mist_session:_APISession, org_id:str, avprofile_id
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/avprofiles/{avprofile_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

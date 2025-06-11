@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgAssetFilters(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgAssetFilters(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/list-org-asset-filters
 
@@ -37,16 +39,20 @@ def listOrgAssetFilters(mist_session:_APISession, org_id:str, limit:int=100, pag
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/assetfilters"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgAssetFilter(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgAssetFilter(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/create-org-asset-filter
 
@@ -69,11 +75,15 @@ def createOrgAssetFilter(mist_session:_APISession, org_id:str, body:dict) -> _AP
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/assetfilters"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> _APIResponse:
+
+def getOrgAssetFilter(
+    mist_session: _APISession, org_id: str, assetfilter_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/get-org-asset-filter
 
@@ -92,12 +102,16 @@ def getOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/assetfilters/{assetfilter_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str) -> _APIResponse:
+
+def deleteOrgAssetFilter(
+    mist_session: _APISession, org_id: str, assetfilter_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/delete-org-asset-filter
 
@@ -116,12 +130,16 @@ def deleteOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/assetfilters/{assetfilter_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:str, body:dict) -> _APIResponse:
+
+def updateOrgAssetFilter(
+    mist_session: _APISession, org_id: str, assetfilter_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/asset-filters/update-org-asset-filter
 
@@ -145,6 +163,7 @@ def updateOrgAssetFilter(mist_session:_APISession, org_id:str, assetfilter_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/assetfilters/{assetfilter_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

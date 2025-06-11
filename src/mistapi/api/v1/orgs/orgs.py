@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def createOrg(mist_session:_APISession, body:dict) -> _APIResponse:
+
+def createOrg(mist_session: _APISession, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/create-org
 
@@ -33,11 +33,13 @@ def createOrg(mist_session:_APISession, body:dict) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/orgs"
+
+    uri = "/api/v1/orgs"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def getOrg(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/get-org
 
@@ -55,12 +57,14 @@ def getOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def deleteOrg(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/delete-org
 
@@ -78,12 +82,14 @@ def deleteOrg(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrg(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def updateOrg(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/update-org
 
@@ -106,6 +112,7 @@ def updateOrg(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

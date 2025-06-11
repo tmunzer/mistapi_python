@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getSiteSsrUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> _APIResponse:
+
+def getSiteSsrUpgrade(
+    mist_session: _APISession, site_id: str, upgrade_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/get-site-ssr-upgrade
 
@@ -33,12 +35,16 @@ def getSiteSsrUpgrade(mist_session:_APISession, site_id:str, upgrade_id:str) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/ssr/upgrade/{upgrade_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def upgradeSsr(mist_session:_APISession, site_id:str, device_id:str, body:dict) -> _APIResponse:
+
+def upgradeSsr(
+    mist_session: _APISession, site_id: str, device_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-ssr
 
@@ -62,6 +68,7 @@ def upgradeSsr(mist_session:_APISession, site_id:str, device_id:str, body:dict) 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/ssr/{device_id}/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

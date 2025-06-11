@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgTemplates(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/list-org-templates
 
@@ -37,16 +39,20 @@ def listOrgTemplates(mist_session:_APISession, org_id:str, limit:int=100, page:i
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/templates"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgTemplate(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgTemplate(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/create-org-template
 
@@ -69,11 +75,15 @@ def createOrgTemplate(mist_session:_APISession, org_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/templates"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _APIResponse:
+
+def getOrgTemplate(
+    mist_session: _APISession, org_id: str, template_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/get-org-template
 
@@ -92,12 +102,16 @@ def getOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _AP
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/templates/{template_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> _APIResponse:
+
+def deleteOrgTemplate(
+    mist_session: _APISession, org_id: str, template_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/delete-org-template
 
@@ -116,12 +130,16 @@ def deleteOrgTemplate(mist_session:_APISession, org_id:str, template_id:str) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/templates/{template_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:dict) -> _APIResponse:
+
+def updateOrgTemplate(
+    mist_session: _APISession, org_id: str, template_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/update-org-template
 
@@ -145,11 +163,15 @@ def updateOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, bod
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/templates/{template_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def cloneOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body:dict) -> _APIResponse:
+
+def cloneOrgTemplate(
+    mist_session: _APISession, org_id: str, template_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlan-templates/clone-org-template
 
@@ -173,6 +195,7 @@ def cloneOrgTemplate(mist_session:_APISession, org_id:str, template_id:str, body
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/templates/{template_id}/clone"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

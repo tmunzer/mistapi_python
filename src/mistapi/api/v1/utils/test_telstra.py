@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def testSiteWlanTelstraSetup(mist_session:_APISession, body:dict) -> _APIResponse:
+
+def testSiteWlanTelstraSetup(mist_session: _APISession, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/test-site-wlan-telstra-setup
 
@@ -33,6 +33,7 @@ def testSiteWlanTelstraSetup(mist_session:_APISession, body:dict) -> _APIRespons
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/utils/test_telstra"
+
+    uri = "/api/v1/utils/test_telstra"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

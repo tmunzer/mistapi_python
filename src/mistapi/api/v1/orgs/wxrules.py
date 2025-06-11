@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgWxRules(mist_session:_APISession, org_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgWxRules(
+    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/list-org-wx-rules
 
@@ -37,16 +39,18 @@ def listOrgWxRules(mist_session:_APISession, org_id:str, limit:int=100, page:int
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxrules"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgWxRule(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgWxRule(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/create-org-wx-rule
 
@@ -69,11 +73,15 @@ def createOrgWxRule(mist_session:_APISession, org_id:str, body:dict) -> _APIResp
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxrules"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str) -> _APIResponse:
+
+def getOrgWxRule(
+    mist_session: _APISession, org_id: str, wxrule_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/get-org-wx-rule
 
@@ -92,12 +100,16 @@ def getOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str) -> _APIRes
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxrules/{wxrule_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str) -> _APIResponse:
+
+def deleteOrgWxRule(
+    mist_session: _APISession, org_id: str, wxrule_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/delete-org-wx-rule
 
@@ -116,12 +128,16 @@ def deleteOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxrules/{wxrule_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str, body:dict) -> _APIResponse:
+
+def updateOrgWxRule(
+    mist_session: _APISession, org_id: str, wxrule_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/update-org-wx-rule
 
@@ -145,6 +161,7 @@ def updateOrgWxRule(mist_session:_APISession, org_id:str, wxrule_id:str, body:di
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/wxrules/{wxrule_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

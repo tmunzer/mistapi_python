@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def createOrgUserMac(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgUserMac(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/create-org-user-mac
 
@@ -37,11 +39,15 @@ def createOrgUserMac(mist_session:_APISession, org_id:str, body:dict) -> _APIRes
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/usermacs"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def updateOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def updateOrgMultipleUserMacs(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/update-org-multiple-user-macs
 
@@ -64,11 +70,15 @@ def updateOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:dict) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/usermacs"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def deleteOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def deleteOrgMultipleUserMacs(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/delete-org-multiple-user-macs
 
@@ -91,11 +101,15 @@ def deleteOrgMultipleUserMacs(mist_session:_APISession, org_id:str, body:dict) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/usermacs/delete"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str|None=None) -> _APIResponse:
+
+def importOrgUserMacsFile(
+    mist_session: _APISession, org_id: str, file: str | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/import-org-user-macs
 
@@ -118,14 +132,18 @@ def importOrgUserMacsFile(mist_session:_APISession, org_id:str, file:str|None=No
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "file":file,
+        "file": file,
     }
     uri = f"/api/v1/orgs/{org_id}/usermacs/import"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def importOrgUserMacs(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def importOrgUserMacs(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/import-org-user-macs
 
@@ -148,11 +166,20 @@ def importOrgUserMacs(mist_session:_APISession, org_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/usermacs/import"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str|None=None, labels:list|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def searchOrgUserMacs(
+    mist_session: _APISession,
+    org_id: str,
+    mac: str | None = None,
+    labels: list | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/search-org-user-macs
 
@@ -178,20 +205,24 @@ def searchOrgUserMacs(mist_session:_APISession, org_id:str, mac:str|None=None, l
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/usermacs/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if labels:
-        query_params["labels"]=str(labels)
+        query_params["labels"] = str(labels)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIResponse:
+
+def getOrgUserMac(
+    mist_session: _APISession, org_id: str, usermac_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/get-org-user-mac
 
@@ -210,12 +241,16 @@ def getOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIR
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/usermacs/{usermac_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _APIResponse:
+
+def deleteOrgUserMac(
+    mist_session: _APISession, org_id: str, usermac_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/delete-org-user-mac
 
@@ -234,12 +269,16 @@ def deleteOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str) -> _A
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/usermacs/{usermac_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str, body:dict) -> _APIResponse:
+
+def updateOrgUserMac(
+    mist_session: _APISession, org_id: str, usermac_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/update-org-user-mac
 
@@ -263,6 +302,7 @@ def updateOrgUserMac(mist_session:_APISession, org_id:str, usermac_id:str, body:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/usermacs/{usermac_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteDeviceProfilesDerived(mist_session:_APISession, site_id:str, resolve:bool|None=None) -> _APIResponse:
+
+def listSiteDeviceProfilesDerived(
+    mist_session: _APISession, site_id: str, resolve: bool | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/device-profiles/list-site-device-profiles-derived
 
@@ -36,9 +38,10 @@ def listSiteDeviceProfilesDerived(mist_session:_APISession, site_id:str, resolve
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/deviceprofiles/derived"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if resolve:
-        query_params["resolve"]=str(resolve)
+        query_params["resolve"] = str(resolve)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

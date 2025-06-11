@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,24 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def getSiteInsightMetricsForClient(
+    mist_session: _APISession,
+    site_id: str,
+    client_mac: str,
+    metric: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    interval: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-client
 
@@ -43,24 +54,37 @@ def getSiteInsightMetricsForClient(mist_session:_APISession, site_id:str, client
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/insights/client/{client_mac}/{metric}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if interval:
-        query_params["interval"]=str(interval)
+        query_params["interval"] = str(interval)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def getSiteInsightMetricsForDevice(
+    mist_session: _APISession,
+    site_id: str,
+    metric: str,
+    device_mac: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    interval: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-device
 
@@ -89,24 +113,34 @@ def getSiteInsightMetricsForDevice(mist_session:_APISession, site_id:str, metric
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/insights/device/{device_mac}/{metric}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if interval:
-        query_params["interval"]=str(interval)
+        query_params["interval"] = str(interval)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countOrgClientFingerprints(mist_session:_APISession, site_id:str, distinct:str="family", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countOrgClientFingerprints(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "family",
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-fingerprints/count-org-client-fingerprints
 
@@ -132,22 +166,40 @@ def countOrgClientFingerprints(mist_session:_APISession, site_id:str, distinct:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/insights/fingerprints/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchOrgClientFingerprints(mist_session:_APISession, site_id:str, family:str|None=None, client_type:str|None=None, model:str|None=None, mfg:str|None=None, os:str|None=None, os_type:str|None=None, mac:str|None=None, sort:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None) -> _APIResponse:
+
+def searchOrgClientFingerprints(
+    mist_session: _APISession,
+    site_id: str,
+    family: str | None = None,
+    client_type: str | None = None,
+    model: str | None = None,
+    mfg: str | None = None,
+    os: str | None = None,
+    os_type: str | None = None,
+    mac: str | None = None,
+    sort: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    interval: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-fingerprints/search-org-client-fingerprints
 
@@ -182,38 +234,49 @@ def searchOrgClientFingerprints(mist_session:_APISession, site_id:str, family:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/insights/fingerprints/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if family:
-        query_params["family"]=str(family)
+        query_params["family"] = str(family)
     if client_type:
-        query_params["client_type"]=str(client_type)
+        query_params["client_type"] = str(client_type)
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if mfg:
-        query_params["mfg"]=str(mfg)
+        query_params["mfg"] = str(mfg)
     if os:
-        query_params["os"]=str(os)
+        query_params["os"] = str(os)
     if os_type:
-        query_params["os_type"]=str(os_type)
+        query_params["os_type"] = str(os_type)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if sort:
-        query_params["sort"]=str(sort)
+        query_params["sort"] = str(sort)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if interval:
-        query_params["interval"]=str(interval)
+        query_params["interval"] = str(interval)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteRogueAPs(mist_session:_APISession, site_id:str, type:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None) -> _APIResponse:
+
+def listSiteRogueAPs(
+    mist_session: _APISession,
+    site_id: str,
+    type: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    interval: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/list-site-rogue-a-ps
 
@@ -240,24 +303,34 @@ def listSiteRogueAPs(mist_session:_APISession, site_id:str, type:str|None=None, 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/insights/rogues"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if interval:
-        query_params["interval"]=str(interval)
+        query_params["interval"] = str(interval)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None) -> _APIResponse:
+
+def listSiteRogueClients(
+    mist_session: _APISession,
+    site_id: str,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    interval: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/list-site-rogue-clients
 
@@ -283,22 +356,34 @@ def listSiteRogueClients(mist_session:_APISession, site_id:str, limit:int=100, s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/insights/rogues/clients"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if interval:
-        query_params["interval"]=str(interval)
+        query_params["interval"] = str(interval)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, start:int|None=None, end:int|None=None, duration:str="1d", interval:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def getSiteInsightMetrics(
+    mist_session: _APISession,
+    site_id: str,
+    metric: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    interval: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics
 
@@ -326,19 +411,20 @@ def getSiteInsightMetrics(mist_session:_APISession, site_id:str, metric:str, sta
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/insights/{metric}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if interval:
-        query_params["interval"]=str(interval)
+        query_params["interval"] = str(interval)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

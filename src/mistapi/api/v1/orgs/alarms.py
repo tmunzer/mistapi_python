@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def ackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def ackOrgMultipleAlarms(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-multiple-alarms
 
@@ -37,11 +39,13 @@ def ackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:dict) -> _AP
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/alarms/ack"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def ackOrgAllAlarms(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-all-alarms
 
@@ -64,11 +68,21 @@ def ackOrgAllAlarms(mist_session:_APISession, org_id:str, body:dict) -> _APIResp
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/alarms/ack_all"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countOrgAlarms(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/count-org-alarms
 
@@ -94,22 +108,34 @@ def countOrgAlarms(mist_session:_APISession, org_id:str, distinct:str|None=None,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/alarms/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str|None=None, type:str|None=None, status:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def searchOrgAlarms(
+    mist_session: _APISession,
+    org_id: str,
+    site_id: str | None = None,
+    type: str | None = None,
+    status: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/search-org-alarms
 
@@ -137,26 +163,30 @@ def searchOrgAlarms(mist_session:_APISession, org_id:str, site_id:str|None=None,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/alarms/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if site_id:
-        query_params["site_id"]=str(site_id)
+        query_params["site_id"] = str(site_id)
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if status:
-        query_params["status"]=str(status)
+        query_params["status"] = str(status)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def unackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def unackOrgMultipleAlarms(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/unack-org-multiple-alarms
 
@@ -179,11 +209,15 @@ def unackOrgMultipleAlarms(mist_session:_APISession, org_id:str, body:dict) -> _
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/alarms/unack"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def unackOrgAllAlarms(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def unackOrgAllAlarms(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/unack-org-all-alarms
 
@@ -206,11 +240,15 @@ def unackOrgAllAlarms(mist_session:_APISession, org_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/alarms/unack_all"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:dict) -> _APIResponse:
+
+def ackOrgAlarm(
+    mist_session: _APISession, org_id: str, alarm_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-alarm
 
@@ -234,6 +272,7 @@ def ackOrgAlarm(mist_session:_APISession, org_id:str, alarm_id:str, body:dict) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/alarms/{alarm_id}/ack"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

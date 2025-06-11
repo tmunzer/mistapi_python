@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def listOrgGuestAuthorizations(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/list-org-guest-authorizations
 
@@ -32,12 +32,22 @@ def listOrgGuestAuthorizations(mist_session:_APISession, org_id:str) -> _APIResp
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/guests"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:str="auth_method", start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countOrgGuestAuthorizations(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str = "auth_method",
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/count-org-guest-authorizations
 
@@ -63,22 +73,34 @@ def countOrgGuestAuthorizations(mist_session:_APISession, org_id:str, distinct:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/guests/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:str|None=None, auth_method:str|None=None, ssid:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchOrgGuestAuthorization(
+    mist_session: _APISession,
+    org_id: str,
+    wlan_id: str | None = None,
+    auth_method: str | None = None,
+    ssid: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/search-org-guest-authorization
 
@@ -106,26 +128,30 @@ def searchOrgGuestAuthorization(mist_session:_APISession, org_id:str, wlan_id:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/guests/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if wlan_id:
-        query_params["wlan_id"]=str(wlan_id)
+        query_params["wlan_id"] = str(wlan_id)
     if auth_method:
-        query_params["auth_method"]=str(auth_method)
+        query_params["auth_method"] = str(auth_method)
     if ssid:
-        query_params["ssid"]=str(ssid)
+        query_params["ssid"] = str(ssid)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str) -> _APIResponse:
+
+def getOrgGuestAuthorization(
+    mist_session: _APISession, org_id: str, guest_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/get-org-guest-authorization
 
@@ -144,12 +170,16 @@ def getOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/guests/{guest_mac}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str) -> _APIResponse:
+
+def deleteOrgGuestAuthorization(
+    mist_session: _APISession, org_id: str, guest_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/delete-org-guest-authorization
 
@@ -168,12 +198,16 @@ def deleteOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/guests/{guest_mac}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:str, body:dict) -> _APIResponse:
+
+def updateOrgGuestAuthorization(
+    mist_session: _APISession, org_id: str, guest_mac: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/guests/update-org-guest-authorization
 
@@ -197,6 +231,7 @@ def updateOrgGuestAuthorization(mist_session:_APISession, org_id:str, guest_mac:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/guests/{guest_mac}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

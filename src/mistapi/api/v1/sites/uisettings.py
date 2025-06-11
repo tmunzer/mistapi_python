@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteUiSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
+
+def listSiteUiSettings(mist_session: _APISession, site_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/list-site-ui-settings
 
@@ -32,12 +32,16 @@ def listSiteUiSettings(mist_session:_APISession, site_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/uisettings"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createSiteUiSettings(mist_session:_APISession, site_id:str, body:dict) -> _APIResponse:
+
+def createSiteUiSettings(
+    mist_session: _APISession, site_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/create-site-ui-settings
 
@@ -60,11 +64,13 @@ def createSiteUiSettings(mist_session:_APISession, site_id:str, body:dict) -> _A
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/uisettings"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def listSiteUiSettingDerived(mist_session:_APISession, site_id:str) -> _APIResponse:
+
+def listSiteUiSettingDerived(mist_session: _APISession, site_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/list-site-ui-setting-derived
 
@@ -82,12 +88,16 @@ def listSiteUiSettingDerived(mist_session:_APISession, site_id:str) -> _APIRespo
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/uisettings/derived"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
+
+def getSiteUiSetting(
+    mist_session: _APISession, site_id: str, uisetting_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/get-site-ui-setting
 
@@ -106,12 +116,16 @@ def getSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) ->
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/uisettings/{uisetting_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str) -> _APIResponse:
+
+def deleteSiteUiSetting(
+    mist_session: _APISession, site_id: str, uisetting_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/delete-site-ui-setting
 
@@ -130,12 +144,16 @@ def deleteSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str)
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/uisettings/{uisetting_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str, body:dict) -> _APIResponse:
+
+def updateSiteUiSetting(
+    mist_session: _APISession, site_id: str, uisetting_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/update-site-ui-setting
 
@@ -159,6 +177,7 @@ def updateSiteUiSetting(mist_session:_APISession, site_id:str, uisetting_id:str,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/uisettings/{uisetting_id}"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,26 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def countSiteSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="type", type:str|None=None, mac:str|None=None, device_mac:str|None=None, threat_level:int|None=None, ip_address:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteSkyatpEvents(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "type",
+    type: str | None = None,
+    mac: str | None = None,
+    device_mac: str | None = None,
+    threat_level: int | None = None,
+    ip_address: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/skyatp/count-site-skyatp-events
 
@@ -45,32 +58,46 @@ def countSiteSkyatpEvents(mist_session:_APISession, site_id:str, distinct:str="t
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/skyatp/events/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if device_mac:
-        query_params["device_mac"]=str(device_mac)
+        query_params["device_mac"] = str(device_mac)
     if threat_level:
-        query_params["threat_level"]=str(threat_level)
+        query_params["threat_level"] = str(threat_level)
     if ip_address:
-        query_params["ip_address"]=str(ip_address)
+        query_params["ip_address"] = str(ip_address)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str|None=None, mac:str|None=None, device_mac:str|None=None, threat_level:int|None=None, ip_address:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchSiteSkyatpEvents(
+    mist_session: _APISession,
+    site_id: str,
+    type: str | None = None,
+    mac: str | None = None,
+    device_mac: str | None = None,
+    threat_level: int | None = None,
+    ip_address: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/skyatp/search-site-skyatp-events
 
@@ -100,25 +127,26 @@ def searchSiteSkyatpEvents(mist_session:_APISession, site_id:str, type:str|None=
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/skyatp/events/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if device_mac:
-        query_params["device_mac"]=str(device_mac)
+        query_params["device_mac"] = str(device_mac)
     if threat_level:
-        query_params["threat_level"]=str(threat_level)
+        query_params["threat_level"] = str(threat_level)
     if ip_address:
-        query_params["ip_address"]=str(ip_address)
+        query_params["ip_address"] = str(ip_address)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

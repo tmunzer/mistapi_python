@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteEvpnTopologies(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteEvpnTopologies(
+    mist_session: _APISession, site_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/list-site-evpn-topologies
 
@@ -37,16 +39,20 @@ def listSiteEvpnTopologies(mist_session:_APISession, site_id:str, limit:int=100,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/evpn_topologies"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createSiteEvpnTopology(mist_session:_APISession, site_id:str, body:dict) -> _APIResponse:
+
+def createSiteEvpnTopology(
+    mist_session: _APISession, site_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/create-site-evpn-topology
 
@@ -69,11 +75,15 @@ def createSiteEvpnTopology(mist_session:_APISession, site_id:str, body:dict) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/evpn_topologies"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str) -> _APIResponse:
+
+def getSiteEvpnTopology(
+    mist_session: _APISession, site_id: str, evpn_topology_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/get-site-evpn-topology
 
@@ -92,12 +102,16 @@ def getSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/evpn_topologies/{evpn_topology_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str) -> _APIResponse:
+
+def deleteSiteEvpnTopology(
+    mist_session: _APISession, site_id: str, evpn_topology_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/delete-site-evpn-topology
 
@@ -116,12 +130,16 @@ def deleteSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/evpn_topologies/{evpn_topology_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_id:str, body:dict) -> _APIResponse:
+
+def updateSiteEvpnTopology(
+    mist_session: _APISession, site_id: str, evpn_topology_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/evpn-topologies/update-site-evpn-topology
 
@@ -145,6 +163,7 @@ def updateSiteEvpnTopology(mist_session:_APISession, site_id:str, evpn_topology_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/evpn_topologies/{evpn_topology_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

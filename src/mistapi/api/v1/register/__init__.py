@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,8 +8,8 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
-from mistapi.api.v1.register import register
-from mistapi.api.v1.register import recaptcha
-from mistapi.api.v1.register import verify
+from mistapi.api.v1.register import register, recaptcha, verify
+
+__all__ = ["register", "recaptcha", "verify"]

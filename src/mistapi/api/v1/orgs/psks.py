@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,21 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgPsks(mist_session:_APISession, org_id:str, name:str|None=None, ssid:str|None=None, role:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def listOrgPsks(
+    mist_session: _APISession,
+    org_id: str,
+    name: str | None = None,
+    ssid: str | None = None,
+    role: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/list-org-psks
 
@@ -40,22 +48,24 @@ def listOrgPsks(mist_session:_APISession, org_id:str, name:str|None=None, ssid:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/psks"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if name:
-        query_params["name"]=str(name)
+        query_params["name"] = str(name)
     if ssid:
-        query_params["ssid"]=str(ssid)
+        query_params["ssid"] = str(ssid)
     if role:
-        query_params["role"]=str(role)
+        query_params["role"] = str(role)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgPsk(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgPsk(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/create-org-psk
 
@@ -78,11 +88,15 @@ def createOrgPsk(mist_session:_APISession, org_id:str, body:dict) -> _APIRespons
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/psks"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def updateOrgMultiplePsks(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def updateOrgMultiplePsks(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/update-org-multiple-psks
 
@@ -105,11 +119,15 @@ def updateOrgMultiplePsks(mist_session:_APISession, org_id:str, body:dict) -> _A
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/psks"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def deleteOrgPskList(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def deleteOrgPskList(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/delete-org-psk-list
 
@@ -132,11 +150,15 @@ def deleteOrgPskList(mist_session:_APISession, org_id:str, body:dict) -> _APIRes
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/psks/delete"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def importOrgPsksFile(mist_session:_APISession, org_id:str, file:str|None=None) -> _APIResponse:
+
+def importOrgPsksFile(
+    mist_session: _APISession, org_id: str, file: str | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/import-org-psks
 
@@ -159,14 +181,16 @@ def importOrgPsksFile(mist_session:_APISession, org_id:str, file:str|None=None) 
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "file":file,
+        "file": file,
     }
     uri = f"/api/v1/orgs/{org_id}/psks/import"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def importOrgPsks(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def importOrgPsks(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/import-org-psks
 
@@ -189,11 +213,13 @@ def importOrgPsks(mist_session:_APISession, org_id:str, body:dict) -> _APIRespon
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/psks/import"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
+
+def getOrgPsk(mist_session: _APISession, org_id: str, psk_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/get-org-psk
 
@@ -212,12 +238,14 @@ def getOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/psks/{psk_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
+
+def deleteOrgPsk(mist_session: _APISession, org_id: str, psk_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/delete-org-psk
 
@@ -236,12 +264,16 @@ def deleteOrgPsk(mist_session:_APISession, org_id:str, psk_id:str) -> _APIRespon
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/psks/{psk_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:dict) -> _APIResponse:
+
+def updateOrgPsk(
+    mist_session: _APISession, org_id: str, psk_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/update-org-psk
 
@@ -265,11 +297,15 @@ def updateOrgPsk(mist_session:_APISession, org_id:str, psk_id:str, body:dict) ->
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/psks/{psk_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str) -> _APIResponse:
+
+def deleteOrgPskOldPassphrase(
+    mist_session: _APISession, org_id: str, psk_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/delete-org-psk-old-passphrase
 
@@ -288,6 +324,7 @@ def deleteOrgPskOldPassphrase(mist_session:_APISession, org_id:str, psk_id:str) 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/psks/{psk_id}/delete_old_passphrase"
     resp = mist_session.mist_post(uri=uri)
     return resp

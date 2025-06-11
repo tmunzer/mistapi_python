@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteAssets(mist_session:_APISession, site_id:str, limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteAssets(
+    mist_session: _APISession, site_id: str, limit: int = 100, page: int = 1
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/list-site-assets
 
@@ -37,16 +39,20 @@ def listSiteAssets(mist_session:_APISession, site_id:str, limit:int=100, page:in
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/assets"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createSiteAsset(mist_session:_APISession, site_id:str, body:dict) -> _APIResponse:
+
+def createSiteAsset(
+    mist_session: _APISession, site_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/create-site-asset
 
@@ -69,11 +75,15 @@ def createSiteAsset(mist_session:_APISession, site_id:str, body:dict) -> _APIRes
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/assets"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def importSiteAssetsFile(mist_session:_APISession, site_id:str, file:str|None=None) -> _APIResponse:
+
+def importSiteAssetsFile(
+    mist_session: _APISession, site_id: str, file: str | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/import-site-assets
 
@@ -96,14 +106,18 @@ def importSiteAssetsFile(mist_session:_APISession, site_id:str, file:str|None=No
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "file":file,
+        "file": file,
     }
     uri = f"/api/v1/sites/{site_id}/assets/import"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def importSiteAssets(mist_session:_APISession, site_id:str, body:dict) -> _APIResponse:
+
+def importSiteAssets(
+    mist_session: _APISession, site_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/import-site-assets
 
@@ -126,11 +140,15 @@ def importSiteAssets(mist_session:_APISession, site_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/assets/import"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIResponse:
+
+def getSiteAsset(
+    mist_session: _APISession, site_id: str, asset_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/get-site-asset
 
@@ -149,12 +167,16 @@ def getSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIRes
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/assets/{asset_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _APIResponse:
+
+def deleteSiteAsset(
+    mist_session: _APISession, site_id: str, asset_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/delete-site-asset
 
@@ -173,12 +195,16 @@ def deleteSiteAsset(mist_session:_APISession, site_id:str, asset_id:str) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/assets/{asset_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateSiteAsset(mist_session:_APISession, site_id:str, asset_id:str, body:dict) -> _APIResponse:
+
+def updateSiteAsset(
+    mist_session: _APISession, site_id: str, asset_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/assets/update-site-asset
 
@@ -202,6 +228,7 @@ def updateSiteAsset(mist_session:_APISession, site_id:str, asset_id:str, body:di
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/assets/{asset_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

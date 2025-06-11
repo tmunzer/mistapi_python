@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def deleteMspLogo(mist_session:_APISession, msp_id:str) -> _APIResponse:
+
+def deleteMspLogo(mist_session: _APISession, msp_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logo/delete-msp-logo
 
@@ -32,12 +32,14 @@ def deleteMspLogo(mist_session:_APISession, msp_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/logo"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def postMspLogo(mist_session:_APISession, msp_id:str, body:dict) -> _APIResponse:
+
+def postMspLogo(mist_session: _APISession, msp_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logo/post-msp-logo
 
@@ -60,6 +62,7 @@ def postMspLogo(mist_session:_APISession, msp_id:str, body:dict) -> _APIResponse
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/msps/{msp_id}/logo"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

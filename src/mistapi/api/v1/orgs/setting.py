@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getOrgSettings(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def getOrgSettings(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/get-org-settings
 
@@ -32,12 +32,16 @@ def getOrgSettings(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def updateOrgSettings(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def updateOrgSettings(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/update-org-settings
 
@@ -60,11 +64,15 @@ def updateOrgSettings(mist_session:_APISession, org_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def deleteOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def deleteOrgWirelessClientsBlocklist(
+    mist_session: _APISession, org_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/delete-org-wireless-clients-blocklist
 
@@ -82,12 +90,16 @@ def deleteOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str) -> _
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/blacklist"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def createOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgWirelessClientsBlocklist(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/create-org-wireless-clients-blocklist
 
@@ -110,11 +122,15 @@ def createOrgWirelessClientsBlocklist(mist_session:_APISession, org_id:str, body
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/blacklist"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def testOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def testOrgCradlepointConnection(
+    mist_session: _APISession, org_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/test-org-cradlepoint-connection
 
@@ -132,12 +148,16 @@ def testOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/cradlepoint/setup"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def deleteOrgCradlepointConnection(
+    mist_session: _APISession, org_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/delete-org-cradlepoint-connection
 
@@ -155,12 +175,16 @@ def deleteOrgCradlepointConnection(mist_session:_APISession, org_id:str) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/cradlepoint/setup"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def setupOrgCradlepointConnectionToMist(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/setup-org-cradlepoint-connection-to-mist
 
@@ -183,11 +207,15 @@ def setupOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, bo
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/cradlepoint/setup"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def updateOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def updateOrgCradlepointConnectionToMist(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/update-org-cradlepoint-connection-to-mist
 
@@ -210,11 +238,13 @@ def updateOrgCradlepointConnectionToMist(mist_session:_APISession, org_id:str, b
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/cradlepoint/setup"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def syncOrgCradlepointRouters(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/sync-org-cradlepoint-routers
 
@@ -232,11 +262,13 @@ def syncOrgCradlepointRouters(mist_session:_APISession, org_id:str) -> _APIRespo
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/cradlepoint/sync"
     resp = mist_session.mist_post(uri=uri)
     return resp
 
-def getOrgJseInfo(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def getOrgJseInfo(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-jse/get-org-jse-info
 
@@ -254,12 +286,14 @@ def getOrgJseInfo(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/jse/info"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getOrgJseIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def getOrgJseIntegration(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-jse/get-org-jse-integration
 
@@ -277,12 +311,14 @@ def getOrgJseIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/jse/setup"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgJseIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def deleteOrgJseIntegration(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-jse/delete-org-jse-integration
 
@@ -300,12 +336,16 @@ def deleteOrgJseIntegration(mist_session:_APISession, org_id:str) -> _APIRespons
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/jse/setup"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def setupOrgJseIntegration(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def setupOrgJseIntegration(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-jse/setup-org-jse-integration
 
@@ -328,11 +368,15 @@ def setupOrgJseIntegration(mist_session:_APISession, org_id:str, body:dict) -> _
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/jse/setup"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def linkOrgToJuniperJuniperAccount(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-juniper/link-org-to-juniper-juniper-account
 
@@ -355,11 +399,15 @@ def linkOrgToJuniperJuniperAccount(mist_session:_APISession, org_id:str, body:di
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/juniper/link_accounts"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def unlinkOrgFromJuniperCustomerId(
+    mist_session: _APISession, org_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-juniper/unlink-org-from-juniper-customer-id
 
@@ -377,12 +425,14 @@ def unlinkOrgFromJuniperCustomerId(mist_session:_APISession, org_id:str) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/juniper/unlink_account"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def getOrgNacCrl(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def getOrgNacCrl(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-crl/get-org-nac-crl
 
@@ -400,12 +450,19 @@ def getOrgNacCrl(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/mist_nac_crls"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def importOrgNacCrlFile(mist_session:_APISession, org_id:str, file:str|None=None, json:str|None=None) -> _APIResponse:
+
+def importOrgNacCrlFile(
+    mist_session: _APISession,
+    org_id: str,
+    file: str | None = None,
+    json: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-crl/import-org-nac-crl
 
@@ -430,15 +487,19 @@ def importOrgNacCrlFile(mist_session:_APISession, org_id:str, file:str|None=None
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "file":file,
-        "json":json,
+        "file": file,
+        "json": json,
     }
     uri = f"/api/v1/orgs/{org_id}/setting/mist_nac_crls"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def deleteOrgNacCrl(mist_session:_APISession, org_id:str, naccrl_id:str) -> _APIResponse:
+
+def deleteOrgNacCrl(
+    mist_session: _APISession, org_id: str, naccrl_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-crl/delete-org-nac-crl
 
@@ -457,12 +518,14 @@ def deleteOrgNacCrl(mist_session:_APISession, org_id:str, naccrl_id:str) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/mist_nac_crls/{naccrl_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def getOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def getOrgMistScep(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/get-org-mist-scep
 
@@ -480,12 +543,14 @@ def getOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/mist_scep"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def disableOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def disableOrgMistScep(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/disable-org-mist-scep
 
@@ -503,12 +568,16 @@ def disableOrgMistScep(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/mist_scep"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateOrgMistScep(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def updateOrgMistScep(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/update-org-mist-scep
 
@@ -531,11 +600,19 @@ def updateOrgMistScep(mist_session:_APISession, org_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/mist_scep"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def listOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, sso_name_id:str|None=None, serial_number:str|None=None, device_id:str|None=None) -> _APIResponse:
+
+def listOrgIssuedClientCertificates(
+    mist_session: _APISession,
+    org_id: str,
+    sso_name_id: str | None = None,
+    serial_number: str | None = None,
+    device_id: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/list-org-issued-client-certificates
 
@@ -559,18 +636,22 @@ def listOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, sso_na
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/mist_scep/client_certs"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if sso_name_id:
-        query_params["sso_name_id"]=str(sso_name_id)
+        query_params["sso_name_id"] = str(sso_name_id)
     if serial_number:
-        query_params["serial_number"]=str(serial_number)
+        query_params["serial_number"] = str(serial_number)
     if device_id:
-        query_params["device_id"]=str(device_id)
+        query_params["device_id"] = str(device_id)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def revokeOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def revokeOrgIssuedClientCertificates(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/revoke-org-issued-client-certificates
 
@@ -593,11 +674,15 @@ def revokeOrgIssuedClientCertificates(mist_session:_APISession, org_id:str, body
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/mist_scep/client_certs/revoke"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def setOrgCustomBucket(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/set-org-custom-bucket
 
@@ -620,11 +705,15 @@ def setOrgCustomBucket(mist_session:_APISession, org_id:str, body:dict) -> _APIR
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/pcap_bucket/setup"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def verifyOrgCustomBucket(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/verify-org-custom-bucket
 
@@ -647,11 +736,13 @@ def verifyOrgCustomBucket(mist_session:_APISession, org_id:str, body:dict) -> _A
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/pcap_bucket/verify"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgSkyAtpIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def getOrgSkyAtpIntegration(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/get-org-sky-atp-integration
 
@@ -669,12 +760,14 @@ def getOrgSkyAtpIntegration(mist_session:_APISession, org_id:str) -> _APIRespons
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/skyatp/setup"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgSkyAtpIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def deleteOrgSkyAtpIntegration(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/delete-org-sky-atp-integration
 
@@ -692,12 +785,16 @@ def deleteOrgSkyAtpIntegration(mist_session:_APISession, org_id:str) -> _APIResp
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/skyatp/setup"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def setupOrgAtpIntegration(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def setupOrgAtpIntegration(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/setup-org-atp-integration
 
@@ -720,11 +817,15 @@ def setupOrgAtpIntegration(mist_session:_APISession, org_id:str, body:dict) -> _
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/skyatp/setup"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def udpateOrgAtpIntegration(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def udpateOrgAtpIntegration(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/udpate-org-atp-integration
 
@@ -747,11 +848,15 @@ def udpateOrgAtpIntegration(mist_session:_APISession, org_id:str, body:dict) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/skyatp/setup"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def udpateOrgAtpAllowedList(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def udpateOrgAtpAllowedList(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/udpate-org-atp-allowed-list
 
@@ -774,11 +879,15 @@ def udpateOrgAtpAllowedList(mist_session:_APISession, org_id:str, body:dict) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/skyatp/setup/secintel_allowlist"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def udpateOrgAtpBlockedList(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def udpateOrgAtpBlockedList(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/udpate-org-atp-blocked-list
 
@@ -801,11 +910,13 @@ def udpateOrgAtpBlockedList(mist_session:_APISession, org_id:str, body:dict) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/skyatp/setup/secintel_blocklist"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def getOrgZscalerIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def getOrgZscalerIntegration(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-zscaler/get-org-zscaler-integration
 
@@ -823,12 +934,14 @@ def getOrgZscalerIntegration(mist_session:_APISession, org_id:str) -> _APIRespon
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/zscaler/setup"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteOrgZscalerIntegration(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def deleteOrgZscalerIntegration(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-zscaler/delete-org-zscaler-integration
 
@@ -846,12 +959,16 @@ def deleteOrgZscalerIntegration(mist_session:_APISession, org_id:str) -> _APIRes
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/zscaler/setup"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def setupOrgZscalerIntegration(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def setupOrgZscalerIntegration(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-zscaler/setup-org-zscaler-integration
 
@@ -874,11 +991,15 @@ def setupOrgZscalerIntegration(mist_session:_APISession, org_id:str, body:dict) 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/zscaler/setup"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:str, forward:str) -> _APIResponse:
+
+def getOrgOauthAppLinkedStatus(
+    mist_session: _APISession, org_id: str, app_name: str, forward: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/get-org-oauth-app-linked-status
 
@@ -902,14 +1023,18 @@ def getOrgOauthAppLinkedStatus(mist_session:_APISession, org_id:str, app_name:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if forward:
-        query_params["forward"]=str(forward)
+        query_params["forward"] = str(forward)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, body:dict) -> _APIResponse:
+
+def addOrgOauthAppAccounts(
+    mist_session: _APISession, org_id: str, app_name: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/add-org-oauth-app-accounts
 
@@ -934,11 +1059,15 @@ def addOrgOauthAppAccounts(mist_session:_APISession, org_id:str, app_name:str, b
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def updateOrgOauthAppAccount(mist_session:_APISession, org_id:str, app_name:str, body:dict) -> _APIResponse:
+
+def updateOrgOauthAppAccount(
+    mist_session: _APISession, org_id: str, app_name: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/update-org-oauth-app-account
 
@@ -963,11 +1092,15 @@ def updateOrgOauthAppAccount(mist_session:_APISession, org_id:str, app_name:str,
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_name:str, account_id:str) -> _APIResponse:
+
+def deleteOrgOauthAppAuthorization(
+    mist_session: _APISession, org_id: str, app_name: str, account_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/delete-org-oauth-app-authorization
 
@@ -988,7 +1121,8 @@ def deleteOrgOauthAppAuthorization(mist_session:_APISession, org_id:str, app_nam
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts/{account_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp

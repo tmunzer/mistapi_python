@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,19 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listOrgTickets(mist_session:_APISession, org_id:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def listOrgTickets(
+    mist_session: _APISession,
+    org_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/list-org-tickets
 
@@ -38,18 +44,20 @@ def listOrgTickets(mist_session:_APISession, org_id:str, start:int|None=None, en
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/tickets"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgTicket(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgTicket(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/create-org-ticket
 
@@ -72,11 +80,15 @@ def createOrgTicket(mist_session:_APISession, org_id:str, body:dict) -> _APIResp
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/tickets"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status", limit:int=100) -> _APIResponse:
+
+def countOrgTickets(
+    mist_session: _APISession, org_id: str, distinct: str = "status", limit: int = 100
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/count-org-tickets
 
@@ -99,16 +111,25 @@ def countOrgTickets(mist_session:_APISession, org_id:str, distinct:str="status",
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/tickets/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def getOrgTicket(
+    mist_session: _APISession,
+    org_id: str,
+    ticket_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/get-org-ticket
 
@@ -133,18 +154,22 @@ def getOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, start:int|
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:dict) -> _APIResponse:
+
+def updateOrgTicket(
+    mist_session: _APISession, org_id: str, ticket_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/update-org-ticket
 
@@ -168,11 +193,15 @@ def updateOrgTicket(mist_session:_APISession, org_id:str, ticket_id:str, body:di
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def UploadOrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_id:str, file:str|None=None) -> _APIResponse:
+
+def UploadOrgTicketAttachmentFile(
+    mist_session: _APISession, org_id: str, ticket_id: str, file: str | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/upload-org-ticket-attachment
 
@@ -196,14 +225,24 @@ def UploadOrgTicketAttachmentFile(mist_session:_APISession, org_id:str, ticket_i
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "file":file,
+        "file": file,
     }
     uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}/attachments"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, attachment_id:str, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def GetOrgTicketAttachment(
+    mist_session: _APISession,
+    org_id: str,
+    ticket_id: str,
+    attachment_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/get-org-ticket-attachment
 
@@ -229,18 +268,26 @@ def GetOrgTicketAttachment(mist_session:_APISession, org_id:str, ticket_id:str, 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}/attachments/{attachment_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def addOrgTicketCommentFile(mist_session:_APISession, org_id:str, ticket_id:str, comment:str|None=None, file:str|None=None) -> _APIResponse:
+
+def addOrgTicketCommentFile(
+    mist_session: _APISession,
+    org_id: str,
+    ticket_id: str,
+    comment: str | None = None,
+    file: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/add-org-ticket-comment
 
@@ -265,15 +312,19 @@ def addOrgTicketCommentFile(mist_session:_APISession, org_id:str, ticket_id:str,
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "comment":comment,
-        "file":file,
+        "comment": comment,
+        "file": file,
     }
     uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}/comments"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, body:dict) -> _APIResponse:
+
+def addOrgTicketComment(
+    mist_session: _APISession, org_id: str, ticket_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/add-org-ticket-comment
 
@@ -297,6 +348,7 @@ def addOrgTicketComment(mist_session:_APISession, org_id:str, ticket_id:str, bod
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/tickets/{ticket_id}/comments"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str, ttl:int|None=None) -> _APIResponse:
+
+def getOrg128TRegistrationCommands(
+    mist_session: _APISession, org_id: str, ttl: int | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/ssr/get-org128-t-registration-commands
 
@@ -36,14 +38,16 @@ def getOrg128TRegistrationCommands(mist_session:_APISession, org_id:str, ttl:int
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/128routers/register_cmd"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if ttl:
-        query_params["ttl"]=str(ttl)
+        query_params["ttl"] = str(ttl)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def listOrgSsrUpgrades(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-ssr-upgrades
 
@@ -61,12 +65,14 @@ def listOrgSsrUpgrades(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/ssr/upgrade"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def upgradeOrgSsrs(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-ssrs
 
@@ -89,11 +95,15 @@ def upgradeOrgSsrs(mist_session:_APISession, org_id:str, body:dict) -> _APIRespo
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/ssr/upgrade"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) -> _APIResponse:
+
+def cancelOrgSsrUpgrade(
+    mist_session: _APISession, org_id: str, upgrade_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/cancel-org-ssr-upgrade
 
@@ -112,11 +122,18 @@ def cancelOrgSsrUpgrade(mist_session:_APISession, org_id:str, upgrade_id:str) ->
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/ssr/upgrade/{upgrade_id}/cancel"
     resp = mist_session.mist_post(uri=uri)
     return resp
 
-def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:str="stable", mac:str|None=None) -> _APIResponse:
+
+def listOrgAvailableSsrVersions(
+    mist_session: _APISession,
+    org_id: str,
+    channel: str = "stable",
+    mac: str | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-available-ssr-versions
 
@@ -140,11 +157,12 @@ def listOrgAvailableSsrVersions(mist_session:_APISession, org_id:str, channel:st
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/ssr/versions"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if channel:
-        query_params["channel"]=str(channel)
+        query_params["channel"] = str(channel)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

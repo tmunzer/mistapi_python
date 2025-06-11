@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listApiTokens(mist_session:_APISession) -> _APIResponse:
+
+def listApiTokens(mist_session: _APISession) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/list-api-tokens
 
@@ -28,12 +28,14 @@ def listApiTokens(mist_session:_APISession) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/self/apitokens"
-    query_params:dict[str, str]={}
+
+    uri = "/api/v1/self/apitokens"
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createApiToken(mist_session:_APISession, body:dict) -> _APIResponse:
+
+def createApiToken(mist_session: _APISession, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/create-api-token
 
@@ -52,11 +54,13 @@ def createApiToken(mist_session:_APISession, body:dict) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
-    uri = f"/api/v1/self/apitokens"
+
+    uri = "/api/v1/self/apitokens"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def getApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
+
+def getApiToken(mist_session: _APISession, apitoken_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/get-api-token
 
@@ -74,12 +78,14 @@ def getApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/self/apitokens/{apitoken_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def deleteApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
+
+def deleteApiToken(mist_session: _APISession, apitoken_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/delete-api-token
 
@@ -97,12 +103,16 @@ def deleteApiToken(mist_session:_APISession, apitoken_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/self/apitokens/{apitoken_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def updateApiToken(mist_session:_APISession, apitoken_id:str, body:dict) -> _APIResponse:
+
+def updateApiToken(
+    mist_session: _APISession, apitoken_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/update-api-token
 
@@ -125,6 +135,7 @@ def updateApiToken(mist_session:_APISession, apitoken_id:str, body:dict) -> _API
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/self/apitokens/{apitoken_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

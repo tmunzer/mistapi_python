@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,23 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listSiteOtherDevices(mist_session:_APISession, site_id:str, vendor:str|None=None, mac:str|None=None, serial:str|None=None, model:str|None=None, name:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def listSiteOtherDevices(
+    mist_session: _APISession,
+    site_id: str,
+    vendor: str | None = None,
+    mac: str | None = None,
+    serial: str | None = None,
+    model: str | None = None,
+    name: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/others/list-site-other-devices
 
@@ -42,26 +52,37 @@ def listSiteOtherDevices(mist_session:_APISession, site_id:str, vendor:str|None=
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/otherdevices"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if vendor:
-        query_params["vendor"]=str(vendor)
+        query_params["vendor"] = str(vendor)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if serial:
-        query_params["serial"]=str(serial)
+        query_params["serial"] = str(serial)
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if name:
-        query_params["name"]=str(name)
+        query_params["name"] = str(name)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def countSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, distinct:str="mac", type:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteOtherDeviceEvents(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "mac",
+    type: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/others/count-site-other-device-events
 
@@ -88,24 +109,37 @@ def countSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, distinct:s
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/otherdevices/events/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, mac:str|None=None, device_mac:str|None=None, vendor:str|None=None, type:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def searchSiteOtherDeviceEvents(
+    mist_session: _APISession,
+    site_id: str,
+    mac: str | None = None,
+    device_mac: str | None = None,
+    vendor: str | None = None,
+    type: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/others/search-site-other-device-events
 
@@ -134,23 +168,24 @@ def searchSiteOtherDeviceEvents(mist_session:_APISession, site_id:str, mac:str|N
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/otherdevices/events/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if device_mac:
-        query_params["device_mac"]=str(device_mac)
+        query_params["device_mac"] = str(device_mac)
     if vendor:
-        query_params["vendor"]=str(vendor)
+        query_params["vendor"] = str(vendor)
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

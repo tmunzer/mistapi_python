@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,13 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def listInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def listInstallerSites(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-sites
 
@@ -32,12 +32,16 @@ def listInstallerSites(mist_session:_APISession, org_id:str) -> _APIResponse:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/sites"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name:str, body:dict) -> _APIResponse:
+
+def createOrUpdateInstallerSites(
+    mist_session: _APISession, org_id: str, site_name: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/create-or-update-installer-sites
 
@@ -61,11 +65,15 @@ def createOrUpdateInstallerSites(mist_session:_APISession, org_id:str, site_name
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def listInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _APIResponse:
+
+def listInstallerMaps(
+    mist_session: _APISession, org_id: str, site_name: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-maps
 
@@ -84,12 +92,22 @@ def listInstallerMaps(mist_session:_APISession, org_id:str, site_name:str) -> _A
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, auto_deviceprofile_assignment:bool|None=None, csv:str|None=None, file:str|None=None, json:dict|None=None) -> _APIResponse:
+
+def importInstallerMapFile(
+    mist_session: _APISession,
+    org_id: str,
+    site_name: str,
+    auto_deviceprofile_assignment: bool | None = None,
+    csv: str | None = None,
+    file: str | None = None,
+    json: dict | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/import-installer-map
 
@@ -118,17 +136,21 @@ def importInstallerMapFile(mist_session:_APISession, org_id:str, site_name:str, 
     mistapi.APIResponse
         response from the API call
     """
+
     multipart_form_data = {
-        "auto_deviceprofile_assignment":auto_deviceprofile_assignment,
-        "csv":csv,
-        "file":file,
-        "json":json,
+        "auto_deviceprofile_assignment": auto_deviceprofile_assignment,
+        "csv": csv,
+        "file": file,
+        "json": json,
     }
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/import"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
-def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str) -> _APIResponse:
+
+def deleteInstallerMap(
+    mist_session: _APISession, org_id: str, site_name: str, map_id: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/delete-installer-map
 
@@ -148,12 +170,16 @@ def deleteInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/{map_id}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
-def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:dict) -> _APIResponse:
+
+def createInstallerMap(
+    mist_session: _APISession, org_id: str, site_name: str, map_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/create-installer-map
 
@@ -178,11 +204,15 @@ def createInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/{map_id}"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def updateInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_id:str, body:dict) -> _APIResponse:
+
+def updateInstallerMap(
+    mist_session: _APISession, org_id: str, site_name: str, map_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/update-installer-map
 
@@ -207,6 +237,7 @@ def updateInstallerMap(mist_session:_APISession, org_id:str, site_name:str, map_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/installer/orgs/{org_id}/sites/{site_name}/maps/{map_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp

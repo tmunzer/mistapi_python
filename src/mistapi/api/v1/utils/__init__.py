@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,8 +8,8 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
-from mistapi.api.v1.utils import test_smsglobal
-from mistapi.api.v1.utils import test_telstra
-from mistapi.api.v1.utils import test_twilio
+from mistapi.api.v1.utils import test_smsglobal, test_telstra, test_twilio
+
+__all__ = ["test_smsglobal", "test_telstra", "test_twilio"]

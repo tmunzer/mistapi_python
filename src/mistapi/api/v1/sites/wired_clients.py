@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,25 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def countSiteWiredClients(mist_session:_APISession, site_id:str, distinct:str="mac", mac:str|None=None, device_mac:str|None=None, port_id:str|None=None, vlan:str|None=None, start:int|None=None, end:int|None=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteWiredClients(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "mac",
+    mac: str | None = None,
+    device_mac: str | None = None,
+    port_id: str | None = None,
+    vlan: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wired/count-site-wired-clients
 
@@ -44,30 +56,52 @@ def countSiteWiredClients(mist_session:_APISession, site_id:str, distinct:str="m
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wired_clients/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if device_mac:
-        query_params["device_mac"]=str(device_mac)
+        query_params["device_mac"] = str(device_mac)
     if port_id:
-        query_params["port_id"]=str(port_id)
+        query_params["port_id"] = str(port_id)
     if vlan:
-        query_params["vlan"]=str(vlan)
+        query_params["vlan"] = str(vlan)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str|None=None, mac:str|None=None, ip:str|None=None, port_id:str|None=None, vlan:str|None=None, manufacture:str|None=None, text:str|None=None, nacrule_id:str|None=None, dhcp_hostname:str|None=None, dhcp_fqdn:str|None=None, dhcp_client_identifier:str|None=None, dhcp_vendor_class_identifier:str|None=None, dhcp_request_params:str|None=None, limit:int=100, start:int|None=None, end:int|None=None, duration:str="1d") -> _APIResponse:
+
+def searchSiteWiredClients(
+    mist_session: _APISession,
+    site_id: str,
+    device_mac: str | None = None,
+    mac: str | None = None,
+    ip: str | None = None,
+    port_id: str | None = None,
+    vlan: str | None = None,
+    manufacture: str | None = None,
+    text: str | None = None,
+    nacrule_id: str | None = None,
+    dhcp_hostname: str | None = None,
+    dhcp_fqdn: str | None = None,
+    dhcp_client_identifier: str | None = None,
+    dhcp_vendor_class_identifier: str | None = None,
+    dhcp_request_params: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wired/search-site-wired-clients
 
@@ -105,46 +139,50 @@ def searchSiteWiredClients(mist_session:_APISession, site_id:str, device_mac:str
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wired_clients/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if device_mac:
-        query_params["device_mac"]=str(device_mac)
+        query_params["device_mac"] = str(device_mac)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if ip:
-        query_params["ip"]=str(ip)
+        query_params["ip"] = str(ip)
     if port_id:
-        query_params["port_id"]=str(port_id)
+        query_params["port_id"] = str(port_id)
     if vlan:
-        query_params["vlan"]=str(vlan)
+        query_params["vlan"] = str(vlan)
     if manufacture:
-        query_params["manufacture"]=str(manufacture)
+        query_params["manufacture"] = str(manufacture)
     if text:
-        query_params["text"]=str(text)
+        query_params["text"] = str(text)
     if nacrule_id:
-        query_params["nacrule_id"]=str(nacrule_id)
+        query_params["nacrule_id"] = str(nacrule_id)
     if dhcp_hostname:
-        query_params["dhcp_hostname"]=str(dhcp_hostname)
+        query_params["dhcp_hostname"] = str(dhcp_hostname)
     if dhcp_fqdn:
-        query_params["dhcp_fqdn"]=str(dhcp_fqdn)
+        query_params["dhcp_fqdn"] = str(dhcp_fqdn)
     if dhcp_client_identifier:
-        query_params["dhcp_client_identifier"]=str(dhcp_client_identifier)
+        query_params["dhcp_client_identifier"] = str(dhcp_client_identifier)
     if dhcp_vendor_class_identifier:
-        query_params["dhcp_vendor_class_identifier"]=str(dhcp_vendor_class_identifier)
+        query_params["dhcp_vendor_class_identifier"] = str(dhcp_vendor_class_identifier)
     if dhcp_request_params:
-        query_params["dhcp_request_params"]=str(dhcp_request_params)
+        query_params["dhcp_request_params"] = str(dhcp_request_params)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if start:
-        query_params["start"]=str(start)
+        query_params["start"] = str(start)
     if end:
-        query_params["end"]=str(end)
+        query_params["end"] = str(end)
     if duration:
-        query_params["duration"]=str(duration)
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def reauthSiteDot1xWiredClient(mist_session:_APISession, site_id:str, client_mac:str) -> _APIResponse:
+
+def reauthSiteDot1xWiredClient(
+    mist_session: _APISession, site_id: str, client_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/reauth-site-dot1x-wired-client
 
@@ -163,6 +201,7 @@ def reauthSiteDot1xWiredClient(mist_session:_APISession, site_id:str, client_mac
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wired_clients/{client_mac}/coa"
     resp = mist_session.mist_post(uri=uri)
     return resp

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,27 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getOrgInventory(mist_session:_APISession, org_id:str, serial:str|None=None, model:str|None=None, type:str|None=None, mac:str|None=None, site_id:str|None=None, vc_mac:str|None=None, vc:bool|None=None, unassigned:bool=False, modified_after:int|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def getOrgInventory(
+    mist_session: _APISession,
+    org_id: str,
+    serial: str | None = None,
+    model: str | None = None,
+    type: str | None = None,
+    mac: str | None = None,
+    site_id: str | None = None,
+    vc_mac: str | None = None,
+    vc: bool | None = None,
+    unassigned: bool = False,
+    modified_after: int | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/get-org-inventory
 
@@ -46,34 +60,36 @@ def getOrgInventory(mist_session:_APISession, org_id:str, serial:str|None=None, 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/inventory"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if serial:
-        query_params["serial"]=str(serial)
+        query_params["serial"] = str(serial)
     if model:
-        query_params["model"]=str(model)
+        query_params["model"] = str(model)
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if site_id:
-        query_params["site_id"]=str(site_id)
+        query_params["site_id"] = str(site_id)
     if vc_mac:
-        query_params["vc_mac"]=str(vc_mac)
+        query_params["vc_mac"] = str(vc_mac)
     if vc:
-        query_params["vc"]=str(vc)
+        query_params["vc"] = str(vc)
     if unassigned:
-        query_params["unassigned"]=str(unassigned)
+        query_params["unassigned"] = str(unassigned)
     if modified_after:
-        query_params["modified_after"]=str(modified_after)
+        query_params["modified_after"] = str(modified_after)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def addOrgInventory(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def addOrgInventory(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/add-org-inventory
 
@@ -96,11 +112,15 @@ def addOrgInventory(mist_session:_APISession, org_id:str, body:dict) -> _APIResp
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/inventory"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def updateOrgInventoryAssignment(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/update-org-inventory-assignment
 
@@ -123,11 +143,19 @@ def updateOrgInventoryAssignment(mist_session:_APISession, org_id:str, body:dict
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/inventory"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
-def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", distinct:str="model", limit:int=100) -> _APIResponse:
+
+def countOrgInventory(
+    mist_session: _APISession,
+    org_id: str,
+    type: str = "ap",
+    distinct: str = "model",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/count-org-inventory
 
@@ -151,18 +179,22 @@ def countOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", disti
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/inventory/count"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if distinct:
-        query_params["distinct"]=str(distinct)
+        query_params["distinct"] = str(distinct)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def createOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def createOrgGatewayHaCluster(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/create-org-gateway-ha-cluster
 
@@ -185,11 +217,15 @@ def createOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:dict) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/inventory/create_ha_cluster"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def deleteOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def deleteOrgGatewayHaCluster(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/delete-org-gateway-ha-cluster
 
@@ -212,11 +248,13 @@ def deleteOrgGatewayHaCluster(mist_session:_APISession, org_id:str, body:dict) -
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/inventory/delete_ha_cluster"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+def reevaluateOrgAutoAssignment(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/reevaluate-org-auto-assignment
 
@@ -234,11 +272,15 @@ def reevaluateOrgAutoAssignment(mist_session:_APISession, org_id:str) -> _APIRes
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/inventory/reevaluate_auto_assignment"
     resp = mist_session.mist_post(uri=uri)
     return resp
 
-def replaceOrgDevices(mist_session:_APISession, org_id:str, body:dict) -> _APIResponse:
+
+def replaceOrgDevices(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/replace-org-devices
 
@@ -261,11 +303,29 @@ def replaceOrgDevices(mist_session:_APISession, org_id:str, body:dict) -> _APIRe
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/inventory/replace"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
-def searchOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", mac:str|None=None, vc_mac:str|None=None, master_mac:str|None=None, site_id:str|None=None, serial:str|None=None, master:str|None=None, sku:str|None=None, version:str|None=None, status:str|None=None, text:str|None=None, limit:int=100, page:int=1) -> _APIResponse:
+
+def searchOrgInventory(
+    mist_session: _APISession,
+    org_id: str,
+    type: str = "ap",
+    mac: str | None = None,
+    vc_mac: str | None = None,
+    master_mac: str | None = None,
+    site_id: str | None = None,
+    serial: str | None = None,
+    master: str | None = None,
+    sku: str | None = None,
+    version: str | None = None,
+    status: str | None = None,
+    text: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/search-org-inventory
 
@@ -299,33 +359,34 @@ def searchOrgInventory(mist_session:_APISession, org_id:str, type:str="ap", mac:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/inventory/search"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     if type:
-        query_params["type"]=str(type)
+        query_params["type"] = str(type)
     if mac:
-        query_params["mac"]=str(mac)
+        query_params["mac"] = str(mac)
     if vc_mac:
-        query_params["vc_mac"]=str(vc_mac)
+        query_params["vc_mac"] = str(vc_mac)
     if master_mac:
-        query_params["master_mac"]=str(master_mac)
+        query_params["master_mac"] = str(master_mac)
     if site_id:
-        query_params["site_id"]=str(site_id)
+        query_params["site_id"] = str(site_id)
     if serial:
-        query_params["serial"]=str(serial)
+        query_params["serial"] = str(serial)
     if master:
-        query_params["master"]=str(master)
+        query_params["master"] = str(master)
     if sku:
-        query_params["sku"]=str(sku)
+        query_params["sku"] = str(sku)
     if version:
-        query_params["version"]=str(version)
+        query_params["version"] = str(version)
     if status:
-        query_params["status"]=str(status)
+        query_params["status"] = str(status)
     if text:
-        query_params["text"]=str(text)
+        query_params["text"] = str(text)
     if limit:
-        query_params["limit"]=str(limit)
+        query_params["limit"] = str(limit)
     if page:
-        query_params["page"]=str(page)
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

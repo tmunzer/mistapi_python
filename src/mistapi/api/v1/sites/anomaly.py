@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,13 +8,15 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_mac:str, metric:str) -> _APIResponse:
+
+def getSiteAnomalyEventsForClient(
+    mist_session: _APISession, site_id: str, client_mac: str, metric: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/get-site-anomaly-events-for-client
 
@@ -34,12 +36,16 @@ def getSiteAnomalyEventsForClient(mist_session:_APISession, site_id:str, client_
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/anomaly/client/{client_mac}/{metric}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def getSiteAnomalyEventsForDevice(mist_session:_APISession, site_id:str, metric:str, device_mac:str) -> _APIResponse:
+
+def getSiteAnomalyEventsForDevice(
+    mist_session: _APISession, site_id: str, metric: str, device_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/get-site-anomaly-events-for-device
 
@@ -59,12 +65,16 @@ def getSiteAnomalyEventsForDevice(mist_session:_APISession, site_id:str, metric:
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/anomaly/device/{device_mac}/{metric}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
-def listSiteAnomalyEvents(mist_session:_APISession, site_id:str, metric:str) -> _APIResponse:
+
+def listSiteAnomalyEvents(
+    mist_session: _APISession, site_id: str, metric: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/anomaly/list-site-anomaly-events
 
@@ -83,7 +93,8 @@ def listSiteAnomalyEvents(mist_session:_APISession, site_id:str, metric:str) -> 
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/anomaly/{metric}"
-    query_params:dict[str, str]={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
