@@ -438,7 +438,7 @@ wheels = [
 
 [[package]]
 name = "mistapi"
-version = "0.55.15"
+version = "0.56.0"
 source = { editable = "." }
 dependencies = [
     { name = "deprecation" },
