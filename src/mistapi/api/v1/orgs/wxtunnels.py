@@ -51,7 +51,7 @@ def listOrgWxTunnels(
 
 
 def createOrgWxTunnel(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtunnels/create-org-wx-tunnel

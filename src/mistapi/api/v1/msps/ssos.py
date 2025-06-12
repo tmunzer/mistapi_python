@@ -39,7 +39,9 @@ def listMspSsos(mist_session: _APISession, msp_id: str) -> _APIResponse:
     return resp
 
 
-def createMspSso(mist_session: _APISession, msp_id: str, body: dict) -> _APIResponse:
+def createMspSso(
+    mist_session: _APISession, msp_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/create-msp-sso
 

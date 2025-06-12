@@ -40,7 +40,7 @@ def listOrgApiTokens(mist_session: _APISession, org_id: str) -> _APIResponse:
 
 
 def createOrgApiToken(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/api-tokens/create-org-api-token

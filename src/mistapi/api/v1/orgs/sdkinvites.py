@@ -39,7 +39,9 @@ def listSdkInvites(mist_session: _APISession, org_id: str) -> _APIResponse:
     return resp
 
 
-def createSdkInvite(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def createSdkInvite(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/create-sdk-invite
 
@@ -157,7 +159,7 @@ def updateSdkInvite(
 
 
 def sendSdkInviteEmail(
-    mist_session: _APISession, org_id: str, sdkinvite_id: str, body: dict
+    mist_session: _APISession, org_id: str, sdkinvite_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/send-sdk-invite-email
@@ -217,7 +219,7 @@ def getSdkInviteQrCode(
 
 
 def sendSdkInviteSms(
-    mist_session: _APISession, org_id: str, sdkinvite_id: str, body: dict
+    mist_session: _APISession, org_id: str, sdkinvite_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/send-sdk-invite-sms

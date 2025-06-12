@@ -72,7 +72,9 @@ def unlinkOauth2Provider(mist_session: _APISession, provider: str) -> _APIRespon
     return resp
 
 
-def loginOauth2(mist_session: _APISession, provider: str, body: dict) -> _APIResponse:
+def loginOauth2(
+    mist_session: _APISession, provider: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/login/oauth2/login-oauth2
 

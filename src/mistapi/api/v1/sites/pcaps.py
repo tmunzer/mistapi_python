@@ -120,7 +120,7 @@ def stopSitePacketCapture(mist_session: _APISession, site_id: str) -> _APIRespon
 
 
 def startSitePacketCapture(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/pcaps/start-site-packet-capture

@@ -14,7 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
-def testSiteWlanTelstraSetup(mist_session: _APISession, body: dict) -> _APIResponse:
+def testSiteWlanTelstraSetup(
+    mist_session: _APISession, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/test-site-wlan-telstra-setup
 

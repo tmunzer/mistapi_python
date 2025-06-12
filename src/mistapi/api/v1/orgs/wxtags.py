@@ -50,7 +50,9 @@ def listOrgWxTags(
     return resp
 
 
-def createOrgWxTag(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def createOrgWxTag(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxtags/create-org-wx-tag
 

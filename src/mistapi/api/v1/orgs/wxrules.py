@@ -50,7 +50,9 @@ def listOrgWxRules(
     return resp
 
 
-def createOrgWxRule(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def createOrgWxRule(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wxrules/create-org-wx-rule
 

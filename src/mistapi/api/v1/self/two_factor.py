@@ -44,7 +44,7 @@ def generateSecretFor2faVerification(
     return resp
 
 
-def verifyTwoFactor(mist_session: _APISession, body: dict) -> _APIResponse:
+def verifyTwoFactor(mist_session: _APISession, body: dict | list) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/mfa/verify-two-factor
 

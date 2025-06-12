@@ -50,7 +50,9 @@ def listOrgSites(
     return resp
 
 
-def createOrgSite(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def createOrgSite(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sites/create-org-site
 

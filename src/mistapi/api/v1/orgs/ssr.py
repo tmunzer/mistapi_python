@@ -72,7 +72,9 @@ def listOrgSsrUpgrades(mist_session: _APISession, org_id: str) -> _APIResponse:
     return resp
 
 
-def upgradeOrgSsrs(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def upgradeOrgSsrs(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-ssrs
 

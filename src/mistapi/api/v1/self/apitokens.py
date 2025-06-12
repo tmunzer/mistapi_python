@@ -35,7 +35,7 @@ def listApiTokens(mist_session: _APISession) -> _APIResponse:
     return resp
 
 
-def createApiToken(mist_session: _APISession, body: dict) -> _APIResponse:
+def createApiToken(mist_session: _APISession, body: dict | list) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/api-token/create-api-token
 

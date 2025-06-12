@@ -40,7 +40,7 @@ def listOrgAAMWProfiles(mist_session: _APISession, org_id: str) -> _APIResponse:
 
 
 def createOrgAAMWProfile(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/advanced-anti-malware-profiles/create-org-a-a-m-w-profile

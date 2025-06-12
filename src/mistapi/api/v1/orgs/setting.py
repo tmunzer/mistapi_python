@@ -98,7 +98,7 @@ def deleteOrgWirelessClientsBlocklist(
 
 
 def createOrgWirelessClientsBlocklist(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/create-org-wireless-clients-blocklist
@@ -183,7 +183,7 @@ def deleteOrgCradlepointConnection(
 
 
 def setupOrgCradlepointConnectionToMist(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-cradlepoint/setup-org-cradlepoint-connection-to-mist
@@ -344,7 +344,7 @@ def deleteOrgJseIntegration(mist_session: _APISession, org_id: str) -> _APIRespo
 
 
 def setupOrgJseIntegration(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-jse/setup-org-jse-integration
@@ -375,7 +375,7 @@ def setupOrgJseIntegration(
 
 
 def linkOrgToJuniperJuniperAccount(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-juniper/link-org-to-juniper-juniper-account
@@ -650,7 +650,7 @@ def listOrgIssuedClientCertificates(
 
 
 def revokeOrgIssuedClientCertificates(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/revoke-org-issued-client-certificates
@@ -681,7 +681,7 @@ def revokeOrgIssuedClientCertificates(
 
 
 def setOrgCustomBucket(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/set-org-custom-bucket
@@ -712,7 +712,7 @@ def setOrgCustomBucket(
 
 
 def verifyOrgCustomBucket(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/setting/verify-org-custom-bucket
@@ -793,7 +793,7 @@ def deleteOrgSkyAtpIntegration(mist_session: _APISession, org_id: str) -> _APIRe
 
 
 def setupOrgAtpIntegration(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/setup-org-atp-integration
@@ -967,7 +967,7 @@ def deleteOrgZscalerIntegration(mist_session: _APISession, org_id: str) -> _APIR
 
 
 def setupOrgZscalerIntegration(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-zscaler/setup-org-zscaler-integration
@@ -1033,7 +1033,7 @@ def getOrgOauthAppLinkedStatus(
 
 
 def addOrgOauthAppAccounts(
-    mist_session: _APISession, org_id: str, app_name: str, body: dict
+    mist_session: _APISession, org_id: str, app_name: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/add-org-oauth-app-accounts

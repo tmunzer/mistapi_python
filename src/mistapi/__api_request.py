@@ -73,10 +73,12 @@ class APIRequest:
         pwd_regex = r":([^:@]*)@"  # nosec bandit B105
         if self._session.proxies.get("https"):
             logger.info(
-                f"apirequest:sending request to proxy server {re.sub(pwd_regex, ':*********@', self._session.proxies['https'])}"
+                "apirequest:sending request to proxy server %s",
+                re.sub(pwd_regex, ":*********@", self._session.proxies["https"]),
             )
             print(
-                f"apirequest:sending request to proxy server {re.sub(pwd_regex, ':*********@', self._session.proxies['https'])}"
+                "apirequest:sending request to proxy server %s",
+                re.sub(pwd_regex, ":*********@", self._session.proxies["https"]),
             )
 
     def _next_apitoken(self) -> None:
@@ -207,7 +209,7 @@ class APIRequest:
             self._count += 1
         return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_post(self, uri: str, body: dict | None = None) -> APIResponse:
+    def mist_post(self, uri: str, body: dict | list | None = None) -> APIResponse:
         """
         POST HTTP Request
 
@@ -244,7 +246,7 @@ class APIRequest:
             logger.error(f"apirequest:mist_post:Proxy Error: {proxy_error}")
             proxy_failed = True
         except requests.exceptions.ConnectionError as connexion_error:
-            logger.error(f"Capirequest:mist_post:Connection Error: {connexion_error}")
+            logger.error(f"apirequest:mist_post:Connection Error: {connexion_error}")
         except HTTPError as http_err:
             if http_err.response.status_code == 429:
                 logger.warning(
@@ -263,7 +265,7 @@ class APIRequest:
             logger.error("apirequest:mist_post: Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
     def mist_put(self, uri: str, body: dict | None = None) -> APIResponse:
         """
@@ -321,7 +323,7 @@ class APIRequest:
             logger.error("apirequest:mist_put: Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
     def mist_delete(self, uri: str, query: dict | None = None) -> APIResponse:
         """
@@ -367,9 +369,11 @@ class APIRequest:
             logger.error("apirequest:mist_delete: Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
-    def mist_post_file(self, uri: str, multipart_form_data: dict = {}) -> APIResponse:
+    def mist_post_file(
+        self, uri: str, multipart_form_data: dict | None = None
+    ) -> APIResponse:
         """
         POST HTTP Request
 
@@ -388,6 +392,8 @@ class APIRequest:
         resp = None
         proxy_failed = False
         try:
+            if multipart_form_data is None:
+                multipart_form_data = {}
             url = self._url(uri)
             logger.info(f"apirequest:mist_post_file:sending request to {url}")
             logger.debug(
@@ -464,4 +470,4 @@ class APIRequest:
             logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
         finally:
             self._count += 1
-            return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)

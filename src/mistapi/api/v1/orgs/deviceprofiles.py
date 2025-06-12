@@ -58,7 +58,7 @@ def listOrgDeviceProfiles(
 
 
 def createOrgDeviceProfile(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/create-org-device-profile
@@ -177,7 +177,7 @@ def updateOrgDeviceProfile(
 
 
 def assignOrgDeviceProfile(
-    mist_session: _APISession, org_id: str, deviceprofile_id: str, body: dict
+    mist_session: _APISession, org_id: str, deviceprofile_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/assign-org-device-profile
@@ -209,7 +209,7 @@ def assignOrgDeviceProfile(
 
 
 def unassignOrgDeviceProfile(
-    mist_session: _APISession, org_id: str, deviceprofile_id: str, body: dict
+    mist_session: _APISession, org_id: str, deviceprofile_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/unassign-org-device-profile

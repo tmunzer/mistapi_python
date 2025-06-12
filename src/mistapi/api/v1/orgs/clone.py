@@ -14,7 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
-def cloneOrg(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def cloneOrg(mist_session: _APISession, org_id: str, body: dict | list) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clone-org
 

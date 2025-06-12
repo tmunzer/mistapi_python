@@ -39,7 +39,9 @@ def deleteMspLogo(mist_session: _APISession, msp_id: str) -> _APIResponse:
     return resp
 
 
-def postMspLogo(mist_session: _APISession, msp_id: str, body: dict) -> _APIResponse:
+def postMspLogo(
+    mist_session: _APISession, msp_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logo/post-msp-logo
 

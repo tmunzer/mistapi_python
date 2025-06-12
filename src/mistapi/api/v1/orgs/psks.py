@@ -65,7 +65,9 @@ def listOrgPsks(
     return resp
 
 
-def createOrgPsk(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def createOrgPsk(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/create-org-psk
 
@@ -126,7 +128,7 @@ def updateOrgMultiplePsks(
 
 
 def deleteOrgPskList(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/delete-org-psk-list
@@ -190,7 +192,9 @@ def importOrgPsksFile(
     return resp
 
 
-def importOrgPsks(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def importOrgPsks(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/import-org-psks
 

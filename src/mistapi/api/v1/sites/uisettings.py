@@ -40,7 +40,7 @@ def listSiteUiSettings(mist_session: _APISession, site_id: str) -> _APIResponse:
 
 
 def createSiteUiSettings(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/create-site-ui-settings
@@ -152,7 +152,7 @@ def deleteSiteUiSetting(
 
 
 def updateSiteUiSetting(
-    mist_session: _APISession, site_id: str, uisetting_id: str, body: dict
+    mist_session: _APISession, site_id: str, uisetting_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/ui-settings/update-site-ui-setting

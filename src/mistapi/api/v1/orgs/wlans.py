@@ -50,7 +50,9 @@ def listOrgWlans(
     return resp
 
 
-def createOrgWlan(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def createOrgWlan(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/wlans/create-org-wlan
 

@@ -40,7 +40,7 @@ def listOrgMarvisClientInvites(mist_session: _APISession, org_id: str) -> _APIRe
 
 
 def createOrgMarvisClientInvite(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/marvis-invites/create-org-marvis-client-invite

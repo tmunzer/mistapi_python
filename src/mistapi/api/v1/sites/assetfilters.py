@@ -51,7 +51,7 @@ def listSiteAssetFilters(
 
 
 def createSiteAssetFilter(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/asset-filters/create-site-asset-filter

@@ -15,7 +15,7 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 
 def AckSiteMultipleAlarms(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/ack-site-multiple-alarms
@@ -46,7 +46,7 @@ def AckSiteMultipleAlarms(
 
 
 def ackSiteAllAlarms(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/ack-site-all-alarms
@@ -216,7 +216,7 @@ def searchSiteAlarms(
 
 
 def unackSiteMultipleAlarms(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-multiple-alarms
@@ -247,7 +247,7 @@ def unackSiteMultipleAlarms(
 
 
 def unackSiteAllAlarms(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-all-alarms
@@ -278,7 +278,7 @@ def unackSiteAllAlarms(
 
 
 def ackSiteAlarm(
-    mist_session: _APISession, site_id: str, alarm_id: str, body: dict
+    mist_session: _APISession, site_id: str, alarm_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/ack-site-alarm
@@ -310,7 +310,7 @@ def ackSiteAlarm(
 
 
 def unackSiteAlarm(
-    mist_session: _APISession, site_id: str, alarm_id: str, body: dict
+    mist_session: _APISession, site_id: str, alarm_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/unack-site-alarm

@@ -57,7 +57,9 @@ def listOrgTickets(
     return resp
 
 
-def createOrgTicket(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def createOrgTicket(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/create-org-ticket
 
@@ -323,7 +325,7 @@ def addOrgTicketCommentFile(
 
 
 def addOrgTicketComment(
-    mist_session: _APISession, org_id: str, ticket_id: str, body: dict
+    mist_session: _APISession, org_id: str, ticket_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/add-org-ticket-comment

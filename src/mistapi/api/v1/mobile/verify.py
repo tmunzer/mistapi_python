@@ -15,7 +15,7 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 
 def activateSdkInvite(
-    mist_session: _APISession, secret: str, body: dict
+    mist_session: _APISession, secret: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-invites/activate-sdk-invite

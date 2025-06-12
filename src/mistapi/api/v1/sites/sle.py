@@ -714,7 +714,7 @@ def replaceSiteSleThreshold(
     scope: str,
     scope_id: str,
     metric: str,
-    body: dict,
+    body: dict | list,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/replace-site-sle-threshold

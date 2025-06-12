@@ -98,7 +98,7 @@ def deleteSiteWirelessClientsBlocklist(
 
 
 def createSiteWirelessClientsBlocklist(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/create-site-wireless-clients-blocklist
@@ -204,7 +204,7 @@ def deleteSiteWatchedStations(mist_session: _APISession, site_id: str) -> _APIRe
 
 
 def createSiteWatchedStations(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/create-site-watched-stations
@@ -262,7 +262,7 @@ def deleteSiteWirelessClientsAllowlist(
 
 
 def createSiteWirelessClientsAllowlist(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/create-site-wireless-clients-allowlist

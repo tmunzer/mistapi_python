@@ -58,7 +58,9 @@ def listOrgMxEdges(
     return resp
 
 
-def createOrgMxEdge(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def createOrgMxEdge(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/create-org-mx-edge
 
@@ -88,7 +90,7 @@ def createOrgMxEdge(mist_session: _APISession, org_id: str, body: dict) -> _APIR
 
 
 def assignOrgMxEdgeToSite(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/assign-org-mx-edge-to-site
@@ -118,7 +120,9 @@ def assignOrgMxEdgeToSite(
     return resp
 
 
-def claimOrgMxEdge(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def claimOrgMxEdge(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/claim-org-mx-edge
 
@@ -448,7 +452,7 @@ def searchOrgMxEdges(
 
 
 def unassignOrgMxEdgeFromSite(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/unassign-org-mx-edge-from-site
@@ -504,7 +508,7 @@ def listOrgMxEdgeUpgrades(mist_session: _APISession, org_id: str) -> _APIRespons
 
 
 def upgradeOrgMxEdges(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-mx-edges
@@ -724,7 +728,7 @@ def addOrgMxEdgeImage(
     org_id: str,
     mxedge_id: str,
     image_number: int,
-    body: dict,
+    body: dict | list,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/add-org-mx-edge-image
@@ -784,7 +788,7 @@ def restartOrgMxEdge(
 
 
 def bounceOrgMxEdgeDataPorts(
-    mist_session: _APISession, org_id: str, mxedge_id: str, body: dict
+    mist_session: _APISession, org_id: str, mxedge_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/bounce-org-mx-edge-data-ports
@@ -816,7 +820,7 @@ def bounceOrgMxEdgeDataPorts(
 
 
 def disconnectOrgMxEdgeTuntermAps(
-    mist_session: _APISession, org_id: str, mxedge_id: str, body: dict
+    mist_session: _APISession, org_id: str, mxedge_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/disconnect-org-mx-edge-tunterm-aps

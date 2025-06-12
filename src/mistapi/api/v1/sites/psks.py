@@ -65,7 +65,9 @@ def listSitePsks(
     return resp
 
 
-def createSitePsk(mist_session: _APISession, site_id: str, body: dict) -> _APIResponse:
+def createSitePsk(
+    mist_session: _APISession, site_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/create-site-psk
 
@@ -159,7 +161,9 @@ def importSitePsksFile(
     return resp
 
 
-def importSitePsks(mist_session: _APISession, site_id: str, body: dict) -> _APIResponse:
+def importSitePsks(
+    mist_session: _APISession, site_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/psks/import-site-psks
 

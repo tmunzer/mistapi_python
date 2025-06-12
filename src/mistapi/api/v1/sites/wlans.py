@@ -50,7 +50,9 @@ def listSiteWlans(
     return resp
 
 
-def createSiteWlan(mist_session: _APISession, site_id: str, body: dict) -> _APIResponse:
+def createSiteWlan(
+    mist_session: _APISession, site_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/create-site-wlan
 

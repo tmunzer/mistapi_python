@@ -50,7 +50,9 @@ def listSiteMaps(
     return resp
 
 
-def createSiteMap(mist_session: _APISession, site_id: str, body: dict) -> _APIResponse:
+def createSiteMap(
+    mist_session: _APISession, site_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/create-site-map
 
@@ -267,7 +269,7 @@ def deleteSiteApAutoOrientation(
 
 
 def startSiteApAutoOrientation(
-    mist_session: _APISession, map_id: str, site_id: str, body: dict
+    mist_session: _APISession, map_id: str, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/start-site-ap-auto-orientation
@@ -355,7 +357,7 @@ def deleteSiteApAutoplacement(
 
 
 def runSiteApAutoplacement(
-    mist_session: _APISession, site_id: str, map_id: str, body: dict
+    mist_session: _APISession, site_id: str, map_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/run-site-ap-autoplacement
@@ -470,7 +472,7 @@ def startSiteMapAutoZone(
 
 
 def clearSiteApAutoOrient(
-    mist_session: _APISession, site_id: str, map_id: str, body: dict
+    mist_session: _APISession, site_id: str, map_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/clear-site-ap-auto-orient
@@ -502,7 +504,7 @@ def clearSiteApAutoOrient(
 
 
 def clearSiteApAutoplacement(
-    mist_session: _APISession, site_id: str, map_id: str, body: dict
+    mist_session: _APISession, site_id: str, map_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/clear-site-ap-autoplacement
@@ -644,7 +646,7 @@ def replaceSiteMapImageFile(
 
 
 def bulkAssignSiteApsToMap(
-    mist_session: _APISession, site_id: str, map_id: str, body: dict
+    mist_session: _APISession, site_id: str, map_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/bulk-assign-site-aps-to-map
@@ -676,7 +678,7 @@ def bulkAssignSiteApsToMap(
 
 
 def confirmSiteApLocalizationData(
-    mist_session: _APISession, site_id: str, map_id: str, body: dict
+    mist_session: _APISession, site_id: str, map_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/confirm-site-ap-localization-data
@@ -708,7 +710,7 @@ def confirmSiteApLocalizationData(
 
 
 def importSiteWayfindings(
-    mist_session: _APISession, site_id: str, map_id: str, body: dict
+    mist_session: _APISession, site_id: str, map_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/import-site-wayfindings

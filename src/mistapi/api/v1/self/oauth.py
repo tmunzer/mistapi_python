@@ -48,7 +48,7 @@ def getOauth2UrlForLinking(
 
 
 def linkOauth2MistAccount(
-    mist_session: _APISession, provider: str, body: dict
+    mist_session: _APISession, provider: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/oauth2/link-oauth2-mist-account

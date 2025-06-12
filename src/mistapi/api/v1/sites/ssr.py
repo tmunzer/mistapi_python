@@ -43,7 +43,7 @@ def getSiteSsrUpgrade(
 
 
 def upgradeSsr(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-ssr

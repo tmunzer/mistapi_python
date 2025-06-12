@@ -118,7 +118,7 @@ def createOrgJsiDeviceShellSession(
 
 
 def upgradeOrgJsiDevice(
-    mist_session: _APISession, org_id: str, device_mac: str, body: dict
+    mist_session: _APISession, org_id: str, device_mac: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-org-jsi-device

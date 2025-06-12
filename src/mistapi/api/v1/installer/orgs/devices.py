@@ -66,7 +66,7 @@ def listInstallerListOfRecentlyClaimedDevices(
 
 
 def claimInstallerDevices(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/claim-installer-devices
@@ -319,7 +319,7 @@ def getInstallerDeviceVirtualChassis(
 
 
 def createInstallerVirtualChassis(
-    mist_session: _APISession, org_id: str, fpc0_mac: str, body: dict
+    mist_session: _APISession, org_id: str, fpc0_mac: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/create-installer-virtual-chassis

@@ -39,7 +39,9 @@ def listMspOrgs(mist_session: _APISession, msp_id: str) -> _APIResponse:
     return resp
 
 
-def createMspOrg(mist_session: _APISession, msp_id: str, body: dict) -> _APIResponse:
+def createMspOrg(
+    mist_session: _APISession, msp_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/create-msp-org
 

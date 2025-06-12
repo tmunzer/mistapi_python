@@ -15,7 +15,7 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 
 def ackOrgMultipleAlarms(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-multiple-alarms
@@ -45,7 +45,9 @@ def ackOrgMultipleAlarms(
     return resp
 
 
-def ackOrgAllAlarms(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def ackOrgAllAlarms(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-all-alarms
 
@@ -185,7 +187,7 @@ def searchOrgAlarms(
 
 
 def unackOrgMultipleAlarms(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/unack-org-multiple-alarms
@@ -216,7 +218,7 @@ def unackOrgMultipleAlarms(
 
 
 def unackOrgAllAlarms(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/unack-org-all-alarms
@@ -247,7 +249,7 @@ def unackOrgAllAlarms(
 
 
 def ackOrgAlarm(
-    mist_session: _APISession, org_id: str, alarm_id: str, body: dict
+    mist_session: _APISession, org_id: str, alarm_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/ack-org-alarm

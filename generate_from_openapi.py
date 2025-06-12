@@ -123,7 +123,7 @@ def {operation_id}(mist_session: _APISession{code_path_params}) -> _APIResponse:
 
 # Template for POST method functions with JSON body
 FUNCTION_POST_BODY_TEMPLATE = """
-def {operation_id}(mist_session: _APISession{code_path_params}, body:dict) -> _APIResponse:
+def {operation_id}(mist_session: _APISession{code_path_params}, body:dict|list) -> _APIResponse:
 {code_desc}
     uri = {uri}
     resp = mist_session.mist_post(uri=uri, body=body)

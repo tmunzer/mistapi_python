@@ -50,7 +50,9 @@ def listOrgAssets(
     return resp
 
 
-def createOrgAsset(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def createOrgAsset(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/create-org-asset
 
@@ -113,7 +115,9 @@ def importOrgAssetsFile(
     return resp
 
 
-def importOrgAssets(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def importOrgAssets(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/assets/import-org-assets
 

@@ -89,7 +89,9 @@ def getOrgInventory(
     return resp
 
 
-def addOrgInventory(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def addOrgInventory(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/add-org-inventory
 
@@ -193,7 +195,7 @@ def countOrgInventory(
 
 
 def createOrgGatewayHaCluster(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/create-org-gateway-ha-cluster
@@ -224,7 +226,7 @@ def createOrgGatewayHaCluster(
 
 
 def deleteOrgGatewayHaCluster(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/delete-org-gateway-ha-cluster
@@ -279,7 +281,7 @@ def reevaluateOrgAutoAssignment(mist_session: _APISession, org_id: str) -> _APIR
 
 
 def replaceOrgDevices(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/replace-org-devices

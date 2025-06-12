@@ -40,7 +40,7 @@ def listSdkTemplates(mist_session: _APISession, org_id: str) -> _APIResponse:
 
 
 def createSdkTemplate(
-    mist_session: _APISession, org_id: str, body: dict
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sdk-templates/create-sdk-template

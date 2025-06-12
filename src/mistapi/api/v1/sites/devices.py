@@ -493,7 +493,7 @@ def importSiteDevicesFile(
 
 
 def importSiteDevices(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/import-site-devices
@@ -662,7 +662,7 @@ def reprovisionSiteAllDevices(mist_session: _APISession, site_id: str) -> _APIRe
 
 
 def resetSiteAllApsToUseRrm(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/reset-site-all-aps-to-use-rrm
@@ -693,7 +693,7 @@ def resetSiteAllApsToUseRrm(
 
 
 def restartSiteMultipleDevices(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/restart-site-multiple-devices
@@ -866,7 +866,7 @@ def searchSiteDevices(
 
 
 def sendSiteDevicesArbitraryBleBeacon(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/location/send-site-devices-arbitrary-ble-beacon
@@ -930,7 +930,7 @@ def listSiteDeviceUpgrades(
 
 
 def upgradeSiteDevices(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-site-devices
@@ -1016,7 +1016,7 @@ def cancelSiteDeviceUpgrade(
 
 
 def upgradeSiteDevicesBios(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-site-devices-bios
@@ -1047,7 +1047,7 @@ def upgradeSiteDevicesBios(
 
 
 def upgradeSiteDevicesFpga(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-site-devices-fpga
@@ -1114,7 +1114,7 @@ def listSiteAvailableDeviceVersions(
 
 
 def zeroizeSiteFipsAllAps(
-    mist_session: _APISession, site_id: str, body: dict
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wi-fi/zeroize-site-fips-all-aps
@@ -1205,7 +1205,7 @@ def updateSiteDevice(
 
 
 def arpFromDevice(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/arp-from-device
@@ -1237,7 +1237,7 @@ def arpFromDevice(
 
 
 def bounceDevicePort(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/bounce-device-port
@@ -1269,7 +1269,7 @@ def bounceDevicePort(
 
 
 def cableTestFromSwitch(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/cable-test-from-switch
@@ -1301,7 +1301,7 @@ def cableTestFromSwitch(
 
 
 def startSiteSwitchRadiusSyntheticTest(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/start-site-switch-radius-synthetic-test
@@ -1333,7 +1333,7 @@ def startSiteSwitchRadiusSyntheticTest(
 
 
 def clearSiteSsrArpCache(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/clear-site-ssr-arp-cache
@@ -1365,7 +1365,7 @@ def clearSiteSsrArpCache(
 
 
 def clearSiteSsrBgpRoutes(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/clear-site-ssr-bgp-routes
@@ -1397,7 +1397,7 @@ def clearSiteSsrBgpRoutes(
 
 
 def clearBpduErrorsFromPortsOnSwitch(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-bpdu-errors-from-ports-on-switch
@@ -1429,7 +1429,7 @@ def clearBpduErrorsFromPortsOnSwitch(
 
 
 def clearSiteDeviceMacTable(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/clear-site-device-mac-table
@@ -1461,7 +1461,7 @@ def clearSiteDeviceMacTable(
 
 
 def clearAllLearnedMacsFromPortOnSwitch(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-all-learned-macs-from-port-on-switch
@@ -1520,7 +1520,7 @@ def clearSiteDevicePolicyHitCount(
 
 
 def clearSiteDeviceSession(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/clear-site-device-session
@@ -1642,7 +1642,7 @@ def deleteSiteDeviceHaCluster(
 
 
 def createSiteDeviceHaCluster(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wan-cluster/create-site-device-ha-cluster
@@ -1866,7 +1866,7 @@ def updateSiteLocalSwitchPortConfig(
 
 
 def startSiteLocateDevice(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/start-site-locate-device
@@ -1898,7 +1898,7 @@ def startSiteLocateDevice(
 
 
 def monitorSiteDeviceTraffic(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/monitor-site-device-traffic
@@ -1930,7 +1930,7 @@ def monitorSiteDeviceTraffic(
 
 
 def pingFromDevice(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/ping-from-device
@@ -2016,7 +2016,7 @@ def readoptSiteOctermDevice(
 
 
 def releaseSiteSsrDhcpLease(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/release-site-ssr-dhcp-lease
@@ -2048,7 +2048,7 @@ def releaseSiteSsrDhcpLease(
 
 
 def releaseSiteDeviceDhcpLease(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/release-site-device-dhcp-lease
@@ -2161,7 +2161,7 @@ def testSiteSsrDnsResolution(
 
 
 def restartSiteDevice(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/restart-site-device
@@ -2220,7 +2220,7 @@ def runSiteSrxTopCommand(
 
 
 def servicePingFromSsr(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/service-ping-from-ssr
@@ -2284,7 +2284,7 @@ def setSiteApAntennaMode(
 
 
 def changeSiteSwitchVcPortMode(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/change-site-switch-vc-port-mode
@@ -2316,7 +2316,7 @@ def changeSiteSwitchVcPortMode(
 
 
 def createSiteDeviceShellSession(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/create-site-device-shell-session
@@ -2348,7 +2348,7 @@ def createSiteDeviceShellSession(
 
 
 def showSiteDeviceArpTable(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-arp-table
@@ -2380,7 +2380,7 @@ def showSiteDeviceArpTable(
 
 
 def showSiteDeviceBgpSummary(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-bgp-summary
@@ -2412,7 +2412,7 @@ def showSiteDeviceBgpSummary(
 
 
 def showSiteDeviceDhcpLeases(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-dhcp-leases
@@ -2444,7 +2444,7 @@ def showSiteDeviceDhcpLeases(
 
 
 def showSiteDeviceEvpnDatabase(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-evpn-database
@@ -2476,7 +2476,7 @@ def showSiteDeviceEvpnDatabase(
 
 
 def showSiteDeviceForwardingTable(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-forwarding-table
@@ -2508,7 +2508,7 @@ def showSiteDeviceForwardingTable(
 
 
 def showSiteDeviceMacTable(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-mac-table
@@ -2540,7 +2540,7 @@ def showSiteDeviceMacTable(
 
 
 def showSiteGatewayOspfDatabase(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-database
@@ -2572,7 +2572,7 @@ def showSiteGatewayOspfDatabase(
 
 
 def showSiteGatewayOspfInterfaces(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-interfaces
@@ -2604,7 +2604,7 @@ def showSiteGatewayOspfInterfaces(
 
 
 def showSiteGatewayOspfNeighbors(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-neighbors
@@ -2636,7 +2636,7 @@ def showSiteGatewayOspfNeighbors(
 
 
 def showSiteGatewayOspfSummary(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-gateway-ospf-summary
@@ -2668,7 +2668,7 @@ def showSiteGatewayOspfSummary(
 
 
 def showSiteSsrAndSrxRoutes(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-and-srx-routes
@@ -2700,7 +2700,7 @@ def showSiteSsrAndSrxRoutes(
 
 
 def showSiteSsrServicePath(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-service-path
@@ -2732,7 +2732,7 @@ def showSiteSsrServicePath(
 
 
 def showSiteSsrAndSrxSessions(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/show-site-ssr-and-srx-sessions
@@ -2791,7 +2791,7 @@ def createSiteDeviceSnapshot(
 
 
 def uploadSiteDeviceSupportFile(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/upload-site-device-support-file
@@ -2851,7 +2851,7 @@ def getSiteDeviceSyntheticTest(
 
 
 def triggerSiteDeviceSyntheticTest(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/trigger-site-device-synthetic-test
@@ -2883,7 +2883,7 @@ def triggerSiteDeviceSyntheticTest(
 
 
 def tracerouteFromDevice(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/traceroute-from-device
@@ -2942,7 +2942,7 @@ def stopSiteLocateDevice(
 
 
 def upgradeDevice(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/upgrade-device
@@ -2974,7 +2974,7 @@ def upgradeDevice(
 
 
 def upgradeDeviceBios(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-device-bios
@@ -3006,7 +3006,7 @@ def upgradeDeviceBios(
 
 
 def upgradeDeviceFPGA(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/upgrade-device-f-p-g-a
@@ -3094,7 +3094,7 @@ def deleteSiteVirtualChassis(
 
 
 def createSiteVirtualChassis(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/create-site-virtual-chassis
@@ -3185,7 +3185,7 @@ def convertSiteVirtualChassisToVirtualMac(
 
 
 def setSiteVcPort(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/set-site-vc-port

@@ -67,7 +67,9 @@ def listOrgNacTags(
     return resp
 
 
-def createOrgNacTag(mist_session: _APISession, org_id: str, body: dict) -> _APIResponse:
+def createOrgNacTag(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/create-org-nac-tag
 
