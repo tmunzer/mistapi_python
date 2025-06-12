@@ -70,4 +70,13 @@ update: ## Update dependencies
 sync: ## Sync dependencies
 	uv sync
 
+pre-commit: ## Run pre-commit on all files
+	uvx pre-commit run --all-files
+
+pre-commit-install: ## Install pre-commit hooks
+	uvx pre-commit install
+
+pre-commit-update: ## Update pre-commit hooks
+	uvx pre-commit autoupdate
+
 check: clean format lint pre-commit test ## Run all checks and tests

@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,61 +8,89 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def countSiteWanClients(mist_session:_APISession, site_id:str, distinct:str="mac", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteWanClients(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str = "mac",
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wan/count-site-wan-clients
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    site_id : str        
-    
+    site_id : str
+
     QUERY PARAMS
     ------------
     distinct : str{'hostname', 'ip', 'mac', 'mfg'}, default: mac
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100        
-    
+    limit : int, default: 100
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wan_clients/count"
-    query_params={}
-    if distinct: query_params["distinct"]=distinct
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def searchSiteWanClientEvents(mist_session:_APISession, site_id:str, type:str=None, mac:str=None, hostname:str=None, ip:str=None, mfg:str=None, nacrule_id:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+
+def searchSiteWanClientEvents(
+    mist_session: _APISession,
+    site_id: str,
+    type: str | None = None,
+    mac: str | None = None,
+    hostname: str | None = None,
+    ip: str | None = None,
+    mfg: str | None = None,
+    nacrule_id: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wan/search-site-wan-client-events
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    site_id : str        
-    
+    site_id : str
+
     QUERY PARAMS
     ------------
     type : str
@@ -74,41 +102,65 @@ def searchSiteWanClientEvents(mist_session:_APISession, site_id:str, type:str=No
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100        
-    
+    limit : int, default: 100
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wan_clients/events/search"
-    query_params={}
-    if type: query_params["type"]=type
-    if mac: query_params["mac"]=mac
-    if hostname: query_params["hostname"]=hostname
-    if ip: query_params["ip"]=ip
-    if mfg: query_params["mfg"]=mfg
-    if nacrule_id: query_params["nacrule_id"]=nacrule_id
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
+    query_params: dict[str, str] = {}
+    if type:
+        query_params["type"] = str(type)
+    if mac:
+        query_params["mac"] = str(mac)
+    if hostname:
+        query_params["hostname"] = str(hostname)
+    if ip:
+        query_params["ip"] = str(ip)
+    if mfg:
+        query_params["mfg"] = str(mfg)
+    if nacrule_id:
+        query_params["nacrule_id"] = str(nacrule_id)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def searchSiteWanClients(mist_session:_APISession, site_id:str, mac:str=None, hostname:str=None, ip:str=None, mfg:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+
+def searchSiteWanClients(
+    mist_session: _APISession,
+    site_id: str,
+    mac: str | None = None,
+    hostname: str | None = None,
+    ip: str | None = None,
+    mfg: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wan/search-site-wan-clients
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    site_id : str        
-    
+    site_id : str
+
     QUERY PARAMS
     ------------
     mac : str
@@ -119,24 +171,33 @@ def searchSiteWanClients(mist_session:_APISession, site_id:str, mac:str=None, ho
     end : int
     duration : str, default: 1d
     limit : int, default: 100
-    page : int, default: 1        
-    
+    page : int, default: 1
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wan_clients/search"
-    query_params={}
-    if mac: query_params["mac"]=mac
-    if hostname: query_params["hostname"]=hostname
-    if ip: query_params["ip"]=ip
-    if mfg: query_params["mfg"]=mfg
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
+    query_params: dict[str, str] = {}
+    if mac:
+        query_params["mac"] = str(mac)
+    if hostname:
+        query_params["hostname"] = str(hostname)
+    if ip:
+        query_params["ip"] = str(ip)
+    if mfg:
+        query_params["mfg"] = str(mfg)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    

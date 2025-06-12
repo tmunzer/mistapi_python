@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,25 +8,40 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def countSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_mac:str=None, port_id:str=None, peer_port_id:str=None, policy:str=None, tenant:str=None, path_type:str=None, distinct:str="policy", start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+def countSiteWanUsage(
+    mist_session: _APISession,
+    site_id: str,
+    mac: str | None = None,
+    peer_mac: str | None = None,
+    port_id: str | None = None,
+    peer_port_id: str | None = None,
+    policy: str | None = None,
+    tenant: str | None = None,
+    path_type: str | None = None,
+    distinct: str = "policy",
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wan-usages/count-site-wan-usage
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    site_id : str        
-    
+    site_id : str
+
     QUERY PARAMS
     ------------
     mac : str
@@ -40,43 +55,72 @@ def countSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100        
-    
+    limit : int, default: 100
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wan_usages/count"
-    query_params={}
-    if mac: query_params["mac"]=mac
-    if peer_mac: query_params["peer_mac"]=peer_mac
-    if port_id: query_params["port_id"]=port_id
-    if peer_port_id: query_params["peer_port_id"]=peer_port_id
-    if policy: query_params["policy"]=policy
-    if tenant: query_params["tenant"]=tenant
-    if path_type: query_params["path_type"]=path_type
-    if distinct: query_params["distinct"]=distinct
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
+    query_params: dict[str, str] = {}
+    if mac:
+        query_params["mac"] = str(mac)
+    if peer_mac:
+        query_params["peer_mac"] = str(peer_mac)
+    if port_id:
+        query_params["port_id"] = str(port_id)
+    if peer_port_id:
+        query_params["peer_port_id"] = str(peer_port_id)
+    if policy:
+        query_params["policy"] = str(policy)
+    if tenant:
+        query_params["tenant"] = str(tenant)
+    if path_type:
+        query_params["path_type"] = str(path_type)
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def searchSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer_mac:str=None, port_id:str=None, peer_port_id:str=None, policy:str=None, tenant:str=None, path_type:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+
+def searchSiteWanUsage(
+    mist_session: _APISession,
+    site_id: str,
+    mac: str | None = None,
+    peer_mac: str | None = None,
+    port_id: str | None = None,
+    peer_port_id: str | None = None,
+    policy: str | None = None,
+    tenant: str | None = None,
+    path_type: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wan-usages/search-site-wan-usage
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    site_id : str        
-    
+    site_id : str
+
     QUERY PARAMS
     ------------
     mac : str
@@ -90,27 +134,39 @@ def searchSiteWanUsage(mist_session:_APISession, site_id:str, mac:str=None, peer
     end : int
     duration : str, default: 1d
     limit : int, default: 100
-    page : int, default: 1        
-    
+    page : int, default: 1
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/sites/{site_id}/wan_usages/search"
-    query_params={}
-    if mac: query_params["mac"]=mac
-    if peer_mac: query_params["peer_mac"]=peer_mac
-    if port_id: query_params["port_id"]=port_id
-    if peer_port_id: query_params["peer_port_id"]=peer_port_id
-    if policy: query_params["policy"]=policy
-    if tenant: query_params["tenant"]=tenant
-    if path_type: query_params["path_type"]=path_type
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
+    query_params: dict[str, str] = {}
+    if mac:
+        query_params["mac"] = str(mac)
+    if peer_mac:
+        query_params["peer_mac"] = str(peer_mac)
+    if port_id:
+        query_params["port_id"] = str(port_id)
+    if peer_port_id:
+        query_params["peer_port_id"] = str(peer_port_id)
+    if policy:
+        query_params["policy"] = str(policy)
+    if tenant:
+        query_params["tenant"] = str(tenant)
+    if path_type:
+        query_params["path_type"] = str(path_type)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    

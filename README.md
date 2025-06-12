@@ -1,8 +1,8 @@
 # MISTAPI - Python Package to use MIST API
- 
+
 
 ## MIT LICENSE
- 
+
 Copyright (c) 2023 Thomas Munzer
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the  Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -85,7 +85,7 @@ This class accepts different parameters, all optionals:
 | logging_log_level | int    | 10      | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
 | https_proxy       | string | None    | configure the package to use an HTTP/HTTPS (e.g. http://user:passowrd@myproxy.com:3128)                                                                                                                                                                                   |
 
-### 2. `login()` function must be called to validate the authentication. 
+### 2. `login()` function must be called to validate the authentication.
 
 #### 2.1. If the env file is provided and all the required information is valid, the session is validated:
 ```python3
@@ -116,7 +116,7 @@ True
 4) Global 03 (host: api.ac2.mist.com)
 5) Global 04 (host: api.gc2.mist.com)
 
-Select a Cloud (0 to 5, or q to exit): 
+Select a Cloud (0 to 5, or q to exit):
 ```
 * if not authentication (`apitoken` or `email`/`password`) has been configured, an interactive input will ask for it. If login/password authentication is used and 2FA is requested by the Mist Cloud, the 2FA code will be asked.
 ```python3
@@ -125,7 +125,7 @@ Select a Cloud (0 to 5, or q to exit):
 --------------------------- Login/Pwd authentication ---------------------------
 
 Login: tmunzer@juniper.net
-Password: 
+Password:
 [  INFO   ] Authentication successful!
 
 Two Factor Authentication code required: 122749
@@ -175,7 +175,7 @@ Select a Site (0 to 6, or q to exit): 0
 ```
 
 * get the next page or all the pages from a request
-For some requests, the Mist Cloud is using pagination to limit the size of the response. 
+For some requests, the Mist Cloud is using pagination to limit the size of the response.
 The required information the find the next page can either in the HTTP header (headers `X-Page-Total`, `X-Page-Limit` and `X-Page-Page`) or with the `next` key in the JSON document.
 To make it easier to request the next page or all the pages, the `mistapi` package  is possessing the response to extract or generate the URI to retrieve the next page.
 ```python3
@@ -219,15 +219,15 @@ Help on function getOrgStats in module mistapi.api.v1.orgs.stats:
 
 getOrgStats(mist_session: mistapi.__api_session.APISession, org_id: str, page: int = 1, limit: int = 100, start: int = None, end: int = None, duration: str = '1d') -> mistapi.__api_response.APIResponse
     API doc: https://doc.mist-lab.fr/#operation/getOrgStats
-    
+
     PARAMS
     -----------
     :param APISession mist_session - mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    :param str org_id        
-    
+    :param str org_id
+
     QUERY PARAMS
     ------------
     :param int page
@@ -235,7 +235,7 @@ getOrgStats(mist_session: mistapi.__api_session.APISession, org_id: str, page: i
     :param int start
     :param int end
     :param str duration(1d, 1h, 10m)
-    
+
     RETURN
     -----------
     :return APIResponse - response from the API call

@@ -12,7 +12,9 @@ This module manages API responses
 """
 
 from requests import Response
-from mistapi.__logger import logger, console
+from requests.structures import CaseInsensitiveDict
+
+from mistapi.__logger import console, logger
 
 
 class APIResponse:
@@ -20,7 +22,9 @@ class APIResponse:
     Class used to pass API Responses
     """
 
-    def __init__(self, response: Response, url: str, proxy_error: bool = False) -> None:
+    def __init__(
+        self, response: Response | None, url: str, proxy_error: bool = False
+    ) -> None:
         """
         PARAMS
         -----------
@@ -29,13 +33,13 @@ class APIResponse:
         url : str
             URL of the HTTP Request
         """
-        self.raw_data = ""
-        self.data = {}
-        self.url = url
-        self.next = None
-        self.headers = None
-        self.status_code = None
-        self.proxy_error = proxy_error
+        self.raw_data: str = ""
+        self.data: dict = {}
+        self.url: str = url
+        self.next: str | None = None
+        self.headers: CaseInsensitiveDict[str] | None = None
+        self.status_code: int | None = None
+        self.proxy_error: bool = proxy_error
 
         if response is not None:
             self.headers = response.headers
@@ -47,7 +51,7 @@ class APIResponse:
             console.debug(f"Response Status Code: {response.status_code}")
 
             try:
-                self.raw_data = response.content
+                self.raw_data = str(response.content)
                 self.data = response.json()
                 self._check_next()
                 logger.debug("apiresponse:__init__:HTTP response processed")

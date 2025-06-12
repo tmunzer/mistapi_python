@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,7 +8,8 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
-from mistapi.api.v1.installer import orgs
-from mistapi.api.v1.installer import sites
+from mistapi.api.v1.installer import orgs, sites
+
+__all__ = ["orgs", "sites"]

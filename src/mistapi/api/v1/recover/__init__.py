@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,7 +8,8 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
-from mistapi.api.v1.recover import recover
-from mistapi.api.v1.recover import verify
+from mistapi.api.v1.recover import recover, verify
+
+__all__ = ["recover", "verify"]

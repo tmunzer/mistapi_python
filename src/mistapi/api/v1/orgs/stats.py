@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------------------
 ------------------------- Mist API Python CLI Session --------------------------
 
@@ -8,127 +8,187 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-'''
+"""
 
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
-import deprecation
 
-def getOrgStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+def getOrgStats(
+    mist_session: _APISession,
+    org_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/get-org-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     start : int
     end : int
     duration : str, default: 1d
     limit : int, default: 100
-    page : int, default: 1        
-    
+    page : int, default: 1
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats"
-    query_params={}
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
+    query_params: dict[str, str] = {}
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def listOrgAssetsStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+
+def listOrgAssetsStats(
+    mist_session: _APISession,
+    org_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/assets/list-org-assets-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     start : int
     end : int
     duration : str, default: 1d
     limit : int, default: 100
-    page : int, default: 1        
-    
+    page : int, default: 1
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/assets"
-    query_params={}
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
+    query_params: dict[str, str] = {}
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def countOrgAssetsByDistanceField(mist_session:_APISession, org_id:str, distinct:str=None, limit:int=100) -> _APIResponse:
+
+
+def countOrgAssetsByDistanceField(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str | None = None,
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/assets/count-org-assets-by-distance-field
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     distinct : str{'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'site_id'}
-    limit : int, default: 100        
-    
+    limit : int, default: 100
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/assets/count"
-    query_params={}
-    if distinct: query_params["distinct"]=distinct
-    if limit: query_params["limit"]=limit
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if limit:
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:str=None, device_name:str=None, name:str=None, map_id:str=None, ibeacon_uuid:str=None, ibeacon_major:str=None, ibeacon_minor:str=None, eddystone_uid_namespace:str=None, eddystone_uid_instance:str=None, eddystone_url:str=None, ap_mac:str=None, beam:int=None, rssi:int=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+
+
+def searchOrgAssets(
+    mist_session: _APISession,
+    org_id: str,
+    site_id: str | None = None,
+    mac: str | None = None,
+    device_name: str | None = None,
+    name: str | None = None,
+    map_id: str | None = None,
+    ibeacon_uuid: str | None = None,
+    ibeacon_major: str | None = None,
+    ibeacon_minor: str | None = None,
+    eddystone_uid_namespace: str | None = None,
+    eddystone_uid_instance: str | None = None,
+    eddystone_url: str | None = None,
+    ap_mac: str | None = None,
+    beam: int | None = None,
+    rssi: int | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/assets/search-org-assets
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     site_id : str
@@ -148,77 +208,112 @@ def searchOrgAssets(mist_session:_APISession, org_id:str, site_id:str=None, mac:
     limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
-    
+    duration : str, default: 1d
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/assets/search"
-    query_params={}
-    if site_id: query_params["site_id"]=site_id
-    if mac: query_params["mac"]=mac
-    if device_name: query_params["device_name"]=device_name
-    if name: query_params["name"]=name
-    if map_id: query_params["map_id"]=map_id
-    if ibeacon_uuid: query_params["ibeacon_uuid"]=ibeacon_uuid
-    if ibeacon_major: query_params["ibeacon_major"]=ibeacon_major
-    if ibeacon_minor: query_params["ibeacon_minor"]=ibeacon_minor
-    if eddystone_uid_namespace: query_params["eddystone_uid_namespace"]=eddystone_uid_namespace
-    if eddystone_uid_instance: query_params["eddystone_uid_instance"]=eddystone_uid_instance
-    if eddystone_url: query_params["eddystone_url"]=eddystone_url
-    if ap_mac: query_params["ap_mac"]=ap_mac
-    if beam: query_params["beam"]=beam
-    if rssi: query_params["rssi"]=rssi
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
+    query_params: dict[str, str] = {}
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if mac:
+        query_params["mac"] = str(mac)
+    if device_name:
+        query_params["device_name"] = str(device_name)
+    if name:
+        query_params["name"] = str(name)
+    if map_id:
+        query_params["map_id"] = str(map_id)
+    if ibeacon_uuid:
+        query_params["ibeacon_uuid"] = str(ibeacon_uuid)
+    if ibeacon_major:
+        query_params["ibeacon_major"] = str(ibeacon_major)
+    if ibeacon_minor:
+        query_params["ibeacon_minor"] = str(ibeacon_minor)
+    if eddystone_uid_namespace:
+        query_params["eddystone_uid_namespace"] = str(eddystone_uid_namespace)
+    if eddystone_uid_instance:
+        query_params["eddystone_uid_instance"] = str(eddystone_uid_instance)
+    if eddystone_url:
+        query_params["eddystone_url"] = str(eddystone_url)
+    if ap_mac:
+        query_params["ap_mac"] = str(ap_mac)
+    if beam:
+        query_params["beam"] = str(beam)
+    if rssi:
+        query_params["rssi"] = str(rssi)
+    if limit:
+        query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def countOrgBgpStats(mist_session:_APISession, org_id:str, limit:int=100) -> _APIResponse:
+
+
+def countOrgBgpStats(
+    mist_session: _APISession, org_id: str, limit: int = 100
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/bgp-peers/count-org-bgp-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
-    limit : int, default: 100        
-    
+    limit : int, default: 100
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/bgp_peers/count"
-    query_params={}
-    if limit: query_params["limit"]=limit
+    query_params: dict[str, str] = {}
+    if limit:
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def searchOrgBgpStats(mist_session:_APISession, org_id:str, mac:str=None, neighbor_mac:str=None, site_id:str=None, vrf_name:str=None, start:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+
+def searchOrgBgpStats(
+    mist_session: _APISession,
+    org_id: str,
+    mac: str | None = None,
+    neighbor_mac: str | None = None,
+    site_id: str | None = None,
+    vrf_name: str | None = None,
+    start: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/bgp-peers/search-org-bgp-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     mac : str
@@ -227,38 +322,62 @@ def searchOrgBgpStats(mist_session:_APISession, org_id:str, mac:str=None, neighb
     vrf_name : str
     start : int
     duration : str, default: 1d
-    limit : int, default: 100        
-    
+    limit : int, default: 100
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/bgp_peers/search"
-    query_params={}
-    if mac: query_params["mac"]=mac
-    if neighbor_mac: query_params["neighbor_mac"]=neighbor_mac
-    if site_id: query_params["site_id"]=site_id
-    if vrf_name: query_params["vrf_name"]=vrf_name
-    if start: query_params["start"]=start
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
+    query_params: dict[str, str] = {}
+    if mac:
+        query_params["mac"] = str(mac)
+    if neighbor_mac:
+        query_params["neighbor_mac"] = str(neighbor_mac)
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if vrf_name:
+        query_params["vrf_name"] = str(vrf_name)
+    if start:
+        query_params["start"] = str(start)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", status:str="all", site_id:str=None, mac:str=None, evpntopo_id:str=None, evpn_unused:str=None, fields:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+
+def listOrgDevicesStats(
+    mist_session: _APISession,
+    org_id: str,
+    type: str = "ap",
+    status: str = "all",
+    site_id: str | None = None,
+    mac: str | None = None,
+    evpntopo_id: str | None = None,
+    evpn_unused: str | None = None,
+    fields: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/devices/list-org-devices-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
@@ -272,66 +391,91 @@ def listOrgDevicesStats(mist_session:_APISession, org_id:str, type:str="ap", sta
     end : int
     duration : str, default: 1d
     limit : int, default: 100
-    page : int, default: 1        
-    
+    page : int, default: 1
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/devices"
-    query_params={}
-    if type: query_params["type"]=type
-    if status: query_params["status"]=status
-    if site_id: query_params["site_id"]=site_id
-    if mac: query_params["mac"]=mac
-    if evpntopo_id: query_params["evpntopo_id"]=evpntopo_id
-    if evpn_unused: query_params["evpn_unused"]=evpn_unused
-    if fields: query_params["fields"]=fields
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
+    query_params: dict[str, str] = {}
+    if type:
+        query_params["type"] = str(type)
+    if status:
+        query_params["status"] = str(status)
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if mac:
+        query_params["mac"] = str(mac)
+    if evpntopo_id:
+        query_params["evpntopo_id"] = str(evpntopo_id)
+    if evpn_unused:
+        query_params["evpn_unused"] = str(evpn_unused)
+    if fields:
+        query_params["fields"] = str(fields)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def deleteOrgMarvisClient(mist_session:_APISession, org_id:str) -> _APIResponse:
+
+
+def deleteOrgMarvisClient(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/marvis/delete-org-marvis-client
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/marvisclients"
-    query_params={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
-    
-def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, for_site:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+
+def listOrgMxEdgesStats(
+    mist_session: _APISession,
+    org_id: str,
+    for_site: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/mxedges/list-org-mx-edges-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     for_site : str{'all', 'true', 'false'}
@@ -340,90 +484,143 @@ def listOrgMxEdgesStats(mist_session:_APISession, org_id:str, for_site:str=None,
     end : int
     duration : str, default: 1d
     limit : int, default: 100
-    page : int, default: 1        
-    
+    page : int, default: 1
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/mxedges"
-    query_params={}
-    if for_site: query_params["for_site"]=for_site
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
+    query_params: dict[str, str] = {}
+    if for_site:
+        query_params["for_site"] = str(for_site)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def getOrgMxEdgeStats(mist_session:_APISession, org_id:str, mxedge_id:str, for_site:bool=None) -> _APIResponse:
+
+
+def getOrgMxEdgeStats(
+    mist_session: _APISession, org_id: str, mxedge_id: str, for_site: bool | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/mxedges/get-org-mx-edge-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
     org_id : str
-    mxedge_id : str        
-    
+    mxedge_id : str
+
     QUERY PARAMS
     ------------
-    for_site : bool        
-    
+    for_site : bool
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/mxedges/{mxedge_id}"
-    query_params={}
-    if for_site: query_params["for_site"]=for_site
+    query_params: dict[str, str] = {}
+    if for_site:
+        query_params["for_site"] = str(for_site)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def getOrgOtherDeviceStats(mist_session:_APISession, org_id:str, device_mac:str) -> _APIResponse:
+
+
+def getOrgOtherDeviceStats(
+    mist_session: _APISession, org_id: str, device_mac: str
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/other-devices/get-org-other-device-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
     org_id : str
-    device_mac : str        
-    
+    device_mac : str
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/otherdevices/{device_mac}"
-    query_params={}
+    query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=None, mac:str=None, neighbor_mac:str=None, neighbor_port_desc:str=None, neighbor_system_name:str=None, poe_disabled:bool=None, poe_mode:str=None, poe_on:bool=None, port_id:str=None, port_mac:str=None, power_draw:float=None, tx_pkts:int=None, rx_pkts:int=None, rx_bytes:int=None, tx_bps:int=None, rx_bps:int=None, tx_errors:int=None, rx_errors:int=None, tx_mcast_pkts:int=None, tx_bcast_pkts:int=None, rx_mcast_pkts:int=None, rx_bcast_pkts:int=None, speed:int=None, mac_limit:int=None, mac_count:int=None, up:bool=None, stp_state:str=None, stp_role:str=None, auth_state:str=None, limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+
+
+def searchOrgSwOrGwPorts(
+    mist_session: _APISession,
+    org_id: str,
+    full_duplex: bool | None = None,
+    mac: str | None = None,
+    neighbor_mac: str | None = None,
+    neighbor_port_desc: str | None = None,
+    neighbor_system_name: str | None = None,
+    poe_disabled: bool | None = None,
+    poe_mode: str | None = None,
+    poe_on: bool | None = None,
+    port_id: str | None = None,
+    port_mac: str | None = None,
+    power_draw: float | None = None,
+    tx_pkts: int | None = None,
+    rx_pkts: int | None = None,
+    rx_bytes: int | None = None,
+    tx_bps: int | None = None,
+    rx_bps: int | None = None,
+    tx_errors: int | None = None,
+    rx_errors: int | None = None,
+    tx_mcast_pkts: int | None = None,
+    tx_bcast_pkts: int | None = None,
+    rx_mcast_pkts: int | None = None,
+    rx_bcast_pkts: int | None = None,
+    speed: int | None = None,
+    mac_limit: int | None = None,
+    mac_count: int | None = None,
+    up: bool | None = None,
+    stp_state: str | None = None,
+    stp_role: str | None = None,
+    auth_state: str | None = None,
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/ports/search-org-sw-or-gw-ports
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     full_duplex : bool
@@ -461,134 +658,218 @@ def searchOrgSwOrGwPorts(mist_session:_APISession, org_id:str, full_duplex:bool=
     limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
-    
+    duration : str, default: 1d
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/ports/search"
-    query_params={}
-    if full_duplex: query_params["full_duplex"]=full_duplex
-    if mac: query_params["mac"]=mac
-    if neighbor_mac: query_params["neighbor_mac"]=neighbor_mac
-    if neighbor_port_desc: query_params["neighbor_port_desc"]=neighbor_port_desc
-    if neighbor_system_name: query_params["neighbor_system_name"]=neighbor_system_name
-    if poe_disabled: query_params["poe_disabled"]=poe_disabled
-    if poe_mode: query_params["poe_mode"]=poe_mode
-    if poe_on: query_params["poe_on"]=poe_on
-    if port_id: query_params["port_id"]=port_id
-    if port_mac: query_params["port_mac"]=port_mac
-    if power_draw: query_params["power_draw"]=power_draw
-    if tx_pkts: query_params["tx_pkts"]=tx_pkts
-    if rx_pkts: query_params["rx_pkts"]=rx_pkts
-    if rx_bytes: query_params["rx_bytes"]=rx_bytes
-    if tx_bps: query_params["tx_bps"]=tx_bps
-    if rx_bps: query_params["rx_bps"]=rx_bps
-    if tx_errors: query_params["tx_errors"]=tx_errors
-    if rx_errors: query_params["rx_errors"]=rx_errors
-    if tx_mcast_pkts: query_params["tx_mcast_pkts"]=tx_mcast_pkts
-    if tx_bcast_pkts: query_params["tx_bcast_pkts"]=tx_bcast_pkts
-    if rx_mcast_pkts: query_params["rx_mcast_pkts"]=rx_mcast_pkts
-    if rx_bcast_pkts: query_params["rx_bcast_pkts"]=rx_bcast_pkts
-    if speed: query_params["speed"]=speed
-    if mac_limit: query_params["mac_limit"]=mac_limit
-    if mac_count: query_params["mac_count"]=mac_count
-    if up: query_params["up"]=up
-    if stp_state: query_params["stp_state"]=stp_state
-    if stp_role: query_params["stp_role"]=stp_role
-    if auth_state: query_params["auth_state"]=auth_state
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
+    query_params: dict[str, str] = {}
+    if full_duplex:
+        query_params["full_duplex"] = str(full_duplex)
+    if mac:
+        query_params["mac"] = str(mac)
+    if neighbor_mac:
+        query_params["neighbor_mac"] = str(neighbor_mac)
+    if neighbor_port_desc:
+        query_params["neighbor_port_desc"] = str(neighbor_port_desc)
+    if neighbor_system_name:
+        query_params["neighbor_system_name"] = str(neighbor_system_name)
+    if poe_disabled:
+        query_params["poe_disabled"] = str(poe_disabled)
+    if poe_mode:
+        query_params["poe_mode"] = str(poe_mode)
+    if poe_on:
+        query_params["poe_on"] = str(poe_on)
+    if port_id:
+        query_params["port_id"] = str(port_id)
+    if port_mac:
+        query_params["port_mac"] = str(port_mac)
+    if power_draw:
+        query_params["power_draw"] = str(power_draw)
+    if tx_pkts:
+        query_params["tx_pkts"] = str(tx_pkts)
+    if rx_pkts:
+        query_params["rx_pkts"] = str(rx_pkts)
+    if rx_bytes:
+        query_params["rx_bytes"] = str(rx_bytes)
+    if tx_bps:
+        query_params["tx_bps"] = str(tx_bps)
+    if rx_bps:
+        query_params["rx_bps"] = str(rx_bps)
+    if tx_errors:
+        query_params["tx_errors"] = str(tx_errors)
+    if rx_errors:
+        query_params["rx_errors"] = str(rx_errors)
+    if tx_mcast_pkts:
+        query_params["tx_mcast_pkts"] = str(tx_mcast_pkts)
+    if tx_bcast_pkts:
+        query_params["tx_bcast_pkts"] = str(tx_bcast_pkts)
+    if rx_mcast_pkts:
+        query_params["rx_mcast_pkts"] = str(rx_mcast_pkts)
+    if rx_bcast_pkts:
+        query_params["rx_bcast_pkts"] = str(rx_bcast_pkts)
+    if speed:
+        query_params["speed"] = str(speed)
+    if mac_limit:
+        query_params["mac_limit"] = str(mac_limit)
+    if mac_count:
+        query_params["mac_count"] = str(mac_count)
+    if up:
+        query_params["up"] = str(up)
+    if stp_state:
+        query_params["stp_state"] = str(stp_state)
+    if stp_role:
+        query_params["stp_role"] = str(stp_role)
+    if auth_state:
+        query_params["auth_state"] = str(auth_state)
+    if limit:
+        query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def listOrgSiteStats(mist_session:_APISession, org_id:str, start:int=None, end:int=None, duration:str="1d", limit:int=100, page:int=1) -> _APIResponse:
+
+
+def listOrgSiteStats(
+    mist_session: _APISession,
+    org_id: str,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/sites/list-org-site-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     start : int
     end : int
     duration : str, default: 1d
     limit : int, default: 100
-    page : int, default: 1        
-    
+    page : int, default: 1
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/sites"
-    query_params={}
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
-    if page: query_params["page"]=page
+    query_params: dict[str, str] = {}
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def countOrgTunnelsStats(mist_session:_APISession, org_id:str, distinct:str="wxtunnel_id", type:str="wxtunnel", limit:int=100) -> _APIResponse:
+
+
+def countOrgTunnelsStats(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str = "wxtunnel_id",
+    type: str = "wxtunnel",
+    limit: int = 100,
+) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/tunnels/count-org-tunnels-stats
-    
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-    
-    PATH PARAMS
-    -----------
-    org_id : str        
-    
-    QUERY PARAMS
-    ------------
-    distinct : str{'ap', 'auth_algo', 'encrypt_algo', 'ike_version', 'ip', 'last_event', 'mac', 'mxcluster_id', 'mxedge_id', 'node', 'peer_host', 'peer_ip', 'peer_mxedge_id', 'protocol', 'remote_ip', 'remote_port', 'site_id', 'state', 'tunnel_name', 'up', 'wxtunnel_id'}, default: wxtunnel_id
-      - If `type`==`wxtunnel`: wxtunnel_id / ap / remote_ip / remote_port / state / mxedge_id / mxcluster_id / site_id / peer_mxedge_id; default is wxtunnel_id 
-- If `type`==`wan`: mac / site_id / node / peer_ip / peer_host/ ip / tunnel_name / protocol / auth_algo / encrypt_algo / ike_version / last_event / up
-    type : str{'wan', 'wxtunnel'}, default: wxtunnel
-    limit : int, default: 100        
-    
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
+        API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/tunnels/count-org-tunnels-stats
+
+        PARAMS
+        -----------
+        mistapi.APISession : mist_session
+            mistapi session including authentication and Mist host information
+
+        PATH PARAMS
+        -----------
+        org_id : str
+
+        QUERY PARAMS
+        ------------
+        distinct : str{'ap', 'auth_algo', 'encrypt_algo', 'ike_version', 'ip', 'last_event', 'mac', 'mxcluster_id', 'mxedge_id', 'node', 'peer_host', 'peer_ip', 'peer_mxedge_id', 'protocol', 'remote_ip', 'remote_port', 'site_id', 'state', 'tunnel_name', 'up', 'wxtunnel_id'}, default: wxtunnel_id
+          - If `type`==`wxtunnel`: wxtunnel_id / ap / remote_ip / remote_port / state / mxedge_id / mxcluster_id / site_id / peer_mxedge_id; default is wxtunnel_id
+    - If `type`==`wan`: mac / site_id / node / peer_ip / peer_host/ ip / tunnel_name / protocol / auth_algo / encrypt_algo / ike_version / last_event / up
+        type : str{'wan', 'wxtunnel'}, default: wxtunnel
+        limit : int, default: 100
+
+        RETURN
+        -----------
+        mistapi.APIResponse
+            response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/tunnels/count"
-    query_params={}
-    if distinct: query_params["distinct"]=distinct
-    if type: query_params["type"]=type
-    if limit: query_params["limit"]=limit
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if type:
+        query_params["type"] = str(type)
+    if limit:
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str=None, site_id:str=None, wxtunnel_id:str=None, ap:str=None, mac:str=None, node:str=None, peer_ip:str=None, peer_host:str=None, ip:str=None, tunnel_name:str=None, protocol:str=None, auth_algo:str=None, encrypt_algo:str=None, ike_version:str=None, up:str=None, type:str="wxtunnel", limit:int=100, start:int=None, end:int=None, duration:str="1d") -> _APIResponse:
+
+
+def searchOrgTunnelsStats(
+    mist_session: _APISession,
+    org_id: str,
+    mxcluster_id: str | None = None,
+    site_id: str | None = None,
+    wxtunnel_id: str | None = None,
+    ap: str | None = None,
+    mac: str | None = None,
+    node: str | None = None,
+    peer_ip: str | None = None,
+    peer_host: str | None = None,
+    ip: str | None = None,
+    tunnel_name: str | None = None,
+    protocol: str | None = None,
+    auth_algo: str | None = None,
+    encrypt_algo: str | None = None,
+    ike_version: str | None = None,
+    up: str | None = None,
+    type: str = "wxtunnel",
+    limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/tunnels/search-org-tunnels-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     mxcluster_id : str
@@ -610,87 +891,133 @@ def searchOrgTunnelsStats(mist_session:_APISession, org_id:str, mxcluster_id:str
     limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d        
-    
+    duration : str, default: 1d
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/tunnels/search"
-    query_params={}
-    if mxcluster_id: query_params["mxcluster_id"]=mxcluster_id
-    if site_id: query_params["site_id"]=site_id
-    if wxtunnel_id: query_params["wxtunnel_id"]=wxtunnel_id
-    if ap: query_params["ap"]=ap
-    if mac: query_params["mac"]=mac
-    if node: query_params["node"]=node
-    if peer_ip: query_params["peer_ip"]=peer_ip
-    if peer_host: query_params["peer_host"]=peer_host
-    if ip: query_params["ip"]=ip
-    if tunnel_name: query_params["tunnel_name"]=tunnel_name
-    if protocol: query_params["protocol"]=protocol
-    if auth_algo: query_params["auth_algo"]=auth_algo
-    if encrypt_algo: query_params["encrypt_algo"]=encrypt_algo
-    if ike_version: query_params["ike_version"]=ike_version
-    if up: query_params["up"]=up
-    if type: query_params["type"]=type
-    if limit: query_params["limit"]=limit
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
+    query_params: dict[str, str] = {}
+    if mxcluster_id:
+        query_params["mxcluster_id"] = str(mxcluster_id)
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if wxtunnel_id:
+        query_params["wxtunnel_id"] = str(wxtunnel_id)
+    if ap:
+        query_params["ap"] = str(ap)
+    if mac:
+        query_params["mac"] = str(mac)
+    if node:
+        query_params["node"] = str(node)
+    if peer_ip:
+        query_params["peer_ip"] = str(peer_ip)
+    if peer_host:
+        query_params["peer_host"] = str(peer_host)
+    if ip:
+        query_params["ip"] = str(ip)
+    if tunnel_name:
+        query_params["tunnel_name"] = str(tunnel_name)
+    if protocol:
+        query_params["protocol"] = str(protocol)
+    if auth_algo:
+        query_params["auth_algo"] = str(auth_algo)
+    if encrypt_algo:
+        query_params["encrypt_algo"] = str(encrypt_algo)
+    if ike_version:
+        query_params["ike_version"] = str(ike_version)
+    if up:
+        query_params["up"] = str(up)
+    if type:
+        query_params["type"] = str(type)
+    if limit:
+        query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def countOrgPeerPathStats(mist_session:_APISession, org_id:str, distinct:str=None, start:int=None, end:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+
+def countOrgPeerPathStats(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/vpn-peers/count-org-peer-path-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     distinct : str
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100        
-    
+    limit : int, default: 100
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/vpn_peers/count"
-    query_params={}
-    if distinct: query_params["distinct"]=distinct
-    if start: query_params["start"]=start
-    if end: query_params["end"]=end
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    
-def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, mac:str=None, site_id:str=None, type:str=None, start:int=None, duration:str="1d", limit:int=100) -> _APIResponse:
+
+
+def searchOrgPeerPathStats(
+    mist_session: _APISession,
+    org_id: str,
+    mac: str | None = None,
+    site_id: str | None = None,
+    type: str | None = None,
+    start: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/vpn-peers/search-org-peer-path-stats
-    
+
     PARAMS
     -----------
     mistapi.APISession : mist_session
         mistapi session including authentication and Mist host information
-    
+
     PATH PARAMS
     -----------
-    org_id : str        
-    
+    org_id : str
+
     QUERY PARAMS
     ------------
     mac : str
@@ -698,21 +1025,27 @@ def searchOrgPeerPathStats(mist_session:_APISession, org_id:str, mac:str=None, s
     type : str{'ipsec', 'svr'}
     start : int
     duration : str, default: 1d
-    limit : int, default: 100        
-    
+    limit : int, default: 100
+
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
+
     uri = f"/api/v1/orgs/{org_id}/stats/vpn_peers/search"
-    query_params={}
-    if mac: query_params["mac"]=mac
-    if site_id: query_params["site_id"]=site_id
-    if type: query_params["type"]=type
-    if start: query_params["start"]=start
-    if duration: query_params["duration"]=duration
-    if limit: query_params["limit"]=limit
+    query_params: dict[str, str] = {}
+    if mac:
+        query_params["mac"] = str(mac)
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if type:
+        query_params["type"] = str(type)
+    if start:
+        query_params["start"] = str(start)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
-    

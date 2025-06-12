@@ -13,7 +13,7 @@
 import logging
 import os
 
-os.system("")
+os.system("")  # nosec bandit B605 B607
 
 
 def magenta(text):
@@ -45,8 +45,8 @@ def blue(text):
 
 
 class Console:
-    def __init__(self, level: int = 20):
-        self.level = level
+    def __init__(self, level: int = 20) -> None:
+        self.level: int = level
 
     def critical(self, message: str) -> None:
         if self.level <= 50 and self.level > 0:
@@ -69,7 +69,7 @@ class Console:
             print(f"[{white('DEBUG  ')}] {message}")
 
     def _set_log_level(
-        self, console_log_level: str = 20, logging_log_level: int = 10
+        self, console_log_level: int = 20, logging_log_level: int = 10
     ) -> None:
         """
         set console and logging log level

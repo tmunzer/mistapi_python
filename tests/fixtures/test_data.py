@@ -89,7 +89,7 @@ class UserFactory(factory.Factory):
     tags = factory.List([])
 
     @factory.post_generation
-    def privileges(self, create, extracted, **kwargs):
+    def privileges(self, create, extracted, **kwargs) -> None:
         if not create:
             return
 
