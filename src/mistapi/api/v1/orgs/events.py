@@ -24,7 +24,7 @@ def searchOrgEvents(
     limit: int = 100,
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/search-org-events
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/events/search-org-events
 
     PARAMS
     -----------

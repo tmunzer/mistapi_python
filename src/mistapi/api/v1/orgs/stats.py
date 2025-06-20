@@ -572,6 +572,164 @@ def getOrgOtherDeviceStats(
     return resp
 
 
+def countOrgSwOrGwPorts(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str = "mac",
+    full_duplex: bool | None = None,
+    mac: str | None = None,
+    neighbor_mac: str | None = None,
+    neighbor_port_desc: str | None = None,
+    neighbor_system_name: str | None = None,
+    poe_disabled: bool | None = None,
+    poe_mode: str | None = None,
+    poe_on: bool | None = None,
+    port_id: str | None = None,
+    port_mac: str | None = None,
+    power_draw: float | None = None,
+    tx_pkts: int | None = None,
+    rx_pkts: int | None = None,
+    rx_bytes: int | None = None,
+    tx_bps: int | None = None,
+    rx_bps: int | None = None,
+    tx_mcast_pkts: int | None = None,
+    tx_bcast_pkts: int | None = None,
+    rx_mcast_pkts: int | None = None,
+    rx_bcast_pkts: int | None = None,
+    speed: int | None = None,
+    stp_state: str | None = None,
+    stp_role: str | None = None,
+    auth_state: str | None = None,
+    up: bool | None = None,
+    site_id: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/ports/count-org-sw-or-gw-ports
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    distinct : str{'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'port_id', 'port_mac', 'speed', 'up'}, default: mac
+    full_duplex : bool
+    mac : str
+    neighbor_mac : str
+    neighbor_port_desc : str
+    neighbor_system_name : str
+    poe_disabled : bool
+    poe_mode : str
+    poe_on : bool
+    port_id : str
+    port_mac : str
+    power_draw : float
+    tx_pkts : int
+    rx_pkts : int
+    rx_bytes : int
+    tx_bps : int
+    rx_bps : int
+    tx_mcast_pkts : int
+    tx_bcast_pkts : int
+    rx_mcast_pkts : int
+    rx_bcast_pkts : int
+    speed : int
+    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
+      If `up`==`true`
+    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
+      If `up`==`true`
+    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
+      If `up`==`true` && has Authenticator role
+    up : bool
+    site_id : str
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/stats/ports/count"
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if full_duplex:
+        query_params["full_duplex"] = str(full_duplex)
+    if mac:
+        query_params["mac"] = str(mac)
+    if neighbor_mac:
+        query_params["neighbor_mac"] = str(neighbor_mac)
+    if neighbor_port_desc:
+        query_params["neighbor_port_desc"] = str(neighbor_port_desc)
+    if neighbor_system_name:
+        query_params["neighbor_system_name"] = str(neighbor_system_name)
+    if poe_disabled:
+        query_params["poe_disabled"] = str(poe_disabled)
+    if poe_mode:
+        query_params["poe_mode"] = str(poe_mode)
+    if poe_on:
+        query_params["poe_on"] = str(poe_on)
+    if port_id:
+        query_params["port_id"] = str(port_id)
+    if port_mac:
+        query_params["port_mac"] = str(port_mac)
+    if power_draw:
+        query_params["power_draw"] = str(power_draw)
+    if tx_pkts:
+        query_params["tx_pkts"] = str(tx_pkts)
+    if rx_pkts:
+        query_params["rx_pkts"] = str(rx_pkts)
+    if rx_bytes:
+        query_params["rx_bytes"] = str(rx_bytes)
+    if tx_bps:
+        query_params["tx_bps"] = str(tx_bps)
+    if rx_bps:
+        query_params["rx_bps"] = str(rx_bps)
+    if tx_mcast_pkts:
+        query_params["tx_mcast_pkts"] = str(tx_mcast_pkts)
+    if tx_bcast_pkts:
+        query_params["tx_bcast_pkts"] = str(tx_bcast_pkts)
+    if rx_mcast_pkts:
+        query_params["rx_mcast_pkts"] = str(rx_mcast_pkts)
+    if rx_bcast_pkts:
+        query_params["rx_bcast_pkts"] = str(rx_bcast_pkts)
+    if speed:
+        query_params["speed"] = str(speed)
+    if stp_state:
+        query_params["stp_state"] = str(stp_state)
+    if stp_role:
+        query_params["stp_role"] = str(stp_role)
+    if auth_state:
+        query_params["auth_state"] = str(auth_state)
+    if up:
+        query_params["up"] = str(up)
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
 def searchOrgSwOrGwPorts(
     mist_session: _APISession,
     org_id: str,
@@ -604,6 +762,7 @@ def searchOrgSwOrGwPorts(
     stp_state: str | None = None,
     stp_role: str | None = None,
     auth_state: str | None = None,
+    type: str = "all",
     limit: int = 100,
     start: int | None = None,
     end: int | None = None,
@@ -655,6 +814,8 @@ def searchOrgSwOrGwPorts(
       If `up`==`true`
     auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       If `up`==`true` && has Authenticator role
+    type : str{'switch', 'gateway', 'all'}, default: all
+      Type of device. enum: `switch`, `gateway`, `all`
     limit : int, default: 100
     start : int
     end : int
@@ -726,6 +887,8 @@ def searchOrgSwOrGwPorts(
         query_params["stp_role"] = str(stp_role)
     if auth_state:
         query_params["auth_state"] = str(auth_state)
+    if type:
+        query_params["type"] = str(type)
     if limit:
         query_params["limit"] = str(limit)
     if start:

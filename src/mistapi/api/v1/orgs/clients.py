@@ -101,6 +101,91 @@ def countOrgWirelessClients(
     return resp
 
 
+def countOrgWirelessClientEvents(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str | None = None,
+    type: str | None = None,
+    reason_code: int | None = None,
+    ssid: str | None = None,
+    ap: str | None = None,
+    proto: str | None = None,
+    band: str | None = None,
+    wlan_id: str | None = None,
+    site_id: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    limit: int = 100,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/count-org-wireless-client-events
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    distinct : str{'band', 'channel', 'proto', 'ssid', 'type', 'wlan_id'}
+    type : str
+    reason_code : int
+    ssid : str
+    ap : str
+    proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
+      a / b / g / n / ac / ax
+    band : str{'24', '5', '6'}
+      802.11 Band
+    wlan_id : str
+    site_id : str
+    start : int
+    end : int
+    duration : str, default: 1d
+    limit : int, default: 100
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/clients/events/count"
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if type:
+        query_params["type"] = str(type)
+    if reason_code:
+        query_params["reason_code"] = str(reason_code)
+    if ssid:
+        query_params["ssid"] = str(ssid)
+    if ap:
+        query_params["ap"] = str(ap)
+    if proto:
+        query_params["proto"] = str(proto)
+    if band:
+        query_params["band"] = str(band)
+    if wlan_id:
+        query_params["wlan_id"] = str(wlan_id)
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
 def searchOrgWirelessClientEvents(
     mist_session: _APISession,
     org_id: str,
@@ -112,7 +197,6 @@ def searchOrgWirelessClientEvents(
     band: str | None = None,
     wlan_id: str | None = None,
     nacrule_id: str | None = None,
-    limit: int = 100,
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
@@ -141,7 +225,6 @@ def searchOrgWirelessClientEvents(
       802.11 Band
     wlan_id : str
     nacrule_id : str
-    limit : int, default: 100
     start : int
     end : int
     duration : str, default: 1d
@@ -170,8 +253,6 @@ def searchOrgWirelessClientEvents(
         query_params["wlan_id"] = str(wlan_id)
     if nacrule_id:
         query_params["nacrule_id"] = str(nacrule_id)
-    if limit:
-        query_params["limit"] = str(limit)
     if start:
         query_params["start"] = str(start)
     if end:

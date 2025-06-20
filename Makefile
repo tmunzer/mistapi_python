@@ -7,7 +7,7 @@ SHELL := /bin/bash
 PROJECT_NAME ?= $(shell basename $(CURDIR))
 
 # Version for code generation (can be overridden)
-VERSION ?= 0.55.14
+VERSION ?= 0.55.15
 
 help: ## Show this help message
 	@echo 'Usage: make [target]'
@@ -59,6 +59,7 @@ publish: clean build ## Publish to PyPI
 	uv run twine upload dist/*
 
 generate: ## Run the code generation script
+	cd mist_openapi && git pull && cd ..
 	uv run python generate_from_openapi.py $(VERSION)
 
 deps: ## Show dependency tree

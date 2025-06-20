@@ -516,8 +516,8 @@ def countSiteCalls(
     distinct: str = "mac",
     rating: int | None = None,
     app: str | None = None,
-    start: str | None = None,
-    end: str | None = None,
+    start: int | None = None,
+    end: int | None = None,
     limit: int = 100,
 ) -> _APIResponse:
     """
@@ -537,8 +537,8 @@ def countSiteCalls(
     distinct : str{'mac'}, default: mac
     rating : int
     app : str
-    start : str
-    end : str
+    start : int
+    end : int
     limit : int, default: 100
 
     RETURN
