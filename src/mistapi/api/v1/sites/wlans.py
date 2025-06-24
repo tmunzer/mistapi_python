@@ -81,14 +81,14 @@ def createSiteWlan(
     return resp
 
 
-def listSiteWlanDerived(
+def listSiteWlansDerived(
     mist_session: _APISession,
     site_id: str,
     resolve: bool | None = None,
     wlan_id: str | None = None,
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/list-site-wlan-derived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wlans/list-site-wlans-derived
 
     PARAMS
     -----------

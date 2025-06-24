@@ -14,11 +14,11 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
-def listSiteSiteTemplateDerived(
+def listSiteSiteTemplatesDerived(
     mist_session: _APISession, site_id: str, resolve: bool | None = None
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/site-templates/list-site-site-template-derived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/site-templates/list-site-site-templates-derived
 
     PARAMS
     -----------

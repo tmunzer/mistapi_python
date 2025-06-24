@@ -103,6 +103,34 @@ def upgradeOrgSsrs(
     return resp
 
 
+def getOrgSsrUpgrade(
+    mist_session: _APISession, org_id: str, upgrade_id: str
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/get-org-ssr-upgrade
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+    upgrade_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/ssr/upgrade/{upgrade_id}/cancel"
+    query_params: dict[str, str] = {}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
 def cancelOrgSsrUpgrade(
     mist_session: _APISession, org_id: str, upgrade_id: str
 ) -> _APIResponse:

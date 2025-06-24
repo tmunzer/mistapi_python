@@ -14,11 +14,11 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
-def listSiteNetworkTemplatesDerived(
-    mist_session: _APISession, site_id: str, resolve: bool | None = None
+def listSiteAntivirusProfilesDerived(
+    mist_session: _APISession, site_id: str, limit: int = 100, page: int = 1
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/network-templates/list-site-network-templates-derived
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/antivirus-profiles/list-site-antivirus-profiles-derived
 
     PARAMS
     -----------
@@ -31,7 +31,8 @@ def listSiteNetworkTemplatesDerived(
 
     QUERY PARAMS
     ------------
-    resolve : bool
+    limit : int, default: 100
+    page : int, default: 1
 
     RETURN
     -----------
@@ -39,9 +40,11 @@ def listSiteNetworkTemplatesDerived(
         response from the API call
     """
 
-    uri = f"/api/v1/sites/{site_id}/networktemplates/derived"
+    uri = f"/api/v1/sites/{site_id}/avprofiles/derived"
     query_params: dict[str, str] = {}
-    if resolve:
-        query_params["resolve"] = str(resolve)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
