@@ -343,6 +343,11 @@ def searchSiteNacClients(
     mxedge_id: str | None = None,
     nacrule_name: str | None = None,
     status: str | None = None,
+    family: str | None = None,
+    model: str | None = None,
+    os: str | None = None,
+    hostname: str | None = None,
+    mfg: str | None = None,
     type: str | None = None,
     mdm_compliance: str | None = None,
     mdm_provider: str | None = None,
@@ -384,6 +389,11 @@ def searchSiteNacClients(
     mxedge_id : str
     nacrule_name : str
     status : str
+    family : str
+    model : str
+    os : str
+    hostname : str
+    mfg : str
     type : str
     mdm_compliance : str
     mdm_provider : str
@@ -435,6 +445,16 @@ def searchSiteNacClients(
         query_params["nacrule_name"] = str(nacrule_name)
     if status:
         query_params["status"] = str(status)
+    if family:
+        query_params["family"] = str(family)
+    if model:
+        query_params["model"] = str(model)
+    if os:
+        query_params["os"] = str(os)
+    if hostname:
+        query_params["hostname"] = str(hostname)
+    if mfg:
+        query_params["mfg"] = str(mfg)
     if type:
         query_params["type"] = str(type)
     if mdm_compliance:
