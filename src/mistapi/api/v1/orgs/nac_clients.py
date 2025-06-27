@@ -352,6 +352,11 @@ def searchOrgNacClients(
     status: str | None = None,
     type: str | None = None,
     mdm_compliance: str | None = None,
+    family: str | None = None,
+    model: str | None = None,
+    os: str | None = None,
+    hostname: str | None = None,
+    mfg: str | None = None,
     mdm_provider: str | None = None,
     sort: str | None = None,
     usermac_label: list | None = None,
@@ -389,9 +394,15 @@ def searchOrgNacClients(
     ap : str
     mac : str
     mdm_managed : bool
-    status : str
+    status : str{'permitted', 'session_started', 'session_ended', 'denied'}
+      Connection status of client i.e "permitted", "denied, "session_stared", "session_ended"
     type : str
     mdm_compliance : str
+    family : str
+    model : str
+    os : str
+    hostname : str
+    mfg : str
     mdm_provider : str
     sort : str
     usermac_label : list
@@ -443,6 +454,16 @@ def searchOrgNacClients(
         query_params["type"] = str(type)
     if mdm_compliance:
         query_params["mdm_compliance"] = str(mdm_compliance)
+    if family:
+        query_params["family"] = str(family)
+    if model:
+        query_params["model"] = str(model)
+    if os:
+        query_params["os"] = str(os)
+    if hostname:
+        query_params["hostname"] = str(hostname)
+    if mfg:
+        query_params["mfg"] = str(mfg)
     if mdm_provider:
         query_params["mdm_provider"] = str(mdm_provider)
     if sort:

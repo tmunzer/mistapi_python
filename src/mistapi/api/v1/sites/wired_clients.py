@@ -88,6 +88,7 @@ def searchSiteWiredClients(
     mac: str | None = None,
     ip: str | None = None,
     port_id: str | None = None,
+    source: str | None = None,
     vlan: str | None = None,
     manufacture: str | None = None,
     text: str | None = None,
@@ -120,6 +121,8 @@ def searchSiteWiredClients(
     mac : str
     ip : str
     port_id : str
+    source : str{'lldp', 'mac'}
+      source from where the client was learned (lldp, mac)
     vlan : str
     manufacture : str
     text : str
@@ -150,6 +153,8 @@ def searchSiteWiredClients(
         query_params["ip"] = str(ip)
     if port_id:
         query_params["port_id"] = str(port_id)
+    if source:
+        query_params["source"] = str(source)
     if vlan:
         query_params["vlan"] = str(vlan)
     if manufacture:

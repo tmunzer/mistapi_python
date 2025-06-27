@@ -742,6 +742,68 @@ def verifyOrgCustomBucket(
     return resp
 
 
+def udpateOrgAtpAllowedList(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/udpate-org-atp-allowed-list
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/setting/skyatp/secintel_allowlist"
+    resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+
+
+def udpateOrgAtpBlockedList(
+    mist_session: _APISession, org_id: str, body: dict
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/udpate-org-atp-blocked-list
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/setting/skyatp/secintel_blocklist"
+    resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+
+
 def getOrgSkyAtpIntegration(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/get-org-sky-atp-integration
@@ -850,68 +912,6 @@ def udpateOrgAtpIntegration(
     """
 
     uri = f"/api/v1/orgs/{org_id}/setting/skyatp/setup"
-    resp = mist_session.mist_put(uri=uri, body=body)
-    return resp
-
-
-def udpateOrgAtpAllowedList(
-    mist_session: _APISession, org_id: str, body: dict
-) -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/udpate-org-atp-allowed-list
-
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-
-    PATH PARAMS
-    -----------
-    org_id : str
-
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-
-    uri = f"/api/v1/orgs/{org_id}/setting/skyatp/setup/secintel_allowlist"
-    resp = mist_session.mist_put(uri=uri, body=body)
-    return resp
-
-
-def udpateOrgAtpBlockedList(
-    mist_session: _APISession, org_id: str, body: dict
-) -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/integration-skyatp/udpate-org-atp-blocked-list
-
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-
-    PATH PARAMS
-    -----------
-    org_id : str
-
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-
-    uri = f"/api/v1/orgs/{org_id}/setting/skyatp/setup/secintel_blocklist"
     resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 

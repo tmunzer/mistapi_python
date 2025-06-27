@@ -236,6 +236,7 @@ def searchOrgDeviceEvents(
     timestamp: str | None = None,
     type: str | None = None,
     last_by: str | None = None,
+    includes: str | None = None,
     limit: int = 100,
     start: int | None = None,
     end: int | None = None,
@@ -262,6 +263,7 @@ def searchOrgDeviceEvents(
     timestamp : str
     type : str
     last_by : str
+    includes : str
     limit : int, default: 100
     start : int
     end : int
@@ -289,6 +291,8 @@ def searchOrgDeviceEvents(
         query_params["type"] = str(type)
     if last_by:
         query_params["last_by"] = str(last_by)
+    if includes:
+        query_params["includes"] = str(includes)
     if limit:
         query_params["limit"] = str(limit)
     if start:

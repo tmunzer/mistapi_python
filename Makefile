@@ -15,7 +15,19 @@ help: ## Show this help message
 	@echo 'Targets:'
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-init: ## Development setup
+setup-openapi: ## Initialize or update OpenAPI submodule
+	@if [ ! -d "mist_openapi/.git" ]; then \
+		echo "Initializing OpenAPI submodule..."; \
+		git submodule update --init mist_openapi; \
+	fi
+	@echo "Updating OpenAPI submodule..."; \
+	git submodule update --remote mist_openapi
+
+generate: setup-openapi ## Run the code generation script
+	uv run python generate_from_openapi.py $(VERSION)
+	$(MAKE) format
+
+init: setup-openapi ## Development setup with OpenAPI
 	uv sync
 
 install: ## Install project in development mode
@@ -57,10 +69,6 @@ publish-test: clean build ## Publish to test PyPI
 
 publish: clean build ## Publish to PyPI
 	uv run twine upload dist/*
-
-generate: ## Run the code generation script
-	cd mist_openapi && git pull && cd ..
-	uv run python generate_from_openapi.py $(VERSION)
 
 deps: ## Show dependency tree
 	uv tree

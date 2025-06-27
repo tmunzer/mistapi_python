@@ -70,6 +70,7 @@ def searchOrgWiredClients(
     org_id: str,
     auth_state: str | None = None,
     auth_method: str | None = None,
+    source: str | None = None,
     site_id: str | None = None,
     device_mac: str | None = None,
     mac: str | None = None,
@@ -105,6 +106,8 @@ def searchOrgWiredClients(
     ------------
     auth_state : str
     auth_method : str
+    source : str{'lldp', 'mac'}
+      source from where the client was learned (lldp, mac)
     site_id : str
     device_mac : str
     mac : str
@@ -136,6 +139,8 @@ def searchOrgWiredClients(
         query_params["auth_state"] = str(auth_state)
     if auth_method:
         query_params["auth_method"] = str(auth_method)
+    if source:
+        query_params["source"] = str(source)
     if site_id:
         query_params["site_id"] = str(site_id)
     if device_mac:
