@@ -24,6 +24,16 @@ setup-openapi: ## Initialize or update OpenAPI submodule
 	git submodule update --remote mist_openapi
 
 generate: setup-openapi ## Run the code generation script
+	git submodule update --remote mist_openapi
+	echo "Updating version in pyproject.toml to $(VERSION)"
+	sed -e "s/version = .*/version = \"$(VERSION)\"/g" pyproject.toml > new_pyproject.toml
+	mv new_pyproject.toml pyproject.toml
+	echo "Updating version in __version.py to $(VERSION)"
+	sed -e "s/__version__ = .*/__version__ = \"$(VERSION)\"/g" ./src/mistapi/__version.py > ./src/mistapi/new__version.py
+	mv ./src/mistapi/new__version.py ./src/mistapi/__version.py
+	echo "Updating version in __init__.py to $(VERSION)"
+	sed -e "s/__version__ = .*/__version__ = \"$(VERSION)\"/g" ./src/mistapi/__init__.py > ./src/mistapi/__init__.py.new
+	mv ./src/mistapi/__init__.py.new ./src/mistapi/__init__.py
 	uv run python generate_from_openapi.py $(VERSION)
 	$(MAKE) format
 
