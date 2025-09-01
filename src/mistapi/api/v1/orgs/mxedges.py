@@ -381,7 +381,6 @@ def searchOrgMxEdges(
     model: str | None = None,
     distro: str | None = None,
     tunterm_version: str | None = None,
-    sort: str | None = None,
     stats: bool | None = None,
     limit: int = 100,
     page: int = 1,
@@ -410,7 +409,6 @@ def searchOrgMxEdges(
     model : str
     distro : str
     tunterm_version : str
-    sort : str
     stats : bool
     limit : int, default: 100
     page : int, default: 1
@@ -439,8 +437,6 @@ def searchOrgMxEdges(
         query_params["distro"] = str(distro)
     if tunterm_version:
         query_params["tunterm_version"] = str(tunterm_version)
-    if sort:
-        query_params["sort"] = str(sort)
     if stats:
         query_params["stats"] = str(stats)
     if limit:

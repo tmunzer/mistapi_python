@@ -206,13 +206,12 @@ def searchSiteNacClientEvents(
     usermac_label: str | None = None,
     text: str | None = None,
     nas_ip: str | None = None,
-    sort: str | None = None,
     ingress_vlan: str | None = None,
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
     limit: int = 100,
-    sort: str = "timestamp",
+    sort: str = "wxid",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/nac/search-site-nac-client-events
@@ -251,13 +250,12 @@ def searchSiteNacClientEvents(
     usermac_label : str
     text : str
     nas_ip : str
-    sort : str
     ingress_vlan : str
     start : int
     end : int
     duration : str, default: 1d
     limit : int, default: 100
-    sort : str, default: timestamp
+    sort : str, default: wxid
 
     RETURN
     -----------
@@ -311,8 +309,6 @@ def searchSiteNacClientEvents(
         query_params["text"] = str(text)
     if nas_ip:
         query_params["nas_ip"] = str(nas_ip)
-    if sort:
-        query_params["sort"] = str(sort)
     if ingress_vlan:
         query_params["ingress_vlan"] = str(ingress_vlan)
     if start:
@@ -356,7 +352,6 @@ def searchSiteNacClients(
     type: str | None = None,
     mdm_compliance: str | None = None,
     mdm_provider: str | None = None,
-    sort: str | None = None,
     usermac_label: list | None = None,
     ingress_vlan: str | None = None,
     limit: int = 100,
@@ -364,7 +359,7 @@ def searchSiteNacClients(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
-    sort: str = "timestamp",
+    sort: str = "wxid",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/nac/search-site-nac-clients
@@ -404,7 +399,6 @@ def searchSiteNacClients(
     type : str
     mdm_compliance : str
     mdm_provider : str
-    sort : str
     usermac_label : list
       Labels derived from usermac entry
     ingress_vlan : str
@@ -413,7 +407,7 @@ def searchSiteNacClients(
     start : int
     end : int
     duration : str, default: 1d
-    sort : str, default: timestamp
+    sort : str, default: wxid
 
     RETURN
     -----------
@@ -471,8 +465,6 @@ def searchSiteNacClients(
         query_params["mdm_compliance"] = str(mdm_compliance)
     if mdm_provider:
         query_params["mdm_provider"] = str(mdm_provider)
-    if sort:
-        query_params["sort"] = str(sort)
     if usermac_label:
         query_params["usermac_label"] = str(usermac_label)
     if ingress_vlan:

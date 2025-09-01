@@ -756,7 +756,7 @@ def searchSiteDevices(
     mxedge_ids: list | None = None,
     last_hostname: str | None = None,
     last_config_status: str | None = None,
-    radius_stats: any | None = None,
+    radius_stats: str | None = None,
     cpu: str | None = None,
     node0_mac: str | None = None,
     clustered: bool | None = None,
@@ -775,14 +775,13 @@ def searchSiteDevices(
     band_5_bandwidth: int | None = None,
     band_6_bandwidth: int | None = None,
     eth0_port_speed: int | None = None,
-    sort: str = "timestamp",
-    desc_sort: str | None = None,
     stats: bool | None = None,
     limit: int = 100,
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    desc_sort: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-devices
@@ -814,8 +813,7 @@ def searchSiteDevices(
       For APs only, list of Mist Edge id, if AP is connecting to a Mist Edge
     last_hostname : str
     last_config_status : str
-    radius_stats : any
-      For Switches and Gateways only, Key-value pairs where the key is the RADIUS server address and the value contains authentication statistics
+    radius_stats : str
     cpu : str
     node0_mac : str
     clustered : bool
@@ -835,16 +833,15 @@ def searchSiteDevices(
     band_5_bandwidth : int
     band_6_bandwidth : int
     eth0_port_speed : int
-    sort : str{'mac', 'model', 'sku', 'timestamp'}, default: timestamp
-      Sort options
-    desc_sort : str{'mac', 'model', 'sku', 'timestamp'}
-      Sort options in reverse order
     stats : bool
     limit : int, default: 100
     start : int
     end : int
     duration : str, default: 1d
-    sort : str, default: timestamp
+    sort : str{'mac', 'model', 'sku', 'timestamp'}, default: timestamp
+      Sort options
+    desc_sort : str{'mac', 'model', 'sku', 'timestamp'}
+      Sort options in reverse order
 
     RETURN
     -----------
@@ -920,10 +917,6 @@ def searchSiteDevices(
         query_params["band_6_bandwidth"] = str(band_6_bandwidth)
     if eth0_port_speed:
         query_params["eth0_port_speed"] = str(eth0_port_speed)
-    if sort:
-        query_params["sort"] = str(sort)
-    if desc_sort:
-        query_params["desc_sort"] = str(desc_sort)
     if stats:
         query_params["stats"] = str(stats)
     if limit:
@@ -936,6 +929,8 @@ def searchSiteDevices(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if desc_sort:
+        query_params["desc_sort"] = str(desc_sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
