@@ -1,5 +1,10 @@
-# MISTAPI - Python Package to use MIST API
+# MISTAPI - Python Package for Mist API
 
+[![PyPI version](https://img.shields.io/pypi/v/mistapi.svg)](https://pypi.org/project/mistapi/)
+[![Python versions](https://img.shields.io/pypi/pyversions/mistapi.svg)](https://pypi.org/project/mistapi/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+A comprehensive Python package to interact with the Mist Cloud APIs, built from the official [Mist OpenAPI specifications](https://www.juniper.net/documentation/us/en/software/mist/api/http/getting-started/how-to-get-started).
 
 ## MIT LICENSE
 
@@ -12,25 +17,82 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-## Features
-This package is built from the [Mist OpenAPI specifications](https://doc.mist-lab.fr) and is designed to simplify the use of the Mist APIs with Python scripts.
+## Links
 
-* Manage Mist Authentication with login/password (and 2FA if required) or API Token
-* Provide interactive user inputs for login and org/site selections
-* Provide easy access to Mist APIs endpoints and documentation
+- **Documentation**: [Mist API Documentation](https://doc.mist-lab.fr)
+- **Source Code**: [GitHub Repository](https://github.com/tmunzer/mistapi_python)
+- **PyPI Package**: [mistapi on PyPI](https://pypi.org/project/mistapi/)
+- **Examples**: [Mist Library Examples](https://github.com/tmunzer/mist_library)
+- **Bug Reports**: [GitHub Issues](https://github.com/tmunzer/mistapi_python/issues)
+
+
+## Features
+
+This package provides a complete Python interface to the Mist Cloud APIs:
+
+### Core Features
+* **Authentication Management**: Support for API tokens and login/password (with 2FA)
+* **Interactive CLI**: Built-in functions for organization and site selection
+* **Comprehensive API Coverage**: Auto-generated from OpenAPI specs covering all endpoints
+* **HashiCorp Vault Integration**: Secure credential storage support
+* **Pagination Support**: Automatic handling of paginated responses
+* **Robust Error Handling**: Detailed error responses and logging
+* **Proxy Support**: HTTP/HTTPS proxy configuration
+
+### API Coverage
+The package includes complete coverage of Mist APIs:
+
+#### Organization Level APIs
+* Organizations, Sites, Site Groups, Site Templates
+* Devices (APs, Switches, Gateways), Device Profiles, Device Templates
+* Network configurations (WLANs, VPNs, Networks, EVPN Topologies)
+* User management (Admins, API Tokens, Guests, PSKs)
+* Monitoring (Alarms, Events, Insights, Statistics, SLE)
+* Assets, Licenses, Subscriptions, Webhooks
+* Security (NAC, Policies, Certificates)
+* MSP and Multi-tenant management
+
+#### Site Level APIs  
+* Site-specific device management and configuration
+* RF diagnostics and optimization (RRM, Channel Planning)
+* Location services (Maps, Zones, Beacons, Asset tracking)
+* Client management and analytics
+* Synthetic testing and performance monitoring
+* Anomaly detection and troubleshooting
+
+#### Constants and Utilities
+* Device models, AP channels, Application categories
+* Country codes, Alarm definitions, Event types
+* Webhook topics, License types, and more
+
+#### Additional Services
+* Two-factor authentication, OAuth, Login/Logout
+* Account recovery, Registration, Invitations
+* Mobile device management, Installer workflows
+
+## Requirements
+
+* Python 3.10 or higher
+* Dependencies: `requests`, `python-dotenv`, `tabulate`, `deprecation`, `hvac`
 
 ## Installation
-This Python Package can be installed with `pip`:
-```python3
+
+Install the package using pip:
+
+```bash
 # Linux/macOS
 python3 -m pip install mistapi
 
 # Windows
 py -m pip install mistapi
+
+# Install with development dependencies (for contributors)
+pip install mistapi[dev]
 ```
 
 ## Upgrade
-```python3
+
+```bash
 # Linux/macOS
 python3 -m pip install --upgrade mistapi
 
@@ -39,204 +101,387 @@ py -m pip install --upgrade mistapi
 ```
 
 ## Configuration
-Configuration is optional. All the required information can be passed as APISession parameter.
-However, it is possible to set them in an `.env` file. The location of this file must be provided during when calling the APISession class with the `env_file` parameter:
-```python3
-> import mistapi
-> apisession = mistapi.APISession(enf_file="path/to/the/.env")
+
+Configuration is optional. All required information can be passed as `APISession` parameters.
+However, you can set them in an `.env` file. The location of this file must be provided when calling the `APISession` class with the `env_file` parameter:
+
+```python
+import mistapi
+apisession = mistapi.APISession(env_file="path/to/the/.env")
 ```
 
 ### Environment Variables
-| Variable Name     | Type   | Default | Comment                                                                                                                                                                                                                                                                   |
-|-------------------|--------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| MIST_HOST         | string | None    | The Mist Cloud to use. It must be the "api" one (e.g. `api.mist.com`, `api.eu.mist.com`, ...)                                                                                                                                                                             |
-| MIST_APITOKEN     | string | None    | The API Token to use.                                                                                                                                                                                                                                                     |
-| MIST_USER         | string | None    | The login to use if no API Token is provided (apitoken use is preferred)                                                                                                                                                                                                  |
-| MIST_PASSWORD     | string | None    | The password to use if no API Token is provided (apitoken use is preferred)                                                                                                                                                                                               |
-| CONSOLE_LOG_LEVEL | int    | 20      | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical)                                                                                                                    |
-| LOGGING_LOG_LEVEL | int    | 10      | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
-| HTTPS_PROXY       | string | None    | configure the package to use an HTTP/HTTPS (e.g. http://user:passowrd@myproxy.com:3128)                                                                                                                                                                                   |
+| Variable Name         | Type   | Default                | Comment                                                                                                                                                                                                                                                                   |
+|-----------------------|--------|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| MIST_HOST             | string | None                   | The Mist Cloud to use. It must be the "api" one (e.g. `api.mist.com`, `api.eu.mist.com`, ...)                                                                                                                                                                             |
+| MIST_APITOKEN         | string | None                   | The API Token to use.                                                                                                                                                                                                                                                     |
+| MIST_USER             | string | None                   | The login to use if no API Token is provided (apitoken use is preferred)                                                                                                                                                                                                  |
+| MIST_PASSWORD         | string | None                   | The password to use if no API Token is provided (apitoken use is preferred)                                                                                                                                                                                               |
+| MIST_VAULT_URL        | string | https://127.0.0.1:8200 | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, URL of the Vault instance                                                                                                                                                |
+| MIST_VAULT_PATH       | string | None                   | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, Path to the secret in Vault                                                                                                                                              |
+| MIST_VAULT_MOUNT_POINT| string | secret                 | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, Mount point for the secrets engine                                                                                                                                       |
+| MIST_VAULT_TOKEN      | string | None                   | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, Token for authenticating with Vault                                                                                                                                      |
+| CONSOLE_LOG_LEVEL     | int    | 20                     | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical)                                                                                                                    |
+| LOGGING_LOG_LEVEL     | int    | 10                     | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
+| HTTPS_PROXY           | string | None                   | Configure the package to use an HTTP/HTTPS proxy (e.g. http://user:password@myproxy.com:3128)                                                                                                                                                                           |
 
-An example of the environment file content is:
+Example `.env` file:
+```bash
+MIST_HOST=api.mist.com
+MIST_APITOKEN=your_api_token_here
 ```
-MIST_HOST = api.mist.com
-MIST_APITOKEN = xxxxxx
+
+## Quick Start
+
+```python
+import mistapi
+
+# Initialize session
+apisession = mistapi.APISession()
+
+# Authenticate
+apisession.login()
+
+# Use the API
+device_models = mistapi.api.v1.const.device_models.getDeviceModels(apisession)
+print(f"Found {len(device_models.data)} device models")
+
+# Interactive org selection
+org_id = mistapi.cli.select_org(apisession)[0]
+
+# Get organization information  
+org_info = mistapi.api.v1.orgs.orgs.getOrg(apisession, org_id)
+print(f"Organization: {org_info.data['name']}")
 ```
 
 ## Usage
-Usage examples are available in the [mist_library repository](https://github.com/tmunzer/mist_library).
 
-To use it:
-### 1. `APISession` must be instantiated:
-```python3
->>> import mistapi
->>> apisession = mistapi.APISession()
+Detailed usage examples are available in the [mist_library repository](https://github.com/tmunzer/mist_library).
+
+### 1. Initialize APISession
+
+```python
+import mistapi
+apisession = mistapi.APISession()
 ```
 This class accepts different parameters, all optionals:
 
-| Parameter Name    | Type   | Default | Comment                                                                                                                                                                                                                                                                   |
-|-------------------|--------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| email             | str    | None    | used if login/password is used. Can be defined later                                                                                                                                                                                                                      |
-| password          | str    | None    | used if login/password is used. Can be defined later                                                                                                                                                                                                                      |
-| apitoken          | str    | None    | used if API Token is used. Can de defined later                                                                                                                                                                                                                           |
-| host              | str    | None    | Mist Cloud to reach (e.g. "api.mist.com"). Can de defined later                                                                                                                                                                                                           |
-| env_file          | str    | None    | path to the env file to load. See README.md for allowed variables                                                                                                                                                                                                         |
-| console_log_level | int    | 20      | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical)                                                                                                                    |
-| logging_log_level | int    | 10      | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
-| https_proxy       | string | None    | configure the package to use an HTTP/HTTPS (e.g. http://user:passowrd@myproxy.com:3128)                                                                                                                                                                                   |
+| Parameter Name    | Type   | Default                | Comment                                                                                                                                                                                                                                                                   |
+|-------------------|--------|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| email             | str    | None                   | used if login/password is used. Can be defined later                                                                                                                                                                                                                      |
+| password          | str    | None                   | used if login/password is used. Can be defined later                                                                                                                                                                                                                      |
+| apitoken          | str    | None                   | used if API Token is used. Can be defined later                                                                                                                                                                                                                           |
+| host              | str    | None                   | Mist Cloud to reach (e.g. "api.mist.com"). Can be defined later                                                                                                                                                                                                           |
+| vault_url         | string | https://127.0.0.1:8200 | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, URL of the Vault instance                                                                                                                                                |
+| vault_path        | string | None                   | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, Path to the secret in Vault                                                                                                                                              |
+| vault_mount_point | string | secret                 | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, Mount point for the secrets engine                                                                                                                                       |
+| vault_token       | string | None                   | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, Token for authenticating with Vault                                                                                                                                      |
+| env_file          | str    | None                   | path to the env file to load. See README.md for allowed variables                                                                                                                                                                                                         |
+| console_log_level | int    | 20                     | The minimum log level to display on the console, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical)                                                                                                                    |
+| logging_log_level | int    | 10                     | The minimum log level to log on the file, using `logging` schema (0 = Disabled, 10 = Debug, 20 = Info, 30 = Warning, 40 = Error, 50 = Critical). This is only used when the script calling `mistapi` is using Python `logging` package and is configured to log to a file |
+| https_proxy       | string | None                   | Configure the package to use an HTTP/HTTPS proxy (e.g. http://user:password@myproxy.com:3128)                                                                                                                                                                           |
 
-### 2. `login()` function must be called to validate the authentication.
+### 2. Authenticate
 
-#### 2.1. If the env file is provided and all the required information is valid, the session is validated:
-```python3
->>> import mistapi
->>> apisession = mistapi.APISession(env_file="~/.mist_env")
->>> apisession.login()
+The `login()` function must be called to validate authentication:
 
--------------------------------- Authenticated ---------------------------------
+#### 2.1. Automatic Authentication (with env file)
 
-Welcome Thomas Munzer!
+If the env file contains valid credentials, authentication is automatic:
 
->>> apisession.get_authentication_status()
-True
+```python
+import mistapi
+apisession = mistapi.APISession(env_file="~/.mist_env")
+apisession.login()
+
+# Output:
+# -------------------------------- Authenticated ---------------------------------
+# Welcome Thomas Munzer!
+
+print(apisession.get_authentication_status())  # True
 ```
 
-#### 2.2. If the env file is not provided or does not contain the required valid information, the missing information will be requested:
+#### 2.2. Interactive Authentication
 
-* If no `host` has been configured, an interactive input will ask for it.
-```python3
->>> apisession.login()
+If credentials are missing, the package will prompt for them interactively:
 
+**Cloud Selection:**
+If no `host` is configured, you'll be prompted to select a Mist cloud:
+
+```
 ----------------------------- Mist Cloud Selection -----------------------------
 
 0) APAC 01 (host: api.ac5.mist.com)
-1) Europe 01 (host: api.eu.mist.com)
-2) Global 01 (host: api.mist.com)
-3) Global 02 (host: api.gc1.mist.com)
-4) Global 03 (host: api.ac2.mist.com)
-5) Global 04 (host: api.gc2.mist.com)
+1) APAC 03 (host: api.gc7.mist.com) 
+2) EMEA 01 (host: api.eu.mist.com)
+3) EMEA 02 (host: api.gc3.mist.com)
+4) EMEA 03 (host: api.ac6.mist.com)
+5) EMEA 04 (host: api.gc6.mist.com)
+6) Global 01 (host: api.mist.com)
+7) Global 02 (host: api.gc1.mist.com)
+8) Global 03 (host: api.ac2.mist.com)
+9) Global 04 (host: api.gc2.mist.com)
+10) Global 05 (host: api.gc4.mist.com)
 
-Select a Cloud (0 to 5, or q to exit):
+Select a Cloud (0 to 10, or q to exit):
 ```
-* if not authentication (`apitoken` or `email`/`password`) has been configured, an interactive input will ask for it. If login/password authentication is used and 2FA is requested by the Mist Cloud, the 2FA code will be asked.
-```python3
->>> apisession.login()
 
+**Authentication:**
+If no authentication is configured, you'll be prompted for credentials:
+
+```
 --------------------------- Login/Pwd authentication ---------------------------
 
-Login: tmunzer@juniper.net
-Password:
+Login: user@example.com
+Password: 
 [  INFO   ] Authentication successful!
 
-Two Factor Authentication code required: 122749
-[  INFO   ] 2FA authentication successed
+Two Factor Authentication code required: 123456
+[  INFO   ] 2FA authentication succeeded
 
 -------------------------------- Authenticated ---------------------------------
 
 Welcome Thomas Munzer!
 ```
 
-### 3. It is now possible to request Mist APIs
-```python3
->>> device_models = mistapi.api.v1.const.device_models.getDeviceModels(apisession)
->>> device_models.url
-'https://api.mist.com/api/v1/const/device_models'
->>> device_models.status_code
-200
->>> device_models.data
-[{'model': 'AP41', 'type': 'ap', 'ap_type': 'aph', 'description': 'AP-41', 'display': 'AP41', 'has_wifi_band5': True, 'has_wifi_band24': True, 'has_scanning_radio': True, 'has_usb': True, 'has_vble': True, 'vble': {'power': 8, 'beacon_rate': 4, 'beams': 8}, 'band24': {'max_clients': 128, 'max_power': 19, 'min_power': 8}, 'fcc_dfs_ok': ...
+### 3. Using the APIs
+
+Once authenticated, you can access all Mist API endpoints:
+
+```python
+# Get device models (constants)
+device_models = mistapi.api.v1.const.device_models.getDeviceModels(apisession)
+print(f"Status: {device_models.status_code}")
+print(f"URL: {device_models.url}")
+print(f"Data: {len(device_models.data)} models")
+
+# Get organization statistics
+org_stats = mistapi.api.v1.orgs.stats.getOrgStats(apisession, org_id)
+print(f"Organization has {org_stats.data['num_sites']} sites")
+
+# Search for devices
+devices = mistapi.api.v1.orgs.devices.searchOrgDevices(apisession, org_id, type="ap")
+print(f"Found {len(devices.data['results'])} access points")
+```
 ```
 
-## Useful functions
-* easily find an Org Id from the current account with `mistapi.cli.select_org(apisession)`
-```python3
->>> mistapi.cli.select_org(apisession)
+## CLI Helper Functions
 
+The package includes helpful CLI functions for interactive use:
+
+### Organization Selection
+
+```python
+# Select single organization
+org_ids = mistapi.cli.select_org(apisession)
+print(f"Selected org: {org_ids[0]}")
+
+# Select multiple organizations
+org_ids = mistapi.cli.select_org(apisession, allow_many=True)
+print(f"Selected {len(org_ids)} organizations")
+```
+
+Output:
+```
 Available organizations:
-0) 000_TM-LAB (id: 6374a757-xxxx-xxxx-xxxx-361e45b2d4ac)
-...
-41) TM-LAB (id: 203d3d02-xxxx-xxxx-xxxx-76896a3330f4)
+0) Acme Corp (id: 203d3d02-xxxx-xxxx-xxxx-76896a3330f4)
+1) Demo Lab (id: 6374a757-xxxx-xxxx-xxxx-361e45b2d4ac)
 ...
 
-Select an Org (0 to 44, or q to exit): 41
-['203d3d02-xxxx-xxxx-xxxx-76896a3330f4']
+Select an Org (0 to 2, or q to exit): 0
 ```
 
-* easily find a Site Id from an org  with `mistapi.cli.select_org(apisession)`
-```python3
->>> mistapi.cli.select_site(apisession, org_id="203d3d02-xxxx-xxxx-xxxx-76896a3330f4")
+### Site Selection  
 
+```python
+# Select site within an organization
+site_ids = mistapi.cli.select_site(apisession, org_id="203d3d02-xxxx-xxxx-xxxx-76896a3330f4")
+print(f"Selected site: {site_ids[0]}")
+```
+
+Output:
+```
 Available sites:
-0) HLAB (id: f5fcbee5-xxxx-xxxx-xxxx-1619ede87879)
+0) Headquarters (id: f5fcbee5-xxxx-xxxx-xxxx-1619ede87879)
+1) Branch Office (id: a8b2c3d4-xxxx-xxxx-xxxx-987654321abc)
 ...
 
-Select a Site (0 to 6, or q to exit): 0
-['f5fcbee5-xxxx-xxxx-xxxx-1619ede87879']
+Select a Site (0 to 1, or q to exit): 0
 ```
 
-* get the next page or all the pages from a request
-For some requests, the Mist Cloud is using pagination to limit the size of the response.
-The required information the find the next page can either in the HTTP header (headers `X-Page-Total`, `X-Page-Limit` and `X-Page-Page`) or with the `next` key in the JSON document.
-To make it easier to request the next page or all the pages, the `mistapi` package  is possessing the response to extract or generate the URI to retrieve the next page.
-```python3
->>> response = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(apisession, my_org_id, duration="1d")
->>> len(response.data["results"])
-100
->>> response.next
-'/api/v1/orgs/203d3d02-xxxx-xxxx-xxxx-76896a3330f4/clients/events/search?end=1676966894&limit=100&search_after=%5B1676966519626%5D&start=1676880494'
-```
-To get the next page, use the `mistapi.get_next()` function. The returned response will be the same format as the previous one:
+## Pagination Support
 
-```python3
->>> response_1 = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(apisession, my_org_id, duration="1d")
->>> len(response_1.data["results"])
-100
->>> response_1.next
-'/api/v1/orgs/203d3d02-xxxx-xxxx-xxxx-76896a3330f4/clients/events/search?end=1676966894&limit=100&search_after=%5B1676966519626%5D&start=1676880494'
->>> response_2 = response.get_next(apisession, response_1)
->>> response_2.next
-'/api/v1/orgs/203d3d02-xxxx-xxxx-xxxx-76896a3330f4/clients/events/search?end=1676966894&limit=100&search_after=%5B1676966204625%5D&start=1676880494'
->>> len(response_2.data["results"])
-100
-```
-To retrieve all the pages, use the `mistapi.get_all()` function.
-The returned response will be a list with all the data from all the Mist responses:
-```python3
->>> response = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(apisession, my_org_id, duration="1d")
->>> len(response.data["results"])
-100
->>> response.next
-'/api/v1/orgs/203d3d02-xxxx-xxxx-xxxx-76896a3330f4/clients/events/search?end=1676966894&limit=100&search_after=%5B1676966519626%5D&start=1676880494'
->>> data = mistapi.get_all(apisession, response)
->>> len(data)
-26027
+For APIs that return paginated results, the package provides convenient methods:
+
+### Get Next Page
+
+```python
+# Get first page
+response = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(apisession, org_id, duration="1d")
+print(f"First page: {len(response.data['results'])} results")
+print(f"Next page URL: {response.next}")
+
+# Get next page
+response_2 = mistapi.get_next(apisession, response)
+print(f"Second page: {len(response_2.data['results'])} results")
 ```
 
-* get help on a specific function
-```python3
->>> help(mistapi.api.v1.orgs.stats.getOrgStats)
-Help on function getOrgStats in module mistapi.api.v1.orgs.stats:
+### Get All Pages
 
-getOrgStats(mist_session: mistapi.__api_session.APISession, org_id: str, page: int = 1, limit: int = 100, start: int = None, end: int = None, duration: str = '1d') -> mistapi.__api_response.APIResponse
-    API doc: https://doc.mist-lab.fr/#operation/getOrgStats
+```python
+# Get all pages automatically
+response = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(apisession, org_id, duration="1d")
+print(f"First page: {len(response.data['results'])} results")
 
-    PARAMS
-    -----------
-    :param APISession mist_session - mistapi session including authentication and Mist host information
-
-    PATH PARAMS
-    -----------
-    :param str org_id
-
-    QUERY PARAMS
-    ------------
-    :param int page
-    :param int limit
-    :param int start
-    :param int end
-    :param str duration(1d, 1h, 10m)
-
-    RETURN
-    -----------
-    :return APIResponse - response from the API call
+all_data = mistapi.get_all(apisession, response)
+print(f"Total results across all pages: {len(all_data)}")
 ```
+
+## API Help and Documentation
+
+Get help on any API function:
+
+```python
+help(mistapi.api.v1.orgs.stats.getOrgStats)
+```
+
+This displays detailed information about parameters, return values, and usage examples.
+
+## Error Handling
+
+The package provides structured error handling:
+
+```python
+try:
+    org_info = mistapi.api.v1.orgs.orgs.getOrg(apisession, "invalid-org-id")
+except Exception as e:
+    print(f"API Error: {e}")
+    
+# Check response status
+response = mistapi.api.v1.orgs.orgs.listOrgs(apisession)
+if response.status_code == 200:
+    print(f"Success: {len(response.data)} organizations")
+else:
+    print(f"Error {response.status_code}: {response.data}")
+```
+
+## Development and Testing
+
+For contributors and advanced users:
+
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/tmunzer/mistapi_python.git
+cd mistapi_python
+
+# Install with development dependencies
+pip install -e ".[dev]"
+
+# Run tests
+pytest
+
+# Run tests with coverage
+pytest --cov=src/mistapi --cov-report=html
+
+# Run linting
+ruff check src/
+```
+
+### Package Structure
+
+```
+src/mistapi/
+├── __init__.py           # Main package exports
+├── __api_session.py      # Session management and authentication  
+├── __api_request.py      # HTTP request handling
+├── __api_response.py     # Response parsing and pagination
+├── __logger.py           # Logging configuration
+├── __pagination.py       # Pagination utilities
+├── cli.py               # Interactive CLI functions
+├── __models/            # Data models (privileges, etc.)
+└── api/v1/              # Auto-generated API endpoints
+    ├── const/           # Constants and enums
+    ├── orgs/            # Organization-level APIs
+    ├── sites/           # Site-level APIs  
+    ├── login/           # Authentication APIs
+    └── utils/           # Utility functions
+```
+
+## Supported Mist Clouds
+
+The package supports all Mist cloud instances:
+
+- **APAC 01**: api.ac5.mist.com
+- **APAC 03**: api.gc7.mist.com  
+- **EMEA 01**: api.eu.mist.com
+- **EMEA 02**: api.gc3.mist.com
+- **EMEA 03**: api.ac6.mist.com
+- **EMEA 04**: api.gc6.mist.com
+- **Global 01**: api.mist.com
+- **Global 02**: api.gc1.mist.com
+- **Global 03**: api.ac2.mist.com
+- **Global 04**: api.gc2.mist.com
+- **Global 05**: api.gc4.mist.com
+
+## Examples and Use Cases
+
+### Device Management
+
+```python
+# List all devices in an organization
+devices = mistapi.api.v1.orgs.devices.listOrgDevices(apisession, org_id)
+
+# Get specific device details
+device = mistapi.api.v1.orgs.devices.getOrgDevice(apisession, org_id, device_id)
+
+# Update device configuration
+update_data = {"name": "New Device Name"}
+result = mistapi.api.v1.orgs.devices.updateOrgDevice(apisession, org_id, device_id, body=update_data)
+```
+
+### Site Management
+
+```python
+# Create a new site
+site_data = {
+    "name": "New Branch Office",
+    "country_code": "US",
+    "timezone": "America/New_York"
+}
+new_site = mistapi.api.v1.orgs.sites.createOrgSite(apisession, org_id, body=site_data)
+
+# Get site statistics
+site_stats = mistapi.api.v1.sites.stats.getSiteStats(apisession, site_id)
+```
+
+### Client Analytics
+
+```python
+# Search for wireless clients
+clients = mistapi.api.v1.orgs.clients.searchOrgWirelessClients(
+    apisession, org_id, 
+    duration="1d",
+    limit=100
+)
+
+# Get client events
+events = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(
+    apisession, org_id,
+    duration="1h",
+    client_mac="aa:bb:cc:dd:ee:ff"
+)
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+### Guidelines
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)  
+5. Open a Pull Request
