@@ -365,50 +365,6 @@ else:
     print(f"Error {response.status_code}: {response.data}")
 ```
 
-## Development and Testing
-
-For contributors and advanced users:
-
-### Development Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/tmunzer/mistapi_python.git
-cd mistapi_python
-
-# Install with development dependencies
-pip install -e ".[dev]"
-
-# Run tests
-pytest
-
-# Run tests with coverage
-pytest --cov=src/mistapi --cov-report=html
-
-# Run linting
-ruff check src/
-```
-
-### Package Structure
-
-```
-src/mistapi/
-├── __init__.py           # Main package exports
-├── __api_session.py      # Session management and authentication  
-├── __api_request.py      # HTTP request handling
-├── __api_response.py     # Response parsing and pagination
-├── __logger.py           # Logging configuration
-├── __pagination.py       # Pagination utilities
-├── cli.py               # Interactive CLI functions
-├── __models/            # Data models (privileges, etc.)
-└── api/v1/              # Auto-generated API endpoints
-    ├── const/           # Constants and enums
-    ├── orgs/            # Organization-level APIs
-    ├── sites/           # Site-level APIs  
-    ├── login/           # Authentication APIs
-    └── utils/           # Utility functions
-```
-
 ## Supported Mist Clouds
 
 The package supports all Mist cloud instances:
@@ -473,6 +429,51 @@ events = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(
     client_mac="aa:bb:cc:dd:ee:ff"
 )
 ```
+
+## Development and Testing
+
+For contributors and advanced users:
+
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/tmunzer/mistapi_python.git
+cd mistapi_python
+
+# Install with development dependencies
+pip install -e ".[dev]"
+
+# Run tests
+pytest
+
+# Run tests with coverage
+pytest --cov=src/mistapi --cov-report=html
+
+# Run linting
+ruff check src/
+```
+
+### Package Structure
+
+```
+src/mistapi/
+├── __init__.py           # Main package exports
+├── __api_session.py      # Session management and authentication  
+├── __api_request.py      # HTTP request handling
+├── __api_response.py     # Response parsing and pagination
+├── __logger.py           # Logging configuration
+├── __pagination.py       # Pagination utilities
+├── cli.py               # Interactive CLI functions
+├── __models/            # Data models (privileges, etc.)
+└── api/v1/              # Auto-generated API endpoints
+    ├── const/           # Constants and enums
+    ├── orgs/            # Organization-level APIs
+    ├── sites/           # Site-level APIs  
+    ├── login/           # Authentication APIs
+    └── utils/           # Utility functions
+```
+
 
 ## Contributing
 
