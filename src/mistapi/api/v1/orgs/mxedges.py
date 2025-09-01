@@ -17,7 +17,7 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def listOrgMxEdges(
     mist_session: _APISession,
     org_id: str,
-    for_sites: str = "any",
+    for_site: str = "any",
     limit: int = 100,
     page: int = 1,
 ) -> _APIResponse:
@@ -35,8 +35,8 @@ def listOrgMxEdges(
 
     QUERY PARAMS
     ------------
-    for_sites : str{'any', 'false', 'true'}, default: any
-      Filter for site level mist edges
+    for_site : str{'any', 'false', 'true'}, default: any
+      Filter for org/site level mist edges
     limit : int, default: 100
     page : int, default: 1
 
@@ -48,8 +48,8 @@ def listOrgMxEdges(
 
     uri = f"/api/v1/orgs/{org_id}/mxedges"
     query_params: dict[str, str] = {}
-    if for_sites:
-        query_params["for_sites"] = str(for_sites)
+    if for_site:
+        query_params["for_site"] = str(for_site)
     if limit:
         query_params["limit"] = str(limit)
     if page:
@@ -309,10 +309,11 @@ def searchOrgMistEdgeEvents(
     type: str | None = None,
     service: str | None = None,
     component: str | None = None,
+    limit: int = 100,
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
-    limit: int = 100,
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/search-org-mist-edge-events
@@ -333,10 +334,11 @@ def searchOrgMistEdgeEvents(
     type : str
     service : str
     component : str
+    limit : int, default: 100
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -356,14 +358,16 @@ def searchOrgMistEdgeEvents(
         query_params["service"] = str(service)
     if component:
         query_params["component"] = str(component)
+    if limit:
+        query_params["limit"] = str(limit)
     if start:
         query_params["start"] = str(start)
     if end:
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
-    if limit:
-        query_params["limit"] = str(limit)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -379,11 +383,12 @@ def searchOrgMxEdges(
     tunterm_version: str | None = None,
     sort: str | None = None,
     stats: bool | None = None,
+    limit: int = 100,
+    page: int = 1,
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/search-org-mx-edges
@@ -407,11 +412,12 @@ def searchOrgMxEdges(
     tunterm_version : str
     sort : str
     stats : bool
+    limit : int, default: 100
+    page : int, default: 1
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -437,16 +443,18 @@ def searchOrgMxEdges(
         query_params["sort"] = str(sort)
     if stats:
         query_params["stats"] = str(stats)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     if start:
         query_params["start"] = str(start)
     if end:
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
-    if limit:
-        query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

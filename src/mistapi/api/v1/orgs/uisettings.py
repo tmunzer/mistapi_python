@@ -14,17 +14,9 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
-def listOrgNacTags(
-    mist_session: _APISession,
-    org_id: str,
-    type: str | None = None,
-    name: str | None = None,
-    match: str | None = None,
-    limit: int = 100,
-    page: int = 1,
-) -> _APIResponse:
+def listOrgUiSettings(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/list-org-nac-tags
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/ui-settings/list-org-ui-settings
 
     PARAMS
     -----------
@@ -35,43 +27,23 @@ def listOrgNacTags(
     -----------
     org_id : str
 
-    QUERY PARAMS
-    ------------
-    type : str{'egress_vlan_names', 'gbp_tag', 'match', 'radius_attrs', 'radius_group', 'radius_vendor_attrs', 'redirect_guest_portal', 'session_timeout', 'username_attr', 'vlan'}
-      Type of NAC Tag. enum: `egress_vlan_names`, `gbp_tag`, `match`, `radius_attrs`, `radius_group`, `radius_vendor_attrs`, `session_timeout`, `username_attr`, `vlan`
-    name : str
-    match : str{'cert_cn', 'cert_issuer', 'cert_san', 'cert_serial', 'cert_sub', 'cert_template', 'client_mac', 'hostname', 'idp_role', 'ingress_vlan', 'mdm_status', 'nas_ip', 'radius_group', 'realm', 'ssid', 'user_name', 'usermac_label'}
-      if `type`==`match`, Type of NAC Tag. enum: `cert_cn`, `cert_issuer`, `cert_san`, `cert_serial`, `cert_sub`, `cert_template`, `client_mac`, `idp_role`, `ingress_vlan`, `mdm_status`, `nas_ip`, `radius_group`, `realm`, `ssid`, `user_name`, `usermac_label`
-    limit : int, default: 100
-    page : int, default: 1
-
     RETURN
     -----------
     mistapi.APIResponse
         response from the API call
     """
 
-    uri = f"/api/v1/orgs/{org_id}/nactags"
+    uri = f"/api/v1/orgs/{org_id}/uisettings"
     query_params: dict[str, str] = {}
-    if type:
-        query_params["type"] = str(type)
-    if name:
-        query_params["name"] = str(name)
-    if match:
-        query_params["match"] = str(match)
-    if limit:
-        query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
 
-def createOrgNacTag(
+def createOrgUiSettings(
     mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/create-org-nac-tag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/ui-settings/create-org-ui-settings
 
     PARAMS
     -----------
@@ -93,16 +65,16 @@ def createOrgNacTag(
         response from the API call
     """
 
-    uri = f"/api/v1/orgs/{org_id}/nactags"
+    uri = f"/api/v1/orgs/{org_id}/uisettings"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
 
-def getOrgNacTag(
-    mist_session: _APISession, org_id: str, nactag_id: str
+def getOrgUiSetting(
+    mist_session: _APISession, org_id: str, uisetting_id: str
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/get-org-nac-tag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/ui-settings/get-org-ui-setting
 
     PARAMS
     -----------
@@ -112,7 +84,7 @@ def getOrgNacTag(
     PATH PARAMS
     -----------
     org_id : str
-    nactag_id : str
+    uisetting_id : str
 
     RETURN
     -----------
@@ -120,17 +92,17 @@ def getOrgNacTag(
         response from the API call
     """
 
-    uri = f"/api/v1/orgs/{org_id}/nactags/{nactag_id}"
+    uri = f"/api/v1/orgs/{org_id}/uisettings/{uisetting_id}"
     query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
 
-def deleteOrgNacTag(
-    mist_session: _APISession, org_id: str, nactag_id: str
+def deleteOrgUiSetting(
+    mist_session: _APISession, org_id: str, uisetting_id: str
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/delete-org-nac-tag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/ui-settings/delete-org-ui-setting
 
     PARAMS
     -----------
@@ -140,7 +112,7 @@ def deleteOrgNacTag(
     PATH PARAMS
     -----------
     org_id : str
-    nactag_id : str
+    uisetting_id : str
 
     RETURN
     -----------
@@ -148,17 +120,17 @@ def deleteOrgNacTag(
         response from the API call
     """
 
-    uri = f"/api/v1/orgs/{org_id}/nactags/{nactag_id}"
+    uri = f"/api/v1/orgs/{org_id}/uisettings/{uisetting_id}"
     query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
 
 
-def updateOrgNacTag(
-    mist_session: _APISession, org_id: str, nactag_id: str, body: dict
+def updateOrgUiSetting(
+    mist_session: _APISession, org_id: str, uisetting_id: str, body: dict | list
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/update-org-nac-tag
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/ui-settings/update-org-ui-setting
 
     PARAMS
     -----------
@@ -168,7 +140,7 @@ def updateOrgNacTag(
     PATH PARAMS
     -----------
     org_id : str
-    nactag_id : str
+    uisetting_id : str
 
     BODY PARAMS
     -----------
@@ -181,6 +153,6 @@ def updateOrgNacTag(
         response from the API call
     """
 
-    uri = f"/api/v1/orgs/{org_id}/nactags/{nactag_id}"
-    resp = mist_session.mist_put(uri=uri, body=body)
+    uri = f"/api/v1/orgs/{org_id}/uisettings/{uisetting_id}"
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp

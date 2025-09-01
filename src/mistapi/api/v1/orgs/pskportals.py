@@ -186,11 +186,12 @@ def countOrgPskPortalLogs(
 def searchOrgPskPortalLogs(
     mist_session: _APISession,
     org_id: str,
+    limit: int = 100,
+    page: int = 1,
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    sort: str = "timestamp",
     psk_name: str | None = None,
     psk_id: str | None = None,
     pskportal_id: str | None = None,
@@ -213,11 +214,12 @@ def searchOrgPskPortalLogs(
 
     QUERY PARAMS
     ------------
+    limit : int, default: 100
+    page : int, default: 1
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1
+    sort : str, default: timestamp
     psk_name : str
     psk_id : str
     pskportal_id : str
@@ -234,16 +236,18 @@ def searchOrgPskPortalLogs(
 
     uri = f"/api/v1/orgs/{org_id}/pskportals/logs/search"
     query_params: dict[str, str] = {}
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     if start:
         query_params["start"] = str(start)
     if end:
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
-    if limit:
-        query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
+    if sort:
+        query_params["sort"] = str(sort)
     if psk_name:
         query_params["psk_name"] = str(psk_name)
     if psk_id:

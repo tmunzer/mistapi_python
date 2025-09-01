@@ -241,6 +241,7 @@ def searchOrgDeviceEvents(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-device-events
@@ -268,6 +269,7 @@ def searchOrgDeviceEvents(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -301,6 +303,8 @@ def searchOrgDeviceEvents(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -371,6 +375,7 @@ def searchOrgDeviceLastConfigs(
     end: int | None = None,
     limit: int = 100,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-device-last-configs
@@ -394,6 +399,7 @@ def searchOrgDeviceLastConfigs(
     end : int
     limit : int, default: 100
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -419,6 +425,8 @@ def searchOrgDeviceLastConfigs(
         query_params["limit"] = str(limit)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -503,6 +511,7 @@ def searchOrgDevices(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/search-org-devices
@@ -561,6 +570,7 @@ def searchOrgDevices(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -652,6 +662,8 @@ def searchOrgDevices(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

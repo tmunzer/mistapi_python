@@ -194,3 +194,120 @@ def listOrgJsiPastPurchases(
         query_params["serial"] = str(serial)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
+
+
+def countOrgJsiAssetsAndContracts(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str | None = None,
+    limit: int = 100,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/count-org-jsi-assets-and-contracts
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    distinct : str{'model', 'account_id', 'type', 'version', 'warranty_type', 'status'}
+      Distinct attributes to count
+    limit : int, default: 100
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/jsi/inventory/count"
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if limit:
+        query_params["limit"] = str(limit)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def searchOrgJsiAssetsAndContracts(
+    mist_session: _APISession,
+    org_id: str,
+    model: str | None = None,
+    serial: str | None = None,
+    status: str = "all",
+    warranty_type: str | None = None,
+    eol_duration: str | None = None,
+    eos_duration: str | None = None,
+    text: str | None = None,
+    sort: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+    sort: str = "timestamp",
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/search-org-jsi-assets-and-contracts
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    model : str
+    serial : str
+    status : str{'all', 'connected', 'disconnected'}, default: all
+      Device status
+    warranty_type : str{'Standard Hardware Warranty', 'Enhanced Hardware Warranty', 'Dead On Arrival Warranty', 'Limited Lifetime Warranty', 'Software Warranty', 'Limited Lifetime Warranty for WLA', 'Warranty-JCPO EOL (DOA Not Included)', 'MIST Enhanced Hardware Warranty', 'MIST Standard Warranty', 'Determine Lifetime warranty'}
+      Device warranty type
+    eol_duration : str
+    eos_duration : str
+    text : str
+    sort : str
+    limit : int, default: 100
+    page : int, default: 1
+    sort : str, default: timestamp
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/jsi/inventory/search"
+    query_params: dict[str, str] = {}
+    if model:
+        query_params["model"] = str(model)
+    if serial:
+        query_params["serial"] = str(serial)
+    if status:
+        query_params["status"] = str(status)
+    if warranty_type:
+        query_params["warranty_type"] = str(warranty_type)
+    if eol_duration:
+        query_params["eol_duration"] = str(eol_duration)
+    if eos_duration:
+        query_params["eos_duration"] = str(eos_duration)
+    if text:
+        query_params["text"] = str(text)
+    if sort:
+        query_params["sort"] = str(sort)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
+    if sort:
+        query_params["sort"] = str(sort)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp

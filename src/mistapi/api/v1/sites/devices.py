@@ -158,6 +158,7 @@ def searchSiteDeviceConfigHistory(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-config-history
@@ -179,6 +180,7 @@ def searchSiteDeviceConfigHistory(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -200,6 +202,8 @@ def searchSiteDeviceConfigHistory(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -376,6 +380,7 @@ def searchSiteDeviceEvents(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-events
@@ -402,6 +407,7 @@ def searchSiteDeviceEvents(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -433,6 +439,8 @@ def searchSiteDeviceEvents(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -589,6 +597,7 @@ def searchSiteDeviceLastConfigs(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-last-configs
@@ -612,6 +621,7 @@ def searchSiteDeviceLastConfigs(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -637,6 +647,8 @@ def searchSiteDeviceLastConfigs(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -733,12 +745,25 @@ def searchSiteDevices(
     hostname: str | None = None,
     type: str = "ap",
     model: str | None = None,
+    ip: str | None = None,
     mac: str | None = None,
+    ext_ip: str | None = None,
     version: str | None = None,
     power_constrained: bool | None = None,
     ip_address: str | None = None,
     mxtunnel_status: str | None = None,
     mxedge_id: str | None = None,
+    mxedge_ids: list | None = None,
+    last_hostname: str | None = None,
+    last_config_status: str | None = None,
+    radius_stats: any | None = None,
+    cpu: str | None = None,
+    node0_mac: str | None = None,
+    clustered: bool | None = None,
+    t128agent_version: str | None = None,
+    node1_mac: str | None = None,
+    node: str | None = None,
+    evpntopo_id: str | None = None,
     lldp_system_name: str | None = None,
     lldp_system_desc: str | None = None,
     lldp_port_id: str | None = None,
@@ -757,6 +782,7 @@ def searchSiteDevices(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-devices
@@ -775,13 +801,29 @@ def searchSiteDevices(
     hostname : str
     type : str{'ap', 'gateway', 'switch'}, default: ap
     model : str
+    ip : str
     mac : str
+    ext_ip : str
     version : str
     power_constrained : bool
     ip_address : str
     mxtunnel_status : str{'down', 'up'}
-      MxTunnel status, up / down
+      For APs only, MxTunnel status, up / down.
     mxedge_id : str
+    mxedge_ids : list
+      For APs only, list of Mist Edge id, if AP is connecting to a Mist Edge
+    last_hostname : str
+    last_config_status : str
+    radius_stats : any
+      For Switches and Gateways only, Key-value pairs where the key is the RADIUS server address and the value contains authentication statistics
+    cpu : str
+    node0_mac : str
+    clustered : bool
+    t128agent_version : str
+    node1_mac : str
+    node : str{'node0', 'node1'}
+      For Gateways only. enum: `node0`, `node1`
+    evpntopo_id : str
     lldp_system_name : str
     lldp_system_desc : str
     lldp_port_id : str
@@ -802,6 +844,7 @@ def searchSiteDevices(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -817,8 +860,12 @@ def searchSiteDevices(
         query_params["type"] = str(type)
     if model:
         query_params["model"] = str(model)
+    if ip:
+        query_params["ip"] = str(ip)
     if mac:
         query_params["mac"] = str(mac)
+    if ext_ip:
+        query_params["ext_ip"] = str(ext_ip)
     if version:
         query_params["version"] = str(version)
     if power_constrained:
@@ -829,6 +876,28 @@ def searchSiteDevices(
         query_params["mxtunnel_status"] = str(mxtunnel_status)
     if mxedge_id:
         query_params["mxedge_id"] = str(mxedge_id)
+    if mxedge_ids:
+        query_params["mxedge_ids"] = str(mxedge_ids)
+    if last_hostname:
+        query_params["last_hostname"] = str(last_hostname)
+    if last_config_status:
+        query_params["last_config_status"] = str(last_config_status)
+    if radius_stats:
+        query_params["radius_stats"] = str(radius_stats)
+    if cpu:
+        query_params["cpu"] = str(cpu)
+    if node0_mac:
+        query_params["node0_mac"] = str(node0_mac)
+    if clustered:
+        query_params["clustered"] = str(clustered)
+    if t128agent_version:
+        query_params["t128agent_version"] = str(t128agent_version)
+    if node1_mac:
+        query_params["node1_mac"] = str(node1_mac)
+    if node:
+        query_params["node"] = str(node)
+    if evpntopo_id:
+        query_params["evpntopo_id"] = str(evpntopo_id)
     if lldp_system_name:
         query_params["lldp_system_name"] = str(lldp_system_name)
     if lldp_system_desc:
@@ -865,6 +934,8 @@ def searchSiteDevices(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -2443,6 +2514,38 @@ def showSiteDeviceDhcpLeases(
     """
 
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_dhcp_leases"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+
+
+def showSiteDeviceDot1xTable(
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-dot1x-table
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_dot1x"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 

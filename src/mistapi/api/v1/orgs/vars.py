@@ -22,6 +22,7 @@ def searchOrgVars(
     src: str | None = None,
     limit: int = 100,
     page: int = 1,
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vars/search-org-vars
@@ -42,6 +43,7 @@ def searchOrgVars(
     src : str{'deviceprofile', 'site'}
     limit : int, default: 100
     page : int, default: 1
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -61,5 +63,7 @@ def searchOrgVars(
         query_params["limit"] = str(limit)
     if page:
         query_params["page"] = str(page)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

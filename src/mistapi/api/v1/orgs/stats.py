@@ -176,6 +176,7 @@ def searchOrgAssets(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/assets/search-org-assets
@@ -209,6 +210,7 @@ def searchOrgAssets(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -254,12 +256,18 @@ def searchOrgAssets(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
 
 def countOrgBgpStats(
-    mist_session: _APISession, org_id: str, limit: int = 100
+    mist_session: _APISession,
+    org_id: str,
+    state: str | None = None,
+    distinct: str | None = None,
+    limit: int = 100,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/bgp-peers/count-org-bgp-stats
@@ -275,6 +283,8 @@ def countOrgBgpStats(
 
     QUERY PARAMS
     ------------
+    state : str
+    distinct : str
     limit : int, default: 100
 
     RETURN
@@ -285,6 +295,10 @@ def countOrgBgpStats(
 
     uri = f"/api/v1/orgs/{org_id}/stats/bgp_peers/count"
     query_params: dict[str, str] = {}
+    if state:
+        query_params["state"] = str(state)
+    if distinct:
+        query_params["distinct"] = str(distinct)
     if limit:
         query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
@@ -298,9 +312,11 @@ def searchOrgBgpStats(
     neighbor_mac: str | None = None,
     site_id: str | None = None,
     vrf_name: str | None = None,
-    start: int | None = None,
-    duration: str = "1d",
     limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/bgp-peers/search-org-bgp-stats
@@ -320,9 +336,11 @@ def searchOrgBgpStats(
     neighbor_mac : str
     site_id : str
     vrf_name : str
-    start : int
-    duration : str, default: 1d
     limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -340,12 +358,16 @@ def searchOrgBgpStats(
         query_params["site_id"] = str(site_id)
     if vrf_name:
         query_params["vrf_name"] = str(vrf_name)
-    if start:
-        query_params["start"] = str(start)
-    if duration:
-        query_params["duration"] = str(duration)
     if limit:
         query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -478,7 +500,7 @@ def listOrgMxEdgesStats(
 
     QUERY PARAMS
     ------------
-    for_site : str{'all', 'true', 'false'}
+    for_site : str{'any', 'true', 'false'}
       Filter for site level mist edges
     start : int
     end : int
@@ -762,11 +784,17 @@ def searchOrgSwOrGwPorts(
     stp_state: str | None = None,
     stp_role: str | None = None,
     auth_state: str | None = None,
+    optics_bias_current: float | None = None,
+    optics_tx_power: float | None = None,
+    optics_rx_power: float | None = None,
+    optics_module_temperature: float | None = None,
+    optics_module_voltage: float | None = None,
     type: str = "all",
     limit: int = 100,
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/ports/search-org-sw-or-gw-ports
@@ -814,12 +842,18 @@ def searchOrgSwOrGwPorts(
       If `up`==`true`
     auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       If `up`==`true` && has Authenticator role
+    optics_bias_current : float
+    optics_tx_power : float
+    optics_rx_power : float
+    optics_module_temperature : float
+    optics_module_voltage : float
     type : str{'switch', 'gateway', 'all'}, default: all
       Type of device. enum: `switch`, `gateway`, `all`
     limit : int, default: 100
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -887,6 +921,16 @@ def searchOrgSwOrGwPorts(
         query_params["stp_role"] = str(stp_role)
     if auth_state:
         query_params["auth_state"] = str(auth_state)
+    if optics_bias_current:
+        query_params["optics_bias_current"] = str(optics_bias_current)
+    if optics_tx_power:
+        query_params["optics_tx_power"] = str(optics_tx_power)
+    if optics_rx_power:
+        query_params["optics_rx_power"] = str(optics_rx_power)
+    if optics_module_temperature:
+        query_params["optics_module_temperature"] = str(optics_module_temperature)
+    if optics_module_voltage:
+        query_params["optics_module_voltage"] = str(optics_module_voltage)
     if type:
         query_params["type"] = str(type)
     if limit:
@@ -897,6 +941,8 @@ def searchOrgSwOrGwPorts(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -1019,7 +1065,8 @@ def searchOrgTunnelsStats(
     limit: int = 100,
     start: int | None = None,
     end: int | None = None,
-    duration: str = "1d",
+    duration: str = "5m",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/tunnels/search-org-tunnels-stats
@@ -1054,7 +1101,8 @@ def searchOrgTunnelsStats(
     limit : int, default: 100
     start : int
     end : int
-    duration : str, default: 1d
+    duration : str, default: 5m
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -1104,6 +1152,8 @@ def searchOrgTunnelsStats(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -1165,9 +1215,11 @@ def searchOrgPeerPathStats(
     mac: str | None = None,
     site_id: str | None = None,
     type: str | None = None,
-    start: int | None = None,
-    duration: str = "1d",
     limit: int = 100,
+    start: int | None = None,
+    end: int | None = None,
+    duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/vpn-peers/search-org-peer-path-stats
@@ -1186,9 +1238,11 @@ def searchOrgPeerPathStats(
     mac : str
     site_id : str
     type : str{'ipsec', 'svr'}
-    start : int
-    duration : str, default: 1d
     limit : int, default: 100
+    start : int
+    end : int
+    duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -1204,11 +1258,15 @@ def searchOrgPeerPathStats(
         query_params["site_id"] = str(site_id)
     if type:
         query_params["type"] = str(type)
-    if start:
-        query_params["start"] = str(start)
-    if duration:
-        query_params["duration"] = str(duration)
     if limit:
         query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

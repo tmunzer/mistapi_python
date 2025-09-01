@@ -22,11 +22,12 @@ def searchSiteZoneSessions(
     user: str | None = None,
     scope_id: str | None = None,
     scope: str = "site",
+    limit: int = 100,
+    page: int = 1,
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/search-site-zone-sessions
@@ -49,11 +50,12 @@ def searchSiteZoneSessions(
     scope_id : str
     scope : str{'map', 'rssizone', 'site', 'zone'}, default: site
       Scope
+    limit : int, default: 100
+    page : int, default: 1
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -71,15 +73,17 @@ def searchSiteZoneSessions(
         query_params["scope_id"] = str(scope_id)
     if scope:
         query_params["scope"] = str(scope)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     if start:
         query_params["start"] = str(start)
     if end:
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
-    if limit:
-        query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

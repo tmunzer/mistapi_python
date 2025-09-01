@@ -212,6 +212,7 @@ def searchSiteNacClientEvents(
     end: int | None = None,
     duration: str = "1d",
     limit: int = 100,
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/nac/search-site-nac-client-events
@@ -256,6 +257,7 @@ def searchSiteNacClientEvents(
     end : int
     duration : str, default: 1d
     limit : int, default: 100
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -321,6 +323,8 @@ def searchSiteNacClientEvents(
         query_params["duration"] = str(duration)
     if limit:
         query_params["limit"] = str(limit)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -333,6 +337,7 @@ def searchSiteNacClients(
     auth_type: str | None = None,
     vlan: str | None = None,
     nas_vendor: str | None = None,
+    nas_ip: str | None = None,
     idp_id: str | None = None,
     ssid: str | None = None,
     username: str | None = None,
@@ -354,11 +359,12 @@ def searchSiteNacClients(
     sort: str | None = None,
     usermac_label: list | None = None,
     ingress_vlan: str | None = None,
+    limit: int = 100,
+    page: int = 1,
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/nac/search-site-nac-clients
@@ -379,6 +385,7 @@ def searchSiteNacClients(
     auth_type : str
     vlan : str
     nas_vendor : str
+    nas_ip : str
     idp_id : str
     ssid : str
     username : str
@@ -401,11 +408,12 @@ def searchSiteNacClients(
     usermac_label : list
       Labels derived from usermac entry
     ingress_vlan : str
+    limit : int, default: 100
+    page : int, default: 1
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -425,6 +433,8 @@ def searchSiteNacClients(
         query_params["vlan"] = str(vlan)
     if nas_vendor:
         query_params["nas_vendor"] = str(nas_vendor)
+    if nas_ip:
+        query_params["nas_ip"] = str(nas_ip)
     if idp_id:
         query_params["idp_id"] = str(idp_id)
     if ssid:
@@ -467,15 +477,17 @@ def searchSiteNacClients(
         query_params["usermac_label"] = str(usermac_label)
     if ingress_vlan:
         query_params["ingress_vlan"] = str(ingress_vlan)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     if start:
         query_params["start"] = str(start)
     if end:
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
-    if limit:
-        query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

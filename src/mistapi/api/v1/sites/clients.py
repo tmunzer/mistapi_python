@@ -224,6 +224,7 @@ def searchSiteWirelessClientEvents(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wireless/search-site-wireless-client-events
@@ -253,6 +254,7 @@ def searchSiteWirelessClientEvents(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -286,6 +288,8 @@ def searchSiteWirelessClientEvents(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -307,6 +311,7 @@ def searchSiteWirelessClients(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wireless/search-site-wireless-clients
@@ -336,6 +341,7 @@ def searchSiteWirelessClients(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -373,6 +379,8 @@ def searchSiteWirelessClients(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -479,6 +487,7 @@ def searchSiteWirelessClientSessions(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wireless/search-site-wireless-client-sessions
@@ -510,6 +519,7 @@ def searchSiteWirelessClientSessions(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -549,6 +559,8 @@ def searchSiteWirelessClientSessions(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

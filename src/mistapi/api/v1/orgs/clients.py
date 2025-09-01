@@ -193,6 +193,7 @@ def searchOrgWirelessClientEvents(
     reason_code: int | None = None,
     ssid: str | None = None,
     ap: str | None = None,
+    key_mgmt: str | None = None,
     proto: str | None = None,
     band: str | None = None,
     wlan_id: str | None = None,
@@ -200,6 +201,7 @@ def searchOrgWirelessClientEvents(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-client-events
@@ -219,6 +221,8 @@ def searchOrgWirelessClientEvents(
     reason_code : int
     ssid : str
     ap : str
+    key_mgmt : str{'WPA2-PSK', 'WPA2-PSK-FT', 'WPA3-EAP-SHA256'}
+      Key Management Protocol, e.g. WPA2-PSK, WPA3-SAE, WPA2-Enterprise
     proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
       a / b / g / n / ac / ax
     band : str{'24', '5', '6'}
@@ -228,6 +232,7 @@ def searchOrgWirelessClientEvents(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -245,6 +250,8 @@ def searchOrgWirelessClientEvents(
         query_params["ssid"] = str(ssid)
     if ap:
         query_params["ap"] = str(ap)
+    if key_mgmt:
+        query_params["key_mgmt"] = str(key_mgmt)
     if proto:
         query_params["proto"] = str(proto)
     if band:
@@ -259,6 +266,8 @@ def searchOrgWirelessClientEvents(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -285,6 +294,7 @@ def searchOrgWirelessClients(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-clients
@@ -319,6 +329,7 @@ def searchOrgWirelessClients(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -366,6 +377,8 @@ def searchOrgWirelessClients(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -472,6 +485,7 @@ def searchOrgWirelessClientSessions(
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-client-sessions
@@ -503,6 +517,7 @@ def searchOrgWirelessClientSessions(
     start : int
     end : int
     duration : str, default: 1d
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -542,6 +557,8 @@ def searchOrgWirelessClientSessions(
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

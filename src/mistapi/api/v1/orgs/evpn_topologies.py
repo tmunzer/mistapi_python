@@ -15,7 +15,11 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 
 def listOrgEvpnTopologies(
-    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+    mist_session: _APISession,
+    org_id: str,
+    for_site: str = "any",
+    limit: int = 100,
+    page: int = 1,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/list-org-evpn-topologies
@@ -31,6 +35,8 @@ def listOrgEvpnTopologies(
 
     QUERY PARAMS
     ------------
+    for_site : str{'any', 'false', 'true'}, default: any
+      Filter for org/site level EVPN Toplogies
     limit : int, default: 100
     page : int, default: 1
 
@@ -42,6 +48,8 @@ def listOrgEvpnTopologies(
 
     uri = f"/api/v1/orgs/{org_id}/evpn_topologies"
     query_params: dict[str, str] = {}
+    if for_site:
+        query_params["for_site"] = str(for_site)
     if limit:
         query_params["limit"] = str(limit)
     if page:

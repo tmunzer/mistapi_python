@@ -103,11 +103,12 @@ def searchSiteWanUsage(
     policy: str | None = None,
     tenant: str | None = None,
     path_type: str | None = None,
+    limit: int = 100,
+    page: int = 1,
     start: int | None = None,
     end: int | None = None,
     duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    sort: str = "timestamp",
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wan-usages/search-site-wan-usage
@@ -130,11 +131,12 @@ def searchSiteWanUsage(
     policy : str
     tenant : str
     path_type : str
+    limit : int, default: 100
+    page : int, default: 1
     start : int
     end : int
     duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1
+    sort : str, default: timestamp
 
     RETURN
     -----------
@@ -158,15 +160,17 @@ def searchSiteWanUsage(
         query_params["tenant"] = str(tenant)
     if path_type:
         query_params["path_type"] = str(path_type)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     if start:
         query_params["start"] = str(start)
     if end:
         query_params["end"] = str(end)
     if duration:
         query_params["duration"] = str(duration)
-    if limit:
-        query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
+    if sort:
+        query_params["sort"] = str(sort)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
