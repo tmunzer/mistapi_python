@@ -18,6 +18,7 @@ from getpass import getpass
 from pathlib import Path
 
 import hvac
+import keyring
 import requests
 from dotenv import load_dotenv
 from requests import Response, Session
@@ -60,6 +61,7 @@ class APISession(APIRequest):
         vault_token: str | None = None,
         vault_mount_point: str | None = None,
         vault_path: str | None = None,
+        keyring_service: str | None = None,
         console_log_level: int = 20,
         logging_log_level: int = 10,
         show_cli_notif: bool = True,
@@ -133,6 +135,8 @@ class APISession(APIRequest):
 
         console._set_log_level(console_log_level, logging_log_level)
         self._load_env(env_file)
+        if keyring_service:
+            self._load_keyring(keyring_service)
         if self.vault_path:
             self._load_vault()
         # Filter out None values before updating proxies
@@ -228,6 +232,32 @@ class APISession(APIRequest):
             del self.vault_path
             del self.vault_mount_point
             del self.vault_token
+
+    def _load_keyring(self, keyring_service):
+        """
+        Load Mist API settings from keyring
+        """
+        logger.info("apisession:_load_keyring: Loading settings from keyring")
+        if keyring_service:
+            try:
+                mist_host = keyring.get_password(keyring_service, "MIST_HOST")
+                if mist_host:
+                    self.set_cloud(mist_host)
+                mist_apitoken = keyring.get_password(keyring_service, "MIST_APITOKEN")
+                if mist_apitoken:
+                    self.set_api_token(mist_apitoken)
+                mist_user = keyring.get_password(keyring_service, "MIST_USER")
+                if mist_user:
+                    self.set_email(mist_user)
+                mist_password = keyring.get_password(keyring_service, "MIST_PASSWORD")
+                if mist_password:
+                    self.set_password(mist_password)
+            except Exception as e:
+                logger.error(
+                    "apisession:_load_keyring: Failed to retrieve settings from keyring: %s",
+                    e,
+                )
+                console.error("Failed to retrieve settings from keyring")
 
     def _load_env(self, env_file=None) -> None:
         """
