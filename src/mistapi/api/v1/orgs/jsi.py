@@ -246,7 +246,6 @@ def searchOrgJsiAssetsAndContracts(
     eol_duration: str | None = None,
     eos_duration: str | None = None,
     text: str | None = None,
-    sort: str | None = None,
     limit: int = 100,
     page: int = 1,
     sort: str = "timestamp",
@@ -274,7 +273,6 @@ def searchOrgJsiAssetsAndContracts(
     eol_duration : str
     eos_duration : str
     text : str
-    sort : str
     limit : int, default: 100
     page : int, default: 1
     sort : str, default: timestamp
@@ -301,8 +299,6 @@ def searchOrgJsiAssetsAndContracts(
         query_params["eos_duration"] = str(eos_duration)
     if text:
         query_params["text"] = str(text)
-    if sort:
-        query_params["sort"] = str(sort)
     if limit:
         query_params["limit"] = str(limit)
     if page:
