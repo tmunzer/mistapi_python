@@ -17,6 +17,7 @@ import sys
 from getpass import getpass
 from pathlib import Path
 
+import hvac
 import requests
 from dotenv import load_dotenv
 from requests import Response, Session
@@ -55,6 +56,10 @@ class APISession(APIRequest):
         apitoken: str | None = None,
         host: str | None = None,
         env_file: str | None = None,
+        vault_url: str | None = None,
+        vault_token: str | None = None,
+        vault_mount_point: str | None = None,
+        vault_path: str | None = None,
         console_log_level: int = 20,
         logging_log_level: int = 10,
         show_cli_notif: bool = True,
@@ -75,6 +80,14 @@ class APISession(APIRequest):
             Mist Cloud to reach (e.g. "api.mist.com"). Can de defined later
         env_file : str
             path to the env file to load. See README.md for allowed variables
+        vault_url : str
+            URL of the HashiCorp Vault instance
+        vault_mount_point : str
+            Mount point for the secrets engine
+        vault_path : str
+            Path to the secret in Vault
+        vault_token : str
+            Token for authenticating with Vault
         console_log_level : int, default: 20
             Log level for the console output. Values are:
                 50 -> CRITICAL
@@ -113,10 +126,15 @@ class APISession(APIRequest):
         self._logging_log_level = logging_log_level
         self._show_cli_notif = show_cli_notif
         self._proxies = {"https": https_proxy}
+        self.vault_url = vault_url
+        self.vault_path = vault_path
+        self.vault_mount_point = vault_mount_point
+        self.vault_token = vault_token
 
         console._set_log_level(console_log_level, logging_log_level)
-
         self._load_env(env_file)
+        if self.vault_path:
+            self._load_vault()
         # Filter out None values before updating proxies
         filtered_proxies = {k: v for k, v in self._proxies.items() if v is not None}
         self._session.proxies.update(filtered_proxies)
@@ -173,6 +191,44 @@ class APISession(APIRequest):
 
     ####################################
     # LOAD FUNCTIONS
+    def _load_vault(
+        self,
+    ) -> None:
+        """
+        Load Vault settings from env file
+        """
+        logger.info("apisession:_load_vault: Loading Vault settings")
+        client = hvac.Client(url=self.vault_url, token=self.vault_token, verify=False)
+        if not client.is_authenticated():
+            logger.error("apisession:_load_vault: Vault authentication failed")
+            console.error("Vault authentication failed")
+            return
+        logger.debug(
+            "apisession:_load_vault: Vault authentication successful. Retrieving secret"
+        )
+        try:
+            read_response = client.secrets.kv.v2.read_secret(
+                path=self.vault_path, mount_point=self.vault_mount_point
+            )
+            logger.info("apisession:_load_vault: Secret retrieved successfully")
+
+            mist_host = read_response["data"]["data"].get("MIST_HOST", None)
+            logger.info("apisession:_load_vault: MIST_HOST=%s", mist_host)
+            if mist_host:
+                self.set_cloud(mist_host)
+
+            mist_apitoken = read_response["data"]["data"].get("MIST_APITOKEN", None)
+            if mist_apitoken:
+                self.set_api_token(mist_apitoken)
+        except (KeyError, TypeError, AttributeError):
+            logger.error("apisession:_load_vault: Failed to retrieve secret")
+            console.error("Failed to retrieve secret")
+        finally:
+            del self.vault_url
+            del self.vault_path
+            del self.vault_mount_point
+            del self.vault_token
+
     def _load_env(self, env_file=None) -> None:
         """
         Load Mist API settings from env file
@@ -192,21 +248,17 @@ class APISession(APIRequest):
         #     logger.debug(f"apisession:_load_env:loading settings from env file")
         #     load_dotenv()
 
-        mist_host = os.getenv("MIST_HOST")
-        if mist_host:
-            self.set_cloud(mist_host)
+        if os.getenv("MIST_HOST"):
+            self.set_cloud(os.getenv("MIST_HOST", ""))
 
-        mist_apitoken = os.getenv("MIST_APITOKEN")
-        if mist_apitoken:
-            self.set_api_token(mist_apitoken)
+        if os.getenv("MIST_APITOKEN"):
+            self.set_api_token(os.getenv("MIST_APITOKEN", ""))
 
-        mist_user = os.getenv("MIST_USER")
-        if mist_user:
-            self.set_email(mist_user)
+        if os.getenv("MIST_USER"):
+            self.set_email(os.getenv("MIST_USER"))
 
-        mist_password = os.getenv("MIST_PASSWORD")
-        if mist_password:
-            self.set_password(mist_password)
+        if os.getenv("MIST_PASSWORD"):
+            self.set_password(os.getenv("MIST_PASSWORD"))
 
         console_log_level_env = os.getenv("CONSOLE_LOG_LEVEL")
         if console_log_level_env:
@@ -221,6 +273,18 @@ class APISession(APIRequest):
                 self._logging_log_level = int(logging_log_level_env)
             except ValueError:
                 self._logging_log_level = 10  # Default fallback
+
+        if os.getenv("MIST_VAULT_URL") and not self.vault_url:
+            self.vault_url = os.getenv("MIST_VAULT_URL")
+
+        if os.getenv("MIST_VAULT_PATH") and not self.vault_path:
+            self.vault_path = os.getenv("MIST_VAULT_PATH")
+
+        if os.getenv("MIST_VAULT_MOUNT_POINT") and not self.vault_mount_point:
+            self.vault_mount_point = os.getenv("MIST_VAULT_MOUNT_POINT")
+
+        if os.getenv("MIST_VAULT_TOKEN") and not self.vault_token:
+            self.vault_token = os.getenv("MIST_VAULT_TOKEN")
 
         if os.getenv("HTTPS_PROXY"):
             self._proxies["https"] = os.getenv("HTTPS_PROXY")
