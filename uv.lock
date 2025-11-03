@@ -474,11 +474,12 @@ wheels = [
 
 [[package]]
 name = "mistapi"
-version = "0.57.2"
+version = "0.57.3"
 source = { editable = "." }
 dependencies = [
     { name = "deprecation" },
     { name = "hvac" },
+    { name = "keyring" },
     { name = "python-dotenv" },
     { name = "requests" },
     { name = "tabulate" },
@@ -501,6 +502,7 @@ dev = [
 requires-dist = [
     { name = "deprecation", specifier = ">=2.1.0" },
     { name = "hvac", specifier = ">=2.3.0" },
+    { name = "keyring", specifier = ">=25.6.0" },
     { name = "python-dotenv", specifier = ">=1.1.0" },
     { name = "requests", specifier = ">=2.32.3" },
     { name = "tabulate", specifier = ">=0.9.0" },

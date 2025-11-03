@@ -19,8 +19,8 @@ def countSiteWanClientEvents(
     site_id: str,
     distinct: str = "type",
     type: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -40,8 +40,8 @@ def countSiteWanClientEvents(
     ------------
     distinct : str{'hostname', 'ip', 'mac', 'mfg', 'type'}, default: type
     type : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 

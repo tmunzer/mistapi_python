@@ -84,8 +84,8 @@ def createOrgPskPortal(
 def listOrgPskPortalLogs(
     mist_session: _APISession,
     org_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -104,8 +104,8 @@ def listOrgPskPortalLogs(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -136,8 +136,8 @@ def countOrgPskPortalLogs(
     mist_session: _APISession,
     org_id: str,
     distinct: str = "pskportal_id",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -156,8 +156,8 @@ def countOrgPskPortalLogs(
     QUERY PARAMS
     ------------
     distinct : str{'admin_id', 'admin_name', 'psk_id', 'psk_name', 'pskportal_id', 'user_id'}, default: pskportal_id
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -188,8 +188,8 @@ def searchOrgPskPortalLogs(
     org_id: str,
     limit: int = 100,
     page: int = 1,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
     psk_name: str | None = None,
@@ -216,8 +216,8 @@ def searchOrgPskPortalLogs(
     ------------
     limit : int, default: 100
     page : int, default: 1
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
     psk_name : str

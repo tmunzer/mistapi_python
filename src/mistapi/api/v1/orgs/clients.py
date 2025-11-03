@@ -26,9 +26,9 @@ def countOrgWirelessClients(
     ap: str | None = None,
     vlan: str | None = None,
     ssid: str | None = None,
-    ip_address: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    ip: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -55,9 +55,9 @@ def countOrgWirelessClients(
     ap : str
     vlan : str
     ssid : str
-    ip_address : str
-    start : int
-    end : int
+    ip : str
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -87,8 +87,8 @@ def countOrgWirelessClients(
         query_params["vlan"] = str(vlan)
     if ssid:
         query_params["ssid"] = str(ssid)
-    if ip_address:
-        query_params["ip_address"] = str(ip_address)
+    if ip:
+        query_params["ip"] = str(ip)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -113,8 +113,8 @@ def countOrgWirelessClientEvents(
     band: str | None = None,
     wlan_id: str | None = None,
     site_id: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -137,14 +137,14 @@ def countOrgWirelessClientEvents(
     reason_code : int
     ssid : str
     ap : str
-    proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
+    proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
       a / b / g / n / ac / ax
     band : str{'24', '5', '6'}
       802.11 Band
     wlan_id : str
     site_id : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -198,10 +198,11 @@ def searchOrgWirelessClientEvents(
     band: str | None = None,
     wlan_id: str | None = None,
     nacrule_id: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    limit: int = 100,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-client-events
@@ -221,18 +222,19 @@ def searchOrgWirelessClientEvents(
     reason_code : int
     ssid : str
     ap : str
-    key_mgmt : str{'WPA2-PSK', 'WPA2-PSK-FT', 'WPA3-EAP-SHA256'}
+    key_mgmt : str{'WPA2-PSK', 'WPA2-PSK/CCMP', 'WPA2-PSK-FT', 'WPA2-PSK-SHA256', 'WPA3-EAP-SHA256', 'WPA3-EAP-SHA256/CCMP', 'WPA3-EAP-FT/GCMP256', 'WPA3-SAE-FT', 'WPA3-SAE-PSK'}
       Key Management Protocol, e.g. WPA2-PSK, WPA3-SAE, WPA2-Enterprise
-    proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
+    proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
       a / b / g / n / ac / ax
     band : str{'24', '5', '6'}
       802.11 Band
     wlan_id : str
     nacrule_id : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    limit : int, default: 100
 
     RETURN
     -----------
@@ -268,6 +270,8 @@ def searchOrgWirelessClientEvents(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if limit:
+        query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -277,7 +281,7 @@ def searchOrgWirelessClients(
     org_id: str,
     site_id: str | None = None,
     mac: str | None = None,
-    ip_address: str | None = None,
+    ip: str | None = None,
     hostname: str | None = None,
     band: str | None = None,
     device: str | None = None,
@@ -291,8 +295,8 @@ def searchOrgWirelessClients(
     ssid: str | None = None,
     text: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -312,7 +316,7 @@ def searchOrgWirelessClients(
     ------------
     site_id : str
     mac : str
-    ip_address : str
+    ip : str
     hostname : str
     band : str
     device : str
@@ -326,8 +330,8 @@ def searchOrgWirelessClients(
     ssid : str
     text : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -343,8 +347,8 @@ def searchOrgWirelessClients(
         query_params["site_id"] = str(site_id)
     if mac:
         query_params["mac"] = str(mac)
-    if ip_address:
-        query_params["ip_address"] = str(ip_address)
+    if ip:
+        query_params["ip"] = str(ip)
     if hostname:
         query_params["hostname"] = str(hostname)
     if band:
@@ -395,8 +399,8 @@ def countOrgWirelessClientsSessions(
     client_os: str | None = None,
     ssid: str | None = None,
     wlan_id: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -424,8 +428,8 @@ def countOrgWirelessClientsSessions(
     client_os : str
     ssid : str
     wlan_id : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -482,8 +486,8 @@ def searchOrgWirelessClientSessions(
     psk_id: str | None = None,
     psk_name: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -514,8 +518,8 @@ def searchOrgWirelessClientSessions(
     psk_id : str
     psk_name : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

@@ -94,13 +94,39 @@ def listSiteDeviceRadioChannels(
     return resp
 
 
+def clearSiteMultipleDevicePendingVersion(
+    mist_session: _APISession, site_id: str
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-site-multiple-device-pending-version
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/clear_pending_version"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+
+
 def countSiteDeviceConfigHistory(
     mist_session: _APISession,
     site_id: str,
     distinct: str | None = None,
     mac: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -120,8 +146,8 @@ def countSiteDeviceConfigHistory(
     ------------
     distinct : str
     mac : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -155,8 +181,8 @@ def searchSiteDeviceConfigHistory(
     type: str = "ap",
     mac: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -177,8 +203,8 @@ def searchSiteDeviceConfigHistory(
     type : str{'ap', 'gateway', 'switch'}, default: ap
     mac : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -223,8 +249,8 @@ def countSiteDevices(
     lldp_port_id: str | None = None,
     lldp_mgmt_addr: str | None = None,
     map_id: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -254,8 +280,8 @@ def countSiteDevices(
     lldp_port_id : str
     lldp_mgmt_addr : str
     map_id : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -310,8 +336,8 @@ def countSiteDeviceEvents(
     model: str | None = None,
     type: str | None = None,
     type_code: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -333,8 +359,8 @@ def countSiteDeviceEvents(
     model : str
     type : str
     type_code : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -377,8 +403,8 @@ def searchSiteDeviceEvents(
     last_by: str | None = None,
     includes: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -404,8 +430,8 @@ def searchSiteDeviceEvents(
     last_by : str
     includes : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -539,8 +565,8 @@ def countSiteDeviceLastConfig(
     mist_session: _APISession,
     site_id: str,
     distinct: str = "mac",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -559,8 +585,8 @@ def countSiteDeviceLastConfig(
     QUERY PARAMS
     ------------
     distinct : str{'mac', 'name', 'site_id', 'version'}, default: mac
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -589,13 +615,13 @@ def countSiteDeviceLastConfig(
 def searchSiteDeviceLastConfigs(
     mist_session: _APISession,
     site_id: str,
-    type: str = "ap",
+    device_type: str = "ap",
     mac: str | None = None,
     version: str | None = None,
     name: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -613,13 +639,13 @@ def searchSiteDeviceLastConfigs(
 
     QUERY PARAMS
     ------------
-    type : str{'ap', 'gateway', 'switch'}, default: ap
+    device_type : str{'ap', 'gateway', 'switch', 'mxedge'}, default: ap
     mac : str
     version : str
     name : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -631,8 +657,8 @@ def searchSiteDeviceLastConfigs(
 
     uri = f"/api/v1/sites/{site_id}/devices/last_config/search"
     query_params: dict[str, str] = {}
-    if type:
-        query_params["type"] = str(type)
+    if device_type:
+        query_params["device_type"] = str(device_type)
     if mac:
         query_params["mac"] = str(mac)
     if version:
@@ -739,18 +765,43 @@ def restartSiteMultipleDevices(
     return resp
 
 
+def restoreSiteMultipleDeviceBackupVersion(
+    mist_session: _APISession, site_id: str
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/restore-site-multiple-device-backup-version
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/restore_backup_version"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+
+
 def searchSiteDevices(
     mist_session: _APISession,
     site_id: str,
     hostname: str | None = None,
     type: str = "ap",
     model: str | None = None,
-    ip: str | None = None,
     mac: str | None = None,
     ext_ip: str | None = None,
     version: str | None = None,
     power_constrained: bool | None = None,
-    ip_address: str | None = None,
+    ip: str | None = None,
     mxtunnel_status: str | None = None,
     mxedge_id: str | None = None,
     mxedge_ids: list | None = None,
@@ -777,8 +828,8 @@ def searchSiteDevices(
     eth0_port_speed: int | None = None,
     stats: bool | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
     desc_sort: str | None = None,
@@ -800,12 +851,11 @@ def searchSiteDevices(
     hostname : str
     type : str{'ap', 'gateway', 'switch'}, default: ap
     model : str
-    ip : str
     mac : str
     ext_ip : str
     version : str
     power_constrained : bool
-    ip_address : str
+    ip : str
     mxtunnel_status : str{'down', 'up'}
       For APs only, MxTunnel status, up / down.
     mxedge_id : str
@@ -835,8 +885,8 @@ def searchSiteDevices(
     eth0_port_speed : int
     stats : bool
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str{'mac', 'model', 'sku', 'timestamp'}, default: timestamp
       Sort options
@@ -857,8 +907,6 @@ def searchSiteDevices(
         query_params["type"] = str(type)
     if model:
         query_params["model"] = str(model)
-    if ip:
-        query_params["ip"] = str(ip)
     if mac:
         query_params["mac"] = str(mac)
     if ext_ip:
@@ -867,8 +915,8 @@ def searchSiteDevices(
         query_params["version"] = str(version)
     if power_constrained:
         query_params["power_constrained"] = str(power_constrained)
-    if ip_address:
-        query_params["ip_address"] = str(ip_address)
+    if ip:
+        query_params["ip"] = str(ip)
     if mxtunnel_status:
         query_params["mxtunnel_status"] = str(mxtunnel_status)
     if mxedge_id:
@@ -1498,6 +1546,38 @@ def clearBpduErrorsFromPortsOnSwitch(
     return resp
 
 
+def clearSiteDeviceDot1xSession(
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-site-device-dot1x-session
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/clear_dot1x"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+
+
 def clearSiteDeviceMacTable(
     mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
@@ -1559,6 +1639,33 @@ def clearAllLearnedMacsFromPortOnSwitch(
 
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/clear_macs"
     resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+
+
+def clearSiteDevicePendingVersion(
+    mist_session: _APISession, site_id: str, device_id: str
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-site-device-pending-version
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/clear_pending_version"
+    resp = mist_session.mist_post(uri=uri)
     return resp
 
 
@@ -2262,6 +2369,33 @@ def restartSiteDevice(
     return resp
 
 
+def restoreSiteDeviceBackupVersion(
+    mist_session: _APISession, site_id: str, device_id: str
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/restore-site-device-backup-version
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/restore_backup_version"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+
+
 def runSiteSrxTopCommand(
     mist_session: _APISession, site_id: str, device_id: str
 ) -> _APIResponse:
@@ -2318,38 +2452,6 @@ def servicePingFromSsr(
 
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/service_ping"
     resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
-
-
-def setSiteApAntennaMode(
-    mist_session: _APISession, site_id: str, device_id: str, body: dict
-) -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/set-site-ap-antenna-mode
-
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-
-    PATH PARAMS
-    -----------
-    site_id : str
-    device_id : str
-
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-
-    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/set_ant_mode"
-    resp = mist_session.mist_put(uri=uri, body=body)
     return resp
 
 
@@ -3282,6 +3384,33 @@ def convertSiteVirtualChassisToVirtualMac(
     """
 
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/vc/convert_to_virtualmac"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+
+
+def toogleSiteDeviceVcRoutingEnginesRole(
+    mist_session: _APISession, site_id: str, device_id: str
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/toogle-site-device-vc-routing-engines-role
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/vc/switch_master"
     resp = mist_session.mist_post(uri=uri)
     return resp
 

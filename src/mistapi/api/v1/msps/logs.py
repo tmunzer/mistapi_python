@@ -21,8 +21,8 @@ def listMspAuditLogs(
     admin_name: str | None = None,
     message: str | None = None,
     sort: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -46,8 +46,8 @@ def listMspAuditLogs(
     message : str
     sort : str{'-timestamp', 'admin_id', 'site_id', 'timestamp'}
       Sort order
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1

@@ -52,7 +52,7 @@ The package includes complete coverage of Mist APIs:
 * Security (NAC, Policies, Certificates)
 * MSP and Multi-tenant management
 
-#### Site Level APIs  
+#### Site Level APIs
 * Site-specific device management and configuration
 * RF diagnostics and optimization (RRM, Channel Planning)
 * Location services (Maps, Zones, Beacons, Asset tracking)
@@ -73,7 +73,7 @@ The package includes complete coverage of Mist APIs:
 ## Requirements
 
 * Python 3.10 or higher
-* Dependencies: `requests`, `python-dotenv`, `tabulate`, `deprecation`, `hvac`
+* Dependencies: `requests`, `python-dotenv`, `tabulate`, `deprecation`, `hvac`,  `keyring`
 
 ## Installation
 
@@ -149,7 +149,7 @@ print(f"Found {len(device_models.data)} device models")
 # Interactive org selection
 org_id = mistapi.cli.select_org(apisession)[0]
 
-# Get organization information  
+# Get organization information
 org_info = mistapi.api.v1.orgs.orgs.getOrg(apisession, org_id)
 print(f"Organization: {org_info.data['name']}")
 ```
@@ -212,7 +212,7 @@ If no `host` is configured, you'll be prompted to select a Mist cloud:
 ----------------------------- Mist Cloud Selection -----------------------------
 
 0) APAC 01 (host: api.ac5.mist.com)
-1) APAC 03 (host: api.gc7.mist.com) 
+1) APAC 03 (host: api.gc7.mist.com)
 2) EMEA 01 (host: api.eu.mist.com)
 3) EMEA 02 (host: api.gc3.mist.com)
 4) EMEA 03 (host: api.ac6.mist.com)
@@ -233,7 +233,7 @@ If no authentication is configured, you'll be prompted for credentials:
 --------------------------- Login/Pwd authentication ---------------------------
 
 Login: user@example.com
-Password: 
+Password:
 [  INFO   ] Authentication successful!
 
 Two Factor Authentication code required: 123456
@@ -291,7 +291,7 @@ Available organizations:
 Select an Org (0 to 2, or q to exit): 0
 ```
 
-### Site Selection  
+### Site Selection
 
 ```python
 # Select site within an organization
@@ -356,7 +356,7 @@ try:
     org_info = mistapi.api.v1.orgs.orgs.getOrg(apisession, "invalid-org-id")
 except Exception as e:
     print(f"API Error: {e}")
-    
+
 # Check response status
 response = mistapi.api.v1.orgs.orgs.listOrgs(apisession)
 if response.status_code == 200:
@@ -370,7 +370,7 @@ else:
 The package supports all Mist cloud instances:
 
 - **APAC 01**: api.ac5.mist.com
-- **APAC 03**: api.gc7.mist.com  
+- **APAC 03**: api.gc7.mist.com
 - **EMEA 01**: api.eu.mist.com
 - **EMEA 02**: api.gc3.mist.com
 - **EMEA 03**: api.ac6.mist.com
@@ -417,7 +417,7 @@ site_stats = mistapi.api.v1.sites.stats.getSiteStats(apisession, site_id)
 ```python
 # Search for wireless clients
 clients = mistapi.api.v1.orgs.clients.searchOrgWirelessClients(
-    apisession, org_id, 
+    apisession, org_id,
     duration="1d",
     limit=100
 )
@@ -459,7 +459,7 @@ ruff check src/
 ```
 src/mistapi/
 ├── __init__.py           # Main package exports
-├── __api_session.py      # Session management and authentication  
+├── __api_session.py      # Session management and authentication
 ├── __api_request.py      # HTTP request handling
 ├── __api_response.py     # Response parsing and pagination
 ├── __logger.py           # Logging configuration
@@ -469,7 +469,7 @@ src/mistapi/
 └── api/v1/              # Auto-generated API endpoints
     ├── const/           # Constants and enums
     ├── orgs/            # Organization-level APIs
-    ├── sites/           # Site-level APIs  
+    ├── sites/           # Site-level APIs
     ├── login/           # Authentication APIs
     └── utils/           # Utility functions
 ```
@@ -484,5 +484,5 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)  
+4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request

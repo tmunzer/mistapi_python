@@ -37,7 +37,7 @@ repos:
     hooks:
       - id: mypy
         additional_dependencies:
-          [types-requests, pydantic, types-pyyaml, types-tabulate]
+          [types-requests, pydantic, types-pyyaml, types-tabulate, hvac, keyring]
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.8.3

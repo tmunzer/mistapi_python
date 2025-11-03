@@ -61,8 +61,8 @@ def countSiteServicePathEvents(
     version: str | None = None,
     timestamp: float | None = None,
     mac: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -91,8 +91,8 @@ def countSiteServicePathEvents(
     version : str
     timestamp : float
     mac : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -154,8 +154,8 @@ def searchSiteServicePathEvents(
     timestamp: float | None = None,
     mac: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -186,8 +186,8 @@ def searchSiteServicePathEvents(
     timestamp : float
     mac : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

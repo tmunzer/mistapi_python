@@ -23,8 +23,8 @@ def countSiteZoneSessions(
     user: str | None = None,
     scope_id: str | None = None,
     scope: str = "site",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -50,8 +50,8 @@ def countSiteZoneSessions(
     scope_id : str
     scope : str{'map', 'rssizone', 'site', 'zone'}, default: site
       Scope
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 

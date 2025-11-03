@@ -80,8 +80,8 @@ def countOrgAlarms(
     mist_session: _APISession,
     org_id: str,
     distinct: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -100,8 +100,8 @@ def countOrgAlarms(
     QUERY PARAMS
     ------------
     distinct : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -133,8 +133,8 @@ def searchOrgAlarms(
     site_id: str | None = None,
     type: str | None = None,
     status: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     sort: str = "timestamp",
@@ -156,8 +156,8 @@ def searchOrgAlarms(
     site_id : str
     type : str
     status : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     sort : str, default: timestamp

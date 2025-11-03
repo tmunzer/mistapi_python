@@ -25,8 +25,8 @@ def countSiteWanUsage(
     tenant: str | None = None,
     path_type: str | None = None,
     distinct: str = "policy",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -52,8 +52,8 @@ def countSiteWanUsage(
     tenant : str
     path_type : str
     distinct : str{'mac', 'path_type', 'peer_mac', 'peer_port_id', 'policy', 'port_id', 'tenant'}, default: policy
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -105,8 +105,8 @@ def searchSiteWanUsage(
     path_type: str | None = None,
     limit: int = 100,
     page: int = 1,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -133,8 +133,8 @@ def searchSiteWanUsage(
     path_type : str
     limit : int, default: 100
     page : int, default: 1
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

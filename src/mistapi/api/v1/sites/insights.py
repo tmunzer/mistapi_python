@@ -19,8 +19,8 @@ def getSiteInsightMetricsForClient(
     site_id: str,
     client_mac: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     interval: str | None = None,
     limit: int = 100,
@@ -42,8 +42,8 @@ def getSiteInsightMetricsForClient(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     interval : str
     limit : int, default: 100
@@ -78,8 +78,8 @@ def getSiteInsightMetricsForDevice(
     site_id: str,
     metric: str,
     device_mac: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     interval: str | None = None,
     limit: int = 100,
@@ -101,8 +101,8 @@ def getSiteInsightMetricsForDevice(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     interval : str
     limit : int, default: 100
@@ -136,8 +136,8 @@ def countOrgClientFingerprints(
     mist_session: _APISession,
     site_id: str,
     distinct: str = "family",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -156,8 +156,8 @@ def countOrgClientFingerprints(
     QUERY PARAMS
     ------------
     distinct : str{'family', 'model', 'os', 'os_type'}, default: family
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -194,8 +194,8 @@ def searchOrgClientFingerprints(
     os_type: str | None = None,
     mac: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     interval: str | None = None,
     sort: str = "wxid",
@@ -223,8 +223,8 @@ def searchOrgClientFingerprints(
     os_type : str
     mac : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     interval : str
     sort : str, default: wxid
@@ -272,8 +272,8 @@ def listSiteRogueAPs(
     site_id: str,
     type: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     interval: str | None = None,
 ) -> _APIResponse:
@@ -293,8 +293,8 @@ def listSiteRogueAPs(
     ------------
     type : str{'honeypot', 'lan', 'others', 'spoof'}
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     interval : str
 
@@ -326,8 +326,8 @@ def listSiteRogueClients(
     mist_session: _APISession,
     site_id: str,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     interval: str | None = None,
 ) -> _APIResponse:
@@ -346,8 +346,8 @@ def listSiteRogueClients(
     QUERY PARAMS
     ------------
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     interval : str
 
@@ -377,8 +377,8 @@ def getSiteInsightMetrics(
     mist_session: _APISession,
     site_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     interval: str | None = None,
     limit: int = 100,
@@ -399,8 +399,8 @@ def getSiteInsightMetrics(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     interval : str
     limit : int, default: 100

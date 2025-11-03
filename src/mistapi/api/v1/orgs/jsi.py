@@ -216,7 +216,7 @@ def countOrgJsiAssetsAndContracts(
 
     QUERY PARAMS
     ------------
-    distinct : str{'model', 'account_id', 'type', 'version', 'warranty_type', 'status'}
+    distinct : str{'account_id', 'eol_time', 'eos_time', 'version_time', 'model', 'sku', 'status', 'type', 'version', 'warranty_type'}
       Distinct attributes to count
     limit : int, default: 100
 
@@ -241,6 +241,7 @@ def searchOrgJsiAssetsAndContracts(
     org_id: str,
     model: str | None = None,
     serial: str | None = None,
+    sku: str | None = None,
     status: str = "all",
     warranty_type: str | None = None,
     eol_duration: str | None = None,
@@ -266,6 +267,7 @@ def searchOrgJsiAssetsAndContracts(
     ------------
     model : str
     serial : str
+    sku : str
     status : str{'all', 'connected', 'disconnected'}, default: all
       Device status
     warranty_type : str{'Standard Hardware Warranty', 'Enhanced Hardware Warranty', 'Dead On Arrival Warranty', 'Limited Lifetime Warranty', 'Software Warranty', 'Limited Lifetime Warranty for WLA', 'Warranty-JCPO EOL (DOA Not Included)', 'MIST Enhanced Hardware Warranty', 'MIST Standard Warranty', 'Determine Lifetime warranty'}
@@ -289,6 +291,8 @@ def searchOrgJsiAssetsAndContracts(
         query_params["model"] = str(model)
     if serial:
         query_params["serial"] = str(serial)
+    if sku:
+        query_params["sku"] = str(sku)
     if status:
         query_params["status"] = str(status)
     if warranty_type:

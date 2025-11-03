@@ -233,7 +233,7 @@ class APISession(APIRequest):
             del self.vault_mount_point
             del self.vault_token
 
-    def _load_keyring(self, keyring_service):
+    def _load_keyring(self, keyring_service) -> None:
         """
         Load Mist API settings from keyring
         """

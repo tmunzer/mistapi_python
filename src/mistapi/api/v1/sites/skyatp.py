@@ -22,9 +22,9 @@ def countSiteSkyatpEvents(
     mac: str | None = None,
     device_mac: str | None = None,
     threat_level: int | None = None,
-    ip_address: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    ip: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -47,9 +47,9 @@ def countSiteSkyatpEvents(
     mac : str
     device_mac : str
     threat_level : int
-    ip_address : str
-    start : int
-    end : int
+    ip : str
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -71,8 +71,8 @@ def countSiteSkyatpEvents(
         query_params["device_mac"] = str(device_mac)
     if threat_level:
         query_params["threat_level"] = str(threat_level)
-    if ip_address:
-        query_params["ip_address"] = str(ip_address)
+    if ip:
+        query_params["ip"] = str(ip)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -92,10 +92,10 @@ def searchSiteSkyatpEvents(
     mac: str | None = None,
     device_mac: str | None = None,
     threat_level: int | None = None,
-    ip_address: str | None = None,
+    ip: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -117,10 +117,10 @@ def searchSiteSkyatpEvents(
     mac : str
     device_mac : str
     threat_level : int
-    ip_address : str
+    ip : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -140,8 +140,8 @@ def searchSiteSkyatpEvents(
         query_params["device_mac"] = str(device_mac)
     if threat_level:
         query_params["threat_level"] = str(threat_level)
-    if ip_address:
-        query_params["ip_address"] = str(ip_address)
+    if ip:
+        query_params["ip"] = str(ip)
     if limit:
         query_params["limit"] = str(limit)
     if start:

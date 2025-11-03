@@ -20,14 +20,14 @@ def countSiteWirelessClients(
     distinct: str = "device",
     ssid: str | None = None,
     ap: str | None = None,
-    ip_address: str | None = None,
+    ip: str | None = None,
     vlan: str | None = None,
     hostname: str | None = None,
     os: str | None = None,
     model: str | None = None,
     device: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -48,14 +48,14 @@ def countSiteWirelessClients(
     distinct : str{'ap', 'device', 'hostname', 'ip', 'model', 'os', 'ssid', 'vlan'}, default: device
     ssid : str
     ap : str
-    ip_address : str
+    ip : str
     vlan : str
     hostname : str
     os : str
     model : str
     device : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -73,8 +73,8 @@ def countSiteWirelessClients(
         query_params["ssid"] = str(ssid)
     if ap:
         query_params["ap"] = str(ap)
-    if ip_address:
-        query_params["ip_address"] = str(ip_address)
+    if ip:
+        query_params["ip"] = str(ip)
     if vlan:
         query_params["vlan"] = str(vlan)
     if hostname:
@@ -139,8 +139,8 @@ def countSiteWirelessClientEvents(
     proto: str | None = None,
     band: str | None = None,
     wlan_id: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -163,13 +163,13 @@ def countSiteWirelessClientEvents(
     reason_code : int
     ssid : str
     ap : str
-    proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
+    proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
       a / b / g / n / ac / ax
     band : str{'24', '5', '6'}
       802.11 Band
     wlan_id : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -221,8 +221,8 @@ def searchSiteWirelessClientEvents(
     wlan_id: str | None = None,
     nacrule_id: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -244,15 +244,15 @@ def searchSiteWirelessClientEvents(
     reason_code : int
     ssid : str
     ap : str
-    proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
+    proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
       a / b / g / n / ac / ax
     band : str{'24', '5', '6'}
       802.11 Band
     wlan_id : str
     nacrule_id : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -298,7 +298,7 @@ def searchSiteWirelessClients(
     mist_session: _APISession,
     site_id: str,
     mac: str | None = None,
-    ip_address: str | None = None,
+    ip: str | None = None,
     hostname: str | None = None,
     device: str | None = None,
     os: str | None = None,
@@ -308,8 +308,8 @@ def searchSiteWirelessClients(
     text: str | None = None,
     nacrule_id: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -328,7 +328,7 @@ def searchSiteWirelessClients(
     QUERY PARAMS
     ------------
     mac : str
-    ip_address : str
+    ip : str
     hostname : str
     device : str
     os : str
@@ -338,8 +338,8 @@ def searchSiteWirelessClients(
     text : str
     nacrule_id : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -353,8 +353,8 @@ def searchSiteWirelessClients(
     query_params: dict[str, str] = {}
     if mac:
         query_params["mac"] = str(mac)
-    if ip_address:
-        query_params["ip_address"] = str(ip_address)
+    if ip:
+        query_params["ip"] = str(ip)
     if hostname:
         query_params["hostname"] = str(hostname)
     if device:
@@ -397,8 +397,8 @@ def countSiteWirelessClientSessions(
     client_os: str | None = None,
     ssid: str | None = None,
     wlan_id: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -426,8 +426,8 @@ def countSiteWirelessClientSessions(
     client_os : str
     ssid : str
     wlan_id : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -484,8 +484,8 @@ def searchSiteWirelessClientSessions(
     psk_id: str | None = None,
     psk_name: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -516,8 +516,8 @@ def searchSiteWirelessClientSessions(
     psk_id : str
     psk_name : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -660,8 +660,8 @@ def getSiteEventsForClient(
     channel: str | None = None,
     wlan_id: str | None = None,
     ssid: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -682,15 +682,15 @@ def getSiteEventsForClient(
     QUERY PARAMS
     ------------
     type : str
-    proto : str{'a', 'ac', 'ax', 'b', 'g', 'n'}
+    proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
       a / b / g / n / ac / ax
     band : str{'24', '5', '6'}
       802.11 Band
     channel : str
     wlan_id : str
     ssid : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1

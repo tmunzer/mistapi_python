@@ -19,8 +19,8 @@ def searchOrgEvents(
     org_id: str,
     type: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -40,8 +40,8 @@ def searchOrgEvents(
     ------------
     type : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -74,8 +74,8 @@ def countOrgSystemEvents(
     org_id: str,
     distinct: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -94,8 +94,8 @@ def countOrgSystemEvents(
     ------------
     distinct : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN
@@ -124,8 +124,8 @@ def searchOrgSystemEvents(
     mist_session: _APISession,
     org_id: str,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -144,8 +144,8 @@ def searchOrgSystemEvents(
     QUERY PARAMS
     ------------
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

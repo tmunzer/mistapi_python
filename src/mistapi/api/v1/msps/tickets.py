@@ -17,8 +17,8 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def listMspTickets(
     mist_session: _APISession,
     msp_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -35,8 +35,8 @@ def listMspTickets(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN

@@ -17,8 +17,8 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def getOrgStats(
     mist_session: _APISession,
     org_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -37,8 +37,8 @@ def getOrgStats(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -68,8 +68,8 @@ def getOrgStats(
 def listOrgAssetsStats(
     mist_session: _APISession,
     org_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -88,8 +88,8 @@ def listOrgAssetsStats(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -173,8 +173,8 @@ def searchOrgAssets(
     beam: int | None = None,
     rssi: int | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -207,8 +207,8 @@ def searchOrgAssets(
     beam : int
     rssi : int
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -313,8 +313,8 @@ def searchOrgBgpStats(
     site_id: str | None = None,
     vrf_name: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -337,8 +337,8 @@ def searchOrgBgpStats(
     site_id : str
     vrf_name : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -382,8 +382,8 @@ def listOrgDevicesStats(
     evpntopo_id: str | None = None,
     evpn_unused: str | None = None,
     fields: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -409,8 +409,8 @@ def listOrgDevicesStats(
     evpntopo_id : str
     evpn_unused : str
     fields : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -480,8 +480,8 @@ def listOrgMxEdgesStats(
     mist_session: _APISession,
     org_id: str,
     for_site: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -502,8 +502,8 @@ def listOrgMxEdgesStats(
     ------------
     for_site : str{'any', 'true', 'false'}
       Filter for site level mist edges
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -624,8 +624,8 @@ def countOrgSwOrGwPorts(
     auth_state: str | None = None,
     up: bool | None = None,
     site_id: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -673,8 +673,8 @@ def countOrgSwOrGwPorts(
       If `up`==`true` && has Authenticator role
     up : bool
     site_id : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -791,8 +791,8 @@ def searchOrgSwOrGwPorts(
     optics_module_voltage: float | None = None,
     type: str = "all",
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -850,8 +850,8 @@ def searchOrgSwOrGwPorts(
     type : str{'switch', 'gateway', 'all'}, default: all
       Type of device. enum: `switch`, `gateway`, `all`
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -950,8 +950,8 @@ def searchOrgSwOrGwPorts(
 def listOrgSiteStats(
     mist_session: _APISession,
     org_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -970,8 +970,8 @@ def listOrgSiteStats(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -1063,8 +1063,8 @@ def searchOrgTunnelsStats(
     up: str | None = None,
     type: str = "wxtunnel",
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "5m",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -1099,8 +1099,8 @@ def searchOrgTunnelsStats(
     up : str
     type : str{'wan', 'wxtunnel'}, default: wxtunnel
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 5m
     sort : str, default: timestamp
 
@@ -1162,8 +1162,8 @@ def countOrgPeerPathStats(
     mist_session: _APISession,
     org_id: str,
     distinct: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -1182,8 +1182,8 @@ def countOrgPeerPathStats(
     QUERY PARAMS
     ------------
     distinct : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -1216,8 +1216,8 @@ def searchOrgPeerPathStats(
     site_id: str | None = None,
     type: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -1239,8 +1239,8 @@ def searchOrgPeerPathStats(
     site_id : str
     type : str{'ipsec', 'svr'}
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

@@ -24,8 +24,8 @@ def countSiteRogueEvents(
     ap_mac: str | None = None,
     channel: str | None = None,
     seen_on_lan: bool | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -50,8 +50,8 @@ def countSiteRogueEvents(
     ap_mac : str
     channel : str
     seen_on_lan : bool
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -99,8 +99,8 @@ def searchSiteRogueEvents(
     channel: int | None = None,
     seen_on_lan: bool | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -125,8 +125,8 @@ def searchSiteRogueEvents(
     channel : int
     seen_on_lan : bool
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
