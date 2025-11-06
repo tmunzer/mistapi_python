@@ -18,19 +18,22 @@ from getpass import getpass
 from pathlib import Path
 
 import hvac
+import keyring
 import requests
 from dotenv import load_dotenv
 from requests import Response, Session
 
 from mistapi.__api_request import APIRequest
 from mistapi.__api_response import APIResponse
-from mistapi.__logger import console, logger
+from mistapi.__logger import console as CONSOLE
+from mistapi.__logger import logger as LOGGER
 from mistapi.__models.privilege import Privileges
 from mistapi.__version import __version__
 
 ###### GLOBALS ######
 CLOUDS = [
     {"short": "APAC 01", "host": "api.ac5.mist.com", "cookies_ext": ".ac5"},
+    {"short": "APAC 02", "host": "api.gc5.mist.com", "cookies_ext": ".gc5"},
     {"short": "APAC 03", "host": "api.gc7.mist.com", "cookies_ext": ".gc7"},
     {"short": "EMEA 01", "host": "api.eu.mist.com", "cookies_ext": ".eu"},
     {"short": "EMEA 02", "host": "api.gc3.mist.com", "cookies_ext": ".gc3"},
@@ -60,6 +63,7 @@ class APISession(APIRequest):
         vault_token: str | None = None,
         vault_mount_point: str | None = None,
         vault_path: str | None = None,
+        keyring_service: str | None = None,
         console_log_level: int = 20,
         logging_log_level: int = 10,
         show_cli_notif: bool = True,
@@ -111,7 +115,7 @@ class APISession(APIRequest):
             HTTPS Proxy to use to send the API Requests
         """
         super().__init__()
-        logger.info("mistapi:init:package version %s", __version__)
+        LOGGER.info("mistapi:init:package version %s", __version__)
         self._cloud_uri: str = ""
         self.email: str | None = None
         self._password: str | None = None
@@ -131,8 +135,10 @@ class APISession(APIRequest):
         self.vault_mount_point = vault_mount_point
         self.vault_token = vault_token
 
-        console._set_log_level(console_log_level, logging_log_level)
+        CONSOLE._set_log_level(console_log_level, logging_log_level)
         self._load_env(env_file)
+        if keyring_service:
+            self._load_keyring(keyring_service)
         if self.vault_path:
             self._load_vault()
         # Filter out None values before updating proxies
@@ -155,7 +161,7 @@ class APISession(APIRequest):
         self.privileges: Privileges = Privileges([])
         self.session_expiry: int = -1
 
-        logger.debug("apisession:__init__: API Session initialized")
+        LOGGER.debug("apisession:__init__: API Session initialized")
 
     def __str__(self) -> str:
         fields = [
@@ -197,23 +203,23 @@ class APISession(APIRequest):
         """
         Load Vault settings from env file
         """
-        logger.info("apisession:_load_vault: Loading Vault settings")
+        LOGGER.info("apisession:_load_vault: Loading Vault settings")
         client = hvac.Client(url=self.vault_url, token=self.vault_token, verify=False)
         if not client.is_authenticated():
-            logger.error("apisession:_load_vault: Vault authentication failed")
-            console.error("Vault authentication failed")
+            LOGGER.error("apisession:_load_vault: Vault authentication failed")
+            CONSOLE.error("Vault authentication failed")
             return
-        logger.debug(
+        LOGGER.debug(
             "apisession:_load_vault: Vault authentication successful. Retrieving secret"
         )
         try:
             read_response = client.secrets.kv.v2.read_secret(
                 path=self.vault_path, mount_point=self.vault_mount_point
             )
-            logger.info("apisession:_load_vault: Secret retrieved successfully")
+            LOGGER.info("apisession:_load_vault: Secret retrieved successfully")
 
             mist_host = read_response["data"]["data"].get("MIST_HOST", None)
-            logger.info("apisession:_load_vault: MIST_HOST=%s", mist_host)
+            LOGGER.info("apisession:_load_vault: MIST_HOST=%s", mist_host)
             if mist_host:
                 self.set_cloud(mist_host)
 
@@ -221,13 +227,53 @@ class APISession(APIRequest):
             if mist_apitoken:
                 self.set_api_token(mist_apitoken)
         except (KeyError, TypeError, AttributeError):
-            logger.error("apisession:_load_vault: Failed to retrieve secret")
-            console.error("Failed to retrieve secret")
+            LOGGER.error("apisession:_load_vault: Failed to retrieve secret")
+            CONSOLE.error("Failed to retrieve secret")
         finally:
             del self.vault_url
             del self.vault_path
             del self.vault_mount_point
             del self.vault_token
+
+    def _load_keyring(self, keyring_service) -> None:
+        """
+        Load Mist API settings from keyring
+        """
+        LOGGER.info(
+            "apisession:_load_keyring: Loading settings from keyring with keyring service %s",
+            keyring_service,
+        )
+        if keyring_service:
+            try:
+                mist_host = keyring.get_password(keyring_service, "MIST_HOST")
+                if mist_host:
+                    LOGGER.info("apisession:_load_keyring: MIST_HOST=%s", mist_host)
+                    self.set_cloud(mist_host)
+                mist_apitoken = keyring.get_password(keyring_service, "MIST_APITOKEN")
+                if mist_apitoken:
+                    if isinstance(mist_apitoken, str):
+                        for token in mist_apitoken.split(","):
+                            token = token.strip()
+                            LOGGER.info(
+                                "apisession:_load_keyring: Found MIST_APITOKEN=%s...%s",
+                                token[:4],
+                                token[-4:],
+                            )
+                    self.set_api_token(mist_apitoken)
+                mist_user = keyring.get_password(keyring_service, "MIST_USER")
+                if mist_user:
+                    LOGGER.info("apisession:_load_keyring: MIST_USER=%s", mist_user)
+                    self.set_email(mist_user)
+                mist_password = keyring.get_password(keyring_service, "MIST_PASSWORD")
+                if mist_password:
+                    LOGGER.info("apisession:_load_keyring: MIST_PASSWORD retrieved")
+                    self.set_password(mist_password)
+            except Exception as e:
+                LOGGER.error(
+                    "apisession:_load_keyring: Failed to retrieve settings from keyring: %s",
+                    e,
+                )
+                CONSOLE.error("Failed to retrieve settings from keyring")
 
     def _load_env(self, env_file=None) -> None:
         """
@@ -239,13 +285,13 @@ class APISession(APIRequest):
                     os.path.expanduser("~"), env_file.replace("~/", "")
                 )
             env_file = os.path.abspath(env_file)
-            console.debug(f"Loading settings from {env_file}")
-            logger.debug("apisession:_load_env:loading settings from %s", env_file)
+            CONSOLE.debug(f"Loading settings from {env_file}")
+            LOGGER.debug("apisession:_load_env:loading settings from %s", env_file)
             dotenv_path = Path(env_file)
             load_dotenv(dotenv_path=dotenv_path, override=True)
         # else:
-        #     console.debug("Loading settings from env file")
-        #     logger.debug(f"apisession:_load_env:loading settings from env file")
+        #     CONSOLE.debug("Loading settings from env file")
+        #     LOGGER.debug(f"apisession:_load_env:loading settings from env file")
         #     load_dotenv()
 
         if os.getenv("MIST_HOST"):
@@ -300,7 +346,7 @@ class APISession(APIRequest):
         cloud_uri : str
             Mist FQDN to reach ("api.mist.com", "api.eu.mist.com", ...)
         """
-        logger.debug("apisession:set_cloud")
+        LOGGER.debug("apisession:set_cloud")
         self._cloud_uri = ""
         if cloud_uri in [
             "api.mistsys.com",
@@ -314,26 +360,26 @@ class APISession(APIRequest):
                 if cloud["host"] == cloud_uri:
                     self._cloud_uri = cloud_uri
         if self._cloud_uri:
-            logger.debug(
+            LOGGER.debug(
                 "apisession:set_cloud:Mist Cloud configured to %s", self._cloud_uri
             )
-            console.debug(f"Mist Cloud configured to {self._cloud_uri}")
+            CONSOLE.debug(f"Mist Cloud configured to {self._cloud_uri}")
         else:
-            logger.error("apisession:set_cloud: %s is not valid", cloud_uri)
-            console.error(f"{cloud_uri} is not valid")
+            LOGGER.error("apisession:set_cloud: %s is not valid", cloud_uri)
+            CONSOLE.error(f"{cloud_uri} is not valid")
 
     def get_cloud(self):
         """
         Return the Mist Cloud currently configured
         """
-        logger.debug("apisession:get_cloud:return %s", self._cloud_uri)
+        LOGGER.debug("apisession:get_cloud:return %s", self._cloud_uri)
         return self._cloud_uri
 
     def select_cloud(self) -> None:
         """
         Display a menu to select the Mist Cloud
         """
-        logger.debug("apisession:select_cloud")
+        LOGGER.debug("apisession:select_cloud")
         if self._show_cli_notif:
             print()
             print(" Mist Cloud Selection ".center(80, "-"))
@@ -347,7 +393,7 @@ class APISession(APIRequest):
 
         print()
         resp = input(f"Select a Cloud (0 to {i - 1}, or q to quit): ")
-        logger.info("apisession:select_cloud:input is %s", resp)
+        LOGGER.info("apisession:select_cloud:input is %s", resp)
         if resp == "q":
             sys.exit(0)
         elif resp == "i":
@@ -362,20 +408,20 @@ class APISession(APIRequest):
             try:
                 resp_num = int(resp)
                 if resp_num >= 0 and resp_num < i:
-                    logger.info(
+                    LOGGER.info(
                         "apisession:select_cloud:Mist Cloud is %s",
                         CLOUDS[resp_num]["host"],
                     )
                     self.set_cloud(CLOUDS[resp_num]["host"])
                 else:
                     print(f"Please enter a number between 0 and {i}.")
-                    logger.error(
+                    LOGGER.error(
                         "apisession:select_cloud:%s is not a valid input", resp
                     )
                     self.select_cloud()
             except ValueError:
                 print("\r\nPlease enter a number.")
-                logger.error("apisession:select_cloud:%s is not a valid input", resp)
+                LOGGER.error("apisession:select_cloud:%s is not a valid input", resp)
                 self.select_cloud()
 
     ####################################
@@ -389,13 +435,13 @@ class APISession(APIRequest):
         email : str
             If no email provided, an interactive input will ask for it
         """
-        logger.debug("apisession:set_email")
+        LOGGER.debug("apisession:set_email")
         if email:
             self.email = email
         else:
             self.email = input("Login: ")
-        logger.info("apisession:set_email:email configured to %s", self.email)
-        console.debug(f"Email configured to {self.email}")
+        LOGGER.info("apisession:set_email:email configured to %s", self.email)
+        CONSOLE.debug(f"Email configured to {self.email}")
 
     def set_password(self, password: str | None = None) -> None:
         """
@@ -406,13 +452,13 @@ class APISession(APIRequest):
         password : str
             If no password provided, an interactive input will ask for it
         """
-        logger.debug("apisession:set_password")
+        LOGGER.debug("apisession:set_password")
         if password:
             self._password = password
         else:
             self._password = getpass("Password: ")
-        logger.info("apisession:set_password:password configured")
-        console.debug("Password configured")
+        LOGGER.info("apisession:set_password:password configured")
+        CONSOLE.debug("Password configured")
 
     def set_api_token(self, apitoken: str) -> None:
         """
@@ -423,22 +469,22 @@ class APISession(APIRequest):
         apitoken : str
             API Token to add in the requests headers for authentication and authorization
         """
-        logger.debug("apisession:set_api_token")
+        LOGGER.debug("apisession:set_api_token")
         apitokens_in = apitoken.split(",")
         apitokens_out: list[str] = []
         for token in apitokens_in:
             token = token.strip()
             if token and token not in apitokens_out:
                 apitokens_out.append(token)
-        logger.info("apisession:set_api_token:found %s API Tokens", len(apitokens_out))
+        LOGGER.info("apisession:set_api_token:found %s API Tokens", len(apitokens_out))
         if self._check_api_tokens(apitokens_out):
             self._apitoken = apitokens_out
             self._apitoken_index = 0
             self._session.headers.update(
                 {"Authorization": "Token " + self._apitoken[self._apitoken_index]}
             )
-            logger.info("apisession:set_api_token:API Token configured")
-            console.debug("API Token configured")
+            LOGGER.info("apisession:set_api_token:API Token configured")
+            CONSOLE.debug("API Token configured")
 
     def _get_api_token_data(self, apitoken) -> tuple[str | None, list | None]:
         token_privileges = []
@@ -452,32 +498,45 @@ class APISession(APIRequest):
                 url, headers=headers, proxies=filtered_proxies or None, timeout=30
             )
             data_json = data.json()
-            logger.debug(
+            LOGGER.debug(
                 "apisession:_get_api_token_data:info retrieved for token %s...%s",
                 apitoken[:4],
                 apitoken[-4:],
             )
         except requests.exceptions.ProxyError:
-            logger.critical("apisession:_get_api_token_data:proxy not valid...")
-            console.critical("Proxy not valid...\r\n")
+            LOGGER.critical("apisession:_get_api_token_data:proxy not valid...")
+            CONSOLE.critical("Proxy not valid...\r\n")
             sys.exit(0)
         except requests.exceptions.ConnectionError as connexion_error:
-            logger.critical(
+            LOGGER.critical(
                 "apirequest:mist_post:Connection Error: %s", connexion_error
             )
-            console.critical("Connexion error...\r\n")
+            CONSOLE.critical("Connexion error...\r\n")
             sys.exit(0)
         except Exception:
-            logger.error(
+            LOGGER.error(
                 "apisession:_get_api_token_data:"
                 "unable to retrieve info for token %s...%s",
                 apitoken[:4],
                 apitoken[-4:],
             )
-            logger.error(
+            LOGGER.error(
                 "apirequest:_get_api_token_data: Exception occurred", exc_info=True
             )
             return (None, None)
+
+        if data.status_code == 401:
+            LOGGER.critical(
+                "apisession:_get_api_token_data:"
+                "invalid API Token %s...%s: status code %s",
+                apitoken[:4],
+                apitoken[-4:],
+                data.status_code,
+            )
+            CONSOLE.critical(
+                f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}\r\n"
+            )
+            sys.exit(2)
 
         if data_json.get("email"):
             token_type = "user"  # nosec bandit B105
@@ -498,7 +557,7 @@ class APISession(APIRequest):
                 tmp["id"] = priv.get("site_id")
                 token_privileges.append(tmp)
             else:
-                logger.error(
+                LOGGER.error(
                     "apisession:_check_api_tokens:"
                     "unable to process privileges %s for the %s "
                     "token %s...%s",
@@ -514,11 +573,11 @@ class APISession(APIRequest):
         Function used when multiple API tokens are provided, to validate they
         have same privileges
         """
-        logger.debug("apisession:_check_api_tokens")
+        LOGGER.debug("apisession:_check_api_tokens")
         if len(apitokens) == 0:
-            logger.error("apisession:_check_api_tokens:there is not API token to check")
+            LOGGER.error("apisession:_check_api_tokens:there is not API token to check")
         elif (len(apitokens)) == 1:
-            logger.info(
+            LOGGER.info(
                 "apisession:_check_api_tokens:there is only 1 API token. No check required"
             )
         else:
@@ -533,7 +592,7 @@ class APISession(APIRequest):
                     primary_token_type = token_type
                     primary_token_value = token_value
                 elif primary_token_privileges == token_privileges:
-                    logger.info(
+                    LOGGER.info(
                         "apisession:_check_api_tokens:"
                         "%s API Token %s has same privileges as "
                         "the %s API Token %s",
@@ -543,7 +602,7 @@ class APISession(APIRequest):
                         primary_token_value,
                     )
                 else:
-                    logger.critical(
+                    LOGGER.critical(
                         "apisession:_check_api_tokens:"
                         "%s API Token %s has different privileges "
                         "than the %s API Token %s",
@@ -552,12 +611,12 @@ class APISession(APIRequest):
                         primary_token_type,
                         primary_token_value,
                     )
-                    logger.critical(" /!\\ API TOKEN CRITICAL ERROR /!\\")
-                    logger.critical(
+                    LOGGER.critical(" /!\\ API TOKEN CRITICAL ERROR /!\\")
+                    LOGGER.critical(
                         " When using multiple API Tokens, be sure they are all linked"
                         " to the same Org/User, and all have the same privileges"
                     )
-                    logger.critical(" Exiting...")
+                    LOGGER.critical(" Exiting...")
                     sys.exit(255)
         return True
 
@@ -571,7 +630,7 @@ class APISession(APIRequest):
         retry : bool, default True
             if `retry`==True, ask for login/password when authentication is failing
         """
-        logger.debug("apisession:_process_login")
+        LOGGER.debug("apisession:_process_login")
         error: str | None = None
         if self._show_cli_notif:
             print()
@@ -584,21 +643,21 @@ class APISession(APIRequest):
         if not self._password:
             self.set_password()
 
-        logger.debug("apisession:_process_login:email/password configured")
+        LOGGER.debug("apisession:_process_login:email/password configured")
         uri = "/api/v1/login"
         body = {"email": self.email, "password": self._password}
         resp = self._session.post(self._url(uri), json=body)
         if resp.status_code == 200:
-            logger.info("apisession:_process_login:authentication successful!")
-            console.info("Authentication successful!")
+            LOGGER.info("apisession:_process_login:authentication successful!")
+            CONSOLE.info("Authentication successful!")
             self._set_authenticated(True)
         else:
             error = resp.json().get("detail")
-            logger.error("apisession:_process_login:authentication failed:%s", error)
-            console.error(f"Authentication failed: {error}\r\n")
+            LOGGER.error("apisession:_process_login:authentication failed:%s", error)
+            CONSOLE.error(f"Authentication failed: {error}\r\n")
             self.email = None
             self._password = None
-            logger.info(
+            LOGGER.info(
                 "apisession:_process_login:"
                 "email/password cleaned up. Restarting authentication function"
             )
@@ -616,12 +675,12 @@ class APISession(APIRequest):
         the HTTP session and CSRF Token will be stored and used during the
         future API requests.
         """
-        logger.debug("apisession:login")
+        LOGGER.debug("apisession:login")
         if self._authenticated:
-            logger.warning("apisession:login:already logged in...")
-            console.info("Already logged in...")
+            LOGGER.warning("apisession:login:already logged in...")
+            CONSOLE.info("Already logged in...")
         else:
-            logger.debug("apisession:login:not authenticated yet")
+            LOGGER.debug("apisession:login:not authenticated yet")
             if not self._cloud_uri:
                 self.select_cloud()
             if self._apitoken:
@@ -630,7 +689,7 @@ class APISession(APIRequest):
                 self._process_login()
             # if successfully authenticated
             if self.get_authentication_status():
-                logger.info("apisession:login:authenticated")
+                LOGGER.info("apisession:login:authenticated")
                 self._getself()
 
     def login_with_return(
@@ -669,7 +728,7 @@ class APISession(APIRequest):
             message : str
                 Error message from Mist (if any)
         """
-        logger.debug("apisession:login_with_return")
+        LOGGER.debug("apisession:login_with_return")
         self._session = requests.session()
         if apitoken:
             self.set_api_token(apitoken)
@@ -679,20 +738,20 @@ class APISession(APIRequest):
             self.set_password(password)
 
         if self._apitoken:
-            logger.debug("apisession:login_with_return:apitoken provided")
+            LOGGER.debug("apisession:login_with_return:apitoken provided")
             self._set_authenticated(True)
-            logger.info("apisession:login_with_return:get self")
+            LOGGER.info("apisession:login_with_return:get self")
             uri = "/api/v1/self"
-            logger.info(
+            LOGGER.info(
                 'apisession:login_with_return: sending GET request to "%s"', uri
             )
             resp = self.mist_get(uri)
 
         elif self.email and self._password:
             if two_factor:
-                logger.debug("apisession:login_with_return:login/pwd provided with 2FA")
+                LOGGER.debug("apisession:login_with_return:login/pwd provided with 2FA")
                 if self._two_factor_authentication(two_factor):
-                    logger.error(
+                    LOGGER.error(
                         "apisession:login_with_return:login/pwd auth failed: 2FA authentication failed"
                     )
                     return {
@@ -700,30 +759,30 @@ class APISession(APIRequest):
                         "error": "2FA authentication failed",
                     }
             else:
-                logger.debug("apisession:login_with_return:login/pwd provided w/o 2FA")
+                LOGGER.debug("apisession:login_with_return:login/pwd provided w/o 2FA")
                 error_login = self._process_login(retry=False)
                 if error_login:
-                    logger.error(
+                    LOGGER.error(
                         "apisession:login_with_return:login/pwd auth failed: %s",
                         error_login,
                     )
                     return {"authenticated": False, "error": error_login}
-            logger.info("apisession:login_with_return:get self")
+            LOGGER.info("apisession:login_with_return:get self")
             uri = "/api/v1/self"
-            logger.info(
+            LOGGER.info(
                 'apisession:login_with_return: sending GET request to "%s"', uri
             )
             resp = self.mist_get(uri)
 
         else:
-            logger.error("apisession:login_with_return:credentials are missing")
+            LOGGER.error("apisession:login_with_return:credentials are missing")
             return {"authenticated": False, "error": "credentials are missing"}
 
         if resp.status_code == 200 and not resp.data.get("two_factor_required", False):
-            logger.info("apisession:login_with_return:access authorized")
+            LOGGER.info("apisession:login_with_return:access authorized")
             return {"authenticated": True, "error": ""}
         else:
-            logger.error("apisession:login_with_return:access denied: %s", resp.data)
+            LOGGER.error("apisession:login_with_return:access denied: %s", resp.data)
             return {"authenticated": False, "error": resp.data}
 
     def logout(self) -> None:
@@ -731,25 +790,25 @@ class APISession(APIRequest):
         Log out from the Mist Cloud.
         If login/password is used, the HTTP session is destroyed.
         """
-        logger.debug("apisession:logout")
+        LOGGER.debug("apisession:logout")
         if not self._authenticated:
-            logger.error("apisession:logout:not logged in...")
-            console.error("Not logged in...")
+            LOGGER.error("apisession:logout:not logged in...")
+            CONSOLE.error("Not logged in...")
         else:
             uri = "/api/v1/logout"
             resp = self.mist_post(uri)
             if resp.status_code == 200:
-                logger.info("apisession:logout:Mist Session closed and cleaned up")
-                console.info("Logged out")
+                LOGGER.info("apisession:logout:Mist Session closed and cleaned up")
+                CONSOLE.info("Logged out")
                 self._set_authenticated(False)
             else:
                 try:
-                    console.error(resp.data["detail"])
+                    CONSOLE.error(resp.data["detail"])
                 except (KeyError, TypeError, AttributeError):
                     if isinstance(resp.raw_data, bytes):
-                        console.error(resp.raw_data.decode("utf-8", errors="replace"))
+                        CONSOLE.error(resp.raw_data.decode("utf-8", errors="replace"))
                     else:
-                        console.error(str(resp.raw_data))
+                        CONSOLE.error(str(resp.raw_data))
 
     def _set_authenticated(self, authentication_status: bool) -> None:
         """
@@ -763,16 +822,16 @@ class APISession(APIRequest):
         -----------
         authentication_status : bool
         """
-        logger.debug("apisession:_set_authenticated")
-        logger.debug(
+        LOGGER.debug("apisession:_set_authenticated")
+        LOGGER.debug(
             "apisession:_set_authenticated:authentication_status is %s",
             authentication_status,
         )
         if authentication_status:
             self._authenticated = True
-            logger.info('apisession:_set_authenticated: session is now "Authenticated"')
+            LOGGER.info('apisession:_set_authenticated: session is now "Authenticated"')
             if not self._apitoken:
-                logger.info("apisession:_set_authenticated:processing HTTP cookies")
+                LOGGER.info("apisession:_set_authenticated:processing HTTP cookies")
                 try:
                     if self._cloud_uri == "api.mistsys.com":
                         cookies_ext = ""
@@ -788,29 +847,29 @@ class APISession(APIRequest):
                             for item in CLOUDS
                             if item["host"] == self._cloud_uri
                         )
-                    logger.info(
+                    LOGGER.info(
                         "apisession:_set_authenticated:HTTP session cookies extracted. Cookies extension is %s",
                         cookies_ext,
                     )
                 except (StopIteration, KeyError, AttributeError):
                     cookies_ext = ""
-                    logger.error(
+                    LOGGER.error(
                         "apisession:_set_authenticated:unable to extract HTTP session cookies"
                     )
-                    logger.error(
+                    LOGGER.error(
                         "apirequest:mist_post_file: Exception occurred", exc_info=True
                     )
                 self._csrftoken = self._session.cookies["csrftoken" + cookies_ext]
                 self._session.headers.update({"X-CSRFToken": self._csrftoken})
-                logger.info("apisession:_set_authenticated:CSRF Token stored")
+                LOGGER.info("apisession:_set_authenticated:CSRF Token stored")
         elif authentication_status is False:
             self._authenticated = False
-            logger.info(
+            LOGGER.info(
                 'apisession:_set_authenticated: session is now "Unauthenticated"'
             )
             self._csrftoken = ""
             del self._session
-            logger.info(
+            LOGGER.info(
                 "apisession:_set_authenticated:CSRF Token is cleaned up and HTTP Session deleted"
             )
 
@@ -821,7 +880,7 @@ class APISession(APIRequest):
         bool
             Return the authentication status.
         """
-        logger.debug(
+        LOGGER.debug(
             "apisession:get_authentication_status:return %s", self._authenticated
         )
         return self._authenticated
@@ -835,7 +894,7 @@ class APISession(APIRequest):
         mistapi.APIResponse
             api response for the GET /api/v1/self request
         """
-        logger.info(
+        LOGGER.info(
             'apisession:get_api_token: Sending GET request to "/api/v1/self/apitokens"'
         )
         resp = self.mist_get("/api/v1/self/apitokens")
@@ -855,11 +914,11 @@ class APISession(APIRequest):
         mistapi.APIResponse
             api response for the POST /api/v1/self/apitokens request
         """
-        logger.debug("apisession:create_api_token")
+        LOGGER.debug("apisession:create_api_token")
         body = {}
         if token_name:
             body = {"name": token_name}
-        logger.info(
+        LOGGER.info(
             "apisession:create_api_token:"
             'sending POST request to "/api/v1/self/apitokens" with name "%s"',
             token_name,
@@ -881,8 +940,8 @@ class APISession(APIRequest):
         mistapi.APIResponse
             api response for the DELETE /api/v1/self/apitokens/{apitoken_id} request
         """
-        logger.debug("apisession:delete_api_token")
-        logger.info(
+        LOGGER.debug("apisession:delete_api_token")
+        LOGGER.info(
             "apisession:delete_api_token:"
             'sending DELETE request to "/api/v1/self/apitokens" with token_id "%s"',
             apitoken_id,
@@ -906,7 +965,7 @@ class APISession(APIRequest):
         bool
             True if authentication succeed, False otherwise
         """
-        logger.debug("apisession:_two_factor_authentication")
+        LOGGER.debug("apisession:_two_factor_authentication")
         uri = "/api/v1/login"
         body = {
             "email": self.email,
@@ -915,19 +974,19 @@ class APISession(APIRequest):
         }
         resp = self._session.post(self._url(uri), json=body)
         if resp.status_code == 200:
-            logger.info(
+            LOGGER.info(
                 "apisession:_two_factor_authentication:2FA authentication succeed"
             )
-            console.info("2FA authentication succeeded")
+            CONSOLE.info("2FA authentication succeeded")
             self._set_authenticated(True)
             return True
         else:
-            logger.error(
+            LOGGER.error(
                 "apisession:_two_factor_authentication:"
                 "2FA authentication failed with error code: %s",
                 resp.status_code,
             )
-            console.error(
+            CONSOLE.error(
                 f"2FA authentication failed with error code: {resp.status_code}\r\n"
             )
             return False
@@ -936,9 +995,9 @@ class APISession(APIRequest):
         """
         Retrieve information about the current user and store them in the current object.
         """
-        logger.debug("apisession:_getself")
+        LOGGER.debug("apisession:_getself")
         uri = "/api/v1/self"
-        logger.info('apisession:_getself: sending GET request to "%s"', uri)
+        LOGGER.info('apisession:_getself: sending GET request to "%s"', uri)
         resp = self.mist_get(uri)
         if resp.status_code == 200 and resp.data:
             # Deal with 2FA if needed
@@ -946,7 +1005,7 @@ class APISession(APIRequest):
                 resp.data.get("two_factor_required") is True
                 and resp.data.get("two_factor_passed") is False
             ):
-                logger.info("apisession:_getself:2FA request by Mist Cloud")
+                LOGGER.info("apisession:_getself:2FA request by Mist Cloud")
                 two_factor_ok = False
                 while not two_factor_ok:
                     two_factor = input("Two Factor Authentication code required: ")
@@ -954,7 +1013,7 @@ class APISession(APIRequest):
                 self._getself()
             # Get details of the account
             else:
-                logger.info(
+                LOGGER.info(
                     "apisession:_getself:authentication Ok. Processing account privileges"
                 )
                 for key, val in resp.data.items():
@@ -969,19 +1028,19 @@ class APISession(APIRequest):
                     print()
                     print(" Authenticated ".center(80, "-"))
                     print(f"\r\nWelcome {self.first_name} {self.last_name}!\r\n")
-                logger.info(
+                LOGGER.info(
                     "apisession:_getself:account used: %s %s",
                     self.first_name,
                     self.last_name,
                 )
                 return True
         elif resp.proxy_error:
-            logger.critical("apisession:_getself:proxy not valid...")
-            console.critical("Proxy not valid...\r\n")
+            LOGGER.critical("apisession:_getself:proxy not valid...")
+            CONSOLE.critical("Proxy not valid...\r\n")
             sys.exit(0)
         else:
-            logger.error("apisession:_getself:authentication not valid...")
-            console.error("Authentication not valid...\r\n")
+            LOGGER.error("apisession:_getself:authentication not valid...")
+            CONSOLE.error("Authentication not valid...\r\n")
             user_resp = input(
                 f"Do you want to try with new credentials for {self._cloud_uri} (y/N)? "
             )
@@ -1010,26 +1069,26 @@ class APISession(APIRequest):
         dict
             user's privileges for the org_id
         """
-        logger.debug("apisession:get_privilege_by_org_id")
+        LOGGER.debug("apisession:get_privilege_by_org_id")
         org_priv = next(
             (priv for priv in self.privileges if priv.get("org_id") == org_id),
             None,
         )
         if org_priv:
-            logger.info(
+            LOGGER.info(
                 "apisession:get_privilege_by_org_id:"
                 "org %s privileges found in user info",
                 org_id,
             )
-            logger.debug("apisession:get_privilege_by_org_id: %s", org_priv)
+            LOGGER.debug("apisession:get_privilege_by_org_id: %s", org_priv)
             return org_priv
         else:
-            logger.warning(
+            LOGGER.warning(
                 "apisession:get_privilege_by_org_id:"
                 "unable of find org %s privileges in user data",
                 org_id,
             )
-            logger.info(
+            LOGGER.info(
                 "apisession:get_privilege_by_org_id:"
                 "trying to request org %s info from the Cloud",
                 org_id,
@@ -1039,22 +1098,22 @@ class APISession(APIRequest):
             try:
                 resp = self.mist_get(uri)
                 if resp.data and resp.data.get("msp_id"):
-                    logger.info(
+                    LOGGER.info(
                         "apisession:get_privilege_by_org_id:org %s belong to msp_id %s",
                         {org_id},
                         resp.data["msp_id"],
                     )
                     msp_id = resp.data.get("msp_id")
                 else:
-                    logger.warning(
+                    LOGGER.warning(
                         "apisession:get_privilege_by_org_id:"
                         "not able to find msp_id information in the org info"
                     )
             except Exception:
-                logger.error(
+                LOGGER.error(
                     "apisession:get_privilege_by_org_id: error when retrieving org info"
                 )
-                logger.error(
+                LOGGER.error(
                     "apirequest:mist_post_file: Exception occurred", exc_info=True
                 )
             if msp_id:
@@ -1067,7 +1126,7 @@ class APISession(APIRequest):
                     None,
                 )
                 if not msp_priv:
-                    logger.warning(
+                    LOGGER.warning(
                         "apisession:get_privilege_by_org_id:"
                         "unable of find msp %s privileges in user data",
                         msp_id,

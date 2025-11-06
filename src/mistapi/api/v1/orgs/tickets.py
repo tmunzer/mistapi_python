@@ -17,8 +17,8 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def listOrgTickets(
     mist_session: _APISession,
     org_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -35,8 +35,8 @@ def listOrgTickets(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN
@@ -128,8 +128,8 @@ def getOrgTicket(
     mist_session: _APISession,
     org_id: str,
     ticket_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -147,8 +147,8 @@ def getOrgTicket(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN
@@ -241,8 +241,8 @@ def GetOrgTicketAttachment(
     org_id: str,
     ticket_id: str,
     attachment_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -261,8 +261,8 @@ def GetOrgTicketAttachment(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN

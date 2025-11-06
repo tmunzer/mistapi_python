@@ -78,8 +78,8 @@ def countSiteOtherDeviceEvents(
     site_id: str,
     distinct: str = "mac",
     type: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -99,8 +99,8 @@ def countSiteOtherDeviceEvents(
     ------------
     distinct : str{'mac', 'site_id', 'type', 'vendor'}, default: mac
     type : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -136,8 +136,8 @@ def searchSiteOtherDeviceEvents(
     vendor: str | None = None,
     type: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -160,8 +160,8 @@ def searchSiteOtherDeviceEvents(
     vendor : str
     type : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

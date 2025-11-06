@@ -22,8 +22,8 @@ def countSiteWiredClients(
     device_mac: str | None = None,
     port_id: str | None = None,
     vlan: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -46,8 +46,8 @@ def countSiteWiredClients(
     device_mac : str
     port_id : str
     vlan : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -99,8 +99,8 @@ def searchSiteWiredClients(
     dhcp_vendor_class_identifier: str | None = None,
     dhcp_request_params: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -134,8 +134,8 @@ def searchSiteWiredClients(
     dhcp_vendor_class_identifier : str
     dhcp_request_params : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

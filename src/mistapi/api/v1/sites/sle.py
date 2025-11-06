@@ -21,8 +21,8 @@ def getSiteSleClassifierDetails(
     scope_id: str,
     metric: str,
     classifier: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -43,8 +43,8 @@ def getSiteSleClassifierDetails(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN
@@ -101,8 +101,8 @@ def getSiteSleHistogram(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -122,8 +122,8 @@ def getSiteSleHistogram(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN
@@ -150,8 +150,8 @@ def getSiteSleImpactSummary(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     fields: str | None = None,
     classifier: str | None = None,
@@ -173,8 +173,8 @@ def getSiteSleImpactSummary(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     fields : str{'ap', 'band', 'chassis', 'client', 'device_os', 'device_type', 'gateway', 'gateway_zones', 'interface', 'mxedge', 'peer_path', 'server', 'switch', 'vlan', 'wlan'}
     classifier : str
@@ -209,8 +209,8 @@ def listSiteSleImpactedApplications(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     classifier: str | None = None,
 ) -> _APIResponse:
@@ -231,8 +231,8 @@ def listSiteSleImpactedApplications(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     classifier : str
 
@@ -262,8 +262,8 @@ def listSiteSleImpactedAps(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     classifier: str | None = None,
 ) -> _APIResponse:
@@ -284,8 +284,8 @@ def listSiteSleImpactedAps(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     classifier : str
 
@@ -315,8 +315,8 @@ def listSiteSleImpactedChassis(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     classifier: str | None = None,
 ) -> _APIResponse:
@@ -337,8 +337,8 @@ def listSiteSleImpactedChassis(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     classifier : str
 
@@ -368,8 +368,8 @@ def listSiteSleImpactedWiredClients(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     classifier: str | None = None,
 ) -> _APIResponse:
@@ -390,8 +390,8 @@ def listSiteSleImpactedWiredClients(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     classifier : str
 
@@ -421,8 +421,8 @@ def listSiteSleImpactedGateways(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     classifier: str | None = None,
 ) -> _APIResponse:
@@ -443,8 +443,8 @@ def listSiteSleImpactedGateways(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     classifier : str
 
@@ -474,8 +474,8 @@ def listSiteSleImpactedInterfaces(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     classifier: str | None = None,
 ) -> _APIResponse:
@@ -496,8 +496,8 @@ def listSiteSleImpactedInterfaces(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     classifier : str
 
@@ -527,8 +527,8 @@ def listSiteSleImpactedSwitches(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     classifier: str | None = None,
 ) -> _APIResponse:
@@ -549,8 +549,8 @@ def listSiteSleImpactedSwitches(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     classifier : str
 
@@ -580,8 +580,8 @@ def listSiteSleImpactedWirelessClients(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     classifier: str | None = None,
 ) -> _APIResponse:
@@ -602,8 +602,8 @@ def listSiteSleImpactedWirelessClients(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     classifier : str
 
@@ -635,8 +635,8 @@ def getSiteSleSummary(
     scope: str,
     scope_id: str,
     metric: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -656,8 +656,8 @@ def getSiteSleSummary(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN

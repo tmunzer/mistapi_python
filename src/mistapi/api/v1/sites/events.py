@@ -19,8 +19,8 @@ def listSiteRoamingEvents(
     site_id: str,
     type: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -40,8 +40,8 @@ def listSiteRoamingEvents(
     type : str{'fail', 'none', 'success'}
       Event type
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN
@@ -71,8 +71,8 @@ def countSiteSystemEvents(
     site_id: str,
     distinct: str = "type",
     type: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -92,8 +92,8 @@ def countSiteSystemEvents(
     ------------
     distinct : str{'type'}, default: type
     type : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -126,8 +126,8 @@ def searchSiteSystemEvents(
     site_id: str,
     type: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -147,8 +147,8 @@ def searchSiteSystemEvents(
     ------------
     type : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

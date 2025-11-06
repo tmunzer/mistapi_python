@@ -16,8 +16,8 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 def listSelfAuditLogs(
     mist_session: _APISession,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -32,8 +32,8 @@ def listSelfAuditLogs(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1

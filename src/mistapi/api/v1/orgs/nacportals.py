@@ -173,8 +173,8 @@ def listOrgNacPortalSsoLatestFailures(
     mist_session: _APISession,
     org_id: str,
     nacportal_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -194,8 +194,8 @@ def listOrgNacPortalSsoLatestFailures(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1

@@ -43,12 +43,12 @@ def listSiteSpectrumAnalysis(
     mist_session: _APISession,
     site_id: str,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sprectrum-analysis/list-site-spectrum-analysis
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/spectrum-analysis/list-site-spectrum-analysis
 
     PARAMS
     -----------
@@ -62,8 +62,8 @@ def listSiteSpectrumAnalysis(
     QUERY PARAMS
     ------------
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN
@@ -141,8 +141,8 @@ def countSiteApps(
 def listSiteAssetsStats(
     mist_session: _APISession,
     site_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -161,8 +161,8 @@ def listSiteAssetsStats(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -243,8 +243,8 @@ def searchSiteAssets(
     beam: str | None = None,
     rssi: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -277,8 +277,8 @@ def searchSiteAssets(
     beam : str
     rssi : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -336,8 +336,8 @@ def getSiteAssetStats(
     mist_session: _APISession,
     site_id: str,
     asset_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -355,8 +355,8 @@ def getSiteAssetStats(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN
@@ -380,8 +380,8 @@ def getSiteAssetStats(
 def listSiteBeaconsStats(
     mist_session: _APISession,
     site_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -400,8 +400,8 @@ def listSiteBeaconsStats(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -478,8 +478,8 @@ def searchSiteBgpStats(
     neighbor_mac: str | None = None,
     vrf_name: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -501,8 +501,8 @@ def searchSiteBgpStats(
     neighbor_mac : str
     vrf_name : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -541,8 +541,8 @@ def troubleshootSiteCall(
     meeting_id: str,
     mac: str | None = None,
     app: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -565,8 +565,8 @@ def troubleshootSiteCall(
     meeting_id : str
     mac : str
     app : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -605,8 +605,8 @@ def countSiteCalls(
     distinct: str = "mac",
     rating: int | None = None,
     app: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     limit: int = 100,
 ) -> _APIResponse:
     """
@@ -626,8 +626,8 @@ def countSiteCalls(
     distinct : str{'mac'}, default: mac
     rating : int
     app : str
-    start : int
-    end : int
+    start : str
+    end : str
     limit : int, default: 100
 
     RETURN
@@ -660,8 +660,8 @@ def searchSiteCalls(
     mac: str | None = None,
     app: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -682,8 +682,8 @@ def searchSiteCalls(
     mac : str
     app : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -718,8 +718,8 @@ def getSiteCallsSummary(
     site_id: str,
     ap_mac: str | None = None,
     app: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/get-site-calls-summary
@@ -737,8 +737,8 @@ def getSiteCallsSummary(
     ------------
     ap_mac : str
     app : str
-    start : int
-    end : int
+    start : str
+    end : str
 
     RETURN
     -----------
@@ -767,8 +767,8 @@ def listSiteTroubleshootCalls(
     meeting_id: str | None = None,
     mac: str | None = None,
     app: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -791,8 +791,8 @@ def listSiteTroubleshootCalls(
     meeting_id : str
     mac : str
     app : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -832,8 +832,8 @@ def listSiteWirelessClientsStats(
     site_id: str,
     wired: bool | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -852,8 +852,8 @@ def listSiteWirelessClientsStats(
     ------------
     wired : bool
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN
@@ -1024,8 +1024,8 @@ def getSiteAllClientsStatsByDevice(
 def listSiteDiscoveredAssets(
     mist_session: _APISession,
     site_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -1044,8 +1044,8 @@ def listSiteDiscoveredAssets(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -1078,8 +1078,8 @@ def searchSiteDiscoveredSwitchesMetrics(
     scope: str = "site",
     type: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -1102,8 +1102,8 @@ def searchSiteDiscoveredSwitchesMetrics(
     type : str{'inactive_wired_vlans', 'poe_compliance', 'switch_ap_affinity', 'version_compliance'}
       Metric type
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -1137,8 +1137,8 @@ def countSiteDiscoveredSwitches(
     mist_session: _APISession,
     site_id: str,
     distinct: str = "system_name",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -1157,8 +1157,8 @@ def countSiteDiscoveredSwitches(
     QUERY PARAMS
     ------------
     distinct : str{'mgmt_addr', 'model', 'system_name', 'version'}, default: system_name
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -1233,8 +1233,8 @@ def searchSiteDiscoveredSwitches(
     model: str | None = None,
     version: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -1259,8 +1259,8 @@ def searchSiteDiscoveredSwitches(
     model : str
     version : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -1302,8 +1302,8 @@ def getSiteAssetsOfInterest(
     mist_session: _APISession,
     site_id: str,
     duration: str = "1d",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     limit: int = 100,
     page: int = 1,
 ) -> _APIResponse:
@@ -1322,8 +1322,8 @@ def getSiteAssetsOfInterest(
     QUERY PARAMS
     ------------
     duration : str, default: 1d
-    start : int
-    end : int
+    start : str
+    end : str
     limit : int, default: 100
     page : int, default: 1
 
@@ -1378,8 +1378,8 @@ def getSiteWirelessClientsStatsByMap(
     mist_session: _APISession,
     site_id: str,
     map_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -1399,8 +1399,8 @@ def getSiteWirelessClientsStatsByMap(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -1514,8 +1514,8 @@ def listSiteUnconnectedClientStats(
 def listSiteMxEdgesStats(
     mist_session: _APISession,
     site_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -1534,8 +1534,8 @@ def listSiteMxEdgesStats(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
@@ -1566,8 +1566,8 @@ def getSiteMxEdgeStats(
     mist_session: _APISession,
     site_id: str,
     mxedge_id: str,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
 ) -> _APIResponse:
     """
@@ -1585,8 +1585,8 @@ def getSiteMxEdgeStats(
 
     QUERY PARAMS
     ------------
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
 
     RETURN
@@ -1636,8 +1636,8 @@ def countSiteSwOrGwPorts(
     stp_role: str | None = None,
     auth_state: str | None = None,
     up: bool | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -1684,8 +1684,8 @@ def countSiteSwOrGwPorts(
     auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
       If `up`==`true` && has Authenticator role
     up : bool
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -1809,8 +1809,8 @@ def searchSiteSwOrGwPorts(
     optics_module_temperature: float | None = None,
     optics_module_voltage: float | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -1877,8 +1877,8 @@ def searchSiteSwOrGwPorts(
     optics_module_temperature : float
     optics_module_voltage : float
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

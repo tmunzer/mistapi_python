@@ -18,8 +18,8 @@ def getOrgSitesSle(
     mist_session: _APISession,
     org_id: str,
     sle: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     interval: str | None = None,
     limit: int = 100,
@@ -40,8 +40,8 @@ def getOrgSitesSle(
     QUERY PARAMS
     ------------
     sle : str{'wan', 'wifi', 'wired'}
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     interval : str
     limit : int, default: 100
@@ -80,8 +80,8 @@ def getOrgSle(
     sle: str | None = None,
     duration: str = "1d",
     interval: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sles/get-org-sle
@@ -101,8 +101,8 @@ def getOrgSle(
     sle : str
     duration : str, default: 1d
     interval : str
-    start : int
-    end : int
+    start : str
+    end : str
 
     RETURN
     -----------

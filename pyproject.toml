@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mistapi"
-version = "0.57.2"
+version = "0.58.0"
 authors = [{ name = "Thomas Munzer", email = "tmunzer@juniper.net" }]
 description = "Python package to simplify the Mist System APIs usage"
 keywords = ["Mist", "Juniper", "API"]

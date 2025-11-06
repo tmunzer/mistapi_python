@@ -22,8 +22,8 @@ def getSiteBeamCoverageOverview(
     client_type: str | None = None,
     duration: str = "1d",
     resolution: str = "default",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/location/get-site-beam-coverage-overview
@@ -44,8 +44,8 @@ def getSiteBeamCoverageOverview(
     client_type : str
     duration : str, default: 1d
     resolution : str{'default', 'fine'}, default: default
-    start : int
-    end : int
+    start : str
+    end : str
 
     RETURN
     -----------

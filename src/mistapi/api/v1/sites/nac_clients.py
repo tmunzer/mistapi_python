@@ -33,8 +33,8 @@ def countSiteNacClients(
     type: str | None = None,
     mdm_compliance_status: str | None = None,
     mdm_provider: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -52,7 +52,7 @@ def countSiteNacClients(
 
     QUERY PARAMS
     ------------
-    distinct : str{'auth_type', 'last_ap', 'last_nacrule_id', 'last_nas_vendor', 'last_ssid', 'last_status', 'last_username', 'last_vlan', 'mac', 'mdm_compliance', 'mdm_provider', 'type'}, default: type
+    distinct : str{'ap', 'auth_type', 'device_mac', 'edr_managed', 'edr_provider', 'edr_status', 'family', 'hostname', 'idp_id', 'mfg', 'mdm_compliance', 'mdm_managed', 'mdm_provider', 'model', 'mxedge_id', 'nacrule_matched', 'nacrule_name', 'nacrule_id', 'nas_ip', 'nas_vendor', 'os', 'ssid', 'status', 'type', 'usermac_label', 'username', 'vlan'}, default: type
       NAC Policy Rule ID, if matched
     last_nacrule_id : str
     nacrule_matched : bool
@@ -69,8 +69,8 @@ def countSiteNacClients(
     type : str
     mdm_compliance_status : str
     mdm_provider : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -131,8 +131,8 @@ def countSiteNacClientEvents(
     site_id: str,
     distinct: str | None = None,
     type: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -152,8 +152,8 @@ def countSiteNacClientEvents(
     ------------
     distinct : str{'ap', 'auth_type', 'dryrun_nacrule_id', 'mac', 'nacrule_id', 'nas_vendor', 'ssid', 'type', 'username', 'vlan'}
     type : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -207,8 +207,8 @@ def searchSiteNacClientEvents(
     text: str | None = None,
     nas_ip: str | None = None,
     ingress_vlan: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     sort: str = "wxid",
@@ -251,8 +251,8 @@ def searchSiteNacClientEvents(
     text : str
     nas_ip : str
     ingress_vlan : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     sort : str, default: wxid
@@ -328,36 +328,40 @@ def searchSiteNacClientEvents(
 def searchSiteNacClients(
     mist_session: _APISession,
     site_id: str,
-    nacrule_id: str | None = None,
-    nacrule_matched: bool | None = None,
-    auth_type: str | None = None,
-    vlan: str | None = None,
-    nas_vendor: str | None = None,
-    nas_ip: str | None = None,
-    idp_id: str | None = None,
-    ssid: str | None = None,
-    username: str | None = None,
-    timestamp: float | None = None,
     ap: str | None = None,
+    auth_type: str | None = None,
+    edr_managed: bool | None = None,
+    edr_provider: str | None = None,
+    edr_status: str | None = None,
+    family: str | None = None,
+    hostname: str | None = None,
+    idp_id: str | None = None,
     mac: str | None = None,
     mdm_managed: bool | None = None,
-    mxedge_id: str | None = None,
-    nacrule_name: str | None = None,
-    status: str | None = None,
-    family: str | None = None,
-    model: str | None = None,
-    os: str | None = None,
-    hostname: str | None = None,
-    mfg: str | None = None,
-    type: str | None = None,
     mdm_compliance: str | None = None,
     mdm_provider: str | None = None,
-    usermac_label: list | None = None,
+    mfg: str | None = None,
+    model: str | None = None,
+    mxedge_id: str | None = None,
+    nacrule_id: str | None = None,
+    nacrule_matched: bool | None = None,
+    nacrule_name: str | None = None,
+    nas_vendor: str | None = None,
+    nas_ip: str | None = None,
     ingress_vlan: str | None = None,
+    os: str | None = None,
+    ssid: str | None = None,
+    status: str | None = None,
+    text: str | None = None,
+    timestamp: float | None = None,
+    type: str | None = None,
+    usermac_label: list | None = None,
+    username: str | None = None,
+    vlan: str | None = None,
     limit: int = 100,
     page: int = 1,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "wxid",
 ) -> _APIResponse:
@@ -375,37 +379,44 @@ def searchSiteNacClients(
 
     QUERY PARAMS
     ------------
-    nacrule_id : str
-    nacrule_matched : bool
-    auth_type : str
-    vlan : str
-    nas_vendor : str
-    nas_ip : str
-    idp_id : str
-    ssid : str
-    username : str
-    timestamp : float
     ap : str
+    auth_type : str
+    edr_managed : bool
+    edr_provider : str{'crowdstrike', 'sentinelone'}
+      EDR provider of client's organization
+    edr_status : str{'sentinelone_healthy', 'sentinelone_infected', 'crowdstrike_low', 'crowdstrike_medium', 'crowdstrike_high', 'crowdstrike_critical', 'crowdstrike_informational'}
+      EDR Status of the NAC client
+    family : str
+    hostname : str
+    idp_id : str
     mac : str
     mdm_managed : bool
-    mxedge_id : str
-    nacrule_name : str
-    status : str
-    family : str
-    model : str
-    os : str
-    hostname : str
-    mfg : str
-    type : str
     mdm_compliance : str
     mdm_provider : str
+    mfg : str
+    model : str
+    mxedge_id : str
+    nacrule_id : str
+    nacrule_matched : bool
+    nacrule_name : str
+    nas_vendor : str
+    nas_ip : str
+    ingress_vlan : str
+    os : str
+    ssid : str
+    status : str{'permitted', 'session_started', 'session_ended', 'denied'}
+      Connection status of client i.e "permitted", "denied, "session_ended"
+    text : str
+    timestamp : float
+    type : str
     usermac_label : list
       Labels derived from usermac entry
-    ingress_vlan : str
+    username : str
+    vlan : str
     limit : int, default: 100
     page : int, default: 1
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: wxid
 
@@ -417,58 +428,66 @@ def searchSiteNacClients(
 
     uri = f"/api/v1/sites/{site_id}/nac_clients/search"
     query_params: dict[str, str] = {}
-    if nacrule_id:
-        query_params["nacrule_id"] = str(nacrule_id)
-    if nacrule_matched:
-        query_params["nacrule_matched"] = str(nacrule_matched)
-    if auth_type:
-        query_params["auth_type"] = str(auth_type)
-    if vlan:
-        query_params["vlan"] = str(vlan)
-    if nas_vendor:
-        query_params["nas_vendor"] = str(nas_vendor)
-    if nas_ip:
-        query_params["nas_ip"] = str(nas_ip)
-    if idp_id:
-        query_params["idp_id"] = str(idp_id)
-    if ssid:
-        query_params["ssid"] = str(ssid)
-    if username:
-        query_params["username"] = str(username)
-    if timestamp:
-        query_params["timestamp"] = str(timestamp)
     if ap:
         query_params["ap"] = str(ap)
+    if auth_type:
+        query_params["auth_type"] = str(auth_type)
+    if edr_managed:
+        query_params["edr_managed"] = str(edr_managed)
+    if edr_provider:
+        query_params["edr_provider"] = str(edr_provider)
+    if edr_status:
+        query_params["edr_status"] = str(edr_status)
+    if family:
+        query_params["family"] = str(family)
+    if hostname:
+        query_params["hostname"] = str(hostname)
+    if idp_id:
+        query_params["idp_id"] = str(idp_id)
     if mac:
         query_params["mac"] = str(mac)
     if mdm_managed:
         query_params["mdm_managed"] = str(mdm_managed)
-    if mxedge_id:
-        query_params["mxedge_id"] = str(mxedge_id)
-    if nacrule_name:
-        query_params["nacrule_name"] = str(nacrule_name)
-    if status:
-        query_params["status"] = str(status)
-    if family:
-        query_params["family"] = str(family)
-    if model:
-        query_params["model"] = str(model)
-    if os:
-        query_params["os"] = str(os)
-    if hostname:
-        query_params["hostname"] = str(hostname)
-    if mfg:
-        query_params["mfg"] = str(mfg)
-    if type:
-        query_params["type"] = str(type)
     if mdm_compliance:
         query_params["mdm_compliance"] = str(mdm_compliance)
     if mdm_provider:
         query_params["mdm_provider"] = str(mdm_provider)
-    if usermac_label:
-        query_params["usermac_label"] = str(usermac_label)
+    if mfg:
+        query_params["mfg"] = str(mfg)
+    if model:
+        query_params["model"] = str(model)
+    if mxedge_id:
+        query_params["mxedge_id"] = str(mxedge_id)
+    if nacrule_id:
+        query_params["nacrule_id"] = str(nacrule_id)
+    if nacrule_matched:
+        query_params["nacrule_matched"] = str(nacrule_matched)
+    if nacrule_name:
+        query_params["nacrule_name"] = str(nacrule_name)
+    if nas_vendor:
+        query_params["nas_vendor"] = str(nas_vendor)
+    if nas_ip:
+        query_params["nas_ip"] = str(nas_ip)
     if ingress_vlan:
         query_params["ingress_vlan"] = str(ingress_vlan)
+    if os:
+        query_params["os"] = str(os)
+    if ssid:
+        query_params["ssid"] = str(ssid)
+    if status:
+        query_params["status"] = str(status)
+    if text:
+        query_params["text"] = str(text)
+    if timestamp:
+        query_params["timestamp"] = str(timestamp)
+    if type:
+        query_params["type"] = str(type)
+    if usermac_label:
+        query_params["usermac_label"] = str(usermac_label)
+    if username:
+        query_params["username"] = str(username)
+    if vlan:
+        query_params["vlan"] = str(vlan)
     if limit:
         query_params["limit"] = str(limit)
     if page:

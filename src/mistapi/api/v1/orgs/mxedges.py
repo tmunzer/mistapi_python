@@ -163,8 +163,8 @@ def countOrgMxEdges(
     tunterm_version: str | None = None,
     sort: str | None = None,
     stats: bool | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -191,8 +191,8 @@ def countOrgMxEdges(
     tunterm_version : str
     sort : str
     stats : bool
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -242,8 +242,8 @@ def countOrgSiteMxEdgeEvents(
     mxcluster_id: str | None = None,
     type: str | None = None,
     service: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -266,8 +266,8 @@ def countOrgSiteMxEdgeEvents(
     mxcluster_id : str
     type : str
     service : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -310,8 +310,8 @@ def searchOrgMistEdgeEvents(
     service: str | None = None,
     component: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -335,8 +335,8 @@ def searchOrgMistEdgeEvents(
     service : str
     component : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -384,8 +384,8 @@ def searchOrgMxEdges(
     stats: bool | None = None,
     limit: int = 100,
     page: int = 1,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -412,8 +412,8 @@ def searchOrgMxEdges(
     stats : bool
     limit : int, default: 100
     page : int, default: 1
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

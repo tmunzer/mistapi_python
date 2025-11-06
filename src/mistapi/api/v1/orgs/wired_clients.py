@@ -18,8 +18,8 @@ def countOrgWiredClients(
     mist_session: _APISession,
     org_id: str,
     distinct: str = "mac",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -38,8 +38,8 @@ def countOrgWiredClients(
     QUERY PARAMS
     ------------
     distinct : str{'device_mac', 'mac', 'port_id', 'site_id', 'type', 'vlan'}, default: mac
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -76,7 +76,7 @@ def searchOrgWiredClients(
     mac: str | None = None,
     port_id: str | None = None,
     vlan: int | None = None,
-    ip_address: str | None = None,
+    ip: str | None = None,
     manufacture: str | None = None,
     text: str | None = None,
     nacrule_id: str | None = None,
@@ -86,8 +86,8 @@ def searchOrgWiredClients(
     dhcp_vendor_class_identifier: str | None = None,
     dhcp_request_params: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -114,7 +114,7 @@ def searchOrgWiredClients(
     mac : str
     port_id : str
     vlan : int
-    ip_address : str
+    ip : str
     manufacture : str
     text : str
     nacrule_id : str
@@ -124,8 +124,8 @@ def searchOrgWiredClients(
     dhcp_vendor_class_identifier : str
     dhcp_request_params : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -153,8 +153,8 @@ def searchOrgWiredClients(
         query_params["port_id"] = str(port_id)
     if vlan:
         query_params["vlan"] = str(vlan)
-    if ip_address:
-        query_params["ip_address"] = str(ip_address)
+    if ip:
+        query_params["ip"] = str(ip)
     if manufacture:
         query_params["manufacture"] = str(manufacture)
     if text:

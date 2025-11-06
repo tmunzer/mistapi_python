@@ -172,6 +172,7 @@ This class accepts different parameters, all optionals:
 | password          | str    | None                   | used if login/password is used. Can be defined later                                                                                                                                                                                                                      |
 | apitoken          | str    | None                   | used if API Token is used. Can be defined later                                                                                                                                                                                                                           |
 | host              | str    | None                   | Mist Cloud to reach (e.g. "api.mist.com"). Can be defined later                                                                                                                                                                                                           |
+| keyring_service   | str    | None                   | If provided, the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are loaded from the system keyring using this service name                                                                                                                                        |
 | vault_url         | string | https://127.0.0.1:8200 | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, URL of the Vault instance                                                                                                                                                |
 | vault_path        | string | None                   | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, Path to the secret in Vault                                                                                                                                              |
 | vault_mount_point | string | secret                 | If the Mist MIST_HOST, MIST_APITOKEN, MIST_USER, MIST_PASSWORD are stored in an HashiCorp Vault, Mount point for the secrets engine                                                                                                                                       |
@@ -370,6 +371,7 @@ else:
 The package supports all Mist cloud instances:
 
 - **APAC 01**: api.ac5.mist.com
+- **APAC 02**: api.gc5.mist.com
 - **APAC 03**: api.gc7.mist.com  
 - **EMEA 01**: api.eu.mist.com
 - **EMEA 02**: api.gc3.mist.com

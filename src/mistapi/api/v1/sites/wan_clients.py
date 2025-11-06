@@ -18,8 +18,8 @@ def countSiteWanClients(
     mist_session: _APISession,
     site_id: str,
     distinct: str = "mac",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -38,8 +38,8 @@ def countSiteWanClients(
     QUERY PARAMS
     ------------
     distinct : str{'hostname', 'ip', 'mac', 'mfg'}, default: mac
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -75,8 +75,8 @@ def searchSiteWanClientEvents(
     mfg: str | None = None,
     nacrule_id: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -101,8 +101,8 @@ def searchSiteWanClientEvents(
     mfg : str
     nacrule_id : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -149,8 +149,8 @@ def searchSiteWanClients(
     mfg: str | None = None,
     limit: int = 100,
     page: int = 1,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -174,8 +174,8 @@ def searchSiteWanClients(
     mfg : str
     limit : int, default: 100
     page : int, default: 1
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

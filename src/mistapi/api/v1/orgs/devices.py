@@ -49,7 +49,7 @@ def countOrgDevices(
     managed: str | None = None,
     mac: str | None = None,
     version: str | None = None,
-    ip_address: str | None = None,
+    ip: str | None = None,
     mxtunnel_status: str | None = None,
     mxedge_id: str | None = None,
     lldp_system_name: str | None = None,
@@ -57,8 +57,8 @@ def countOrgDevices(
     lldp_port_id: str | None = None,
     lldp_mgmt_addr: str | None = None,
     type: str = "ap",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -83,7 +83,7 @@ def countOrgDevices(
     managed : str
     mac : str
     version : str
-    ip_address : str
+    ip : str
     mxtunnel_status : str{'down', 'up'}
       MxTunnel status, enum: `up`, `down`
     mxedge_id : str
@@ -92,8 +92,8 @@ def countOrgDevices(
     lldp_port_id : str
     lldp_mgmt_addr : str
     type : str{'ap', 'gateway', 'switch'}, default: ap
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -119,8 +119,8 @@ def countOrgDevices(
         query_params["mac"] = str(mac)
     if version:
         query_params["version"] = str(version)
-    if ip_address:
-        query_params["ip_address"] = str(ip_address)
+    if ip:
+        query_params["ip"] = str(ip)
     if mxtunnel_status:
         query_params["mxtunnel_status"] = str(mxtunnel_status)
     if mxedge_id:
@@ -158,8 +158,8 @@ def countOrgDeviceEvents(
     text: str | None = None,
     timestamp: str | None = None,
     type: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -185,8 +185,8 @@ def countOrgDeviceEvents(
     text : str
     timestamp : str
     type : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -238,8 +238,8 @@ def searchOrgDeviceEvents(
     last_by: str | None = None,
     includes: str | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -266,8 +266,8 @@ def searchOrgDeviceEvents(
     last_by : str
     includes : str
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -314,8 +314,8 @@ def countOrgDeviceLastConfigs(
     org_id: str,
     type: str = "ap",
     distinct: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -335,8 +335,8 @@ def countOrgDeviceLastConfigs(
     ------------
     type : str{'ap', 'gateway', 'switch'}, default: ap
     distinct : str{'mac', 'name', 'site_id', 'version'}
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -367,12 +367,12 @@ def countOrgDeviceLastConfigs(
 def searchOrgDeviceLastConfigs(
     mist_session: _APISession,
     org_id: str,
-    type: str = "ap",
+    device_type: str = "ap",
     mac: str | None = None,
     name: str | None = None,
     version: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     limit: int = 100,
     duration: str = "1d",
     sort: str = "timestamp",
@@ -391,12 +391,12 @@ def searchOrgDeviceLastConfigs(
 
     QUERY PARAMS
     ------------
-    type : str{'ap', 'gateway', 'switch'}, default: ap
+    device_type : str{'ap', 'gateway', 'switch', 'mxedge'}, default: ap
     mac : str
     name : str
     version : str
-    start : int
-    end : int
+    start : str
+    end : str
     limit : int, default: 100
     duration : str, default: 1d
     sort : str, default: timestamp
@@ -409,8 +409,8 @@ def searchOrgDeviceLastConfigs(
 
     uri = f"/api/v1/orgs/{org_id}/devices/last_config/search"
     query_params: dict[str, str] = {}
-    if type:
-        query_params["type"] = str(type)
+    if device_type:
+        query_params["device_type"] = str(device_type)
     if mac:
         query_params["mac"] = str(mac)
     if name:
@@ -485,7 +485,7 @@ def searchOrgDevices(
     evpntopo_id: str | None = None,
     ext_ip: str | None = None,
     hostname: str | None = None,
-    ip_address: str | None = None,
+    ip: str | None = None,
     last_config_status: str | None = None,
     last_hostname: str | None = None,
     lldp_mgmt_addr: str | None = None,
@@ -508,8 +508,8 @@ def searchOrgDevices(
     version: str | None = None,
     type: str = "ap",
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -542,7 +542,7 @@ def searchOrgDevices(
     evpntopo_id : str
     ext_ip : str
     hostname : str
-    ip_address : str
+    ip : str
     last_config_status : str
     last_hostname : str
     lldp_mgmt_addr : str
@@ -567,8 +567,8 @@ def searchOrgDevices(
     type : str{'ap', 'gateway', 'switch'}, default: ap
       Type of device. enum: `ap`, `gateway`, `switch`
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 
@@ -610,8 +610,8 @@ def searchOrgDevices(
         query_params["ext_ip"] = str(ext_ip)
     if hostname:
         query_params["hostname"] = str(hostname)
-    if ip_address:
-        query_params["ip_address"] = str(ip_address)
+    if ip:
+        query_params["ip"] = str(ip)
     if last_config_status:
         query_params["last_config_status"] = str(last_config_status)
     if last_hostname:

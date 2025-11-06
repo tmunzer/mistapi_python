@@ -14,11 +14,11 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
-def getSiteRunningSprectrumAnalysis(
+def getSiteRunningSpectrumAnalysis(
     mist_session: _APISession, site_id: str
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sprectrum-analysis/get-site-running-sprectrum-analysis
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/spectrum-analysis/get-site-running-spectrum-analysis
 
     PARAMS
     -----------
@@ -45,7 +45,7 @@ def initiateSiteAnalyzeSpectrum(
     mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sprectrum-analysis/initiate-site-analyze-spectrum
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/spectrum-analysis/initiate-site-analyze-spectrum
 
     PARAMS
     -----------

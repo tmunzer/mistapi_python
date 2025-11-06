@@ -19,8 +19,8 @@ def troubleshootOrg(
     org_id: str,
     mac: str | None = None,
     site_id: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     type: str | None = None,
 ) -> _APIResponse:
     """
@@ -39,8 +39,8 @@ def troubleshootOrg(
     ------------
     mac : str
     site_id : str
-    start : int
-    end : int
+    start : str
+    end : str
     type : str{'wan', 'wired', 'wireless'}
       When troubleshooting site, type of network to troubleshoot
 

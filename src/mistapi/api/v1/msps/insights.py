@@ -21,8 +21,8 @@ def getMspSle(
     sle: str | None = None,
     duration: str = "1d",
     interval: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sles/get-msp-sle
@@ -42,8 +42,8 @@ def getMspSle(
     sle : str
     duration : str, default: 1d
     interval : str
-    start : int
-    end : int
+    start : str
+    end : str
 
     RETURN
     -----------

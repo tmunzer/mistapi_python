@@ -1065,39 +1065,6 @@ def addOrgOauthAppAccounts(
     return resp
 
 
-def updateOrgOauthAppAccount(
-    mist_session: _APISession, org_id: str, app_name: str, body: dict
-) -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/update-org-oauth-app-account
-
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-
-    PATH PARAMS
-    -----------
-    org_id : str
-    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
-      OAuth application name
-
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-
-    uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts"
-    resp = mist_session.mist_put(uri=uri, body=body)
-    return resp
-
-
 def deleteOrgOauthAppAuthorization(
     mist_session: _APISession, org_id: str, app_name: str, account_id: str
 ) -> _APIResponse:
@@ -1125,4 +1092,38 @@ def deleteOrgOauthAppAuthorization(
     uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts/{account_id}"
     query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
+    return resp
+
+
+def updateOrgOauthAppAccount(
+    mist_session: _APISession, org_id: str, app_name: str, account_id: str, body: dict
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/linked-applications/update-org-oauth-app-account
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
+      OAuth application name
+    account_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/setting/{app_name}/link_accounts/{account_id}"
+    resp = mist_session.mist_put(uri=uri, body=body)
     return resp

@@ -58,8 +58,8 @@ def countSiteMxEdgeEvents(
     mxcluster_id: str | None = None,
     type: str | None = None,
     service: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -82,8 +82,8 @@ def countSiteMxEdgeEvents(
     mxcluster_id : str
     type : str
     service : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -126,8 +126,8 @@ def searchSiteMistEdgeEvents(
     service: str | None = None,
     component: str | None = None,
     limit: int = 10,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -151,8 +151,8 @@ def searchSiteMistEdgeEvents(
     service : str
     component : str
     limit : int, default: 10
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

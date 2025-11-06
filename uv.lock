@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.10"
 
 [[package]]
@@ -474,7 +474,7 @@ wheels = [
 
 [[package]]
 name = "mistapi"
-version = "0.57.2"
+version = "0.58.0"
 source = { editable = "." }
 dependencies = [
     { name = "deprecation" },

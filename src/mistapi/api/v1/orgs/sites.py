@@ -85,8 +85,8 @@ def countOrgSites(
     mist_session: _APISession,
     org_id: str,
     distinct: str = "id",
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
 ) -> _APIResponse:
@@ -105,8 +105,8 @@ def countOrgSites(
     QUERY PARAMS
     ------------
     distinct : str{'analytic_enabled', 'app_waking', 'asset_enabled', 'auto_upgrade_enabled', 'auto_upgrade_version', 'country_code', 'honeypot_enabled', 'id', 'locate_unconnected', 'mesh_enabled', 'name', 'remote_syslog_enabled', 'rogue_enabled', 'rtsa_enabled', 'vna_enabled', 'wifi_enabled'}, default: id
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
 
@@ -152,8 +152,8 @@ def searchOrgSites(
     vna_enabled: bool | None = None,
     wifi_enabled: bool | None = None,
     limit: int = 100,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
 ) -> _APIResponse:
@@ -188,8 +188,8 @@ def searchOrgSites(
     vna_enabled : bool
     wifi_enabled : bool
     limit : int, default: 100
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     sort : str, default: timestamp
 

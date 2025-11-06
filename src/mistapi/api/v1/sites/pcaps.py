@@ -18,8 +18,8 @@ def listSitePacketCaptures(
     mist_session: _APISession,
     site_id: str,
     client_mac: str | None = None,
-    start: int | None = None,
-    end: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
     duration: str = "1d",
     limit: int = 100,
     page: int = 1,
@@ -39,8 +39,8 @@ def listSitePacketCaptures(
     QUERY PARAMS
     ------------
     client_mac : str
-    start : int
-    end : int
+    start : str
+    end : str
     duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
