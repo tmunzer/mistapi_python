@@ -79,6 +79,7 @@ def searchSiteWanClientEvents(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wan/search-site-wan-client-events
@@ -105,6 +106,7 @@ def searchSiteWanClientEvents(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -136,6 +138,8 @@ def searchSiteWanClientEvents(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -148,11 +152,11 @@ def searchSiteWanClients(
     ip: str | None = None,
     mfg: str | None = None,
     limit: int = 100,
-    page: int = 1,
     start: str | None = None,
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wan/search-site-wan-clients
@@ -173,11 +177,11 @@ def searchSiteWanClients(
     ip : str
     mfg : str
     limit : int, default: 100
-    page : int, default: 1
     start : str
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -197,8 +201,6 @@ def searchSiteWanClients(
         query_params["mfg"] = str(mfg)
     if limit:
         query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -207,5 +209,7 @@ def searchSiteWanClients(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

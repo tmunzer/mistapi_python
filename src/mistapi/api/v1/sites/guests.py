@@ -148,6 +148,7 @@ def searchSiteGuestAuthorization(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/guests/search-site-guest-authorization
@@ -171,6 +172,7 @@ def searchSiteGuestAuthorization(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -196,6 +198,8 @@ def searchSiteGuestAuthorization(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

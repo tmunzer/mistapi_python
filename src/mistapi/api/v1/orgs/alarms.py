@@ -138,6 +138,7 @@ def searchOrgAlarms(
     duration: str = "1d",
     limit: int = 100,
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/search-org-alarms
@@ -161,6 +162,7 @@ def searchOrgAlarms(
     duration : str, default: 1d
     limit : int, default: 100
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -186,6 +188,8 @@ def searchOrgAlarms(
         query_params["limit"] = str(limit)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

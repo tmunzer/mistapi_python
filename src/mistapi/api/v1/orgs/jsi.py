@@ -216,7 +216,7 @@ def countOrgJsiAssetsAndContracts(
 
     QUERY PARAMS
     ------------
-    distinct : str{'account_id', 'eol_time', 'eos_time', 'version_time', 'model', 'sku', 'status', 'type', 'version', 'warranty_type'}
+    distinct : str{'account_id', 'claimed', 'has_support', 'eol_time', 'eos_time', 'version_time', 'model', 'sku', 'status', 'type', 'version', 'warranty_type'}
       Distinct attributes to count
     limit : int, default: 100
 
@@ -239,6 +239,7 @@ def countOrgJsiAssetsAndContracts(
 def searchOrgJsiAssetsAndContracts(
     mist_session: _APISession,
     org_id: str,
+    claimed: bool | None = None,
     model: str | None = None,
     serial: str | None = None,
     sku: str | None = None,
@@ -246,10 +247,11 @@ def searchOrgJsiAssetsAndContracts(
     warranty_type: str | None = None,
     eol_duration: str | None = None,
     eos_duration: str | None = None,
+    has_support: bool | None = None,
     text: str | None = None,
     limit: int = 100,
-    page: int = 1,
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/search-org-jsi-assets-and-contracts
@@ -265,6 +267,7 @@ def searchOrgJsiAssetsAndContracts(
 
     QUERY PARAMS
     ------------
+    claimed : bool
     model : str
     serial : str
     sku : str
@@ -274,10 +277,11 @@ def searchOrgJsiAssetsAndContracts(
       Device warranty type
     eol_duration : str
     eos_duration : str
+    has_support : bool
     text : str
     limit : int, default: 100
-    page : int, default: 1
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -287,6 +291,8 @@ def searchOrgJsiAssetsAndContracts(
 
     uri = f"/api/v1/orgs/{org_id}/jsi/inventory/search"
     query_params: dict[str, str] = {}
+    if claimed:
+        query_params["claimed"] = str(claimed)
     if model:
         query_params["model"] = str(model)
     if serial:
@@ -301,13 +307,15 @@ def searchOrgJsiAssetsAndContracts(
         query_params["eol_duration"] = str(eol_duration)
     if eos_duration:
         query_params["eos_duration"] = str(eos_duration)
+    if has_support:
+        query_params["has_support"] = str(has_support)
     if text:
         query_params["text"] = str(text)
     if limit:
         query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

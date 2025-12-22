@@ -177,6 +177,7 @@ def searchOrgAssets(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/assets/search-org-assets
@@ -211,6 +212,7 @@ def searchOrgAssets(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -258,6 +260,8 @@ def searchOrgAssets(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -317,6 +321,7 @@ def searchOrgBgpStats(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/bgp-peers/search-org-bgp-stats
@@ -341,6 +346,7 @@ def searchOrgBgpStats(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -368,6 +374,8 @@ def searchOrgBgpStats(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -562,6 +570,128 @@ def getOrgMxEdgeStats(
     query_params: dict[str, str] = {}
     if for_site:
         query_params["for_site"] = str(for_site)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def countOrgOspfStats(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
+    limit: int = 100,
+    sort: str = "timestamp",
+    search_after: str | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/ospf/count-org-ospf-stats
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    distinct : str{'site_id', 'org_id', 'mac', 'peer_ip', 'port_id', 'state', 'vrf_name'}
+    start : str
+    end : str
+    limit : int, default: 100
+    sort : str, default: timestamp
+    search_after : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/stats/ospf_peers/count"
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if limit:
+        query_params["limit"] = str(limit)
+    if sort:
+        query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def searchOrgOspfStats(
+    mist_session: _APISession,
+    org_id: str,
+    site_id: str | None = None,
+    mac: str | None = None,
+    vrf_name: str | None = None,
+    peer_ip: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
+    limit: int = 100,
+    sort: str = "timestamp",
+    search_after: str | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/ospf/search-org-ospf-stats
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    site_id : str
+    mac : str
+    vrf_name : str
+    peer_ip : str
+    start : str
+    end : str
+    limit : int, default: 100
+    sort : str, default: timestamp
+    search_after : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/stats/ospf_peers/search"
+    query_params: dict[str, str] = {}
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if mac:
+        query_params["mac"] = str(mac)
+    if vrf_name:
+        query_params["vrf_name"] = str(vrf_name)
+    if peer_ip:
+        query_params["peer_ip"] = str(peer_ip)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if limit:
+        query_params["limit"] = str(limit)
+    if sort:
+        query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -761,6 +891,7 @@ def searchOrgSwOrGwPorts(
     neighbor_port_desc: str | None = None,
     neighbor_system_name: str | None = None,
     poe_disabled: bool | None = None,
+    poe_priority: str | None = None,
     poe_mode: str | None = None,
     poe_on: bool | None = None,
     port_id: str | None = None,
@@ -795,6 +926,7 @@ def searchOrgSwOrGwPorts(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/ports/search-org-sw-or-gw-ports
@@ -816,6 +948,8 @@ def searchOrgSwOrGwPorts(
     neighbor_port_desc : str
     neighbor_system_name : str
     poe_disabled : bool
+    poe_priority : str{'low', 'high'}
+      PoE priority.
     poe_mode : str
     poe_on : bool
     port_id : str
@@ -854,6 +988,7 @@ def searchOrgSwOrGwPorts(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -875,6 +1010,8 @@ def searchOrgSwOrGwPorts(
         query_params["neighbor_system_name"] = str(neighbor_system_name)
     if poe_disabled:
         query_params["poe_disabled"] = str(poe_disabled)
+    if poe_priority:
+        query_params["poe_priority"] = str(poe_priority)
     if poe_mode:
         query_params["poe_mode"] = str(poe_mode)
     if poe_on:
@@ -943,6 +1080,8 @@ def searchOrgSwOrGwPorts(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -1067,6 +1206,7 @@ def searchOrgTunnelsStats(
     end: str | None = None,
     duration: str = "5m",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/tunnels/search-org-tunnels-stats
@@ -1103,6 +1243,7 @@ def searchOrgTunnelsStats(
     end : str
     duration : str, default: 5m
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -1154,6 +1295,8 @@ def searchOrgTunnelsStats(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -1220,6 +1363,7 @@ def searchOrgPeerPathStats(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/vpn-peers/search-org-peer-path-stats
@@ -1243,6 +1387,7 @@ def searchOrgPeerPathStats(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -1268,5 +1413,7 @@ def searchOrgPeerPathStats(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

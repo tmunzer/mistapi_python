@@ -14,14 +14,45 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
-def getOrg128TRegistrationCommands(
+def exportOrgSsrIdTokens(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/ssr/export-org-ssr-id-tokens
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/ssr/export_idtokens"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+
+
+def getOrgSsrRegistrationCommands(
     mist_session: _APISession,
     org_id: str,
     ttl: int | None = None,
     asset_ids: list | None = None,
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/ssr/get-org128-t-registration-commands
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/ssr/get-org-ssr-registration-commands
 
     PARAMS
     -----------
@@ -36,7 +67,7 @@ def getOrg128TRegistrationCommands(
     ------------
     ttl : int
     asset_ids : list
-      When specified, only specified assets are allowed for registration. This parameter can and is preferred to be set in HTTP body, especially when the list is long, so that HTTP header size will never exceed limit.
+      When specified restricts registration to listed assets only. Prefer HTTP body over headers for this parameter, especially with long lists to avoid header size limits.
 
     RETURN
     -----------
@@ -44,7 +75,7 @@ def getOrg128TRegistrationCommands(
         response from the API call
     """
 
-    uri = f"/api/v1/orgs/{org_id}/128routers/register_cmd"
+    uri = f"/api/v1/orgs/{org_id}/ssr/register_cmd"
     query_params: dict[str, str] = {}
     if ttl:
         query_params["ttl"] = str(ttl)

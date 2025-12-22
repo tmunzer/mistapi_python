@@ -12,7 +12,6 @@
 
 from mistapi.api.v1.orgs import (
     orgs,
-    ssr,
     aamwprofiles,
     admins,
     alarms,
@@ -73,6 +72,7 @@ from mistapi.api.v1.orgs import (
     ssl_proxy_cert,
     ssoroles,
     ssos,
+    ssr,
     stats,
     subscriptions,
     templates,
@@ -94,7 +94,6 @@ from mistapi.api.v1.orgs import (
 
 __all__ = [
     "orgs",
-    "ssr",
     "aamwprofiles",
     "admins",
     "alarms",
@@ -155,6 +154,7 @@ __all__ = [
     "ssl_proxy_cert",
     "ssoroles",
     "ssos",
+    "ssr",
     "stats",
     "subscriptions",
     "templates",

@@ -326,8 +326,8 @@ def searchOrgInventory(
     status: str | None = None,
     text: str | None = None,
     limit: int = 100,
-    page: int = 1,
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/search-org-inventory
@@ -355,8 +355,8 @@ def searchOrgInventory(
     status : str
     text : str
     limit : int, default: 100
-    page : int, default: 1
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -390,9 +390,9 @@ def searchOrgInventory(
         query_params["text"] = str(text)
     if limit:
         query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

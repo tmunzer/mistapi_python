@@ -109,6 +109,9 @@ def searchMspOrgs(
     usage_types: list | None = None,
     limit: int = 100,
     sort: str = "timestamp",
+    start: str | None = None,
+    end: str | None = None,
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/search-msp-orgs
@@ -132,6 +135,9 @@ def searchMspOrgs(
       List of types that enabled by usage
     limit : int, default: 100
     sort : str, default: timestamp
+    start : str
+    end : str
+    search_after : str
 
     RETURN
     -----------
@@ -155,6 +161,12 @@ def searchMspOrgs(
         query_params["limit"] = str(limit)
     if sort:
         query_params["sort"] = str(sort)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

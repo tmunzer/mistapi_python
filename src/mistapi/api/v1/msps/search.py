@@ -18,7 +18,7 @@ def searchMspOrgGroup(
     mist_session: _APISession,
     msp_id: str,
     type: str,
-    q: str | None = None,
+    q: str,
     limit: int = 100,
     start: str | None = None,
     end: str | None = None,

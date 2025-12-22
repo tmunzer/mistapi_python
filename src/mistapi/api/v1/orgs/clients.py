@@ -203,6 +203,7 @@ def searchOrgWirelessClientEvents(
     duration: str = "1d",
     sort: str = "timestamp",
     limit: int = 100,
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-client-events
@@ -235,6 +236,7 @@ def searchOrgWirelessClientEvents(
     duration : str, default: 1d
     sort : str, default: timestamp
     limit : int, default: 100
+    search_after : str
 
     RETURN
     -----------
@@ -272,6 +274,8 @@ def searchOrgWirelessClientEvents(
         query_params["sort"] = str(sort)
     if limit:
         query_params["limit"] = str(limit)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -299,6 +303,7 @@ def searchOrgWirelessClients(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-clients
@@ -334,6 +339,7 @@ def searchOrgWirelessClients(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -383,6 +389,8 @@ def searchOrgWirelessClients(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -490,6 +498,7 @@ def searchOrgWirelessClientSessions(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/search-org-wireless-client-sessions
@@ -522,6 +531,7 @@ def searchOrgWirelessClientSessions(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -563,6 +573,8 @@ def searchOrgWirelessClientSessions(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

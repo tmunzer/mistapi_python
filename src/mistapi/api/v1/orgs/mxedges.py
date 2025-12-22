@@ -314,6 +314,7 @@ def searchOrgMistEdgeEvents(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/search-org-mist-edge-events
@@ -339,6 +340,7 @@ def searchOrgMistEdgeEvents(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -368,6 +370,8 @@ def searchOrgMistEdgeEvents(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -383,11 +387,11 @@ def searchOrgMxEdges(
     tunterm_version: str | None = None,
     stats: bool | None = None,
     limit: int = 100,
-    page: int = 1,
     start: str | None = None,
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/search-org-mx-edges
@@ -411,11 +415,11 @@ def searchOrgMxEdges(
     tunterm_version : str
     stats : bool
     limit : int, default: 100
-    page : int, default: 1
     start : str
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -441,8 +445,6 @@ def searchOrgMxEdges(
         query_params["stats"] = str(stats)
     if limit:
         query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -451,6 +453,8 @@ def searchOrgMxEdges(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

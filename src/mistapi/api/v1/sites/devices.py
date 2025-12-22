@@ -95,7 +95,7 @@ def listSiteDeviceRadioChannels(
 
 
 def clearSiteMultipleDevicePendingVersion(
-    mist_session: _APISession, site_id: str
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/clear-site-multiple-device-pending-version
@@ -109,6 +109,11 @@ def clearSiteMultipleDevicePendingVersion(
     -----------
     site_id : str
 
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -116,7 +121,7 @@ def clearSiteMultipleDevicePendingVersion(
     """
 
     uri = f"/api/v1/sites/{site_id}/devices/clear_pending_version"
-    resp = mist_session.mist_post(uri=uri)
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
 
@@ -185,6 +190,7 @@ def searchSiteDeviceConfigHistory(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-config-history
@@ -207,6 +213,7 @@ def searchSiteDeviceConfigHistory(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -230,6 +237,8 @@ def searchSiteDeviceConfigHistory(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -407,6 +416,7 @@ def searchSiteDeviceEvents(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-events
@@ -434,6 +444,7 @@ def searchSiteDeviceEvents(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -467,6 +478,8 @@ def searchSiteDeviceEvents(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -493,6 +506,37 @@ def exportSiteDevices(mist_session: _APISession, site_id: str) -> _APIResponse:
     uri = f"/api/v1/sites/{site_id}/devices/export"
     query_params: dict[str, str] = {}
     resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def setSiteDevicesGbpTag(
+    mist_session: _APISession, site_id: str, body: dict | list
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/set-site-devices-gbp-tag
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/gbp_tag"
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
 
@@ -615,6 +659,7 @@ def countSiteDeviceLastConfig(
 def searchSiteDeviceLastConfigs(
     mist_session: _APISession,
     site_id: str,
+    cert_expiry_duration: str | None = None,
     device_type: str = "ap",
     mac: str | None = None,
     version: str | None = None,
@@ -624,6 +669,7 @@ def searchSiteDeviceLastConfigs(
     end: str | None = None,
     duration: str = "1d",
     sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-device-last-configs
@@ -639,6 +685,7 @@ def searchSiteDeviceLastConfigs(
 
     QUERY PARAMS
     ------------
+    cert_expiry_duration : str
     device_type : str{'ap', 'gateway', 'switch', 'mxedge'}, default: ap
     mac : str
     version : str
@@ -648,6 +695,7 @@ def searchSiteDeviceLastConfigs(
     end : str
     duration : str, default: 1d
     sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -657,6 +705,8 @@ def searchSiteDeviceLastConfigs(
 
     uri = f"/api/v1/sites/{site_id}/devices/last_config/search"
     query_params: dict[str, str] = {}
+    if cert_expiry_duration:
+        query_params["cert_expiry_duration"] = str(cert_expiry_duration)
     if device_type:
         query_params["device_type"] = str(device_type)
     if mac:
@@ -675,6 +725,8 @@ def searchSiteDeviceLastConfigs(
         query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -766,7 +818,7 @@ def restartSiteMultipleDevices(
 
 
 def restoreSiteMultipleDeviceBackupVersion(
-    mist_session: _APISession, site_id: str
+    mist_session: _APISession, site_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/restore-site-multiple-device-backup-version
@@ -780,6 +832,11 @@ def restoreSiteMultipleDeviceBackupVersion(
     -----------
     site_id : str
 
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -787,7 +844,7 @@ def restoreSiteMultipleDeviceBackupVersion(
     """
 
     uri = f"/api/v1/sites/{site_id}/devices/restore_backup_version"
-    resp = mist_session.mist_post(uri=uri)
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
 
@@ -833,6 +890,7 @@ def searchSiteDevices(
     duration: str = "1d",
     sort: str = "timestamp",
     desc_sort: str | None = None,
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-devices
@@ -892,6 +950,7 @@ def searchSiteDevices(
       Sort options
     desc_sort : str{'mac', 'model', 'sku', 'timestamp'}
       Sort options in reverse order
+    search_after : str
 
     RETURN
     -----------
@@ -979,6 +1038,8 @@ def searchSiteDevices(
         query_params["sort"] = str(sort)
     if desc_sort:
         query_params["desc_sort"] = str(desc_sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -2459,7 +2520,7 @@ def changeSiteSwitchVcPortMode(
     mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/change-site-switch-vc-port-mode
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/wired/virtual-chassis/change-site-switch-vc-port-mode
 
     PARAMS
     -----------

@@ -199,6 +199,7 @@ def searchOrgClientFingerprints(
     duration: str = "1d",
     interval: str | None = None,
     sort: str = "wxid",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-fingerprints/search-org-client-fingerprints
@@ -215,7 +216,7 @@ def searchOrgClientFingerprints(
     QUERY PARAMS
     ------------
     family : str
-    client_type : str{'wireless', 'wired'}
+    client_type : str{'wireless', 'wired', 'vty'}
       Whether client is wired or wireless
     model : str
     mfg : str
@@ -228,6 +229,7 @@ def searchOrgClientFingerprints(
     duration : str, default: 1d
     interval : str
     sort : str, default: wxid
+    search_after : str
 
     RETURN
     -----------
@@ -263,6 +265,126 @@ def searchOrgClientFingerprints(
         query_params["interval"] = str(interval)
     if sort:
         query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def getSiteInsightMetricsForGateway(
+    mist_session: _APISession,
+    site_id: str,
+    metric: str,
+    device_id: str,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str = "1d",
+    interval: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-gateway
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    metric : str
+    device_id : str
+
+    QUERY PARAMS
+    ------------
+    start : str
+    end : str
+    duration : str, default: 1d
+    interval : str
+    limit : int, default: 100
+    page : int, default: 1
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/insights/gateway/{device_id}/stats/{metric}"
+    query_params: dict[str, str] = {}
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if interval:
+        query_params["interval"] = str(interval)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def getSiteInsightMetricsForMxEdge(
+    mist_session: _APISession,
+    site_id: str,
+    metric: str,
+    device_mac: str,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str = "1d",
+    interval: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-mx-edge
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    metric : str
+    device_mac : str
+
+    QUERY PARAMS
+    ------------
+    start : str
+    end : str
+    duration : str, default: 1d
+    interval : str
+    limit : int, default: 100
+    page : int, default: 1
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/insights/mxedge/{device_mac}/{metric}"
+    query_params: dict[str, str] = {}
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if interval:
+        query_params["interval"] = str(interval)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -369,6 +491,65 @@ def listSiteRogueClients(
         query_params["duration"] = str(duration)
     if interval:
         query_params["interval"] = str(interval)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def getSiteInsightMetricsForSwitch(
+    mist_session: _APISession,
+    site_id: str,
+    metric: str,
+    device_mac: str,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str = "1d",
+    interval: str | None = None,
+    limit: int = 100,
+    page: int = 1,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-switch
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    metric : str
+    device_mac : str
+
+    QUERY PARAMS
+    ------------
+    start : str
+    end : str
+    duration : str, default: 1d
+    interval : str
+    limit : int, default: 100
+    page : int, default: 1
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/insights/switch/{device_mac}/{metric}"
+    query_params: dict[str, str] = {}
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if interval:
+        query_params["interval"] = str(interval)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

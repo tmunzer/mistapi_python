@@ -56,6 +56,11 @@ def searchSiteSyntheticTest(
     type: str | None = None,
     protocol: str | None = None,
     tenant: str | None = None,
+    limit: int = 100,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str = "1d",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/synthetic-tests/search-site-synthetic-test
@@ -81,6 +86,11 @@ def searchSiteSyntheticTest(
     protocol : str{'ping', 'traceroute'}
       Connectivity protocol
     tenant : str
+    limit : int, default: 100
+    start : str
+    end : str
+    duration : str, default: 1d
+    search_after : str
 
     RETURN
     -----------
@@ -106,5 +116,15 @@ def searchSiteSyntheticTest(
         query_params["protocol"] = str(protocol)
     if tenant:
         query_params["tenant"] = str(tenant)
+    if limit:
+        query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

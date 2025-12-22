@@ -104,7 +104,6 @@ def searchSiteWanUsage(
     tenant: str | None = None,
     path_type: str | None = None,
     limit: int = 100,
-    page: int = 1,
     start: str | None = None,
     end: str | None = None,
     duration: str = "1d",
@@ -132,7 +131,6 @@ def searchSiteWanUsage(
     tenant : str
     path_type : str
     limit : int, default: 100
-    page : int, default: 1
     start : str
     end : str
     duration : str, default: 1d
@@ -162,8 +160,6 @@ def searchSiteWanUsage(
         query_params["path_type"] = str(path_type)
     if limit:
         query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
     if start:
         query_params["start"] = str(start)
     if end:

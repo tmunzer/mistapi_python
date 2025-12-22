@@ -186,12 +186,6 @@ def countOrgPskPortalLogs(
 def searchOrgPskPortalLogs(
     mist_session: _APISession,
     org_id: str,
-    limit: int = 100,
-    page: int = 1,
-    start: str | None = None,
-    end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
     psk_name: str | None = None,
     psk_id: str | None = None,
     pskportal_id: str | None = None,
@@ -199,6 +193,12 @@ def searchOrgPskPortalLogs(
     admin_name: str | None = None,
     admin_id: str | None = None,
     name_id: str | None = None,
+    limit: int = 100,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str = "1d",
+    sort: str = "timestamp",
+    search_after: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psk-portals/search-org-psk-portal-logs
@@ -214,12 +214,6 @@ def searchOrgPskPortalLogs(
 
     QUERY PARAMS
     ------------
-    limit : int, default: 100
-    page : int, default: 1
-    start : str
-    end : str
-    duration : str, default: 1d
-    sort : str, default: timestamp
     psk_name : str
     psk_id : str
     pskportal_id : str
@@ -227,6 +221,12 @@ def searchOrgPskPortalLogs(
     admin_name : str
     admin_id : str
     name_id : str
+    limit : int, default: 100
+    start : str
+    end : str
+    duration : str, default: 1d
+    sort : str, default: timestamp
+    search_after : str
 
     RETURN
     -----------
@@ -236,18 +236,6 @@ def searchOrgPskPortalLogs(
 
     uri = f"/api/v1/orgs/{org_id}/pskportals/logs/search"
     query_params: dict[str, str] = {}
-    if limit:
-        query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
-    if start:
-        query_params["start"] = str(start)
-    if end:
-        query_params["end"] = str(end)
-    if duration:
-        query_params["duration"] = str(duration)
-    if sort:
-        query_params["sort"] = str(sort)
     if psk_name:
         query_params["psk_name"] = str(psk_name)
     if psk_id:
@@ -262,6 +250,18 @@ def searchOrgPskPortalLogs(
         query_params["admin_id"] = str(admin_id)
     if name_id:
         query_params["name_id"] = str(name_id)
+    if limit:
+        query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
