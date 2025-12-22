@@ -115,4 +115,4 @@ Previous stable release. See commit history for details.
 
 **Author**: Thomas Munzer <tmunzer@juniper.net>  
 **License**: MIT License  
-**Python Compatibility**: Python 3.8+
+**Python Compatibility**: Python 3.10+
