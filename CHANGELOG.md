@@ -1,4 +1,4 @@
-# Release Notes
+# CHANGELOG
 
 ## Version 0.59.1 (December 2024)
 
@@ -7,97 +7,159 @@
 
 This release introduces significant enhancements to the Mist API Python SDK, including new endpoints, improved pagination support, and updated API specifications.
 
-### New Features
+---
 
-#### New API Endpoints
+## 1. FUNCTIONS ADDED
 
-**Organization Statistics:**
-- `countOrgOspfStats`: Count OSPF statistics for organization
-- `searchOrgOspfStats`: Search OSPF peer statistics across organization
-- `countOrgOspfNeighbors`: Count OSPF neighbors for organization  
-- `getOrgOspfNeighborStats`: Get OSPF neighbor statistics
+### **src/mistapi/api/v1/orgs/ssr.py**
+- `exportOrgSsrIdTokens(mist_session, org_id, body)` - Export SSR identity tokens
 
-**Site Statistics:**
-- `countSiteOspfStats`: Count OSPF statistics for site
-- `searchSiteOspfStats`: Search OSPF peer statistics for site
-- `countSiteOspfNeighbors`: Count OSPF neighbors for site
-- `getOspfNeighborStatsForSiteDevice`: Get OSPF neighbor statistics for site device
+### **src/mistapi/api/v1/orgs/stats.py**
+- `countOrgOspfStats(mist_session, org_id, distinct, start, end, limit, sort, search_after)` - Count OSPF stats at org level
+- `searchOrgOspfStats(mist_session, org_id, site_id, mac, peer_ip, port_id, state, vrf_name, start, end, duration, limit, sort, search_after)` - Search OSPF peer stats
 
-**Site Insights:**
-- `getSiteInsightMetricsForGateway`: Get insight metrics for specific gateway devices
-- `getSiteInsightMetricsForSwitch`: Get insight metrics for specific switch devices
+### **src/mistapi/api/v1/sites/devices.py**
+- `setSiteDevicesGbpTag(mist_session, site_id, body)` - Set Group-Based Policy tags for devices
 
-**Organization SSR (Session Smart Router):**
-- `exportOrgSsrIdTokens`: Export SSR identity tokens for bulk operations
-- `getOrgSsrRegistrationCommands`: Get registration commands for SSR devices (replaces deprecated 128T endpoint)
+### **src/mistapi/api/v1/sites/insights.py**
+- `getSiteInsightMetricsForGateway(mist_session, site_id, metric, device_id, start, end, duration, interval, limit, page)` - Get insight metrics for gateways
+- `getSiteInsightMetricsForMxEdge(mist_session, site_id, metric, mxedge_id, start, end, duration, interval, limit, page)` - Get insight metrics for MxEdges
+- `getSiteInsightMetricsForSwitch(mist_session, site_id, metric, device_id, start, end, duration, interval, limit, page)` - Get insight metrics for switches
 
-**MSP Organizations:**
-- `searchMspOrgs`: Search and filter organizations within an MSP
+### **src/mistapi/api/v1/sites/stats.py**
+- `countSiteOspfStats(mist_session, site_id, distinct, start, end, limit, sort, search_after)` - Count OSPF stats at site level
+- `searchSiteOspfStats(mist_session, site_id, mac, peer_ip, port_id, state, vrf_name, start, end, duration, limit, sort, search_after)` - Search OSPF peer stats for site
 
-**Site Synthetic Testing:**
-- New endpoints for synthetic test management and monitoring
 
-### API Enhancements
+---
 
-#### Enhanced Pagination Support
-Added `search_after` parameter to multiple search endpoints for improved pagination:
+## 3. FUNCTIONS DEPRECATED
 
-**Organization Level:**
-- `searchOrgAssets`
-- `searchOrgBgpStats`
-- `searchOrgClients`
-- `searchOrgDevices`
-- `searchOrgEvents`
+- `getOrg128TRegistrationCommands` in **src/mistapi/api/v1/orgs/ssr.py** (replaced by `getOrgSsrRegistrationCommands`)
 
-**Site Level:**
-- `searchSiteAssets`
-- `searchSiteBgpStats`
-- `searchSiteCalls`
-- `searchSiteDiscoveredSwitchesMetrics`
-- `searchSiteDevices`
+---
 
-#### Updated Parameters
-- **Client Fingerprint Search**: Added `vty` as valid `client_type` option (wireless, wired, vty)
-- **PSK Portals**: Updated field types and improved request handling
-- **SSR Registration**: Enhanced documentation for `asset_ids` parameter with HTTP body preference
+## 4. PARAMETER CHANGES
 
-### API Updates
+### **A. Added `search_after` parameter (for improved pagination)**
 
-#### Renamed Endpoints (Backwards Compatible)
-- `getOrg128TRegistrationCommands` → `getOrgSsrRegistrationCommands` (128T branding to SSR)
+**MSPs Module:**
+- **src/mistapi/api/v1/msps/orgs.py**
+  - `searchMspOrgs`: Added `start`, `end`, `search_after`
 
-#### Updated API Documentation
-- Improved parameter descriptions across multiple endpoints
-- Enhanced inline documentation for better developer experience
-- Updated query parameter handling for consistency
+**Orgs Module - Alarms:**
+- **src/mistapi/api/v1/orgs/alarms.py**
+  - `searchOrgAlarms`: Added `search_after`
 
-### Additional Changes
+**Orgs Module - Clients:**
+- **src/mistapi/api/v1/orgs/clients.py**
+  - `searchOrgWirelessClientEvents`: Added `search_after`
+  - `searchOrgWirelessClients`: Added `search_after`
+  - `searchOrgWirelessClientSessions`: Added `search_after`
 
-**Inventory Management:**
-- Enhanced inventory claim and release operations
-- Improved device adoption workflows
+**Orgs Module - Devices:**
+- **src/mistapi/api/v1/orgs/devices.py**
+  - `searchOrgDeviceEvents`: Added `search_after`
+  - `searchOrgDevices`: Added `search_after`
 
-**Device Statistics:**
-- Extended device metrics collection
-- Enhanced BGP, OSPF, and other routing protocol statistics
+**Orgs Module - Events:**
+- **src/mistapi/api/v1/orgs/events.py**
+  - `searchOrgEvents`: Added `search_after`
+  - `searchOrgSystemEvents`: Added `search_after`
 
-**Webhook Management:**
-- Improved webhook configuration and testing
-- Enhanced event subscription handling
+**Orgs Module - MxEdges:**
+- **src/mistapi/api/v1/orgs/mxedges.py**
+  - `searchOrgMistEdgeEvents`: Added `search_after`
 
-### Bug Fixes
+**Orgs Module - NAC Clients:**
+- **src/mistapi/api/v1/orgs/nac_clients.py**
+  - `searchOrgNacClientEvents`: Added `search_after`
 
-- Fixed parameter type inconsistencies in various endpoints
-- Corrected query parameter serialization issues
-- Improved error handling for edge cases
+**Orgs Module - Other Devices:**
+- **src/mistapi/api/v1/orgs/otherdevices.py**
+  - `searchOrgOtherDeviceEvents`: Added `search_after`
 
-### Documentation
+**Orgs Module - Sites:**
+- **src/mistapi/api/v1/orgs/sites.py**
+  - `searchOrgSites`: Added `search_after`
 
-- Updated API endpoint references to latest Mist documentation
-- Improved parameter descriptions and examples
-- Enhanced inline code documentation
+**Orgs Module - Stats:**
+- **src/mistapi/api/v1/orgs/stats.py**
+  - `searchOrgAssets`: Added `search_after`
+  - `searchOrgBgpStats`: Added `search_after`
+  - `searchOrgSwOrGwPorts`: Added `search_after`
+  - `searchOrgTunnelsStats`: Added `search_after`
+  - `searchOrgPeerPathStats`: Added `search_after`
 
-### Resources
+**Orgs Module - WAN Clients:**
+- **src/mistapi/api/v1/orgs/wan_clients.py**
+  - `searchOrgWanClientEvents`: Added `search_after`
+
+**Orgs Module - Webhooks:**
+- **src/mistapi/api/v1/orgs/webhooks.py**
+  - `searchOrgWebhooksDeliveries`: Added `search_after`
+
+**Orgs Module - Wired Clients:**
+- **src/mistapi/api/v1/orgs/wired_clients.py**
+  - `searchOrgWiredClients`: Added `search_after`
+
+**Sites Module - Alarms:**
+- **src/mistapi/api/v1/sites/alarms.py**
+  - `searchSiteAlarms`: Added `search_after`
+
+**Sites Module - Clients:**
+- **src/mistapi/api/v1/sites/clients.py**
+  - `searchSiteWirelessClientEvents`: Added `search_after`
+  - `searchSiteWirelessClients`: Added `search_after`
+  - `searchSiteWirelessClientSessions`: Added `search_after`
+
+**Sites Module - Devices:**
+- **src/mistapi/api/v1/sites/devices.py**
+  - `searchSiteDeviceConfigHistory`: Added `search_after`
+  - `searchSiteDeviceEvents`: Added `search_after`
+  - `searchSiteDeviceLastConfigs`: Added `search_after`
+  - `searchSiteDevices`: Added `search_after`
+
+**Sites Module - Events:**
+- **src/mistapi/api/v1/sites/events.py**
+  - `searchSiteSystemEvents`: Added `search_after`
+
+**Sites Module - Guests:**
+- **src/mistapi/api/v1/sites/guests.py**
+  - `searchSiteGuestAuthorization`: Added `search_after`
+
+**Sites Module - Insights:**
+- **src/mistapi/api/v1/sites/insights.py**
+  - `searchOrgClientFingerprints`: Added `search_after`
+
+**Sites Module - Stats:**
+- **src/mistapi/api/v1/sites/stats.py**
+  - `searchSiteAssets`: Added `search_after`
+  - `searchSiteBgpStats`: Added `search_after`
+  - `searchSiteCalls`: Added `search_after`
+  - `searchSiteDiscoveredSwitchesMetrics`: Added `search_after`
+
+### **B. Other Parameter Updates**
+
+**Sites Module - Insights:**
+- **src/mistapi/api/v1/sites/insights.py**
+  - `searchOrgClientFingerprints`: Parameter `client_type` now accepts `'vty'` in addition to `'wireless'` and `'wired'`
+
+---
+
+## Summary Statistics
+
+- **Functions Added**: 9
+- **Functions Renamed**: 1
+- **Functions Deprecated**: 1
+- **Functions with Parameter Changes**: 40+ (primarily `search_after` additions)
+- **Total Files Modified**: 40
+- **Lines Added**: 812
+- **Lines Removed**: 85
+
+---
+
+## Resources
 
 - **Full API Documentation**: [Mist API Documentation](https://doc.mist-lab.fr)
 - **GitHub Repository**: [mistapi_python](https://github.com/tmunzer/mistapi_python)
@@ -115,4 +177,4 @@ Previous stable release. See commit history for details.
 
 **Author**: Thomas Munzer <tmunzer@juniper.net>  
 **License**: MIT License  
-**Python Compatibility**: Python 3.10+
+**Python Compatibility**: Python 3.8+
