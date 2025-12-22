@@ -1685,7 +1685,6 @@ def countSiteOspfStats(
 def searchSiteOspfStats(
     mist_session: _APISession,
     site_id: str,
-    site_id: str | None = None,
     mac: str | None = None,
     vrf_name: str | None = None,
     peer_ip: str | None = None,
@@ -1709,7 +1708,6 @@ def searchSiteOspfStats(
 
     QUERY PARAMS
     ------------
-    site_id : str
     mac : str
     vrf_name : str
     peer_ip : str
@@ -1727,8 +1725,6 @@ def searchSiteOspfStats(
 
     uri = f"/api/v1/sites/{site_id}/stats/ospf_peers/search"
     query_params: dict[str, str] = {}
-    if site_id:
-        query_params["site_id"] = str(site_id)
     if mac:
         query_params["mac"] = str(mac)
     if vrf_name:
