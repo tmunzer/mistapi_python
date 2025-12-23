@@ -34,7 +34,7 @@ generate: setup-openapi ## Run the code generation script
 	echo "Updating version in __init__.py to $(VERSION)"
 	sed -e "s/__version__ = .*/__version__ = \"$(VERSION)\"/g" ./src/mistapi/__init__.py > ./src/mistapi/__init__.py.new
 	mv ./src/mistapi/__init__.py.new ./src/mistapi/__init__.py
-	uv run python generate_from_openapi.py $(VERSION)
+	uv run python ./scripts/generate_from_openapi.py $(VERSION)
 	$(MAKE) format
 
 init: setup-openapi ## Development setup with OpenAPI

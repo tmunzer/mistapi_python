@@ -20,6 +20,19 @@ var_translation = {
     "boolean": "bool",
 }
 
+DEPRECATED_METHODS = {
+    "getSiteSleSummary": {
+        "new_operation_id": "getSiteSleSummaryTrend",
+        "version_deprecated": "0.59.2",
+        "version_final": "0.65.0",
+    },
+    "getSiteSleClassifierDetails": {
+        "new_operation_id": "getSiteSleClassifierSummaryTrend",
+        "version_deprecated": "0.59.2",
+        "version_final": "0.65.0",
+    },
+}
+
 # Template for __init__.py files in generated packages
 INIT_TEMPLATE = """'''
 --------------------------------------------------------------------------------
@@ -597,6 +610,52 @@ def _create_get_deprecated_device_events(
     return code
 
 
+def _create_get_deprecated(
+    operation_id: str,
+    tags: list,
+    new_operation_id: str,
+    version_deprecated: str,
+    version_final: str,
+    endpoint_path: str,
+    path_params: list,
+    query_params: list,
+) -> str:
+    """
+    Create deprecated version of GET functions for backward compatibility.
+
+    Args:
+        operation_id: Current OpenAPI operation ID (DeviceEvents*)
+        endpoint_path: API endpoint path
+        path_params: Path parameters list
+        query_params: Query parameters list
+
+    Returns:
+        str: Generated deprecated function code
+    """
+    code = ""
+    code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
+    code_query_params, desc_query_params = _gen_code_params(query_params, operation_id)
+    code_query = _gen_query_code(query_params)
+    code_desc = _gen_description(
+        operation_id, tags, desc_path_params, desc_query_params
+    )
+
+    # Generate old operation ID for the deprecated function
+    code += FUNCTION_GET_DEPRECATED_TEMPLATE.format(
+        version_deprecated=version_deprecated,
+        version_final=version_final,
+        version_current=version,
+        operation_id=new_operation_id,
+        old_operation_id=operation_id,
+        code_path_params=code_path_params,
+        code_query_params=code_query_params,
+        code_desc=code_desc,
+        uri=_gen_uri(endpoint_path),
+        query_code=code_query,
+    )
+    return code
+
+
 def _create_get(
     operation_id: str,
     tags: list,
@@ -619,12 +678,23 @@ def _create_get(
     """
     code = ""
     has_deprecated = False
-
     # Create deprecated version for DeviceEvents functions (backward compatibility)
     if operation_id.startswith("DeviceEvents"):
         has_deprecated = True
         code += _create_get_deprecated_device_events(
             operation_id, endpoint_path, path_params, query_params
+        )
+    elif DEPRECATED_METHODS.get(operation_id):
+        has_deprecated = True
+        code += _create_get_deprecated(
+            operation_id,
+            tags,
+            DEPRECATED_METHODS[operation_id]["new_operation_id"],
+            DEPRECATED_METHODS[operation_id]["version_deprecated"],
+            DEPRECATED_METHODS[operation_id]["version_final"],
+            endpoint_path,
+            path_params,
+            query_params,
         )
 
     # Generate main function parameters and documentation
@@ -1013,7 +1083,9 @@ def _process_endpoint(
     )
 
     # Process GET method
-    if endpoint_data.get("get") and not endpoint_data.get("get", {}).get("deprecated"):
+    if endpoint_data.get(
+        "get"
+    ):  # and not endpoint_data.get("get", {}).get("deprecated"):
         query_params = _process_query_params(
             endpoint_data["get"].get("parameters", []), openapi_refs, openapi_schemas
         )
@@ -1112,7 +1184,10 @@ def _is_totally_deprecated(endpoint_data: dict) -> bool:
     """
     for crud in ["get", "post", "put", "delete"]:
         if endpoint_data.get(crud, {}):
+            operation_id = endpoint_data.get(crud, {}).get("operationId")
             if not endpoint_data[crud].get("deprecated"):
+                return False
+            elif operation_id and DEPRECATED_METHODS.get(operation_id):
                 return False
     return True
 
