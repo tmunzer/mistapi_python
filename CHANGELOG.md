@@ -1,9 +1,85 @@
 # CHANGELOG
 
+## Version 0.59.2 (December 2024)
+
+**Released**: December 2024 
+
+This is a maintenance release that adds support for deprecated SLE endpoints and reorganizes project structure.
+
+---
+
+## 1. FUNCTIONS ADDED
+
+### **src/mistapi/api/v1/sites/sle.py**
+- `getSiteSleSummary(mist_session, site_id, scope, scope_id, metric, start, end, duration)` - Get SLE metric summary (marked as deprecated in Mist API, replaced by `getSiteSleSummaryTrend`)
+- `getSiteSleSummaryTrend(mist_session, site_id, scope, scope_id, metric, start, end, duration)` - Get SLE metric summary trend (replacement for deprecated endpoint)
+- `getSiteSleClassifierDetails(mist_session, site_id, scope, scope_id, metric, classifier, start, end, duration)` - Get SLE classifier details (marked as deprecated in Mist API, replaced by `getSiteSleClassifierSummaryTrend`)
+- `getSiteSleClassifierSummaryTrend(mist_session, site_id, scope, scope_id, metric, classifier, start, end, duration)` - Get SLE classifier summary trend (replacement for deprecated endpoint)
+
+---
+
+## 2. FUNCTIONS DEPRECATED
+
+### **src/mistapi/api/v1/sites/sle.py**
+- `getSiteSleSummary` - Deprecated in version 0.59.2, will be removed in 0.65.0 (replaced by `getSiteSleSummaryTrend`)
+- `getSiteSleClassifierDetails` - Deprecated in version 0.59.2, will be removed in 0.65.0 (replaced by `getSiteSleClassifierSummaryTrend`)
+
+**Note**: These functions are marked with `@deprecation.deprecated` decorator and will show deprecation warnings when used.
+
+---
+
+## Summary Statistics
+
+- **Functions Added**: 4 (2 deprecated, 2 replacement)
+- **Functions Deprecated**: 2
+- **Total Files Modified**: 7
+- **Lines Added**: 296
+- **Lines Removed**: 6
+
+---
+
+## Breaking Changes
+
+None. All deprecated functions remain available with deprecation warnings.
+
+---
+
+## Migration Guide
+
+If you're using the deprecated SLE functions:
+
+**Before (deprecated):**
+```python
+# This will show deprecation warning
+response = mistapi.api.v1.sites.sle.getSiteSleSummary(
+    mist_session, site_id, scope, scope_id, metric
+)
+```
+
+**After (recommended):**
+```python
+# Use the new trend endpoint
+response = mistapi.api.v1.sites.sle.getSiteSleSummaryTrend(
+    mist_session, site_id, scope, scope_id, metric
+)
+```
+
+Both functions will continue to work until version 0.65.0.
+
+---
+
+## Resources
+
+- **Full API Documentation**: [Mist API Documentation](https://doc.mist-lab.fr)
+- **GitHub Repository**: [mistapi_python](https://github.com/tmunzer/mistapi_python)
+- **PyPI Package**: [mistapi](https://pypi.org/project/mistapi/)
+- **Issue Tracker**: [GitHub Issues](https://github.com/tmunzer/mistapi_python/issues)
+
+---
+
 ## Version 0.59.1 (December 2024)
 
-**Released**: December 2024  
-**Previous Version**: 0.58.0
+**Released**: December 2024
 
 This release introduces significant enhancements to the Mist API Python SDK, including new endpoints, improved pagination support, and updated API specifications.
 
