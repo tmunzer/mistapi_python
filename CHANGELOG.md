@@ -1,5 +1,91 @@
 # CHANGELOG
 
+## Version 0.59.3 (December 2024)
+
+**Released**: December 26, 2024
+
+This release adds security enhancements for log sanitization and includes dependency updates.
+
+---
+
+## 1. NEW FEATURES
+
+### **Log Sanitization**
+- Added `LogSanitizer` filter to automatically redact sensitive fields from log messages
+- Supports filtering of passwords, API tokens, keys, secrets, and other sensitive data
+- Can be applied to both standard Python logging and the custom Console logger
+
+### **Usage Example**
+```python
+import logging
+from mistapi.__logger import LogSanitizer
+
+LOG_FILE = "./log.txt"
+logging.basicConfig(filename=LOG_FILE, filemode="w")
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+LOGGER.addFilter(LogSanitizer())
+
+LOGGER.debug(var_with_sensitive_data)
+```
+
+---
+
+## 2. DEPENDENCIES
+
+### **Added**
+- `keyring` - Secure system keyring access for password storage
+  - macOS Keychain support
+  - Windows Credential Locker support
+  - Freedesktop Secret Service support (GNOME, KDE)
+
+### **Updated**
+- Various dependency updates for security and compatibility
+
+---
+
+## 3. FILES MODIFIED
+
+### **src/mistapi/__logger.py**
+- Added `LogSanitizer` class for filtering sensitive data from logs
+- Enhanced regex pattern for detecting sensitive fields
+- Added support for case-insensitive matching of sensitive field names
+- Improved sanitization to handle various JSON formats
+
+### **pyproject.toml**
+- Added keyring dependency
+- Updated version to 0.59.3
+
+---
+
+## Summary Statistics
+
+- **New Features**: 1 (Log Sanitization)
+- **Dependencies Added**: 1 (keyring)
+- **Total Files Modified**: 3
+- **Lines Added**: 655
+- **Lines Removed**: 407
+
+---
+
+## Breaking Changes
+
+None. This is a backwards-compatible release.
+
+---
+
+## Security Improvements
+
+This release significantly improves security by automatically sanitizing sensitive information in logs, including:
+- API tokens and keys
+- Passwords and passphrases
+- OAuth secrets
+- PSK/mesh keys
+- Authentication credentials
+- And 20+ other sensitive field types
+
+---
+
 ## Version 0.59.2 (December 2024)
 
 **Released**: December 2024 

@@ -155,6 +155,21 @@ def {operation_id}(mist_session: _APISession{code_path_params}{multipart}) -> _A
     """
 
 
+def keep_deprecated(max_deprecation_version: str, current_version: str) -> bool:
+    """
+    Determine if deprecated functions should be kept based on version comparison.
+    """
+    current = current_version.split(".")
+    max_version = max_deprecation_version.split(".")
+
+    for i, req in enumerate(max_version):
+        if current[int(i)] < req:
+            break
+        if current[int(i)] > req:
+            return False
+    return True
+
+
 def fprint(message: str) -> None:
     """Print a formatted message with left justification to 80 characters."""
     print(f"{message}".ljust(80))
@@ -568,48 +583,6 @@ def _gen_uri(endpoint_path: str) -> str:
 # HTTP method function generators (CRUD operations)
 
 
-def _create_get_deprecated_device_events(
-    operation_id: str,
-    endpoint_path: str,
-    path_params: list,
-    query_params: list,
-) -> str:
-    """
-    Create deprecated version of DeviceEvents GET functions for backward compatibility.
-    Handles the renaming from DevicesEvents to DeviceEvents.
-
-    Args:
-        operation_id: Current OpenAPI operation ID (DeviceEvents*)
-        endpoint_path: API endpoint path
-        path_params: Path parameters list
-        query_params: Query parameters list
-
-    Returns:
-        str: Generated deprecated function code
-    """
-    code = ""
-    code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
-    code_query_params, desc_query_params = _gen_code_params(query_params, operation_id)
-    code_query = _gen_query_code(query_params)
-    code_desc = _gen_description(operation_id, [], desc_path_params, desc_query_params)
-
-    # Generate old operation ID for the deprecated function
-    old_operation_id = operation_id.replace("DeviceEvents", "DevicesEvents", 1)
-    code += FUNCTION_GET_DEPRECATED_TEMPLATE.format(
-        version_deprecated="0.45.0",
-        version_final="0.60.0",
-        version_current=version,
-        operation_id=operation_id,
-        old_operation_id=old_operation_id,
-        code_path_params=code_path_params,
-        code_query_params=code_query_params,
-        code_desc=code_desc,
-        uri=_gen_uri(endpoint_path),
-        query_code=code_query,
-    )
-    return code
-
-
 def _create_get_deprecated(
     operation_id: str,
     tags: list,
@@ -633,6 +606,9 @@ def _create_get_deprecated(
         str: Generated deprecated function code
     """
     code = ""
+    if not keep_deprecated(version_final, VERSION):
+        print(f"Skipping deprecated function {operation_id} as per version settings.")
+        return code
     code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
     code_query_params, desc_query_params = _gen_code_params(query_params, operation_id)
     code_query = _gen_query_code(query_params)
@@ -644,7 +620,7 @@ def _create_get_deprecated(
     code += FUNCTION_GET_DEPRECATED_TEMPLATE.format(
         version_deprecated=version_deprecated,
         version_final=version_final,
-        version_current=version,
+        version_current=VERSION,
         operation_id=new_operation_id,
         old_operation_id=operation_id,
         code_path_params=code_path_params,
@@ -678,14 +654,7 @@ def _create_get(
     """
     code = ""
     has_deprecated = False
-    # Create deprecated version for DeviceEvents functions (backward compatibility)
-    if operation_id.startswith("DeviceEvents"):
-        has_deprecated = True
-        code += _create_get_deprecated_device_events(
-            operation_id, endpoint_path, path_params, query_params
-        )
-    elif DEPRECATED_METHODS.get(operation_id):
-        has_deprecated = True
+    if DEPRECATED_METHODS.get(operation_id):
         code += _create_get_deprecated(
             operation_id,
             tags,
@@ -696,6 +665,8 @@ def _create_get(
             path_params,
             query_params,
         )
+        if code:
+            has_deprecated = True
 
     # Generate main function parameters and documentation
     code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
@@ -1433,7 +1404,7 @@ def start(
 # Script entry point
 
 # Get version from command line argument for deprecation warnings
-version = sys.argv[1]
+VERSION = sys.argv[1]
 
 # Clean up existing API folder to ensure fresh generation
 if os.path.exists(f"{ROOT_FOLDER}/{ROOT_API_FOLDER}"):
