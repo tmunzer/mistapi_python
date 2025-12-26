@@ -13,6 +13,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 import responses
+from dotenv import load_dotenv
 
 # Add src to path for testing
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
@@ -21,12 +22,24 @@ from mistapi import APISession
 from mistapi.__api_response import APIResponse
 from mistapi.__models.privilege import Privileges
 
+load_dotenv(dotenv_path="./tests/.env")
+
 # Test data - prefer real-looking data over mocks where possible
-TEST_ORG_ID = "203d3d02-dbc0-4c1b-9f41-76896a3330f4"
-TEST_SITE_ID = "f5fcbee5-fbca-45b3-8bf1-1619ede87879"
-TEST_DEVICE_ID = "5c5b350e0001"
-TEST_API_TOKEN = "abcdef0123456789abcdef0123456789abcdef01"
-TEST_HOST = "api.mist.com"
+TEST_ORG_ID = os.getenv("ORG_ID", "203d3d02-dbc0-4c1b-9f41-76896a3330f4")
+TEST_ORG_NAME = os.getenv("ORG_NAME", "Test Organisation")
+TEST_SITE_ID = os.getenv("SITE_ID", "f5fcbee5-fbca-45b3-8bf1-1619ede87879")
+TEST_HOST = os.getenv("HOST", "api.mist.com")
+TEST_VALID_APITOKEN_1 = os.getenv(
+    "VALID_APITOKEN_1", "abcdef0123456789abcdef0123456789abcdef01"
+)
+TEST_VALID_APITOKEN_2 = os.getenv(
+    "VALID_APITOKEN_2", "abcdef0123456789abcdef0123456789abcdef02"
+)
+TEST_INVALID_APITOKEN = os.getenv(
+    "INVALID_APITOKEN", "abcdef0123456789abcdef0123456789abcdef01_invalid"
+)
+TEST_USERNAME = os.getenv("USER_EMAIL", "user@corp.com")
+TEST_PASSWORD = os.getenv("USER_PASSWORD", "SuperSecretPassword!")
 
 
 @pytest.fixture
@@ -44,13 +57,43 @@ def site_id():
 @pytest.fixture
 def device_id():
     """Standard test device ID"""
-    return TEST_DEVICE_ID
+    return "00000000-0000-0000-1000-5c5b350e0001"
 
 
 @pytest.fixture
-def api_token():
+def valid_api_token():
     """Standard test API token"""
-    return TEST_API_TOKEN
+    return TEST_VALID_APITOKEN_1
+
+
+@pytest.fixture
+def invalid_api_token():
+    """Standard test invalid API token"""
+    return TEST_INVALID_APITOKEN
+
+
+@pytest.fixture
+def valid_api_tokens():
+    """Standard test API token"""
+    return f"{TEST_VALID_APITOKEN_1},{TEST_VALID_APITOKEN_2}"
+
+
+@pytest.fixture
+def mixed_api_tokens():
+    """Standard test API token"""
+    return f"{TEST_INVALID_APITOKEN},{TEST_VALID_APITOKEN_1}"
+
+
+@pytest.fixture
+def test_username():
+    """Standard test username"""
+    return TEST_USERNAME
+
+
+@pytest.fixture
+def test_password():
+    """Standard test password"""
+    return TEST_PASSWORD
 
 
 @pytest.fixture
@@ -78,7 +121,7 @@ def sample_org_data():
 def sample_device_data():
     """Sample device data matching real API responses"""
     return {
-        "id": TEST_DEVICE_ID,
+        "id": "00000000-0000-0000-1000-5c5b350e0001",
         "mac": "5c5b350e0001",
         "model": "AP41",
         "type": "ap",
@@ -99,15 +142,8 @@ def sample_privileges():
             "scope": "org",
             "role": "admin",
             "org_id": TEST_ORG_ID,
-            "name": "Test Organisation",
-        },
-        {
-            "scope": "site",
-            "role": "write",
-            "site_id": TEST_SITE_ID,
-            "org_id": TEST_ORG_ID,
-            "name": "Test Site",
-        },
+            "name": TEST_ORG_NAME,
+        }
     ]
 
 
@@ -115,8 +151,7 @@ def sample_privileges():
 def sample_user_data(sample_privileges):
     """Sample user data from /api/v1/self"""
     return {
-        "id": "user-id-123",
-        "email": "test@example.com",
+        "email": TEST_USERNAME,
         "first_name": "Test",
         "last_name": "User",
         "privileges": sample_privileges,  # Raw list, not Privileges object
@@ -150,10 +185,10 @@ def isolated_session():
 
 
 @pytest.fixture
-def basic_session(isolated_session, test_host, api_token):
+def basic_session(isolated_session, test_host, valid_api_token):
     """Basic APISession with host and token configured"""
     isolated_session.set_cloud(test_host)
-    isolated_session.set_api_token(api_token)
+    isolated_session.set_api_token(valid_api_token)
     return isolated_session
 
 
@@ -162,7 +197,7 @@ def authenticated_session(basic_session, sample_user_data):
     """Authenticated APISession with sample user data"""
     basic_session._authenticated = True
     basic_session._cloud_uri = TEST_HOST
-    basic_session._apitoken = [TEST_API_TOKEN]
+    basic_session._apitoken = [TEST_VALID_APITOKEN_1]
     basic_session._apitoken_index = 0
 
     # Set user data as it would be after successful login
@@ -275,9 +310,9 @@ def tmp_env_file(tmp_path):
     env_file = tmp_path / ".env"
     env_content = f"""
 MIST_HOST={TEST_HOST}
-MIST_APITOKEN={TEST_API_TOKEN}
-MIST_USER=test@example.com
-MIST_PASSWORD=test_password
+MIST_APITOKEN={TEST_VALID_APITOKEN_1}
+MIST_USER={TEST_USERNAME}
+MIST_PASSWORD={TEST_PASSWORD}
 CONSOLE_LOG_LEVEL=30
 LOGGING_LOG_LEVEL=20
 HTTPS_PROXY=http://proxy:8080
