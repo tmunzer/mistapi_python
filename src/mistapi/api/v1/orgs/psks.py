@@ -20,8 +20,8 @@ def listOrgPsks(
     name: str | None = None,
     ssid: str | None = None,
     role: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/psks/list-org-psks

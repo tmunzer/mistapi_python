@@ -18,10 +18,10 @@ def listSiteRoamingEvents(
     mist_session: _APISession,
     site_id: str,
     type: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/events/list-site-roaming-events
@@ -69,12 +69,12 @@ def listSiteRoamingEvents(
 def countSiteSystemEvents(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "type",
+    distinct: str | None = None,
     type: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/events/count-site-system-events
@@ -125,11 +125,11 @@ def searchSiteSystemEvents(
     mist_session: _APISession,
     site_id: str,
     type: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

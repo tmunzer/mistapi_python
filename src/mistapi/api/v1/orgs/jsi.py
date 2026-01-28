@@ -17,8 +17,8 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def listOrgJsiDevices(
     mist_session: _APISession,
     org_id: str,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
     model: str | None = None,
     serial: str | None = None,
     mac: str | None = None,
@@ -152,8 +152,8 @@ def upgradeOrgJsiDevice(
 def listOrgJsiPastPurchases(
     mist_session: _APISession,
     org_id: str,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
     model: str | None = None,
     serial: str | None = None,
 ) -> _APIResponse:
@@ -200,7 +200,7 @@ def countOrgJsiAssetsAndContracts(
     mist_session: _APISession,
     org_id: str,
     distinct: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/count-org-jsi-assets-and-contracts
@@ -243,14 +243,14 @@ def searchOrgJsiAssetsAndContracts(
     model: str | None = None,
     serial: str | None = None,
     sku: str | None = None,
-    status: str = "all",
+    status: str | None = None,
     warranty_type: str | None = None,
     eol_duration: str | None = None,
     eos_duration: str | None = None,
     has_support: bool | None = None,
     text: str | None = None,
-    limit: int = 100,
-    sort: str = "timestamp",
+    limit: int | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

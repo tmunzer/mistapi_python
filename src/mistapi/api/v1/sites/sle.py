@@ -18,7 +18,7 @@ import deprecation
 @deprecation.deprecated(
     deprecated_in="0.59.2",
     removed_in="0.65.0",
-    current_version="0.59.3",
+    current_version="0.55.15",
     details="function replaced with getSiteSleClassifierSummaryTrend",
 )
 def getSiteSleClassifierDetails(
@@ -30,7 +30,7 @@ def getSiteSleClassifierDetails(
     classifier: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-classifier-details
@@ -81,7 +81,7 @@ def getSiteSleClassifierDetails(
     classifier: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-classifier-details
@@ -132,7 +132,7 @@ def getSiteSleClassifierSummaryTrend(
     classifier: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-classifier-summary-trend
@@ -212,7 +212,7 @@ def getSiteSleHistogram(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-histogram
@@ -261,7 +261,7 @@ def getSiteSleImpactSummary(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     fields: str | None = None,
     classifier: str | None = None,
 ) -> _APIResponse:
@@ -320,7 +320,7 @@ def listSiteSleImpactedApplications(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     classifier: str | None = None,
 ) -> _APIResponse:
     """
@@ -373,7 +373,7 @@ def listSiteSleImpactedAps(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     classifier: str | None = None,
 ) -> _APIResponse:
     """
@@ -426,7 +426,7 @@ def listSiteSleImpactedChassis(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     classifier: str | None = None,
 ) -> _APIResponse:
     """
@@ -479,7 +479,7 @@ def listSiteSleImpactedWiredClients(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     classifier: str | None = None,
 ) -> _APIResponse:
     """
@@ -532,7 +532,7 @@ def listSiteSleImpactedGateways(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     classifier: str | None = None,
 ) -> _APIResponse:
     """
@@ -585,7 +585,7 @@ def listSiteSleImpactedInterfaces(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     classifier: str | None = None,
 ) -> _APIResponse:
     """
@@ -638,7 +638,7 @@ def listSiteSleImpactedSwitches(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     classifier: str | None = None,
 ) -> _APIResponse:
     """
@@ -691,7 +691,7 @@ def listSiteSleImpactedWirelessClients(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     classifier: str | None = None,
 ) -> _APIResponse:
     """
@@ -741,7 +741,7 @@ def listSiteSleImpactedWirelessClients(
 @deprecation.deprecated(
     deprecated_in="0.59.2",
     removed_in="0.65.0",
-    current_version="0.59.3",
+    current_version="0.55.15",
     details="function replaced with getSiteSleSummaryTrend",
 )
 def getSiteSleSummary(
@@ -752,7 +752,7 @@ def getSiteSleSummary(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-summary
@@ -801,7 +801,7 @@ def getSiteSleSummary(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-summary
@@ -850,7 +850,7 @@ def getSiteSleSummaryTrend(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/sles/get-site-sle-summary-trend

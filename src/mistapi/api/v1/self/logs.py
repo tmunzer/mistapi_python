@@ -18,9 +18,9 @@ def listSelfAuditLogs(
     mist_session: _APISession,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/audit-logs/list-self-audit-logs

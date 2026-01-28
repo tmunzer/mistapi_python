@@ -19,11 +19,11 @@ def searchMspOrgGroup(
     msp_id: str,
     type: str,
     q: str,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/search-msp-org-group

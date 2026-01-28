@@ -20,8 +20,8 @@ def listOrgNacTags(
     type: str | None = None,
     name: str | None = None,
     match: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-tags/list-org-nac-tags

@@ -40,7 +40,10 @@ def listMspOrgLicenses(mist_session: _APISession, msp_id: str) -> _APIResponse:
 
 
 def listMspOrgStats(
-    mist_session: _APISession, msp_id: str, limit: int = 100, page: int = 1
+    mist_session: _APISession,
+    msp_id: str,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/orgs/list-msp-org-stats

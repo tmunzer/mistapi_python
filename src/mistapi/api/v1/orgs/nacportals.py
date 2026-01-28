@@ -15,7 +15,10 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 
 def listOrgNacPortals(
-    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+    mist_session: _APISession,
+    org_id: str,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/list-org-nac-portals
@@ -175,9 +178,9 @@ def listOrgNacPortalSsoLatestFailures(
     nacportal_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-portals/list-org-nac-portal-sso-latest-failures

@@ -17,7 +17,7 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def countOrgWirelessClients(
     mist_session: _APISession,
     org_id: str,
-    distinct: str = "device",
+    distinct: str | None = None,
     mac: str | None = None,
     hostname: str | None = None,
     device: str | None = None,
@@ -29,8 +29,8 @@ def countOrgWirelessClients(
     ip: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/count-org-wireless-clients
@@ -115,8 +115,8 @@ def countOrgWirelessClientEvents(
     site_id: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/count-org-wireless-client-events
@@ -200,9 +200,9 @@ def searchOrgWirelessClientEvents(
     nacrule_id: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
-    limit: int = 100,
+    duration: str | None = None,
+    sort: str | None = None,
+    limit: int | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -298,11 +298,11 @@ def searchOrgWirelessClients(
     vlan: str | None = None,
     ssid: str | None = None,
     text: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -398,7 +398,7 @@ def searchOrgWirelessClients(
 def countOrgWirelessClientsSessions(
     mist_session: _APISession,
     org_id: str,
-    distinct: str = "device",
+    distinct: str | None = None,
     ap: str | None = None,
     band: str | None = None,
     client_family: str | None = None,
@@ -409,8 +409,8 @@ def countOrgWirelessClientsSessions(
     wlan_id: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/clients/wireless/count-org-wireless-clients-sessions
@@ -493,11 +493,11 @@ def searchOrgWirelessClientSessions(
     wlan_id: str | None = None,
     psk_id: str | None = None,
     psk_name: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

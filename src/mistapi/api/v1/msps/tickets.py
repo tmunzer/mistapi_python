@@ -19,7 +19,7 @@ def listMspTickets(
     msp_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/tickets/list-msp-tickets
@@ -58,7 +58,10 @@ def listMspTickets(
 
 
 def countMspTickets(
-    mist_session: _APISession, msp_id: str, distinct: str = "status", limit: int = 100
+    mist_session: _APISession,
+    msp_id: str,
+    distinct: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/tickets/count-msp-tickets

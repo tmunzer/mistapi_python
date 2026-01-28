@@ -42,10 +42,10 @@ def getSiteStats(mist_session: _APISession, site_id: str) -> _APIResponse:
 def listSiteSpectrumAnalysis(
     mist_session: _APISession,
     site_id: str,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/spectrum-analysis/list-site-spectrum-analysis
@@ -93,7 +93,7 @@ def countSiteApps(
     device_mac: str | None = None,
     app: str | None = None,
     wired: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/apps/count-site-apps
@@ -143,9 +143,9 @@ def listSiteAssetsStats(
     site_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/list-site-assets-stats
@@ -190,7 +190,10 @@ def listSiteAssetsStats(
 
 
 def countSiteAssets(
-    mist_session: _APISession, site_id: str, distinct: str = "map_id", limit: int = 100
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/count-site-assets
@@ -242,11 +245,11 @@ def searchSiteAssets(
     ap_mac: str | None = None,
     beam: str | None = None,
     rssi: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -342,7 +345,7 @@ def getSiteAssetStats(
     asset_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-asset-stats
@@ -386,9 +389,9 @@ def listSiteBeaconsStats(
     site_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/beacons/list-site-beacons-stats
@@ -437,7 +440,7 @@ def countSiteBgpStats(
     site_id: str,
     state: str | None = None,
     distinct: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/bgp-peers/count-site-bgp-stats
@@ -481,11 +484,11 @@ def searchSiteBgpStats(
     mac: str | None = None,
     neighbor_mac: str | None = None,
     vrf_name: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -551,9 +554,9 @@ def troubleshootSiteCall(
     app: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/troubleshoot-site-call
@@ -610,12 +613,12 @@ def troubleshootSiteCall(
 def countSiteCalls(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "mac",
+    distinct: str | None = None,
     rating: int | None = None,
     app: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/count-site-calls
@@ -667,11 +670,11 @@ def searchSiteCalls(
     site_id: str,
     mac: str | None = None,
     app: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -781,9 +784,9 @@ def listSiteTroubleshootCalls(
     app: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/calls/list-site-troubleshoot-calls
@@ -843,10 +846,10 @@ def listSiteWirelessClientsStats(
     mist_session: _APISession,
     site_id: str,
     wired: bool | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/list-site-wireless-clients-stats
@@ -927,10 +930,10 @@ def getSiteWirelessClientStats(
 def listSiteDevicesStats(
     mist_session: _APISession,
     site_id: str,
-    type: str = "ap",
-    status: str = "all",
-    limit: int = 100,
-    page: int = 1,
+    type: str | None = None,
+    status: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/devices/list-site-devices-stats
@@ -1038,9 +1041,9 @@ def listSiteDiscoveredAssets(
     site_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/list-site-discovered-assets
@@ -1087,13 +1090,13 @@ def listSiteDiscoveredAssets(
 def searchSiteDiscoveredSwitchesMetrics(
     mist_session: _APISession,
     site_id: str,
-    scope: str = "site",
+    scope: str | None = None,
     type: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -1152,11 +1155,11 @@ def searchSiteDiscoveredSwitchesMetrics(
 def countSiteDiscoveredSwitches(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "system_name",
+    distinct: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/discovered-switches/count-site-discovered-switches
@@ -1248,11 +1251,11 @@ def searchSiteDiscoveredSwitches(
     vendor: str | None = None,
     model: str | None = None,
     version: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -1321,11 +1324,11 @@ def searchSiteDiscoveredSwitches(
 def getSiteAssetsOfInterest(
     mist_session: _APISession,
     site_id: str,
-    duration: str = "1d",
+    duration: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-assets-of-interest
@@ -1400,9 +1403,9 @@ def getSiteWirelessClientsStatsByMap(
     map_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/clients-wireless/get-site-wireless-clients-stats-by-map
@@ -1536,9 +1539,9 @@ def listSiteMxEdgesStats(
     site_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/mxedges/list-site-mx-edges-stats
@@ -1588,7 +1591,7 @@ def getSiteMxEdgeStats(
     mxedge_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/mxedges/get-site-mx-edge-stats
@@ -1633,8 +1636,8 @@ def countSiteOspfStats(
     distinct: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    limit: int = 100,
-    sort: str = "timestamp",
+    limit: int | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -1690,8 +1693,8 @@ def searchSiteOspfStats(
     peer_ip: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    limit: int = 100,
-    sort: str = "timestamp",
+    limit: int | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -1748,7 +1751,7 @@ def searchSiteOspfStats(
 def countSiteSwOrGwPorts(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "mac",
+    distinct: str | None = None,
     full_duplex: bool | None = None,
     mac: str | None = None,
     neighbor_mac: str | None = None,
@@ -1776,8 +1779,8 @@ def countSiteSwOrGwPorts(
     up: bool | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/ports/count-site-sw-or-gw-ports
@@ -1946,11 +1949,11 @@ def searchSiteSwOrGwPorts(
     optics_rx_power: float | None = None,
     optics_module_temperature: float | None = None,
     optics_module_voltage: float | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

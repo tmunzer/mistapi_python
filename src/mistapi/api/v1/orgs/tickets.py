@@ -19,7 +19,7 @@ def listOrgTickets(
     org_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/list-org-tickets
@@ -89,7 +89,10 @@ def createOrgTicket(
 
 
 def countOrgTickets(
-    mist_session: _APISession, org_id: str, distinct: str = "status", limit: int = 100
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/count-org-tickets
@@ -130,7 +133,7 @@ def getOrgTicket(
     ticket_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/get-org-ticket
@@ -243,7 +246,7 @@ def GetOrgTicketAttachment(
     attachment_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/tickets/get-org-ticket-attachment

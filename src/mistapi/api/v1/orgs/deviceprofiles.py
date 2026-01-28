@@ -17,9 +17,9 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def listOrgDeviceProfiles(
     mist_session: _APISession,
     org_id: str,
-    type: str = "ap",
-    limit: int = 100,
-    page: int = 1,
+    type: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/list-org-device-profiles

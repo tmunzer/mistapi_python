@@ -17,7 +17,7 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def countSiteRogueEvents(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "bssid",
+    distinct: str | None = None,
     type: str | None = None,
     ssid: str | None = None,
     bssid: str | None = None,
@@ -26,8 +26,8 @@ def countSiteRogueEvents(
     seen_on_lan: bool | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rogues/count-site-rogue-events
@@ -98,11 +98,11 @@ def searchSiteRogueEvents(
     ap_mac: str | None = None,
     channel: int | None = None,
     seen_on_lan: bool | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

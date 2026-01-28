@@ -17,12 +17,12 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def countSiteWanClientEvents(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "type",
+    distinct: str | None = None,
     type: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wan/count-site-wan-client-events

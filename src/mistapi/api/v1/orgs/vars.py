@@ -20,8 +20,8 @@ def searchOrgVars(
     site_id: str | None = None,
     var: str | None = None,
     src: str | None = None,
-    limit: int = 100,
-    sort: str = "timestamp",
+    limit: int | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

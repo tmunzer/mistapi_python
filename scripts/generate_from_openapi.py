@@ -346,20 +346,21 @@ def _gen_code_params_default_value(param: dict) -> str:
     """
     code_default = ""
     if not param["required"]:
-        if param.get("default"):
-            if param["type"] == "string":
-                code_default = f'="{param["default"]}"'
-            elif param["type"] == "boolean":
-                if param["default"] == "true":
-                    code_default = "=True"
-                else:
-                    code_default = "=False"
-            else:
-                code_default = f"={param['default']}"
-        else:
-            # TODO: Fix union type syntax for Python 3.9 compatibility
-            code_default = "|None=None"
-            # code_default = "=None"
+        code_default = "|None=None"
+        # if param.get("default"):
+        #     if param["type"] == "string":
+        #         code_default = f'="{param["default"]}"'
+        #     elif param["type"] == "boolean":
+        #         if param["default"] == "true":
+        #             code_default = "=True"
+        #         else:
+        #             code_default = "=False"
+        #     else:
+        #         code_default = f"={param['default']}"
+        # else:
+        #     # TODO: Fix union type syntax for Python 3.9 compatibility
+        #     code_default = "|None=None"
+        #     # code_default = "=None"
     return code_default
 
 

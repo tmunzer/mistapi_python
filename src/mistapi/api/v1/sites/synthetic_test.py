@@ -56,10 +56,10 @@ def searchSiteSyntheticTest(
     type: str | None = None,
     protocol: str | None = None,
     tenant: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

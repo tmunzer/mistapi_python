@@ -15,7 +15,10 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 
 def listSiteMxEdges(
-    mist_session: _APISession, site_id: str, limit: int = 100, page: int = 1
+    mist_session: _APISession,
+    site_id: str,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/list-site-mx-edges
@@ -53,15 +56,15 @@ def listSiteMxEdges(
 def countSiteMxEdgeEvents(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "mxedge_id",
+    distinct: str | None = None,
     mxedge_id: str | None = None,
     mxcluster_id: str | None = None,
     type: str | None = None,
     service: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/mxedges/count-site-mx-edge-events
@@ -125,11 +128,11 @@ def searchSiteMistEdgeEvents(
     type: str | None = None,
     service: str | None = None,
     component: str | None = None,
-    limit: int = 10,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

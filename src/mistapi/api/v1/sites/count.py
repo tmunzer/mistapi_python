@@ -18,15 +18,15 @@ def countSiteZoneSessions(
     mist_session: _APISession,
     site_id: str,
     zone_type: str,
-    distinct: str = "scope_id",
+    distinct: str | None = None,
     user_type: str | None = None,
     user: str | None = None,
     scope_id: str | None = None,
-    scope: str = "site",
+    scope: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/zones/count-site-zone-sessions

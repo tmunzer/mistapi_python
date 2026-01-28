@@ -18,11 +18,11 @@ def searchOrgEvents(
     mist_session: _APISession,
     org_id: str,
     type: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -77,10 +77,10 @@ def countOrgSystemEvents(
     mist_session: _APISession,
     org_id: str,
     distinct: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/events/count-org-system-events
@@ -127,11 +127,11 @@ def countOrgSystemEvents(
 def searchOrgSystemEvents(
     mist_session: _APISession,
     org_id: str,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

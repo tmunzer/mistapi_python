@@ -15,7 +15,7 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 
 def generateSecretFor2faVerification(
-    mist_session: _APISession, by: str = "qrcode"
+    mist_session: _APISession, by: str | None = None
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/self/mfa/generate-secret-for2fa-verification

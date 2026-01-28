@@ -19,7 +19,7 @@ def getMspSle(
     msp_id: str,
     metric: str,
     sle: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
     start: str | None = None,
     end: str | None = None,

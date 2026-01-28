@@ -15,7 +15,7 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 
 def listInstallerDeviceProfiles(
-    mist_session: _APISession, org_id: str, type: str = "ap"
+    mist_session: _APISession, org_id: str, type: str | None = None
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/installer/list-installer-device-profiles

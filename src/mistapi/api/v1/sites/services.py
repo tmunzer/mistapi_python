@@ -50,7 +50,7 @@ def listSiteServicesDerived(
 def countSiteServicePathEvents(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "type",
+    distinct: str | None = None,
     type: str | None = None,
     text: str | None = None,
     vpn_name: str | None = None,
@@ -63,8 +63,8 @@ def countSiteServicePathEvents(
     mac: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/services/count-site-service-path-events
@@ -153,11 +153,11 @@ def searchSiteServicePathEvents(
     version: str | None = None,
     timestamp: float | None = None,
     mac: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

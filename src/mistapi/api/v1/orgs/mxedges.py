@@ -17,9 +17,9 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def listOrgMxEdges(
     mist_session: _APISession,
     org_id: str,
-    for_site: str = "any",
-    limit: int = 100,
-    page: int = 1,
+    for_site: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/list-org-mx-edges
@@ -154,7 +154,7 @@ def claimOrgMxEdge(
 def countOrgMxEdges(
     mist_session: _APISession,
     org_id: str,
-    distinct: str = "model",
+    distinct: str | None = None,
     mxedge_id: str | None = None,
     site_id: str | None = None,
     mxcluster_id: str | None = None,
@@ -165,8 +165,8 @@ def countOrgMxEdges(
     stats: bool | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/count-org-mx-edges
@@ -237,15 +237,15 @@ def countOrgMxEdges(
 def countOrgSiteMxEdgeEvents(
     mist_session: _APISession,
     org_id: str,
-    distinct: str = "mxedge_id",
+    distinct: str | None = None,
     mxedge_id: str | None = None,
     mxcluster_id: str | None = None,
     type: str | None = None,
     service: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/count-org-site-mx-edge-events
@@ -309,11 +309,11 @@ def searchOrgMistEdgeEvents(
     type: str | None = None,
     service: str | None = None,
     component: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -386,11 +386,11 @@ def searchOrgMxEdges(
     distro: str | None = None,
     tunterm_version: str | None = None,
     stats: bool | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -577,7 +577,7 @@ def getOrgMxEdgeUpgrade(
 def getOrgMxEdgeUpgradeInfo(
     mist_session: _APISession,
     org_id: str,
-    channel: str = "stable",
+    channel: str | None = None,
     distro: str | None = None,
 ) -> _APIResponse:
     """

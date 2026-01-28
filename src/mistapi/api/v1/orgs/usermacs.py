@@ -177,9 +177,9 @@ def searchOrgUserMacs(
     org_id: str,
     mac: str | None = None,
     labels: list | None = None,
-    limit: int = 100,
-    page: int = 1,
-    sort: str = "timestamp",
+    limit: int | None = None,
+    page: int | None = None,
+    sort: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/search-org-user-macs

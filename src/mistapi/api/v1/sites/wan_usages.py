@@ -24,11 +24,11 @@ def countSiteWanUsage(
     policy: str | None = None,
     tenant: str | None = None,
     path_type: str | None = None,
-    distinct: str = "policy",
+    distinct: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wan-usages/count-site-wan-usage
@@ -103,11 +103,11 @@ def searchSiteWanUsage(
     policy: str | None = None,
     tenant: str | None = None,
     path_type: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/wan-usages/search-site-wan-usage

@@ -21,10 +21,10 @@ def getSiteInsightMetricsForClient(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-client
@@ -80,10 +80,10 @@ def getSiteInsightMetricsForDevice(
     device_mac: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-device
@@ -135,11 +135,11 @@ def getSiteInsightMetricsForDevice(
 def countOrgClientFingerprints(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "family",
+    distinct: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-fingerprints/count-org-client-fingerprints
@@ -193,12 +193,12 @@ def searchOrgClientFingerprints(
     os: str | None = None,
     os_type: str | None = None,
     mac: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
-    sort: str = "wxid",
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -278,10 +278,10 @@ def getSiteInsightMetricsForGateway(
     device_id: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-gateway
@@ -337,10 +337,10 @@ def getSiteInsightMetricsForMxEdge(
     device_mac: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-mx-edge
@@ -393,10 +393,10 @@ def listSiteRogueAPs(
     mist_session: _APISession,
     site_id: str,
     type: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
 ) -> _APIResponse:
     """
@@ -447,10 +447,10 @@ def listSiteRogueAPs(
 def listSiteRogueClients(
     mist_session: _APISession,
     site_id: str,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
 ) -> _APIResponse:
     """
@@ -502,10 +502,10 @@ def getSiteInsightMetricsForSwitch(
     device_mac: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-switch
@@ -560,10 +560,10 @@ def getSiteInsightMetrics(
     metric: str,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics

@@ -20,8 +20,8 @@ def getSiteBeamCoverageOverview(
     map_id: str | None = None,
     type: str | None = None,
     client_type: str | None = None,
-    duration: str = "1d",
-    resolution: str = "default",
+    duration: str | None = None,
+    resolution: str | None = None,
     start: str | None = None,
     end: str | None = None,
 ) -> _APIResponse:

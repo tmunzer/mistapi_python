@@ -92,6 +92,8 @@ class APISession(APIRequest):
             Path to the secret in Vault
         vault_token : str
             Token for authenticating with Vault
+        keyring_service : str
+            keyring service name to load Mist API settings from system keyring
         console_log_level : int, default: 20
             Log level for the console output. Values are:
                 50 -> CRITICAL
@@ -332,6 +334,9 @@ class APISession(APIRequest):
         if os.getenv("MIST_VAULT_TOKEN") and not self.vault_token:
             self.vault_token = os.getenv("MIST_VAULT_TOKEN")
 
+        if os.getenv("MIST_KEYRING_SERVICE"):
+            self.keyring_service = os.getenv("MIST_KEYRING_SERVICE")
+
         if os.getenv("HTTPS_PROXY"):
             self._proxies["https"] = os.getenv("HTTPS_PROXY")
 
@@ -477,14 +482,19 @@ class APISession(APIRequest):
             if token and token not in apitokens_out:
                 apitokens_out.append(token)
         LOGGER.info("apisession:set_api_token:found %s API Tokens", len(apitokens_out))
-        if self._check_api_tokens(apitokens_out):
-            self._apitoken = apitokens_out
+
+        valid_api_tokens = self._check_api_tokens(apitokens_out)
+        if valid_api_tokens:
+            self._apitoken = valid_api_tokens
             self._apitoken_index = 0
             self._session.headers.update(
                 {"Authorization": "Token " + self._apitoken[self._apitoken_index]}
             )
             LOGGER.info("apisession:set_api_token:API Token configured")
             CONSOLE.debug("API Token configured")
+        else:
+            LOGGER.error("apisession:set_api_token:No valid API Token provided")
+            CONSOLE.error("No valid API Token provided")
 
     def _get_api_token_data(self, apitoken) -> tuple[str | None, list | None]:
         token_privileges = []
@@ -568,30 +578,48 @@ class APISession(APIRequest):
                 )
         return (token_type, token_privileges)
 
-    def _check_api_tokens(self, apitokens) -> bool:
+    def _check_api_tokens(self, apitokens) -> list[str]:
         """
         Function used when multiple API tokens are provided, to validate they
         have same privileges
         """
         LOGGER.debug("apisession:_check_api_tokens")
+        valid_api_tokens: list[str] = []
         if len(apitokens) == 0:
             LOGGER.error("apisession:_check_api_tokens:there is not API token to check")
-        elif (len(apitokens)) == 1:
-            LOGGER.info(
-                "apisession:_check_api_tokens:there is only 1 API token. No check required"
-            )
         else:
             primary_token_privileges: list[str] = []
             primary_token_type: str | None = ""
             primary_token_value: str = ""
             for token in apitokens:
                 token_value = f"{token[:4]}...{token[-4:]}"
+                if token in valid_api_tokens:
+                    LOGGER.info(
+                        "apisession:_check_api_tokens:API Token %s is already valid",
+                        token_value,
+                    )
+                    continue
                 (token_type, token_privileges) = self._get_api_token_data(token)
-                if len(primary_token_privileges) == 0 and token_privileges:
+                if token_type is None or token_privileges is None:
+                    LOGGER.error(
+                        "apisession:_check_api_tokens:API Token %s is not valid",
+                        token_value,
+                    )
+                    LOGGER.error(
+                        "API Token %s is not valid and will not be used", token_value
+                    )
+                elif len(primary_token_privileges) == 0 and token_privileges:
                     primary_token_privileges = token_privileges
                     primary_token_type = token_type
                     primary_token_value = token_value
+                    valid_api_tokens.append(token)
+                    LOGGER.info(
+                        "apisession:_check_api_tokens:"
+                        "API Token %s set as primary for comparison",
+                        token_value,
+                    )
                 elif primary_token_privileges == token_privileges:
+                    valid_api_tokens.append(token)
                     LOGGER.info(
                         "apisession:_check_api_tokens:"
                         "%s API Token %s has same privileges as "
@@ -602,7 +630,7 @@ class APISession(APIRequest):
                         primary_token_value,
                     )
                 else:
-                    LOGGER.critical(
+                    LOGGER.error(
                         "apisession:_check_api_tokens:"
                         "%s API Token %s has different privileges "
                         "than the %s API Token %s",
@@ -611,14 +639,11 @@ class APISession(APIRequest):
                         primary_token_type,
                         primary_token_value,
                     )
-                    LOGGER.critical(" /!\\ API TOKEN CRITICAL ERROR /!\\")
-                    LOGGER.critical(
-                        " When using multiple API Tokens, be sure they are all linked"
-                        " to the same Org/User, and all have the same privileges"
+                    LOGGER.error(
+                        "API Token %s has different privileges and will not be used",
+                        token_value,
                     )
-                    LOGGER.critical(" Exiting...")
-                    sys.exit(255)
-        return True
+        return valid_api_tokens
 
     def _process_login(self, retry: bool = True) -> str | None:
         """
@@ -643,26 +668,42 @@ class APISession(APIRequest):
         if not self._password:
             self.set_password()
 
-        LOGGER.debug("apisession:_process_login:email/password configured")
-        uri = "/api/v1/login"
-        body = {"email": self.email, "password": self._password}
-        resp = self._session.post(self._url(uri), json=body)
-        if resp.status_code == 200:
-            LOGGER.info("apisession:_process_login:authentication successful!")
-            CONSOLE.info("Authentication successful!")
-            self._set_authenticated(True)
-        else:
-            error = resp.json().get("detail")
-            LOGGER.error("apisession:_process_login:authentication failed:%s", error)
-            CONSOLE.error(f"Authentication failed: {error}\r\n")
-            self.email = None
-            self._password = None
-            LOGGER.info(
-                "apisession:_process_login:"
-                "email/password cleaned up. Restarting authentication function"
+        try:
+            LOGGER.debug("apisession:_process_login:email/password configured")
+            uri = "/api/v1/login"
+            body = {"email": self.email, "password": self._password}
+            resp = self._session.post(self._url(uri), json=body)
+            if resp.status_code == 200:
+                LOGGER.info("apisession:_process_login:authentication successful!")
+                CONSOLE.info("Authentication successful!")
+                self._set_authenticated(True)
+            else:
+                error = resp.json().get("detail")
+                LOGGER.error(
+                    "apisession:_process_login:authentication failed:%s", error
+                )
+                CONSOLE.error(f"Authentication failed: {error}\r\n")
+                self.email = None
+                self._password = None
+                LOGGER.info(
+                    "apisession:_process_login:"
+                    "email/password cleaned up. Restarting authentication function"
+                )
+                if retry:
+                    return self._process_login(retry)
+        except requests.exceptions.ProxyError:
+            LOGGER.critical("apisession:_process_login:proxy not valid...")
+            CONSOLE.critical("Proxy not valid...\r\n")
+            sys.exit(0)
+        except requests.exceptions.ConnectionError as connexion_error:
+            LOGGER.critical(
+                "apirequest:mist_post:Connection Error: %s", connexion_error
             )
-            if retry:
-                return self._process_login(retry)
+            CONSOLE.critical("Connexion error...\r\n")
+            sys.exit(0)
+        except Exception:
+            LOGGER.error("apisession:_process_login:Exception occurred", exc_info=True)
+            error = "Exception occurred during authentication"
 
         return error
 

@@ -15,7 +15,7 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 
 def getAdminRegistrationInfo(
-    mist_session: _APISession, recaptcha_flavor: str = "google"
+    mist_session: _APISession, recaptcha_flavor: str | None = None
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/get-admin-registration-info

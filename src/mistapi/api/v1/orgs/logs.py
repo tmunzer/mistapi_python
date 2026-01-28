@@ -23,9 +23,9 @@ def listOrgAuditLogs(
     sort: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/logs/list-org-audit-logs
@@ -85,15 +85,15 @@ def listOrgAuditLogs(
 def countOrgAuditLogs(
     mist_session: _APISession,
     org_id: str,
-    distinct: str = "admin_name",
+    distinct: str | None = None,
     admin_id: str | None = None,
     admin_name: str | None = None,
     site_id: str | None = None,
     message: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/logs/count-org-audit-logs

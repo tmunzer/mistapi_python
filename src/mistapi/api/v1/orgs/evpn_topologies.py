@@ -17,9 +17,9 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def listOrgEvpnTopologies(
     mist_session: _APISession,
     org_id: str,
-    for_site: str = "any",
-    limit: int = 100,
-    page: int = 1,
+    for_site: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/evpn-topologies/list-org-evpn-topologies

@@ -20,10 +20,10 @@ def getOrgSitesSle(
     sle: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/sles/get-org-sites-sle
@@ -78,7 +78,7 @@ def getOrgSle(
     org_id: str,
     metric: str,
     sle: str | None = None,
-    duration: str = "1d",
+    duration: str | None = None,
     interval: str | None = None,
     start: str | None = None,
     end: str | None = None,

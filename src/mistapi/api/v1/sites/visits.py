@@ -21,12 +21,12 @@ def searchSiteZoneSessions(
     user_type: str | None = None,
     user: str | None = None,
     scope_id: str | None = None,
-    scope: str = "site",
-    limit: int = 100,
+    scope: str | None = None,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

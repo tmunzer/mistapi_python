@@ -17,15 +17,15 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def countSiteWiredClients(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "mac",
+    distinct: str | None = None,
     mac: str | None = None,
     device_mac: str | None = None,
     port_id: str | None = None,
     vlan: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/clients/wired/count-site-wired-clients
@@ -98,11 +98,11 @@ def searchSiteWiredClients(
     dhcp_client_identifier: str | None = None,
     dhcp_vendor_class_identifier: str | None = None,
     dhcp_request_params: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

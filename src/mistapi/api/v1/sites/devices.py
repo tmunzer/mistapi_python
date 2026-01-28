@@ -17,10 +17,10 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def listSiteDevices(
     mist_session: _APISession,
     site_id: str,
-    type: str = "ap",
+    type: str | None = None,
     name: str | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/list-site-devices
@@ -132,8 +132,8 @@ def countSiteDeviceConfigHistory(
     mac: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-device-config-history
@@ -183,13 +183,13 @@ def countSiteDeviceConfigHistory(
 def searchSiteDeviceConfigHistory(
     mist_session: _APISession,
     site_id: str,
-    type: str = "ap",
+    type: str | None = None,
     mac: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -246,7 +246,7 @@ def searchSiteDeviceConfigHistory(
 def countSiteDevices(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "model",
+    distinct: str | None = None,
     hostname: str | None = None,
     model: str | None = None,
     mac: str | None = None,
@@ -260,8 +260,8 @@ def countSiteDevices(
     map_id: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-devices
@@ -341,14 +341,14 @@ def countSiteDevices(
 def countSiteDeviceEvents(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "model",
+    distinct: str | None = None,
     model: str | None = None,
     type: str | None = None,
     type_code: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-device-events
@@ -411,11 +411,11 @@ def searchSiteDeviceEvents(
     type: str | None = None,
     last_by: str | None = None,
     includes: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -608,11 +608,11 @@ def importSiteDevices(
 def countSiteDeviceLastConfig(
     mist_session: _APISession,
     site_id: str,
-    distinct: str = "mac",
+    distinct: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/count-site-device-last-config
@@ -660,15 +660,15 @@ def searchSiteDeviceLastConfigs(
     mist_session: _APISession,
     site_id: str,
     cert_expiry_duration: str | None = None,
-    device_type: str = "ap",
+    device_type: str | None = None,
     mac: str | None = None,
     version: str | None = None,
     name: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -852,7 +852,7 @@ def searchSiteDevices(
     mist_session: _APISession,
     site_id: str,
     hostname: str | None = None,
-    type: str = "ap",
+    type: str | None = None,
     model: str | None = None,
     mac: str | None = None,
     ext_ip: str | None = None,
@@ -884,11 +884,11 @@ def searchSiteDevices(
     band_6_bandwidth: int | None = None,
     eth0_port_speed: int | None = None,
     stats: bool | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     desc_sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
@@ -1257,7 +1257,10 @@ def upgradeSiteDevicesFpga(
 
 
 def listSiteAvailableDeviceVersions(
-    mist_session: _APISession, site_id: str, type: str = "ap", model: str | None = None
+    mist_session: _APISession,
+    site_id: str,
+    type: str | None = None,
+    model: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-site-available-device-versions

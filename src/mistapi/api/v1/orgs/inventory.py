@@ -24,10 +24,10 @@ def getOrgInventory(
     site_id: str | None = None,
     vc_mac: str | None = None,
     vc: bool | None = None,
-    unassigned: bool = False,
+    unassigned: bool | None = None,
     modified_after: int | None = None,
-    limit: int = 100,
-    page: int = 1,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/get-org-inventory
@@ -154,9 +154,9 @@ def updateOrgInventoryAssignment(
 def countOrgInventory(
     mist_session: _APISession,
     org_id: str,
-    type: str = "ap",
-    distinct: str = "model",
-    limit: int = 100,
+    type: str | None = None,
+    distinct: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/count-org-inventory
@@ -314,7 +314,7 @@ def replaceOrgDevices(
 def searchOrgInventory(
     mist_session: _APISession,
     org_id: str,
-    type: str = "ap",
+    type: str | None = None,
     mac: str | None = None,
     vc_mac: str | None = None,
     master_mac: str | None = None,
@@ -325,8 +325,8 @@ def searchOrgInventory(
     version: str | None = None,
     status: str | None = None,
     text: str | None = None,
-    limit: int = 100,
-    sort: str = "timestamp",
+    limit: int | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """

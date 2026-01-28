@@ -42,7 +42,7 @@ def listOrgDevices(mist_session: _APISession, org_id: str) -> _APIResponse:
 def countOrgDevices(
     mist_session: _APISession,
     org_id: str,
-    distinct: str = "model",
+    distinct: str | None = None,
     hostname: str | None = None,
     site_id: str | None = None,
     model: str | None = None,
@@ -56,11 +56,11 @@ def countOrgDevices(
     lldp_system_desc: str | None = None,
     lldp_port_id: str | None = None,
     lldp_mgmt_addr: str | None = None,
-    type: str = "ap",
+    type: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-devices
@@ -150,7 +150,7 @@ def countOrgDevices(
 def countOrgDeviceEvents(
     mist_session: _APISession,
     org_id: str,
-    distinct: str = "model",
+    distinct: str | None = None,
     site_id: str | None = None,
     ap: str | None = None,
     apfw: str | None = None,
@@ -160,8 +160,8 @@ def countOrgDeviceEvents(
     type: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-device-events
@@ -231,17 +231,17 @@ def searchOrgDeviceEvents(
     org_id: str,
     mac: str | None = None,
     model: str | None = None,
-    device_type: str = "ap",
+    device_type: str | None = None,
     text: str | None = None,
     timestamp: str | None = None,
     type: str | None = None,
     last_by: str | None = None,
     includes: str | None = None,
-    limit: int = 100,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -316,12 +316,12 @@ def searchOrgDeviceEvents(
 def countOrgDeviceLastConfigs(
     mist_session: _APISession,
     org_id: str,
-    type: str = "ap",
+    type: str | None = None,
     distinct: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
+    duration: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/count-org-device-last-configs
@@ -371,16 +371,16 @@ def countOrgDeviceLastConfigs(
 def searchOrgDeviceLastConfigs(
     mist_session: _APISession,
     org_id: str,
-    device_type: str = "ap",
+    device_type: str | None = None,
     mac: str | None = None,
     name: str | None = None,
     version: str | None = None,
     cert_expiry_duration: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    limit: int = 100,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    limit: int | None = None,
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -444,7 +444,10 @@ def searchOrgDeviceLastConfigs(
 
 
 def listOrgApsMacs(
-    mist_session: _APISession, org_id: str, limit: int = 100, page: int = 1
+    mist_session: _APISession,
+    org_id: str,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/devices/list-org-aps-macs
@@ -518,12 +521,12 @@ def searchOrgDevices(
     site_id: str | None = None,
     t128agent_version: str | None = None,
     version: str | None = None,
-    type: str = "ap",
-    limit: int = 100,
+    type: str | None = None,
+    limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    sort: str = "timestamp",
+    duration: str | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
     """
@@ -821,7 +824,10 @@ def cancelOrgDeviceUpgrade(
 
 
 def listOrgAvailableDeviceVersions(
-    mist_session: _APISession, org_id: str, type: str = "ap", model: str | None = None
+    mist_session: _APISession,
+    org_id: str,
+    type: str | None = None,
+    model: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/list-org-available-device-versions

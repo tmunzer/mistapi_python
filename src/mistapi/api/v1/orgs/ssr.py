@@ -199,7 +199,7 @@ def cancelOrgSsrUpgrade(
 def listOrgAvailableSsrVersions(
     mist_session: _APISession,
     org_id: str,
-    channel: str = "stable",
+    channel: str | None = None,
     mac: str | None = None,
 ) -> _APIResponse:
     """

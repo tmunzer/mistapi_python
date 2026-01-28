@@ -15,7 +15,10 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 
 def countMspsMarvisActions(
-    mist_session: _APISession, msp_id: str, distinct: str = "org_id", limit: int = 100
+    mist_session: _APISession,
+    msp_id: str,
+    distinct: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/marvis/count-msps-marvis-actions

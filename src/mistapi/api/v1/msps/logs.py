@@ -23,9 +23,9 @@ def listMspAuditLogs(
     sort: str | None = None,
     start: str | None = None,
     end: str | None = None,
-    duration: str = "1d",
-    limit: int = 100,
-    page: int = 1,
+    duration: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logs/list-msp-audit-logs
@@ -85,8 +85,8 @@ def listMspAuditLogs(
 def countMspAuditLogs(
     mist_session: _APISession,
     msp_id: str,
-    distinct: str = "admin_name",
-    limit: int = 100,
+    distinct: str | None = None,
+    limit: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/logs/count-msp-audit-logs
