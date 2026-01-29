@@ -1,5 +1,155 @@
 # CHANGELOG
 
+## Version 0.59.5 (January 2026)
+
+**Released**: January 29, 2026
+
+This release improves error handling by replacing `sys.exit()` calls with proper exceptions, fixes pagination issues, and updates the API definitions to match the latest OpenAPI specification (2511.1.14).
+
+---
+
+## 1. BUG FIXES
+
+### **Pagination Fix**
+- Fixed pagination issue when `page` parameter is not already present in the URL
+- Added logic to properly append `page` parameter with correct separator (`?` or `&`)
+- Improved `APIResponse._check_next()` to handle URLs without existing pagination parameters
+
+### **Error Handling Improvements**
+- Replaced `sys.exit()` calls with proper exception raising in API validation and authentication methods
+- `_get_api_token_data()`: Now raises `ConnectionError` instead of calling `sys.exit()` for proxy and connection errors
+- `_get_api_token_data()`: Now raises `ValueError` instead of calling `sys.exit(2)` for invalid API tokens (401 status)
+- `_process_login()`: Now raises `ConnectionError` instead of calling `sys.exit()` for proxy and connection errors
+- `_getself()`: Now raises `ConnectionError` for proxy errors and `ValueError` when authentication fails and user declines to retry
+
+---
+
+## 2. API UPDATES
+
+### **OpenAPI Specification Update**
+- Updated to latest Mist OpenAPI specification
+- Enhanced alarm search endpoints with additional filtering parameters:
+  - `searchOrgAlarms()`: Added `group`, `severity`, `ack_admin_name`, and `acked` parameters
+  - `searchSiteAlarms()`: Enhanced parameter support
+- Updated parameter types and documentation across multiple endpoints
+
+---
+
+## 3. FILES MODIFIED
+
+### **src/mistapi/__api_response.py**
+- Fixed pagination URL construction to handle missing `page` parameter
+- Improved `_check_next()` method with proper separator detection
+
+### **src/mistapi/__api_session.py**
+- Replaced 5 `sys.exit()` calls with proper exceptions (`ConnectionError`, `ValueError`)
+- Improved error handling to allow proper exception propagation for testing
+- Added early return logic to skip token validation when cloud URI is not set
+
+### **src/mistapi/api/v1/orgs/alarms.py**
+- Added `group`, `severity`, `ack_admin_name`, and `acked` parameters to `searchOrgAlarms()`
+- Updated parameter documentation with enum values
+
+### **src/mistapi/api/v1/sites/alarms.py**
+- Enhanced alarm search functionality with updated parameters
+
+### **src/mistapi/api/v1/orgs/stats.py**
+- Updated statistics endpoints to match latest API specification
+
+### **src/mistapi/api/v1/sites/stats.py**
+- Updated statistics endpoints to match latest API specification
+
+### **tests/unit/test_api_session.py**
+- Added `Mock` to imports
+- Fixed `test_initialisation_with_parameters` to mock `requests.get`
+- Fixed `test_initialisation_with_env_file` to mock `requests.get`
+- Fixed `test_set_single_api_token` to use correct mock return type
+- Fixed `test_set_multiple_api_tokens` to use correct mock return type
+
+### **tests/conftest.py**
+- Updated `basic_session` fixture to properly mock HTTP requests during token validation
+
+---
+
+## Summary Statistics
+
+- **Bug Fixes**: 6 (5 sys.exit() calls replaced + 1 pagination fix)
+- **API Updates**: Multiple endpoints updated with new parameters
+- **Test Improvements**: 6 tests fixed
+- **Total Files Modified**: 11
+
+---
+
+## Breaking Changes
+
+**Potential Breaking Change**: Code that previously relied on `sys.exit()` behavior during authentication failures will now receive exceptions instead. This is a more correct behavior for library code.
+
+- `ConnectionError` is raised for proxy and connection errors
+- `ValueError` is raised for invalid API tokens or failed authentication
+
+---
+
+## Version 0.59.4 (January 2026)
+
+**Released**: January 28, 2026
+
+This release removes default values from optional parameters across all API functions, improving code clarity and consistency.
+
+---
+
+## 1. CHANGES
+
+### **API Parameter Defaults Removed**
+- Removed default values from optional parameters across all API endpoint functions
+- All optional parameters now default to `None` instead of using OpenAPI-specified defaults
+- Default values are handled directly by the Mist Cloud API when parameters are omitted
+- Eliminates redundancy and potential inconsistencies between client and server defaults
+- Improves consistency and makes it clearer which parameters are explicitly set by the caller
+- Affects 116 files across the codebase
+
+---
+
+## 2. FILES MODIFIED
+
+### **API Endpoint Files** (116 files affected)
+- All API endpoint functions updated to use `None` as default for optional parameters
+- Includes files in:
+  - `src/mistapi/api/v1/orgs/` (52 files)
+  - `src/mistapi/api/v1/sites/` (48 files)
+  - `src/mistapi/api/v1/msps/` (7 files)
+  - `src/mistapi/api/v1/installer/` (2 files)
+  - Other API directories
+
+---
+
+## Summary Statistics
+
+- **Changes**: Standardized optional parameter defaults
+- **Total Files Modified**: 116
+- **Lines Changed**: ~856 additions, ~642 deletions
+
+---
+
+## Breaking Changes
+
+**Breaking Change**: Functions that previously had default values specified from the OpenAPI spec now default to `None`. However, this should not affect behavior as the Mist Cloud API applies the same default values server-side when parameters are omitted.
+
+If you were explicitly relying on seeing the default values in the Python function signature, you will now need to refer to the Mist API documentation for default values.
+
+Example:
+```python
+# Before 0.59.4 (if API spec had duration="1d" as default)
+searchOrgAlarms(session, org_id)  # duration defaulted to "1d" in Python
+
+# After 0.59.4
+searchOrgAlarms(session, org_id)  # duration=None sent, Mist Cloud applies "1d" default
+searchOrgAlarms(session, org_id, duration="1d")  # Explicit is also fine
+```
+
+**Note**: The actual API behavior remains unchanged - the Mist Cloud handles default values consistently.
+
+---
+
 ## Version 0.59.3 (December 2024)
 
 **Released**: December 26, 2024
