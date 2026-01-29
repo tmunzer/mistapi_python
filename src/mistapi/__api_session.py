@@ -513,16 +513,16 @@ class APISession(APIRequest):
                 apitoken[:4],
                 apitoken[-4:],
             )
-        except requests.exceptions.ProxyError:
+        except requests.exceptions.ProxyError as proxy_error:
             LOGGER.critical("apisession:_get_api_token_data:proxy not valid...")
             CONSOLE.critical("Proxy not valid...\r\n")
-            sys.exit(0)
+            raise ConnectionError("Proxy not valid") from proxy_error
         except requests.exceptions.ConnectionError as connexion_error:
             LOGGER.critical(
                 "apirequest:mist_post:Connection Error: %s", connexion_error
             )
             CONSOLE.critical("Connexion error...\r\n")
-            sys.exit(0)
+            raise ConnectionError(f"Connection error: {connexion_error}") from connexion_error
         except Exception:
             LOGGER.error(
                 "apisession:_get_api_token_data:"
@@ -546,7 +546,7 @@ class APISession(APIRequest):
             CONSOLE.critical(
                 f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}\r\n"
             )
-            sys.exit(2)
+            raise ValueError(f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}")
 
         if data_json.get("email"):
             token_type = "user"  # nosec bandit B105
@@ -691,16 +691,16 @@ class APISession(APIRequest):
                 )
                 if retry:
                     return self._process_login(retry)
-        except requests.exceptions.ProxyError:
+        except requests.exceptions.ProxyError as proxy_error:
             LOGGER.critical("apisession:_process_login:proxy not valid...")
             CONSOLE.critical("Proxy not valid...\r\n")
-            sys.exit(0)
+            raise ConnectionError("Proxy not valid") from proxy_error
         except requests.exceptions.ConnectionError as connexion_error:
             LOGGER.critical(
                 "apirequest:mist_post:Connection Error: %s", connexion_error
             )
             CONSOLE.critical("Connexion error...\r\n")
-            sys.exit(0)
+            raise ConnectionError(f"Connection error: {connexion_error}") from connexion_error
         except Exception:
             LOGGER.error("apisession:_process_login:Exception occurred", exc_info=True)
             error = "Exception occurred during authentication"
@@ -1078,7 +1078,7 @@ class APISession(APIRequest):
         elif resp.proxy_error:
             LOGGER.critical("apisession:_getself:proxy not valid...")
             CONSOLE.critical("Proxy not valid...\r\n")
-            sys.exit(0)
+            raise ConnectionError("Proxy not valid")
         else:
             LOGGER.error("apisession:_getself:authentication not valid...")
             CONSOLE.error("Authentication not valid...\r\n")
@@ -1089,7 +1089,7 @@ class APISession(APIRequest):
                 self._process_login()
                 return self._getself()
             else:
-                sys.exit(0)
+                raise ValueError("Authentication not valid and user declined to retry")
         return False
 
     ####################################
