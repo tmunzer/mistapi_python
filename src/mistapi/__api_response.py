@@ -81,7 +81,11 @@ class APIResponse:
                     page = int(page_str)
                     if limit * page < total:
                         uri = f"/api/{self.url.split('/api/')[1]}"
-                        self.next = uri.replace(f"page={page}", f"page={page + 1}")
+                        if "page=" not in uri:
+                            separator = "&" if "?" in uri else "?"
+                            self.next = f"{uri}{separator}page={page + 1}"
+                        else:
+                            self.next = uri.replace(f"page={page}", f"page={page + 1}")
                         logger.debug(f"apiresponse:_check_next:set next to {self.next}")
                 except ValueError:
                     logger.error(
