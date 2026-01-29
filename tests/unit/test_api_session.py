@@ -7,7 +7,7 @@ They test the logic without requiring real HTTP calls.
 """
 
 import os
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -40,52 +40,78 @@ class TestAPISessionInitialisation:
         # Mock environment to ensure clean state
         with patch.dict(os.environ, {}, clear=True):
             with patch("mistapi.__api_session.requests.session"):
-                # Act
-                session = APISession(
-                    email=email,
-                    password=password,
-                    apitoken=api_token,
-                    host=test_host,
-                    console_log_level=30,
-                    logging_log_level=20,
-                    show_cli_notif=False,
-                    https_proxy="http://proxy:8080",
-                )
+                with patch("mistapi.__api_session.requests.get") as mock_get:
+                    # Mock successful token validation
+                    mock_response = Mock()
+                    mock_response.status_code = 200
+                    mock_response.json.return_value = {
+                        "privileges": [
+                            {"scope": "org", "org_id": "test-org", "role": "admin"}
+                        ]
+                    }
+                    mock_get.return_value = mock_response
 
-                # Assert
-                assert session.email == email
-                assert session._password == password
-                assert session._apitoken == [api_token]  # Should be converted to list
-                assert session._cloud_uri == test_host
-                assert session._console_log_level == 30
-                assert session._logging_log_level == 20
-                assert session._show_cli_notif is False
-                assert session._proxies["https"] == "http://proxy:8080"
+                    # Act
+                    session = APISession(
+                        email=email,
+                        password=password,
+                        apitoken=api_token,
+                        host=test_host,
+                        console_log_level=30,
+                        logging_log_level=20,
+                        show_cli_notif=False,
+                        https_proxy="http://proxy:8080",
+                    )
+
+                    # Assert
+                    assert session.email == email
+                    assert session._password == password
+                    assert session._apitoken == [
+                        api_token
+                    ]  # Should be converted to list
+                    assert session._cloud_uri == test_host
+                    assert session._console_log_level == 30
+                    assert session._logging_log_level == 20
+                    assert session._show_cli_notif is False
+                    assert session._proxies["https"] == "http://proxy:8080"
 
     def test_initialisation_with_env_file(self, tmp_env_file) -> None:
         """Test APISession initialisation using environment file"""
         # Mock requests.session and ensure clean environment
         with patch("mistapi.__api_session.requests.session"):
-            with patch.dict(
-                os.environ,
-                {
-                    "MIST_HOST": "api.mist.com",
-                    "MIST_APITOKEN": "abcdef0123456789abcdef0123456789abcdef01",
-                    "MIST_USER": "test@example.com",
-                    "MIST_PASSWORD": "test_password",
-                    "CONSOLE_LOG_LEVEL": "30",
-                    "LOGGING_LOG_LEVEL": "20",
-                    "HTTPS_PROXY": "http://proxy:8080",
-                },
-            ):
-                # Act
-                session = APISession(env_file=tmp_env_file)
+            with patch("mistapi.__api_session.requests.get") as mock_get:
+                # Mock successful token validation
+                mock_response = Mock()
+                mock_response.status_code = 200
+                mock_response.json.return_value = {
+                    "privileges": [
+                        {"scope": "org", "org_id": "test-org", "role": "admin"}
+                    ]
+                }
+                mock_get.return_value = mock_response
 
-                # Assert
-                assert session._cloud_uri == "api.mist.com"
-                assert session._apitoken == ["abcdef0123456789abcdef0123456789abcdef01"]
-                assert session.email == "test@example.com"
-                assert session._password == "test_password"
+                with patch.dict(
+                    os.environ,
+                    {
+                        "MIST_HOST": "api.mist.com",
+                        "MIST_APITOKEN": "abcdef0123456789abcdef0123456789abcdef01",
+                        "MIST_USER": "test@example.com",
+                        "MIST_PASSWORD": "test_password",
+                        "CONSOLE_LOG_LEVEL": "30",
+                        "LOGGING_LOG_LEVEL": "20",
+                        "HTTPS_PROXY": "http://proxy:8080",
+                    },
+                ):
+                    # Act
+                    session = APISession(env_file=tmp_env_file)
+
+                    # Assert
+                    assert session._cloud_uri == "api.mist.com"
+                    assert session._apitoken == [
+                        "abcdef0123456789abcdef0123456789abcdef01"
+                    ]
+                    assert session.email == "test@example.com"
+                    assert session._password == "test_password"
 
 
 class TestCloudConfiguration:
@@ -187,7 +213,10 @@ class TestAuthentication:
     def test_set_single_api_token(self, isolated_session, api_token) -> None:
         """Test setting a single API token"""
         # Arrange
-        with patch.object(isolated_session, "_check_api_tokens", return_value=True):
+        isolated_session.set_cloud("api.mist.com")  # Set cloud to enable validation
+        with patch.object(
+            isolated_session, "_check_api_tokens", return_value=[api_token]
+        ):
             # Act
             isolated_session.set_api_token(api_token)
 
@@ -201,7 +230,10 @@ class TestAuthentication:
         tokens = "token1, token2, token3"
         expected_tokens = ["token1", "token2", "token3"]
 
-        with patch.object(isolated_session, "_check_api_tokens", return_value=True):
+        isolated_session.set_cloud("api.mist.com")  # Set cloud to enable validation
+        with patch.object(
+            isolated_session, "_check_api_tokens", return_value=expected_tokens
+        ):
             # Act
             isolated_session.set_api_token(tokens)
 

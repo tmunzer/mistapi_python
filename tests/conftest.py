@@ -153,7 +153,15 @@ def isolated_session():
 def basic_session(isolated_session, test_host, api_token):
     """Basic APISession with host and token configured"""
     isolated_session.set_cloud(test_host)
-    isolated_session.set_api_token(api_token)
+    # Mock token validation to prevent HTTP calls
+    with patch("mistapi.__api_session.requests.get") as mock_get:
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "privileges": [{"scope": "org", "org_id": "test-org", "role": "admin"}]
+        }
+        mock_get.return_value = mock_response
+        isolated_session.set_api_token(api_token)
     return isolated_session
 
 
