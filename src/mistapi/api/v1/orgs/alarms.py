@@ -131,8 +131,11 @@ def searchOrgAlarms(
     mist_session: _APISession,
     org_id: str,
     site_id: str | None = None,
+    group: str | None = None,
+    severity: str | None = None,
     type: str | None = None,
-    status: str | None = None,
+    ack_admin_name: str | None = None,
+    acked: bool | None = None,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -155,8 +158,13 @@ def searchOrgAlarms(
     QUERY PARAMS
     ------------
     site_id : str
+    group : str{'infrastructure', 'marvis', 'security'}
+      Alarm group. enum: `infrastructure`, `marvis`, `security`
+    severity : str{'critical', 'info', 'warn'}
+      Severity of the alarm. enum: `critical`, `info`, `warn`
     type : str
-    status : str
+    ack_admin_name : str
+    acked : bool
     start : str
     end : str
     duration : str, default: 1d
@@ -174,10 +182,16 @@ def searchOrgAlarms(
     query_params: dict[str, str] = {}
     if site_id:
         query_params["site_id"] = str(site_id)
+    if group:
+        query_params["group"] = str(group)
+    if severity:
+        query_params["severity"] = str(severity)
     if type:
         query_params["type"] = str(type)
-    if status:
-        query_params["status"] = str(status)
+    if ack_admin_name:
+        query_params["ack_admin_name"] = str(ack_admin_name)
+    if acked:
+        query_params["acked"] = str(acked)
     if start:
         query_params["start"] = str(start)
     if end:

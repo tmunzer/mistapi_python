@@ -151,11 +151,11 @@ def countSiteAlarms(
 def searchSiteAlarms(
     mist_session: _APISession,
     site_id: str,
+    group: str | None = None,
+    severity: str | None = None,
     type: str | None = None,
     ack_admin_name: str | None = None,
     acked: bool | None = None,
-    severity: str | None = None,
-    group: str | None = None,
     limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -177,11 +177,13 @@ def searchSiteAlarms(
 
     QUERY PARAMS
     ------------
+    group : str{'infrastructure', 'marvis', 'security'}
+      Alarm group. enum: `infrastructure`, `marvis`, `security`
+    severity : str{'critical', 'info', 'warn'}
+      Severity of the alarm. enum: `critical`, `info`, `warn`
     type : str
     ack_admin_name : str
     acked : bool
-    severity : str
-    group : str
     limit : int, default: 100
     start : str
     end : str
@@ -197,16 +199,16 @@ def searchSiteAlarms(
 
     uri = f"/api/v1/sites/{site_id}/alarms/search"
     query_params: dict[str, str] = {}
+    if group:
+        query_params["group"] = str(group)
+    if severity:
+        query_params["severity"] = str(severity)
     if type:
         query_params["type"] = str(type)
     if ack_admin_name:
         query_params["ack_admin_name"] = str(ack_admin_name)
     if acked:
         query_params["acked"] = str(acked)
-    if severity:
-        query_params["severity"] = str(severity)
-    if group:
-        query_params["group"] = str(group)
     if limit:
         query_params["limit"] = str(limit)
     if start:

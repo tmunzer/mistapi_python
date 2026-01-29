@@ -1818,11 +1818,11 @@ def countSiteSwOrGwPorts(
     rx_mcast_pkts : int
     rx_bcast_pkts : int
     speed : int
-    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
+    stp_state : str{'', 'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       If `up`==`true`
-    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
+    stp_role : str{'', 'alternate', 'backup', 'designated', 'disabled', 'root', 'root-prevented'}
       If `up`==`true`
-    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
+    auth_state : str{'', 'authenticated', 'authenticating', 'held', 'init'}
       If `up`==`true` && has Authenticator role
     up : bool
     start : str
@@ -2003,12 +2003,12 @@ def searchSiteSwOrGwPorts(
     jitter : float
     loss : float
     latency : float
-    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
+    stp_state : str{'', 'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       If `up`==`true`
-    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
+    stp_role : str{'', 'alternate', 'backup', 'designated', 'disabled', 'root', 'root-prevented'}
       If `up`==`true`
     xcvr_part_number : str
-    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
+    auth_state : str{'', 'authenticated', 'authenticating', 'held', 'init'}
       If `up`==`true` && has Authenticator role
     lte_imsi : str
     lte_iccid : str

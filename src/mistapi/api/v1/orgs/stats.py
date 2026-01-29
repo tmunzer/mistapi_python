@@ -795,11 +795,11 @@ def countOrgSwOrGwPorts(
     rx_mcast_pkts : int
     rx_bcast_pkts : int
     speed : int
-    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
+    stp_state : str{'', 'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       If `up`==`true`
-    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
+    stp_role : str{'', 'alternate', 'backup', 'designated', 'disabled', 'root', 'root-prevented'}
       If `up`==`true`
-    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
+    auth_state : str{'', 'authenticated', 'authenticating', 'held', 'init'}
       If `up`==`true` && has Authenticator role
     up : bool
     site_id : str
@@ -970,11 +970,11 @@ def searchOrgSwOrGwPorts(
     mac_limit : int
     mac_count : int
     up : bool
-    stp_state : str{'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
+    stp_state : str{'', 'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       If `up`==`true`
-    stp_role : str{'alternate', 'backup', 'designated', 'root', 'root-prevented'}
+    stp_role : str{'', 'alternate', 'backup', 'designated', 'disabled', 'root', 'root-prevented'}
       If `up`==`true`
-    auth_state : str{'authenticated', 'authenticating', 'held', 'init'}
+    auth_state : str{'', 'authenticated', 'authenticating', 'held', 'init'}
       If `up`==`true` && has Authenticator role
     optics_bias_current : float
     optics_tx_power : float

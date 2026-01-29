@@ -2642,7 +2642,7 @@ def showSiteDeviceBgpSummary(
         response from the API call
     """
 
-    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_bgp_rummary"
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/show_bgp_summary"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
