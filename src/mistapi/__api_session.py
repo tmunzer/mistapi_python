@@ -522,7 +522,9 @@ class APISession(APIRequest):
                 "apirequest:mist_post:Connection Error: %s", connexion_error
             )
             CONSOLE.critical("Connexion error...\r\n")
-            raise ConnectionError(f"Connection error: {connexion_error}") from connexion_error
+            raise ConnectionError(
+                f"Connection error: {connexion_error}"
+            ) from connexion_error
         except Exception:
             LOGGER.error(
                 "apisession:_get_api_token_data:"
@@ -546,7 +548,9 @@ class APISession(APIRequest):
             CONSOLE.critical(
                 f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}\r\n"
             )
-            raise ValueError(f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}")
+            raise ValueError(
+                f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}"
+            )
 
         if data_json.get("email"):
             token_type = "user"  # nosec bandit B105
@@ -700,7 +704,9 @@ class APISession(APIRequest):
                 "apirequest:mist_post:Connection Error: %s", connexion_error
             )
             CONSOLE.critical("Connexion error...\r\n")
-            raise ConnectionError(f"Connection error: {connexion_error}") from connexion_error
+            raise ConnectionError(
+                f"Connection error: {connexion_error}"
+            ) from connexion_error
         except Exception:
             LOGGER.error("apisession:_process_login:Exception occurred", exc_info=True)
             error = "Exception occurred during authentication"
