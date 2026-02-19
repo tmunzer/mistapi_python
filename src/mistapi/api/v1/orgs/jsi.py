@@ -319,3 +319,237 @@ def searchOrgJsiAssetsAndContracts(
         query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
+
+
+def countOrgJsiPbn(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str,
+    limit: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/count-org-jsi-pbn
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    distinct : str{'versions', 'models', 'customer_risk', 'bug_type'}
+      Field to group by enum: `versions`, `models`, `customer_risk`, `bug_type`
+    limit : int, default: 100
+    start : str
+    end : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/jsi/pbn/count"
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if limit:
+        query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def searchOrgJsiPbn(
+    mist_session: _APISession,
+    org_id: str,
+    versions: str | None = None,
+    models: str | None = None,
+    customer_risk: str | None = None,
+    id: str | None = None,
+    bug_type: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
+    search_after: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/search-org-jsi-pbn
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    versions : str
+    models : str
+    customer_risk : str
+    id : str
+    bug_type : str
+    limit : int, default: 100
+    page : int, default: 1
+    search_after : str
+    start : str
+    end : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/jsi/pbn/search"
+    query_params: dict[str, str] = {}
+    if versions:
+        query_params["versions"] = str(versions)
+    if models:
+        query_params["models"] = str(models)
+    if customer_risk:
+        query_params["customer_risk"] = str(customer_risk)
+    if id:
+        query_params["id"] = str(id)
+    if bug_type:
+        query_params["bug_type"] = str(bug_type)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
+    if search_after:
+        query_params["search_after"] = str(search_after)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def countOrgJsiSirt(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str,
+    limit: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/count-org-jsi-sirt
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    distinct : str{'versions', 'models', 'severity', 'jsa_updated_date'}
+      Field to group by. enum: `jsa_updated_date`, `models`, `severity`, `versions`
+    limit : int, default: 100
+    start : str
+    end : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/jsi/sirt/count"
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if limit:
+        query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def searchOrgJsiSirt(
+    mist_session: _APISession,
+    org_id: str,
+    versions: str | None = None,
+    models: str | None = None,
+    severity: str | None = None,
+    id: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
+    search_after: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/jsi/search-org-jsi-sirt
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    versions : str
+    models : str
+    severity : str
+    id : str
+    limit : int, default: 100
+    page : int, default: 1
+    search_after : str
+    start : str
+    end : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/jsi/sirt/search"
+    query_params: dict[str, str] = {}
+    if versions:
+        query_params["versions"] = str(versions)
+    if models:
+        query_params["models"] = str(models)
+    if severity:
+        query_params["severity"] = str(severity)
+    if id:
+        query_params["id"] = str(id)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
+    if search_after:
+        query_params["search_after"] = str(search_after)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp

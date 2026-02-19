@@ -342,6 +342,7 @@ def searchOrgNacClients(
     org_id: str,
     ap: str | None = None,
     auth_type: str | None = None,
+    cert_expiry_duration: str | None = None,
     edr_managed: bool | None = None,
     edr_provider: str | None = None,
     edr_status: str | None = None,
@@ -393,6 +394,7 @@ def searchOrgNacClients(
     ------------
     ap : str
     auth_type : str
+    cert_expiry_duration : str
     edr_managed : bool
     edr_provider : str{'crowdstrike', 'sentinelone'}
       EDR provider of client's organization
@@ -444,6 +446,8 @@ def searchOrgNacClients(
         query_params["ap"] = str(ap)
     if auth_type:
         query_params["auth_type"] = str(auth_type)
+    if cert_expiry_duration:
+        query_params["cert_expiry_duration"] = str(cert_expiry_duration)
     if edr_managed:
         query_params["edr_managed"] = str(edr_managed)
     if edr_provider:

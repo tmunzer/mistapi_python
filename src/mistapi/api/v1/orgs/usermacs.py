@@ -76,6 +76,54 @@ def updateOrgMultipleUserMacs(
     return resp
 
 
+def countOrgUserMacs(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str,
+    limit: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/user-macs/count-org-user-macs
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    distinct : str{'mac', 'name', 'labels', 'org_id'}
+      Attribute to count by. enum: `mac`, `name`, `labels`, `org_id`
+    limit : int, default: 100
+    start : str
+    end : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/usermacs/count"
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if limit:
+        query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
 def deleteOrgMultipleUserMacs(
     mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:

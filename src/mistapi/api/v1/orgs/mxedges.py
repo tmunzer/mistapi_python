@@ -604,7 +604,7 @@ def getOrgMxEdgeUpgradeInfo(
         response from the API call
     """
 
-    uri = f"/api/v1/orgs/{org_id}/mxedges/version"
+    uri = f"/api/v1/orgs/{org_id}/mxedges/versions"
     query_params: dict[str, str] = {}
     if channel:
         query_params["channel"] = str(channel)
@@ -731,12 +731,13 @@ def deleteOrgMxEdgeImage(
     return resp
 
 
-def addOrgMxEdgeImage(
+def addOrgMxEdgeImageFile(
     mist_session: _APISession,
     org_id: str,
     mxedge_id: str,
     image_number: int,
-    body: dict | list,
+    file: str | None = None,
+    json: str | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/add-org-mx-edge-image
@@ -754,8 +755,9 @@ def addOrgMxEdgeImage(
 
     BODY PARAMS
     -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
+    file : str
+        path to the file to upload. Binary file
+    json : str
 
     RETURN
     -----------
@@ -763,8 +765,12 @@ def addOrgMxEdgeImage(
         response from the API call
     """
 
+    multipart_form_data = {
+        "file": file,
+        "json": json,
+    }
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/image/{image_number}"
-    resp = mist_session.mist_post(uri=uri, body=body)
+    resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 
 
@@ -941,4 +947,32 @@ def unregisterOrgMxEdge(
 
     uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/unregister"
     resp = mist_session.mist_post(uri=uri)
+    return resp
+
+
+def getOrgMxEdgeVmParams(
+    mist_session: _APISession, org_id: str, mxedge_id: str
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/mxedges/get-org-mx-edge-vm-params
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+    mxedge_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/mxedges/{mxedge_id}/vm_params"
+    query_params: dict[str, str] = {}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

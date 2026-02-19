@@ -1,5 +1,64 @@
 # CHANGELOG
 
+## Version 0.60.0 (February 2026)
+
+**Released**: February 19, 2026
+
+This release updates the OpenAPI submodule, adds new org/site endpoints, fixes a couple of API paths, and updates the API definitions to match the latest OpenAPI specification (2602.1.1).
+
+---
+
+### 1. NEW FEATURES
+
+##### **Org AOS Registration**
+- Added `getOrgAosRegisterCmd()` for AOS registration command retrieval
+
+##### **JSI PBN/SIRT Endpoints**
+- Added `countOrgJsiPbn()` and `searchOrgJsiPbn()`
+- Added `countOrgJsiSirt()` and `searchOrgJsiSirt()`
+
+##### **Site Assets Image Management**
+- Added `deleteSiteAssetImage()`
+- Added `attachSiteAssetImageFile()` for multipart image uploads
+
+##### **Site Maps Auto-Geofence**
+- Added `startSiteMapsAutoGeofence()` (site-level)
+- Added `startSiteMapAutoGeofence()` (map-level)
+
+##### **MxEdge VM Parameters**
+- Added `getOrgMxEdgeVmParams()`
+
+---
+
+### 2. API UPDATES
+
+##### **MxEdge Image Upload and Version Info**
+- `addOrgMxEdgeImage()` replaced with `addOrgMxEdgeImageFile()` using multipart upload
+- Updated MxEdge versions endpoint to `/mxedges/versions`
+
+##### **NAC Client Search Enhancements**
+- Added `cert_expiry_duration` to `searchOrgNacClients()`
+
+##### **Ports Search Filters**
+- Updated org/site ports search filters to align with OpenAPI parameters
+- Added LTE identifiers and device-type filters where applicable
+- Removed unsupported stats-only filters from search endpoints
+
+---
+
+### 3. BUG FIXES
+
+##### **Sites Device Image Paths**
+- Fixed image API paths to include `/image/{image_number}`
+
+---
+
+### Breaking Changes
+
+**Potential Breaking Change**: `addOrgMxEdgeImage()` replaced by `addOrgMxEdgeImageFile()` and now uses multipart uploads. Update any callers to pass `file`/`json` parameters instead of a JSON body.
+
+---
+
 ## Version 0.59.5 (January 2026)
 
 **Released**: January 29, 2026
@@ -8,14 +67,14 @@ This release improves error handling by replacing `sys.exit()` calls with proper
 
 ---
 
-## 1. BUG FIXES
+### 1. BUG FIXES
 
-### **Pagination Fix**
+##### **Pagination Fix**
 - Fixed pagination issue when `page` parameter is not already present in the URL
 - Added logic to properly append `page` parameter with correct separator (`?` or `&`)
 - Improved `APIResponse._check_next()` to handle URLs without existing pagination parameters
 
-### **Error Handling Improvements**
+##### **Error Handling Improvements**
 - Replaced `sys.exit()` calls with proper exception raising in API validation and authentication methods
 - `_get_api_token_data()`: Now raises `ConnectionError` instead of calling `sys.exit()` for proxy and connection errors
 - `_get_api_token_data()`: Now raises `ValueError` instead of calling `sys.exit(2)` for invalid API tokens (401 status)
@@ -24,9 +83,9 @@ This release improves error handling by replacing `sys.exit()` calls with proper
 
 ---
 
-## 2. API UPDATES
+### 2. API UPDATES
 
-### **OpenAPI Specification Update**
+##### **OpenAPI Specification Update**
 - Updated to latest Mist OpenAPI specification
 - Enhanced alarm search endpoints with additional filtering parameters:
   - `searchOrgAlarms()`: Added `group`, `severity`, `ack_admin_name`, and `acked` parameters
@@ -35,52 +94,7 @@ This release improves error handling by replacing `sys.exit()` calls with proper
 
 ---
 
-## 3. FILES MODIFIED
-
-### **src/mistapi/__api_response.py**
-- Fixed pagination URL construction to handle missing `page` parameter
-- Improved `_check_next()` method with proper separator detection
-
-### **src/mistapi/__api_session.py**
-- Replaced 5 `sys.exit()` calls with proper exceptions (`ConnectionError`, `ValueError`)
-- Improved error handling to allow proper exception propagation for testing
-- Added early return logic to skip token validation when cloud URI is not set
-
-### **src/mistapi/api/v1/orgs/alarms.py**
-- Added `group`, `severity`, `ack_admin_name`, and `acked` parameters to `searchOrgAlarms()`
-- Updated parameter documentation with enum values
-
-### **src/mistapi/api/v1/sites/alarms.py**
-- Enhanced alarm search functionality with updated parameters
-
-### **src/mistapi/api/v1/orgs/stats.py**
-- Updated statistics endpoints to match latest API specification
-
-### **src/mistapi/api/v1/sites/stats.py**
-- Updated statistics endpoints to match latest API specification
-
-### **tests/unit/test_api_session.py**
-- Added `Mock` to imports
-- Fixed `test_initialisation_with_parameters` to mock `requests.get`
-- Fixed `test_initialisation_with_env_file` to mock `requests.get`
-- Fixed `test_set_single_api_token` to use correct mock return type
-- Fixed `test_set_multiple_api_tokens` to use correct mock return type
-
-### **tests/conftest.py**
-- Updated `basic_session` fixture to properly mock HTTP requests during token validation
-
----
-
-## Summary Statistics
-
-- **Bug Fixes**: 6 (5 sys.exit() calls replaced + 1 pagination fix)
-- **API Updates**: Multiple endpoints updated with new parameters
-- **Test Improvements**: 6 tests fixed
-- **Total Files Modified**: 11
-
----
-
-## Breaking Changes
+### Breaking Changes
 
 **Potential Breaking Change**: Code that previously relied on `sys.exit()` behavior during authentication failures will now receive exceptions instead. This is a more correct behavior for library code.
 
@@ -97,9 +111,9 @@ This release removes default values from optional parameters across all API func
 
 ---
 
-## 1. CHANGES
+### 1. CHANGES
 
-### **API Parameter Defaults Removed**
+##### **API Parameter Defaults Removed**
 - Removed default values from optional parameters across all API endpoint functions
 - All optional parameters now default to `None` instead of using OpenAPI-specified defaults
 - Default values are handled directly by the Mist Cloud API when parameters are omitted
@@ -109,28 +123,7 @@ This release removes default values from optional parameters across all API func
 
 ---
 
-## 2. FILES MODIFIED
-
-### **API Endpoint Files** (116 files affected)
-- All API endpoint functions updated to use `None` as default for optional parameters
-- Includes files in:
-  - `src/mistapi/api/v1/orgs/` (52 files)
-  - `src/mistapi/api/v1/sites/` (48 files)
-  - `src/mistapi/api/v1/msps/` (7 files)
-  - `src/mistapi/api/v1/installer/` (2 files)
-  - Other API directories
-
----
-
-## Summary Statistics
-
-- **Changes**: Standardized optional parameter defaults
-- **Total Files Modified**: 116
-- **Lines Changed**: ~856 additions, ~642 deletions
-
----
-
-## Breaking Changes
+### Breaking Changes
 
 **Breaking Change**: Functions that previously had default values specified from the OpenAPI spec now default to `None`. However, this should not affect behavior as the Mist Cloud API applies the same default values server-side when parameters are omitted.
 
@@ -158,14 +151,14 @@ This release adds security enhancements for log sanitization and includes depend
 
 ---
 
-## 1. NEW FEATURES
+### 1. NEW FEATURES
 
-### **Log Sanitization**
+##### **Log Sanitization**
 - Added `LogSanitizer` filter to automatically redact sensitive fields from log messages
 - Supports filtering of passwords, API tokens, keys, secrets, and other sensitive data
 - Can be applied to both standard Python logging and the custom Console logger
 
-### **Usage Example**
+##### **Usage Example**
 ```python
 import logging
 from mistapi.__logger import LogSanitizer
@@ -181,50 +174,26 @@ LOGGER.debug(var_with_sensitive_data)
 
 ---
 
-## 2. DEPENDENCIES
+### 2. DEPENDENCIES
 
-### **Added**
+##### **Added**
 - `keyring` - Secure system keyring access for password storage
   - macOS Keychain support
   - Windows Credential Locker support
   - Freedesktop Secret Service support (GNOME, KDE)
 
-### **Updated**
+##### **Updated**
 - Various dependency updates for security and compatibility
 
 ---
 
-## 3. FILES MODIFIED
-
-### **src/mistapi/__logger.py**
-- Added `LogSanitizer` class for filtering sensitive data from logs
-- Enhanced regex pattern for detecting sensitive fields
-- Added support for case-insensitive matching of sensitive field names
-- Improved sanitization to handle various JSON formats
-
-### **pyproject.toml**
-- Added keyring dependency
-- Updated version to 0.59.3
-
----
-
-## Summary Statistics
-
-- **New Features**: 1 (Log Sanitization)
-- **Dependencies Added**: 1 (keyring)
-- **Total Files Modified**: 3
-- **Lines Added**: 655
-- **Lines Removed**: 407
-
----
-
-## Breaking Changes
+### Breaking Changes
 
 None. This is a backwards-compatible release.
 
 ---
 
-## Security Improvements
+### Security Improvements
 
 This release significantly improves security by automatically sanitizing sensitive information in logs, including:
 - API tokens and keys
@@ -236,7 +205,7 @@ This release significantly improves security by automatically sanitizing sensiti
 
 ---
 
-## Version 0.59.2 (December 2024)
+### Version 0.59.2 (December 2024)
 
 **Released**: December 2024 
 
@@ -244,9 +213,9 @@ This is a maintenance release that adds support for deprecated SLE endpoints and
 
 ---
 
-## 1. FUNCTIONS ADDED
+### 1. FUNCTIONS ADDED
 
-### **src/mistapi/api/v1/sites/sle.py**
+##### **src/mistapi/api/v1/sites/sle.py**
 - `getSiteSleSummary(mist_session, site_id, scope, scope_id, metric, start, end, duration)` - Get SLE metric summary (marked as deprecated in Mist API, replaced by `getSiteSleSummaryTrend`)
 - `getSiteSleSummaryTrend(mist_session, site_id, scope, scope_id, metric, start, end, duration)` - Get SLE metric summary trend (replacement for deprecated endpoint)
 - `getSiteSleClassifierDetails(mist_session, site_id, scope, scope_id, metric, classifier, start, end, duration)` - Get SLE classifier details (marked as deprecated in Mist API, replaced by `getSiteSleClassifierSummaryTrend`)
@@ -254,9 +223,9 @@ This is a maintenance release that adds support for deprecated SLE endpoints and
 
 ---
 
-## 2. FUNCTIONS DEPRECATED
+### 2. FUNCTIONS DEPRECATED
 
-### **src/mistapi/api/v1/sites/sle.py**
+##### **src/mistapi/api/v1/sites/sle.py**
 - `getSiteSleSummary` - Deprecated in version 0.59.2, will be removed in 0.65.0 (replaced by `getSiteSleSummaryTrend`)
 - `getSiteSleClassifierDetails` - Deprecated in version 0.59.2, will be removed in 0.65.0 (replaced by `getSiteSleClassifierSummaryTrend`)
 
@@ -264,23 +233,13 @@ This is a maintenance release that adds support for deprecated SLE endpoints and
 
 ---
 
-## Summary Statistics
-
-- **Functions Added**: 4 (2 deprecated, 2 replacement)
-- **Functions Deprecated**: 2
-- **Total Files Modified**: 7
-- **Lines Added**: 296
-- **Lines Removed**: 6
-
----
-
-## Breaking Changes
+### Breaking Changes
 
 None. All deprecated functions remain available with deprecation warnings.
 
 ---
 
-## Migration Guide
+### Migration Guide
 
 If you're using the deprecated SLE functions:
 
@@ -304,7 +263,7 @@ Both functions will continue to work until version 0.65.0.
 
 ---
 
-## Resources
+### Resources
 
 - **Full API Documentation**: [Mist API Documentation](https://doc.mist-lab.fr)
 - **GitHub Repository**: [mistapi_python](https://github.com/tmunzer/mistapi_python)
@@ -321,39 +280,38 @@ This release introduces significant enhancements to the Mist API Python SDK, inc
 
 ---
 
-## 1. FUNCTIONS ADDED
+### 1. FUNCTIONS ADDED
 
-### **src/mistapi/api/v1/orgs/ssr.py**
+##### **src/mistapi/api/v1/orgs/ssr.py**
 - `exportOrgSsrIdTokens(mist_session, org_id, body)` - Export SSR identity tokens
 
-### **src/mistapi/api/v1/orgs/stats.py**
+##### **src/mistapi/api/v1/orgs/stats.py**
 - `countOrgOspfStats(mist_session, org_id, distinct, start, end, limit, sort, search_after)` - Count OSPF stats at org level
 - `searchOrgOspfStats(mist_session, org_id, site_id, mac, peer_ip, port_id, state, vrf_name, start, end, duration, limit, sort, search_after)` - Search OSPF peer stats
 
-### **src/mistapi/api/v1/sites/devices.py**
+##### **src/mistapi/api/v1/sites/devices.py**
 - `setSiteDevicesGbpTag(mist_session, site_id, body)` - Set Group-Based Policy tags for devices
 
-### **src/mistapi/api/v1/sites/insights.py**
+##### **src/mistapi/api/v1/sites/insights.py**
 - `getSiteInsightMetricsForGateway(mist_session, site_id, metric, device_id, start, end, duration, interval, limit, page)` - Get insight metrics for gateways
 - `getSiteInsightMetricsForMxEdge(mist_session, site_id, metric, mxedge_id, start, end, duration, interval, limit, page)` - Get insight metrics for MxEdges
 - `getSiteInsightMetricsForSwitch(mist_session, site_id, metric, device_id, start, end, duration, interval, limit, page)` - Get insight metrics for switches
 
-### **src/mistapi/api/v1/sites/stats.py**
+##### **src/mistapi/api/v1/sites/stats.py**
 - `countSiteOspfStats(mist_session, site_id, distinct, start, end, limit, sort, search_after)` - Count OSPF stats at site level
 - `searchSiteOspfStats(mist_session, site_id, mac, peer_ip, port_id, state, vrf_name, start, end, duration, limit, sort, search_after)` - Search OSPF peer stats for site
 
-
 ---
 
-## 3. FUNCTIONS DEPRECATED
+### 3. FUNCTIONS DEPRECATED
 
 - `getOrg128TRegistrationCommands` in **src/mistapi/api/v1/orgs/ssr.py** (replaced by `getOrgSsrRegistrationCommands`)
 
 ---
 
-## 4. PARAMETER CHANGES
+### 4. PARAMETER CHANGES
 
-### **A. Added `search_after` parameter (for improved pagination)**
+##### **A. Added `search_after` parameter (for improved pagination)**
 
 **MSPs Module:**
 - **src/mistapi/api/v1/msps/orgs.py**
@@ -451,7 +409,7 @@ This release introduces significant enhancements to the Mist API Python SDK, inc
   - `searchSiteCalls`: Added `search_after`
   - `searchSiteDiscoveredSwitchesMetrics`: Added `search_after`
 
-### **B. Other Parameter Updates**
+##### **B. Other Parameter Updates**
 
 **Sites Module - Insights:**
 - **src/mistapi/api/v1/sites/insights.py**
@@ -459,19 +417,7 @@ This release introduces significant enhancements to the Mist API Python SDK, inc
 
 ---
 
-## Summary Statistics
-
-- **Functions Added**: 9
-- **Functions Renamed**: 1
-- **Functions Deprecated**: 1
-- **Functions with Parameter Changes**: 40+ (primarily `search_after` additions)
-- **Total Files Modified**: 40
-- **Lines Added**: 812
-- **Lines Removed**: 85
-
----
-
-## Resources
+### Resources
 
 - **Full API Documentation**: [Mist API Documentation](https://doc.mist-lab.fr)
 - **GitHub Repository**: [mistapi_python](https://github.com/tmunzer/mistapi_python)
@@ -480,9 +426,9 @@ This release introduces significant enhancements to the Mist API Python SDK, inc
 
 ---
 
-## Previous Releases
+### Previous Releases
 
-### Version 0.58.0
+##### Version 0.58.0
 Previous stable release. See commit history for details.
 
 ---

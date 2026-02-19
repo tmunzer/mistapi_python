@@ -1937,7 +1937,7 @@ def deleteSiteDeviceImage(
         response from the API call
     """
 
-    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/image{image_number}"
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/image/{image_number}"
     query_params: dict[str, str] = {}
     resp = mist_session.mist_delete(uri=uri, query=query_params)
     return resp
@@ -1981,7 +1981,7 @@ def addSiteDeviceImageFile(
         "file": file,
         "json": json,
     }
-    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/image{image_number}"
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/image/{image_number}"
     resp = mist_session.mist_post_file(uri=uri, multipart_form_data=multipart_form_data)
     return resp
 

@@ -84,6 +84,30 @@ def createSiteMap(
     return resp
 
 
+def startSiteMapsAutoGeofence(mist_session: _APISession, site_id: str) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/start-site-maps-auto-geofence
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/maps/auto_geofences"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+
+
 def importSiteMapsFile(
     mist_session: _APISession,
     site_id: str,
@@ -212,6 +236,33 @@ def updateSiteMap(
 
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+
+
+def startSiteMapAutoGeofence(
+    mist_session: _APISession, map_id: str, site_id: str
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/start-site-map-auto-geofence
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    map_id : str
+    site_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/auto_geofences"
+    resp = mist_session.mist_post(uri=uri)
     return resp
 
 

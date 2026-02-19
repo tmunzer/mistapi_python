@@ -885,46 +885,28 @@ def countOrgSwOrGwPorts(
 def searchOrgSwOrGwPorts(
     mist_session: _APISession,
     org_id: str,
+    device_type: str | None = None,
+    auth_state: str | None = None,
     full_duplex: bool | None = None,
+    lte_imsi: str | None = None,
+    lte_iccid: str | None = None,
+    lte_imei: str | None = None,
     mac: str | None = None,
     neighbor_mac: str | None = None,
     neighbor_port_desc: str | None = None,
     neighbor_system_name: str | None = None,
     poe_disabled: bool | None = None,
-    poe_priority: str | None = None,
     poe_mode: str | None = None,
     poe_on: bool | None = None,
+    poe_priority: str | None = None,
     port_id: str | None = None,
     port_mac: str | None = None,
-    power_draw: float | None = None,
-    tx_pkts: int | None = None,
-    rx_pkts: int | None = None,
-    rx_bytes: int | None = None,
-    tx_bps: int | None = None,
-    rx_bps: int | None = None,
-    tx_errors: int | None = None,
-    rx_errors: int | None = None,
-    tx_mcast_pkts: int | None = None,
-    tx_bcast_pkts: int | None = None,
-    rx_mcast_pkts: int | None = None,
-    rx_bcast_pkts: int | None = None,
     speed: int | None = None,
-    mac_limit: int | None = None,
-    mac_count: int | None = None,
-    up: bool | None = None,
     stp_state: str | None = None,
     stp_role: str | None = None,
-    auth_state: str | None = None,
-    optics_bias_current: float | None = None,
-    optics_tx_power: float | None = None,
-    optics_rx_power: float | None = None,
-    optics_module_temperature: float | None = None,
-    optics_module_voltage: float | None = None,
-    type: str | None = None,
+    up: bool | None = None,
+    xcvr_part_number: str | None = None,
     limit: int | None = None,
-    start: str | None = None,
-    end: str | None = None,
-    duration: str | None = None,
     sort: str | None = None,
     search_after: str | None = None,
 ) -> _APIResponse:
@@ -942,51 +924,33 @@ def searchOrgSwOrGwPorts(
 
     QUERY PARAMS
     ------------
+    device_type : str{'switch', 'gateway', 'all'}, default: all
+      Type of device. enum: `switch`, `gateway`, `all`
+    auth_state : str{'', 'authenticated', 'authenticating', 'held', 'init'}
+      If `up`==`true` && has Authenticator role
     full_duplex : bool
+    lte_imsi : str
+    lte_iccid : str
+    lte_imei : str
     mac : str
     neighbor_mac : str
     neighbor_port_desc : str
     neighbor_system_name : str
     poe_disabled : bool
-    poe_priority : str{'low', 'high'}
-      PoE priority.
     poe_mode : str
     poe_on : bool
+    poe_priority : str{'low', 'high'}
+      PoE priority.
     port_id : str
     port_mac : str
-    power_draw : float
-    tx_pkts : int
-    rx_pkts : int
-    rx_bytes : int
-    tx_bps : int
-    rx_bps : int
-    tx_errors : int
-    rx_errors : int
-    tx_mcast_pkts : int
-    tx_bcast_pkts : int
-    rx_mcast_pkts : int
-    rx_bcast_pkts : int
     speed : int
-    mac_limit : int
-    mac_count : int
-    up : bool
     stp_state : str{'', 'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
       If `up`==`true`
     stp_role : str{'', 'alternate', 'backup', 'designated', 'disabled', 'root', 'root-prevented'}
       If `up`==`true`
-    auth_state : str{'', 'authenticated', 'authenticating', 'held', 'init'}
-      If `up`==`true` && has Authenticator role
-    optics_bias_current : float
-    optics_tx_power : float
-    optics_rx_power : float
-    optics_module_temperature : float
-    optics_module_voltage : float
-    type : str{'switch', 'gateway', 'all'}, default: all
-      Type of device. enum: `switch`, `gateway`, `all`
+    up : bool
+    xcvr_part_number : str
     limit : int, default: 100
-    start : str
-    end : str
-    duration : str, default: 1d
     sort : str, default: timestamp
     search_after : str
 
@@ -998,8 +962,18 @@ def searchOrgSwOrGwPorts(
 
     uri = f"/api/v1/orgs/{org_id}/stats/ports/search"
     query_params: dict[str, str] = {}
+    if device_type:
+        query_params["device_type"] = str(device_type)
+    if auth_state:
+        query_params["auth_state"] = str(auth_state)
     if full_duplex:
         query_params["full_duplex"] = str(full_duplex)
+    if lte_imsi:
+        query_params["lte_imsi"] = str(lte_imsi)
+    if lte_iccid:
+        query_params["lte_iccid"] = str(lte_iccid)
+    if lte_imei:
+        query_params["lte_imei"] = str(lte_imei)
     if mac:
         query_params["mac"] = str(mac)
     if neighbor_mac:
@@ -1010,74 +984,28 @@ def searchOrgSwOrGwPorts(
         query_params["neighbor_system_name"] = str(neighbor_system_name)
     if poe_disabled:
         query_params["poe_disabled"] = str(poe_disabled)
-    if poe_priority:
-        query_params["poe_priority"] = str(poe_priority)
     if poe_mode:
         query_params["poe_mode"] = str(poe_mode)
     if poe_on:
         query_params["poe_on"] = str(poe_on)
+    if poe_priority:
+        query_params["poe_priority"] = str(poe_priority)
     if port_id:
         query_params["port_id"] = str(port_id)
     if port_mac:
         query_params["port_mac"] = str(port_mac)
-    if power_draw:
-        query_params["power_draw"] = str(power_draw)
-    if tx_pkts:
-        query_params["tx_pkts"] = str(tx_pkts)
-    if rx_pkts:
-        query_params["rx_pkts"] = str(rx_pkts)
-    if rx_bytes:
-        query_params["rx_bytes"] = str(rx_bytes)
-    if tx_bps:
-        query_params["tx_bps"] = str(tx_bps)
-    if rx_bps:
-        query_params["rx_bps"] = str(rx_bps)
-    if tx_errors:
-        query_params["tx_errors"] = str(tx_errors)
-    if rx_errors:
-        query_params["rx_errors"] = str(rx_errors)
-    if tx_mcast_pkts:
-        query_params["tx_mcast_pkts"] = str(tx_mcast_pkts)
-    if tx_bcast_pkts:
-        query_params["tx_bcast_pkts"] = str(tx_bcast_pkts)
-    if rx_mcast_pkts:
-        query_params["rx_mcast_pkts"] = str(rx_mcast_pkts)
-    if rx_bcast_pkts:
-        query_params["rx_bcast_pkts"] = str(rx_bcast_pkts)
     if speed:
         query_params["speed"] = str(speed)
-    if mac_limit:
-        query_params["mac_limit"] = str(mac_limit)
-    if mac_count:
-        query_params["mac_count"] = str(mac_count)
-    if up:
-        query_params["up"] = str(up)
     if stp_state:
         query_params["stp_state"] = str(stp_state)
     if stp_role:
         query_params["stp_role"] = str(stp_role)
-    if auth_state:
-        query_params["auth_state"] = str(auth_state)
-    if optics_bias_current:
-        query_params["optics_bias_current"] = str(optics_bias_current)
-    if optics_tx_power:
-        query_params["optics_tx_power"] = str(optics_tx_power)
-    if optics_rx_power:
-        query_params["optics_rx_power"] = str(optics_rx_power)
-    if optics_module_temperature:
-        query_params["optics_module_temperature"] = str(optics_module_temperature)
-    if optics_module_voltage:
-        query_params["optics_module_voltage"] = str(optics_module_voltage)
-    if type:
-        query_params["type"] = str(type)
+    if up:
+        query_params["up"] = str(up)
+    if xcvr_part_number:
+        query_params["xcvr_part_number"] = str(xcvr_part_number)
     if limit:
         query_params["limit"] = str(limit)
-    if start:
-        query_params["start"] = str(start)
-    if end:
-        query_params["end"] = str(end)
-    if duration:
-        query_params["duration"] = str(duration)
     if sort:
         query_params["sort"] = str(sort)
     if search_after:
