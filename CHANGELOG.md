@@ -1,7 +1,22 @@
 # CHANGELOG
+## Version 0.60.2 (February 2026)
+
+**Released**: February 21, 2026
+
+This release add a missing query parameter to the `searchSiteWanClients()` function.
+
+---
+
+### 1. CHANGES
+
+##### **API Function Updates**
+- Updated `searchSiteWanClients()` and related functions in `sites/wan_clients.py`.
+
+---
+
 ## Version 0.60.1 (February 2026)
 
-**Pending Release**: February 21, 2026
+**Released**: February 21, 2026
 
 This release includes function updates and bug fixes in the self/logs.py and sites/sle.py modules.
 
