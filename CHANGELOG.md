@@ -1,4 +1,31 @@
 # CHANGELOG
+## Version 0.60.1 (February 2026)
+
+**Pending Release**: February 21, 2026
+
+This release includes function updates and bug fixes in the self/logs.py and sites/sle.py modules.
+
+---
+
+### 1. CHANGES
+
+##### **API Function Updates**
+- Updated `listSelfAuditLogs()` and related functions in `self/logs.py`.
+- Updated deprecated and new SLE classifier functions in `sites/sle.py`.
+
+---
+
+### 2. BUG FIXES
+
+- Minor bug fixes and improvements in API modules.
+
+---
+
+### Breaking Changes
+
+No breaking changes in this release.
+
+---
 
 ## Version 0.60.0 (February 2026)
 

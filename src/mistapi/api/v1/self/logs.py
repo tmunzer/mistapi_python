@@ -16,6 +16,8 @@ from mistapi.__api_response import APIResponse as _APIResponse
 
 def listSelfAuditLogs(
     mist_session: _APISession,
+    message: str | None = None,
+    sort: str | None = None,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -32,6 +34,9 @@ def listSelfAuditLogs(
 
     QUERY PARAMS
     ------------
+    message : str
+    sort : str{'-timestamp', 'admin_id', 'site_id', 'timestamp'}
+      Sort order
     start : str
     end : str
     duration : str, default: 1d
@@ -46,6 +51,10 @@ def listSelfAuditLogs(
 
     uri = "/api/v1/self/logs"
     query_params: dict[str, str] = {}
+    if message:
+        query_params["message"] = str(message)
+    if sort:
+        query_params["sort"] = str(sort)
     if start:
         query_params["start"] = str(start)
     if end:
