@@ -1,16 +1,16 @@
 # CHANGELOG
-## Version 0.60.2 (February 2026)
+## Version 0.60.3 (February 2026)
 
 **Released**: February 21, 2026
 
-This release add a missing query parameter to the `searchSiteWanClients()` function.
+This release add a missing query parameter to the `searchOrgWanClients()` function.
 
 ---
 
 ### 1. CHANGES
 
 ##### **API Function Updates**
-- Updated `searchSiteWanClients()` and related functions in `sites/wan_clients.py`.
+- Updated `searchOrgWanClients()` and related functions in `orgs/wan_clients.py`.
 
 ---
 

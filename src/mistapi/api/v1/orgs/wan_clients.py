@@ -147,6 +147,7 @@ def searchOrgWanClientEvents(
 def searchOrgWanClients(
     mist_session: _APISession,
     org_id: str,
+    site_id: str | None = None,
     mac: str | None = None,
     hostname: str | None = None,
     ip: str | None = None,
@@ -174,6 +175,7 @@ def searchOrgWanClients(
 
     QUERY PARAMS
     ------------
+    site_id : str
     mac : str
     hostname : str
     ip : str
@@ -195,6 +197,8 @@ def searchOrgWanClients(
 
     uri = f"/api/v1/orgs/{org_id}/wan_clients/search"
     query_params: dict[str, str] = {}
+    if site_id:
+        query_params["site_id"] = str(site_id)
     if mac:
         query_params["mac"] = str(mac)
     if hostname:
