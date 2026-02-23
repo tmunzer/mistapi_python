@@ -27,6 +27,7 @@ dependencies = [
   "deprecation>=2.1.0",
   "hvac>=2.3.0",
   "keyring>=24.3.0",
+  "websocket-client>=1.8.0",
 ]
 
 [project.urls]

@@ -14,11 +14,26 @@ A comprehensive Python package to interact with the Mist Cloud APIs, built from 
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
+    - [Using Environment File](#using-environment-file)
+    - [Environment Variables](#environment-variables)
 - [Authentication](#authentication)
-- [Usage](#usage)
-- [CLI Helper Functions](#cli-helper-functions)
-- [Pagination](#pagination-support)
-- [Examples](#examples)
+    - [Interactive Authentication](#interactive-authentication)
+    - [Environment File Authentication](#environment-file-authentication)
+    - [HashiCorp Vault Authentication](#hashicorp-vault-authentication)
+    - [System Keyring Authentication](#system-keyring-authentication)
+    - [Direct Parameter Authentication](#direct-parameter-authentication)
+- [API Requests Usage](#api-requests-usage)
+    - [Basic API Calls](#basic-api-calls)
+    - [Error Handling](#error-handling)
+    - [Log Sanitization](#log-sanitization)
+    - [Getting Help](#getting-help)
+    - [CLI Helper Functions](#cli-helper-functions)
+    - [Pagination](#pagination-support)
+    - [Examples](#examples)
+- [WebSocket Streaming](#websocket-streaming)
+    - [Available Channels](#available-channels)
+    - [Callbacks](#callbacks)
+    - [Usage Patterns](#usage-patterns)
 - [Development](#development-and-testing)
 - [Contributing](#contributing)
 - [License](#license)
@@ -150,22 +165,24 @@ MIST_APITOKEN=your_api_token_here
 # LOGGING_LOG_LEVEL=10
 ```
 
-### All Configuration Options
+### Configuration Options
 
-| Variable | Type | Default | Description |
-|----------|------|---------|-------------|
-| `MIST_HOST` | string | None | Mist Cloud API endpoint (e.g., `api.mist.com`) |
-| `MIST_APITOKEN` | string | None | API Token for authentication (recommended) |
-| `MIST_USER` | string | None | Username if not using API token |
-| `MIST_PASSWORD` | string | None | Password if not using API token |
-| `MIST_KEYRING_SERVICE` | string | None | Load credentials from system keyring |
-| `MIST_VAULT_URL` | string | https://127.0.0.1:8200 | HashiCorp Vault URL |
-| `MIST_VAULT_PATH` | string | None | Path to secret in Vault |
-| `MIST_VAULT_MOUNT_POINT` | string | secret | Vault mount point |
-| `MIST_VAULT_TOKEN` | string | None | Vault authentication token |
-| `CONSOLE_LOG_LEVEL` | int | 20 | Console log level (0-50) |
-| `LOGGING_LOG_LEVEL` | int | 10 | File log level (0-50) |
-| `HTTPS_PROXY` | string | None | HTTP/HTTPS proxy URL |
+| Environment Variable | APISession Parameter | Type | Default | Description |
+|---|---|---|---|---|
+| `MIST_HOST` | `host` | string | None | Mist Cloud API endpoint (e.g., `api.mist.com`) |
+| `MIST_APITOKEN` | `apitoken` | string | None | API Token for authentication (recommended) |
+| `MIST_USER` | `email` | string | None | Username/email for authentication |
+| `MIST_PASSWORD` | `password` | string | None | Password for authentication |
+| `MIST_KEYRING_SERVICE` | `keyring_service` | string | None | System keyring service name |
+| `MIST_VAULT_URL` | `vault_url` | string | https://127.0.0.1:8200 | HashiCorp Vault URL |
+| `MIST_VAULT_PATH` | `vault_path` | string | None | Path to secret in Vault |
+| `MIST_VAULT_MOUNT_POINT` | `vault_mount_point` | string | secret | Vault mount point |
+| `MIST_VAULT_TOKEN` | `vault_token` | string | None | Vault authentication token |
+| `CONSOLE_LOG_LEVEL` | `console_log_level` | int | 20 | Console log level (0-50) |
+| `LOGGING_LOG_LEVEL` | `logging_log_level` | int | 10 | File log level (0-50) |
+| `HTTPS_PROXY` | `https_proxy` | string | None | HTTP/HTTPS proxy URL |
+| | `env_file` | str | None | Path to `.env` file |
+
 
 ---
 
@@ -253,27 +270,10 @@ apisession = mistapi.APISession(
 apisession.login()
 ```
 
-### APISession Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `email` | str | None | Email for login/password authentication |
-| `password` | str | None | Password for login/password authentication |
-| `apitoken` | str | None | API token (recommended method) |
-| `host` | str | None | Mist Cloud endpoint (e.g., "api.mist.com") |
-| `keyring_service` | str | None | System keyring service name |
-| `vault_url` | str | https://127.0.0.1:8200 | HashiCorp Vault URL |
-| `vault_path` | str | None | Path to secret in Vault |
-| `vault_mount_point` | str | secret | Vault mount point |
-| `vault_token` | str | None | Vault authentication token |
-| `env_file` | str | None | Path to `.env` file |
-| `console_log_level` | int | 20 | Console logging level (0-50) |
-| `logging_log_level` | int | 10 | File logging level (0-50) |
-| `https_proxy` | str | None | Proxy URL |
 
 ---
 
-## Usage
+## API Requests Usage
 
 ### Basic API Calls
 
@@ -345,11 +345,11 @@ help(mistapi.api.v1.orgs.stats.getOrgStats)
 
 ---
 
-## CLI Helper Functions
+### CLI Helper Functions
 
 Interactive functions for selecting organizations and sites.
 
-### Organization Selection
+#### Organization Selection
 
 ```python
 # Select single organization
@@ -368,7 +368,7 @@ Available organizations:
 Select an Org (0 to 1, or q to exit): 0
 ```
 
-### Site Selection
+#### Site Selection
 
 ```python
 # Select site within an organization
@@ -386,9 +386,9 @@ Select a Site (0 to 1, or q to exit): 0
 
 ---
 
-## Pagination Support
+### Pagination Support
 
-### Get Next Page
+#### Get Next Page
 
 ```python
 # Get first page
@@ -403,7 +403,7 @@ if response.next:
     print(f"Second page: {len(response_2.data['results'])} results")
 ```
 
-### Get All Pages Automatically
+#### Get All Pages Automatically
 
 ```python
 # Get all pages with a single call
@@ -419,11 +419,11 @@ print(f"Total results across all pages: {len(all_data)}")
 
 ---
 
-## Examples
+### Examples
 
 Comprehensive examples are available in the [Mist Library repository](https://github.com/tmunzer/mist_library).
 
-### Device Management
+#### Device Management
 
 ```python
 # List all devices in an organization
@@ -441,7 +441,7 @@ result = mistapi.api.v1.orgs.devices.updateOrgDevice(
 )
 ```
 
-### Site Management
+#### Site Management
 
 ```python
 # Create a new site
@@ -458,7 +458,7 @@ new_site = mistapi.api.v1.orgs.sites.createOrgSite(
 site_stats = mistapi.api.v1.sites.stats.getSiteStats(apisession, new_site.id)
 ```
 
-### Client Analytics
+#### Client Analytics
 
 ```python
 # Search for wireless clients
@@ -474,6 +474,109 @@ events = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(
     duration="1h",
     client_mac="aa:bb:cc:dd:ee:ff"
 )
+```
+
+---
+
+## WebSocket Streaming
+
+The package provides a WebSocket client for real-time event streaming from the Mist API (`wss://{host}/api-ws/v1/stream`). Authentication is handled automatically using the same session credentials (API token or login/password).
+
+### Available Channels
+
+#### Organization Channels
+
+| Class | Channel | Description |
+|-------|---------|-------------|
+| `mistapi.websockets.orgs.OrgInsightsEvents` | `/orgs/{org_id}/insights/summary` | Real-time insights events for an organization |
+| `mistapi.websockets.orgs.OrgMxEdgesStatsEvents` | `/orgs/{org_id}/stats/mxedges` | Real-time MX edges stats for an organization |
+| `mistapi.websockets.orgs.OrgMxEdgesUpgradesEvents` | `/orgs/{org_id}/mxedges` | Real-time MX edges upgrades events for an organization |
+
+#### Site Channels
+
+| Class | Channel | Description |
+|-------|---------|-------------|
+| `mistapi.websockets.sites.SiteClientsStatsEvents` | `/sites/{site_id}/stats/clients` | Real-time clients stats for a site |
+| `mistapi.websockets.sites.SiteDeviceCmdEvents` | `/sites/{site_id}/devices/{device_id}/cmd` | Real-time device command events for a site |
+| `mistapi.websockets.sites.SiteDeviceStatsEvents` | `/sites/{site_id}/stats/devices` | Real-time device stats for a site |
+| `mistapi.websockets.sites.SiteDeviceUpgradesEvents` | `/sites/{site_id}/devices` | Real-time device upgrades events for a site |
+| `mistapi.websockets.sites.SitePcapEvents` | `/sites/{site_id}/pcap` | Real-time PCAP events for a site |
+
+#### Location Channels
+
+| Class | Channel | Description |
+|-------|---------|-------------|
+| `mistapi.websockets.location.LocationBleAssetsEvents` | `/sites/{site_id}/stats/maps/{map_id}/assets` | Real-time BLE assets location events |
+| `mistapi.websockets.location.LocationConnectedClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/clients` | Real-time connected clients location events |
+| `mistapi.websockets.location.LocationSdkClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/sdkclients` | Real-time SDK clients location events |
+| `mistapi.websockets.location.LocationUnconnectedClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/unconnected_clients` | Real-time unconnected clients location events |
+| `mistapi.websockets.location.LocationDiscoveredBleAssetsEvents` | `/sites/{site_id}/stats/maps/{map_id}/discovered_assets` | Real-time discovered BLE assets location events |
+
+### Callbacks
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `ws.on_open(cb)` | `cb()` | Called when the connection is established |
+| `ws.on_message(cb)` | `cb(data: dict)` | Called for every incoming message |
+| `ws.on_error(cb)` | `cb(error: Exception)` | Called on WebSocket errors |
+| `ws.on_close(cb)` | `cb(status_code: int, msg: str)` | Called when the connection closes |
+
+### Usage Patterns
+
+#### Callback style (recommended)
+
+`connect()` returns immediately; messages are delivered to the registered callback in a background thread.
+
+```python
+import mistapi
+
+apisession = mistapi.APISession(env_file="~/.mist_env")
+apisession.login()
+
+ws = mistapi.websockets.sites.SiteDeviceStatsEvents(apisession, site_id="<site_id>")
+ws.on_message(lambda data: print(data))
+ws.connect()                    # non-blocking
+
+input("Press Enter to stop")
+ws.disconnect()
+```
+
+#### Generator style
+
+Iterate over incoming messages as a blocking generator. Useful when you want to process messages sequentially in a loop.
+
+```python
+ws = mistapi.websockets.sites.SiteDeviceStatsEvents(apisession, site_id="<site_id>")
+ws.connect(run_in_background=True)
+
+for msg in ws.receive():        # blocks, yields each message as a dict
+    print(msg)
+    if some_condition:
+        ws.disconnect()         # stops the generator cleanly
+```
+
+#### Blocking style
+
+`connect(run_in_background=False)` blocks the calling thread until the connection closes. Useful for simple scripts.
+
+```python
+ws = mistapi.websockets.sites.SiteDeviceStatsEvents(apisession, site_id="<site_id>")
+ws.on_message(lambda data: print(data))
+ws.connect(run_in_background=False)  # blocks until disconnected
+```
+
+#### Context manager
+
+`disconnect()` is called automatically on exit, even if an exception is raised.
+
+```python
+import time
+
+with mistapi.websockets.sites.SiteDeviceStatsEvents(apisession, site_id="<site_id>") as ws:
+    ws.on_message(lambda data: print(data))
+    ws.connect()
+    time.sleep(60)
+# ws.disconnect() called automatically here
 ```
 
 ---
