@@ -52,8 +52,8 @@ class SiteClientsStatsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str) -> None:
-        super().__init__(mist_session, channel=f"/sites/{site_id}/stats/clients")
+    def __init__(self, mist_session: APISession, site_id: str, **kwargs) -> None:
+        super().__init__(mist_session, channel=f"/sites/{site_id}/stats/clients", **kwargs)
 
 
 class SiteDeviceCmdEvents(_MistWebsocket):
@@ -101,9 +101,9 @@ class SiteDeviceCmdEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, device_id: str) -> None:
+    def __init__(self, mist_session: APISession, site_id: str, device_id: str, **kwargs) -> None:
         super().__init__(
-            mist_session, channel=f"/sites/{site_id}/devices/{device_id}/cmd"
+            mist_session, channel=f"/sites/{site_id}/devices/{device_id}/cmd", **kwargs
         )
 
 
@@ -144,8 +144,8 @@ class SiteDeviceStatsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str) -> None:
-        super().__init__(mist_session, channel=f"/sites/{site_id}/stats/devices")
+    def __init__(self, mist_session: APISession, site_id: str, **kwargs) -> None:
+        super().__init__(mist_session, channel=f"/sites/{site_id}/stats/devices", **kwargs)
 
 
 class SiteDeviceUpgradesEvents(_MistWebsocket):
@@ -185,8 +185,8 @@ class SiteDeviceUpgradesEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str) -> None:
-        super().__init__(mist_session, channel=f"/sites/{site_id}/devices")
+    def __init__(self, mist_session: APISession, site_id: str, **kwargs) -> None:
+        super().__init__(mist_session, channel=f"/sites/{site_id}/devices", **kwargs)
 
 
 class SiteMxEdgesStatsEvents(_MistWebsocket):
@@ -226,8 +226,8 @@ class SiteMxEdgesStatsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str) -> None:
-        super().__init__(mist_session, channel=f"/sites/{site_id}/stats/mxedges")
+    def __init__(self, mist_session: APISession, site_id: str, **kwargs) -> None:
+        super().__init__(mist_session, channel=f"/sites/{site_id}/stats/mxedges", **kwargs)
 
 
 class SitePcapEvents(_MistWebsocket):
@@ -267,5 +267,5 @@ class SitePcapEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str) -> None:
-        super().__init__(mist_session, channel=f"/sites/{site_id}/pcap")
+    def __init__(self, mist_session: APISession, site_id: str, **kwargs) -> None:
+        super().__init__(mist_session, channel=f"/sites/{site_id}/pcap", **kwargs)

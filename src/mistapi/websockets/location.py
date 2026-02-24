@@ -54,9 +54,9 @@ class LocationBleAssetsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, map_id: str) -> None:
+    def __init__(self, mist_session: APISession, site_id: str, map_id: str, **kwargs) -> None:
         super().__init__(
-            mist_session, channel=f"/sites/{site_id}/stats/maps/{map_id}/assets"
+            mist_session, channel=f"/sites/{site_id}/stats/maps/{map_id}/assets", **kwargs
         )
 
 
@@ -99,10 +99,11 @@ class LocationConnectedClientsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, map_id: str) -> None:
+    def __init__(self, mist_session: APISession, site_id: str, map_id: str, **kwargs) -> None:
         super().__init__(
             mist_session,
             channel=f"/sites/{site_id}/stats/maps/{map_id}/clients",
+            **kwargs,
         )
 
 
@@ -145,10 +146,11 @@ class LocationSdkClientsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, map_id: str) -> None:
+    def __init__(self, mist_session: APISession, site_id: str, map_id: str, **kwargs) -> None:
         super().__init__(
             mist_session,
             channel=f"/sites/{site_id}/stats/maps/{map_id}/sdkclients",
+            **kwargs,
         )
 
 
@@ -191,10 +193,11 @@ class LocationUnconnectedClientsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, map_id: str) -> None:
+    def __init__(self, mist_session: APISession, site_id: str, map_id: str, **kwargs) -> None:
         super().__init__(
             mist_session,
             channel=f"/sites/{site_id}/stats/maps/{map_id}/unconnected_clients",
+            **kwargs,
         )
 
 
@@ -237,8 +240,9 @@ class LocationDiscoveredBleAssetsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, map_id: str) -> None:
+    def __init__(self, mist_session: APISession, site_id: str, map_id: str, **kwargs) -> None:
         super().__init__(
             mist_session,
             channel=f"/sites/{site_id}/stats/maps/{map_id}/discovered_assets",
+            **kwargs,
         )

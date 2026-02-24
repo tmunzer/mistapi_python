@@ -52,8 +52,8 @@ class OrgInsightsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, org_id: str) -> None:
-        super().__init__(mist_session, channel=f"/orgs/{org_id}/insights/summary")
+    def __init__(self, mist_session: APISession, org_id: str, **kwargs) -> None:
+        super().__init__(mist_session, channel=f"/orgs/{org_id}/insights/summary", **kwargs)
 
 
 class OrgMxEdgesStatsEvents(_MistWebsocket):
@@ -93,8 +93,8 @@ class OrgMxEdgesStatsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, org_id: str) -> None:
-        super().__init__(mist_session, channel=f"/orgs/{org_id}/stats/mxedges")
+    def __init__(self, mist_session: APISession, org_id: str, **kwargs) -> None:
+        super().__init__(mist_session, channel=f"/orgs/{org_id}/stats/mxedges", **kwargs)
 
 
 class OrgMxEdgesUpgradesEvents(_MistWebsocket):
@@ -134,5 +134,5 @@ class OrgMxEdgesUpgradesEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, org_id: str) -> None:
-        super().__init__(mist_session, channel=f"/orgs/{org_id}/mxedges")
+    def __init__(self, mist_session: APISession, org_id: str, **kwargs) -> None:
+        super().__init__(mist_session, channel=f"/orgs/{org_id}/mxedges", **kwargs)

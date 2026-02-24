@@ -36,9 +36,17 @@ class _MistWebsocket:
     - Login/password sessions pass the requests Session cookies.
     """
 
-    def __init__(self, mist_session: "APISession", channel: str) -> None:
+    def __init__(
+        self,
+        mist_session: "APISession",
+        channel: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
         self._mist_session = mist_session
         self._channel = channel
+        self._ping_interval = ping_interval
+        self._ping_timeout = ping_timeout
         self._ws: websocket.WebSocketApp | None = None
         self._thread: threading.Thread | None = None
         self._queue: queue.Queue[dict | None] = queue.Queue()
@@ -147,7 +155,7 @@ class _MistWebsocket:
     def _run_forever_safe(self) -> None:
         if self._ws:
             try:
-                self._ws.run_forever(ping_interval=30, ping_timeout=10)
+                self._ws.run_forever(ping_interval=self._ping_interval, ping_timeout=self._ping_timeout)
             except Exception as exc:
                 self._handle_error(self._ws, exc)
                 self._handle_close(self._ws, -1, str(exc))

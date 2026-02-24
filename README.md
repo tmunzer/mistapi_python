@@ -31,8 +31,9 @@ A comprehensive Python package to interact with the Mist Cloud APIs, built from 
     - [Pagination](#pagination-support)
     - [Examples](#examples)
 - [WebSocket Streaming](#websocket-streaming)
-    - [Available Channels](#available-channels)
+    - [Connection Parameters](#connection-parameters)
     - [Callbacks](#callbacks)
+    - [Available Channels](#available-channels)
     - [Usage Patterns](#usage-patterns)
 - [Development](#development-and-testing)
 - [Contributing](#contributing)
@@ -482,6 +483,34 @@ events = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(
 
 The package provides a WebSocket client for real-time event streaming from the Mist API (`wss://{host}/api-ws/v1/stream`). Authentication is handled automatically using the same session credentials (API token or login/password).
 
+### Connection Parameters
+
+All channel classes accept the following optional keyword arguments to control the WebSocket keep-alive behaviour:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `ping_interval` | `int` | `30` | Seconds between automatic ping frames. Set to `0` to disable pings. |
+| `ping_timeout` | `int` | `10` | Seconds to wait for a pong response before treating the connection as dead. |
+
+```python
+ws = mistapi.websockets.sites.SiteDeviceStatsEvents(
+    apisession,
+    site_id="<site_id>",
+    ping_interval=60,   # ping every 60 s
+    ping_timeout=20,    # wait up to 20 s for pong
+)
+ws.connect()
+```
+
+### Callbacks
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `ws.on_open(cb)` | `cb()` | Called when the connection is established |
+| `ws.on_message(cb)` | `cb(data: dict)` | Called for every incoming message |
+| `ws.on_error(cb)` | `cb(error: Exception)` | Called on WebSocket errors |
+| `ws.on_close(cb)` | `cb(status_code: int, msg: str)` | Called when the connection closes |
+
 ### Available Channels
 
 #### Organization Channels
@@ -511,15 +540,6 @@ The package provides a WebSocket client for real-time event streaming from the M
 | `mistapi.websockets.location.LocationSdkClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/sdkclients` | Real-time SDK clients location events |
 | `mistapi.websockets.location.LocationUnconnectedClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/unconnected_clients` | Real-time unconnected clients location events |
 | `mistapi.websockets.location.LocationDiscoveredBleAssetsEvents` | `/sites/{site_id}/stats/maps/{map_id}/discovered_assets` | Real-time discovered BLE assets location events |
-
-### Callbacks
-
-| Method | Signature | Description |
-|--------|-----------|-------------|
-| `ws.on_open(cb)` | `cb()` | Called when the connection is established |
-| `ws.on_message(cb)` | `cb(data: dict)` | Called for every incoming message |
-| `ws.on_error(cb)` | `cb(error: Exception)` | Called on WebSocket errors |
-| `ws.on_close(cb)` | `cb(status_code: int, msg: str)` | Called when the connection closes |
 
 ### Usage Patterns
 
