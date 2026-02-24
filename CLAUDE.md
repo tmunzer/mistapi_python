@@ -1,0 +1,7 @@
+This is the repo for my Mist API Python client, which is a wrapper around the Mist API. It allows you to easily interact with the Mist API and perform various actions such as creating and managing devices, sites, and more.
+
+The code in src/mistapi/api is automatically generated from the OpenAPI specification provided by Mist. This means that the code is always up to date with the latest version of the API, and you can be confident that it will work correctly with the Mist API.
+The code in src/mistapi/api is organized into different modules, each corresponding to a different aspect of the Mist API. For example, there are modules for managing devices, sites, and more. Each module contains functions that correspond to the various endpoints of the Mist API, allowing you to easily perform actions such as creating a new device, retrieving information about a site, and more.
+
+
+The code in src/mistapi/websocket is here to provide a WebSocket client for the Mist API. This allows you to receive real-time updates from the Mist API, such as when a new device is added or when a site is updated. The WebSocket client is built using the popular websocket-client library, and it provides an easy-to-use interface for connecting to the Mist API and receiving updates.
