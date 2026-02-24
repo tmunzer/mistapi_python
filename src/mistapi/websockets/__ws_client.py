@@ -155,7 +155,9 @@ class _MistWebsocket:
     def _run_forever_safe(self) -> None:
         if self._ws:
             try:
-                self._ws.run_forever(ping_interval=self._ping_interval, ping_timeout=self._ping_timeout)
+                self._ws.run_forever(
+                    ping_interval=self._ping_interval, ping_timeout=self._ping_timeout
+                )
             except Exception as exc:
                 self._handle_error(self._ws, exc)
                 self._handle_close(self._ws, -1, str(exc))
@@ -188,3 +190,7 @@ class _MistWebsocket:
 
     def __exit__(self, *args) -> None:
         self.disconnect()
+
+    def ready(self) -> bool | None:
+        """Returns True if the WebSocket connection is open and ready."""
+        return self._ws is not None and self._ws.ready()

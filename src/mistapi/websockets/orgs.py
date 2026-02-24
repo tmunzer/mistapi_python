@@ -27,6 +27,10 @@ class OrgInsightsEvents(_MistWebsocket):
         Authenticated API session.
     org_id : str
         UUID of the organization to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -52,8 +56,19 @@ class OrgInsightsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, org_id: str, **kwargs) -> None:
-        super().__init__(mist_session, channel=f"/orgs/{org_id}/insights/summary", **kwargs)
+    def __init__(
+        self,
+        mist_session: APISession,
+        org_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
+        super().__init__(
+            mist_session,
+            channel=f"/orgs/{org_id}/insights/summary",
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
+        )
 
 
 class OrgMxEdgesStatsEvents(_MistWebsocket):
@@ -68,6 +83,10 @@ class OrgMxEdgesStatsEvents(_MistWebsocket):
         Authenticated API session.
     org_id : str
         UUID of the organization to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -93,8 +112,19 @@ class OrgMxEdgesStatsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, org_id: str, **kwargs) -> None:
-        super().__init__(mist_session, channel=f"/orgs/{org_id}/stats/mxedges", **kwargs)
+    def __init__(
+        self,
+        mist_session: APISession,
+        org_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
+        super().__init__(
+            mist_session,
+            channel=f"/orgs/{org_id}/stats/mxedges",
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
+        )
 
 
 class OrgMxEdgesUpgradesEvents(_MistWebsocket):
@@ -109,6 +139,10 @@ class OrgMxEdgesUpgradesEvents(_MistWebsocket):
         Authenticated API session.
     org_id : str
         UUID of the org to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -134,5 +168,16 @@ class OrgMxEdgesUpgradesEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, org_id: str, **kwargs) -> None:
-        super().__init__(mist_session, channel=f"/orgs/{org_id}/mxedges", **kwargs)
+    def __init__(
+        self,
+        mist_session: APISession,
+        org_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
+        super().__init__(
+            mist_session,
+            channel=f"/orgs/{org_id}/mxedges",
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
+        )

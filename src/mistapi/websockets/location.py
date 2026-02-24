@@ -29,6 +29,11 @@ class LocationBleAssetsEvents(_MistWebsocket):
         UUID of the site to stream events from.
     map_id : str
         UUID of the map to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
+
 
     EXAMPLE
     -----------
@@ -54,9 +59,19 @@ class LocationBleAssetsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, map_id: str, **kwargs) -> None:
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        map_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
         super().__init__(
-            mist_session, channel=f"/sites/{site_id}/stats/maps/{map_id}/assets", **kwargs
+            mist_session,
+            channel=f"/sites/{site_id}/stats/maps/{map_id}/assets",
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
         )
 
 
@@ -74,6 +89,10 @@ class LocationConnectedClientsEvents(_MistWebsocket):
         UUID of the site to stream events from.
     map_id : str
         UUID of the map to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -99,11 +118,19 @@ class LocationConnectedClientsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, map_id: str, **kwargs) -> None:
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        map_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
         super().__init__(
             mist_session,
             channel=f"/sites/{site_id}/stats/maps/{map_id}/clients",
-            **kwargs,
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
         )
 
 
@@ -121,6 +148,10 @@ class LocationSdkClientsEvents(_MistWebsocket):
         UUID of the site to stream events from.
     map_id : str
         UUID of the map to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -146,11 +177,19 @@ class LocationSdkClientsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, map_id: str, **kwargs) -> None:
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        map_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
         super().__init__(
             mist_session,
             channel=f"/sites/{site_id}/stats/maps/{map_id}/sdkclients",
-            **kwargs,
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
         )
 
 
@@ -168,6 +207,10 @@ class LocationUnconnectedClientsEvents(_MistWebsocket):
         UUID of the site to stream events from.
     map_id : str
         UUID of the map to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -193,11 +236,19 @@ class LocationUnconnectedClientsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, map_id: str, **kwargs) -> None:
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        map_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
         super().__init__(
             mist_session,
             channel=f"/sites/{site_id}/stats/maps/{map_id}/unconnected_clients",
-            **kwargs,
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
         )
 
 
@@ -215,6 +266,10 @@ class LocationDiscoveredBleAssetsEvents(_MistWebsocket):
         UUID of the site to stream events from.
     map_id : str
         UUID of the map to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -240,9 +295,17 @@ class LocationDiscoveredBleAssetsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, map_id: str, **kwargs) -> None:
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        map_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
         super().__init__(
             mist_session,
             channel=f"/sites/{site_id}/stats/maps/{map_id}/discovered_assets",
-            **kwargs,
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
         )

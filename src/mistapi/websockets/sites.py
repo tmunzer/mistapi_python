@@ -27,6 +27,10 @@ class SiteClientsStatsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -52,8 +56,19 @@ class SiteClientsStatsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, **kwargs) -> None:
-        super().__init__(mist_session, channel=f"/sites/{site_id}/stats/clients", **kwargs)
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
+        super().__init__(
+            mist_session,
+            channel=f"/sites/{site_id}/stats/clients",
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
+        )
 
 
 class SiteDeviceCmdEvents(_MistWebsocket):
@@ -76,6 +91,10 @@ class SiteDeviceCmdEvents(_MistWebsocket):
         UUID of the site to stream events from.
     device_id : str
         UUID of the device to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -101,9 +120,19 @@ class SiteDeviceCmdEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, device_id: str, **kwargs) -> None:
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        device_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
         super().__init__(
-            mist_session, channel=f"/sites/{site_id}/devices/{device_id}/cmd", **kwargs
+            mist_session,
+            channel=f"/sites/{site_id}/devices/{device_id}/cmd",
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
         )
 
 
@@ -119,6 +148,10 @@ class SiteDeviceStatsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -144,8 +177,19 @@ class SiteDeviceStatsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, **kwargs) -> None:
-        super().__init__(mist_session, channel=f"/sites/{site_id}/stats/devices", **kwargs)
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
+        super().__init__(
+            mist_session,
+            channel=f"/sites/{site_id}/stats/devices",
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
+        )
 
 
 class SiteDeviceUpgradesEvents(_MistWebsocket):
@@ -160,6 +204,10 @@ class SiteDeviceUpgradesEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -185,8 +233,19 @@ class SiteDeviceUpgradesEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, **kwargs) -> None:
-        super().__init__(mist_session, channel=f"/sites/{site_id}/devices", **kwargs)
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
+        super().__init__(
+            mist_session,
+            channel=f"/sites/{site_id}/devices",
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
+        )
 
 
 class SiteMxEdgesStatsEvents(_MistWebsocket):
@@ -201,6 +260,10 @@ class SiteMxEdgesStatsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -226,8 +289,19 @@ class SiteMxEdgesStatsEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, **kwargs) -> None:
-        super().__init__(mist_session, channel=f"/sites/{site_id}/stats/mxedges", **kwargs)
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
+        super().__init__(
+            mist_session,
+            channel=f"/sites/{site_id}/stats/mxedges",
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
+        )
 
 
 class SitePcapEvents(_MistWebsocket):
@@ -242,6 +316,10 @@ class SitePcapEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
 
     EXAMPLE
     -----------
@@ -267,5 +345,16 @@ class SitePcapEvents(_MistWebsocket):
             time.sleep(60)
     """
 
-    def __init__(self, mist_session: APISession, site_id: str, **kwargs) -> None:
-        super().__init__(mist_session, channel=f"/sites/{site_id}/pcap", **kwargs)
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_id: str,
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
+        super().__init__(
+            mist_session,
+            channel=f"/sites/{site_id}/pcap",
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
+        )
