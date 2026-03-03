@@ -15,7 +15,7 @@ from mistapi import APISession
 from mistapi.websockets.__ws_client import _MistWebsocket
 
 
-class OrgInsightsEvents(_MistWebsocket):
+class InsightsEvents(_MistWebsocket):
     """WebSocket stream for organization insights events.
 
     Subscribes to the ``orgs/{org_id}/insights/summary`` channel and delivers
@@ -65,13 +65,13 @@ class OrgInsightsEvents(_MistWebsocket):
     ) -> None:
         super().__init__(
             mist_session,
-            channel=f"/orgs/{org_id}/insights/summary",
+            channels=[f"/orgs/{org_id}/insights/summary"],
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class OrgMxEdgesStatsEvents(_MistWebsocket):
+class MxEdgesStatsEvents(_MistWebsocket):
     """WebSocket stream for organization MX edges stats events.
 
     Subscribes to the ``orgs/{org_id}/stats/mxedges`` channel and delivers
@@ -121,13 +121,13 @@ class OrgMxEdgesStatsEvents(_MistWebsocket):
     ) -> None:
         super().__init__(
             mist_session,
-            channel=f"/orgs/{org_id}/stats/mxedges",
+            channels=[f"/orgs/{org_id}/stats/mxedges"],
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class OrgMxEdgesUpgradesEvents(_MistWebsocket):
+class MxEdgesUpgradesEvents(_MistWebsocket):
     """WebSocket stream for org MX edges upgrades events.
 
     Subscribes to the ``orgs/{org_id}/mxedges`` channel and delivers
@@ -177,7 +177,7 @@ class OrgMxEdgesUpgradesEvents(_MistWebsocket):
     ) -> None:
         super().__init__(
             mist_session,
-            channel=f"/orgs/{org_id}/mxedges",
+            channels=[f"/orgs/{org_id}/mxedges"],
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )

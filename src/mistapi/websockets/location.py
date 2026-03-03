@@ -15,7 +15,7 @@ from mistapi import APISession
 from mistapi.websockets.__ws_client import _MistWebsocket
 
 
-class LocationBleAssetsEvents(_MistWebsocket):
+class BleAssetsEvents(_MistWebsocket):
     """WebSocket stream for location BLE assets events.
 
     Subscribes to the ``/sites/{site_id}/stats/maps/{map_id}/assets`` channel and delivers
@@ -27,8 +27,8 @@ class LocationBleAssetsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    map_id : str
-        UUID of the map to stream events from.
+    map_id : list[str]
+        UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -63,19 +63,20 @@ class LocationBleAssetsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        map_id: str,
+        map_id: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [f"/sites/{site_id}/stats/maps/{mid}/assets" for mid in map_id]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/stats/maps/{map_id}/assets",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class LocationConnectedClientsEvents(_MistWebsocket):
+class ConnectedClientsEvents(_MistWebsocket):
     """WebSocket stream for location connected clients events.
 
     Subscribes to the ``/sites/{site_id}/stats/maps/{map_id}/clients`` channel and delivers
@@ -87,8 +88,8 @@ class LocationConnectedClientsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    map_id : str
-        UUID of the map to stream events from.
+    map_id : list[str]
+        UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -122,19 +123,20 @@ class LocationConnectedClientsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        map_id: str,
+        map_id: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [f"/sites/{site_id}/stats/maps/{mid}/clients" for mid in map_id]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/stats/maps/{map_id}/clients",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class LocationSdkClientsEvents(_MistWebsocket):
+class SdkClientsEvents(_MistWebsocket):
     """WebSocket stream for location SDK clients events.
 
     Subscribes to the ``/sites/{site_id}/stats/maps/{map_id}/sdkclients`` channel and delivers
@@ -146,8 +148,8 @@ class LocationSdkClientsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    map_id : str
-        UUID of the map to stream events from.
+    map_id : list[str]
+        UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -181,19 +183,20 @@ class LocationSdkClientsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        map_id: str,
+        map_id: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [f"/sites/{site_id}/stats/maps/{mid}/sdkclients" for mid in map_id]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/stats/maps/{map_id}/sdkclients",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class LocationUnconnectedClientsEvents(_MistWebsocket):
+class UnconnectedClientsEvents(_MistWebsocket):
     """WebSocket stream for location unconnected clients events.
 
     Subscribes to the ``/sites/{site_id}/stats/maps/{map_id}/unconnected_clients`` channel and delivers
@@ -205,8 +208,8 @@ class LocationUnconnectedClientsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    map_id : str
-        UUID of the map to stream events from.
+    map_id : list[str]
+        UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -240,19 +243,22 @@ class LocationUnconnectedClientsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        map_id: str,
+        map_id: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [
+            f"/sites/{site_id}/stats/maps/{mid}/unconnected_clients" for mid in map_id
+        ]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/stats/maps/{map_id}/unconnected_clients",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class LocationDiscoveredBleAssetsEvents(_MistWebsocket):
+class DiscoveredBleAssetsEvents(_MistWebsocket):
     """WebSocket stream for location discovered BLE assets events.
 
     Subscribes to the ``/sites/{site_id}/stats/maps/{map_id}/discovered_assets`` channel and delivers
@@ -264,8 +270,8 @@ class LocationDiscoveredBleAssetsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    map_id : str
-        UUID of the map to stream events from.
+    map_id : list[str]
+        UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -299,13 +305,16 @@ class LocationDiscoveredBleAssetsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        map_id: str,
+        map_id: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [
+            f"/sites/{site_id}/stats/maps/{mid}/discovered_assets" for mid in map_id
+        ]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/stats/maps/{map_id}/discovered_assets",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )

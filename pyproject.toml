@@ -35,6 +35,12 @@ dependencies = [
 "Bug Tracker" = "https://github.com/tmunzer/mistapi_python/issues"
 
 # UV-specific configuration
+[tool.uv.scripts]
+test   = "pytest"
+lint   = "ruff check src/"
+fmt    = "ruff format src/"
+build  = "python -m build"
+
 [tool.uv]
 dev-dependencies = [
   # Testing dependencies

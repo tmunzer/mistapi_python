@@ -21,4 +21,4 @@ Usage example::
     ws.connect()
 """
 
-from mistapi.websockets import location, orgs, sites
+from mistapi.websockets import location, orgs, session, sites, utils

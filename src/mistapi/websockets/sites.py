@@ -15,7 +15,7 @@ from mistapi import APISession
 from mistapi.websockets.__ws_client import _MistWebsocket
 
 
-class SiteClientsStatsEvents(_MistWebsocket):
+class ClientsStatsEvents(_MistWebsocket):
     """WebSocket stream for site clients stats events.
 
     Subscribes to the ``sites/{site_id}/stats/clients`` channel and delivers
@@ -25,8 +25,8 @@ class SiteClientsStatsEvents(_MistWebsocket):
     -----------
     mist_session : mistapi.APISession
         Authenticated API session.
-    site_id : str
-        UUID of the site to stream events from.
+    site_ids : list[str]
+        UUIDs of the sites to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -59,19 +59,20 @@ class SiteClientsStatsEvents(_MistWebsocket):
     def __init__(
         self,
         mist_session: APISession,
-        site_id: str,
+        site_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [f"/sites/{site_id}/stats/clients" for site_id in site_ids]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/stats/clients",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class SiteDeviceCmdEvents(_MistWebsocket):
+class DeviceCmdEvents(_MistWebsocket):
     """WebSocket stream for site device command events.
 
     Subscribes to the ``sites/{site_id}/devices/{device_id}/cmd`` channel and delivers
@@ -89,8 +90,8 @@ class SiteDeviceCmdEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    device_id : str
-        UUID of the device to stream events from.
+    device_ids : list[str]
+        UUIDs of the devices to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -124,19 +125,22 @@ class SiteDeviceCmdEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        device_id: str,
+        device_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [
+            f"/sites/{site_id}/devices/{device_id}/cmd" for device_id in device_ids
+        ]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/devices/{device_id}/cmd",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class SiteDeviceStatsEvents(_MistWebsocket):
+class DeviceStatsEvents(_MistWebsocket):
     """WebSocket stream for site device stats events.
 
     Subscribes to the ``sites/{site_id}/stats/devices`` channel and delivers
@@ -146,8 +150,8 @@ class SiteDeviceStatsEvents(_MistWebsocket):
     -----------
     mist_session : mistapi.APISession
         Authenticated API session.
-    site_id : str
-        UUID of the site to stream events from.
+    site_ids : list[str]
+        UUIDs of the sites to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -180,19 +184,20 @@ class SiteDeviceStatsEvents(_MistWebsocket):
     def __init__(
         self,
         mist_session: APISession,
-        site_id: str,
+        site_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [f"/sites/{site_id}/stats/devices" for site_id in site_ids]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/stats/devices",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class SiteDeviceUpgradesEvents(_MistWebsocket):
+class DeviceUpgradesEvents(_MistWebsocket):
     """WebSocket stream for site device upgrades events.
 
     Subscribes to the ``sites/{site_id}/devices`` channel and delivers
@@ -202,8 +207,8 @@ class SiteDeviceUpgradesEvents(_MistWebsocket):
     -----------
     mist_session : mistapi.APISession
         Authenticated API session.
-    site_id : str
-        UUID of the site to stream events from.
+    site_ids : list[str]
+        UUIDs of the sites to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -236,19 +241,20 @@ class SiteDeviceUpgradesEvents(_MistWebsocket):
     def __init__(
         self,
         mist_session: APISession,
-        site_id: str,
+        site_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [f"/sites/{site_id}/devices" for site_id in site_ids]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/devices",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class SiteMxEdgesStatsEvents(_MistWebsocket):
+class MxEdgesStatsEvents(_MistWebsocket):
     """WebSocket stream for site MX edges stats events.
 
     Subscribes to the ``sites/{site_id}/stats/mxedges`` channel and delivers
@@ -258,8 +264,8 @@ class SiteMxEdgesStatsEvents(_MistWebsocket):
     -----------
     mist_session : mistapi.APISession
         Authenticated API session.
-    site_id : str
-        UUID of the site to stream events from.
+    site_ids : list[str]
+        UUIDs of the sites to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -292,19 +298,20 @@ class SiteMxEdgesStatsEvents(_MistWebsocket):
     def __init__(
         self,
         mist_session: APISession,
-        site_id: str,
+        site_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [f"/sites/{site_id}/stats/mxedges" for site_id in site_ids]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/stats/mxedges",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
 
 
-class SitePcapEvents(_MistWebsocket):
+class PcapEvents(_MistWebsocket):
     """WebSocket stream for site PCAP events.
 
     Subscribes to the ``sites/{site_id}/pcap`` channel and delivers
@@ -314,8 +321,8 @@ class SitePcapEvents(_MistWebsocket):
     -----------
     mist_session : mistapi.APISession
         Authenticated API session.
-    site_id : str
-        UUID of the site to stream events from.
+    site_ids : list[str]
+        UUID of the sites to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -348,13 +355,14 @@ class SitePcapEvents(_MistWebsocket):
     def __init__(
         self,
         mist_session: APISession,
-        site_id: str,
+        site_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        channels = [f"/sites/{site_id}/pcap" for site_id in site_ids]
         super().__init__(
             mist_session,
-            channel=f"/sites/{site_id}/pcap",
+            channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )

@@ -39,12 +39,12 @@ class _MistWebsocket:
     def __init__(
         self,
         mist_session: "APISession",
-        channel: str,
+        channels: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
         self._mist_session = mist_session
-        self._channel = channel
+        self._channels = channels
         self._ping_interval = ping_interval
         self._ping_timeout = ping_timeout
         self._ws: websocket.WebSocketApp | None = None
@@ -97,7 +97,8 @@ class _MistWebsocket:
     # Internal WebSocketApp handlers
 
     def _handle_open(self, ws: websocket.WebSocketApp) -> None:
-        ws.send(json.dumps({"subscribe": self._channel}))
+        for channel in self._channels:
+            ws.send(json.dumps({"subscribe": channel}))
         if self._on_open_cb:
             self._on_open_cb()
 
