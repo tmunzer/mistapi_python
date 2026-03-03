@@ -1,4 +1,45 @@
 # CHANGELOG
+## Version 0.60.4 (March 2026)
+
+**Released**: March 3, 2026
+
+This release updates the OpenAPI submodule to version 2602.1.4, adds the new Map Stacks API, and includes various API improvements and bug fixes.
+
+---
+
+### 1. NEW FEATURES
+
+##### **Site Map Stacks API**
+- Added new `sites/mapstacks.py` module with `listSiteMapStacks()` and `createSiteMapStack()` functions
+
+---
+
+### 2. CHANGES
+
+##### **API Function Updates**
+- Updated `searchOrgInventory()` in `orgs/inventory.py`: Added `model` parameter for device model filtering
+- Updated `searchOrgJsiAssetsAndContracts()` in `orgs/jsi.py`:
+  - Replaced `eol_duration` and `eos_duration` with date-based filters: `eol_after`, `eol_before`, `eos_after`, `eos_before`
+  - Added `version_eos_after` and `version_eos_before` for software version end-of-support filtering
+  - Added `sirt_id` and `pbn_id` for security advisory filtering
+- Updated `searchOrgAlarms()` and `searchSiteAlarms()` documentation with Marvis alarm group details
+
+
+---
+
+### 3. BUG FIXES
+
+- Fixed `APIResponse.data` type annotation to support both `dict` and `list` responses
+- Fixed `_check_next()` method to properly handle list responses in pagination
+
+---
+
+### Breaking Changes
+
+- `searchOrgJsiAssetsAndContracts()`: Parameters `eol_duration` and `eos_duration` have been replaced with `eol_after`, `eol_before`, `eos_after`, and `eos_before`
+
+---
+
 ## Version 0.60.3 (February 2026)
 
 **Released**: February 21, 2026

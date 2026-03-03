@@ -260,7 +260,7 @@ def searchOrgDeviceEvents(
     ------------
     mac : str
     model : str
-    device_type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
+    device_type : str, default: ap
     text : str
     timestamp : str
     type : str

@@ -316,6 +316,7 @@ def searchOrgInventory(
     org_id: str,
     type: str | None = None,
     mac: str | None = None,
+    model: str | None = None,
     vc_mac: str | None = None,
     master_mac: str | None = None,
     site_id: str | None = None,
@@ -345,6 +346,7 @@ def searchOrgInventory(
     ------------
     type : str{'ap', 'gateway', 'switch'}, default: ap
     mac : str
+    model : str
     vc_mac : str
     master_mac : str
     site_id : str
@@ -370,6 +372,8 @@ def searchOrgInventory(
         query_params["type"] = str(type)
     if mac:
         query_params["mac"] = str(mac)
+    if model:
+        query_params["model"] = str(model)
     if vc_mac:
         query_params["vc_mac"] = str(vc_mac)
     if master_mac:

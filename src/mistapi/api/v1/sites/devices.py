@@ -36,7 +36,7 @@ def listSiteDevices(
 
     QUERY PARAMS
     ------------
-    type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
+    type : str, default: ap
     name : str
     limit : int, default: 100
     page : int, default: 1
@@ -1734,7 +1734,7 @@ def clearSiteDevicePendingVersion(
 
 
 def clearSiteDevicePolicyHitCount(
-    mist_session: _APISession, site_id: str, device_id: str
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/clear-site-device-policy-hit-count
@@ -1749,6 +1749,11 @@ def clearSiteDevicePolicyHitCount(
     site_id : str
     device_id : str
 
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -1756,7 +1761,7 @@ def clearSiteDevicePolicyHitCount(
     """
 
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/clear_policy_hit_count"
-    resp = mist_session.mist_post(uri=uri)
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
 
@@ -2587,7 +2592,7 @@ def showSiteDeviceArpTable(
     mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/common/show-site-device-arp-table
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/show-site-device-arp-table
 
     PARAMS
     -----------

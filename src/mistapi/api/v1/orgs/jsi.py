@@ -245,9 +245,15 @@ def searchOrgJsiAssetsAndContracts(
     sku: str | None = None,
     status: str | None = None,
     warranty_type: str | None = None,
-    eol_duration: str | None = None,
-    eos_duration: str | None = None,
+    eol_after: str | None = None,
+    eol_before: str | None = None,
+    eos_after: str | None = None,
+    eos_before: str | None = None,
+    version_eos_after: str | None = None,
+    version_eos_before: str | None = None,
     has_support: bool | None = None,
+    sirt_id: str | None = None,
+    pbn_id: str | None = None,
     text: str | None = None,
     limit: int | None = None,
     sort: str | None = None,
@@ -275,9 +281,15 @@ def searchOrgJsiAssetsAndContracts(
       Device status
     warranty_type : str{'Standard Hardware Warranty', 'Enhanced Hardware Warranty', 'Dead On Arrival Warranty', 'Limited Lifetime Warranty', 'Software Warranty', 'Limited Lifetime Warranty for WLA', 'Warranty-JCPO EOL (DOA Not Included)', 'MIST Enhanced Hardware Warranty', 'MIST Standard Warranty', 'Determine Lifetime warranty'}
       Device warranty type
-    eol_duration : str
-    eos_duration : str
+    eol_after : str
+    eol_before : str
+    eos_after : str
+    eos_before : str
+    version_eos_after : str
+    version_eos_before : str
     has_support : bool
+    sirt_id : str
+    pbn_id : str
     text : str
     limit : int, default: 100
     sort : str, default: timestamp
@@ -303,12 +315,24 @@ def searchOrgJsiAssetsAndContracts(
         query_params["status"] = str(status)
     if warranty_type:
         query_params["warranty_type"] = str(warranty_type)
-    if eol_duration:
-        query_params["eol_duration"] = str(eol_duration)
-    if eos_duration:
-        query_params["eos_duration"] = str(eos_duration)
+    if eol_after:
+        query_params["eol_after"] = str(eol_after)
+    if eol_before:
+        query_params["eol_before"] = str(eol_before)
+    if eos_after:
+        query_params["eos_after"] = str(eos_after)
+    if eos_before:
+        query_params["eos_before"] = str(eos_before)
+    if version_eos_after:
+        query_params["version_eos_after"] = str(version_eos_after)
+    if version_eos_before:
+        query_params["version_eos_before"] = str(version_eos_before)
     if has_support:
         query_params["has_support"] = str(has_support)
+    if sirt_id:
+        query_params["sirt_id"] = str(sirt_id)
+    if pbn_id:
+        query_params["pbn_id"] = str(pbn_id)
     if text:
         query_params["text"] = str(text)
     if limit:

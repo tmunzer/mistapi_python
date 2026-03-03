@@ -144,38 +144,43 @@ def searchOrgAlarms(
     search_after: str | None = None,
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/search-org-alarms
+        API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/alarms/search-org-alarms
 
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
+        PARAMS
+        -----------
+        mistapi.APISession : mist_session
+            mistapi session including authentication and Mist host information
 
-    PATH PARAMS
-    -----------
-    org_id : str
+        PATH PARAMS
+        -----------
+        org_id : str
 
-    QUERY PARAMS
-    ------------
-    site_id : str
-    group : str{'infrastructure', 'marvis', 'security'}
-      Alarm group. enum: `infrastructure`, `marvis`, `security`
-    severity : str{'critical', 'info', 'warn'}
-      Severity of the alarm. enum: `critical`, `info`, `warn`
-    type : str
-    ack_admin_name : str
-    acked : bool
-    start : str
-    end : str
-    duration : str, default: 1d
-    limit : int, default: 100
-    sort : str, default: timestamp
-    search_after : str
+        QUERY PARAMS
+        ------------
+        site_id : str
+        group : str{'infrastructure', 'marvis', 'security'}
+          Alarm group. enum: `infrastructure`, `marvis`, `security`.
+    The `marvis` group is used to retrieve AI-driven network issue detections.
+    Known Marvis alarm types include: `bad_cable`, `bad_wan_uplink`, `dns_failure`,
+    `arp_failure`, `auth_failure`, `dhcp_failure`, `missing_vlan`,
+    `negotiation_mismatch`, `port_flap`. Results include resolution status
+    (`status`, `resolved_time`) and affected entity details."
+        severity : str{'critical', 'info', 'warn'}
+          Severity of the alarm. enum: `critical`, `info`, `warn`
+        type : str
+        ack_admin_name : str
+        acked : bool
+        start : str
+        end : str
+        duration : str, default: 1d
+        limit : int, default: 100
+        sort : str, default: timestamp
+        search_after : str
 
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
+        RETURN
+        -----------
+        mistapi.APIResponse
+            response from the API call
     """
 
     uri = f"/api/v1/orgs/{org_id}/alarms/search"
