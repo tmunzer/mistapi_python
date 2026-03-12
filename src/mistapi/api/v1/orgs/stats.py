@@ -410,7 +410,7 @@ def listOrgDevicesStats(
 
     QUERY PARAMS
     ------------
-    type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
+    type : str, default: ap
     status : str{'all', 'connected', 'disconnected'}, default: all
     site_id : str
     mac : str

@@ -321,8 +321,8 @@ class PcapEvents(_MistWebsocket):
     -----------
     mist_session : mistapi.APISession
         Authenticated API session.
-    site_ids : list[str]
-        UUID of the sites to stream events from.
+    site_id : str
+        UUID of the site to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -355,11 +355,11 @@ class PcapEvents(_MistWebsocket):
     def __init__(
         self,
         mist_session: APISession,
-        site_ids: list[str],
+        site_id: str,
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
-        channels = [f"/sites/{site_id}/pcap" for site_id in site_ids]
+        channels = [f"/sites/{site_id}/pcaps"]
         super().__init__(
             mist_session,
             channels=channels,

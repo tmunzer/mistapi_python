@@ -949,7 +949,7 @@ def listSiteDevicesStats(
 
     QUERY PARAMS
     ------------
-    type : str{'all', 'ap', 'gateway', 'switch'}, default: ap
+    type : str, default: ap
     status : str{'all', 'connected', 'disconnected'}, default: all
     limit : int, default: 100
     page : int, default: 1

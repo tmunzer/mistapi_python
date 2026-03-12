@@ -8,17 +8,14 @@
     This package is licensed under the MIT License.
 
 --------------------------------------------------------------------------------
-WebSocket channel classes for real-time Mist API streaming.
-
-Usage example::
-
-    import mistapi
-    session = mistapi.APISession(...)
-    session.login()
-
-    ws = mistapi.websockets.sites.SiteDeviceStatsEvents(session, site_id="<site_id>")
-    ws.on_message(lambda data: print(data))
-    ws.connect()
 """
 
-from mistapi.websockets import location, orgs, session, sites, utils
+from mistapi.websockets import __ws_client, location, orgs, session, sites
+
+__all__ = [
+    "location",
+    "orgs",
+    "session",
+    "sites",
+    "__ws_client",
+]

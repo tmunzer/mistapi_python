@@ -15,6 +15,7 @@ from mistapi.__api_session import APISession as APISession
 from mistapi import api as api
 from mistapi import cli as cli
 from mistapi import websockets as websockets
+from mistapi import utils as utils
 from mistapi.__pagination import get_all as get_all
 from mistapi.__pagination import get_next as get_next
 from mistapi.__version import __author__ as __author__
