@@ -285,7 +285,7 @@ class APISession(APIRequest):
                     self.set_api_token(mist_apitoken)
                 mist_user = keyring.get_password(keyring_service, "MIST_USER")
                 if mist_user:
-                    LOGGER.info("apisession:_load_keyring: MIST_USER=%s", mist_user)
+                    LOGGER.info("apisession:_load_keyring: MIST_USER retrieved")
                     self.set_email(mist_user)
                 mist_password = keyring.get_password(keyring_service, "MIST_PASSWORD")
                 if mist_password:
@@ -466,8 +466,8 @@ class APISession(APIRequest):
             self.email = email
         else:
             self.email = input("Login: ")
-        LOGGER.info("apisession:set_email:email configured to %s", self.email)
-        CONSOLE.debug("Email configured to %s", self.email)
+        LOGGER.info("apisession:set_email:email configured")
+        CONSOLE.debug("Email configured")
 
     def set_password(self, password: str | None = None) -> None:
         """
@@ -573,7 +573,10 @@ class APISession(APIRequest):
                 data.status_code,
             )
             CONSOLE.critical(
-                f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}\r\n"
+                "Invalid API Token %s...%s: status code %s\r\n",
+                apitoken[:4],
+                apitoken[-4:],
+                data.status_code,
             )
             raise ValueError(
                 f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}"
@@ -856,7 +859,7 @@ class APISession(APIRequest):
             LOGGER.info("apisession:login_with_return:access authorized")
             return {"authenticated": True, "error": ""}
         else:
-            LOGGER.error("apisession:login_with_return:access denied: %s", resp.data)
+            LOGGER.error("apisession:login_with_return:access denied: status code %s", resp.status_code)
             return {"authenticated": False, "error": resp.data}
 
     def logout(self) -> None:
@@ -1057,7 +1060,8 @@ class APISession(APIRequest):
                 resp.status_code,
             )
             CONSOLE.error(
-                f"2FA authentication failed with error code: {resp.status_code}\r\n"
+                "2FA authentication failed with error code: %s\r\n",
+                resp.status_code,
             )
             return False
 
@@ -1099,9 +1103,7 @@ class APISession(APIRequest):
                     print(" Authenticated ".center(80, "-"))
                     print(f"\r\nWelcome {self.first_name} {self.last_name}!\r\n")
                 LOGGER.info(
-                    "apisession:_getself:account used: %s %s",
-                    self.first_name,
-                    self.last_name,
+                    "apisession:_getself:account info processed successfully"
                 )
                 return True
         elif resp.proxy_error:
