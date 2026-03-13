@@ -308,7 +308,7 @@ class APISession(APIRequest):
                     os.path.expanduser("~"), env_file.replace("~/", "")
                 )
             env_file = os.path.abspath(env_file)
-            CONSOLE.debug(f"Loading settings from {env_file}")
+            CONSOLE.debug("Loading settings from %s", env_file)
             LOGGER.debug("apisession:_load_env:loading settings from %s", env_file)
             dotenv_path = Path(env_file)
             load_dotenv(dotenv_path=dotenv_path, override=True)
@@ -389,10 +389,10 @@ class APISession(APIRequest):
             LOGGER.debug(
                 "apisession:set_cloud:Mist Cloud configured to %s", self._cloud_uri
             )
-            CONSOLE.debug(f"Mist Cloud configured to {self._cloud_uri}")
+            CONSOLE.debug("Mist Cloud configured to %s", self._cloud_uri)
         else:
             LOGGER.error("apisession:set_cloud: %s is not valid", cloud_uri)
-            CONSOLE.error(f"{cloud_uri} is not valid")
+            CONSOLE.error("%s is not valid", cloud_uri)
 
     def get_cloud(self):
         """
@@ -467,7 +467,7 @@ class APISession(APIRequest):
         else:
             self.email = input("Login: ")
         LOGGER.info("apisession:set_email:email configured to %s", self.email)
-        CONSOLE.debug(f"Email configured to {self.email}")
+        CONSOLE.debug("Email configured to %s", self.email)
 
     def set_password(self, password: str | None = None) -> None:
         """
@@ -713,7 +713,7 @@ class APISession(APIRequest):
                 LOGGER.error(
                     "apisession:_process_login:authentication failed:%s", error
                 )
-                CONSOLE.error(f"Authentication failed: {error}\r\n")
+                CONSOLE.error("Authentication failed: %s\r\n", error)
                 self.email = None
                 self._password = None
                 LOGGER.info(
