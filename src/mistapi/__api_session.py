@@ -626,31 +626,32 @@ class APISession(APIRequest):
             primary_token_type: str | None = ""
             primary_token_value: str = ""
             for token in apitokens:
-                token_value = f"{token[:4]}...{token[-4:]}"
+                not_sensitive_data = f"{token[:4]}...{token[-4:]}"
                 if token in valid_api_tokens:
                     LOGGER.info(
                         "apisession:_check_api_tokens:API Token %s is already valid",
-                        token_value,
+                        not_sensitive_data,
                     )
                     continue
                 (token_type, token_privileges) = self._get_api_token_data(token)
                 if token_type is None or token_privileges is None:
                     LOGGER.error(
                         "apisession:_check_api_tokens:API Token %s is not valid",
-                        token_value,
+                        not_sensitive_data,
                     )
                     LOGGER.error(
-                        "API Token %s is not valid and will not be used", token_value
+                        "API Token %s is not valid and will not be used",
+                        not_sensitive_data,
                     )
                 elif len(primary_token_privileges) == 0 and token_privileges:
                     primary_token_privileges = token_privileges
                     primary_token_type = token_type
-                    primary_token_value = token_value
+                    primary_token_value = not_sensitive_data
                     valid_api_tokens.append(token)
                     LOGGER.info(
                         "apisession:_check_api_tokens:"
                         "API Token %s set as primary for comparison",
-                        token_value,
+                        not_sensitive_data,
                     )
                 elif primary_token_privileges == token_privileges:
                     valid_api_tokens.append(token)
@@ -659,7 +660,7 @@ class APISession(APIRequest):
                         "%s API Token %s has same privileges as "
                         "the %s API Token %s",
                         token_type,
-                        token_value,
+                        not_sensitive_data,
                         primary_token_type,
                         primary_token_value,
                     )
@@ -669,13 +670,13 @@ class APISession(APIRequest):
                         "%s API Token %s has different privileges "
                         "than the %s API Token %s",
                         token_type,
-                        token_value,
+                        not_sensitive_data,
                         primary_token_type,
                         primary_token_value,
                     )
                     LOGGER.error(
                         "API Token %s has different privileges and will not be used",
-                        token_value,
+                        not_sensitive_data,
                     )
         return valid_api_tokens
 
