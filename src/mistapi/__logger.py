@@ -238,7 +238,8 @@ class LogSanitizer(logging.Filter):
         self.console = Console()
 
     def filter(self, record):
-        record.msg = self.console.sanitize(record.msg)
+        record.msg = self.console.sanitize(record.getMessage())
+        record.args = None
         return True
 
 

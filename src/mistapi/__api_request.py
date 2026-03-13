@@ -17,7 +17,9 @@ This module manages API requests with Mist Cloud. It is used to
 import json
 import os
 import re
-import sys
+import time
+import urllib.parse
+from collections.abc import Callable
 from typing import Any
 
 import requests
@@ -32,6 +34,9 @@ class APIRequest:
     """
     Class handling API Request to the Mist Cloud
     """
+
+    _MAX_429_RETRIES: int = 3
+    _DEFAULT_RETRY_AFTER: int = 5
 
     def __init__(self) -> None:
         self._cloud_uri: str = ""
@@ -77,8 +82,7 @@ class APIRequest:
                 re.sub(pwd_regex, ":*********@", self._session.proxies["https"]),
             )
             print(
-                "apirequest:sending request to proxy server %s",
-                re.sub(pwd_regex, ":*********@", self._session.proxies["https"]),
+                f"apirequest:sending request to proxy server {re.sub(pwd_regex, ':*********@', self._session.proxies['https'])}"
             )
 
     def _next_apitoken(self) -> None:
@@ -111,18 +115,16 @@ class APIRequest:
                 " For large organization, it is recommended to configure"
                 " multiple API Tokens (comma separated list) to avoid this issue"
             )
-            logger.critical(" Exiting...")
-            sys.exit(255)
+            raise RuntimeError(
+                "API rate limit reached and no other API Token available. "
+                "For large organizations, configure multiple API Tokens "
+                "(comma separated list) to avoid this issue."
+            )
 
     def _gen_query(self, query: dict[str, str] | None) -> str:
-        logger.debug(f"apirequest:_gen_query:processing query {query}")
-        html_query = "?"
-        if query:
-            for query_param in query:
-                html_query += f"{query_param}={query[query_param]}&"
-        logger.debug(f"apirequest:_gen_query:generated query:{html_query}")
-        html_query = html_query[:-1]
-        return html_query
+        if not query:
+            return ""
+        return "?" + urllib.parse.urlencode(query)
 
     def _remove_auth_from_headers(self, resp: requests.Response):
         headers = resp.request.headers
@@ -157,6 +159,72 @@ class APIRequest:
                     request_body += f"\r\n{i}"
         return request_body
 
+    def _handle_rate_limit(self, resp: requests.Response, attempt: int) -> None:
+        retry_after = resp.headers.get("Retry-After")
+        if retry_after:
+            try:
+                wait = int(retry_after)
+            except ValueError:
+                wait = self._DEFAULT_RETRY_AFTER * (2**attempt)
+        else:
+            wait = self._DEFAULT_RETRY_AFTER * (2**attempt)
+        logger.info(
+            "apirequest:rate_limited:sleeping %ss (attempt %s/%s)",
+            wait,
+            attempt + 1,
+            self._MAX_429_RETRIES,
+        )
+        time.sleep(wait)
+
+    def _request_with_retry(
+        self, method_name: str, request_fn: Callable, url: str
+    ) -> APIResponse:
+        """Shared retry wrapper for all HTTP methods."""
+        resp = None
+        proxy_failed = False
+        for attempt in range(self._MAX_429_RETRIES + 1):
+            try:
+                logger.info(f"apirequest:{method_name}:sending request to {url}")
+                self._log_proxy()
+                resp = request_fn()
+                logger.debug(
+                    f"apirequest:{method_name}:request headers:{self._remove_auth_from_headers(resp)}"
+                )
+                resp.raise_for_status()
+                break
+            except requests.exceptions.ProxyError as e:
+                logger.error(f"apirequest:{method_name}:Proxy Error: {e}")
+                proxy_failed = True
+                break
+            except requests.exceptions.ConnectionError as e:
+                logger.error(f"apirequest:{method_name}:Connection Error: {e}")
+                break
+            except HTTPError as e:
+                if e.response.status_code == 429 and attempt < self._MAX_429_RETRIES:
+                    logger.warning(
+                        f"apirequest:{method_name}:HTTP 429 (attempt {attempt + 1}/{self._MAX_429_RETRIES})"
+                    )
+                    try:
+                        self._next_apitoken()
+                    except RuntimeError:
+                        pass  # single token — still retry with backoff
+                    self._handle_rate_limit(e.response, attempt)
+                    continue
+                logger.error(f"apirequest:{method_name}:HTTP error: {e}")
+                if resp:
+                    logger.error(
+                        f"apirequest:{method_name}:HTTP error description: {resp.json()}"
+                    )
+                break
+            except Exception as e:
+                logger.error(f"apirequest:{method_name}:error: {e}")
+                logger.error(
+                    f"apirequest:{method_name}:Exception occurred", exc_info=True
+                )
+                break
+        self._count += 1
+        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+
     def mist_get(self, uri: str, query: dict[str, str] | None = None) -> APIResponse:
         """
         GET HTTP Request
@@ -173,41 +241,8 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
-        resp = None
-        proxy_failed = False
-        try:
-            url = self._url(uri) + self._gen_query(query)
-            logger.info(f"apirequest:mist_get:sending request to {url}")
-            self._log_proxy()
-            resp = self._session.get(url)
-            logger.debug(
-                f"apirequest:mist_get:request headers:{self._remove_auth_from_headers(resp)}"
-            )
-            resp.raise_for_status()
-        except requests.exceptions.ProxyError as proxy_error:
-            logger.error(f"apirequest:mist_get:Proxy Error: {proxy_error}")
-            proxy_failed = True
-        except requests.exceptions.ConnectionError as connexion_error:
-            logger.error(f"apirequest:mist_get:Connection Error: {connexion_error}")
-        except HTTPError as http_err:
-            if http_err.response.status_code == 429:
-                logger.warning(
-                    "apirequest:mist_get:"
-                    "got HTTP Error 429 from Mist. Will try with next API Token"
-                )
-                self._next_apitoken()
-                return self.mist_get(uri, query)
-            logger.error(f"apirequest:mist_get:HTTP error occurred: {http_err}")
-            if resp:
-                logger.error(
-                    f"apirequest:mist_get:HTTP error description: {resp.json()}"
-                )
-        except Exception as err:
-            logger.error(f"apirequest:mist_get:Other error occurred: {err}")
-            logger.error("apirequest:mist_get:Exception occurred", exc_info=True)
-        finally:
-            self._count += 1
-        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        url = self._url(uri) + self._gen_query(query)
+        return self._request_with_retry("mist_get", lambda: self._session.get(url), url)
 
     def mist_post(self, uri: str, body: dict | list | None = None) -> APIResponse:
         """
@@ -224,48 +259,14 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
-        resp = None
-        proxy_failed = False
-        try:
-            url = self._url(uri)
-            logger.info(f"apirequest:mist_post:sending request to {url}")
-            headers = {"Content-Type": "application/json"}
-            logger.debug(f"apirequest:mist_post:Request body:{body}")
-            if isinstance(body, str):
-                self._log_proxy()
-                resp = self._session.post(url, data=body, headers=headers)
-            else:
-                self._log_proxy()
-                resp = self._session.post(url, json=body, headers=headers)
-            logger.debug(
-                f"apirequest:mist_post:request headers:{self._remove_auth_from_headers(resp)}"
-            )
-            logger.debug("apirequest:mist_post:request body: %s", resp.request.body)
-            resp.raise_for_status()
-        except requests.exceptions.ProxyError as proxy_error:
-            logger.error(f"apirequest:mist_post:Proxy Error: {proxy_error}")
-            proxy_failed = True
-        except requests.exceptions.ConnectionError as connexion_error:
-            logger.error(f"apirequest:mist_post:Connection Error: {connexion_error}")
-        except HTTPError as http_err:
-            if http_err.response.status_code == 429:
-                logger.warning(
-                    "apirequest:mist_post:"
-                    "got HTTP Error 429 from Mist. Will try with next API Token"
-                )
-                self._next_apitoken()
-                return self.mist_post(uri, body)
-            logger.error(f"apirequest:mist_post: HTTP error occurred: {http_err}")
-            if resp:
-                logger.error(
-                    f"apirequest:mist_post: HTTP error description: {resp.json()}"
-                )
-        except Exception as err:
-            logger.error(f"apirequest:mist_post: Other error occurred: {err}")
-            logger.error("apirequest:mist_post: Exception occurred", exc_info=True)
-        finally:
-            self._count += 1
-        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        url = self._url(uri)
+        headers = {"Content-Type": "application/json"}
+        logger.debug(f"apirequest:mist_post:Request body:{body}")
+        if isinstance(body, str):
+            fn = lambda: self._session.post(url, data=body, headers=headers)
+        else:
+            fn = lambda: self._session.post(url, json=body, headers=headers)
+        return self._request_with_retry("mist_post", fn, url)
 
     def mist_put(self, uri: str, body: dict | None = None) -> APIResponse:
         """
@@ -282,48 +283,14 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
-        resp = None
-        proxy_failed = False
-        try:
-            url = self._url(uri)
-            logger.info(f"apirequest:mist_put:sending request to {url}")
-            headers = {"Content-Type": "application/json"}
-            logger.debug(f"apirequest:mist_put:Request body:{body}")
-            if isinstance(body, str):
-                self._log_proxy()
-                resp = self._session.put(url, data=body, headers=headers)
-            else:
-                self._log_proxy()
-                resp = self._session.put(url, json=body, headers=headers)
-            logger.debug(
-                f"apirequest:mist_put:request headers:{self._remove_auth_from_headers(resp)}"
-            )
-            logger.debug("apirequest:mist_put:request body:%s", resp.request.body)
-            resp.raise_for_status()
-        except requests.exceptions.ProxyError as proxy_error:
-            logger.error(f"apirequest:mist_put:Proxy Error: {proxy_error}")
-            proxy_failed = True
-        except requests.exceptions.ConnectionError as connexion_error:
-            logger.error(f"apirequest:mist_put:Connection Error: {connexion_error}")
-        except HTTPError as http_err:
-            if http_err.response.status_code == 429:
-                logger.warning(
-                    "apirequest:mist_put:"
-                    "got HTTP Error 429 from Mist. Will try with next API Token"
-                )
-                self._next_apitoken()
-                return self.mist_put(uri, body)
-            logger.error(f"apirequest:mist_put: HTTP error occurred: {http_err}")
-            if resp:
-                logger.error(
-                    f"apirequest:mist_put: HTTP error description: {resp.json()}"
-                )
-        except Exception as err:
-            logger.error(f"apirequest:mist_put: Other error occurred: {err}")
-            logger.error("apirequest:mist_put: Exception occurred", exc_info=True)
-        finally:
-            self._count += 1
-        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        url = self._url(uri)
+        headers = {"Content-Type": "application/json"}
+        logger.debug(f"apirequest:mist_put:Request body:{body}")
+        if isinstance(body, str):
+            fn = lambda: self._session.put(url, data=body, headers=headers)
+        else:
+            fn = lambda: self._session.put(url, json=body, headers=headers)
+        return self._request_with_retry("mist_put", fn, url)
 
     def mist_delete(self, uri: str, query: dict | None = None) -> APIResponse:
         """
@@ -339,37 +306,10 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
-        resp = None
-        proxy_failed = False
-        try:
-            url = self._url(uri) + self._gen_query(query)
-            logger.info(f"apirequest:mist_delete:sending request to {url}")
-            self._log_proxy()
-            resp = self._session.delete(url)
-            logger.debug(
-                f"apirequest:mist_delete:request headers:{self._remove_auth_from_headers(resp)}"
-            )
-            resp.raise_for_status()
-        except requests.exceptions.ProxyError as proxy_error:
-            logger.error(f"apirequest:mist_delete:Proxy Error: {proxy_error}")
-            proxy_failed = True
-        except requests.exceptions.ConnectionError as connexion_error:
-            logger.error(f"apirequest:mist_delete:Connection Error: {connexion_error}")
-        except HTTPError as http_err:
-            if http_err.response.status_code == 429:
-                logger.warning(
-                    "apirequest:mist_delete:"
-                    "got HTTP Error 429 from Mist. Will try with next API Token"
-                )
-                self._next_apitoken()
-                return self.mist_delete(uri, query)
-            logger.error(f"apirequest:mist_delete: HTTP error occurred: {http_err}")
-        except Exception as err:
-            logger.error(f"apirequest:mist_delete: Other error occurred: {err}")
-            logger.error("apirequest:mist_delete: Exception occurred", exc_info=True)
-        finally:
-            self._count += 1
-        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+        url = self._url(uri) + self._gen_query(query)
+        return self._request_with_retry(
+            "mist_delete", lambda: self._session.delete(url), url
+        )
 
     def mist_post_file(
         self, uri: str, multipart_form_data: dict | None = None
@@ -389,85 +329,55 @@ class APIRequest:
         mistapi.APIResponse
             response from the API call
         """
-        resp = None
-        proxy_failed = False
-        try:
-            if multipart_form_data is None:
-                multipart_form_data = {}
-            url = self._url(uri)
-            logger.info(f"apirequest:mist_post_file:sending request to {url}")
-            logger.debug(
-                f"apirequest:mist_post_file:initial multipart_form_data:{multipart_form_data}"
-            )
-            generated_multipart_form_data: dict[str, Any] = {}
-            for key in multipart_form_data:
-                logger.debug(
-                    f"apirequest:mist_post_file:"
-                    f"multipart_form_data:{key} = {multipart_form_data[key]}"
-                )
-                if multipart_form_data[key]:
-                    try:
-                        if key in ["csv", "file"]:
-                            logger.debug(
-                                f"apirequest:mist_post_file:reading file:{multipart_form_data[key]}"
-                            )
-                            f = open(multipart_form_data[key], "rb")
-                            generated_multipart_form_data[key] = (
-                                os.path.basename(multipart_form_data[key]),
-                                f,
-                                "application/octet-stream",
-                            )
-                        else:
-                            generated_multipart_form_data[key] = (
-                                None,
-                                json.dumps(multipart_form_data[key]),
-                            )
-                    except (OSError, json.JSONDecodeError):
-                        logger.error(
-                            f"apirequest:mist_post_file:multipart_form_data:"
-                            f"Unable to parse JSON object {key} "
-                            f"with value {multipart_form_data[key]}"
-                        )
-                        logger.error(
-                            "apirequest:mist_post_file: Exception occurred",
-                            exc_info=True,
-                        )
+        if multipart_form_data is None:
+            multipart_form_data = {}
+        url = self._url(uri)
+        logger.debug(
+            f"apirequest:mist_post_file:initial multipart_form_data:{multipart_form_data}"
+        )
+        generated_multipart_form_data: dict[str, Any] = {}
+        for key in multipart_form_data:
             logger.debug(
                 f"apirequest:mist_post_file:"
-                f"final multipart_form_data:{generated_multipart_form_data}"
+                f"multipart_form_data:{key} = {multipart_form_data[key]}"
             )
-            self._log_proxy()
+            if multipart_form_data[key]:
+                try:
+                    if key in ["csv", "file"]:
+                        logger.debug(
+                            f"apirequest:mist_post_file:reading file:{multipart_form_data[key]}"
+                        )
+                        f = open(multipart_form_data[key], "rb")
+                        generated_multipart_form_data[key] = (
+                            os.path.basename(multipart_form_data[key]),
+                            f,
+                            "application/octet-stream",
+                        )
+                    else:
+                        generated_multipart_form_data[key] = (
+                            None,
+                            json.dumps(multipart_form_data[key]),
+                        )
+                except (OSError, json.JSONDecodeError):
+                    logger.error(
+                        f"apirequest:mist_post_file:multipart_form_data:"
+                        f"Unable to parse JSON object {key} "
+                        f"with value {multipart_form_data[key]}"
+                    )
+                    logger.error(
+                        "apirequest:mist_post_file: Exception occurred",
+                        exc_info=True,
+                    )
+        logger.debug(
+            f"apirequest:mist_post_file:"
+            f"final multipart_form_data:{generated_multipart_form_data}"
+        )
+
+        def _do_post_file():
             resp = self._session.post(url, files=generated_multipart_form_data)
-            logger.debug(
-                f"apirequest:mist_post_file:request headers:{self._remove_auth_from_headers(resp)}"
-            )
             logger.debug(
                 f"apirequest:mist_post_file:request body:{self.remove_file_from_body(resp)}"
             )
-            resp.raise_for_status()
-        except requests.exceptions.ProxyError as proxy_error:
-            logger.error(f"apirequest:mist_post_file:Proxy Error: {proxy_error}")
-            proxy_failed = True
-        except requests.exceptions.ConnectionError as connexion_error:
-            logger.error(
-                f"apirequest:mist_post_file:Connection Error: {connexion_error}"
-            )
-        except HTTPError as http_err:
-            if http_err.response.status_code == 429:
-                logger.warning(
-                    "apirequest:mist_post_file:"
-                    "got HTTP Error 429 from Mist. Will try with next API Token"
-                )
-                self._next_apitoken()
-                return self.mist_post_file(uri, multipart_form_data)
-            logger.error(f"apirequest:mist_post_file: HTTP error occurred: {http_err}")
-            if resp:
-                logger.error(
-                    f"apirequest:mist_post_file: HTTP error description: {resp.json()}"
-                )
-        except Exception as err:
-            logger.error(f"apirequest:mist_post_file: Other error occurred: {err}")
-            logger.error("apirequest:mist_post_file: Exception occurred", exc_info=True)
-        finally:
-            self._count += 1
-        return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
+            return resp
+
+        return self._request_with_retry("mist_post_file", _do_post_file, url)
