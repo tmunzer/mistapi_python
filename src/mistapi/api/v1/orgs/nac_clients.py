@@ -417,8 +417,8 @@ def searchOrgNacClients(
     ingress_vlan : str
     os : str
     ssid : str
-    status : str{'permitted', 'session_started', 'session_ended', 'denied'}
-      Connection status of client i.e "permitted", "denied, "session_stared", "session_ended"
+    status : str{'permitted', 'session_started', 'session_stopped', 'denied'}
+      Connection status of client i.e "permitted", "denied, "session_started", "session_stopped"
     text : str
     timestamp : float
     type : str

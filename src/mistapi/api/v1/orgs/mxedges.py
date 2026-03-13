@@ -379,12 +379,13 @@ def searchOrgMistEdgeEvents(
 def searchOrgMxEdges(
     mist_session: _APISession,
     org_id: str,
+    hostname: str | None = None,
     mxedge_id: str | None = None,
-    site_id: str | None = None,
     mxcluster_id: str | None = None,
     model: str | None = None,
     distro: str | None = None,
     tunterm_version: str | None = None,
+    site_id: str | None = None,
     stats: bool | None = None,
     limit: int | None = None,
     start: str | None = None,
@@ -407,12 +408,13 @@ def searchOrgMxEdges(
 
     QUERY PARAMS
     ------------
+    hostname : str
     mxedge_id : str
-    site_id : str
     mxcluster_id : str
     model : str
     distro : str
     tunterm_version : str
+    site_id : str
     stats : bool
     limit : int, default: 100
     start : str
@@ -429,10 +431,10 @@ def searchOrgMxEdges(
 
     uri = f"/api/v1/orgs/{org_id}/mxedges/search"
     query_params: dict[str, str] = {}
+    if hostname:
+        query_params["hostname"] = str(hostname)
     if mxedge_id:
         query_params["mxedge_id"] = str(mxedge_id)
-    if site_id:
-        query_params["site_id"] = str(site_id)
     if mxcluster_id:
         query_params["mxcluster_id"] = str(mxcluster_id)
     if model:
@@ -441,6 +443,8 @@ def searchOrgMxEdges(
         query_params["distro"] = str(distro)
     if tunterm_version:
         query_params["tunterm_version"] = str(tunterm_version)
+    if site_id:
+        query_params["site_id"] = str(site_id)
     if stats:
         query_params["stats"] = str(stats)
     if limit:

@@ -25,6 +25,7 @@ from mistapi.__api_response import APIResponse
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _make_mock_response(status_code=200, data=None, headers=None, json_raises=False):
     """Build a mock requests.Response with the given attributes."""
     mock = Mock()
@@ -43,6 +44,7 @@ def _make_mock_response(status_code=200, data=None, headers=None, json_raises=Fa
 # ---------------------------------------------------------------------------
 # Tests: construction / default fields
 # ---------------------------------------------------------------------------
+
 
 class TestAPIResponseConstruction:
     """Tests for APIResponse.__init__ with different response inputs."""
@@ -104,6 +106,7 @@ class TestAPIResponseConstruction:
 # Tests: error responses
 # ---------------------------------------------------------------------------
 
+
 class TestAPIResponseErrors:
     """Tests for error HTTP status codes and error payloads."""
 
@@ -140,6 +143,7 @@ class TestAPIResponseErrors:
 # Tests: _check_next with "next" in data
 # ---------------------------------------------------------------------------
 
+
 class TestCheckNextFromData:
     """Tests for _check_next() when the response body contains a 'next' key."""
 
@@ -175,6 +179,7 @@ class TestCheckNextFromData:
 # Tests: _check_next with pagination headers
 # ---------------------------------------------------------------------------
 
+
 class TestCheckNextFromHeaders:
     """Tests for _check_next() computing the next URL from pagination headers."""
 
@@ -198,8 +203,7 @@ class TestCheckNextFromHeaders:
     def test_next_page_with_existing_query_string(self):
         """When URL already has a query string, page should use '&'."""
         resp = self._make_paginated_response(
-            total=50, limit=10, page=1,
-            url="https://api.mist.com/api/v1/sites?limit=10"
+            total=50, limit=10, page=1, url="https://api.mist.com/api/v1/sites?limit=10"
         )
 
         assert resp.next == "/api/v1/sites?limit=10&page=2"
@@ -225,8 +229,10 @@ class TestCheckNextFromHeaders:
     def test_existing_page_param_replaced(self):
         """When URL already contains page=N, it should be replaced."""
         resp = self._make_paginated_response(
-            total=100, limit=10, page=2,
-            url="https://api.mist.com/api/v1/sites?limit=10&page=2"
+            total=100,
+            limit=10,
+            page=2,
+            url="https://api.mist.com/api/v1/sites?limit=10&page=2",
         )
 
         assert resp.next == "/api/v1/sites?limit=10&page=3"
@@ -234,8 +240,10 @@ class TestCheckNextFromHeaders:
     def test_existing_page_param_first_page(self):
         """Replacing page=1 with page=2 when page param already in URL."""
         resp = self._make_paginated_response(
-            total=100, limit=10, page=1,
-            url="https://api.mist.com/api/v1/sites?page=1&limit=10"
+            total=100,
+            limit=10,
+            page=1,
+            url="https://api.mist.com/api/v1/sites?page=1&limit=10",
         )
 
         assert resp.next == "/api/v1/sites?page=2&limit=10"
@@ -294,8 +302,10 @@ class TestCheckNextFromHeaders:
     def test_pagination_strips_host_prefix(self):
         """The computed next URL should be a relative /api/... path, not absolute."""
         resp = self._make_paginated_response(
-            total=100, limit=10, page=1,
-            url="https://api.eu.mist.com/api/v1/orgs/abc/devices"
+            total=100,
+            limit=10,
+            page=1,
+            url="https://api.eu.mist.com/api/v1/orgs/abc/devices",
         )
 
         assert resp.next.startswith("/api/v1/")
@@ -306,6 +316,7 @@ class TestCheckNextFromHeaders:
 # ---------------------------------------------------------------------------
 # Tests: data types preserved
 # ---------------------------------------------------------------------------
+
 
 class TestDataTypes:
     """Verify that different JSON response shapes are handled correctly."""

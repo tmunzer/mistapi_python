@@ -188,7 +188,9 @@ class APIRequest:
                 self._log_proxy()
                 resp = request_fn()
                 logger.debug(
-                    "apirequest:%s:request headers:%s", method_name, self._remove_auth_from_headers(resp)
+                    "apirequest:%s:request headers:%s",
+                    method_name,
+                    self._remove_auth_from_headers(resp),
                 )
                 resp.raise_for_status()
                 break
@@ -203,7 +205,9 @@ class APIRequest:
                 if e.response.status_code == 429 and attempt < self._MAX_429_RETRIES:
                     logger.warning(
                         "apirequest:%s:HTTP 429 (attempt %s/%s)",
-                        method_name, attempt + 1, self._MAX_429_RETRIES,
+                        method_name,
+                        attempt + 1,
+                        self._MAX_429_RETRIES,
                     )
                     try:
                         self._next_apitoken()
@@ -214,7 +218,9 @@ class APIRequest:
                 logger.error("apirequest:%s:HTTP error: %s", method_name, e)
                 if resp:
                     logger.error(
-                        "apirequest:%s:HTTP error description: %s", method_name, resp.json()
+                        "apirequest:%s:HTTP error description: %s",
+                        method_name,
+                        resp.json(),
                     )
                 break
             except Exception as e:
@@ -334,19 +340,22 @@ class APIRequest:
             multipart_form_data = {}
         url = self._url(uri)
         logger.debug(
-            "apirequest:mist_post_file:initial multipart_form_data:%s", multipart_form_data
+            "apirequest:mist_post_file:initial multipart_form_data:%s",
+            multipart_form_data,
         )
         generated_multipart_form_data: dict[str, Any] = {}
         for key in multipart_form_data:
             logger.debug(
                 "apirequest:mist_post_file:multipart_form_data:%s = %s",
-                key, multipart_form_data[key],
+                key,
+                multipart_form_data[key],
             )
             if multipart_form_data[key]:
                 try:
                     if key in ["csv", "file"]:
                         logger.debug(
-                            "apirequest:mist_post_file:reading file:%s", multipart_form_data[key]
+                            "apirequest:mist_post_file:reading file:%s",
+                            multipart_form_data[key],
                         )
                         f = open(multipart_form_data[key], "rb")
                         generated_multipart_form_data[key] = (
@@ -363,7 +372,8 @@ class APIRequest:
                     logger.error(
                         "apirequest:mist_post_file:multipart_form_data:"
                         "Unable to parse JSON object %s with value %s",
-                        key, multipart_form_data[key],
+                        key,
+                        multipart_form_data[key],
                     )
                     logger.error(
                         "apirequest:mist_post_file: Exception occurred",
@@ -377,7 +387,8 @@ class APIRequest:
         def _do_post_file():
             resp = self._session.post(url, files=generated_multipart_form_data)
             logger.debug(
-                "apirequest:mist_post_file:request body:%s", self.remove_file_from_body(resp)
+                "apirequest:mist_post_file:request body:%s",
+                self.remove_file_from_body(resp),
             )
             return resp
 

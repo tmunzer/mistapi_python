@@ -284,20 +284,20 @@ def searchOrgWirelessClients(
     mist_session: _APISession,
     org_id: str,
     site_id: str | None = None,
-    mac: str | None = None,
-    ip: str | None = None,
-    hostname: str | None = None,
+    ap: str | None = None,
     band: str | None = None,
     device: str | None = None,
-    os: str | None = None,
+    hostname: str | None = None,
+    ip: str | None = None,
+    mac: str | None = None,
     model: str | None = None,
-    ap: str | None = None,
+    os: str | None = None,
     psk_id: str | None = None,
     psk_name: str | None = None,
-    username: str | None = None,
-    vlan: str | None = None,
     ssid: str | None = None,
     text: str | None = None,
+    username: str | None = None,
+    vlan: str | None = None,
     limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -320,20 +320,20 @@ def searchOrgWirelessClients(
     QUERY PARAMS
     ------------
     site_id : str
-    mac : str
-    ip : str
-    hostname : str
+    ap : str
     band : str
     device : str
-    os : str
+    hostname : str
+    ip : str
+    mac : str
     model : str
-    ap : str
+    os : str
     psk_id : str
     psk_name : str
-    username : str
-    vlan : str
     ssid : str
     text : str
+    username : str
+    vlan : str
     limit : int, default: 100
     start : str
     end : str
@@ -351,34 +351,34 @@ def searchOrgWirelessClients(
     query_params: dict[str, str] = {}
     if site_id:
         query_params["site_id"] = str(site_id)
-    if mac:
-        query_params["mac"] = str(mac)
-    if ip:
-        query_params["ip"] = str(ip)
-    if hostname:
-        query_params["hostname"] = str(hostname)
+    if ap:
+        query_params["ap"] = str(ap)
     if band:
         query_params["band"] = str(band)
     if device:
         query_params["device"] = str(device)
-    if os:
-        query_params["os"] = str(os)
+    if hostname:
+        query_params["hostname"] = str(hostname)
+    if ip:
+        query_params["ip"] = str(ip)
+    if mac:
+        query_params["mac"] = str(mac)
     if model:
         query_params["model"] = str(model)
-    if ap:
-        query_params["ap"] = str(ap)
+    if os:
+        query_params["os"] = str(os)
     if psk_id:
         query_params["psk_id"] = str(psk_id)
     if psk_name:
         query_params["psk_name"] = str(psk_name)
-    if username:
-        query_params["username"] = str(username)
-    if vlan:
-        query_params["vlan"] = str(vlan)
     if ssid:
         query_params["ssid"] = str(ssid)
     if text:
         query_params["text"] = str(text)
+    if username:
+        query_params["username"] = str(username)
+    if vlan:
+        query_params["vlan"] = str(vlan)
     if limit:
         query_params["limit"] = str(limit)
     if start:

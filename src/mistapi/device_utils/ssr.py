@@ -47,7 +47,9 @@ from mistapi.device_utils.__tools.port import bounce as bouncePort
 from mistapi.device_utils.__tools.routes import show as retrieveRoutes
 
 # Service Path functions
-from mistapi.device_utils.__tools.service_path import show_service_path as showServicePath
+from mistapi.device_utils.__tools.service_path import (
+    show_service_path as showServicePath,
+)
 
 __all__ = [
     # Classes/Enums

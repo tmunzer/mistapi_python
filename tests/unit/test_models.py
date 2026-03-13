@@ -271,7 +271,9 @@ class TestPrivilegeGet:
 class TestPrivilegesCreation:
     """Test Privileges initialisation"""
 
-    def test_creates_privilege_objects_from_list_of_dicts(self, sample_privileges) -> None:
+    def test_creates_privilege_objects_from_list_of_dicts(
+        self, sample_privileges
+    ) -> None:
         """Privileges should wrap each dict into a _Privilege object"""
         # Act
         privs = Privileges(sample_privileges)

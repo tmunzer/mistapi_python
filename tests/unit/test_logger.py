@@ -25,7 +25,7 @@ class TestConsoleSanitize:
         raw = '{"password": "s3cret!"}'
         result = c.sanitize(raw)
         assert "s3cret!" not in result
-        assert '******' in result
+        assert "******" in result
 
     def test_redacts_password_single_quotes(self) -> None:
         """A 'password' field wrapped in single quotes is redacted."""
@@ -33,7 +33,7 @@ class TestConsoleSanitize:
         raw = "{'password': 'mysecret'}"
         result = c.sanitize(raw)
         assert "mysecret" not in result
-        assert '******' in result
+        assert "******" in result
 
     @pytest.mark.parametrize(
         "field",
@@ -46,7 +46,7 @@ class TestConsoleSanitize:
         raw = f'{{"{field}": "topSecret123"}}'
         result = c.sanitize(raw)
         assert "topSecret123" not in result
-        assert '******' in result
+        assert "******" in result
 
     def test_redacts_case_insensitively(self) -> None:
         """Field matching is case-insensitive."""
@@ -54,7 +54,7 @@ class TestConsoleSanitize:
         raw = '{"PASSWORD": "abc"}'
         result = c.sanitize(raw)
         assert "abc" not in result
-        assert '******' in result
+        assert "******" in result
 
     def test_redacts_multiple_fields_in_one_string(self) -> None:
         """Multiple sensitive fields in the same string are all redacted."""
@@ -79,7 +79,7 @@ class TestConsoleSanitize:
         result = c.sanitize(data)
         assert "hunter2" not in result
         assert "admin" in result
-        assert '******' in result
+        assert "******" in result
 
     def test_non_string_input_list(self) -> None:
         """A list containing a dict with sensitive data is sanitised."""
@@ -87,7 +87,7 @@ class TestConsoleSanitize:
         data = [{"apitoken": "secret_tok"}]
         result = c.sanitize(data)
         assert "secret_tok" not in result
-        assert '******' in result
+        assert "******" in result
 
     def test_non_string_input_int(self) -> None:
         """An integer is serialised and returned as-is (no sensitive data)."""
@@ -105,7 +105,7 @@ class TestConsoleSanitize:
         c = Console()
         raw = '{"password": ""}'
         result = c.sanitize(raw)
-        assert '******' in result
+        assert "******" in result
 
 
 # ---------------------------------------------------------------------------
@@ -128,31 +128,45 @@ class TestConsoleLogLevelMethods:
         ("debug", 10),
     ]
 
-    @pytest.mark.parametrize("method_name,threshold", LOG_METHODS, ids=[m for m, _ in LOG_METHODS])
-    def test_prints_when_level_equals_threshold(self, capsys, method_name, threshold) -> None:
+    @pytest.mark.parametrize(
+        "method_name,threshold", LOG_METHODS, ids=[m for m, _ in LOG_METHODS]
+    )
+    def test_prints_when_level_equals_threshold(
+        self, capsys, method_name, threshold
+    ) -> None:
         """Method prints when console level == method threshold."""
         c = Console(level=threshold)
         getattr(c, method_name)("hello")
         captured = capsys.readouterr()
         assert "hello" in captured.out
 
-    @pytest.mark.parametrize("method_name,threshold", LOG_METHODS, ids=[m for m, _ in LOG_METHODS])
-    def test_prints_when_level_below_threshold(self, capsys, method_name, threshold) -> None:
+    @pytest.mark.parametrize(
+        "method_name,threshold", LOG_METHODS, ids=[m for m, _ in LOG_METHODS]
+    )
+    def test_prints_when_level_below_threshold(
+        self, capsys, method_name, threshold
+    ) -> None:
         """Method prints when console level is below the method threshold."""
         c = Console(level=max(threshold - 10, 1))
         getattr(c, method_name)("below")
         captured = capsys.readouterr()
         assert "below" in captured.out
 
-    @pytest.mark.parametrize("method_name,threshold", LOG_METHODS, ids=[m for m, _ in LOG_METHODS])
-    def test_silent_when_level_above_threshold(self, capsys, method_name, threshold) -> None:
+    @pytest.mark.parametrize(
+        "method_name,threshold", LOG_METHODS, ids=[m for m, _ in LOG_METHODS]
+    )
+    def test_silent_when_level_above_threshold(
+        self, capsys, method_name, threshold
+    ) -> None:
         """Method is silent when console level exceeds the method threshold."""
         c = Console(level=threshold + 10)
         getattr(c, method_name)("nope")
         captured = capsys.readouterr()
         assert captured.out == ""
 
-    @pytest.mark.parametrize("method_name,threshold", LOG_METHODS, ids=[m for m, _ in LOG_METHODS])
+    @pytest.mark.parametrize(
+        "method_name,threshold", LOG_METHODS, ids=[m for m, _ in LOG_METHODS]
+    )
     def test_silent_when_level_is_zero(self, capsys, method_name, threshold) -> None:
         """No output at all when level is 0 (disabled)."""
         c = Console(level=0)
@@ -166,7 +180,7 @@ class TestConsoleLogLevelMethods:
         c.info('{"password": "oops"}')
         captured = capsys.readouterr()
         assert "oops" not in captured.out
-        assert '******' in captured.out
+        assert "******" in captured.out
 
     def test_output_has_bracket_prefix(self, capsys) -> None:
         """All log lines are wrapped with a bracket prefix."""
@@ -260,7 +274,7 @@ class TestLogSanitizer:
         record = self._make_record('{"password": "leak"}')
         f.filter(record)
         assert "leak" not in record.msg
-        assert '******' in record.msg
+        assert "******" in record.msg
 
     def test_filter_clears_args(self) -> None:
         """record.args is set to None after filtering."""
@@ -273,16 +287,14 @@ class TestLogSanitizer:
     def test_filter_handles_format_args(self) -> None:
         """getMessage() expands %-formatting; filter sees the expanded string."""
         f = LogSanitizer()
-        record = self._make_record(
-            '{"apitoken": "%s"}', "my_secret_token"
-        )
+        record = self._make_record('{"apitoken": "%s"}', "my_secret_token")
         # Before filtering, getMessage() should expand the arg
         expanded = record.getMessage()
         assert "my_secret_token" in expanded
 
         f.filter(record)
         assert "my_secret_token" not in record.msg
-        assert '******' in record.msg
+        assert "******" in record.msg
 
     def test_filter_safe_message_unchanged(self) -> None:
         """A record without sensitive data passes through with its message intact."""
@@ -301,6 +313,7 @@ class TestModuleLevelObjects:
 
     def test_module_console_exists(self) -> None:
         from mistapi.__logger import console as mod_console
+
         assert isinstance(mod_console, Console)
 
     def test_module_logger_name(self) -> None:

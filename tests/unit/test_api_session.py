@@ -408,7 +408,9 @@ class TestBugFixes:
 class TestNewSession:
     """Test _new_session() method"""
 
-    def test_new_session_returns_session_with_headers(self, authenticated_session) -> None:
+    def test_new_session_returns_session_with_headers(
+        self, authenticated_session
+    ) -> None:
         """_new_session creates a requests.Session with correct Accept header"""
         with patch("mistapi.__api_session.requests.session") as mock_session_cls:
             mock_sess = Mock()
@@ -418,7 +420,9 @@ class TestNewSession:
 
             result = authenticated_session._new_session()
 
-            assert result.headers["Accept"] == "application/json, application/vnd.api+json"
+            assert (
+                result.headers["Accept"] == "application/json, application/vnd.api+json"
+            )
 
     def test_new_session_sets_auth_header(self, authenticated_session) -> None:
         """_new_session includes Authorization header when API token is configured"""
@@ -430,7 +434,9 @@ class TestNewSession:
 
             result = authenticated_session._new_session()
 
-            expected_token = authenticated_session._apitoken[authenticated_session._apitoken_index]
+            expected_token = authenticated_session._apitoken[
+                authenticated_session._apitoken_index
+            ]
             assert result.headers["Authorization"] == f"Token {expected_token}"
 
     def test_new_session_sets_proxies(self) -> None:
@@ -475,9 +481,7 @@ class TestSetApiTokenValidation:
     def test_set_api_token_no_validate(self, isolated_session) -> None:
         """set_api_token(validate=False) accepts tokens without calling _check_api_tokens"""
         isolated_session.set_cloud("api.mist.com")
-        with patch.object(
-            isolated_session, "_check_api_tokens"
-        ) as mock_check:
+        with patch.object(isolated_session, "_check_api_tokens") as mock_check:
             isolated_session.set_api_token("token_abc_123", validate=False)
 
             mock_check.assert_not_called()
@@ -506,9 +510,7 @@ class TestDeleteApiToken:
 
             result = authenticated_session.delete_api_token("token-id-123")
 
-            mock_delete.assert_called_once_with(
-                "/api/v1/self/apitokens/token-id-123"
-            )
+            mock_delete.assert_called_once_with("/api/v1/self/apitokens/token-id-123")
             assert result is mock_resp
 
 

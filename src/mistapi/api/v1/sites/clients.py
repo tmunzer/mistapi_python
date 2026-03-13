@@ -301,16 +301,20 @@ def searchSiteWirelessClientEvents(
 def searchSiteWirelessClients(
     mist_session: _APISession,
     site_id: str,
-    mac: str | None = None,
-    ip: str | None = None,
-    hostname: str | None = None,
-    device: str | None = None,
-    os: str | None = None,
-    model: str | None = None,
     ap: str | None = None,
+    band: str | None = None,
+    device: str | None = None,
+    hostname: str | None = None,
+    ip: str | None = None,
+    mac: str | None = None,
+    model: str | None = None,
+    os: str | None = None,
+    psk_id: str | None = None,
+    psk_name: str | None = None,
     ssid: str | None = None,
     text: str | None = None,
-    nacrule_id: str | None = None,
+    username: str | None = None,
+    vlan: str | None = None,
     limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -332,16 +336,20 @@ def searchSiteWirelessClients(
 
     QUERY PARAMS
     ------------
-    mac : str
-    ip : str
-    hostname : str
-    device : str
-    os : str
-    model : str
     ap : str
+    band : str
+    device : str
+    hostname : str
+    ip : str
+    mac : str
+    model : str
+    os : str
+    psk_id : str
+    psk_name : str
     ssid : str
     text : str
-    nacrule_id : str
+    username : str
+    vlan : str
     limit : int, default: 100
     start : str
     end : str
@@ -357,26 +365,34 @@ def searchSiteWirelessClients(
 
     uri = f"/api/v1/sites/{site_id}/clients/search"
     query_params: dict[str, str] = {}
-    if mac:
-        query_params["mac"] = str(mac)
-    if ip:
-        query_params["ip"] = str(ip)
-    if hostname:
-        query_params["hostname"] = str(hostname)
-    if device:
-        query_params["device"] = str(device)
-    if os:
-        query_params["os"] = str(os)
-    if model:
-        query_params["model"] = str(model)
     if ap:
         query_params["ap"] = str(ap)
+    if band:
+        query_params["band"] = str(band)
+    if device:
+        query_params["device"] = str(device)
+    if hostname:
+        query_params["hostname"] = str(hostname)
+    if ip:
+        query_params["ip"] = str(ip)
+    if mac:
+        query_params["mac"] = str(mac)
+    if model:
+        query_params["model"] = str(model)
+    if os:
+        query_params["os"] = str(os)
+    if psk_id:
+        query_params["psk_id"] = str(psk_id)
+    if psk_name:
+        query_params["psk_name"] = str(psk_name)
     if ssid:
         query_params["ssid"] = str(ssid)
     if text:
         query_params["text"] = str(text)
-    if nacrule_id:
-        query_params["nacrule_id"] = str(nacrule_id)
+    if username:
+        query_params["username"] = str(username)
+    if vlan:
+        query_params["vlan"] = str(vlan)
     if limit:
         query_params["limit"] = str(limit)
     if start:

@@ -859,7 +859,10 @@ class APISession(APIRequest):
             LOGGER.info("apisession:login_with_return:access authorized")
             return {"authenticated": True, "error": ""}
         else:
-            LOGGER.error("apisession:login_with_return:access denied: status code %s", resp.status_code)
+            LOGGER.error(
+                "apisession:login_with_return:access denied: status code %s",
+                resp.status_code,
+            )
             return {"authenticated": False, "error": resp.data}
 
     def logout(self) -> None:
@@ -1102,9 +1105,7 @@ class APISession(APIRequest):
                     print()
                     print(" Authenticated ".center(80, "-"))
                     print(f"\r\nWelcome {self.first_name} {self.last_name}!\r\n")
-                LOGGER.info(
-                    "apisession:_getself:account info processed successfully"
-                )
+                LOGGER.info("apisession:_getself:account info processed successfully")
                 return True
         elif resp.proxy_error:
             LOGGER.critical("apisession:_getself:proxy not valid...")

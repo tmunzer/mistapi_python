@@ -453,7 +453,9 @@ class TestConnect:
         mock_ws_instance = Mock()
         mock_ws_cls.return_value = mock_ws_instance
 
-        with patch("mistapi.websockets.__ws_client.threading.Thread") as mock_thread_cls:
+        with patch(
+            "mistapi.websockets.__ws_client.threading.Thread"
+        ) as mock_thread_cls:
             mock_thread = Mock()
             mock_thread_cls.return_value = mock_thread
 
@@ -548,7 +550,9 @@ class TestReceive:
         results = list(ws_client.receive())
         assert results == [{"event": "a"}, {"event": "b"}]
 
-    def test_returns_immediately_when_not_connected_within_timeout(self, ws_client) -> None:
+    def test_returns_immediately_when_not_connected_within_timeout(
+        self, ws_client
+    ) -> None:
         # _connected is never set, so wait(timeout=10) returns False.
         # Override timeout via monkey-patching for speed.
         original_wait = ws_client._connected.wait
@@ -604,7 +608,9 @@ class TestContextManager:
         # After exiting, disconnect should have been called (no-op here since _ws is None)
 
     @patch("mistapi.websockets.__ws_client.websocket.WebSocketApp")
-    def test_exit_disconnects_active_connection(self, mock_ws_cls, mock_session) -> None:
+    def test_exit_disconnects_active_connection(
+        self, mock_ws_cls, mock_session
+    ) -> None:
         mock_ws_instance = Mock()
         mock_ws_cls.return_value = mock_ws_instance
 

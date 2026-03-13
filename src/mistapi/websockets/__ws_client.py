@@ -78,8 +78,10 @@ class _MistWebsocket:
         if cookies:
             safe = []
             for c in cookies:
-                has_crlf = "\r" in c.name or "\n" in c.name or (
-                    c.value and ("\r" in c.value or "\n" in c.value)
+                has_crlf = (
+                    "\r" in c.name
+                    or "\n" in c.name
+                    or (c.value and ("\r" in c.value or "\n" in c.value))
                 )
                 if has_crlf:
                     logger.warning(

@@ -22,6 +22,7 @@ from mistapi.__api_response import APIResponse
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _make_api_request(cloud_uri="api.mist.com", tokens=None):
     """Create an APIRequest with a mocked session for isolated testing."""
     with patch("mistapi.__api_request.requests.session") as mock_session_cls:
@@ -38,9 +39,7 @@ def _make_api_request(cloud_uri="api.mist.com", tokens=None):
         if tokens:
             req._apitoken = list(tokens)
             req._apitoken_index = 0
-            req._session.headers.update(
-                {"Authorization": "Token " + tokens[0]}
-            )
+            req._session.headers.update({"Authorization": "Token " + tokens[0]})
         return req
 
 
@@ -468,7 +467,9 @@ class TestRequestWithRetry429:
         resp_ok = _mock_response(status_code=200)
         fn = Mock(side_effect=[resp_429, resp_ok])
 
-        with patch.object(req, "_handle_rate_limit", wraps=req._handle_rate_limit) as wrapped:
+        with patch.object(
+            req, "_handle_rate_limit", wraps=req._handle_rate_limit
+        ) as wrapped:
             req._request_with_retry("test", fn, "https://example.com")
             wrapped.assert_called_once_with(resp_429, 0)
 
