@@ -34,7 +34,7 @@ class APIResponse:
             URL of the HTTP Request
         """
         self.raw_data: str = ""
-        self.data: dict = {}
+        self.data: dict | list = {}
         self.url: str = url
         self.next: str | None = None
         self.headers: CaseInsensitiveDict[str] | None = None
@@ -67,7 +67,7 @@ class APIResponse:
 
     def _check_next(self) -> None:
         logger.debug("apiresponse:_check_next")
-        if "next" in self.data:
+        if isinstance(self.data, dict) and "next" in self.data:
             self.next = self.data["next"]
             logger.debug(f"apiresponse:_check_next:set next to {self.next}")
         elif self.headers:
