@@ -485,17 +485,16 @@ def listOrgApsMacs(
 def searchOrgDevices(
     mist_session: _APISession,
     org_id: str,
-    band_24_bandwidth: int | None = None,
     band_24_channel: int | None = None,
-    band_24_power: int | None = None,
-    band_5_bandwidth: int | None = None,
     band_5_channel: int | None = None,
-    band_5_power: int | None = None,
-    band_6_bandwidth: int | None = None,
     band_6_channel: int | None = None,
+    band_24_bandwidth: int | None = None,
+    band_5_bandwidth: int | None = None,
+    band_6_bandwidth: int | None = None,
+    band_24_power: int | None = None,
+    band_5_power: int | None = None,
     band_6_power: int | None = None,
-    cpu: str | None = None,
-    clustered: str | None = None,
+    clustered: bool | None = None,
     eth0_port_speed: int | None = None,
     evpntopo_id: str | None = None,
     ext_ip: str | None = None,
@@ -505,8 +504,6 @@ def searchOrgDevices(
     last_hostname: str | None = None,
     lldp_mgmt_addr: str | None = None,
     lldp_port_id: str | None = None,
-    lldp_power_allocated: int | None = None,
-    lldp_power_draw: int | None = None,
     lldp_system_desc: str | None = None,
     lldp_system_name: str | None = None,
     mac: str | None = None,
@@ -518,10 +515,12 @@ def searchOrgDevices(
     node0_mac: str | None = None,
     node1_mac: str | None = None,
     power_constrained: bool | None = None,
+    radius_stats: str | None = None,
     site_id: str | None = None,
+    stats: bool | None = None,
     t128agent_version: str | None = None,
-    version: str | None = None,
     type: str | None = None,
+    version: str | None = None,
     limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -543,17 +542,16 @@ def searchOrgDevices(
 
     QUERY PARAMS
     ------------
-    band_24_bandwidth : int
     band_24_channel : int
-    band_24_power : int
-    band_5_bandwidth : int
     band_5_channel : int
-    band_5_power : int
-    band_6_bandwidth : int
     band_6_channel : int
+    band_24_bandwidth : int
+    band_5_bandwidth : int
+    band_6_bandwidth : int
+    band_24_power : int
+    band_5_power : int
     band_6_power : int
-    cpu : str
-    clustered : str
+    clustered : bool
     eth0_port_speed : int
     evpntopo_id : str
     ext_ip : str
@@ -563,8 +561,6 @@ def searchOrgDevices(
     last_hostname : str
     lldp_mgmt_addr : str
     lldp_port_id : str
-    lldp_power_allocated : int
-    lldp_power_draw : int
     lldp_system_desc : str
     lldp_system_name : str
     mac : str
@@ -572,16 +568,19 @@ def searchOrgDevices(
     mxedge_id : str
     mxedge_ids : str
     mxtunnel_status : str{'down', 'up'}
-      If `type`==`ap`, MxTunnel status, up / down
-    node : str
+      When `type`==`ap`, MxTunnel status, up / down.
+    node : str{'node0', 'node1'}
+      When `type`==`gateway`. enum: `node0`, `node1`
     node0_mac : str
     node1_mac : str
     power_constrained : bool
+    radius_stats : str
     site_id : str
+    stats : bool
     t128agent_version : str
-    version : str
     type : str{'ap', 'gateway', 'switch'}, default: ap
       Type of device. enum: `ap`, `gateway`, `switch`
+    version : str
     limit : int, default: 100
     start : str
     end : str
@@ -597,26 +596,24 @@ def searchOrgDevices(
 
     uri = f"/api/v1/orgs/{org_id}/devices/search"
     query_params: dict[str, str] = {}
-    if band_24_bandwidth:
-        query_params["band_24_bandwidth"] = str(band_24_bandwidth)
     if band_24_channel:
         query_params["band_24_channel"] = str(band_24_channel)
-    if band_24_power:
-        query_params["band_24_power"] = str(band_24_power)
-    if band_5_bandwidth:
-        query_params["band_5_bandwidth"] = str(band_5_bandwidth)
     if band_5_channel:
         query_params["band_5_channel"] = str(band_5_channel)
-    if band_5_power:
-        query_params["band_5_power"] = str(band_5_power)
-    if band_6_bandwidth:
-        query_params["band_6_bandwidth"] = str(band_6_bandwidth)
     if band_6_channel:
         query_params["band_6_channel"] = str(band_6_channel)
+    if band_24_bandwidth:
+        query_params["band_24_bandwidth"] = str(band_24_bandwidth)
+    if band_5_bandwidth:
+        query_params["band_5_bandwidth"] = str(band_5_bandwidth)
+    if band_6_bandwidth:
+        query_params["band_6_bandwidth"] = str(band_6_bandwidth)
+    if band_24_power:
+        query_params["band_24_power"] = str(band_24_power)
+    if band_5_power:
+        query_params["band_5_power"] = str(band_5_power)
     if band_6_power:
         query_params["band_6_power"] = str(band_6_power)
-    if cpu:
-        query_params["cpu"] = str(cpu)
     if clustered:
         query_params["clustered"] = str(clustered)
     if eth0_port_speed:
@@ -637,10 +634,6 @@ def searchOrgDevices(
         query_params["lldp_mgmt_addr"] = str(lldp_mgmt_addr)
     if lldp_port_id:
         query_params["lldp_port_id"] = str(lldp_port_id)
-    if lldp_power_allocated:
-        query_params["lldp_power_allocated"] = str(lldp_power_allocated)
-    if lldp_power_draw:
-        query_params["lldp_power_draw"] = str(lldp_power_draw)
     if lldp_system_desc:
         query_params["lldp_system_desc"] = str(lldp_system_desc)
     if lldp_system_name:
@@ -663,14 +656,18 @@ def searchOrgDevices(
         query_params["node1_mac"] = str(node1_mac)
     if power_constrained:
         query_params["power_constrained"] = str(power_constrained)
+    if radius_stats:
+        query_params["radius_stats"] = str(radius_stats)
     if site_id:
         query_params["site_id"] = str(site_id)
+    if stats:
+        query_params["stats"] = str(stats)
     if t128agent_version:
         query_params["t128agent_version"] = str(t128agent_version)
-    if version:
-        query_params["version"] = str(version)
     if type:
         query_params["type"] = str(type)
+    if version:
+        query_params["version"] = str(version)
     if limit:
         query_params["limit"] = str(limit)
     if start:

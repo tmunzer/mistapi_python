@@ -317,8 +317,7 @@ def searchOrgInventory(
     type: str | None = None,
     mac: str | None = None,
     model: str | None = None,
-    vc_mac: str | None = None,
-    master_mac: str | None = None,
+    name: str | None = None,
     site_id: str | None = None,
     serial: str | None = None,
     master: str | None = None,
@@ -347,14 +346,14 @@ def searchOrgInventory(
     type : str{'ap', 'gateway', 'switch'}, default: ap
     mac : str
     model : str
-    vc_mac : str
-    master_mac : str
+    name : str
     site_id : str
     serial : str
     master : str
     sku : str
     version : str
-    status : str
+    status : str{'connected', 'disconnected'}
+      Device status. enum: `connected`, `disconnected`
     text : str
     limit : int, default: 100
     sort : str, default: timestamp
@@ -374,10 +373,8 @@ def searchOrgInventory(
         query_params["mac"] = str(mac)
     if model:
         query_params["model"] = str(model)
-    if vc_mac:
-        query_params["vc_mac"] = str(vc_mac)
-    if master_mac:
-        query_params["master_mac"] = str(master_mac)
+    if name:
+        query_params["name"] = str(name)
     if site_id:
         query_params["site_id"] = str(site_id)
     if serial:

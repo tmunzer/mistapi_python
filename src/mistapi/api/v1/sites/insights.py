@@ -132,7 +132,7 @@ def getSiteInsightMetricsForDevice(
     return resp
 
 
-def countOrgClientFingerprints(
+def countSiteClientFingerprints(
     mist_session: _APISession,
     site_id: str,
     distinct: str | None = None,
@@ -142,7 +142,7 @@ def countOrgClientFingerprints(
     limit: int | None = None,
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-fingerprints/count-org-client-fingerprints
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/nac-fingerprints/count-site-client-fingerprints
 
     PARAMS
     -----------
@@ -183,7 +183,7 @@ def countOrgClientFingerprints(
     return resp
 
 
-def searchOrgClientFingerprints(
+def searchSiteClientFingerprints(
     mist_session: _APISession,
     site_id: str,
     family: str | None = None,
@@ -202,7 +202,7 @@ def searchOrgClientFingerprints(
     search_after: str | None = None,
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/nac-fingerprints/search-org-client-fingerprints
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/nac-fingerprints/search-site-client-fingerprints
 
     PARAMS
     -----------

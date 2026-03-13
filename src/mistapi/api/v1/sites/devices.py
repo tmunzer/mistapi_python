@@ -851,39 +851,41 @@ def restoreSiteMultipleDeviceBackupVersion(
 def searchSiteDevices(
     mist_session: _APISession,
     site_id: str,
-    hostname: str | None = None,
-    type: str | None = None,
-    model: str | None = None,
-    mac: str | None = None,
-    ext_ip: str | None = None,
-    version: str | None = None,
-    power_constrained: bool | None = None,
-    ip: str | None = None,
-    mxtunnel_status: str | None = None,
-    mxedge_id: str | None = None,
-    mxedge_ids: list | None = None,
-    last_hostname: str | None = None,
-    last_config_status: str | None = None,
-    radius_stats: str | None = None,
-    cpu: str | None = None,
-    node0_mac: str | None = None,
-    clustered: bool | None = None,
-    t128agent_version: str | None = None,
-    node1_mac: str | None = None,
-    node: str | None = None,
-    evpntopo_id: str | None = None,
-    lldp_system_name: str | None = None,
-    lldp_system_desc: str | None = None,
-    lldp_port_id: str | None = None,
-    lldp_mgmt_addr: str | None = None,
     band_24_channel: int | None = None,
     band_5_channel: int | None = None,
     band_6_channel: int | None = None,
     band_24_bandwidth: int | None = None,
     band_5_bandwidth: int | None = None,
     band_6_bandwidth: int | None = None,
+    band_24_power: int | None = None,
+    band_5_power: int | None = None,
+    band_6_power: int | None = None,
+    clustered: bool | None = None,
     eth0_port_speed: int | None = None,
+    evpntopo_id: str | None = None,
+    ext_ip: str | None = None,
+    hostname: str | None = None,
+    ip: str | None = None,
+    last_config_status: str | None = None,
+    last_hostname: str | None = None,
+    lldp_mgmt_addr: str | None = None,
+    lldp_port_id: str | None = None,
+    lldp_system_desc: str | None = None,
+    lldp_system_name: str | None = None,
+    mac: str | None = None,
+    model: str | None = None,
+    mxedge_id: str | None = None,
+    mxedge_ids: str | None = None,
+    mxtunnel_status: str | None = None,
+    node: str | None = None,
+    node0_mac: str | None = None,
+    node1_mac: str | None = None,
+    power_constrained: bool | None = None,
+    radius_stats: str | None = None,
     stats: bool | None = None,
+    t128agent_version: str | None = None,
+    type: str | None = None,
+    version: str | None = None,
     limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -906,42 +908,44 @@ def searchSiteDevices(
 
     QUERY PARAMS
     ------------
-    hostname : str
-    type : str{'ap', 'gateway', 'switch'}, default: ap
-    model : str
-    mac : str
-    ext_ip : str
-    version : str
-    power_constrained : bool
-    ip : str
-    mxtunnel_status : str{'down', 'up'}
-      For APs only, MxTunnel status, up / down.
-    mxedge_id : str
-    mxedge_ids : list
-      For APs only, list of Mist Edge id, if AP is connecting to a Mist Edge
-    last_hostname : str
-    last_config_status : str
-    radius_stats : str
-    cpu : str
-    node0_mac : str
-    clustered : bool
-    t128agent_version : str
-    node1_mac : str
-    node : str{'node0', 'node1'}
-      For Gateways only. enum: `node0`, `node1`
-    evpntopo_id : str
-    lldp_system_name : str
-    lldp_system_desc : str
-    lldp_port_id : str
-    lldp_mgmt_addr : str
     band_24_channel : int
     band_5_channel : int
     band_6_channel : int
     band_24_bandwidth : int
     band_5_bandwidth : int
     band_6_bandwidth : int
+    band_24_power : int
+    band_5_power : int
+    band_6_power : int
+    clustered : bool
     eth0_port_speed : int
+    evpntopo_id : str
+    ext_ip : str
+    hostname : str
+    ip : str
+    last_config_status : str
+    last_hostname : str
+    lldp_mgmt_addr : str
+    lldp_port_id : str
+    lldp_system_desc : str
+    lldp_system_name : str
+    mac : str
+    model : str
+    mxedge_id : str
+    mxedge_ids : str
+    mxtunnel_status : str{'down', 'up'}
+      When `type`==`ap`, MxTunnel status, up / down.
+    node : str{'node0', 'node1'}
+      When `type`==`gateway`. enum: `node0`, `node1`
+    node0_mac : str
+    node1_mac : str
+    power_constrained : bool
+    radius_stats : str
     stats : bool
+    t128agent_version : str
+    type : str{'ap', 'gateway', 'switch'}, default: ap
+      Type of device. enum: `ap`, `gateway`, `switch`
+    version : str
     limit : int, default: 100
     start : str
     end : str
@@ -960,56 +964,6 @@ def searchSiteDevices(
 
     uri = f"/api/v1/sites/{site_id}/devices/search"
     query_params: dict[str, str] = {}
-    if hostname:
-        query_params["hostname"] = str(hostname)
-    if type:
-        query_params["type"] = str(type)
-    if model:
-        query_params["model"] = str(model)
-    if mac:
-        query_params["mac"] = str(mac)
-    if ext_ip:
-        query_params["ext_ip"] = str(ext_ip)
-    if version:
-        query_params["version"] = str(version)
-    if power_constrained:
-        query_params["power_constrained"] = str(power_constrained)
-    if ip:
-        query_params["ip"] = str(ip)
-    if mxtunnel_status:
-        query_params["mxtunnel_status"] = str(mxtunnel_status)
-    if mxedge_id:
-        query_params["mxedge_id"] = str(mxedge_id)
-    if mxedge_ids:
-        query_params["mxedge_ids"] = str(mxedge_ids)
-    if last_hostname:
-        query_params["last_hostname"] = str(last_hostname)
-    if last_config_status:
-        query_params["last_config_status"] = str(last_config_status)
-    if radius_stats:
-        query_params["radius_stats"] = str(radius_stats)
-    if cpu:
-        query_params["cpu"] = str(cpu)
-    if node0_mac:
-        query_params["node0_mac"] = str(node0_mac)
-    if clustered:
-        query_params["clustered"] = str(clustered)
-    if t128agent_version:
-        query_params["t128agent_version"] = str(t128agent_version)
-    if node1_mac:
-        query_params["node1_mac"] = str(node1_mac)
-    if node:
-        query_params["node"] = str(node)
-    if evpntopo_id:
-        query_params["evpntopo_id"] = str(evpntopo_id)
-    if lldp_system_name:
-        query_params["lldp_system_name"] = str(lldp_system_name)
-    if lldp_system_desc:
-        query_params["lldp_system_desc"] = str(lldp_system_desc)
-    if lldp_port_id:
-        query_params["lldp_port_id"] = str(lldp_port_id)
-    if lldp_mgmt_addr:
-        query_params["lldp_mgmt_addr"] = str(lldp_mgmt_addr)
     if band_24_channel:
         query_params["band_24_channel"] = str(band_24_channel)
     if band_5_channel:
@@ -1022,10 +976,64 @@ def searchSiteDevices(
         query_params["band_5_bandwidth"] = str(band_5_bandwidth)
     if band_6_bandwidth:
         query_params["band_6_bandwidth"] = str(band_6_bandwidth)
+    if band_24_power:
+        query_params["band_24_power"] = str(band_24_power)
+    if band_5_power:
+        query_params["band_5_power"] = str(band_5_power)
+    if band_6_power:
+        query_params["band_6_power"] = str(band_6_power)
+    if clustered:
+        query_params["clustered"] = str(clustered)
     if eth0_port_speed:
         query_params["eth0_port_speed"] = str(eth0_port_speed)
+    if evpntopo_id:
+        query_params["evpntopo_id"] = str(evpntopo_id)
+    if ext_ip:
+        query_params["ext_ip"] = str(ext_ip)
+    if hostname:
+        query_params["hostname"] = str(hostname)
+    if ip:
+        query_params["ip"] = str(ip)
+    if last_config_status:
+        query_params["last_config_status"] = str(last_config_status)
+    if last_hostname:
+        query_params["last_hostname"] = str(last_hostname)
+    if lldp_mgmt_addr:
+        query_params["lldp_mgmt_addr"] = str(lldp_mgmt_addr)
+    if lldp_port_id:
+        query_params["lldp_port_id"] = str(lldp_port_id)
+    if lldp_system_desc:
+        query_params["lldp_system_desc"] = str(lldp_system_desc)
+    if lldp_system_name:
+        query_params["lldp_system_name"] = str(lldp_system_name)
+    if mac:
+        query_params["mac"] = str(mac)
+    if model:
+        query_params["model"] = str(model)
+    if mxedge_id:
+        query_params["mxedge_id"] = str(mxedge_id)
+    if mxedge_ids:
+        query_params["mxedge_ids"] = str(mxedge_ids)
+    if mxtunnel_status:
+        query_params["mxtunnel_status"] = str(mxtunnel_status)
+    if node:
+        query_params["node"] = str(node)
+    if node0_mac:
+        query_params["node0_mac"] = str(node0_mac)
+    if node1_mac:
+        query_params["node1_mac"] = str(node1_mac)
+    if power_constrained:
+        query_params["power_constrained"] = str(power_constrained)
+    if radius_stats:
+        query_params["radius_stats"] = str(radius_stats)
     if stats:
         query_params["stats"] = str(stats)
+    if t128agent_version:
+        query_params["t128agent_version"] = str(t128agent_version)
+    if type:
+        query_params["type"] = str(type)
+    if version:
+        query_params["version"] = str(version)
     if limit:
         query_params["limit"] = str(limit)
     if start:

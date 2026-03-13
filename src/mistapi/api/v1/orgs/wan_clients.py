@@ -148,12 +148,12 @@ def searchOrgWanClients(
     mist_session: _APISession,
     org_id: str,
     site_id: str | None = None,
-    mac: str | None = None,
     hostname: str | None = None,
     ip: str | None = None,
-    network: str | None = None,
     ip_src: str | None = None,
+    mac: str | None = None,
     mfg: str | None = None,
+    network: str | None = None,
     limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -176,12 +176,12 @@ def searchOrgWanClients(
     QUERY PARAMS
     ------------
     site_id : str
-    mac : str
     hostname : str
     ip : str
-    network : str
     ip_src : str
+    mac : str
     mfg : str
+    network : str
     limit : int, default: 100
     start : str
     end : str
@@ -199,18 +199,18 @@ def searchOrgWanClients(
     query_params: dict[str, str] = {}
     if site_id:
         query_params["site_id"] = str(site_id)
-    if mac:
-        query_params["mac"] = str(mac)
     if hostname:
         query_params["hostname"] = str(hostname)
     if ip:
         query_params["ip"] = str(ip)
-    if network:
-        query_params["network"] = str(network)
     if ip_src:
         query_params["ip_src"] = str(ip_src)
+    if mac:
+        query_params["mac"] = str(mac)
     if mfg:
         query_params["mfg"] = str(mfg)
+    if network:
+        query_params["network"] = str(network)
     if limit:
         query_params["limit"] = str(limit)
     if start:

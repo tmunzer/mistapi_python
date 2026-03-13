@@ -403,3 +403,157 @@ class TestBugFixes:
                 # Assert - Should convert string to int
                 assert session._console_log_level == 30  # int, not '30'
                 assert session._logging_log_level == 20  # int, not '20'
+
+
+class TestNewSession:
+    """Test _new_session() method"""
+
+    def test_new_session_returns_session_with_headers(
+        self, authenticated_session
+    ) -> None:
+        """_new_session creates a requests.Session with correct Accept header"""
+        with patch("mistapi.__api_session.requests.session") as mock_session_cls:
+            mock_sess = Mock()
+            mock_sess.headers = {}
+            mock_sess.proxies = {}
+            mock_session_cls.return_value = mock_sess
+
+            result = authenticated_session._new_session()
+
+            assert (
+                result.headers["Accept"] == "application/json, application/vnd.api+json"
+            )
+
+    def test_new_session_sets_auth_header(self, authenticated_session) -> None:
+        """_new_session includes Authorization header when API token is configured"""
+        with patch("mistapi.__api_session.requests.session") as mock_session_cls:
+            mock_sess = Mock()
+            mock_sess.headers = {}
+            mock_sess.proxies = {}
+            mock_session_cls.return_value = mock_sess
+
+            result = authenticated_session._new_session()
+
+            expected_token = authenticated_session._apitoken[
+                authenticated_session._apitoken_index
+            ]
+            assert result.headers["Authorization"] == f"Token {expected_token}"
+
+    def test_new_session_sets_proxies(self) -> None:
+        """_new_session applies proxies when configured"""
+        with patch.dict(os.environ, {}, clear=True):
+            with patch("mistapi.__api_session.requests.session") as mock_session_cls:
+                mock_sess = Mock()
+                mock_sess.headers = {}
+                mock_sess.proxies = {}
+                mock_session_cls.return_value = mock_sess
+
+                session = APISession(
+                    console_log_level=50, https_proxy="http://proxy:8080"
+                )
+                session._apitoken = []
+
+                # Create new session - use a real dict for proxies so update works
+                new_mock = Mock()
+                new_mock.headers = {}
+                new_mock.proxies = {}
+                mock_session_cls.return_value = new_mock
+
+                result = session._new_session()
+                assert result.proxies == {"https": "http://proxy:8080"}
+
+    def test_new_session_no_auth_without_token(self, isolated_session) -> None:
+        """_new_session omits Authorization when no token configured"""
+        with patch("mistapi.__api_session.requests.session") as mock_session_cls:
+            mock_sess = Mock()
+            mock_sess.headers = {}
+            mock_sess.proxies = {}
+            mock_session_cls.return_value = mock_sess
+
+            result = isolated_session._new_session()
+
+            assert "Authorization" not in result.headers
+
+
+class TestSetApiTokenValidation:
+    """Test set_api_token with validate=False"""
+
+    def test_set_api_token_no_validate(self, isolated_session) -> None:
+        """set_api_token(validate=False) accepts tokens without calling _check_api_tokens"""
+        isolated_session.set_cloud("api.mist.com")
+        with patch.object(isolated_session, "_check_api_tokens") as mock_check:
+            isolated_session.set_api_token("token_abc_123", validate=False)
+
+            mock_check.assert_not_called()
+            assert isolated_session._apitoken == ["token_abc_123"]
+            assert isolated_session._apitoken_index == 0
+
+    def test_set_api_token_validate_true_calls_check(self, isolated_session) -> None:
+        """set_api_token(validate=True) calls _check_api_tokens"""
+        isolated_session.set_cloud("api.mist.com")
+        with patch.object(
+            isolated_session, "_check_api_tokens", return_value=["token_abc"]
+        ) as mock_check:
+            isolated_session.set_api_token("token_abc", validate=True)
+
+            mock_check.assert_called_once_with(["token_abc"])
+
+
+class TestDeleteApiToken:
+    """Test delete_api_token method"""
+
+    def test_delete_api_token_calls_mist_delete(self, authenticated_session) -> None:
+        """delete_api_token delegates to mist_delete with correct URI"""
+        with patch.object(authenticated_session, "mist_delete") as mock_delete:
+            mock_resp = Mock()
+            mock_delete.return_value = mock_resp
+
+            result = authenticated_session.delete_api_token("token-id-123")
+
+            mock_delete.assert_called_once_with("/api/v1/self/apitokens/token-id-123")
+            assert result is mock_resp
+
+
+class TestVaultAttrsCleanup:
+    """Test that vault attributes are cleaned up after init"""
+
+    def test_no_vault_attrs_without_vault(self, isolated_session) -> None:
+        """Vault attributes are deleted when vault_path is not set"""
+        assert not hasattr(isolated_session, "_vault_url")
+        assert not hasattr(isolated_session, "_vault_token")
+        assert not hasattr(isolated_session, "_vault_path")
+        assert not hasattr(isolated_session, "_vault_mount_point")
+
+
+class TestLoadEnvVault:
+    """Test _load_env vault variable loading"""
+
+    def test_load_env_vault_vars(self) -> None:
+        """_load_env populates _vault_* from env when not already set"""
+        env_vars = {
+            "MIST_VAULT_URL": "https://vault.example.com",
+            "MIST_VAULT_PATH": "secret/data/mist",
+            "MIST_VAULT_MOUNT_POINT": "kv",
+            "MIST_VAULT_TOKEN": "vault-token-123",
+        }
+        with patch.dict(os.environ, env_vars, clear=True):
+            with patch("mistapi.__api_session.requests.session") as mock_cls:
+                mock_sess = Mock()
+                mock_sess.headers = {}
+                mock_sess.proxies = {}
+                mock_cls.return_value = mock_sess
+                with patch("mistapi.__api_session.hvac") as mock_hvac:
+                    mock_client = Mock()
+                    mock_client.is_authenticated.return_value = True
+                    mock_client.secrets.kv.v2.read_secret.return_value = {
+                        "data": {"data": {}}
+                    }
+                    mock_hvac.Client.return_value = mock_client
+
+                    session = APISession(console_log_level=50)
+
+                    # Vault was loaded since _vault_path was set from env
+                    mock_hvac.Client.assert_called_once_with(
+                        url="https://vault.example.com",
+                        token="vault-token-123",
+                    )

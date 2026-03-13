@@ -21,7 +21,7 @@ import hvac
 import keyring
 import requests
 from dotenv import load_dotenv
-from requests import Response, Session
+from requests import Session
 
 from mistapi.__api_request import APIRequest
 from mistapi.__api_response import APIResponse
@@ -132,17 +132,26 @@ class APISession(APIRequest):
         self._logging_log_level = logging_log_level
         self._show_cli_notif = show_cli_notif
         self._proxies = {"https": https_proxy}
-        self.vault_url = vault_url
-        self.vault_path = vault_path
-        self.vault_mount_point = vault_mount_point
-        self.vault_token = vault_token
+        self._vault_url = vault_url
+        self._vault_path = vault_path
+        self._vault_mount_point = vault_mount_point
+        self._vault_token = vault_token
 
         CONSOLE._set_log_level(console_log_level, logging_log_level)
         self._load_env(env_file)
         if keyring_service:
             self._load_keyring(keyring_service)
-        if self.vault_path:
-            self._load_vault()
+        if self._vault_path:
+            self._load_vault()  # finally block deletes _vault_* attrs
+        else:
+            for attr in (
+                "_vault_url",
+                "_vault_token",
+                "_vault_path",
+                "_vault_mount_point",
+            ):
+                if hasattr(self, attr):
+                    delattr(self, attr)
         # Filter out None values before updating proxies
         filtered_proxies = {k: v for k, v in self._proxies.items() if v is not None}
         self._session.proxies.update(filtered_proxies)
@@ -164,6 +173,18 @@ class APISession(APIRequest):
         self.session_expiry: int = -1
 
         LOGGER.debug("apisession:__init__: API Session initialized")
+
+    def _new_session(self) -> Session:
+        session = requests.session()
+        session.headers["Accept"] = "application/json, application/vnd.api+json"
+        filtered_proxies = {k: v for k, v in self._proxies.items() if v is not None}
+        if filtered_proxies:
+            session.proxies.update(filtered_proxies)
+        if self._apitoken and self._apitoken_index >= 0:
+            session.headers["Authorization"] = (
+                "Token " + self._apitoken[self._apitoken_index]
+            )
+        return session
 
     def __str__(self) -> str:
         fields = [
@@ -206,7 +227,7 @@ class APISession(APIRequest):
         Load Vault settings from env file
         """
         LOGGER.info("apisession:_load_vault: Loading Vault settings")
-        client = hvac.Client(url=self.vault_url, token=self.vault_token, verify=False)
+        client = hvac.Client(url=self._vault_url, token=self._vault_token)
         if not client.is_authenticated():
             LOGGER.error("apisession:_load_vault: Vault authentication failed")
             CONSOLE.error("Vault authentication failed")
@@ -216,7 +237,7 @@ class APISession(APIRequest):
         )
         try:
             read_response = client.secrets.kv.v2.read_secret(
-                path=self.vault_path, mount_point=self.vault_mount_point
+                path=self._vault_path, mount_point=self._vault_mount_point
             )
             LOGGER.info("apisession:_load_vault: Secret retrieved successfully")
 
@@ -232,10 +253,10 @@ class APISession(APIRequest):
             LOGGER.error("apisession:_load_vault: Failed to retrieve secret")
             CONSOLE.error("Failed to retrieve secret")
         finally:
-            del self.vault_url
-            del self.vault_path
-            del self.vault_mount_point
-            del self.vault_token
+            del self._vault_url
+            del self._vault_path
+            del self._vault_mount_point
+            del self._vault_token
 
     def _load_keyring(self, keyring_service) -> None:
         """
@@ -264,7 +285,7 @@ class APISession(APIRequest):
                     self.set_api_token(mist_apitoken)
                 mist_user = keyring.get_password(keyring_service, "MIST_USER")
                 if mist_user:
-                    LOGGER.info("apisession:_load_keyring: MIST_USER=%s", mist_user)
+                    LOGGER.info("apisession:_load_keyring: MIST_USER retrieved")
                     self.set_email(mist_user)
                 mist_password = keyring.get_password(keyring_service, "MIST_PASSWORD")
                 if mist_password:
@@ -287,7 +308,7 @@ class APISession(APIRequest):
                     os.path.expanduser("~"), env_file.replace("~/", "")
                 )
             env_file = os.path.abspath(env_file)
-            CONSOLE.debug(f"Loading settings from {env_file}")
+            CONSOLE.debug("Loading settings from %s", env_file)
             LOGGER.debug("apisession:_load_env:loading settings from %s", env_file)
             dotenv_path = Path(env_file)
             load_dotenv(dotenv_path=dotenv_path, override=True)
@@ -322,17 +343,17 @@ class APISession(APIRequest):
             except ValueError:
                 self._logging_log_level = 10  # Default fallback
 
-        if os.getenv("MIST_VAULT_URL") and not self.vault_url:
-            self.vault_url = os.getenv("MIST_VAULT_URL")
+        if os.getenv("MIST_VAULT_URL") and not self._vault_url:
+            self._vault_url = os.getenv("MIST_VAULT_URL")
 
-        if os.getenv("MIST_VAULT_PATH") and not self.vault_path:
-            self.vault_path = os.getenv("MIST_VAULT_PATH")
+        if os.getenv("MIST_VAULT_PATH") and not self._vault_path:
+            self._vault_path = os.getenv("MIST_VAULT_PATH")
 
-        if os.getenv("MIST_VAULT_MOUNT_POINT") and not self.vault_mount_point:
-            self.vault_mount_point = os.getenv("MIST_VAULT_MOUNT_POINT")
+        if os.getenv("MIST_VAULT_MOUNT_POINT") and not self._vault_mount_point:
+            self._vault_mount_point = os.getenv("MIST_VAULT_MOUNT_POINT")
 
-        if os.getenv("MIST_VAULT_TOKEN") and not self.vault_token:
-            self.vault_token = os.getenv("MIST_VAULT_TOKEN")
+        if os.getenv("MIST_VAULT_TOKEN") and not self._vault_token:
+            self._vault_token = os.getenv("MIST_VAULT_TOKEN")
 
         if os.getenv("MIST_KEYRING_SERVICE"):
             self.keyring_service = os.getenv("MIST_KEYRING_SERVICE")
@@ -368,10 +389,10 @@ class APISession(APIRequest):
             LOGGER.debug(
                 "apisession:set_cloud:Mist Cloud configured to %s", self._cloud_uri
             )
-            CONSOLE.debug(f"Mist Cloud configured to {self._cloud_uri}")
+            CONSOLE.debug("Mist Cloud configured to %s", self._cloud_uri)
         else:
             LOGGER.error("apisession:set_cloud: %s is not valid", cloud_uri)
-            CONSOLE.error(f"{cloud_uri} is not valid")
+            CONSOLE.error("%s is not valid", cloud_uri)
 
     def get_cloud(self):
         """
@@ -445,8 +466,8 @@ class APISession(APIRequest):
             self.email = email
         else:
             self.email = input("Login: ")
-        LOGGER.info("apisession:set_email:email configured to %s", self.email)
-        CONSOLE.debug(f"Email configured to {self.email}")
+        LOGGER.info("apisession:set_email:email configured")
+        CONSOLE.debug("Email configured")
 
     def set_password(self, password: str | None = None) -> None:
         """
@@ -465,7 +486,7 @@ class APISession(APIRequest):
         LOGGER.info("apisession:set_password:password configured")
         CONSOLE.debug("Password configured")
 
-    def set_api_token(self, apitoken: str) -> None:
+    def set_api_token(self, apitoken: str, validate: bool = True) -> None:
         """
         Set Mist API Token
 
@@ -473,6 +494,9 @@ class APISession(APIRequest):
         -----------
         apitoken : str
             API Token to add in the requests headers for authentication and authorization
+        validate : bool, default True
+            If True, validate the API tokens against the Mist Cloud before using them.
+            If False, accept the tokens directly without validation.
         """
         LOGGER.debug("apisession:set_api_token")
         apitokens_in = apitoken.split(",")
@@ -483,7 +507,10 @@ class APISession(APIRequest):
                 apitokens_out.append(token)
         LOGGER.info("apisession:set_api_token:found %s API Tokens", len(apitokens_out))
 
-        valid_api_tokens = self._check_api_tokens(apitokens_out)
+        if validate:
+            valid_api_tokens = self._check_api_tokens(apitokens_out)
+        else:
+            valid_api_tokens = apitokens_out
         if valid_api_tokens:
             self._apitoken = valid_api_tokens
             self._apitoken_index = 0
@@ -546,7 +573,10 @@ class APISession(APIRequest):
                 data.status_code,
             )
             CONSOLE.critical(
-                f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}\r\n"
+                "Invalid API Token %s...%s: status code %s\r\n",
+                apitoken[:4],
+                apitoken[-4:],
+                data.status_code,
             )
             raise ValueError(
                 f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}"
@@ -596,31 +626,32 @@ class APISession(APIRequest):
             primary_token_type: str | None = ""
             primary_token_value: str = ""
             for token in apitokens:
-                token_value = f"{token[:4]}...{token[-4:]}"
+                not_sensitive_data = f"{token[:4]}...{token[-4:]}"
                 if token in valid_api_tokens:
                     LOGGER.info(
                         "apisession:_check_api_tokens:API Token %s is already valid",
-                        token_value,
+                        not_sensitive_data,
                     )
                     continue
                 (token_type, token_privileges) = self._get_api_token_data(token)
                 if token_type is None or token_privileges is None:
                     LOGGER.error(
                         "apisession:_check_api_tokens:API Token %s is not valid",
-                        token_value,
+                        not_sensitive_data,
                     )
                     LOGGER.error(
-                        "API Token %s is not valid and will not be used", token_value
+                        "API Token %s is not valid and will not be used",
+                        not_sensitive_data,
                     )
                 elif len(primary_token_privileges) == 0 and token_privileges:
                     primary_token_privileges = token_privileges
                     primary_token_type = token_type
-                    primary_token_value = token_value
+                    primary_token_value = not_sensitive_data
                     valid_api_tokens.append(token)
                     LOGGER.info(
                         "apisession:_check_api_tokens:"
                         "API Token %s set as primary for comparison",
-                        token_value,
+                        not_sensitive_data,
                     )
                 elif primary_token_privileges == token_privileges:
                     valid_api_tokens.append(token)
@@ -629,7 +660,7 @@ class APISession(APIRequest):
                         "%s API Token %s has same privileges as "
                         "the %s API Token %s",
                         token_type,
-                        token_value,
+                        not_sensitive_data,
                         primary_token_type,
                         primary_token_value,
                     )
@@ -639,13 +670,13 @@ class APISession(APIRequest):
                         "%s API Token %s has different privileges "
                         "than the %s API Token %s",
                         token_type,
-                        token_value,
+                        not_sensitive_data,
                         primary_token_type,
                         primary_token_value,
                     )
                     LOGGER.error(
                         "API Token %s has different privileges and will not be used",
-                        token_value,
+                        not_sensitive_data,
                     )
         return valid_api_tokens
 
@@ -666,7 +697,7 @@ class APISession(APIRequest):
             print(" Login/Pwd authentication ".center(80, "-"))
             print()
 
-        self._session = requests.session()
+        self._session = self._new_session()
         if not self.email:
             self.set_email()
         if not self._password:
@@ -686,7 +717,7 @@ class APISession(APIRequest):
                 LOGGER.error(
                     "apisession:_process_login:authentication failed:%s", error
                 )
-                CONSOLE.error(f"Authentication failed: {error}\r\n")
+                CONSOLE.error("Authentication failed: %s\r\n", error)
                 self.email = None
                 self._password = None
                 LOGGER.info(
@@ -776,7 +807,7 @@ class APISession(APIRequest):
                 Error message from Mist (if any)
         """
         LOGGER.debug("apisession:login_with_return")
-        self._session = requests.session()
+        self._session = self._new_session()
         if apitoken:
             self.set_api_token(apitoken)
         if email:
@@ -825,11 +856,18 @@ class APISession(APIRequest):
             LOGGER.error("apisession:login_with_return:credentials are missing")
             return {"authenticated": False, "error": "credentials are missing"}
 
-        if resp.status_code == 200 and not resp.data.get("two_factor_required", False):
+        if (
+            resp.status_code == 200
+            and isinstance(resp.data, dict)
+            and not resp.data.get("two_factor_required", False)
+        ):
             LOGGER.info("apisession:login_with_return:access authorized")
             return {"authenticated": True, "error": ""}
         else:
-            LOGGER.error("apisession:login_with_return:access denied: %s", resp.data)
+            LOGGER.error(
+                "apisession:login_with_return:access denied: status code %s",
+                resp.status_code,
+            )
             return {"authenticated": False, "error": resp.data}
 
     def logout(self) -> None:
@@ -850,7 +888,8 @@ class APISession(APIRequest):
                 self._set_authenticated(False)
             else:
                 try:
-                    CONSOLE.error(resp.data["detail"])
+                    if isinstance(resp.data, dict) and "detail" in resp.data:
+                        CONSOLE.error(resp.data["detail"])
                 except (KeyError, TypeError, AttributeError):
                     if isinstance(resp.raw_data, bytes):
                         CONSOLE.error(resp.raw_data.decode("utf-8", errors="replace"))
@@ -944,8 +983,7 @@ class APISession(APIRequest):
         LOGGER.info(
             'apisession:get_api_token: Sending GET request to "/api/v1/self/apitokens"'
         )
-        resp = self.mist_get("/api/v1/self/apitokens")
-        return resp
+        return self.mist_get("/api/v1/self/apitokens")
 
     def create_api_token(self, token_name: str | None = None) -> APIResponse:
         """
@@ -970,10 +1008,9 @@ class APISession(APIRequest):
             'sending POST request to "/api/v1/self/apitokens" with name "%s"',
             token_name,
         )
-        resp = self.mist_post("/api/v1/self/apitokens", body=body)
-        return resp
+        return self.mist_post("/api/v1/self/apitokens", body=body)
 
-    def delete_api_token(self, apitoken_id: str) -> Response:
+    def delete_api_token(self, apitoken_id: str) -> APIResponse:
         """
         Delete an API Token based on its token_id
 
@@ -993,9 +1030,7 @@ class APISession(APIRequest):
             'sending DELETE request to "/api/v1/self/apitokens" with token_id "%s"',
             apitoken_id,
         )
-        uri = f"https://{self._cloud_uri}/api/v1/self/apitokens/{apitoken_id}"
-        resp = self._session.delete(uri)
-        return resp
+        return self.mist_delete(f"/api/v1/self/apitokens/{apitoken_id}")
 
     def _two_factor_authentication(self, two_factor: str) -> bool:
         """
@@ -1034,7 +1069,8 @@ class APISession(APIRequest):
                 resp.status_code,
             )
             CONSOLE.error(
-                f"2FA authentication failed with error code: {resp.status_code}\r\n"
+                "2FA authentication failed with error code: %s\r\n",
+                resp.status_code,
             )
             return False
 
@@ -1046,7 +1082,7 @@ class APISession(APIRequest):
         uri = "/api/v1/self"
         LOGGER.info('apisession:_getself: sending GET request to "%s"', uri)
         resp = self.mist_get(uri)
-        if resp.status_code == 200 and resp.data:
+        if resp.status_code == 200 and resp.data and isinstance(resp.data, dict):
             # Deal with 2FA if needed
             if (
                 resp.data.get("two_factor_required") is True
@@ -1063,24 +1099,27 @@ class APISession(APIRequest):
                 LOGGER.info(
                     "apisession:_getself:authentication Ok. Processing account privileges"
                 )
-                for key, val in resp.data.items():
-                    if key == "privileges":
-                        self.privileges = Privileges(resp.data["privileges"])
-                    if key == "tags":
-                        for tag in resp.data["tags"]:
-                            self.tags.append(tag)
-                    else:
-                        setattr(self, key, val)
-                if self._show_cli_notif:
-                    print()
-                    print(" Authenticated ".center(80, "-"))
-                    print(f"\r\nWelcome {self.first_name} {self.last_name}!\r\n")
-                LOGGER.info(
-                    "apisession:_getself:account used: %s %s",
-                    self.first_name,
-                    self.last_name,
-                )
-                return True
+                if isinstance(resp.data, dict):
+                    for key, val in resp.data.items():
+                        if key == "privileges":
+                            self.privileges = Privileges(resp.data["privileges"])
+                        if key == "tags":
+                            for tag in resp.data["tags"]:
+                                self.tags.append(tag)
+                        else:
+                            setattr(self, key, val)
+                    if self._show_cli_notif:
+                        print()
+                        print(" Authenticated ".center(80, "-"))
+                        print(f"\r\nWelcome {self.first_name} {self.last_name}!\r\n")
+                    LOGGER.info(
+                        "apisession:_getself:account info processed successfully"
+                    )
+                    return True
+                else:
+                    raise ValueError(
+                        "Unexpected format for privileges in the response data"
+                    )
         elif resp.proxy_error:
             LOGGER.critical("apisession:_getself:proxy not valid...")
             CONSOLE.critical("Proxy not valid...\r\n")
@@ -1144,7 +1183,11 @@ class APISession(APIRequest):
             msp_id = None
             try:
                 resp = self.mist_get(uri)
-                if resp.data and resp.data.get("msp_id"):
+                if (
+                    resp.data
+                    and isinstance(resp.data, dict)
+                    and resp.data.get("msp_id")
+                ):
                     LOGGER.info(
                         "apisession:get_privilege_by_org_id:org %s belong to msp_id %s",
                         {org_id},
@@ -1178,7 +1221,7 @@ class APISession(APIRequest):
                         "unable of find msp %s privileges in user data",
                         msp_id,
                     )
-                else:
+                elif isinstance(resp.data, dict):
                     return {
                         "scope": "org",
                         "org_id": org_id,

@@ -334,6 +334,7 @@ def searchSiteNacClients(
     site_id: str,
     ap: str | None = None,
     auth_type: str | None = None,
+    cert_expiry_duration: str | None = None,
     edr_managed: bool | None = None,
     edr_provider: str | None = None,
     edr_status: str | None = None,
@@ -341,15 +342,14 @@ def searchSiteNacClients(
     hostname: str | None = None,
     idp_id: str | None = None,
     mac: str | None = None,
-    mdm_managed: bool | None = None,
     mdm_compliance: str | None = None,
     mdm_provider: str | None = None,
+    mdm_managed: bool | None = None,
     mfg: str | None = None,
     model: str | None = None,
-    mxedge_id: str | None = None,
+    nacrule_name: str | None = None,
     nacrule_id: str | None = None,
     nacrule_matched: bool | None = None,
-    nacrule_name: str | None = None,
     nas_vendor: str | None = None,
     nas_ip: str | None = None,
     ingress_vlan: str | None = None,
@@ -385,6 +385,7 @@ def searchSiteNacClients(
     ------------
     ap : str
     auth_type : str
+    cert_expiry_duration : str
     edr_managed : bool
     edr_provider : str{'crowdstrike', 'sentinelone'}
       EDR provider of client's organization
@@ -394,22 +395,21 @@ def searchSiteNacClients(
     hostname : str
     idp_id : str
     mac : str
-    mdm_managed : bool
     mdm_compliance : str
     mdm_provider : str
+    mdm_managed : bool
     mfg : str
     model : str
-    mxedge_id : str
+    nacrule_name : str
     nacrule_id : str
     nacrule_matched : bool
-    nacrule_name : str
     nas_vendor : str
     nas_ip : str
     ingress_vlan : str
     os : str
     ssid : str
-    status : str{'permitted', 'session_started', 'session_ended', 'denied'}
-      Connection status of client i.e "permitted", "denied, "session_ended"
+    status : str{'permitted', 'session_started', 'session_stopped', 'denied'}
+      Connection status of client i.e "permitted", "denied, "session_started", "session_stopped"
     text : str
     timestamp : float
     type : str
@@ -436,6 +436,8 @@ def searchSiteNacClients(
         query_params["ap"] = str(ap)
     if auth_type:
         query_params["auth_type"] = str(auth_type)
+    if cert_expiry_duration:
+        query_params["cert_expiry_duration"] = str(cert_expiry_duration)
     if edr_managed:
         query_params["edr_managed"] = str(edr_managed)
     if edr_provider:
@@ -450,24 +452,22 @@ def searchSiteNacClients(
         query_params["idp_id"] = str(idp_id)
     if mac:
         query_params["mac"] = str(mac)
-    if mdm_managed:
-        query_params["mdm_managed"] = str(mdm_managed)
     if mdm_compliance:
         query_params["mdm_compliance"] = str(mdm_compliance)
     if mdm_provider:
         query_params["mdm_provider"] = str(mdm_provider)
+    if mdm_managed:
+        query_params["mdm_managed"] = str(mdm_managed)
     if mfg:
         query_params["mfg"] = str(mfg)
     if model:
         query_params["model"] = str(model)
-    if mxedge_id:
-        query_params["mxedge_id"] = str(mxedge_id)
+    if nacrule_name:
+        query_params["nacrule_name"] = str(nacrule_name)
     if nacrule_id:
         query_params["nacrule_id"] = str(nacrule_id)
     if nacrule_matched:
         query_params["nacrule_matched"] = str(nacrule_matched)
-    if nacrule_name:
-        query_params["nacrule_name"] = str(nacrule_name)
     if nas_vendor:
         query_params["nas_vendor"] = str(nas_vendor)
     if nas_ip:

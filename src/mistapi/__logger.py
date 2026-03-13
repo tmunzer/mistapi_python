@@ -150,60 +150,31 @@ class Console:
         sanitized_data = self.sensitive_pattern.sub(r'\1"******"', data_str)
         return sanitized_data
 
-    def critical(self, message) -> None:
-        """
-        Docstring for critical
+    def _format(self, message, args) -> str:
+        """Apply %-style formatting if args are provided, then sanitize."""
+        if args:
+            message = str(message) % args
+        return self.sanitize(message)
 
-        :param self: Description
-        :param message: Description
-        :type message: str
-        """
+    def critical(self, message, *args) -> None:
         if self.level <= 50 and self.level > 0:
-            print(f"[{magenta('CRITICAL ')}] {self.sanitize(message)}")
+            print(f"[{magenta('CRITICAL ')}] {self._format(message, args)}")
 
-    def error(self, message) -> None:
-        """
-        Docstring for error
-
-        :param self: Description
-        :param message: Description
-        :type message: str
-        """
+    def error(self, message, *args) -> None:
         if self.level <= 40 and self.level > 0:
-            print(f"[{red('  ERROR  ')}] {self.sanitize(message)}")
+            print(f"[{red('  ERROR  ')}] {self._format(message, args)}")
 
-    def warning(self, message) -> None:
-        """
-        Docstring for warning
-
-        :param self: Description
-        :param message: Description
-        :type message: str
-        """
+    def warning(self, message, *args) -> None:
         if self.level <= 30 and self.level > 0:
-            print(f"[{yellow(' WARNING ')}] {self.sanitize(message)}")
+            print(f"[{yellow(' WARNING ')}] {self._format(message, args)}")
 
-    def info(self, message) -> None:
-        """
-        Docstring for info
-
-        :param self: Description
-        :param message: Description
-        :type message: str
-        """
+    def info(self, message, *args) -> None:
         if self.level <= 20 and self.level > 0:
-            print(f"[{green('  INFO   ')}] {self.sanitize(message)}")
+            print(f"[{green('  INFO   ')}] {self._format(message, args)}")
 
-    def debug(self, message) -> None:
-        """
-        Docstring for debug
-
-        :param self: Description
-        :param message: Description
-        :type message: str
-        """
+    def debug(self, message, *args) -> None:
         if self.level <= 10 and self.level > 0:
-            print(f"[{white('DEBUG  ')}] {self.sanitize(message)}")
+            print(f"[{white('DEBUG  ')}] {self._format(message, args)}")
 
     def _set_log_level(
         self, console_log_level: int = 20, logging_log_level: int = 10
@@ -238,7 +209,8 @@ class LogSanitizer(logging.Filter):
         self.console = Console()
 
     def filter(self, record):
-        record.msg = self.console.sanitize(record.msg)
+        record.msg = self.console.sanitize(record.getMessage())
+        record.args = None
         return True
 
 

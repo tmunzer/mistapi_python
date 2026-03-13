@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mistapi"
-version = "0.60.4"
+version = "0.61.0"
 authors = [{ name = "Thomas Munzer", email = "tmunzer@juniper.net" }]
 description = "Python package to simplify the Mist System APIs usage"
 keywords = ["Mist", "Juniper", "API"]
@@ -27,6 +27,7 @@ dependencies = [
   "deprecation>=2.1.0",
   "hvac>=2.3.0",
   "keyring>=24.3.0",
+  "websocket-client>=1.8.0",
 ]
 
 [project.urls]
@@ -34,8 +35,17 @@ dependencies = [
 "Bug Tracker" = "https://github.com/tmunzer/mistapi_python/issues"
 
 # UV-specific configuration
-[tool.uv]
-dev-dependencies = [
+#[tool.uv]
+#preview = true
+
+#[tool.uv.scripts]
+#test   = "pytest"
+#lint   = "ruff check src/"
+#fmt    = "ruff format src/"
+#build  = "python -m build"
+
+[dependency-groups]
+dev = [
   # Testing dependencies
   "pytest>=8.4.0",
   "pytest-cov>=6.1.1",

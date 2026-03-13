@@ -1,4 +1,201 @@
 # CHANGELOG
+## Version 0.61.0 (March 2026)
+
+**Released**: March 13, 2026
+
+**MAJOR RELEASE** with extensive new features, code quality improvements, security enhancements, and performance optimizations. This release adds real-time WebSocket streaming, comprehensive device diagnostic utilities, extensive test coverage, and significant API improvements.
+
+---
+
+### 1. NEW FEATURES
+
+#### **1.1 WebSocket Streaming Module** (`mistapi.websockets`)
+Complete real-time event streaming support with flexible consumption patterns:
+
+**Available Channels:**
+* Organization Channels
+
+| Class  | Description |
+|-------|-------------|
+| `mistapi.websockets.orgs.InsightsEvents` | Real-time insights events for an organization |
+| `mistapi.websockets.orgs.MxEdgesStatsEvents` | Real-time MX edges stats for an organization |
+| `mistapi.websockets.orgs.MxEdgesUpgradesEvents` | Real-time MX edges upgrades events for an organization |
+
+* Site Channels
+
+| Class | Description |
+|-------|-------------|
+| `mistapi.websockets.sites.ClientsStatsEvents` | Real-time clients stats for a site |
+| `mistapi.websockets.sites.DeviceCmdEvents` | Real-time device command events for a site |
+| `mistapi.websockets.sites.DeviceStatsEvents` | Real-time device stats for a site |
+| `mistapi.websockets.sites.DeviceUpgradesEvents` | Real-time device upgrades events for a site |
+| `mistapi.websockets.sites.MxEdgesStatsEvents` | Real-time MX edges stats for a site |
+| `mistapi.websockets.sites.PcapEvents` | Real-time PCAP events for a site |
+
+* Location Channels
+
+| Class | Description |
+|-------|-------------|
+| `mistapi.websockets.location.BleAssetsEvents` | Real-time BLE assets location events |
+| `mistapi.websockets.location.ConnectedClientsEvents` | Real-time connected clients location events |
+| `mistapi.websockets.location.SdkClientsEvents` | Real-time SDK clients location events |
+| `mistapi.websockets.location.UnconnectedClientsEvents` | Real-time unconnected clients location events |
+| `mistapi.websockets.location.DiscoveredBleAssetsEvents` | Real-time discovered BLE assets location events |
+
+
+**Features:**
+- Callback-based message handling
+- Generator-style iteration
+- Context manager support
+- Automatic reconnection with configurable ping intervals
+- Non-blocking background threads
+- Type-safe API with full parameter validation
+
+**Example Usage:**
+```python
+ws = mistapi.websockets.sites.DeviceStatsEvents(apisession, site_ids=["<site_id>"])
+ws.connect(run_in_background=True)
+
+for msg in ws.receive():        # blocks, yields each message as a dict
+    print(msg)
+    if some_condition:
+        ws.disconnect()         # stops the generator cleanly
+```
+
+#### **1.2 Device Utilities Module** (`mistapi.device_utils`)
+`mistapi.device_utils` provides high-level utilities for running diagnostic commands on Mist-managed devices. Each function triggers a REST API call and streams the results back via WebSocket. The library handles the connection plumbing — you just call the function and get back a `UtilResponse` object.
+
+**Device-Specific Modules** (Recommended):
+| Module | Device Type | Functions |
+|--------|-------------|-----------|
+| `device_utils.ap` | Mist Access Points | `ping`, `traceroute`, `retrieveArpTable` |
+| `device_utils.ex` | Juniper EX Switches | `ping`, `monitorTraffic`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveMacTable`, `clearMacTable`, `clearLearnedMac`, `clearBpduError`, `clearDot1xSessions`, `clearHitCount`, `bouncePort`, `cableTest` |
+| `device_utils.srx` | Juniper SRX Firewalls | `ping`, `monitorTraffic`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `showDatabase`, `showNeighbors`, `showInterfaces`, `bouncePort`, `retrieveRoutes` |
+| `device_utils.ssr` | Juniper SSR Routers | `ping`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `showDatabase`, `showNeighbors`, `showInterfaces`, `bouncePort`, `retrieveRoutes`, `showServicePath` |
+
+**Example Usage:**
+```python
+from mistapi.device_utils import ap, ex
+
+# Ping from an AP
+result = ap.ping(apisession, site_id, device_id, host="8.8.8.8")
+print(result.ws_data)
+
+# Retrieve ARP table from a switch
+result = ex.retrieveArpTable(apisession, site_id, device_id)
+print(result.ws_data)
+
+# With real-time callback
+def handle(msg):
+    print("got:", msg)
+
+result = ex.cableTest(apisession, site_id, device_id, port="ge-0/0/0", on_message=handle)
+```
+
+#### **1.3 New API Endpoints**
+
+**MapStacks API** (`mistapi.api.v1.sites.mapstacks`):
+- `listSiteMapStacks()`: List map stacks with filtering
+- `createSiteMapStack()`: Create new map stack
+
+**Enhanced Query Parameters**:
+- Additional filtering options across alarms, clients, and devices endpoints
+- Improved parameter handling in JSI, NAC clients, and WAN clients APIs
+
+---
+
+### 2. SECURITY IMPROVEMENTS
+
+##### **HashiCorp Vault SSL Verification**
+- Now properly verifies SSL certificates when connecting to Vault
+- Made vault configuration attributes private (`_vault_url`, `_vault_path`, etc.)
+- Improved cleanup of vault credentials after loading
+
+---
+
+### 3. PERFORMANCE IMPROVEMENTS
+
+##### **Lazy Module Loading**
+- Implemented lazy loading for `api` and `cli` subpackages
+- Reduces initial import time by deferring heavy module imports until accessed
+- Uses `__getattr__` for transparent lazy loading
+
+---
+
+### 4. CODE QUALITY IMPROVEMENTS
+
+##### **HTTP Request Error Handling**
+- Consolidated duplicate error handling logic into `_request_with_retry()` method
+- Extracts HTTP operations into inner functions for cleaner code
+- Reduces code duplication by ~55 lines across GET/POST/PUT/DELETE/POST_FILE methods
+- Centralizes 429 rate limit handling and retry logic
+
+##### **Session Management**
+- Added `_new_session()` helper method for consistent session initialization
+- Improves code reusability when creating new HTTP sessions
+
+##### **API Token Management**
+- Added `validate` parameter to `set_api_token()` method
+- Allows skipping token validation when needed (default: `True`)
+- Useful for faster initialization when tokens are known to be valid
+
+##### **Logging Improvements**
+- Fixed logging sanitization to use `getMessage()` instead of direct `msg` access
+- Clear `record.args` after sanitization to prevent re-formatting issues
+- Improved logging format consistency using %-style formatting
+
+---
+
+### 6. DEPENDENCIES
+
+##### **New Dependencies**
+- Added `websocket-client>=1.8.0` for WebSocket streaming support
+
+---
+
+## Version 0.60.3 (February 2026)
+
+**Released**: February 21, 2026
+
+This release add a missing query parameter to the `searchOrgWanClients()` function.
+
+---
+
+### 1. CHANGES
+
+##### **API Function Updates**
+- Updated `searchOrgWanClients()` and related functions in `orgs/wan_clients.py`.
+
+---
+
+## Version 0.60.1 (February 2026)
+
+**Released**: February 21, 2026
+
+This release includes function updates and bug fixes in the self/logs.py and sites/sle.py modules.
+
+---
+
+### 1. CHANGES
+
+##### **API Function Updates**
+- Updated `listSelfAuditLogs()` and related functions in `self/logs.py`.
+- Updated deprecated and new SLE classifier functions in `sites/sle.py`.
+
+---
+
+### 2. BUG FIXES
+
+- Minor bug fixes and improvements in API modules.
+
+---
+
+### Breaking Changes
+
+No breaking changes in this release.
+
+---
+
 ## Version 0.60.4 (March 2026)
 
 **Released**: March 3, 2026
