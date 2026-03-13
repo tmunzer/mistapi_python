@@ -38,7 +38,7 @@ class ClientsStatsEvents(_MistWebsocket):
 
         ws = SiteClientsStatsEvents(session, site_id="abc123")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -53,6 +53,7 @@ class ClientsStatsEvents(_MistWebsocket):
 
         with SiteClientsStatsEvents(session, site_id="abc123") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -103,7 +104,7 @@ class DeviceCmdEvents(_MistWebsocket):
 
         ws = SiteDeviceCmdEvents(session, site_id="abc123", device_id="def456")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -118,6 +119,7 @@ class DeviceCmdEvents(_MistWebsocket):
 
         with SiteDeviceCmdEvents(session, site_id="abc123", device_id="def456") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -163,7 +165,7 @@ class DeviceStatsEvents(_MistWebsocket):
 
         ws = SiteDeviceStatsEvents(session, site_id="abc123")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -178,6 +180,7 @@ class DeviceStatsEvents(_MistWebsocket):
 
         with SiteDeviceStatsEvents(session, site_id="abc123") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -220,7 +223,7 @@ class DeviceUpgradesEvents(_MistWebsocket):
 
         ws = SiteDeviceUpgradesEvents(session, site_id="abc123")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -235,6 +238,7 @@ class DeviceUpgradesEvents(_MistWebsocket):
 
         with SiteDeviceUpgradesEvents(session, site_id="abc123") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -277,7 +281,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
 
         ws = SiteMxEdgesStatsEvents(session, site_id="abc123")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -292,6 +296,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
 
         with SiteMxEdgesStatsEvents(session, site_id="abc123") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -334,7 +339,7 @@ class PcapEvents(_MistWebsocket):
 
         ws = SitePcapEvents(session, site_id="abc123")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -349,6 +354,7 @@ class PcapEvents(_MistWebsocket):
 
         with SitePcapEvents(session, site_id="abc123") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 

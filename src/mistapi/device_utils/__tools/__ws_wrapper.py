@@ -1,22 +1,28 @@
 import json
 import threading
-import time
+from collections.abc import Callable
 from enum import Enum
 
 from mistapi import APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 from mistapi.__logger import logger as LOGGER
-from mistapi.websockets.session import SessionWithUrl
-from mistapi.websockets.sites import DeviceCmdEvents, PcapEvents
 
 
 class TimerAction(Enum):
+    """
+    TimerAction Enum for managing timer actions in WebSocketWrapper.
+    """
+
     START = "start"
     STOP = "stop"
     RESET = "reset"
 
 
 class Timer(Enum):
+    """
+    Timer Enum for specifying different timer types in WebSocketWrapper.
+    """
+
     TIMEOUT = "timeout"
     FIRST_MESSAGE_TIMEOUT = "first_message_timeout"
     MAX_DURATION = "max_duration"
@@ -33,7 +39,8 @@ class UtilResponse:
         api_response: _APIResponse,
     ) -> None:
         self.trigger_api_response = api_response
-        self.ws_required: bool = False  # This can be set to True if the WebSocket connection was successfully initiated
+        # This can be set to True if the WebSocket connection was successfully initiated
+        self.ws_required: bool = False
         self.ws_data: list[str] = []
         self.ws_raw_events: list[str] = []
 
@@ -51,6 +58,7 @@ class WebSocketWrapper:
         util_response: UtilResponse,
         timeout: int = 10,
         max_duration: int = 60,
+        on_message: Callable[[dict], None] | None = None,
     ) -> None:
         self.apissession = apissession
         self.util_response = util_response
@@ -74,6 +82,8 @@ class WebSocketWrapper:
         self.ws = None
         self.session_id: str | None = None
         self.capture_id: str | None = None
+        self._on_message_cb = on_message
+        self._closed = threading.Event()
 
         LOGGER.debug(
             "trigger response: %s", self.util_response.trigger_api_response.data
@@ -94,9 +104,12 @@ class WebSocketWrapper:
         LOGGER.info("WebSocket connection opened")
         # Start the max duration timer
         self._timeout_handler(Timer.MAX_DURATION, TimerAction.START)
-        # self._reset_timer()  # Start the timer when the connection opens
 
-    ####################################################################################################################
+    def _on_close(self, code, msg):
+        LOGGER.info("WebSocket closed: %s - %s", code, msg)
+        self._closed.set()
+
+    ##########################################################################
     ## Helper methods for managing timers
     def _timeout_handler(self, timer_type: Timer, action: TimerAction):
         duration = self.timers[timer_type.value]["duration"]
@@ -124,7 +137,13 @@ class WebSocketWrapper:
                     "WebSocket is not available to start %s timer", timer_type.value
                 )
 
-    ####################################################################################################################
+    def _stop_all_timers(self):
+        for timer_info in self.timers.values():
+            if timer_info["thread"]:
+                timer_info["thread"].cancel()
+                timer_info["thread"] = None
+
+    ##########################################################################
     ## WebSocket event handlers
 
     def _handle_message(self, msg):
@@ -139,14 +158,17 @@ class WebSocketWrapper:
             raw = self._extract_raw(msg)
             if raw:
                 self.data.append(raw)
+                if self._on_message_cb:
+                    self._on_message_cb(raw)
             self._timeout_handler(Timer.TIMEOUT, TimerAction.RESET)
 
-    ####################################################################################################################
+    ##########################################################################
     ## Message processing and WebSocket connection management
     def _extract_session_id(self, message) -> bool:
         """
         Extracts the session_id from the message and compares it to the expected session_id.
-        This method is designed to handle messages that may have the session_id nested at different levels.
+        This method is designed to handle messages that may have the session_id nested at
+        different levels.
         If the expected session_id is None, it will accept all messages.
         """
         if not self.session_id and not self.capture_id:
@@ -183,126 +205,49 @@ class WebSocketWrapper:
     def _extract_raw(self, message):
         """
         Extracts the raw message from the given message.
-        This method is designed to handle messages that may have the raw message nested at different levels.
+        This method is designed to handle messages that may have the raw message nested at
+        different levels.
         Handles both command events (with "raw" field) and pcap events (with "pcap_dict" field).
         """
         self.raw_events.append(message)
         event = message
         if isinstance(event, str):
             try:
-                event = json.loads(message)
-                if isinstance(event, dict):
-                    # Check for raw field (command events)
-                    if "raw" in event:
-                        LOGGER.debug("Extracted raw message: %s", event["raw"])
-                        return event["raw"]
-                    # Check for pcap_dict field (pcap events)
-                    if "pcap_dict" in event:
-                        LOGGER.debug("Extracted pcap_dict: %s", event["pcap_dict"])
-                        return event["pcap_dict"]
+                event = json.loads(event)
             except json.JSONDecodeError:
                 LOGGER.warning("Failed to decode message as JSON: %s", message)
                 return None
-        if event.get("event") == "data" and event.get("data"):
-            return self._extract_raw(event["data"])
-        if event.get("raw"):
-            self.received_messages += 1
-            LOGGER.debug("Received raw message: %s", event.get("raw"))
-            return event["raw"]
-        if event.get("pcap_dict"):
-            self.received_messages += 1
-            LOGGER.debug("Received pcap data: %s", event["pcap_dict"])
-            return event["pcap_dict"]
+        if isinstance(event, dict):
+            if event.get("event") == "data" and event.get("data"):
+                return self._extract_raw(event["data"])
+            if "raw" in event:
+                self.received_messages += 1
+                LOGGER.debug("Extracted raw message: %s", event["raw"])
+                return event["raw"]
+            if "pcap_dict" in event:
+                self.received_messages += 1
+                LOGGER.debug("Extracted pcap data: %s", event["pcap_dict"])
+                return event["pcap_dict"]
         return None
 
-    ####################################################################################################################
+    ##########################################################################
     ## WebSocket connection management
-    async def startCmdEvents(self, site_id: str, device_id: str) -> UtilResponse:
+    def start(self, ws) -> UtilResponse:
         """
-        Start a WebSocket stream for site device command events.
+        Start the WS connection, block until closed, return UtilResponse.
 
         PARAMS
         -----------
-        site_id : str
-            UUID of the site to stream events from.
-        device_id : str
-            UUID of the device to stream events from.
+        ws : _MistWebsocket
+            An already-constructed WebSocket channel object.
         """
-        self.ws = DeviceCmdEvents(
-            self.apissession, site_id=site_id, device_ids=[device_id]
-        )
-        self.ws.on_message(self._handle_message)
-        self.ws.on_error(lambda error: LOGGER.error(f"Error: {error}"))
-        self.ws.on_close(
-            lambda code, msg: LOGGER.info(f"WebSocket closed: {code} - {msg}")
-        )
-        self.ws.on_open(self._on_open)
-        self.ws.connect()  # non-blocking
-        LOGGER.info(
-            "WebSocket connection initiated: site_id=%s, device_id=%s",
-            site_id,
-            device_id,
-        )
-        time.sleep(1)
-        while self.ws and self.ws.ready():
-            time.sleep(1)
-        LOGGER.info("WebSocket connection closed, exiting")
-        self.util_response.ws_required = True
-        self.util_response.ws_data = self.data
-        self.util_response.ws_raw_events = self.raw_events
-        return self.util_response
-
-    async def startSessionUrl(self, url: str) -> UtilResponse:
-        """
-        Start a WebSocket stream using a custom URL.
-        This should be used when Mist is returning a WebSocket URL from an API call.
-
-        PARAMS
-        -----------
-        url : str
-            Full WebSocket URL to connect to (e.g., wss://api-ws.mist.com/ssh?jwt=eyJhbGciOiJI...).
-        """
-        self.ws = SessionWithUrl(self.apissession, url=url)
-        self.ws.on_message(self._handle_message)
-        self.ws.on_error(lambda error: LOGGER.error(f"Error: {error}"))
-        self.ws.on_close(
-            lambda code, msg: LOGGER.info(f"WebSocket closed: {code} - {msg}")
-        )
-        self.ws.on_open(self._on_open)
-        self.ws.connect()  # non-blocking
-        LOGGER.info("WebSocket connection initiated: url=%s", url)
-        time.sleep(1)
-        while self.ws and self.ws.ready():
-            time.sleep(1)
-        LOGGER.info("WebSocket connection closed, exiting")
-        self.util_response.ws_required = True
-        self.util_response.ws_data = self.data
-        self.util_response.ws_raw_events = self.raw_events
-        return self.util_response
-
-    async def startRemotePcap(self, site_id: str) -> UtilResponse:
-        """
-        Start a WebSocket stream for remote PCAP events.
-        This should be used when Mist is returning a WebSocket URL from an API call.
-
-        PARAMS
-        -----------
-        site_id : str
-            UUID of the site to stream PCAP events from.
-        """
-        self.ws = PcapEvents(self.apissession, site_id=site_id)
-        self.ws.on_message(self._handle_message)
-        self.ws.on_error(lambda error: LOGGER.error(f"Error: {error}"))
-        self.ws.on_close(
-            lambda code, msg: LOGGER.info(f"WebSocket closed: {code} - {msg}")
-        )
-        self.ws.on_open(self._on_open)
-        self.ws.connect()  # non-blocking
-        LOGGER.info("WebSocket connection initiated: /sites/%s/pcaps", site_id)
-        time.sleep(1)
-        while self.ws and self.ws.ready():
-            time.sleep(1)
-        LOGGER.info("WebSocket connection closed, exiting")
+        self.ws = ws
+        ws.on_message(self._handle_message)
+        ws.on_error(lambda error: LOGGER.error("Error: %s", error))
+        ws.on_close(self._on_close)
+        ws.on_open(self._on_open)
+        ws.connect(run_in_background=False)  # blocks until _on_close fires
+        self._stop_all_timers()
         self.util_response.ws_required = True
         self.util_response.ws_data = self.data
         self.util_response.ws_raw_events = self.raw_events

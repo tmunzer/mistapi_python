@@ -14,11 +14,14 @@ to the Mist API streaming endpoint (wss://{host}/api-ws/v1/stream).
 
 import json
 import queue
+import ssl
 import threading
 from collections.abc import Callable, Generator
 from typing import TYPE_CHECKING
 
 import websocket
+
+from mistapi.__logger import logger
 
 if TYPE_CHECKING:
     from mistapi import APISession
@@ -50,6 +53,9 @@ class _MistWebsocket:
         self._ws: websocket.WebSocketApp | None = None
         self._thread: threading.Thread | None = None
         self._queue: queue.Queue[dict | None] = queue.Queue()
+        self._connected = (
+            threading.Event()
+        )  # tracks whether the WebSocket connection is currently open
         self._on_message_cb: Callable[[dict], None] | None = None
         self._on_error_cb: Callable[[Exception], None] | None = None
         self._on_open_cb: Callable[[], None] | None = None
@@ -70,9 +76,37 @@ class _MistWebsocket:
     def _get_cookie(self) -> str | None:
         cookies = self._mist_session._session.cookies
         if cookies:
-            pairs = "; ".join(f"{c.name}={c.value}" for c in cookies)
-            return pairs if pairs else None
+            safe = []
+            for c in cookies:
+                has_crlf = "\r" in c.name or "\n" in c.name or (
+                    c.value and ("\r" in c.value or "\n" in c.value)
+                )
+                if has_crlf:
+                    logger.warning(
+                        "Skipping cookie %r: contains CRLF characters (possible header injection)",
+                        c.name,
+                    )
+                    continue
+                safe.append(f"{c.name}={c.value}")
+            return "; ".join(safe) if safe else None
         return None
+
+    def _build_sslopt(self) -> dict:
+        """Build SSL options from the APISession's requests.Session."""
+        sslopt: dict = {}
+        session = self._mist_session._session
+        if session.verify is False:
+            sslopt["cert_reqs"] = ssl.CERT_NONE
+        elif isinstance(session.verify, str):
+            sslopt["ca_certs"] = session.verify
+        if session.cert:
+            if isinstance(session.cert, str):
+                sslopt["certfile"] = session.cert
+            elif isinstance(session.cert, tuple):
+                sslopt["certfile"] = session.cert[0]
+                if len(session.cert) > 1:
+                    sslopt["keyfile"] = session.cert[1]
+        return sslopt
 
     # ------------------------------------------------------------------
     # Callback registration
@@ -99,6 +133,7 @@ class _MistWebsocket:
     def _handle_open(self, ws: websocket.WebSocketApp) -> None:
         for channel in self._channels:
             ws.send(json.dumps({"subscribe": channel}))
+        self._connected.set()
         if self._on_open_cb:
             self._on_open_cb()
 
@@ -121,6 +156,7 @@ class _MistWebsocket:
         close_status_code: int,
         close_msg: str,
     ) -> None:
+        self._connected.clear()
         self._queue.put(None)  # Signals receive() generator to stop
         if self._on_close_cb:
             self._on_close_cb(close_status_code, close_msg)
@@ -138,6 +174,13 @@ class _MistWebsocket:
             If True, runs the WebSocket loop in a daemon thread (non-blocking).
             If False, blocks the calling thread until disconnected.
         """
+        # Drain stale sentinel from previous connection
+        while not self._queue.empty():
+            try:
+                self._queue.get_nowait()
+            except queue.Empty:
+                break
+
         self._ws = websocket.WebSocketApp(
             self._build_ws_url(),
             header=self._get_headers(),
@@ -156,8 +199,11 @@ class _MistWebsocket:
     def _run_forever_safe(self) -> None:
         if self._ws:
             try:
+                sslopt = self._build_sslopt()
                 self._ws.run_forever(
-                    ping_interval=self._ping_interval, ping_timeout=self._ping_timeout
+                    ping_interval=self._ping_interval,
+                    ping_timeout=self._ping_timeout,
+                    sslopt=sslopt,
                 )
             except Exception as exc:
                 self._handle_error(self._ws, exc)
@@ -177,8 +223,15 @@ class _MistWebsocket:
 
         Intended for use after connect(run_in_background=True).
         """
+        if not self._connected.wait(timeout=10):
+            return
         while True:
-            item = self._queue.get()
+            try:
+                item = self._queue.get(timeout=1)
+            except queue.Empty:
+                if not self._connected.is_set() and self._queue.empty():
+                    break
+                continue
             if item is None:
                 break
             yield item

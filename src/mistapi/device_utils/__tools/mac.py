@@ -10,13 +10,16 @@
 --------------------------------------------------------------------------------
 """
 
+from collections.abc import Callable
+
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
-from mistapi.utils.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.websockets.sites import DeviceCmdEvents
 
 
-async def clear_mac_table(
+def clear_mac_table(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -71,9 +74,9 @@ async def clear_mac_table(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Clear MAC Table command triggered for device {device_id}")
-        # util_response = await WebSocketWrapper(
-        #     apissession, util_response, timeout=timeout
-        # ).startCmdEvents(site_id, device_id)
+        # util_response = WebSocketWrapper(
+        #     apissession, util_response, timeout=timeout, on_message=on_message
+        # ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger clear MAC Table command: {trigger.status_code} - {trigger.data}"
@@ -81,7 +84,7 @@ async def clear_mac_table(
     return util_response
 
 
-async def retrieve_mac_table(
+def retrieve_mac_table(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -89,6 +92,7 @@ async def retrieve_mac_table(
     port_id: str | None = None,
     vlan_id: str | None = None,
     timeout=5,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICES: EX
@@ -111,6 +115,8 @@ async def retrieve_mac_table(
         VLAN ID to filter the ARP table retrieval.
     timeout : int, optional
         Timeout for the ARP table retrieval command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -138,9 +144,10 @@ async def retrieve_mac_table(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Show MAC Table command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startCmdEvents(site_id, device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger show MAC Table command: {trigger.status_code} - {trigger.data}"
@@ -148,7 +155,7 @@ async def retrieve_mac_table(
     return util_response
 
 
-async def clear_learned_mac(
+def clear_learned_mac(
     apissession: _APISession,
     site_id: str,
     device_id: str,

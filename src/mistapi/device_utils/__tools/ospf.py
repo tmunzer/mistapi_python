@@ -10,12 +10,14 @@
 --------------------------------------------------------------------------------
 """
 
+from collections.abc import Callable
 from enum import Enum
 
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
-from mistapi.utils.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.websockets.sites import DeviceCmdEvents
 
 
 class Node(Enum):
@@ -25,7 +27,7 @@ class Node(Enum):
     NODE1 = "node1"
 
 
-async def show_database(
+def show_database(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -33,6 +35,7 @@ async def show_database(
     self_originate: bool | None = None,
     vrf: str | None = None,
     timeout=5,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICES: SRX, SSR
@@ -54,6 +57,8 @@ async def show_database(
         Filter for self-originated routes in the OSPF database.
     vrf : str, optional
         VRF to filter the OSPF database.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -77,9 +82,10 @@ async def show_database(
     util_response = UtilResponse(trigger)
     if trigger.status_code == 200:
         LOGGER.info(f"OSPF database command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startCmdEvents(site_id, device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger OSPF database command: {trigger.status_code} - {trigger.data}"
@@ -87,7 +93,7 @@ async def show_database(
     return util_response
 
 
-async def show_interfaces(
+def show_interfaces(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -95,6 +101,7 @@ async def show_interfaces(
     port_id: str | None = None,
     vrf: str | None = None,
     timeout=5,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICES: SRX, SSR
@@ -116,6 +123,8 @@ async def show_interfaces(
         Port ID to filter the OSPF interfaces.
     vrf : str, optional
         VRF to filter the OSPF interfaces.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -139,9 +148,10 @@ async def show_interfaces(
     util_response = UtilResponse(trigger)
     if trigger.status_code == 200:
         LOGGER.info(f"OSPF interfaces command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startCmdEvents(site_id, device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger OSPF interfaces command: {trigger.status_code} - {trigger.data}"
@@ -149,7 +159,7 @@ async def show_interfaces(
     return util_response
 
 
-async def show_neighbors(
+def show_neighbors(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -158,6 +168,7 @@ async def show_neighbors(
     port_id: str | None = None,
     vrf: str | None = None,
     timeout=5,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICES: SRX, SSR
@@ -181,6 +192,8 @@ async def show_neighbors(
         Port ID to filter the OSPF neighbors.
     vrf : str, optional
         VRF to filter the OSPF neighbors.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -206,9 +219,10 @@ async def show_neighbors(
     util_response = UtilResponse(trigger)
     if trigger.status_code == 200:
         LOGGER.info(f"OSPF neighbors command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startCmdEvents(site_id, device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger OSPF neighbors command: {trigger.status_code} - {trigger.data}"
@@ -216,13 +230,14 @@ async def show_neighbors(
     return util_response
 
 
-async def show_summary(
+def show_summary(
     apissession: _APISession,
     site_id: str,
     device_id: str,
     node: Node | None = None,
     vrf: str | None = None,
     timeout=5,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICES: SRX, SSR
@@ -242,6 +257,8 @@ async def show_summary(
         Node information for the show OSPF summary command.
     vrf : str, optional
         VRF to filter the OSPF summary.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -263,9 +280,10 @@ async def show_summary(
     util_response = UtilResponse(trigger)
     if trigger.status_code == 200:
         LOGGER.info(f"OSPF summary command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startCmdEvents(site_id, device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger OSPF summary command: {trigger.status_code} - {trigger.data}"

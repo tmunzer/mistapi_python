@@ -10,12 +10,14 @@
 --------------------------------------------------------------------------------
 """
 
+from collections.abc import Callable
 from enum import Enum
 
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
-from mistapi.utils.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.websockets.sites import DeviceCmdEvents
 
 
 class Node(Enum):
@@ -25,7 +27,7 @@ class Node(Enum):
     NODE1 = "node1"
 
 
-async def clear(
+def clear(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -34,6 +36,7 @@ async def clear(
     service_ids: list[str] | None = None,
     vrf: str | None = None,
     timeout=2,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICE: SSR, SRX
@@ -60,6 +63,8 @@ async def clear(
         VRF to filter the routes.
     timeout : int, optional
         Timeout for the command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -87,9 +92,10 @@ async def clear(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Device Sessions command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startCmdEvents(site_id, device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger Device Sessions command: {trigger.status_code} - {trigger.data}"
@@ -97,7 +103,7 @@ async def clear(
     return util_response
 
 
-async def show(
+def show(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -105,6 +111,7 @@ async def show(
     service_name: str | None = None,
     service_ids: list[str] | None = None,
     timeout=2,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICE: SSR, SRX
@@ -127,6 +134,8 @@ async def show(
         List of service IDs to filter the sessions.
     timeout : int, optional
         Timeout for the command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -152,9 +161,10 @@ async def show(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Device Sessions command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startCmdEvents(site_id, device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger Device Sessions command: {trigger.status_code} - {trigger.data}"

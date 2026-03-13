@@ -10,18 +10,22 @@
 --------------------------------------------------------------------------------
 """
 
+from collections.abc import Callable
+
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
-from mistapi.utils.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.websockets.sites import DeviceCmdEvents
 
 
-async def bounce(
+def bounce(
     apissession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
     timeout=60,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICE: EX, SRX, SSR
@@ -37,8 +41,10 @@ async def bounce(
         UUID of the device to perform the bounce command on.
     port_ids : list[str]
         List of port IDs to bounce.
-    timeout : int, async default 5
+    timeout : int, default 5
         Timeout for the bounce command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -60,9 +66,10 @@ async def bounce(
         LOGGER.info(
             f"Bounce command triggered for ports {port_ids} on device {device_id}"
         )
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout
-        ).startCmdEvents(site_id=site_id, device_id=device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger bounce command: {trigger.status_code} - {trigger.data}"
@@ -70,12 +77,13 @@ async def bounce(
     return util_response
 
 
-async def cable_test(
+def cableTest(
     apissession: _APISession,
     site_id: str,
     device_id: str,
     port_id: str,
     timeout=10,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICES: EX
@@ -94,6 +102,8 @@ async def cable_test(
         Port ID to perform the cable test on.
     timeout : int, optional
         Timeout for the cable test command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -112,9 +122,10 @@ async def cable_test(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Cable test command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startCmdEvents(site_id, device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger cable test command: {trigger.status_code} - {trigger.data}"

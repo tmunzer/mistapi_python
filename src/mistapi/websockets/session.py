@@ -39,7 +39,7 @@ class SessionWithUrl(_MistWebsocket):
 
         ws = sessionWithUrl(session, url="wss://example.com/channel")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -54,6 +54,7 @@ class SessionWithUrl(_MistWebsocket):
 
         with sessionWithUrl(session, url="wss://example.com/channel") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 

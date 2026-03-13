@@ -10,12 +10,11 @@
 --------------------------------------------------------------------------------
 """
 
-from mistapi.websockets import __ws_client, location, orgs, session, sites
+from mistapi.websockets import location, orgs, session, sites
 
 __all__ = [
     "location",
     "orgs",
     "session",
     "sites",
-    "__ws_client",
 ]

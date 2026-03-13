@@ -1,9 +1,12 @@
+from collections.abc import Callable
 from enum import Enum
 
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices, pcaps
-from mistapi.utils.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.websockets.session import SessionWithUrl
+from mistapi.websockets.sites import DeviceCmdEvents, PcapEvents
 
 
 class Node(Enum):
@@ -20,16 +23,50 @@ class TracerouteProtocol(Enum):
     UDP = "udp"
 
 
-async def ping(
+def _build_pcap_body(
+    device_id: str,
+    port_ids: list[str],
+    device_key: str,
+    device_type: str,
+    tcpdump_expression: str | None,
+    duration: int,
+    max_pkt_len: int,
+    num_packets: int,
+    raw: bool | None = None,
+) -> dict:
+    """Build the request body for remote pcap commands (SRX, SSR, EX)."""
+    mac = device_id.split("-")[-1]
+    body: dict = {
+        "duration": duration,
+        "max_pkt_len": max_pkt_len,
+        "num_packets": num_packets,
+        device_key: {mac: {"ports": {}}},
+        "type": device_type,
+        "format": "stream",
+    }
+    if raw is not None:
+        body["raw"] = raw
+    for port_id in port_ids:
+        port_entry: dict = {}
+        if tcpdump_expression is not None:
+            port_entry["tcpdump_expression"] = tcpdump_expression
+        body[device_key][mac]["ports"][port_id] = port_entry
+    if tcpdump_expression:
+        body["tcpdump_expression"] = tcpdump_expression
+    return body
+
+
+def ping(
     apissession: _APISession,
     site_id: str,
     device_id: str,
     host: str,
     count: int | None = None,
-    node: None | None = None,
+    node: Node | None = None,
     size: int | None = None,
     vrf: str | None = None,
     timeout: int = 3,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICES: AP, EX, SRX, SSR
@@ -57,6 +94,8 @@ async def ping(
         VRF to use for the ping command.
     timeout : int, optional
         Timeout for the ping command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -84,9 +123,10 @@ async def ping(
     util_response = UtilResponse(trigger)
     if trigger.status_code == 200:
         LOGGER.info(f"Ping command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout
-        ).startCmdEvents(site_id, device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger ping command: {trigger.status_code} - {trigger.data}"
@@ -94,8 +134,8 @@ async def ping(
     return util_response
 
 
-## NO DATA
-# async def service_ping(
+## NO DATA
+# def service_ping(
 #     apissession: _APISession,
 #     site_id: str,
 #     device_id: str,
@@ -106,6 +146,7 @@ async def ping(
 #     node: None | None = None,
 #     size: int | None = None,
 #     timeout: int = 3,
+#     on_message: Callable[[dict], None] | None = None,
 # ) -> UtilResponse:
 #     """
 #     DEVICES: SSR
@@ -134,6 +175,8 @@ async def ping(
 #         Size of the ping packet.
 #     timeout : int, optional
 #         Timeout for the ping command in seconds.
+#     on_message : Callable, optional
+#         Callback invoked with each extracted raw message as it arrives.
 
 #     RETURNS
 #     -----------
@@ -163,9 +206,10 @@ async def ping(
 #     util_response = UtilResponse(trigger)
 #     if trigger.status_code == 200:
 #         LOGGER.info(f"Service Ping command triggered for device {device_id}")
-#         util_response = await WebSocketWrapper(
-#             apissession, util_response, timeout
-#         ).startCmdEvents(site_id, device_id)
+#         ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+#         util_response = WebSocketWrapper(
+#             apissession, util_response, timeout, on_message=on_message
+#         ).start(ws)
 #     else:
 #         LOGGER.error(
 #             f"Failed to trigger Service Ping command: {trigger.status_code} - {trigger.data}"
@@ -173,7 +217,7 @@ async def ping(
 #     return util_response
 
 
-async def traceroute(
+def traceroute(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -181,6 +225,7 @@ async def traceroute(
     protocol: TracerouteProtocol = TracerouteProtocol.ICMP,
     port: int | None = None,
     timeout: int = 10,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICES: AP, EX, SRX, SSR
@@ -204,6 +249,8 @@ async def traceroute(
         Port to use for UDP traceroute.
     timeout : int, optional
         Timeout for the traceroute command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -225,9 +272,10 @@ async def traceroute(
     util_response = UtilResponse(trigger)
     if trigger.status_code == 200:
         LOGGER.info(f"Traceroute command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout
-        ).startCmdEvents(site_id, device_id)
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger traceroute command: {trigger.status_code} - {trigger.data}"
@@ -235,12 +283,13 @@ async def traceroute(
     return util_response
 
 
-async def monitor_traffic(
+def monitorTraffic(
     apissession: _APISession,
     site_id: str,
     device_id: str,
     port_id: str | None = None,
     timeout=30,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICE: EX, SRX
@@ -263,6 +312,8 @@ async def monitor_traffic(
         Port ID to filter the traffic.
     timeout : int, optional
         Timeout for the monitor traffic command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -283,9 +334,10 @@ async def monitor_traffic(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Monitor traffic command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startSessionUrl(trigger.data.get("url", ""))
+        ws = SessionWithUrl(apissession, url=trigger.data.get("url", ""))
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger monitor traffic command: {trigger.status_code} - {trigger.data}"
@@ -293,7 +345,7 @@ async def monitor_traffic(
     return util_response
 
 
-async def ap_remote_pcap_wireless(
+def apRemotePcapWireless(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -305,6 +357,7 @@ async def ap_remote_pcap_wireless(
     max_pkt_len: int = 512,
     num_packets: int = 1024,
     timeout=10,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICE: AP
@@ -336,6 +389,8 @@ async def ap_remote_pcap_wireless(
         Maximum number of packets to capture (default: 1024).
     timeout : int, optional
         Timeout for the remote pcap command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -366,9 +421,10 @@ async def ap_remote_pcap_wireless(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Remote pcap command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startRemotePcap(site_id)
+        ws = PcapEvents(apissession, site_id=site_id)
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
@@ -376,7 +432,7 @@ async def ap_remote_pcap_wireless(
     return util_response
 
 
-async def ap_remote_pcap_wired(
+def apRemotePcapWired(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -385,6 +441,7 @@ async def ap_remote_pcap_wired(
     max_pkt_len: int = 512,
     num_packets: int = 1024,
     timeout=10,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICE: AP
@@ -410,6 +467,8 @@ async def ap_remote_pcap_wired(
         Maximum number of packets to capture (default: 1024).
     timeout : int, optional
         Timeout for the remote pcap command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -435,9 +494,10 @@ async def ap_remote_pcap_wired(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Remote pcap command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startRemotePcap(site_id)
+        ws = PcapEvents(apissession, site_id=site_id)
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
@@ -445,7 +505,7 @@ async def ap_remote_pcap_wired(
     return util_response
 
 
-async def srx_remote_pcap(
+def srxRemotePcap(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -455,6 +515,7 @@ async def srx_remote_pcap(
     max_pkt_len: int = 512,
     num_packets: int = 1024,
     timeout=10,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICE: SRX
@@ -482,6 +543,8 @@ async def srx_remote_pcap(
         Maximum number of packets to capture (default: 1024).
     timeout : int, optional
         Timeout for the remote pcap command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -489,25 +552,16 @@ async def srx_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    gateway_mac = device_id.split("-")[-1]
-    body: dict[str, str | int | dict] = {
-        "duration": duration,
-        "max_pkt_len": max_pkt_len,
-        "num_packets": num_packets,
-        "gateways": {gateway_mac: {"ports": {}}},
-        "type": "gateway",
-        "format": "stream",
-    }
-    for port_id in port_ids:
-        gateway_dict = body["gateways"]
-        assert isinstance(gateway_dict, dict)
-        mac_dict = gateway_dict[gateway_mac]
-        assert isinstance(mac_dict, dict)
-        ports_dict = mac_dict["ports"]
-        assert isinstance(ports_dict, dict)
-        ports_dict[port_id] = {"tcpdump_expression": tcpdump_expression}
-    if tcpdump_expression:
-        body["tcpdump_expression"] = tcpdump_expression
+    body = _build_pcap_body(
+        device_id,
+        port_ids,
+        "gateways",
+        "gateway",
+        tcpdump_expression,
+        duration,
+        max_pkt_len,
+        num_packets,
+    )
     trigger = pcaps.startSitePacketCapture(
         apissession,
         site_id=site_id,
@@ -517,9 +571,10 @@ async def srx_remote_pcap(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Remote pcap command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startRemotePcap(site_id)
+        ws = PcapEvents(apissession, site_id=site_id)
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
@@ -527,7 +582,7 @@ async def srx_remote_pcap(
     return util_response
 
 
-async def ssr_remote_pcap(
+def ssrRemotePcap(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -537,6 +592,7 @@ async def ssr_remote_pcap(
     max_pkt_len: int = 512,
     num_packets: int = 1024,
     timeout=10,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICE: SSR
@@ -564,6 +620,8 @@ async def ssr_remote_pcap(
         Maximum number of packets to capture (default: 1024).
     timeout : int, optional
         Timeout for the remote pcap command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -571,26 +629,17 @@ async def ssr_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    gateway_mac = device_id.split("-")[-1]
-    body: dict[str, str | int | dict] = {
-        "duration": duration,
-        "max_pkt_len": max_pkt_len,
-        "num_packets": num_packets,
-        "raw": False,
-        "gateways": {gateway_mac: {"ports": {}}},
-        "type": "gateway",
-        "format": "stream",
-    }
-    for port_id in port_ids:
-        gateway_dict = body["gateways"]
-        assert isinstance(gateway_dict, dict)
-        mac_dict = gateway_dict[gateway_mac]
-        assert isinstance(mac_dict, dict)
-        ports_dict = mac_dict["ports"]
-        assert isinstance(ports_dict, dict)
-        ports_dict[port_id] = {"tcpdump_expression": tcpdump_expression}
-    if tcpdump_expression:
-        body["tcpdump_expression"] = tcpdump_expression
+    body = _build_pcap_body(
+        device_id,
+        port_ids,
+        "gateways",
+        "gateway",
+        tcpdump_expression,
+        duration,
+        max_pkt_len,
+        num_packets,
+        raw=False,
+    )
     trigger = pcaps.startSitePacketCapture(
         apissession,
         site_id=site_id,
@@ -600,9 +649,10 @@ async def ssr_remote_pcap(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Remote pcap command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startRemotePcap(site_id)
+        ws = PcapEvents(apissession, site_id=site_id)
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
@@ -610,7 +660,7 @@ async def ssr_remote_pcap(
     return util_response
 
 
-async def ex_remote_pcap(
+def exRemotePcap(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -620,6 +670,7 @@ async def ex_remote_pcap(
     max_pkt_len: int = 512,
     num_packets: int = 1024,
     timeout=10,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICE: EX
@@ -647,6 +698,8 @@ async def ex_remote_pcap(
         Maximum number of packets to capture (default: 1024).
     timeout : int, optional
         Timeout for the remote pcap command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -654,25 +707,16 @@ async def ex_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    switch_mac = device_id.split("-")[-1]
-    body: dict[str, str | int | dict] = {
-        "duration": duration,
-        "max_pkt_len": max_pkt_len,
-        "num_packets": num_packets,
-        "switches": {switch_mac: {"ports": {}}},
-        "type": "switch",
-        "format": "stream",
-    }
-    for port_id in port_ids:
-        switch_dict = body["switches"]
-        assert isinstance(switch_dict, dict)
-        mac_dict = switch_dict[switch_mac]
-        assert isinstance(mac_dict, dict)
-        ports_dict = mac_dict["ports"]
-        assert isinstance(ports_dict, dict)
-        ports_dict[port_id] = {"tcpdump_expression": tcpdump_expression}
-    if tcpdump_expression:
-        body["tcpdump_expression"] = tcpdump_expression
+    body = _build_pcap_body(
+        device_id,
+        port_ids,
+        "switches",
+        "switch",
+        tcpdump_expression,
+        duration,
+        max_pkt_len,
+        num_packets,
+    )
     trigger = pcaps.startSitePacketCapture(
         apissession,
         site_id=site_id,
@@ -682,9 +726,10 @@ async def ex_remote_pcap(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Remote pcap command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startRemotePcap(site_id)
+        ws = PcapEvents(apissession, site_id=site_id)
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
             f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
@@ -693,11 +738,12 @@ async def ex_remote_pcap(
 
 
 ## NO DATA
-# async def srx_top_command(
+# def srx_top_command(
 #     apissession: _APISession,
 #     site_id: str,
 #     device_id: str,
 #     timeout=10,
+#     on_message: Callable[[dict], None] | None = None,
 # ) -> UtilResponse:
 #     """
 #     DEVICE: SRX
@@ -714,6 +760,8 @@ async def ex_remote_pcap(
 #         UUID of the device to run the top command on.
 #     timeout : int, optional
 #         Timeout for the top command in seconds.
+#     on_message : Callable, optional
+#         Callback invoked with each extracted raw message as it arrives.
 
 #     RETURNS
 #     -----------
@@ -730,9 +778,10 @@ async def ex_remote_pcap(
 #     if trigger.status_code == 200:
 #         LOGGER.info(trigger.data)
 #         print(f"Top command triggered for device {device_id}")
-#         util_response = await WebSocketWrapper(
-#             apissession, util_response, timeout=timeout
-#         ).startSessionUrl(site_id)
+#         ws = SessionWithUrl(apissession, url=trigger.data.get("url", ""))
+#         util_response = WebSocketWrapper(
+#             apissession, util_response, timeout=timeout, on_message=on_message
+#         ).start(ws)
 #     else:
 #         LOGGER.error(
 #             f"Failed to trigger top command: {trigger.status_code} - {trigger.data}"

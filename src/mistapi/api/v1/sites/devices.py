@@ -2380,7 +2380,7 @@ def getSiteDeviceZtpPassword(
 
 
 def testSiteSsrDnsResolution(
-    mist_session: _APISession, site_id: str, device_id: str
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/wan/test-site-ssr-dns-resolution
@@ -2402,7 +2402,7 @@ def testSiteSsrDnsResolution(
     """
 
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/resolve_dns"
-    resp = mist_session.mist_post(uri=uri)
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
 

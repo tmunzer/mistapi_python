@@ -12,18 +12,24 @@
 
 # isort: skip_file
 from mistapi.__api_session import APISession as APISession
-from mistapi import api as api
-from mistapi import cli as cli
-from mistapi import websockets as websockets
-from mistapi import utils as utils
 from mistapi.__pagination import get_all as get_all
 from mistapi.__pagination import get_next as get_next
 from mistapi.__version import __author__ as __author__
 from mistapi.__version import __version__ as __version__
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from mistapi import api as api
+    from mistapi import cli as cli
+    from mistapi import device_utils as device_utils
+    from mistapi import websockets as websockets
+
 _LAZY_SUBPACKAGES = {
     "api": "mistapi.api",
     "cli": "mistapi.cli",
+    "websockets": "mistapi.websockets",
+    "device_utils": "mistapi.device_utils",
 }
 
 

@@ -41,7 +41,7 @@ class BleAssetsEvents(_MistWebsocket):
 
         ws = LocationBleAssetsEvents(session, site_id="abc123", map_id="def456")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -56,6 +56,7 @@ class BleAssetsEvents(_MistWebsocket):
 
         with LocationBleAssetsEvents(session, site_id="abc123", map_id="def456") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -101,7 +102,7 @@ class ConnectedClientsEvents(_MistWebsocket):
 
         ws = LocationConnectedClientsEvents(session, site_id="abc123", map_id="def456")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -116,6 +117,7 @@ class ConnectedClientsEvents(_MistWebsocket):
 
         with LocationConnectedClientsEvents(session, site_id="abc123", map_id="def456") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -161,7 +163,7 @@ class SdkClientsEvents(_MistWebsocket):
 
         ws = LocationSdkClientsEvents(session, site_id="abc123", map_id="def456")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -176,6 +178,7 @@ class SdkClientsEvents(_MistWebsocket):
 
         with LocationSdkClientsEvents(session, site_id="abc123", map_id="def456") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -221,7 +224,7 @@ class UnconnectedClientsEvents(_MistWebsocket):
 
         ws = LocationUnconnectedClientsEvents(session, site_id="abc123", map_id="def456")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -236,6 +239,7 @@ class UnconnectedClientsEvents(_MistWebsocket):
 
         with LocationUnconnectedClientsEvents(session, site_id="abc123", map_id="def456") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -283,7 +287,7 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
 
         ws = LocationDiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -298,6 +302,7 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
 
         with LocationDiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 

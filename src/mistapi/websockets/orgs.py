@@ -38,7 +38,7 @@ class InsightsEvents(_MistWebsocket):
 
         ws = OrgInsightsEvents(session, org_id="abc123")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -53,6 +53,7 @@ class InsightsEvents(_MistWebsocket):
 
         with OrgInsightsEvents(session, org_id="abc123") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -94,7 +95,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
 
         ws = OrgMxEdgesStatsEvents(session, org_id="abc123")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -109,6 +110,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
 
         with OrgMxEdgesStatsEvents(session, org_id="abc123") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 
@@ -150,7 +152,7 @@ class MxEdgesUpgradesEvents(_MistWebsocket):
 
         ws = OrgMxEdgesUpgradesEvents(session, org_id="abc123")
         ws.on_message(lambda data: print(data))
-        ws.connect()
+        ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
         ws.disconnect()
 
@@ -165,6 +167,7 @@ class MxEdgesUpgradesEvents(_MistWebsocket):
 
         with OrgMxEdgesUpgradesEvents(session, org_id="abc123") as ws:
             ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
     """
 

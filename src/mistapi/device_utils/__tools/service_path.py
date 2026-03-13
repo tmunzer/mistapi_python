@@ -10,33 +10,36 @@
 --------------------------------------------------------------------------------
 """
 
+from collections.abc import Callable
 from enum import Enum
 
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
-from mistapi.utils.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
+from mistapi.websockets.sites import DeviceCmdEvents
 
 
 class Node(Enum):
-    """Node Enum for specifying node information in DNS commands."""
+    """Node Enum for specifying node information in service path commands."""
 
     NODE0 = "node0"
     NODE1 = "node1"
 
 
-async def test_resolution(
+def show_service_path(
     apissession: _APISession,
     site_id: str,
     device_id: str,
     node: Node | None = None,
-    hostname: str | None = None,
-    timeout=5,
+    service_name: str | None = None,
+    timeout: int = 5,
+    on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
     DEVICES: SSR
 
-    Initiates a DNS resolution command on the gateway and streams the results.
+    Initiates a show service path command on the gateway and streams the results.
 
     PARAMS
     -----------
@@ -45,13 +48,15 @@ async def test_resolution(
     site_id : str
         UUID of the site where the gateway is located.
     device_id : str
-        UUID of the gateway to perform the DNS resolution command on.
+        UUID of the gateway to perform the show service path command on.
     node : Node, optional
-        Node information for the DNS resolution command.
-    hostname : str, optional
-        Hostname to resolve.
+        Node information for the show service path command.
+    service_name : str, optional
+        Name of the service to show the path for.
     timeout : int, optional
         Timeout for the command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
     RETURNS
     -----------
@@ -62,23 +67,24 @@ async def test_resolution(
     body: dict[str, str | list | int] = {}
     if node:
         body["node"] = node.value
-    if hostname:
-        body["hostname"] = hostname
-    trigger = devices.testSiteSsrDnsResolution(
+    if service_name:
+        body["service_name"] = service_name
+    trigger = devices.showSiteSsrServicePath(
         apissession,
         site_id=site_id,
         device_id=device_id,
-        # body=body,
+        body=body,
     )
     util_response = UtilResponse(trigger)
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
-        print(f"SSR DNS resolution command triggered for device {device_id}")
-        util_response = await WebSocketWrapper(
-            apissession, util_response, timeout=timeout
-        ).startCmdEvents(site_id, device_id)
+        print(f"SSR service path command triggered for device {device_id}")
+        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+        util_response = WebSocketWrapper(
+            apissession, util_response, timeout=timeout, on_message=on_message
+        ).start(ws)
     else:
         LOGGER.error(
-            f"Failed to trigger SSR DNS resolution command: {trigger.status_code} - {trigger.data}"
-        )  # Give the SSR DNS resolution command a moment to take effect
+            f"Failed to trigger SSR service path command: {trigger.status_code} - {trigger.data}"
+        )  # Give the SSR service path command a moment to take effect
     return util_response

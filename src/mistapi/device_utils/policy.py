@@ -13,10 +13,10 @@
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
-from mistapi.utils.__ws_wrapper import UtilResponse
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse
 
 
-async def clear_hit_count(
+async def clearHitCount(
     apissession: _APISession,
     site_id: str,
     device_id: str,

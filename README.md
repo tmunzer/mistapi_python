@@ -35,6 +35,10 @@ A comprehensive Python package to interact with the Mist Cloud APIs, built from 
     - [Callbacks](#callbacks)
     - [Available Channels](#available-channels)
     - [Usage Patterns](#usage-patterns)
+- [Device Utilities](#device-utilities)
+    - [Supported Devices](#supported-devices)
+    - [Usage](#device-utilities-usage)
+    - [UtilResponse Object](#utilresponse-object)
 - [Development](#development-and-testing)
 - [Contributing](#contributing)
 - [License](#license)
@@ -60,18 +64,12 @@ Support for all Mist cloud instances worldwide:
 ### Core Features
 - **Complete API Coverage**: Auto-generated from OpenAPI specs
 - **Automatic Pagination**: Built-in support for paginated responses
+- **WebSocket Streaming**: Real-time event streaming for devices, clients, and location data
+- **Device Diagnostics**: High-level utilities for ping, traceroute, ARP, BGP, OSPF, and more
 - **Error Handling**: Detailed error responses and logging
 - **Proxy Support**: HTTP/HTTPS proxy configuration
 - **Log Sanitization**: Automatic redaction of sensitive data in logs
 
-### API Coverage
-**Organization Level**: Organizations, Sites, Devices (APs/Switches/Gateways), WLANs, VPNs, Networks, NAC, Users, Admins, Guests, Alarms, Events, Statistics, SLE, Assets, Licenses, Webhooks, Security Policies, MSP management
-
-**Site Level**: Device management, RF optimization, Location services, Maps, Client analytics, Asset tracking, Synthetic testing, Anomaly detection
-
-**Constants & Utilities**: Device models, AP channels, Applications, Country codes, Alarm definitions, Event types, Webhook topics
-
-**Additional Services**: OAuth, Two-factor authentication, Account recovery, Invitations, MDM workflows
 
 ---
 
@@ -97,16 +95,31 @@ python3 -m pip install --upgrade mistapi
 py -m pip install --upgrade mistapi
 ```
 
+### Installation with uv
+
+[uv](https://docs.astral.sh/uv/) is a fast Python package manager:
+
+```bash
+# Install in current project
+uv add mistapi
+
+# Or run directly without installing
+uv run --with mistapi python my_script.py
+```
+
 ### Development Installation
 
 ```bash
-# Install with development dependencies (for contributors)
-pip install mistapi[dev]
+# With pip
+pip install -e ".[dev]"
+
+# With uv
+uv sync
 ```
 
 ### Requirements
 - Python 3.10 or higher
-- Dependencies: `requests`, `python-dotenv`, `tabulate`, `deprecation`, `hvac`, `keyring`
+- Dependencies: `requests`, `python-dotenv`, `tabulate`, `deprecation`, `hvac`, `keyring`, `websocket-client`
 
 ---
 
@@ -175,9 +188,9 @@ MIST_APITOKEN=your_api_token_here
 | `MIST_USER` | `email` | string | None | Username/email for authentication |
 | `MIST_PASSWORD` | `password` | string | None | Password for authentication |
 | `MIST_KEYRING_SERVICE` | `keyring_service` | string | None | System keyring service name |
-| `MIST_VAULT_URL` | `vault_url` | string | https://127.0.0.1:8200 | HashiCorp Vault URL |
+| `MIST_VAULT_URL` | `vault_url` | string | None | HashiCorp Vault URL |
 | `MIST_VAULT_PATH` | `vault_path` | string | None | Path to secret in Vault |
-| `MIST_VAULT_MOUNT_POINT` | `vault_mount_point` | string | secret | Vault mount point |
+| `MIST_VAULT_MOUNT_POINT` | `vault_mount_point` | string | None | Vault mount point |
 | `MIST_VAULT_TOKEN` | `vault_token` | string | None | Vault authentication token |
 | `CONSOLE_LOG_LEVEL` | `console_log_level` | int | 20 | Console log level (0-50) |
 | `LOGGING_LOG_LEVEL` | `logging_log_level` | int | 10 | File log level (0-50) |
@@ -473,7 +486,7 @@ clients = mistapi.api.v1.orgs.clients.searchOrgWirelessClients(
 events = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(
     apisession, org_id,
     duration="1h",
-    client_mac="aa:bb:cc:dd:ee:ff"
+    client_mac="aabbccddeeff"
 )
 ```
 
@@ -493,9 +506,9 @@ All channel classes accept the following optional keyword arguments to control t
 | `ping_timeout` | `int` | `10` | Seconds to wait for a pong response before treating the connection as dead. |
 
 ```python
-ws = mistapi.websockets.sites.SiteDeviceStatsEvents(
+ws = mistapi.websockets.sites.DeviceStatsEvents(
     apisession,
-    site_id="<site_id>",
+    site_ids=["<site_id>"],
     ping_interval=60,   # ping every 60 s
     ping_timeout=20,    # wait up to 20 s for pong
 )
@@ -510,6 +523,7 @@ ws.connect()
 | `ws.on_message(cb)` | `cb(data: dict)` | Called for every incoming message |
 | `ws.on_error(cb)` | `cb(error: Exception)` | Called on WebSocket errors |
 | `ws.on_close(cb)` | `cb(status_code: int, msg: str)` | Called when the connection closes |
+| `ws.ready()` | `-> bool \| None` | Returns `True` if the connection is open and ready |
 
 ### Available Channels
 
@@ -517,35 +531,42 @@ ws.connect()
 
 | Class | Channel | Description |
 |-------|---------|-------------|
-| `mistapi.websockets.orgs.OrgInsightsEvents` | `/orgs/{org_id}/insights/summary` | Real-time insights events for an organization |
-| `mistapi.websockets.orgs.OrgMxEdgesStatsEvents` | `/orgs/{org_id}/stats/mxedges` | Real-time MX edges stats for an organization |
-| `mistapi.websockets.orgs.OrgMxEdgesUpgradesEvents` | `/orgs/{org_id}/mxedges` | Real-time MX edges upgrades events for an organization |
+| `mistapi.websockets.orgs.InsightsEvents` | `/orgs/{org_id}/insights/summary` | Real-time insights events for an organization |
+| `mistapi.websockets.orgs.MxEdgesStatsEvents` | `/orgs/{org_id}/stats/mxedges` | Real-time MX edges stats for an organization |
+| `mistapi.websockets.orgs.MxEdgesUpgradesEvents` | `/orgs/{org_id}/mxedges` | Real-time MX edges upgrades events for an organization |
 
 #### Site Channels
 
 | Class | Channel | Description |
 |-------|---------|-------------|
-| `mistapi.websockets.sites.SiteClientsStatsEvents` | `/sites/{site_id}/stats/clients` | Real-time clients stats for a site |
-| `mistapi.websockets.sites.SiteDeviceCmdEvents` | `/sites/{site_id}/devices/{device_id}/cmd` | Real-time device command events for a site |
-| `mistapi.websockets.sites.SiteDeviceStatsEvents` | `/sites/{site_id}/stats/devices` | Real-time device stats for a site |
-| `mistapi.websockets.sites.SiteDeviceUpgradesEvents` | `/sites/{site_id}/devices` | Real-time device upgrades events for a site |
-| `mistapi.websockets.sites.SitePcapEvents` | `/sites/{site_id}/pcap` | Real-time PCAP events for a site |
+| `mistapi.websockets.sites.ClientsStatsEvents` | `/sites/{site_id}/stats/clients` | Real-time clients stats for a site |
+| `mistapi.websockets.sites.DeviceCmdEvents` | `/sites/{site_id}/devices/{device_id}/cmd` | Real-time device command events for a site |
+| `mistapi.websockets.sites.DeviceStatsEvents` | `/sites/{site_id}/stats/devices` | Real-time device stats for a site |
+| `mistapi.websockets.sites.DeviceUpgradesEvents` | `/sites/{site_id}/devices` | Real-time device upgrades events for a site |
+| `mistapi.websockets.sites.MxEdgesStatsEvents` | `/sites/{site_id}/stats/mxedges` | Real-time MX edges stats for a site |
+| `mistapi.websockets.sites.PcapEvents` | `/sites/{site_id}/pcap` | Real-time PCAP events for a site |
 
 #### Location Channels
 
 | Class | Channel | Description |
 |-------|---------|-------------|
-| `mistapi.websockets.location.LocationBleAssetsEvents` | `/sites/{site_id}/stats/maps/{map_id}/assets` | Real-time BLE assets location events |
-| `mistapi.websockets.location.LocationConnectedClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/clients` | Real-time connected clients location events |
-| `mistapi.websockets.location.LocationSdkClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/sdkclients` | Real-time SDK clients location events |
-| `mistapi.websockets.location.LocationUnconnectedClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/unconnected_clients` | Real-time unconnected clients location events |
-| `mistapi.websockets.location.LocationDiscoveredBleAssetsEvents` | `/sites/{site_id}/stats/maps/{map_id}/discovered_assets` | Real-time discovered BLE assets location events |
+| `mistapi.websockets.location.BleAssetsEvents` | `/sites/{site_id}/stats/maps/{map_id}/assets` | Real-time BLE assets location events |
+| `mistapi.websockets.location.ConnectedClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/clients` | Real-time connected clients location events |
+| `mistapi.websockets.location.SdkClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/sdkclients` | Real-time SDK clients location events |
+| `mistapi.websockets.location.UnconnectedClientsEvents` | `/sites/{site_id}/stats/maps/{map_id}/unconnected_clients` | Real-time unconnected clients location events |
+| `mistapi.websockets.location.DiscoveredBleAssetsEvents` | `/sites/{site_id}/stats/maps/{map_id}/discovered_assets` | Real-time discovered BLE assets location events |
+
+#### Session Channels
+
+| Class | Channel | Description |
+|-------|---------|-------------|
+| `mistapi.websockets.session.SessionWithUrl` | Custom URL | Connect to a custom WebSocket channel URL |
 
 ### Usage Patterns
 
 #### Callback style (recommended)
 
-`connect()` returns immediately; messages are delivered to the registered callback in a background thread.
+`connect()` defaults to `run_in_background=True` and returns immediately. The WebSocket runs in a daemon thread, so your program must stay alive (e.g., with `input()` or an event loop). Messages are delivered to the registered callback in the background thread.
 
 ```python
 import mistapi
@@ -553,7 +574,7 @@ import mistapi
 apisession = mistapi.APISession(env_file="~/.mist_env")
 apisession.login()
 
-ws = mistapi.websockets.sites.SiteDeviceStatsEvents(apisession, site_id="<site_id>")
+ws = mistapi.websockets.sites.DeviceStatsEvents(apisession, site_ids=["<site_id>"])
 ws.on_message(lambda data: print(data))
 ws.connect()                    # non-blocking
 
@@ -566,7 +587,7 @@ ws.disconnect()
 Iterate over incoming messages as a blocking generator. Useful when you want to process messages sequentially in a loop.
 
 ```python
-ws = mistapi.websockets.sites.SiteDeviceStatsEvents(apisession, site_id="<site_id>")
+ws = mistapi.websockets.sites.DeviceStatsEvents(apisession, site_ids=["<site_id>"])
 ws.connect(run_in_background=True)
 
 for msg in ws.receive():        # blocks, yields each message as a dict
@@ -580,7 +601,7 @@ for msg in ws.receive():        # blocks, yields each message as a dict
 `connect(run_in_background=False)` blocks the calling thread until the connection closes. Useful for simple scripts.
 
 ```python
-ws = mistapi.websockets.sites.SiteDeviceStatsEvents(apisession, site_id="<site_id>")
+ws = mistapi.websockets.sites.DeviceStatsEvents(apisession, site_ids=["<site_id>"])
 ws.on_message(lambda data: print(data))
 ws.connect(run_in_background=False)  # blocks until disconnected
 ```
@@ -592,12 +613,63 @@ ws.connect(run_in_background=False)  # blocks until disconnected
 ```python
 import time
 
-with mistapi.websockets.sites.SiteDeviceStatsEvents(apisession, site_id="<site_id>") as ws:
+with mistapi.websockets.sites.DeviceStatsEvents(apisession, site_ids=["<site_id>"]) as ws:
     ws.on_message(lambda data: print(data))
     ws.connect()
     time.sleep(60)
 # ws.disconnect() called automatically here
 ```
+
+---
+
+## Device Utilities
+
+`mistapi.device_utils` provides high-level utilities for running diagnostic commands on Mist-managed devices. Each function triggers a REST API call and streams the results back via WebSocket. The library handles the connection plumbing — you just call the function and get back a `UtilResponse` object.
+
+### Supported Devices
+
+| Module | Device Type | Functions |
+|--------|-------------|-----------|
+| `device_utils.ap` | Mist Access Points | `ping`, `traceroute`, `retrieveArpTable` |
+| `device_utils.ex` | Juniper EX Switches | `ping`, `monitorTraffic`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveMacTable`, `clearMacTable`, `clearLearnedMac`, `clearBpduError`, `clearDot1xSessions`, `clearHitCount`, `bouncePort`, `cableTest` |
+| `device_utils.srx` | Juniper SRX Firewalls | `ping`, `monitorTraffic`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `showDatabase`, `showNeighbors`, `showInterfaces`, `bouncePort`, `retrieveRoutes` |
+| `device_utils.ssr` | Juniper SSR Routers | `ping`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `showDatabase`, `showNeighbors`, `showInterfaces`, `bouncePort`, `retrieveRoutes`, `showServicePath` |
+
+### Device Utilities Usage
+
+```python
+from mistapi.device_utils import ap, ex
+
+# Ping from an AP
+result = ap.ping(apisession, site_id, device_id, host="8.8.8.8")
+print(result.ws_data)
+
+# Retrieve ARP table from a switch
+result = ex.retrieveArpTable(apisession, site_id, device_id)
+print(result.ws_data)
+
+# With real-time callback
+def handle(msg):
+    print("got:", msg)
+
+result = ex.cableTest(apisession, site_id, device_id, port="ge-0/0/0", on_message=handle)
+```
+
+### UtilResponse Object
+
+All device utility functions return a `UtilResponse` object:
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `trigger_api_response` | `APIResponse` | The initial REST API response that triggered the device command. Contains `status_code`, `data`, and `headers` from the trigger request. |
+| `ws_required` | `bool` | `True` if the command required a WebSocket connection to stream results (most diagnostic commands do). `False` if the REST response alone was sufficient. |
+| `ws_data` | `list[str]` | Parsed result data extracted from the WebSocket stream. Each entry is a processed output line from the device (e.g., a line of ping output or an ARP table row). |
+| `ws_raw_events` | `list[str]` | Raw, unprocessed WebSocket event payloads as received from the Mist API. Useful for debugging or custom parsing. |
+
+### Enums
+
+- `ap.TracerouteProtocol` — `ICMP`, `UDP` (for `ap.traceroute()`)
+- `srx.Node` / `ssr.Node` — `NODE0`, `NODE1` (for dual-node devices)
 
 ---
 
@@ -610,8 +682,11 @@ with mistapi.websockets.sites.SiteDeviceStatsEvents(apisession, site_id="<site_i
 git clone https://github.com/tmunzer/mistapi_python.git
 cd mistapi_python
 
-# Install with development dependencies
+# With pip
 pip install -e ".[dev]"
+
+# With uv
+uv sync
 ```
 
 ### Running Tests
@@ -619,6 +694,8 @@ pip install -e ".[dev]"
 ```bash
 # Run all tests
 pytest
+# or with uv
+uv run pytest
 
 # Run with coverage report
 pytest --cov=src/mistapi --cov-report=html
@@ -628,13 +705,15 @@ pytest tests/unit/test_api_session.py
 
 # Run linting
 ruff check src/
+# or with uv
+uv run ruff check src/
 ```
 
 ### Package Structure
 
 ```
 src/mistapi/
-├── __init__.py           # Main package exports
+├── __init__.py           # Main package exports (lazy-loads api, cli, utils, websockets)
 ├── __api_session.py      # Session management and authentication
 ├── __api_request.py      # HTTP request handling
 ├── __api_response.py     # Response parsing and pagination
@@ -644,12 +723,24 @@ src/mistapi/
 ├── __models/             # Data models
 │   ├── __init__.py
 │   └── privilege.py
-└── api/v1/               # Auto-generated API endpoints
-    ├── const/            # Constants and enums
-    ├── orgs/             # Organization-level APIs
-    ├── sites/            # Site-level APIs
-    ├── login/            # Authentication APIs
-    └── utils/            # Utility functions
+├── api/v1/               # Auto-generated API endpoints
+│   ├── const/            # Constants and enums
+│   ├── orgs/             # Organization-level APIs
+│   ├── sites/            # Site-level APIs
+│   ├── login/            # Authentication APIs
+│   └── utils/            # Utility functions
+├── device_utils/         # Device utility implementations
+│   ├── ap.py             # Access Point utilities
+│   ├── ex.py             # EX Switch utilities
+│   ├── srx.py            # SRX Firewall utilities
+│   ├── ssr.py            # Session Smart Router utilities
+│   └── ...               # Function-based modules (arp, bgp, dhcp, etc.)
+└── websockets/           # Real-time WebSocket streaming
+    ├── __ws_client.py    # Base WebSocket client
+    ├── orgs.py           # Organization-level channels
+    ├── sites.py          # Site-level channels
+    ├── location.py       # Location/map channels
+    └── session.py        # Custom URL session channel
 ```
 
 ---
