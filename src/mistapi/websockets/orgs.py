@@ -129,11 +129,11 @@ class MxEdgesStatsEvents(_MistWebsocket):
         )
 
 
-class MxEdgesUpgradesEvents(_MistWebsocket):
-    """WebSocket stream for org MX edges upgrades events.
+class MxEdgesEvents(_MistWebsocket):
+    """WebSocket stream for org MX edges events.
 
     Subscribes to the ``orgs/{org_id}/mxedges`` channel and delivers
-    real-time MX edges upgrades events for the given org.
+    real-time MX edges events for the given org.
 
     PARAMS
     -----------
@@ -150,7 +150,7 @@ class MxEdgesUpgradesEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = OrgMxEdgesUpgradesEvents(session, org_id="abc123")
+        ws = MxEdgesEvents(session, org_id="abc123")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -158,14 +158,14 @@ class MxEdgesUpgradesEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = OrgMxEdgesUpgradesEvents(session, org_id="abc123")
+        ws = MxEdgesEvents(session, org_id="abc123")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with OrgMxEdgesUpgradesEvents(session, org_id="abc123") as ws:
+        with MxEdgesEvents(session, org_id="abc123") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)

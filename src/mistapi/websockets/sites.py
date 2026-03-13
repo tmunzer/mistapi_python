@@ -200,11 +200,11 @@ class DeviceStatsEvents(_MistWebsocket):
         )
 
 
-class DeviceUpgradesEvents(_MistWebsocket):
-    """WebSocket stream for site device upgrades events.
+class DeviceEvents(_MistWebsocket):
+    """WebSocket stream for site device events.
 
     Subscribes to the ``sites/{site_id}/devices`` channel and delivers
-    real-time device upgrades events for the given site.
+    real-time device events for the given site.
 
     PARAMS
     -----------
@@ -221,7 +221,7 @@ class DeviceUpgradesEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = SiteDeviceUpgradesEvents(session, site_id="abc123")
+        ws = DeviceEvents(session, site_id="abc123")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -229,14 +229,14 @@ class DeviceUpgradesEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = SiteDeviceUpgradesEvents(session, site_id="abc123")
+        ws = DeviceEvents(session, site_id="abc123")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with SiteDeviceUpgradesEvents(session, site_id="abc123") as ws:
+        with DeviceEvents(session, site_id="abc123") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -279,7 +279,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = SiteMxEdgesStatsEvents(session, site_id="abc123")
+        ws = MxEdgesStatsEvents(session, site_id="abc123")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -287,14 +287,14 @@ class MxEdgesStatsEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = SiteMxEdgesStatsEvents(session, site_id="abc123")
+        ws = MxEdgesStatsEvents(session, site_id="abc123")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with SiteMxEdgesStatsEvents(session, site_id="abc123") as ws:
+        with MxEdgesStatsEvents(session, site_id="abc123") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -308,6 +308,64 @@ class MxEdgesStatsEvents(_MistWebsocket):
         ping_timeout: int = 10,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/mxedges" for site_id in site_ids]
+        super().__init__(
+            mist_session,
+            channels=channels,
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
+        )
+
+
+class MxEdgesEvents(_MistWebsocket):
+    """WebSocket stream for site MX edges events.
+
+    Subscribes to the ``sites/{site_id}/mxedges`` channel and delivers
+    real-time MX edges events for the given site.
+
+    PARAMS
+    -----------
+    mist_session : mistapi.APISession
+        Authenticated API session.
+    site_ids : list[str]
+        UUIDs of the sites to stream events from.
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
+
+    EXAMPLE
+    -----------
+    Callback style (background thread)::
+
+        ws = MxEdgesEvents(session, site_id="abc123")
+        ws.on_message(lambda data: print(data))
+        ws.connect()  # non-blocking, runs in background thread
+        input("Press Enter to stop")
+        ws.disconnect()
+
+    Generator style::
+
+        ws = MxEdgesEvents(session, site_id="abc123")
+        ws.connect(run_in_background=True)
+        for msg in ws.receive():
+            process(msg)
+
+    Context manager::
+
+        with MxEdgesEvents(session, site_id="abc123") as ws:
+            ws.on_message(my_handler)
+            ws.connect()  # non-blocking, runs in background thread
+            time.sleep(60)
+    """
+
+    def __init__(
+        self,
+        mist_session: APISession,
+        site_ids: list[str],
+        ping_interval: int = 30,
+        ping_timeout: int = 10,
+    ) -> None:
+        channels = [f"/sites/{site_id}/mxedges" for site_id in site_ids]
         super().__init__(
             mist_session,
             channels=channels,
@@ -337,7 +395,7 @@ class PcapEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = SitePcapEvents(session, site_id="abc123")
+        ws = PcapEvents(session, site_id="abc123")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -345,14 +403,14 @@ class PcapEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = SitePcapEvents(session, site_id="abc123")
+        ws = PcapEvents(session, site_id="abc123")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with SitePcapEvents(session, site_id="abc123") as ws:
+        with PcapEvents(session, site_id="abc123") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
