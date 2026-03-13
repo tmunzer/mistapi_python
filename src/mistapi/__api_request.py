@@ -88,9 +88,9 @@ class APIRequest:
     def _next_apitoken(self) -> None:
         logger.info("apirequest:_next_apitoken:rotating API Token")
         logger.debug(
-            f"apirequest:_next_apitoken:current API Token is "
-            f"{self._apitoken[self._apitoken_index][:4]}..."
-            f"{self._apitoken[self._apitoken_index][-4:]}"
+            "apirequest:_next_apitoken:current API Token is %s...%s",
+            self._apitoken[self._apitoken_index][:4],
+            self._apitoken[self._apitoken_index][-4:],
         )
         new_index = self._apitoken_index + 1
         if new_index >= len(self._apitoken):
@@ -101,9 +101,9 @@ class APIRequest:
                 {"Authorization": "Token " + self._apitoken[self._apitoken_index]}
             )
             logger.debug(
-                f"apirequest:_next_apitoken:new API Token is "
-                f"{self._apitoken[self._apitoken_index][:4]}..."
-                f"{self._apitoken[self._apitoken_index][-4:]}"
+                "apirequest:_next_apitoken:new API Token is %s...%s",
+                self._apitoken[self._apitoken_index][:4],
+                self._apitoken[self._apitoken_index][-4:],
             )
         else:
             logger.critical(" /!\\ API TOKEN CRITICAL ERROR /!\\")
@@ -184,25 +184,26 @@ class APIRequest:
         proxy_failed = False
         for attempt in range(self._MAX_429_RETRIES + 1):
             try:
-                logger.info(f"apirequest:{method_name}:sending request to {url}")
+                logger.info("apirequest:%s:sending request to %s", method_name, url)
                 self._log_proxy()
                 resp = request_fn()
                 logger.debug(
-                    f"apirequest:{method_name}:request headers:{self._remove_auth_from_headers(resp)}"
+                    "apirequest:%s:request headers:%s", method_name, self._remove_auth_from_headers(resp)
                 )
                 resp.raise_for_status()
                 break
             except requests.exceptions.ProxyError as e:
-                logger.error(f"apirequest:{method_name}:Proxy Error: {e}")
+                logger.error("apirequest:%s:Proxy Error: %s", method_name, e)
                 proxy_failed = True
                 break
             except requests.exceptions.ConnectionError as e:
-                logger.error(f"apirequest:{method_name}:Connection Error: {e}")
+                logger.error("apirequest:%s:Connection Error: %s", method_name, e)
                 break
             except HTTPError as e:
                 if e.response.status_code == 429 and attempt < self._MAX_429_RETRIES:
                     logger.warning(
-                        f"apirequest:{method_name}:HTTP 429 (attempt {attempt + 1}/{self._MAX_429_RETRIES})"
+                        "apirequest:%s:HTTP 429 (attempt %s/%s)",
+                        method_name, attempt + 1, self._MAX_429_RETRIES,
                     )
                     try:
                         self._next_apitoken()
@@ -210,16 +211,16 @@ class APIRequest:
                         pass  # single token — still retry with backoff
                     self._handle_rate_limit(e.response, attempt)
                     continue
-                logger.error(f"apirequest:{method_name}:HTTP error: {e}")
+                logger.error("apirequest:%s:HTTP error: %s", method_name, e)
                 if resp:
                     logger.error(
-                        f"apirequest:{method_name}:HTTP error description: {resp.json()}"
+                        "apirequest:%s:HTTP error description: %s", method_name, resp.json()
                     )
                 break
             except Exception as e:
-                logger.error(f"apirequest:{method_name}:error: {e}")
+                logger.error("apirequest:%s:error: %s", method_name, e)
                 logger.error(
-                    f"apirequest:{method_name}:Exception occurred", exc_info=True
+                    "apirequest:%s:Exception occurred", method_name, exc_info=True
                 )
                 break
         self._count += 1
@@ -261,7 +262,7 @@ class APIRequest:
         """
         url = self._url(uri)
         headers = {"Content-Type": "application/json"}
-        logger.debug(f"apirequest:mist_post:Request body:{body}")
+        logger.debug("apirequest:mist_post:Request body:%s", body)
         if isinstance(body, str):
             fn = lambda: self._session.post(url, data=body, headers=headers)
         else:
@@ -285,7 +286,7 @@ class APIRequest:
         """
         url = self._url(uri)
         headers = {"Content-Type": "application/json"}
-        logger.debug(f"apirequest:mist_put:Request body:{body}")
+        logger.debug("apirequest:mist_put:Request body:%s", body)
         if isinstance(body, str):
             fn = lambda: self._session.put(url, data=body, headers=headers)
         else:
@@ -333,19 +334,19 @@ class APIRequest:
             multipart_form_data = {}
         url = self._url(uri)
         logger.debug(
-            f"apirequest:mist_post_file:initial multipart_form_data:{multipart_form_data}"
+            "apirequest:mist_post_file:initial multipart_form_data:%s", multipart_form_data
         )
         generated_multipart_form_data: dict[str, Any] = {}
         for key in multipart_form_data:
             logger.debug(
-                f"apirequest:mist_post_file:"
-                f"multipart_form_data:{key} = {multipart_form_data[key]}"
+                "apirequest:mist_post_file:multipart_form_data:%s = %s",
+                key, multipart_form_data[key],
             )
             if multipart_form_data[key]:
                 try:
                     if key in ["csv", "file"]:
                         logger.debug(
-                            f"apirequest:mist_post_file:reading file:{multipart_form_data[key]}"
+                            "apirequest:mist_post_file:reading file:%s", multipart_form_data[key]
                         )
                         f = open(multipart_form_data[key], "rb")
                         generated_multipart_form_data[key] = (
@@ -360,23 +361,23 @@ class APIRequest:
                         )
                 except (OSError, json.JSONDecodeError):
                     logger.error(
-                        f"apirequest:mist_post_file:multipart_form_data:"
-                        f"Unable to parse JSON object {key} "
-                        f"with value {multipart_form_data[key]}"
+                        "apirequest:mist_post_file:multipart_form_data:"
+                        "Unable to parse JSON object %s with value %s",
+                        key, multipart_form_data[key],
                     )
                     logger.error(
                         "apirequest:mist_post_file: Exception occurred",
                         exc_info=True,
                     )
         logger.debug(
-            f"apirequest:mist_post_file:"
-            f"final multipart_form_data:{generated_multipart_form_data}"
+            "apirequest:mist_post_file:final multipart_form_data:%s",
+            generated_multipart_form_data,
         )
 
         def _do_post_file():
             resp = self._session.post(url, files=generated_multipart_form_data)
             logger.debug(
-                f"apirequest:mist_post_file:request body:{self.remove_file_from_body(resp)}"
+                "apirequest:mist_post_file:request body:%s", self.remove_file_from_body(resp)
             )
             return resp
 
