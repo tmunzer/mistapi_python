@@ -856,7 +856,11 @@ class APISession(APIRequest):
             LOGGER.error("apisession:login_with_return:credentials are missing")
             return {"authenticated": False, "error": "credentials are missing"}
 
-        if resp.status_code == 200 and not resp.data.get("two_factor_required", False):
+        if (
+            resp.status_code == 200
+            and isinstance(resp.data, dict)
+            and not resp.data.get("two_factor_required", False)
+        ):
             LOGGER.info("apisession:login_with_return:access authorized")
             return {"authenticated": True, "error": ""}
         else:
@@ -884,7 +888,8 @@ class APISession(APIRequest):
                 self._set_authenticated(False)
             else:
                 try:
-                    CONSOLE.error(resp.data["detail"])
+                    if isinstance(resp.data, dict) and "detail" in resp.data:
+                        CONSOLE.error(resp.data["detail"])
                 except (KeyError, TypeError, AttributeError):
                     if isinstance(resp.raw_data, bytes):
                         CONSOLE.error(resp.raw_data.decode("utf-8", errors="replace"))
@@ -1077,7 +1082,7 @@ class APISession(APIRequest):
         uri = "/api/v1/self"
         LOGGER.info('apisession:_getself: sending GET request to "%s"', uri)
         resp = self.mist_get(uri)
-        if resp.status_code == 200 and resp.data:
+        if resp.status_code == 200 and resp.data and isinstance(resp.data, dict):
             # Deal with 2FA if needed
             if (
                 resp.data.get("two_factor_required") is True
@@ -1094,20 +1099,27 @@ class APISession(APIRequest):
                 LOGGER.info(
                     "apisession:_getself:authentication Ok. Processing account privileges"
                 )
-                for key, val in resp.data.items():
-                    if key == "privileges":
-                        self.privileges = Privileges(resp.data["privileges"])
-                    if key == "tags":
-                        for tag in resp.data["tags"]:
-                            self.tags.append(tag)
-                    else:
-                        setattr(self, key, val)
-                if self._show_cli_notif:
-                    print()
-                    print(" Authenticated ".center(80, "-"))
-                    print(f"\r\nWelcome {self.first_name} {self.last_name}!\r\n")
-                LOGGER.info("apisession:_getself:account info processed successfully")
-                return True
+                if isinstance(resp.data, dict):
+                    for key, val in resp.data.items():
+                        if key == "privileges":
+                            self.privileges = Privileges(resp.data["privileges"])
+                        if key == "tags":
+                            for tag in resp.data["tags"]:
+                                self.tags.append(tag)
+                        else:
+                            setattr(self, key, val)
+                    if self._show_cli_notif:
+                        print()
+                        print(" Authenticated ".center(80, "-"))
+                        print(f"\r\nWelcome {self.first_name} {self.last_name}!\r\n")
+                    LOGGER.info(
+                        "apisession:_getself:account info processed successfully"
+                    )
+                    return True
+                else:
+                    raise ValueError(
+                        "Unexpected format for privileges in the response data"
+                    )
         elif resp.proxy_error:
             LOGGER.critical("apisession:_getself:proxy not valid...")
             CONSOLE.critical("Proxy not valid...\r\n")
@@ -1171,7 +1183,11 @@ class APISession(APIRequest):
             msp_id = None
             try:
                 resp = self.mist_get(uri)
-                if resp.data and resp.data.get("msp_id"):
+                if (
+                    resp.data
+                    and isinstance(resp.data, dict)
+                    and resp.data.get("msp_id")
+                ):
                     LOGGER.info(
                         "apisession:get_privilege_by_org_id:org %s belong to msp_id %s",
                         {org_id},
@@ -1205,7 +1221,7 @@ class APISession(APIRequest):
                         "unable of find msp %s privileges in user data",
                         msp_id,
                     )
-                else:
+                elif isinstance(resp.data, dict):
                     return {
                         "scope": "org",
                         "org_id": org_id,

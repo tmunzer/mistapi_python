@@ -9,7 +9,6 @@ surface of all channel classes (sites, orgs, location, session).
 """
 
 import json
-import queue
 import ssl
 from unittest.mock import Mock, call, patch
 
@@ -25,19 +24,20 @@ from mistapi.websockets.location import (
 )
 from mistapi.websockets.orgs import (
     InsightsEvents,
-    MxEdgesStatsEvents as OrgMxEdgesStatsEvents,
-    MxEdgesUpgradesEvents,
+    MxEdgesEvents,
 )
+from mistapi.websockets.orgs import MxEdgesStatsEvents as OrgMxEdgesStatsEvents
 from mistapi.websockets.session import SessionWithUrl
 from mistapi.websockets.sites import (
     ClientsStatsEvents,
     DeviceCmdEvents,
+    DeviceEvents,
     DeviceStatsEvents,
-    DeviceUpgradesEvents,
-    MxEdgesStatsEvents as SiteMxEdgesStatsEvents,
     PcapEvents,
 )
-
+from mistapi.websockets.sites import (
+    MxEdgesStatsEvents as SiteMxEdgesStatsEvents,
+)
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -694,7 +694,7 @@ class TestSiteChannels:
         assert ws._channels == ["/sites/s1/stats/devices"]
 
     def test_device_upgrades_events_channels(self, mock_session) -> None:
-        ws = DeviceUpgradesEvents(mock_session, site_ids=["s1"])
+        ws = DeviceEvents(mock_session, site_ids=["s1"])
         assert ws._channels == ["/sites/s1/devices"]
 
     def test_site_mxedges_stats_events_channels(self, mock_session) -> None:
@@ -729,7 +729,7 @@ class TestOrgChannels:
         assert ws._channels == ["/orgs/o1/stats/mxedges"]
 
     def test_mxedges_upgrades_events_channels(self, mock_session) -> None:
-        ws = MxEdgesUpgradesEvents(mock_session, org_id="o1")
+        ws = MxEdgesEvents(mock_session, org_id="o1")
         assert ws._channels == ["/orgs/o1/mxedges"]
 
     def test_inherits_from_mist_websocket(self, mock_session) -> None:
