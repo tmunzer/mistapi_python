@@ -23,7 +23,7 @@ class TracerouteProtocol(Enum):
     UDP = "udp"
 
 
-def ping(
+async def ping(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -102,7 +102,7 @@ def ping(
 
 
 ## NO DATA
-# def service_ping(
+# async def service_ping(
 #     apissession: _APISession,
 #     site_id: str,
 #     device_id: str,
@@ -184,7 +184,7 @@ def ping(
 #     return util_response
 
 
-def traceroute(
+async def traceroute(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -250,7 +250,7 @@ def traceroute(
     return util_response
 
 
-def monitor_traffic(
+async def monitor_traffic(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -301,10 +301,15 @@ def monitor_traffic(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Monitor traffic command triggered for device {device_id}")
-        ws = SessionWithUrl(apissession, url=trigger.data.get("url", ""))
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
+        if isinstance(trigger.data, dict) and "url" in trigger.data:
+            ws = SessionWithUrl(apissession, url=trigger.data.get("url", ""))
+            util_response = WebSocketWrapper(
+                apissession, util_response, timeout=timeout, on_message=on_message
+            ).start(ws)
+        else:
+            LOGGER.error(
+                f"Monitor traffic command did not return a valid URL: {trigger.data}"
+            )
     else:
         LOGGER.error(
             f"Failed to trigger monitor traffic command: {trigger.status_code} - {trigger.data}"
@@ -313,7 +318,7 @@ def monitor_traffic(
 
 
 ## NO DATA
-# def srx_top_command(
+# async def srx_top_command(
 #     apissession: _APISession,
 #     site_id: str,
 #     device_id: str,

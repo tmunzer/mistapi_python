@@ -19,7 +19,7 @@ from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWra
 from mistapi.websockets.sites import DeviceCmdEvents
 
 
-def summary(
+async def summary(
     apissession: _APISession,
     site_id: str,
     device_id: str,

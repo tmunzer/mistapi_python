@@ -27,7 +27,7 @@ class Node(Enum):
     NODE1 = "node1"
 
 
-def clear(
+async def clear(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -103,7 +103,7 @@ def clear(
     return util_response
 
 
-def show(
+async def show(
     apissession: _APISession,
     site_id: str,
     device_id: str,

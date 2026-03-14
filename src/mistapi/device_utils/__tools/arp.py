@@ -27,7 +27,7 @@ class Node(Enum):
     NODE1 = "node1"
 
 
-def retrieve_ap_arp_table(
+async def retrieve_ap_arp_table(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -88,7 +88,7 @@ def retrieve_ap_arp_table(
     return util_response
 
 
-def retrieve_ssr_arp_table(
+async def retrieve_ssr_arp_table(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -149,7 +149,7 @@ def retrieve_ssr_arp_table(
     return util_response
 
 
-def retrieve_junos_arp_table(
+async def retrieve_junos_arp_table(
     apissession: _APISession,
     site_id: str,
     device_id: str,

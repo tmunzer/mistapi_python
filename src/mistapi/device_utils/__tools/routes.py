@@ -34,7 +34,7 @@ class RouteProtocol(Enum):
     STATIC = "static"
 
 
-def show(
+async def show(
     apissession: _APISession,
     site_id: str,
     device_id: str,

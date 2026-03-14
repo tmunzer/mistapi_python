@@ -21,7 +21,7 @@ class Node(Enum):
 
 
 ## NO DATA
-# def test_resolution(
+# async def test_resolution(
 #     apissession: _APISession,
 #     site_id: str,
 #     device_id: str,

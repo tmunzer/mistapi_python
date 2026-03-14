@@ -19,7 +19,7 @@ from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWra
 from mistapi.websockets.sites import PcapEvents
 
 
-def _build_pcap_body(
+async def _build_pcap_body(
     device_id: str,
     port_ids: list[str],
     device_key: str,
@@ -52,7 +52,7 @@ def _build_pcap_body(
     return body
 
 
-def ap_remote_pcap_wireless(
+async def ap_remote_pcap_wireless(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -139,7 +139,7 @@ def ap_remote_pcap_wireless(
     return util_response
 
 
-def ap_remote_pcap_wired(
+async def ap_remote_pcap_wired(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -212,7 +212,7 @@ def ap_remote_pcap_wired(
     return util_response
 
 
-def srx_remote_pcap(
+async def srx_remote_pcap(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -259,7 +259,7 @@ def srx_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    body = _build_pcap_body(
+    body = await _build_pcap_body(
         device_id,
         port_ids,
         "gateways",
@@ -289,7 +289,7 @@ def srx_remote_pcap(
     return util_response
 
 
-def ssr_remote_pcap(
+async def ssr_remote_pcap(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -336,7 +336,7 @@ def ssr_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    body = _build_pcap_body(
+    body = await _build_pcap_body(
         device_id,
         port_ids,
         "gateways",
@@ -367,7 +367,7 @@ def ssr_remote_pcap(
     return util_response
 
 
-def ex_remote_pcap(
+async def ex_remote_pcap(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -414,7 +414,7 @@ def ex_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    body = _build_pcap_body(
+    body = await _build_pcap_body(
         device_id,
         port_ids,
         "switches",

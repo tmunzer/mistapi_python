@@ -27,7 +27,7 @@ class Node(Enum):
     NODE1 = "node1"
 
 
-def show_database(
+async def show_database(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -93,7 +93,7 @@ def show_database(
     return util_response
 
 
-def show_interfaces(
+async def show_interfaces(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -159,7 +159,7 @@ def show_interfaces(
     return util_response
 
 
-def show_neighbors(
+async def show_neighbors(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -230,7 +230,7 @@ def show_neighbors(
     return util_response
 
 
-def show_summary(
+async def show_summary(
     apissession: _APISession,
     site_id: str,
     device_id: str,

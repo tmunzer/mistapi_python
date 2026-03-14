@@ -27,7 +27,7 @@ class Node(Enum):
     NODE1 = "node1"
 
 
-def show_service_path(
+async def show_service_path(
     apissession: _APISession,
     site_id: str,
     device_id: str,

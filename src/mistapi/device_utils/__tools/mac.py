@@ -19,7 +19,7 @@ from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWra
 from mistapi.websockets.sites import DeviceCmdEvents
 
 
-def clear_mac_table(
+async def clear_mac_table(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -84,7 +84,7 @@ def clear_mac_table(
     return util_response
 
 
-def retrieve_mac_table(
+async def retrieve_mac_table(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -155,7 +155,7 @@ def retrieve_mac_table(
     return util_response
 
 
-def clear_learned_mac(
+async def clear_learned_mac(
     apissession: _APISession,
     site_id: str,
     device_id: str,

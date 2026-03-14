@@ -27,7 +27,7 @@ class Node(Enum):
     NODE1 = "node1"
 
 
-def release_dhcp_leases(
+async def release_dhcp_leases(
     apissession: _APISession,
     site_id: str,
     device_id: str,
@@ -111,7 +111,7 @@ def release_dhcp_leases(
     return util_response
 
 
-def retrieve_dhcp_leases(
+async def retrieve_dhcp_leases(
     apissession: _APISession,
     site_id: str,
     device_id: str,
