@@ -74,7 +74,7 @@ class Node(Enum):
 #         LOGGER.info(trigger.data)
 #         print(f"SSR DNS resolution command triggered for device {device_id}")
 #         ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-#         util_response = WebSocketWrapper(
+#         util_response = await WebSocketWrapper(
 #             apissession, util_response, timeout=timeout, on_message=on_message
 #         ).start(ws)
 #     else:

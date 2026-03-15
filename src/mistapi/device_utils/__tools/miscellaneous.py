@@ -301,10 +301,15 @@ def monitor_traffic(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Monitor traffic command triggered for device {device_id}")
-        ws = SessionWithUrl(apissession, url=trigger.data.get("url", ""))
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
+        if isinstance(trigger.data, dict) and "url" in trigger.data:
+            ws = SessionWithUrl(apissession, url=trigger.data.get("url", ""))
+            util_response = WebSocketWrapper(
+                apissession, util_response, timeout=timeout, on_message=on_message
+            ).start(ws)
+        else:
+            LOGGER.error(
+                f"Monitor traffic command did not return a valid URL: {trigger.data}"
+            )
     else:
         LOGGER.error(
             f"Failed to trigger monitor traffic command: {trigger.status_code} - {trigger.data}"

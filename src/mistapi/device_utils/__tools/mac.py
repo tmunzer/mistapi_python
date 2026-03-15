@@ -74,7 +74,7 @@ def clear_mac_table(
     if trigger.status_code == 200:
         LOGGER.info(trigger.data)
         print(f"Clear MAC Table command triggered for device {device_id}")
-        # util_response = WebSocketWrapper(
+        # util_response = await WebSocketWrapper(
         #     apissession, util_response, timeout=timeout, on_message=on_message
         # ).start(ws)
     else:

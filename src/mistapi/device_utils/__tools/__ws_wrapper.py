@@ -1,6 +1,7 @@
 import json
+import queue
 import threading
-from collections.abc import Callable
+from collections.abc import Callable, Generator
 from enum import Enum
 
 from mistapi import APISession
@@ -30,8 +31,39 @@ class Timer(Enum):
 
 class UtilResponse:
     """
-    A simple class to encapsulate the response from utility WebSocket functions.
-    This class can be extended in the future to include additional metadata or helper methods.
+    Encapsulates the response from device utility functions.
+
+    Returned immediately by tool functions. When a WebSocket stream is
+    involved, data is collected in the background. Use ``receive()``,
+    ``wait()``, or the ``on_message`` callback to consume results.
+
+    USAGE PATTERNS
+    -----------
+    Callback style (on_message passed at call time)::
+
+        response = ex.ping(session, site_id, device_id, host="8.8.8.8",
+                           on_message=lambda msg: print(msg))
+        do_other_work()
+        response.wait()
+        print(response.ws_data)
+
+    Generator style::
+
+        response = ex.ping(session, site_id, device_id, host="8.8.8.8")
+        for msg in response.receive():
+            print(msg)
+
+    Context manager::
+
+        with ex.ping(session, site_id, device_id, host="8.8.8.8") as response:
+            for msg in response.receive():
+                print(msg)
+
+    Async await::
+
+        response = ex.ping(session, site_id, device_id, host="8.8.8.8")
+        await response
+        print(response.ws_data)
     """
 
     def __init__(
@@ -39,10 +71,62 @@ class UtilResponse:
         api_response: _APIResponse,
     ) -> None:
         self.trigger_api_response = api_response
-        # This can be set to True if the WebSocket connection was successfully initiated
         self.ws_required: bool = False
         self.ws_data: list[str] = []
         self.ws_raw_events: list[str] = []
+        self._queue: queue.Queue[str | None] = queue.Queue()
+        self._closed = threading.Event()
+        self._closed.set()  # default: done (no WS to wait for)
+        self._disconnect_fn: Callable[[], None] | None = None
+
+    @property
+    def done(self) -> bool:
+        """True if data collection is complete (or no WS was needed)."""
+        return self._closed.is_set()
+
+    def wait(self, timeout: float | None = None) -> "UtilResponse":
+        """Block until data collection is complete. Returns self."""
+        self._closed.wait(timeout=timeout)
+        return self
+
+    def receive(self) -> Generator[str, None, None]:
+        """
+        Blocking generator that yields each processed message as it arrives.
+
+        Mirrors ``_MistWebsocket.receive()``. Exits cleanly when the
+        WebSocket connection closes or ``disconnect()`` is called.
+        """
+        while True:
+            try:
+                item = self._queue.get(timeout=1)
+            except queue.Empty:
+                if self._closed.is_set() and self._queue.empty():
+                    break
+                continue
+            if item is None:
+                break
+            yield item
+
+    def disconnect(self) -> None:
+        """Stop the WebSocket connection early."""
+        if self._disconnect_fn:
+            self._disconnect_fn()
+
+    def __enter__(self) -> "UtilResponse":
+        return self
+
+    def __exit__(self, *args) -> None:
+        self.disconnect()
+
+    def __await__(self):
+        """Allow ``result = await response`` in async contexts."""
+        import asyncio
+
+        async def _await_impl():
+            await asyncio.to_thread(self._closed.wait)
+            return self
+
+        return _await_impl().__await__()
 
 
 class WebSocketWrapper:
@@ -83,7 +167,6 @@ class WebSocketWrapper:
         self.session_id: str | None = None
         self.capture_id: str | None = None
         self._on_message_cb = on_message
-        self._closed = threading.Event()
 
         LOGGER.debug(
             "trigger response: %s", self.util_response.trigger_api_response.data
@@ -107,7 +190,9 @@ class WebSocketWrapper:
 
     def _on_close(self, code, msg):
         LOGGER.info("WebSocket closed: %s - %s", code, msg)
-        self._closed.set()
+        self._stop_all_timers()
+        self.util_response._queue.put(None)  # sentinel for receive()
+        self.util_response._closed.set()  # signal completion
 
     ##########################################################################
     ## Helper methods for managing timers
@@ -158,6 +243,7 @@ class WebSocketWrapper:
             raw = self._extract_raw(msg)
             if raw:
                 self.data.append(raw)
+                self.util_response._queue.put(raw)  # feed receive() generator
                 if self._on_message_cb:
                     self._on_message_cb(raw)
             self._timeout_handler(Timer.TIMEOUT, TimerAction.RESET)
@@ -234,7 +320,11 @@ class WebSocketWrapper:
     ## WebSocket connection management
     def start(self, ws) -> UtilResponse:
         """
-        Start the WS connection, block until closed, return UtilResponse.
+        Start the WS connection in the background and return immediately.
+
+        The returned ``UtilResponse`` collects data as it streams in. Use
+        ``response.receive()``, ``response.wait()``, or the ``on_message``
+        callback to consume results.
 
         PARAMS
         -----------
@@ -246,9 +336,13 @@ class WebSocketWrapper:
         ws.on_error(lambda error: LOGGER.error("Error: %s", error))
         ws.on_close(self._on_close)
         ws.on_open(self._on_open)
-        ws.connect(run_in_background=False)  # blocks until _on_close fires
-        self._stop_all_timers()
+
+        # Wire up UtilResponse before starting WS
         self.util_response.ws_required = True
-        self.util_response.ws_data = self.data
+        self.util_response.ws_data = self.data  # live list reference
         self.util_response.ws_raw_events = self.raw_events
+        self.util_response._closed.clear()  # mark as "in progress"
+        self.util_response._disconnect_fn = ws.disconnect
+
+        ws.connect(run_in_background=True)  # non-blocking
         return self.util_response

@@ -637,34 +637,113 @@ with mistapi.websockets.sites.DeviceStatsEvents(apisession, site_ids=["<site_id>
 
 ### Device Utilities Usage
 
+All device utility functions are **non-blocking**: they trigger the REST API call, start a WebSocket stream in the background, and return a `UtilResponse` immediately. Your script can continue processing while data streams in.
+
+#### Callback style
+
+Pass an `on_message` callback to process each result as it arrives:
+
 ```python
-from mistapi.device_utils import ap, ex
+from mistapi.device_utils import ex
 
-# Ping from an AP
-result = ap.ping(apisession, site_id, device_id, host="8.8.8.8")
-print(result.ws_data)
-
-# Retrieve ARP table from a switch
-result = ex.retrieveArpTable(apisession, site_id, device_id)
-print(result.ws_data)
-
-# With real-time callback
 def handle(msg):
-    print("got:", msg)
+    print("Live:", msg)
 
-result = ex.cableTest(apisession, site_id, device_id, port="ge-0/0/0", on_message=handle)
+response = ex.retrieveArpTable(apisession, site_id, device_id, on_message=handle)
+# returns immediately — on_message fires for each message in the background
+
+do_other_work()
+
+response.wait()              # block until streaming is complete
+print(response.ws_data)      # all collected data
+```
+
+#### Generator style
+
+Iterate over processed messages as they arrive, similar to `_MistWebsocket.receive()`:
+
+```python
+response = ex.retrieveMacTable(apisession, site_id, device_id)
+for msg in response.receive():    # blocking generator, yields each message
+    print(msg)
+# loop ends when the WebSocket closes
+print(response.ws_data)
+```
+
+#### Context manager
+
+`disconnect()` is called automatically when the context exits:
+
+```python
+with ex.cableTest(apisession, site_id, device_id, port_id="ge-0/0/0") as response:
+    for msg in response.receive():
+        print(msg)
+# WebSocket disconnected, data ready
+print(response.ws_data)
+```
+
+#### Polling
+
+Check `response.done` to avoid blocking:
+
+```python
+response = ex.retrieveBgpSummary(apisession, site_id, device_id)
+while not response.done:
+    do_other_work()
+print(response.ws_data)
+```
+
+#### Cancel early
+
+Stop a long-running stream before it completes:
+
+```python
+response = ex.monitorTraffic(apisession, site_id, device_id, port_id="ge-0/0/0")
+do_some_work()
+response.disconnect()        # stop the WebSocket
+print(response.ws_data)      # data collected so far
+```
+
+#### Async await
+
+Works in `asyncio` contexts without blocking the event loop:
+
+```python
+import asyncio
+from mistapi.device_utils import ex
+
+async def main():
+    response = ex.traceroute(apisession, site_id, device_id, host="8.8.8.8")
+    await response               # non-blocking await
+    print(response.ws_data)
+
+asyncio.run(main())
 ```
 
 ### UtilResponse Object
 
 All device utility functions return a `UtilResponse` object:
 
+#### Attributes
+
 | Attribute | Type | Description |
 |-----------|------|-------------|
 | `trigger_api_response` | `APIResponse` | The initial REST API response that triggered the device command. Contains `status_code`, `data`, and `headers` from the trigger request. |
 | `ws_required` | `bool` | `True` if the command required a WebSocket connection to stream results (most diagnostic commands do). `False` if the REST response alone was sufficient. |
-| `ws_data` | `list[str]` | Parsed result data extracted from the WebSocket stream. Each entry is a processed output line from the device (e.g., a line of ping output or an ARP table row). |
+| `ws_data` | `list[str]` | Parsed result data extracted from the WebSocket stream. This list is **live** — it grows as messages arrive in the background, even before `wait()` is called. |
 | `ws_raw_events` | `list[str]` | Raw, unprocessed WebSocket event payloads as received from the Mist API. Useful for debugging or custom parsing. |
+
+#### Properties and Methods
+
+| Method / Property | Returns | Description |
+|-------------------|---------|-------------|
+| `done` | `bool` | `True` if data collection is complete (or no WS was needed). |
+| `wait(timeout=None)` | `UtilResponse` | Block until data collection is complete. Returns `self`. |
+| `receive()` | `Generator` | Blocking generator that yields each processed message as it arrives. Exits when the WebSocket closes. |
+| `disconnect()` | `None` | Stop the WebSocket connection early. |
+| `await response` | `UtilResponse` | Non-blocking await for `asyncio` contexts. |
+
+`UtilResponse` also supports the context manager protocol (`with` statement).
 
 ### Enums
 

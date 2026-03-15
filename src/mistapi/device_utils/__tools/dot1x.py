@@ -16,7 +16,7 @@ from mistapi.api.v1.sites import devices
 from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse
 
 
-async def clear_sessions(
+def clear_sessions(
     apissession: _APISession,
     site_id: str,
     device_id: str,
