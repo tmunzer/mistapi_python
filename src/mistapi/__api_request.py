@@ -27,6 +27,7 @@ import requests
 from requests.exceptions import HTTPError
 
 from mistapi.__api_response import APIResponse
+from mistapi.__api_session import _apitoken_sanitizer
 from mistapi.__logger import logger
 from mistapi.__models.privilege import Privileges
 
@@ -91,14 +92,10 @@ class APIRequest:
         with self._token_lock:
             logger.info("apirequest:_next_apitoken:rotating API Token")
             logger.debug(
-                "apirequest:_next_apitoken:current API Token is %s...%s",
-                self._apitoken[self._apitoken_index][
-                    :4
-                ],  # lgtm[py/clear-text-logging-sensitive-data]
-                self._apitoken[self._apitoken_index][
-                    -4:
-                ],  # lgtm[py/clear-text-logging-sensitive-data]
-            )
+                "apirequest:_next_apitoken:current API Token is %s",
+                _apitoken_sanitizer(self._apitoken[self._apitoken_index]),
+            )  # lgtm[py/clear-text-logging-sensitive-data]
+
             new_index = self._apitoken_index + 1
             if new_index >= len(self._apitoken):
                 new_index = 0
@@ -108,14 +105,9 @@ class APIRequest:
                     {"Authorization": "Token " + self._apitoken[self._apitoken_index]}
                 )
                 logger.debug(
-                    "apirequest:_next_apitoken:new API Token is %s...%s",
-                    self._apitoken[self._apitoken_index][
-                        :4
-                    ],  # lgtm[py/clear-text-logging-sensitive-data]
-                    self._apitoken[self._apitoken_index][
-                        -4:
-                    ],  # lgtm[py/clear-text-logging-sensitive-data]
-                )
+                    "apirequest:_next_apitoken:new API Token is %s",
+                    _apitoken_sanitizer(self._apitoken[self._apitoken_index]),
+                )  # lgtm[py/clear-text-logging-sensitive-data]
             else:
                 logger.critical(" /!\\ API TOKEN CRITICAL ERROR /!\\")
                 logger.critical(
