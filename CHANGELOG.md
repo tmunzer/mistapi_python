@@ -3,13 +3,13 @@
 
 **Released**: March 15, 2026
 
-This release improves async support with a new `arun()` helper and makes the Device Utilities module fully non-blocking.
+This release improves async support with a new `arun()` helper, makes the Device Utilities module fully non-blocking, adds VT100 terminal emulation for screen-based commands, and introduces interactive SSH shell access for EX/SRX devices. (PR #16)
 
 ---
 
 ### 1. NEW FEATURES
 
-#### **`mistapi.arun()` - Async Helper**
+#### **`mistapi.arun()` — Async Helper**
 New helper function to run any sync mistapi function without blocking the event loop. Wraps the function call in `asyncio.to_thread()` so blocking HTTP requests run in a thread pool.
 
 ```python
@@ -27,6 +27,33 @@ async def main():
 
 asyncio.run(main())
 ```
+
+#### **Interactive SSH Shell** (`device_utils.ex` / `device_utils.srx`)
+New `interactiveShell()` and `createShellSession()` functions for SSH-over-WebSocket access to EX and SRX devices.
+
+- `interactiveShell()` — takes over the terminal for human SSH access (uses `sshkeyboard`)
+- `createShellSession()` — returns a `ShellSession` object for programmatic send/recv
+- `ShellSession` — bidirectional WebSocket session with `send()`, `recv()`, `resize()`, context manager support
+
+```python
+from mistapi.device_utils import ex
+
+# Interactive (human at the keyboard)
+ex.interactiveShell(apisession, site_id, device_id)
+
+# Programmatic
+with ex.createShellSession(apisession, site_id, device_id) as session:
+    session.send_text("show version\r\n")
+    import time; time.sleep(3)
+    while (data := session.recv(timeout=0.5)):
+        print(data.decode("utf-8", errors="replace"), end="")
+```
+
+#### **`topCommand`** (`device_utils.ex` / `device_utils.srx`)
+New `topCommand()` function to stream `top` output from EX and SRX devices. Uses VT100 screen-buffer rendering for proper in-place display.
+
+#### **VT100 Terminal Emulation**
+Added ANSI escape stripping and a minimal VT100 screen-buffer renderer for device command output. Stream-mode commands (ping, traceroute) have ANSI codes stripped automatically. Screen-mode commands (top, monitor interface) are rendered through a virtual terminal buffer.
 
 ---
 
@@ -62,6 +89,32 @@ for msg in response.receive():
 # Async-friendly - doesn't block the event loop
 await response
 ```
+
+#### **Binary WebSocket Frame Support**
+`_MistWebsocket._handle_message()` now handles binary frames (strips null bytes, decodes UTF-8 with replacement characters).
+
+#### **Trigger-Only Commands Run Synchronously**
+Fire-and-forget device commands (e.g., `clearMacTable`, `clearBpduError`, `clearHitCount`) that don't require a WebSocket stream now run the API trigger synchronously, ensuring `trigger_api_response` is immediately available on the returned `UtilResponse`.
+
+#### **SRX Function Renames**
+SRX and SSR OSPF/session functions renamed for clarity:
+- `showDatabase` → `retrieveOspfDatabase`
+- `showNeighbors` → `retrieveOspfNeighbors`
+- `showInterfaces` → `retrieveOspfInterfaces`
+- New: `retrieveOspfSummary`, `retrieveSessions`, `clearSessions`
+
+---
+
+### 3. BUG FIXES
+
+- Fixed double-space typo in API token privilege mismatch error message
+- Fixed `first_message_timeout` timer stop to check timer is active before stopping
+
+---
+
+### 4. DEPENDENCIES
+
+- Added `sshkeyboard>=2.3.1` (for `interactiveShell()`)
 
 ---
 

@@ -46,6 +46,8 @@ def _apitoken_sanitizer(apitoken: str) -> str:
     str
         Substring of the API token to be used in the logs
     """
+    if len(apitoken) <= 16:
+        return "***hidden***"
     return f"{apitoken[:4]}...{apitoken[-4:]}"
 
 

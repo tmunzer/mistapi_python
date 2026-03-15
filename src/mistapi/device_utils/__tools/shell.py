@@ -178,9 +178,7 @@ class ShellSession:
 
     def send_text(self, text: str) -> None:
         """Send a text string as binary data to the device shell."""
-        data = bytearray()
-        data.extend(map(ord, f"\x00{text}"))
-        self.send(bytes(data))
+        self.send(f"\x00{text}".encode("utf-8"))
 
     def recv(self, timeout: float = 0.1) -> bytes | None:
         """
@@ -316,8 +314,8 @@ def interactive_shell(
                 sys.stdout.buffer.write(data)
                 sys.stdout.buffer.flush()
 
-    def _on_key_release(key: str) -> None:
-        """Handle a key release event from sshkeyboard."""
+    def _on_key_press(key: str) -> None:
+        """Handle a key press event from sshkeyboard."""
         if not session.connected:
             return
         if key == "enter":
@@ -338,17 +336,14 @@ def interactive_shell(
             k = "\x7f"
         else:
             k = key
-        data = f"\x00{k}"
-        data_bytes = bytearray()
-        data_bytes.extend(map(ord, data))
-        session.send(bytes(data_bytes))
+        session.send(f"\x00{k}".encode("utf-8"))
 
     reader_thread = threading.Thread(target=_reader, daemon=True)
     reader_thread.start()
 
     try:
         listen_keyboard(
-            on_release=_on_key_release,
+            on_press=_on_key_press,
             delay_second_char=0,
             delay_other_chars=0,
             lower=False,
