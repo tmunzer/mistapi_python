@@ -13,7 +13,7 @@
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
-from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
 
 
 def clear_hit_count(
@@ -43,20 +43,14 @@ def clear_hit_count(
     UtilResponse
         A UtilResponse object containing the API response and a list of raw messages received from the WebSocket stream.
     """
-    trigger = devices.clearSiteDevicePolicyHitCount(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body={"policy_name": policy_name},
+    LOGGER.debug(
+        "Initiating clear policy hit count command for device %s and policy %s",
+        device_id,
+        policy_name,
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(f"Clear policy hit count command triggered for device {device_id}")
-        # util_response = await WebSocketWrapper(
-        #     apissession, util_response, timeout=timeout
-        # ).startCmdEvents(site_id, device_id)
-    else:
-        LOGGER.error(
-            f"Failed to trigger clear policy hit count command: {trigger.status_code} - {trigger.data}"
-        )  # Give the clear policy hit count command a moment to take effect
-    return util_response
+    util_response = UtilResponse()
+    return WebSocketWrapper(apissession, util_response).start_with_trigger(
+        trigger_fn=lambda: devices.clearSiteDevicePolicyHitCount(
+            apissession, site_id=site_id, device_id=device_id, body={"policy_name": policy_name}
+        ),
+    )

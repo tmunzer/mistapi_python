@@ -13,7 +13,7 @@
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
-from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
 
 
 def clear_sessions(
@@ -29,6 +29,8 @@ def clear_sessions(
 
     PARAMS
     -----------
+    apissession : _APISession
+        The API session to use for the request.
     site_id : str
         UUID of the site where the switch is located.
     device_id : str
@@ -42,19 +44,15 @@ def clear_sessions(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    body: dict[str, str | list | int] = {"ports": port_ids}
-    trigger = devices.clearAllLearnedMacsFromPortOnSwitch(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    LOGGER.debug(
+        "Initiating clear dot1x sessions command for device %s on ports %s",
+        device_id,
+        port_ids,
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Clear learned MACs command triggered for device {device_id}")
-    else:
-        LOGGER.error(
-            f"Failed to trigger clear learned MACs command: {trigger.status_code} - {trigger.data}"
-        )  # Give the clear learned MACs command a moment to take effect
-    return util_response
+    body: dict[str, str | list | int] = {"ports": port_ids}
+    util_response = UtilResponse()
+    return WebSocketWrapper(apissession, util_response).start_with_trigger(
+        trigger_fn=lambda: devices.clearSiteDeviceDot1xSession(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+    )

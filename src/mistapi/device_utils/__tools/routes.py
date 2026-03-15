@@ -21,11 +21,15 @@ from mistapi.websockets.sites import DeviceCmdEvents
 
 
 class Node(Enum):
+    """Node Enum for specifying node information in route commands."""
+
     NODE0 = "node0"
     NODE1 = "node1"
 
 
 class RouteProtocol(Enum):
+    """RouteProtocol Enum for specifying route protocol information in show routes command."""
+
     ANY = "any"
     BGP = "bgp"
     DIRECT = "direct"
@@ -80,7 +84,16 @@ def show(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-
+    LOGGER.debug(
+        "Initiating show routes command for device %s with node %s, prefix %s, protocol %s, "
+        "route_type %s, and VRF %s",
+        device_id,
+        node,
+        prefix,
+        protocol,
+        route_type,
+        vrf,
+    )
     body: dict[str, str | list | int] = {}
     if node:
         body["node"] = node.value
@@ -92,22 +105,14 @@ def show(
         body["route_type"] = route_type
     if vrf:
         body["vrf"] = vrf
-    trigger = devices.showSiteSsrAndSrxRoutes(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.showSiteSsrAndSrxRoutes(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Device Routes command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger Device Routes command: {trigger.status_code} - {trigger.data}"
-        )  # Give the Device Routes command a moment to take effect
-    return util_response

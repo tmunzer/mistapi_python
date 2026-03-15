@@ -18,7 +18,7 @@ Device-Specific Modules (Recommended)
 --------------------------------------
 Import device-specific modules for a clean, organized API:
 
-    from mistapi.utils import ap, ex, srx, ssr
+    from mistapi.device_utils import ap, ex, srx, ssr
 
     # Use device-specific utilities
     ap.ping(session, site_id, device_id, host)
@@ -30,15 +30,6 @@ Supported Devices:
 - ex:  Juniper EX Switches
 - srx: Juniper SRX Firewalls
 - ssr: Juniper Session Smart Routers
-
-Function-Based Modules (Legacy)
----------------------------------
-Original organization by function type (still available):
-
-    from mistapi.utils import arp, bgp, dhcp, mac, port, routes, tools
-
-Available modules: arp, bgp, bpdu, dhcp, dns, dot1x, mac, policy, port, routes,
-                   service_path, tools
 """
 
 # Device-specific modules (recommended)

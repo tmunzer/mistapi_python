@@ -61,31 +61,26 @@ def retrieve_ap_arp_table(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    # AP is returning RAW data
-    # SWITCH is returning ???
-    # GATEWAY is returning JSON
+    LOGGER.debug(
+        "Initiating ARP table retrieval for device %s with node %s and timeout %s",
+        device_id,
+        node,
+        timeout,
+    )
     body: dict[str, str | list | int] = {}
     if node:
         body["node"] = node.value
-    trigger = devices.arpFromDevice(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.arpFromDevice(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Show ARP command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger show ARP command: {trigger.status_code} - {trigger.data}"
-        )  # Give the show ARP command a moment to take effect
-    return util_response
 
 
 def retrieve_ssr_arp_table(
@@ -122,31 +117,26 @@ def retrieve_ssr_arp_table(
         A UtilResponse object containing the API response and a list of raw messages received from
         the WebSocket stream.
     """
-    # AP is returning RAW data
-    # SWITCH is returning ???
-    # GATEWAY is returning JSON
+    LOGGER.debug(
+        "Initiating SSR ARP table retrieval for device %s with node %s and timeout %s",
+        device_id,
+        node,
+        timeout,
+    )
     body: dict[str, str | list | int] = {}
     if node:
         body["node"] = node.value
-    trigger = devices.arpFromDevice(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.arpFromDevice(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Show ARP command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger show ARP command: {trigger.status_code} - {trigger.data}"
-        )  # Give the show ARP command a moment to take effect
-    return util_response
 
 
 def retrieve_junos_arp_table(
@@ -190,6 +180,15 @@ def retrieve_junos_arp_table(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating Junos ARP table retrieval for device %s with IP filter %s, port filter %s, "
+        "VRF filter %s, and timeout %s",
+        device_id,
+        ip,
+        port_id,
+        vrf,
+        timeout,
+    )
     body: dict[str, str | list | int] = {"duration": 1, "interval": 1}
     if ip:
         body["ip"] = ip
@@ -197,22 +196,14 @@ def retrieve_junos_arp_table(
         body["vrf"] = vrf
     if port_id:
         body["port_id"] = port_id
-    trigger = devices.showSiteDeviceArpTable(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.showSiteDeviceArpTable(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Show ARP command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger show ARP command: {trigger.status_code} - {trigger.data}"
-        )  # Give the show ARP command a moment to take effect
-    return util_response

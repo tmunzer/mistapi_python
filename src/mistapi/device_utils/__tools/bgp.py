@@ -49,22 +49,20 @@ def summary(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    body: dict[str, str | list | int] = {"protocol": "bgp"}
-    trigger = devices.showSiteDeviceBgpSummary(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    LOGGER.debug(
+        "Initiating BGP summary retrieval for device %s with timeout %s",
+        device_id,
+        timeout,
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(f"BGP summary command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger BGP summary command: {trigger.status_code} - {trigger.data}"
-        )  # Give the BGP summary command a moment to take effect
-    return util_response
+    body: dict[str, str | list | int] = {"protocol": "bgp"}
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.showSiteDeviceBgpSummary(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
+    )

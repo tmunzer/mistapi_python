@@ -17,6 +17,7 @@ This module manages API requests with Mist Cloud. It is used to
 import json
 import os
 import re
+import threading
 import time
 import urllib.parse
 from collections.abc import Callable
@@ -45,6 +46,7 @@ class APIRequest:
         self._count: int = 0
         self._apitoken: list[str] = []
         self._apitoken_index: int = -1
+        self._token_lock: threading.Lock = threading.Lock()
 
     def get_request_count(self):
         """
@@ -86,40 +88,41 @@ class APIRequest:
             )
 
     def _next_apitoken(self) -> None:
-        logger.info("apirequest:_next_apitoken:rotating API Token")
-        logger.debug(
-            "apirequest:_next_apitoken:current API Token is %s...%s",
-            self._apitoken[self._apitoken_index][:4],
-            self._apitoken[self._apitoken_index][-4:],
-        )
-        new_index = self._apitoken_index + 1
-        if new_index >= len(self._apitoken):
-            new_index = 0
-        if self._apitoken_index != new_index:
-            self._apitoken_index = new_index
-            self._session.headers.update(
-                {"Authorization": "Token " + self._apitoken[self._apitoken_index]}
-            )
+        with self._token_lock:
+            logger.info("apirequest:_next_apitoken:rotating API Token")
             logger.debug(
-                "apirequest:_next_apitoken:new API Token is %s...%s",
+                "apirequest:_next_apitoken:current API Token is %s...%s",
                 self._apitoken[self._apitoken_index][:4],
                 self._apitoken[self._apitoken_index][-4:],
             )
-        else:
-            logger.critical(" /!\\ API TOKEN CRITICAL ERROR /!\\")
-            logger.critical(
-                " There is no other API Token to use and the API"
-                " Request limit has been reached for the current one"
-            )
-            logger.critical(
-                " For large organization, it is recommended to configure"
-                " multiple API Tokens (comma separated list) to avoid this issue"
-            )
-            raise RuntimeError(
-                "API rate limit reached and no other API Token available. "
-                "For large organizations, configure multiple API Tokens "
-                "(comma separated list) to avoid this issue."
-            )
+            new_index = self._apitoken_index + 1
+            if new_index >= len(self._apitoken):
+                new_index = 0
+            if self._apitoken_index != new_index:
+                self._apitoken_index = new_index
+                self._session.headers.update(
+                    {"Authorization": "Token " + self._apitoken[self._apitoken_index]}
+                )
+                logger.debug(
+                    "apirequest:_next_apitoken:new API Token is %s...%s",
+                    self._apitoken[self._apitoken_index][:4],
+                    self._apitoken[self._apitoken_index][-4:],
+                )
+            else:
+                logger.critical(" /!\\ API TOKEN CRITICAL ERROR /!\\")
+                logger.critical(
+                    " There is no other API Token to use and the API"
+                    " Request limit has been reached for the current one"
+                )
+                logger.critical(
+                    " For large organization, it is recommended to configure"
+                    " multiple API Tokens (comma separated list) to avoid this issue"
+                )
+                raise RuntimeError(
+                    "API rate limit reached and no other API Token available. "
+                    "For large organizations, configure multiple API Tokens "
+                    "(comma separated list) to avoid this issue."
+                )
 
     def _gen_query(self, query: dict[str, str] | None) -> str:
         if not query:
@@ -344,6 +347,7 @@ class APIRequest:
             multipart_form_data,
         )
         generated_multipart_form_data: dict[str, Any] = {}
+        opened_files: list = []
         for key in multipart_form_data:
             logger.debug(
                 "apirequest:mist_post_file:multipart_form_data:%s = %s",
@@ -358,6 +362,7 @@ class APIRequest:
                             multipart_form_data[key],
                         )
                         f = open(multipart_form_data[key], "rb")
+                        opened_files.append(f)
                         generated_multipart_form_data[key] = (
                             os.path.basename(multipart_form_data[key]),
                             f,
@@ -392,4 +397,8 @@ class APIRequest:
             )
             return resp
 
-        return self._request_with_retry("mist_post_file", _do_post_file, url)
+        try:
+            return self._request_with_retry("mist_post_file", _do_post_file, url)
+        finally:
+            for f in opened_files:
+                f.close()

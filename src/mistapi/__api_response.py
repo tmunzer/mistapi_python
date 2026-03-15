@@ -51,7 +51,7 @@ class APIResponse:
             console.debug(f"Response Status Code: {response.status_code}")
 
             try:
-                self.raw_data = str(response.content)
+                self.raw_data = response.text
                 self.data = response.json()
                 self._check_next()
                 logger.debug("apiresponse:__init__:HTTP response processed")

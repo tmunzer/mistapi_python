@@ -52,29 +52,26 @@ def bounce(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating bounce command for device %s on ports %s with timeout %s",
+        device_id,
+        port_ids,
+        timeout,
+    )
     body: dict[str, str | list | int] = {}
     if port_ids:
         body["ports"] = port_ids
-    trigger = devices.bounceDevicePort(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.bounceDevicePort(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(
-            f"Bounce command triggered for ports {port_ids} on device {device_id}"
-        )
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger bounce command: {trigger.status_code} - {trigger.data}"
-        )  # Give the bounce command a moment to take effect
-    return util_response
 
 
 def cable_test(
@@ -111,23 +108,21 @@ def cable_test(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    body: dict[str, str | list | int] = {"port": port_id}
-    trigger = devices.cableTestFromSwitch(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    LOGGER.debug(
+        "Initiating cable test for device %s on port %s with timeout %s",
+        device_id,
+        port_id,
+        timeout,
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Cable test command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger cable test command: {trigger.status_code} - {trigger.data}"
-        )  # Give the cable test command a moment to take effect
-    return util_response
+    body: dict[str, str | list | int] = {"port": port_id}
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.cableTestFromSwitch(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
+    )

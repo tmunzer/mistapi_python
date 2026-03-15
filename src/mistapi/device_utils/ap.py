@@ -18,6 +18,7 @@ All functions are imported from their respective functional modules.
 # Re-export shared classes and types
 from mistapi.device_utils.__tools.arp import retrieve_ap_arp_table as retrieveArpTable
 from mistapi.device_utils.__tools.miscellaneous import (
+    TracerouteProtocol,
     ping,
     traceroute,
 )
@@ -26,4 +27,5 @@ __all__ = [
     "ping",
     "traceroute",
     "retrieveArpTable",
+    "TracerouteProtocol",
 ]

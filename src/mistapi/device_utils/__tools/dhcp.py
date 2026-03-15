@@ -82,6 +82,16 @@ def release_dhcp_leases(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating DHCP lease release for device %s with MACs %s, network %s, node %s, port ID %s, "
+        "and timeout %s",
+        device_id,
+        macs,
+        network,
+        node,
+        port_id,
+        timeout,
+    )
     body: dict[str, str | list | int] = {}
     if macs:
         body["macs"] = macs
@@ -91,24 +101,17 @@ def release_dhcp_leases(
         body["node"] = node.value
     if port_id:
         body["port_id"] = port_id
-    trigger = devices.releaseSiteDeviceDhcpLease(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.releaseSiteDeviceDhcpLease(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(f"Release DHCP leases command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger release DHCP leases command: {trigger.status_code} - {trigger.data}"
-        )  # Give the release DHCP leases command a moment to take effect
-    return util_response
 
 
 def retrieve_dhcp_leases(
@@ -134,13 +137,11 @@ def retrieve_dhcp_leases(
     device_id : str
         UUID of the device to retrieve DHCP leases from.
     network : str
-        Network to release DHCP leases for.
+        Network to retrieve DHCP leases for.
     node : Node, optional
-        Node information for the DHCP lease release command.
-    port_id : str, optional
-        Port ID to release DHCP leases for.
+        Node information for the DHCP lease retrieval command.
     timeout : int, optional
-        Timeout for the release DHCP leases command in seconds.
+        Timeout for the retrieve DHCP leases command in seconds.
     on_message : Callable, optional
         Callback invoked with each extracted raw message as it arrives.
 
@@ -149,24 +150,24 @@ def retrieve_dhcp_leases(
     UtilResponse
         A UtilResponse object containing the API response and a list of raw messages received from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating DHCP lease retrieval for device %s with network %s, node %s, and timeout %s",
+        device_id,
+        network,
+        node,
+        timeout,
+    )
     body: dict[str, str | list | int] = {"network": network}
     if node:
         body["node"] = node.value
-    trigger = devices.showSiteDeviceDhcpLeases(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.showSiteDeviceDhcpLeases(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(f"Retrieve DHCP leases command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger retrieve DHCP leases command: {trigger.status_code} - {trigger.data}"
-        )  # Give the release DHCP leases command a moment to take effect
-    return util_response

@@ -105,6 +105,12 @@ def ap_remote_pcap_wireless(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating remote pcap for device %s on band %s with timeout %s",
+        device_id,
+        band,
+        timeout,
+    )
     body: dict[str, str | int] = {
         "band": band,
         "duration": duration,
@@ -119,24 +125,15 @@ def ap_remote_pcap_wireless(
         body["ap_mac"] = ap_mac
     if tcpdump_expression:
         body["tcpdump_expression"] = tcpdump_expression
-    trigger = pcaps.startSitePacketCapture(
-        apissession,
-        site_id=site_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: pcaps.startSitePacketCapture(
+            apissession, site_id=site_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: PcapEvents(apissession, site_id=site_id),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Remote pcap command triggered for device {device_id}")
-        ws = PcapEvents(apissession, site_id=site_id)
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
-        )  # Give the remote pcap command a moment to take effect
-    return util_response
 
 
 def ap_remote_pcap_wired(
@@ -183,6 +180,11 @@ def ap_remote_pcap_wired(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating remote pcap for device %s with timeout %s",
+        device_id,
+        timeout,
+    )
     body: dict[str, str | int] = {
         "duration": duration,
         "max_pkt_len": max_pkt_len,
@@ -192,24 +194,15 @@ def ap_remote_pcap_wired(
     }
     if tcpdump_expression:
         body["tcpdump_expression"] = tcpdump_expression
-    trigger = pcaps.startSitePacketCapture(
-        apissession,
-        site_id=site_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: pcaps.startSitePacketCapture(
+            apissession, site_id=site_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: PcapEvents(apissession, site_id=site_id),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Remote pcap command triggered for device {device_id}")
-        ws = PcapEvents(apissession, site_id=site_id)
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
-        )  # Give the remote pcap command a moment to take effect
-    return util_response
 
 
 def srx_remote_pcap(
@@ -259,6 +252,12 @@ def srx_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating remote pcap for device %s on ports %s with timeout %s",
+        device_id,
+        port_ids,
+        timeout,
+    )
     body = _build_pcap_body(
         device_id,
         port_ids,
@@ -269,24 +268,15 @@ def srx_remote_pcap(
         max_pkt_len,
         num_packets,
     )
-    trigger = pcaps.startSitePacketCapture(
-        apissession,
-        site_id=site_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: pcaps.startSitePacketCapture(
+            apissession, site_id=site_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: PcapEvents(apissession, site_id=site_id),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Remote pcap command triggered for device {device_id}")
-        ws = PcapEvents(apissession, site_id=site_id)
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
-        )  # Give the remote pcap command a moment to take effect
-    return util_response
 
 
 def ssr_remote_pcap(
@@ -336,6 +326,12 @@ def ssr_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating remote pcap for device %s on ports %s with timeout %s",
+        device_id,
+        port_ids,
+        timeout,
+    )
     body = _build_pcap_body(
         device_id,
         port_ids,
@@ -347,24 +343,15 @@ def ssr_remote_pcap(
         num_packets,
         raw=False,
     )
-    trigger = pcaps.startSitePacketCapture(
-        apissession,
-        site_id=site_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: pcaps.startSitePacketCapture(
+            apissession, site_id=site_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: PcapEvents(apissession, site_id=site_id),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Remote pcap command triggered for device {device_id}")
-        ws = PcapEvents(apissession, site_id=site_id)
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
-        )  # Give the remote pcap command a moment to take effect
-    return util_response
 
 
 def ex_remote_pcap(
@@ -414,6 +401,12 @@ def ex_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating remote pcap for device %s on ports %s with timeout %s",
+        device_id,
+        port_ids,
+        timeout,
+    )
     body = _build_pcap_body(
         device_id,
         port_ids,
@@ -424,21 +417,12 @@ def ex_remote_pcap(
         max_pkt_len,
         num_packets,
     )
-    trigger = pcaps.startSitePacketCapture(
-        apissession,
-        site_id=site_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: pcaps.startSitePacketCapture(
+            apissession, site_id=site_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: PcapEvents(apissession, site_id=site_id),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Remote pcap command triggered for device {device_id}")
-        ws = PcapEvents(apissession, site_id=site_id)
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
-        )  # Give the remote pcap command a moment to take effect
-    return util_response

@@ -64,27 +64,27 @@ def show_service_path(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating show service path command for device %s with node %s, service name %s, "
+        "and timeout %s",
+        device_id,
+        node,
+        service_name,
+        timeout,
+    )
     body: dict[str, str | list | int] = {}
     if node:
         body["node"] = node.value
     if service_name:
         body["service_name"] = service_name
-    trigger = devices.showSiteSsrServicePath(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.showSiteSsrServicePath(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"SSR service path command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger SSR service path command: {trigger.status_code} - {trigger.data}"
-        )  # Give the SSR service path command a moment to take effect
-    return util_response

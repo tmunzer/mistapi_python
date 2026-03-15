@@ -35,6 +35,10 @@ A comprehensive Python package to interact with the Mist Cloud APIs, built from 
     - [Callbacks](#callbacks)
     - [Available Channels](#available-channels)
     - [Usage Patterns](#usage-patterns)
+- [Async Usage](#async-usage)
+    - [Running API Calls Asynchronously](#running-api-calls-asynchronously)
+    - [Concurrent API Calls](#concurrent-api-calls)
+    - [Combining with Device Utilities](#combining-with-device-utilities)
 - [Device Utilities](#device-utilities)
     - [Supported Devices](#supported-devices)
     - [Usage](#device-utilities-usage)
@@ -63,9 +67,10 @@ Support for all Mist cloud instances worldwide:
 
 ### Core Features
 - **Complete API Coverage**: Auto-generated from OpenAPI specs
+- **Async Support**: Run any API call asynchronously with `mistapi.arun()` — no changes to existing code
 - **Automatic Pagination**: Built-in support for paginated responses
 - **WebSocket Streaming**: Real-time event streaming for devices, clients, and location data
-- **Device Diagnostics**: High-level utilities for ping, traceroute, ARP, BGP, OSPF, and more
+- **Device Diagnostics**: High-level, non-blocking utilities for ping, traceroute, ARP, BGP, OSPF, and more
 - **Error Handling**: Detailed error responses and logging
 - **Proxy Support**: HTTP/HTTPS proxy configuration
 - **Log Sanitization**: Automatic redaction of sensitive data in logs
@@ -492,6 +497,82 @@ events = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(
 
 ---
 
+## Async Usage
+
+All API functions in `mistapi.api.v1` are synchronous by default. To use them in an `asyncio` context (e.g., FastAPI, aiohttp, or any async application) without blocking the event loop, use `mistapi.arun()`.
+
+`arun()` wraps any sync mistapi function in `asyncio.to_thread()`, running the blocking HTTP request in a thread pool while the event loop continues. No changes are needed to the existing API functions.
+
+### Running API Calls Asynchronously
+
+```python
+import asyncio
+import mistapi
+from mistapi.api.v1.sites import devices
+
+apisession = mistapi.APISession(env_file="~/.mist_env")
+apisession.login()
+
+async def main():
+    # Wrap any sync API call with mistapi.arun()
+    response = await mistapi.arun(
+        devices.listSiteDevices, apisession, site_id
+    )
+    print(response.data)
+
+asyncio.run(main())
+```
+
+### Concurrent API Calls
+
+Use `asyncio.gather()` to run multiple API calls concurrently:
+
+```python
+import asyncio
+import mistapi
+from mistapi.api.v1.orgs import orgs
+from mistapi.api.v1.sites import devices
+
+async def main():
+    org_info, site_devices = await asyncio.gather(
+        mistapi.arun(orgs.getOrg, apisession, org_id),
+        mistapi.arun(devices.listSiteDevices, apisession, site_id),
+    )
+    print(f"Org: {org_info.data['name']}")
+    print(f"Devices: {len(site_devices.data)}")
+
+asyncio.run(main())
+```
+
+### Combining with Device Utilities
+
+Device utility functions are already non-blocking and return a `UtilResponse` that supports `await`. You can mix `arun()` for API calls and `await` for device utilities:
+
+```python
+import asyncio
+import mistapi
+from mistapi.api.v1.sites import devices
+from mistapi.device_utils import ex
+
+async def main():
+    # Device utility — already non-blocking, supports await
+    response = ex.retrieveArpTable(apisession, site_id, device_id)
+
+    # API call — use arun() to avoid blocking the event loop
+    device_info = await mistapi.arun(
+        devices.getSiteDevice, apisession, site_id, device_id
+    )
+    print(f"Device: {device_info.data['name']}")
+
+    # Await the device utility result
+    await response
+    print(f"ARP entries: {len(response.ws_data)}")
+
+asyncio.run(main())
+```
+
+---
+
 ## WebSocket Streaming
 
 The package provides a WebSocket client for real-time event streaming from the Mist API (`wss://{host}/api-ws/v1/stream`). Authentication is handled automatically using the same session credentials (API token or login/password).
@@ -533,7 +614,7 @@ ws.connect()
 |-------|---------|-------------|
 | `mistapi.websockets.orgs.InsightsEvents` | `/orgs/{org_id}/insights/summary` | Real-time insights events for an organization |
 | `mistapi.websockets.orgs.MxEdgesStatsEvents` | `/orgs/{org_id}/stats/mxedges` | Real-time MX edges stats for an organization |
-| `mistapi.websockets.orgs.MxEdgesUpgradesEvents` | `/orgs/{org_id}/mxedges` | Real-time MX edges upgrades events for an organization |
+| `mistapi.websockets.orgs.MxEdgesEvents` | `/orgs/{org_id}/mxedges` | Real-time MX edges events for an organization |
 
 #### Site Channels
 
@@ -542,7 +623,7 @@ ws.connect()
 | `mistapi.websockets.sites.ClientsStatsEvents` | `/sites/{site_id}/stats/clients` | Real-time clients stats for a site |
 | `mistapi.websockets.sites.DeviceCmdEvents` | `/sites/{site_id}/devices/{device_id}/cmd` | Real-time device command events for a site |
 | `mistapi.websockets.sites.DeviceStatsEvents` | `/sites/{site_id}/stats/devices` | Real-time device stats for a site |
-| `mistapi.websockets.sites.DeviceUpgradesEvents` | `/sites/{site_id}/devices` | Real-time device upgrades events for a site |
+| `mistapi.websockets.sites.DeviceEvents` | `/sites/{site_id}/devices` | Real-time device events for a site |
 | `mistapi.websockets.sites.MxEdgesStatsEvents` | `/sites/{site_id}/stats/mxedges` | Real-time MX edges stats for a site |
 | `mistapi.websockets.sites.PcapEvents` | `/sites/{site_id}/pcap` | Real-time PCAP events for a site |
 

@@ -68,7 +68,7 @@ class UtilResponse:
 
     def __init__(
         self,
-        api_response: _APIResponse,
+        api_response: _APIResponse | None = None,
     ) -> None:
         self.trigger_api_response = api_response
         self.ws_required: bool = False
@@ -76,7 +76,9 @@ class UtilResponse:
         self.ws_raw_events: list[str] = []
         self._queue: queue.Queue[str | None] = queue.Queue()
         self._closed = threading.Event()
-        self._closed.set()  # default: done (no WS to wait for)
+        if api_response is not None:
+            self._closed.set()  # done immediately (no WS to wait for)
+        # When api_response is None, _closed stays unset (in-progress)
         self._disconnect_fn: Callable[[], None] | None = None
 
     @property
@@ -167,7 +169,12 @@ class WebSocketWrapper:
         self.session_id: str | None = None
         self.capture_id: str | None = None
         self._on_message_cb = on_message
+        self._extract_trigger_ids()
 
+    def _extract_trigger_ids(self):
+        """Extract session_id and capture_id from the trigger API response."""
+        if not self.util_response.trigger_api_response:
+            return
         LOGGER.debug(
             "trigger response: %s", self.util_response.trigger_api_response.data
         )
@@ -345,4 +352,56 @@ class WebSocketWrapper:
         self.util_response._disconnect_fn = ws.disconnect
 
         ws.connect(run_in_background=True)  # non-blocking
+        return self.util_response
+
+    def start_with_trigger(
+        self,
+        trigger_fn: Callable,
+        ws_factory_fn: Callable | None = None,
+    ) -> UtilResponse:
+        """
+        Run the trigger API call (and optional WS setup) in a background thread.
+
+        Returns the ``UtilResponse`` immediately. The trigger HTTP request and
+        the subsequent WebSocket connection both run in background threads, so
+        the calling code is never blocked.
+
+        PARAMS
+        -----------
+        trigger_fn : Callable
+            A zero-argument callable that performs the REST API trigger and
+            returns an ``APIResponse``.
+        ws_factory_fn : Callable, optional
+            A one-argument callable that receives the trigger ``APIResponse``
+            and returns a WebSocket channel object (e.g. ``DeviceCmdEvents``).
+            If ``None``, no WebSocket is started and the ``UtilResponse``
+            completes as soon as the trigger finishes.
+        """
+
+        def _run():
+            try:
+                trigger = trigger_fn()
+                self.util_response.trigger_api_response = trigger
+                if trigger.status_code == 200:
+                    LOGGER.info("Trigger succeeded: %s", trigger.data)
+                    self._extract_trigger_ids()
+                    if ws_factory_fn:
+                        ws = ws_factory_fn(trigger)
+                        if ws:
+                            self.start(ws)
+                            return  # start() / _on_close manages _closed
+                        LOGGER.error("WS factory returned None")
+                else:
+                    LOGGER.error(
+                        "Failed to trigger command: %s - %s",
+                        trigger.status_code,
+                        trigger.data,
+                    )
+            except Exception as e:
+                LOGGER.error("Error during trigger: %s", e)
+            # Mark done (success without WS, or failure)
+            self.util_response._queue.put(None)
+            self.util_response._closed.set()
+
+        threading.Thread(target=_run, daemon=True).start()
         return self.util_response

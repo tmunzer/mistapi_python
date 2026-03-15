@@ -52,15 +52,13 @@ def clear(
     device_id : str
         UUID of the gateway to perform the show routes command on.
     node : Node, optional
-        Node information for the show routes command.
-    prefix : str, optional
-        Prefix to filter the routes.
-    protocol : RouteProtocol, optional
-        Protocol to filter the routes.
-    route_type : str, optional
-        Type of the route to filter.
+        Node information for the clear sessions command.
+    service_name : str, optional
+        Name of the service to filter the sessions.
+    service_ids : list[str], optional
+        List of service IDs to filter the sessions.
     vrf : str, optional
-        VRF to filter the routes.
+        VRF to filter the sessions.
     timeout : int, optional
         Timeout for the command in seconds.
     on_message : Callable, optional
@@ -72,7 +70,16 @@ def clear(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-
+    LOGGER.debug(
+        "Initiating clear sessions command for device %s with node %s, service name %s, "
+        "service IDs %s, VRF %s, and timeout %s",
+        device_id,
+        node,
+        service_name,
+        service_ids,
+        vrf,
+        timeout,
+    )
     body: dict[str, str | list | int] = {}
     if node:
         body["node"] = node.value
@@ -82,25 +89,17 @@ def clear(
         body["service_ids"] = service_ids
     if vrf:
         body["vrf"] = vrf
-    trigger = devices.clearSiteDeviceSession(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.clearSiteDeviceSession(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Device Sessions command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger Device Sessions command: {trigger.status_code} - {trigger.data}"
-        )  # Give the Device Sessions command a moment to take effect
-    return util_response
 
 
 def show(
@@ -143,7 +142,15 @@ def show(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-
+    LOGGER.debug(
+        "Initiating show sessions command for device %s with node %s, service name %s, "
+        "service IDs %s, and timeout %s",
+        device_id,
+        node,
+        service_name,
+        service_ids,
+        timeout,
+    )
     body: dict[str, str | list | int] = {}
     if node:
         body["node"] = node.value
@@ -151,22 +158,14 @@ def show(
         body["service_name"] = service_name
     if service_ids:
         body["service_ids"] = service_ids
-    trigger = devices.showSiteSsrAndSrxSessions(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apissession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.showSiteSsrAndSrxSessions(
+            apissession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apissession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Device Sessions command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger Device Sessions command: {trigger.status_code} - {trigger.data}"
-        )  # Give the Device Sessions command a moment to take effect
-    return util_response
