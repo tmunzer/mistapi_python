@@ -17,7 +17,7 @@ from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWra
 
 
 def clear_error(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
@@ -51,8 +51,8 @@ def clear_error(
     )
     body: dict[str, str | list | int] = {"ports": port_ids}
     util_response = UtilResponse()
-    return WebSocketWrapper(apissession, util_response).start_with_trigger(
+    return WebSocketWrapper(apisession, util_response).start_with_trigger(
         trigger_fn=lambda: devices.clearBpduErrorsFromPortsOnSwitch(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
     )

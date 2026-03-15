@@ -21,7 +21,7 @@ from mistapi.websockets.sites import DeviceCmdEvents
 
 
 def show_database(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     node: Node | None = None,
@@ -76,19 +76,19 @@ def show_database(
         body["vrf"] = vrf
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.showSiteGatewayOspfDatabase(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
 
 
 def show_interfaces(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     node: Node | None = None,
@@ -143,19 +143,19 @@ def show_interfaces(
         body["vrf"] = vrf
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.showSiteGatewayOspfInterfaces(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
 
 
 def show_neighbors(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     neighbor: str | None = None,
@@ -216,19 +216,19 @@ def show_neighbors(
         body["neighbor"] = neighbor
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.showSiteGatewayOspfNeighbors(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
 
 
 def show_summary(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     node: Node | None = None,
@@ -276,12 +276,12 @@ def show_summary(
         body["vrf"] = vrf
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.showSiteGatewayOspfSummary(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )

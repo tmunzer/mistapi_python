@@ -22,7 +22,7 @@ class Node(Enum):
 
 ## NO DATA
 # def test_resolution(
-#     apissession: _APISession,
+#     apisession: _APISession,
 #     site_id: str,
 #     device_id: str,
 #     node: Node | None = None,
@@ -64,7 +64,7 @@ class Node(Enum):
 #     if hostname:
 #         body["hostname"] = hostname
 #     trigger = devices.testSiteSsrDnsResolution(
-#         apissession,
+#         apisession,
 #         site_id=site_id,
 #         device_id=device_id,
 #         body=body,
@@ -73,9 +73,9 @@ class Node(Enum):
 #     if trigger.status_code == 200:
 #         LOGGER.info(trigger.data)
 #         print(f"SSR DNS resolution command triggered for device {device_id}")
-#         ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+#         ws = DeviceCmdEvents(apisession, site_id=site_id, device_ids=[device_id])
 #         util_response = await WebSocketWrapper(
-#             apissession, util_response, timeout=timeout, on_message=on_message
+#             apisession, util_response, timeout=timeout, on_message=on_message
 #         ).start(ws)
 #     else:
 #         LOGGER.error(

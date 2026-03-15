@@ -17,7 +17,7 @@ from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWra
 
 
 def clear_hit_count(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     policy_name: str,
@@ -29,7 +29,7 @@ def clear_hit_count(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession : _APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -49,9 +49,9 @@ def clear_hit_count(
         policy_name,
     )
     util_response = UtilResponse()
-    return WebSocketWrapper(apissession, util_response).start_with_trigger(
+    return WebSocketWrapper(apisession, util_response).start_with_trigger(
         trigger_fn=lambda: devices.clearSiteDevicePolicyHitCount(
-            apissession,
+            apisession,
             site_id=site_id,
             device_id=device_id,
             body={"policy_name": policy_name},

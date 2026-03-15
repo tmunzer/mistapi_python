@@ -53,7 +53,7 @@ def _build_pcap_body(
 
 
 def ap_remote_pcap_wireless(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     band: str,
@@ -127,17 +127,17 @@ def ap_remote_pcap_wireless(
         body["tcpdump_expression"] = tcpdump_expression
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: pcaps.startSitePacketCapture(
-            apissession, site_id=site_id, body=body
+            apisession, site_id=site_id, body=body
         ),
-        ws_factory_fn=lambda _trigger: PcapEvents(apissession, site_id=site_id),
+        ws_factory_fn=lambda _trigger: PcapEvents(apisession, site_id=site_id),
     )
 
 
 def ap_remote_pcap_wired(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     tcpdump_expression: str | None = None,
@@ -196,17 +196,17 @@ def ap_remote_pcap_wired(
         body["tcpdump_expression"] = tcpdump_expression
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: pcaps.startSitePacketCapture(
-            apissession, site_id=site_id, body=body
+            apisession, site_id=site_id, body=body
         ),
-        ws_factory_fn=lambda _trigger: PcapEvents(apissession, site_id=site_id),
+        ws_factory_fn=lambda _trigger: PcapEvents(apisession, site_id=site_id),
     )
 
 
 def srx_remote_pcap(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
@@ -270,17 +270,17 @@ def srx_remote_pcap(
     )
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: pcaps.startSitePacketCapture(
-            apissession, site_id=site_id, body=body
+            apisession, site_id=site_id, body=body
         ),
-        ws_factory_fn=lambda _trigger: PcapEvents(apissession, site_id=site_id),
+        ws_factory_fn=lambda _trigger: PcapEvents(apisession, site_id=site_id),
     )
 
 
 def ssr_remote_pcap(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
@@ -345,17 +345,17 @@ def ssr_remote_pcap(
     )
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: pcaps.startSitePacketCapture(
-            apissession, site_id=site_id, body=body
+            apisession, site_id=site_id, body=body
         ),
-        ws_factory_fn=lambda _trigger: PcapEvents(apissession, site_id=site_id),
+        ws_factory_fn=lambda _trigger: PcapEvents(apisession, site_id=site_id),
     )
 
 
 def ex_remote_pcap(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
@@ -419,10 +419,10 @@ def ex_remote_pcap(
     )
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: pcaps.startSitePacketCapture(
-            apissession, site_id=site_id, body=body
+            apisession, site_id=site_id, body=body
         ),
-        ws_factory_fn=lambda _trigger: PcapEvents(apissession, site_id=site_id),
+        ws_factory_fn=lambda _trigger: PcapEvents(apisession, site_id=site_id),
     )

@@ -21,7 +21,7 @@ from mistapi.websockets.sites import DeviceCmdEvents
 
 
 def release_dhcp_leases(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     macs: list[str] | None = None,
@@ -96,19 +96,19 @@ def release_dhcp_leases(
         body["port_id"] = port_id
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.releaseSiteDeviceDhcpLease(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
 
 
 def retrieve_dhcp_leases(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     network: str,
@@ -155,12 +155,12 @@ def retrieve_dhcp_leases(
         body["node"] = node.value
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.showSiteDeviceDhcpLeases(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )

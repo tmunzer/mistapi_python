@@ -11,6 +11,7 @@
 """
 
 from collections.abc import Callable
+
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
@@ -20,7 +21,7 @@ from mistapi.websockets.sites import DeviceCmdEvents
 
 
 def retrieve_ap_arp_table(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     node: Node | None = None,
@@ -64,19 +65,19 @@ def retrieve_ap_arp_table(
         body["node"] = node.value
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.arpFromDevice(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
 
 
 def retrieve_ssr_arp_table(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     node: Node | None = None,
@@ -120,19 +121,19 @@ def retrieve_ssr_arp_table(
         body["node"] = node.value
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.arpFromDevice(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
 
 
 def retrieve_junos_arp_table(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     ip: str | None = None,
@@ -190,12 +191,12 @@ def retrieve_junos_arp_table(
         body["port_id"] = port_id
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.showSiteDeviceArpTable(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )

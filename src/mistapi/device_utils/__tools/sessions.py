@@ -21,7 +21,7 @@ from mistapi.websockets.sites import DeviceCmdEvents
 
 
 def clear(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     node: Node | None = None,
@@ -84,19 +84,19 @@ def clear(
         body["vrf"] = vrf
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.clearSiteDeviceSession(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
 
 
 def show(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     node: Node | None = None,
@@ -153,12 +153,12 @@ def show(
         body["service_ids"] = service_ids
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.showSiteSsrAndSrxSessions(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )

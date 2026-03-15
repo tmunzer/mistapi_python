@@ -147,13 +147,13 @@ class WebSocketWrapper:
 
     def __init__(
         self,
-        apissession: APISession,
+        apisession: APISession,
         util_response: UtilResponse,
         timeout: int = 10,
         max_duration: int = 60,
         on_message: Callable[[dict], None] | None = None,
     ) -> None:
-        self.apissession = apissession
+        self.apisession = apisession
         self.util_response = util_response
         self.timers = {
             Timer.TIMEOUT.value: {

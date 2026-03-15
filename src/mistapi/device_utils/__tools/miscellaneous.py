@@ -18,7 +18,7 @@ class TracerouteProtocol(Enum):
 
 
 def ping(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     host: str,
@@ -88,20 +88,20 @@ def ping(
         body["vrf"] = vrf
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout, on_message=on_message
+        apisession, util_response, timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.pingFromDevice(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
 
 
 ## NO DATA
 # def service_ping(
-#     apissession: _APISession,
+#     apisession: _APISession,
 #     site_id: str,
 #     device_id: str,
 #     host: str,
@@ -163,7 +163,7 @@ def ping(
 #     if service:
 #         body["service"] = service
 #     trigger = devices.servicePingFromSsr(
-#         apissession,
+#         apisession,
 #         site_id=site_id,
 #         device_id=device_id,
 #         body=body,
@@ -171,9 +171,9 @@ def ping(
 #     util_response = UtilResponse(trigger)
 #     if trigger.status_code == 200:
 #         LOGGER.info(f"Service Ping command triggered for device {device_id}")
-#         ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+#         ws = DeviceCmdEvents(apisession, site_id=site_id, device_ids=[device_id])
 #         util_response = WebSocketWrapper(
-#             apissession, util_response, timeout, on_message=on_message
+#             apisession, util_response, timeout, on_message=on_message
 #         ).start(ws)
 #     else:
 #         LOGGER.error(
@@ -183,7 +183,7 @@ def ping(
 
 
 def traceroute(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     host: str,
@@ -239,19 +239,19 @@ def traceroute(
         body["port"] = port
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout, on_message=on_message
+        apisession, util_response, timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.tracerouteFromDevice(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
 
 
 def monitor_traffic(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_id: str | None = None,
@@ -300,7 +300,7 @@ def monitor_traffic(
 
     def _ws_factory(trigger):
         if isinstance(trigger.data, dict) and "url" in trigger.data:
-            return SessionWithUrl(apissession, url=trigger.data.get("url", ""))
+            return SessionWithUrl(apisession, url=trigger.data.get("url", ""))
         LOGGER.error(
             "Monitor traffic command did not return a valid URL: %s", trigger.data
         )
@@ -308,10 +308,10 @@ def monitor_traffic(
 
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.monitorSiteDeviceTraffic(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=_ws_factory,
     )
@@ -319,7 +319,7 @@ def monitor_traffic(
 
 ## NO DATA
 # def srx_top_command(
-#     apissession: _APISession,
+#     apisession: _APISession,
 #     site_id: str,
 #     device_id: str,
 #     timeout=10,
@@ -350,7 +350,7 @@ def monitor_traffic(
 #         from the WebSocket stream.
 #     """
 #     trigger = devices.runSiteSrxTopCommand(
-#         apissession,
+#         apisession,
 #         site_id=site_id,
 #         device_id=device_id,
 #     )
@@ -358,9 +358,9 @@ def monitor_traffic(
 #     if trigger.status_code == 200:
 #         LOGGER.info(trigger.data)
 #         print(f"Top command triggered for device {device_id}")
-#         ws = SessionWithUrl(apissession, url=trigger.data.get("url", ""))
+#         ws = SessionWithUrl(apisession, url=trigger.data.get("url", ""))
 #         util_response = WebSocketWrapper(
-#             apissession, util_response, timeout=timeout, on_message=on_message
+#             apisession, util_response, timeout=timeout, on_message=on_message
 #         ).start(ws)
 #     else:
 #         LOGGER.error(

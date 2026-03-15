@@ -20,7 +20,7 @@ from mistapi.websockets.sites import DeviceCmdEvents
 
 
 def bounce(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
@@ -63,19 +63,19 @@ def bounce(
         body["ports"] = port_ids
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout, on_message=on_message
+        apisession, util_response, timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.bounceDevicePort(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
 
 
 def cable_test(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_id: str,
@@ -117,12 +117,12 @@ def cable_test(
     body: dict[str, str | list | int] = {"port": port_id}
     util_response = UtilResponse()
     return WebSocketWrapper(
-        apissession, util_response, timeout=timeout, on_message=on_message
+        apisession, util_response, timeout=timeout, on_message=on_message
     ).start_with_trigger(
         trigger_fn=lambda: devices.cableTestFromSwitch(
-            apissession, site_id=site_id, device_id=device_id, body=body
+            apisession, site_id=site_id, device_id=device_id, body=body
         ),
         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
-            apissession, site_id=site_id, device_ids=[device_id]
+            apisession, site_id=site_id, device_ids=[device_id]
         ),
     )
