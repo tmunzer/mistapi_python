@@ -34,7 +34,7 @@ def clear_mac_table(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apissession : mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -93,20 +93,20 @@ def retrieve_mac_table(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apissession : mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
     device_id : str
-        UUID of the device to retrieve the ARP table from.
+        UUID of the device to retrieve the MAC table from.
     mac_address : str, optional
-        MAC address to filter the ARP table retrieval.
+        MAC address to filter the MAC table retrieval.
     port_id : str, optional
-        Port ID to filter the ARP table retrieval.
+        Port ID to filter the MAC table retrieval.
     vlan_id : str, optional
-        VLAN ID to filter the ARP table retrieval.
+        VLAN ID to filter the MAC table retrieval.
     timeout : int, optional
-        Timeout for the ARP table retrieval command in seconds.
+        Timeout for the MAC table retrieval command in seconds.
     on_message : Callable, optional
         Callback invoked with each extracted raw message as it arrives.
 
@@ -158,6 +158,8 @@ def clear_learned_mac(
 
     PARAMS
     -----------
+    apissession: mistapi.APISession
+        The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
     device_id : str

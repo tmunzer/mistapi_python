@@ -76,9 +76,11 @@ class UtilResponse:
         self.ws_raw_events: list[str] = []
         self._queue: queue.Queue[str | None] = queue.Queue()
         self._closed = threading.Event()
+        self._await_timeout: float | None = None
         if api_response is not None:
-            self._closed.set()  # done immediately (no WS to wait for)
-        # When api_response is None, _closed stays unset (in-progress)
+            # api_response provided → done immediately, no WS needed
+            self._closed.set()
+        # api_response is None → _closed stays unset (in-progress, waiting for WS)
         self._disconnect_fn: Callable[[], None] | None = None
 
     @property
@@ -100,7 +102,7 @@ class UtilResponse:
         """
         while True:
             try:
-                item = self._queue.get(timeout=1)
+                item = self._queue.get(timeout=0.1)
             except queue.Empty:
                 if self._closed.is_set() and self._queue.empty():
                     break
@@ -111,8 +113,9 @@ class UtilResponse:
 
     def disconnect(self) -> None:
         """Stop the WebSocket connection early."""
-        if self._disconnect_fn:
-            self._disconnect_fn()
+        fn = self._disconnect_fn
+        if fn is not None:
+            fn()
 
     def __enter__(self) -> "UtilResponse":
         return self
@@ -125,7 +128,11 @@ class UtilResponse:
         import asyncio
 
         async def _await_impl():
-            await asyncio.to_thread(self._closed.wait)
+            timed_out = not await asyncio.to_thread(
+                self._closed.wait, self._await_timeout
+            )
+            if timed_out:
+                LOGGER.warning("await timed out after %s seconds", self._await_timeout)
             return self
 
         return _await_impl().__await__()
@@ -295,14 +302,15 @@ class WebSocketWrapper:
                 return True
         return False
 
-    def _extract_raw(self, message):
+    def _extract_raw(self, message, root: bool = True):
         """
         Extracts the raw message from the given message.
         This method is designed to handle messages that may have the raw message nested at
         different levels.
         Handles both command events (with "raw" field) and pcap events (with "pcap_dict" field).
         """
-        self.raw_events.append(message)
+        if root:
+            self.raw_events.append(message)
         event = message
         if isinstance(event, str):
             try:
@@ -312,7 +320,7 @@ class WebSocketWrapper:
                 return None
         if isinstance(event, dict):
             if event.get("event") == "data" and event.get("data"):
-                return self._extract_raw(event["data"])
+                return self._extract_raw(event["data"], root=False)
             if "raw" in event:
                 self.received_messages += 1
                 LOGGER.debug("Extracted raw message: %s", event["raw"])
@@ -345,10 +353,13 @@ class WebSocketWrapper:
         ws.on_open(self._on_open)
 
         # Wire up UtilResponse before starting WS
+        # _closed is already unset (in-progress) from UtilResponse.__init__
         self.util_response.ws_required = True
         self.util_response.ws_data = self.data  # live list reference
         self.util_response.ws_raw_events = self.raw_events
-        self.util_response._closed.clear()  # mark as "in progress"
+        self.util_response._await_timeout = (
+            self.timers[Timer.MAX_DURATION.value]["duration"] + 10
+        )
         self.util_response._disconnect_fn = ws.disconnect
 
         ws.connect(run_in_background=True)  # non-blocking

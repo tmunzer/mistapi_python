@@ -773,7 +773,8 @@ class TestSessionChannel:
 
     def test_session_with_url_channels(self, mock_session) -> None:
         ws = SessionWithUrl(mock_session, url="wss://example.com/custom")
-        assert ws._channels == ["wss://example.com/custom"]
+        assert ws._channels == []
+        assert ws._build_ws_url() == "wss://example.com/custom"
 
     def test_inherits_from_mist_websocket(self, mock_session) -> None:
         ws = SessionWithUrl(mock_session, url="wss://example.com/custom")

@@ -92,8 +92,12 @@ class APIRequest:
             logger.info("apirequest:_next_apitoken:rotating API Token")
             logger.debug(
                 "apirequest:_next_apitoken:current API Token is %s...%s",
-                self._apitoken[self._apitoken_index][:4],
-                self._apitoken[self._apitoken_index][-4:],
+                self._apitoken[self._apitoken_index][
+                    :4
+                ],  # lgtm[py/clear-text-logging-sensitive-data]
+                self._apitoken[self._apitoken_index][
+                    -4:
+                ],  # lgtm[py/clear-text-logging-sensitive-data]
             )
             new_index = self._apitoken_index + 1
             if new_index >= len(self._apitoken):
@@ -105,8 +109,12 @@ class APIRequest:
                 )
                 logger.debug(
                     "apirequest:_next_apitoken:new API Token is %s...%s",
-                    self._apitoken[self._apitoken_index][:4],
-                    self._apitoken[self._apitoken_index][-4:],
+                    self._apitoken[self._apitoken_index][
+                        :4
+                    ],  # lgtm[py/clear-text-logging-sensitive-data]
+                    self._apitoken[self._apitoken_index][
+                        -4:
+                    ],  # lgtm[py/clear-text-logging-sensitive-data]
                 )
             else:
                 logger.critical(" /!\\ API TOKEN CRITICAL ERROR /!\\")

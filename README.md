@@ -555,16 +555,16 @@ from mistapi.api.v1.sites import devices
 from mistapi.device_utils import ex
 
 async def main():
-    # Device utility — already non-blocking, supports await
+    # Start device utility — returns immediately, collects data in a background thread
     response = ex.retrieveArpTable(apisession, site_id, device_id)
 
-    # API call — use arun() to avoid blocking the event loop
+    # Meanwhile, run an API call via arun() — both execute concurrently
     device_info = await mistapi.arun(
         devices.getSiteDevice, apisession, site_id, device_id
     )
     print(f"Device: {device_info.data['name']}")
 
-    # Await the device utility result
+    # Wait for the device utility background thread to finish
     await response
     print(f"ARP entries: {len(response.ws_data)}")
 

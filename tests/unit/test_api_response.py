@@ -37,6 +37,7 @@ def _make_mock_response(status_code=200, data=None, headers=None, json_raises=Fa
     else:
         payload = data if data is not None else {}
         mock.content = json.dumps(payload).encode()
+        mock.text = json.dumps(payload)
         mock.json.return_value = payload
     return mock
 
@@ -74,12 +75,12 @@ class TestAPIResponseConstruction:
         assert resp.url == "https://api.mist.com/api/v1/test"
 
     def test_raw_data_is_string_of_content(self):
-        """raw_data should be str(response.content)."""
+        """raw_data should be response.text."""
         data = {"key": "value"}
         mock = _make_mock_response(data=data)
         resp = APIResponse(response=mock, url="https://host/api/v1/x")
 
-        assert resp.raw_data == str(json.dumps(data).encode())
+        assert resp.raw_data == json.dumps(data)
 
     def test_proxy_error_true(self):
         """proxy_error=True should be stored on the instance."""

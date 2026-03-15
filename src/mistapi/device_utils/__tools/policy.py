@@ -51,6 +51,9 @@ def clear_hit_count(
     util_response = UtilResponse()
     return WebSocketWrapper(apissession, util_response).start_with_trigger(
         trigger_fn=lambda: devices.clearSiteDevicePolicyHitCount(
-            apissession, site_id=site_id, device_id=device_id, body={"policy_name": policy_name}
+            apissession,
+            site_id=site_id,
+            device_id=device_id,
+            body={"policy_name": policy_name},
         ),
     )

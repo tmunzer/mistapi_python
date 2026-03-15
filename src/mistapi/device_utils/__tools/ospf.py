@@ -11,20 +11,13 @@
 """
 
 from collections.abc import Callable
-from enum import Enum
 
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
+from mistapi.device_utils.__tools.__common import Node
 from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
 from mistapi.websockets.sites import DeviceCmdEvents
-
-
-class Node(Enum):
-    """Node Enum for specifying node information in OSPF commands."""
-
-    NODE0 = "node0"
-    NODE1 = "node1"
 
 
 def show_database(
@@ -45,7 +38,7 @@ def show_database(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -112,7 +105,7 @@ def show_interfaces(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -180,7 +173,7 @@ def show_neighbors(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -251,7 +244,7 @@ def show_summary(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.

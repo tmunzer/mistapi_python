@@ -85,7 +85,7 @@ Complete real-time event streaming support with flexible consumption patterns:
 |-------|-------------|
 | `mistapi.websockets.orgs.InsightsEvents` | Real-time insights events for an organization |
 | `mistapi.websockets.orgs.MxEdgesStatsEvents` | Real-time MX edges stats for an organization |
-| `mistapi.websockets.orgs.MxEdgesUpgradesEvents` | Real-time MX edges upgrades events for an organization |
+| `mistapi.websockets.orgs.MxEdgesEvents` | Real-time MX edges events for an organization |
 
 * Site Channels
 
@@ -94,7 +94,8 @@ Complete real-time event streaming support with flexible consumption patterns:
 | `mistapi.websockets.sites.ClientsStatsEvents` | Real-time clients stats for a site |
 | `mistapi.websockets.sites.DeviceCmdEvents` | Real-time device command events for a site |
 | `mistapi.websockets.sites.DeviceStatsEvents` | Real-time device stats for a site |
-| `mistapi.websockets.sites.DeviceUpgradesEvents` | Real-time device upgrades events for a site |
+| `mistapi.websockets.sites.DeviceEvents` | Real-time device events for a site |
+| `mistapi.websockets.sites.MxEdgesEvents` | Real-time MX edges events for a site |
 | `mistapi.websockets.sites.MxEdgesStatsEvents` | Real-time MX edges stats for a site |
 | `mistapi.websockets.sites.PcapEvents` | Real-time PCAP events for a site |
 
@@ -155,7 +156,7 @@ print(result.ws_data)
 def handle(msg):
     print("got:", msg)
 
-result = ex.cableTest(apisession, site_id, device_id, port="ge-0/0/0", on_message=handle)
+result = ex.cableTest(apisession, site_id, device_id, port_id="ge-0/0/0", on_message=handle)
 ```
 
 #### **1.3 New API Endpoints**
@@ -216,49 +217,6 @@ result = ex.cableTest(apisession, site_id, device_id, port="ge-0/0/0", on_messag
 
 ##### **New Dependencies**
 - Added `websocket-client>=1.8.0` for WebSocket streaming support
-
----
-
-## Version 0.60.3 (February 2026)
-
-**Released**: February 21, 2026
-
-This release add a missing query parameter to the `searchOrgWanClients()` function.
-
----
-
-### 1. CHANGES
-
-##### **API Function Updates**
-- Updated `searchOrgWanClients()` and related functions in `orgs/wan_clients.py`.
-
----
-
-## Version 0.60.1 (February 2026)
-
-**Released**: February 21, 2026
-
-This release includes function updates and bug fixes in the self/logs.py and sites/sle.py modules.
-
----
-
-### 1. CHANGES
-
-##### **API Function Updates**
-- Updated `listSelfAuditLogs()` and related functions in `self/logs.py`.
-- Updated deprecated and new SLE classifier functions in `sites/sle.py`.
-
----
-
-### 2. BUG FIXES
-
-- Minor bug fixes and improvements in API modules.
-
----
-
-### Breaking Changes
-
-No breaking changes in this release.
 
 ---
 
@@ -781,4 +739,4 @@ Previous stable release. See commit history for details.
 
 **Author**: Thomas Munzer <tmunzer@juniper.net>  
 **License**: MIT License  
-**Python Compatibility**: Python 3.8+
+**Python Compatibility**: Python 3.10+

@@ -47,7 +47,7 @@ def _build_pcap_body(
         if tcpdump_expression is not None:
             port_entry["tcpdump_expression"] = tcpdump_expression
         body[device_key][mac]["ports"][port_id] = port_entry
-    if tcpdump_expression:
+    if tcpdump_expression is not None:
         body["tcpdump_expression"] = tcpdump_expression
     return body
 
@@ -73,7 +73,7 @@ def ap_remote_pcap_wireless(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -154,7 +154,7 @@ def ap_remote_pcap_wired(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -224,7 +224,7 @@ def srx_remote_pcap(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -298,7 +298,7 @@ def ssr_remote_pcap(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -373,7 +373,7 @@ def ex_remote_pcap(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.

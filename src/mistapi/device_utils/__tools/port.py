@@ -24,7 +24,7 @@ def bounce(
     site_id: str,
     device_id: str,
     port_ids: list[str],
-    timeout=60,
+    timeout=5,
     on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
@@ -89,7 +89,7 @@ def cable_test(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the switch is located.
@@ -97,7 +97,7 @@ def cable_test(
         UUID of the switch to perform the cable test on.
     port_id : str
         Port ID to perform the cable test on.
-    timeout : int, optional
+    timeout : int, default 10
         Timeout for the cable test command in seconds.
     on_message : Callable, optional
         Callback invoked with each extracted raw message as it arrives.

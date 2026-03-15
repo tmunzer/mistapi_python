@@ -37,7 +37,7 @@ class Node(Enum):
 
 #     PARAMS
 #     -----------
-#     apissession : _APISession
+#     apisession: mistapi.APISession
 #         The API session to use for the request.
 #     site_id : str
 #         UUID of the site where the gateway is located.

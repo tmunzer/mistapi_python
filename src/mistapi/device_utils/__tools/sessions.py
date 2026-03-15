@@ -11,20 +11,13 @@
 """
 
 from collections.abc import Callable
-from enum import Enum
 
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
+from mistapi.device_utils.__tools.__common import Node
 from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
 from mistapi.websockets.sites import DeviceCmdEvents
-
-
-class Node(Enum):
-    """Node Enum for specifying node information in session commands."""
-
-    NODE0 = "node0"
-    NODE1 = "node1"
 
 
 def clear(
@@ -45,12 +38,12 @@ def clear(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the gateway is located.
     device_id : str
-        UUID of the gateway to perform the show routes command on.
+        UUID of the gateway to perform clear sessions command on.
     node : Node, optional
         Node information for the clear sessions command.
     service_name : str, optional
@@ -119,7 +112,7 @@ def show(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the gateway is located.

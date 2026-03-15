@@ -16,7 +16,7 @@ All functions are imported from their respective functional modules.
 """
 
 # Re-export shared classes and types
-from mistapi.device_utils.__tools.arp import Node
+from mistapi.device_utils.__tools.__common import Node
 
 # ARP functions
 from mistapi.device_utils.__tools.arp import (
@@ -36,9 +36,10 @@ from mistapi.device_utils.__tools.miscellaneous import ping
 # DNS functions
 # from mistapi.utils.dns import test_resolution as test_dns_resolution
 # OSPF functions
-from mistapi.device_utils.__tools.ospf import show_database as showDatabase
-from mistapi.device_utils.__tools.ospf import show_interfaces as showInterfaces
-from mistapi.device_utils.__tools.ospf import show_neighbors as showNeighbors
+from mistapi.device_utils.__tools.ospf import show_database as retrieveOspfDatabase
+from mistapi.device_utils.__tools.ospf import show_interfaces as retrieveOspfInterfaces
+from mistapi.device_utils.__tools.ospf import show_neighbors as retrieveOspfNeighbors
+from mistapi.device_utils.__tools.ospf import show_summary as retrieveOspfSummary
 
 # Port functions
 from mistapi.device_utils.__tools.port import bounce as bouncePort
@@ -50,6 +51,10 @@ from mistapi.device_utils.__tools.routes import show as retrieveRoutes
 from mistapi.device_utils.__tools.service_path import (
     show_service_path as showServicePath,
 )
+
+# Sessions functions
+from mistapi.device_utils.__tools.sessions import clear as clearSessions
+from mistapi.device_utils.__tools.sessions import show as retrieveSessions
 
 __all__ = [
     # Classes/Enums
@@ -64,15 +69,19 @@ __all__ = [
     # DNS
     # "test_dns_resolution",
     # OSPF
-    "showDatabase",
-    "showNeighbors",
-    "showInterfaces",
+    "retrieveOspfDatabase",
+    "retrieveOspfNeighbors",
+    "retrieveOspfInterfaces",
+    "retrieveOspfSummary",
     # Port
     "bouncePort",
     # Routes
     "retrieveRoutes",
     # Service Path
     "showServicePath",
+    # Sessions
+    "retrieveSessions",
+    "clearSessions",
     # Tools
     "ping",
 ]
