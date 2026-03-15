@@ -156,25 +156,28 @@ class ShellSession:
 
     def disconnect(self) -> None:
         """Close the WebSocket connection."""
-        if self._ws:
+        ws = self._ws
+        self._ws = None
+        if ws:
             try:
-                self._ws.close()
+                ws.close()
             except Exception:
                 pass
-            self._ws = None
 
     @property
     def connected(self) -> bool:
         """True if the WebSocket is currently connected."""
-        return self._ws is not None and self._ws.connected
+        ws = self._ws
+        return ws is not None and ws.connected
 
     # ------------------------------------------------------------------
     # I/O
 
     def send(self, data: bytes) -> None:
         """Send raw bytes (keystrokes) to the device shell."""
-        if self._ws and self._ws.connected:
-            self._ws.send_binary(data)
+        ws = self._ws
+        if ws and ws.connected:
+            ws.send_binary(data)
 
     def send_text(self, text: str) -> None:
         """Send a text string as binary data to the device shell."""
@@ -187,12 +190,13 @@ class ShellSession:
         Returns None if no data is available within the timeout, or if
         the connection is closed.
         """
-        if not self._ws or not self._ws.connected:
+        ws = self._ws
+        if not ws or not ws.connected:
             return None
-        old_timeout = self._ws.gettimeout()
+        old_timeout = ws.gettimeout()
         try:
-            self._ws.settimeout(timeout)
-            data = self._ws.recv()
+            ws.settimeout(timeout)
+            data = ws.recv()
             if isinstance(data, str):
                 return data.encode("utf-8")
             return data
@@ -204,14 +208,15 @@ class ShellSession:
         ):
             return None
         finally:
-            self._ws.settimeout(old_timeout)
+            ws.settimeout(old_timeout)
 
     def resize(self, rows: int, cols: int) -> None:
         """Send a terminal resize message to the device."""
         self._rows = rows
         self._cols = cols
-        if self._ws and self._ws.connected:
-            self._ws.send(json.dumps({"resize": {"width": cols, "height": rows}}))
+        ws = self._ws
+        if ws and ws.connected:
+            ws.send(json.dumps({"resize": {"width": cols, "height": rows}}))
 
     # ------------------------------------------------------------------
     # Context manager
