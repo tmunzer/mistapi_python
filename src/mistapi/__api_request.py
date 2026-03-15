@@ -108,10 +108,11 @@ class APIRequest:
     def _next_apitoken(self) -> None:
         with self._token_lock:
             logger.info("apirequest:_next_apitoken:rotating API Token")
+            masked = _apitoken_sanitizer(self._apitoken[self._apitoken_index])
             logger.debug(
                 "apirequest:_next_apitoken:current API Token is %s",
-                _apitoken_sanitizer(self._apitoken[self._apitoken_index]),
-            )  # lgtm[py/clear-text-logging-sensitive-data]
+                masked,
+            )
 
             new_index = self._apitoken_index + 1
             if new_index >= len(self._apitoken):
@@ -121,10 +122,11 @@ class APIRequest:
                 self._session.headers.update(
                     {"Authorization": "Token " + self._apitoken[self._apitoken_index]}
                 )
+                masked = _apitoken_sanitizer(self._apitoken[self._apitoken_index])
                 logger.debug(
                     "apirequest:_next_apitoken:new API Token is %s",
-                    _apitoken_sanitizer(self._apitoken[self._apitoken_index]),
-                )  # lgtm[py/clear-text-logging-sensitive-data]
+                    masked,
+                )
             else:
                 logger.critical(" /!\\ API TOKEN CRITICAL ERROR /!\\")
                 logger.critical(

@@ -277,10 +277,11 @@ class APISession(APIRequest):
                     if isinstance(mist_apitoken, str):
                         for token in mist_apitoken.split(","):
                             token = token.strip()
+                            masked = _apitoken_sanitizer(token)
                             LOGGER.info(
                                 "apisession:_load_keyring: Found MIST_APITOKEN=%s",
-                                _apitoken_sanitizer(token),
-                            )  # lgtm[py/clear-text-logging-sensitive-data]
+                                masked,
+                            )
                     self.set_api_token(mist_apitoken)
                 mist_user = keyring.get_password(keyring_service, "MIST_USER")
                 if mist_user:
@@ -525,6 +526,7 @@ class APISession(APIRequest):
     def _get_api_token_data(self, apitoken) -> tuple[str | None, list | None]:
         token_privileges = []
         token_type = "org"  # nosec bandit B105
+        masked = _apitoken_sanitizer(apitoken)
         try:
             url = f"https://{self._cloud_uri}/api/v1/self"
             headers = {"Authorization": "Token " + apitoken}
@@ -536,8 +538,8 @@ class APISession(APIRequest):
             data_json = data.json()
             LOGGER.debug(
                 "apisession:_get_api_token_data:info retrieved for token %s",
-                _apitoken_sanitizer(apitoken),
-            )  # lgtm[py/clear-text-logging-sensitive-data]
+                masked,
+            )
         except requests.exceptions.ProxyError as proxy_error:
             LOGGER.critical("apisession:_get_api_token_data:proxy not valid...")
             CONSOLE.critical("Proxy not valid...\r\n")
@@ -553,8 +555,8 @@ class APISession(APIRequest):
         except Exception:
             LOGGER.error(
                 "apisession:_get_api_token_data:unable to retrieve info for token %s",
-                _apitoken_sanitizer(apitoken),
-            )  # lgtm[py/clear-text-logging-sensitive-data]
+                masked,
+            )
             LOGGER.error(
                 "apirequest:_get_api_token_data: Exception occurred", exc_info=True
             )
@@ -563,16 +565,16 @@ class APISession(APIRequest):
         if data.status_code == 401:
             LOGGER.critical(
                 "apisession:_get_api_token_data:invalid API Token %s: status code %s",
-                _apitoken_sanitizer(apitoken),
+                masked,
                 data.status_code,
-            )  # lgtm[py/clear-text-logging-sensitive-data]
+            )
             CONSOLE.critical(
                 "Invalid API Token %s: status code %s\r\n",
-                _apitoken_sanitizer(apitoken),
+                masked,
                 data.status_code,
-            )  # lgtm[py/clear-text-logging-sensitive-data]
+            )
             raise ValueError(
-                f"Invalid API Token {_apitoken_sanitizer(apitoken)}: status code {data.status_code}"
+                f"Invalid API Token {masked}: status code {data.status_code}"
             )
 
         if data_json.get("email"):
@@ -600,8 +602,8 @@ class APISession(APIRequest):
                     "token %s",
                     priv,
                     token_type,
-                    _apitoken_sanitizer(apitoken),
-                )  # lgtm[py/clear-text-logging-sensitive-data]
+                    masked,
+                )
         return (token_type, token_privileges)
 
     def _check_api_tokens(self, apitokens) -> list[str]:
@@ -616,32 +618,35 @@ class APISession(APIRequest):
         else:
             primary_token_privileges: list[str] = []
             primary_token_type: str | None = ""
+            primary_masked: str | None = ""
             for token in apitokens:
+                masked = _apitoken_sanitizer(token)
                 if token in valid_api_tokens:
                     LOGGER.info(
                         "apisession:_check_api_tokens:API Token %s is already valid",
-                        _apitoken_sanitizer(token),
-                    )  # lgtm[py/clear-text-logging-sensitive-data]
+                        masked,
+                    )
                     continue
                 (token_type, token_privileges) = self._get_api_token_data(token)
                 if token_type is None or token_privileges is None:
                     LOGGER.error(
                         "apisession:_check_api_tokens:API Token %s is not valid",
-                        _apitoken_sanitizer(token),
-                    )  # lgtm[py/clear-text-logging-sensitive-data]
+                        masked,
+                    )
                     LOGGER.error(
                         "API Token %s is not valid and will not be used",
-                        _apitoken_sanitizer(token),
-                    )  # lgtm[py/clear-text-logging-sensitive-data]
+                        masked,
+                    )
                 elif len(primary_token_privileges) == 0 and token_privileges:
                     primary_token_privileges = token_privileges
                     primary_token_type = token_type
+                    primary_masked = masked
                     valid_api_tokens.append(token)
                     LOGGER.info(
                         "apisession:_check_api_tokens:"
                         "API Token %s set as primary for comparison",
-                        _apitoken_sanitizer(token),
-                    )  # lgtm[py/clear-text-logging-sensitive-data]
+                        masked,
+                    )
                 elif primary_token_privileges == token_privileges:
                     valid_api_tokens.append(token)
                     LOGGER.info(
@@ -649,24 +654,20 @@ class APISession(APIRequest):
                         "%s API Token %s has same privileges as "
                         "the %s API Token %s",
                         token_type,
-                        _apitoken_sanitizer(token),
+                        masked,
                         primary_token_type,
-                        _apitoken_sanitizer(token),
-                    )  # lgtm[py/clear-text-logging-sensitive-data],
+                        primary_masked,
+                    )
                 else:
                     LOGGER.error(
                         "apisession:_check_api_tokens:"
                         "%s API Token %s has different privileges "
-                        "than the %s API Token %s",
+                        "than the %s API Token %s  and will not be used",
                         token_type,
-                        _apitoken_sanitizer(token),
+                        masked,
                         primary_token_type,
-                        _apitoken_sanitizer(token),
-                    )  # lgtm[py/clear-text-logging-sensitive-data]
-                    LOGGER.error(
-                        "API Token %s has different privileges and will not be used",
-                        _apitoken_sanitizer(token),
-                    )  # lgtm[py/clear-text-logging-sensitive-data]
+                        primary_masked,
+                    )
         return valid_api_tokens
 
     def _process_login(self, retry: bool = True) -> str | None:
