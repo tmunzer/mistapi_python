@@ -23,7 +23,7 @@ import requests
 from dotenv import load_dotenv
 from requests import Session
 
-from mistapi.__api_request import APIRequest
+from mistapi.__api_request import APIRequest, _apitoken_sanitizer
 from mistapi.__api_response import APIResponse
 from mistapi.__logger import console as CONSOLE
 from mistapi.__logger import logger as LOGGER
@@ -1222,21 +1222,3 @@ class APISession(APIRequest):
                         "msp_logo_url": resp.data.get("logo_url"),
                     }
             return {}
-
-
-def _apitoken_sanitizer(apitoken: str) -> str:
-    """
-    Return a substring of the API token to be used in the logs, to avoid
-    logging the full token value.
-
-    PARAMS
-    -----------
-    apitoken : str
-        API token value
-
-    RETURN
-    -----------
-    str
-        Substring of the API token to be used in the logs
-    """
-    return f"{apitoken[:4]}...{apitoken[-4:]}"

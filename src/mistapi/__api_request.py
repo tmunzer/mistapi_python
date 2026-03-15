@@ -27,9 +27,26 @@ import requests
 from requests.exceptions import HTTPError
 
 from mistapi.__api_response import APIResponse
-from mistapi.__api_session import _apitoken_sanitizer
 from mistapi.__logger import logger
 from mistapi.__models.privilege import Privileges
+
+
+def _apitoken_sanitizer(apitoken: str) -> str:
+    """
+    Return a substring of the API token to be used in the logs, to avoid
+    logging the full token value.
+
+    PARAMS
+    -----------
+    apitoken : str
+        API token value
+
+    RETURN
+    -----------
+    str
+        Substring of the API token to be used in the logs
+    """
+    return f"{apitoken[:4]}...{apitoken[-4:]}"
 
 
 class APIRequest:
