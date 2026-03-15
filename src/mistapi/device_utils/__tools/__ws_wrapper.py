@@ -27,7 +27,7 @@ class _VT100Screen:
     mode changes are silently ignored.
     """
 
-    def __init__(self, rows: int = 80, cols: int = 200) -> None:
+    def __init__(self, rows: int = 24, cols: int = 80) -> None:
         self.rows = rows
         self.cols = cols
         self.cursor_row = 0
