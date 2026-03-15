@@ -96,13 +96,6 @@ await response
 #### **Trigger-Only Commands Run Synchronously**
 Fire-and-forget device commands (e.g., `clearMacTable`, `clearBpduError`, `clearHitCount`) that don't require a WebSocket stream now run the API trigger synchronously, ensuring `trigger_api_response` is immediately available on the returned `UtilResponse`.
 
-#### **SRX Function Renames**
-SRX and SSR OSPF/session functions renamed for clarity:
-- `showDatabase` → `retrieveOspfDatabase`
-- `showNeighbors` → `retrieveOspfNeighbors`
-- `showInterfaces` → `retrieveOspfInterfaces`
-- New: `retrieveOspfSummary`, `retrieveSessions`, `clearSessions`
-
 ---
 
 ### 3. BUG FIXES
