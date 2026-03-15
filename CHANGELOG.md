@@ -1,4 +1,70 @@
 # CHANGELOG
+## Version 0.61.1 (March 2026)
+
+**Released**: March 15, 2026
+
+This release improves async support with a new `arun()` helper and makes the Device Utilities module fully non-blocking.
+
+---
+
+### 1. NEW FEATURES
+
+#### **`mistapi.arun()` - Async Helper**
+New helper function to run any sync mistapi function without blocking the event loop. Wraps the function call in `asyncio.to_thread()` so blocking HTTP requests run in a thread pool.
+
+```python
+import asyncio
+import mistapi
+from mistapi.api.v1.sites import devices
+
+async def main():
+    session = mistapi.APISession(env_file="~/.mist_env")
+    session.login()
+
+    # Run sync API call without blocking the event loop
+    response = await mistapi.arun(devices.listSiteDevices, session, site_id)
+    print(response.data)
+
+asyncio.run(main())
+```
+
+---
+
+### 2. IMPROVEMENTS
+
+#### **Non-Blocking Device Utilities**
+All `mistapi.device_utils` functions now return immediately. The HTTP trigger and WebSocket streaming run in background threads, allowing your code to continue executing while data is collected.
+
+**UtilResponse Object:**
+| Method/Property | Description |
+|-----------------|-------------|
+| `.ws_data` | List of processed messages |
+| `.done` | `True` if data collection is complete |
+| `.wait(timeout)` | Block until complete, returns self |
+| `.receive()` | Generator yielding messages as they arrive |
+| `.disconnect()` | Stop the WebSocket connection early |
+| `await response` | Async-friendly wait (non-blocking event loop) |
+
+**Example Usage:**
+```python
+from mistapi.device_utils import ex
+
+# Non-blocking - returns immediately, data collected in background
+response = ex.ping(apisession, site_id, device_id, host="8.8.8.8")
+do_other_work()  # Can do other things while waiting
+response.wait()  # Block when ready to collect results
+print(response.ws_data)
+
+# Generator style - process messages as they arrive
+for msg in response.receive():
+    print(msg)
+
+# Async-friendly - doesn't block the event loop
+await response
+```
+
+---
+
 ## Version 0.61.0 (March 2026)
 
 **Released**: March 13, 2026
