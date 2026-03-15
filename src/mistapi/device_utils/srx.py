@@ -33,6 +33,7 @@ from mistapi.device_utils.__tools.dhcp import retrieve_dhcp_leases as retrieveDh
 # Tools (ping, monitor traffic)
 from mistapi.device_utils.__tools.miscellaneous import monitor_traffic as monitorTraffic
 from mistapi.device_utils.__tools.miscellaneous import ping
+from mistapi.device_utils.__tools.miscellaneous import top_command as topCommand
 
 # OSPF functions
 from mistapi.device_utils.__tools.ospf import show_database as retrieveOspfDatabase
@@ -75,4 +76,5 @@ __all__ = [
     # Tools
     "monitorTraffic",
     "ping",
+    "topCommand",
 ]

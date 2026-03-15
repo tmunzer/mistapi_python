@@ -662,7 +662,7 @@ class APISession(APIRequest):
                     LOGGER.error(
                         "apisession:_check_api_tokens:"
                         "%s API Token %s has different privileges "
-                        "than the %s API Token %s  and will not be used",
+                        "than the %s API Token %s and will not be used",
                         token_type,
                         masked,
                         primary_token_type,

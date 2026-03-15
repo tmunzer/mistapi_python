@@ -139,10 +139,12 @@ class _MistWebsocket:
         if self._on_open_cb:
             self._on_open_cb()
 
-    def _handle_message(self, ws: websocket.WebSocketApp, message: str) -> None:
+    def _handle_message(self, ws: websocket.WebSocketApp, message: str | bytes) -> None:
+        if isinstance(message, bytes):
+            message = message.replace(b"\x00", b"").decode("utf-8", errors="replace")
         try:
             data = json.loads(message)
-        except json.JSONDecodeError:
+        except (json.JSONDecodeError, TypeError):
             data = {"raw": message}
         self._queue.put(data)
         if self._on_message_cb:

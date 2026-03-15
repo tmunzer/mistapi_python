@@ -1,5 +1,6 @@
 import json
 import queue
+import re
 import threading
 from collections.abc import Callable, Generator
 from enum import Enum
@@ -7,6 +8,150 @@ from enum import Enum
 from mistapi import APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 from mistapi.__logger import logger as LOGGER
+
+# Matches ANSI CSI sequences, OSC sequences, and character set designations
+_ANSI_ESCAPE_RE = re.compile(
+    r"\x1b\[[0-9;]*[a-zA-Z]|\x1b\][^\x07]*\x07|\x1b[()][A-B0-2]"
+)
+
+# Detects VT100 cursor positioning / clear-screen (triggers screen-buffer mode)
+_SCREEN_MODE_RE = re.compile(r"\x1b\[[\d;]*H|\x1b\[2J")
+
+
+class _VT100Screen:
+    """Minimal VT100 terminal emulator for rendering screen-based output.
+
+    Handles the subset of VT100 sequences used by Junos ``top`` and
+    ``monitor interface`` commands: cursor positioning, screen/line
+    clearing, and cursor movement.  SGR (colors), scroll regions, and
+    mode changes are silently ignored.
+    """
+
+    def __init__(self, rows: int = 80, cols: int = 200) -> None:
+        self.rows = rows
+        self.cols = cols
+        self.cursor_row = 0
+        self.cursor_col = 0
+        self.grid: list[list[str]] = [[" "] * cols for _ in range(rows)]
+
+    def feed(self, text: str) -> None:
+        """Process *text* (may contain VT100 sequences) into the screen buffer."""
+        i = 0
+        n = len(text)
+        while i < n:
+            ch = text[i]
+
+            if ch == "\x1b" and i + 1 < n:
+                nxt = text[i + 1]
+                if nxt == "[":
+                    # CSI sequence: \x1b[ <params> <cmd>
+                    j = i + 2
+                    params = ""
+                    while j < n and text[j] in "0123456789;":
+                        params += text[j]
+                        j += 1
+                    if j < n:
+                        self._handle_csi(params, text[j])
+                        i = j + 1
+                    else:
+                        i = j
+                    continue
+                if nxt in "()":
+                    # Character-set designation – skip 3 bytes
+                    i += 3 if i + 2 < n else n
+                    continue
+                if nxt == "]":
+                    # OSC sequence – skip until BEL
+                    j = i + 2
+                    while j < n and text[j] != "\x07":
+                        j += 1
+                    i = j + 1
+                    continue
+                # Unknown escape – skip \x1b and the next char
+                i += 2
+                continue
+
+            if ch == "\r":
+                self.cursor_col = 0
+                i += 1
+                continue
+
+            if ch == "\n":
+                self.cursor_row += 1
+                self.cursor_col = 0
+                if self.cursor_row >= self.rows:
+                    self.grid.pop(0)
+                    self.grid.append([" "] * self.cols)
+                    self.cursor_row = self.rows - 1
+                i += 1
+                continue
+
+            if ch == "\x00":
+                i += 1
+                continue
+
+            # Printable character
+            if 0 <= self.cursor_row < self.rows and 0 <= self.cursor_col < self.cols:
+                self.grid[self.cursor_row][self.cursor_col] = ch
+            self.cursor_col += 1
+            i += 1
+
+    # ------------------------------------------------------------------
+    def _handle_csi(self, params: str, cmd: str) -> None:
+        nums = []
+        for p in params.split(";") if params else []:
+            try:
+                nums.append(int(p))
+            except ValueError:
+                nums.append(0)
+
+        if cmd in ("H", "f"):  # Cursor position
+            row = (nums[0] - 1) if nums else 0
+            col = (nums[1] - 1) if len(nums) > 1 else 0
+            self.cursor_row = max(0, min(row, self.rows - 1))
+            self.cursor_col = max(0, min(col, self.cols - 1))
+        elif cmd == "A":  # Cursor up
+            self.cursor_row = max(0, self.cursor_row - (nums[0] if nums else 1))
+        elif cmd == "B":  # Cursor down
+            self.cursor_row = min(
+                self.rows - 1, self.cursor_row + (nums[0] if nums else 1)
+            )
+        elif cmd == "C":  # Cursor forward
+            self.cursor_col = min(
+                self.cols - 1, self.cursor_col + (nums[0] if nums else 1)
+            )
+        elif cmd == "D":  # Cursor back
+            self.cursor_col = max(0, self.cursor_col - (nums[0] if nums else 1))
+        elif cmd == "J":  # Erase in display
+            n = nums[0] if nums else 0
+            if n == 2:
+                self.grid = [[" "] * self.cols for _ in range(self.rows)]
+                self.cursor_row = 0
+                self.cursor_col = 0
+            elif n == 0:
+                for c in range(self.cursor_col, self.cols):
+                    self.grid[self.cursor_row][c] = " "
+                for r in range(self.cursor_row + 1, self.rows):
+                    self.grid[r] = [" "] * self.cols
+        elif cmd == "K":  # Erase in line
+            n = nums[0] if nums else 0
+            if n == 0:
+                for c in range(self.cursor_col, self.cols):
+                    self.grid[self.cursor_row][c] = " "
+            elif n == 1:
+                for c in range(self.cursor_col + 1):
+                    self.grid[self.cursor_row][c] = " "
+            elif n == 2:
+                self.grid[self.cursor_row] = [" "] * self.cols
+        # SGR (m), scroll region (r), mode set/reset (l, h) – ignore
+
+    # ------------------------------------------------------------------
+    def render(self) -> str:
+        """Return screen content as text with trailing whitespace trimmed."""
+        lines = ["".join(row).rstrip() for row in self.grid]
+        while lines and not lines[-1]:
+            lines.pop()
+        return "\n".join(lines)
 
 
 class TimerAction(Enum):
@@ -176,6 +321,8 @@ class WebSocketWrapper:
         self.session_id: str | None = None
         self.capture_id: str | None = None
         self._on_message_cb = on_message
+        self._screen: _VT100Screen | None = None
+        self._screen_mode: bool = False
         self._extract_trigger_ids()
 
     def _extract_trigger_ids(self):
@@ -252,7 +399,8 @@ class WebSocketWrapper:
             self._timeout_handler(Timer.FIRST_MESSAGE_TIMEOUT, TimerAction.START)
         elif self._extract_session_id(msg):
             # Stop the first message timeout timer on receiving the first message
-            self._timeout_handler(Timer.FIRST_MESSAGE_TIMEOUT, TimerAction.STOP)
+            if self.timers[Timer.FIRST_MESSAGE_TIMEOUT.value]["thread"]:
+                self._timeout_handler(Timer.FIRST_MESSAGE_TIMEOUT, TimerAction.STOP)
             LOGGER.debug("data: %s", msg)
             raw = self._extract_raw(msg)
             if raw:
@@ -323,8 +471,19 @@ class WebSocketWrapper:
                 return self._extract_raw(event["data"], root=False)
             if "raw" in event:
                 self.received_messages += 1
-                LOGGER.debug("Extracted raw message: %s", event["raw"])
-                return event["raw"]
+                raw_value = event["raw"]
+                if isinstance(raw_value, str):
+                    # Detect screen-mode (cursor positioning / clear-screen)
+                    if not self._screen_mode and _SCREEN_MODE_RE.search(raw_value):
+                        self._screen_mode = True
+                        self._screen = _VT100Screen()
+                    if self._screen_mode and self._screen is not None:
+                        self._screen.feed(raw_value)
+                        raw_value = self._screen.render()
+                    else:
+                        raw_value = _ANSI_ESCAPE_RE.sub("", raw_value)
+                LOGGER.debug("Extracted raw message: %s", raw_value)
+                return raw_value
             if "pcap_dict" in event:
                 self.received_messages += 1
                 LOGGER.debug("Extracted pcap data: %s", event["pcap_dict"])

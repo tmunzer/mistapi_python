@@ -1,26 +1,25 @@
-"""
---------------------------------------------------------------------------------
-------------------------- Mist API Python CLI Session --------------------------
+# """
+# --------------------------------------------------------------------------------
+# ------------------------- Mist API Python CLI Session --------------------------
 
-    Written by: Thomas Munzer (tmunzer@juniper.net)
-    Github    : https://github.com/tmunzer/mistapi_python
+#     Written by: Thomas Munzer (tmunzer@juniper.net)
+#     Github    : https://github.com/tmunzer/mistapi_python
 
-    This package is licensed under the MIT License.
+#     This package is licensed under the MIT License.
 
---------------------------------------------------------------------------------
-"""
+# --------------------------------------------------------------------------------
+# """
 
-from enum import Enum
+# from collections.abc import Callable
+
+# from mistapi import APISession as _APISession
+# from mistapi.api.v1.sites import devices
+# from mistapi.device_utils.__tools.__common import Node
+# from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
+# from mistapi.websockets.sites import DeviceCmdEvents
 
 
-class Node(Enum):
-    """Node Enum for specifying node information in DNS commands."""
-
-    NODE0 = "node0"
-    NODE1 = "node1"
-
-
-## NO DATA
+# ## NO DATA
 # def test_resolution(
 #     apisession: _APISession,
 #     site_id: str,
@@ -63,22 +62,14 @@ class Node(Enum):
 #         body["node"] = node.value
 #     if hostname:
 #         body["hostname"] = hostname
-#     trigger = devices.testSiteSsrDnsResolution(
-#         apisession,
-#         site_id=site_id,
-#         device_id=device_id,
-#         body=body,
+#     util_response = UtilResponse()
+#     return WebSocketWrapper(
+#         apisession, util_response, timeout=timeout, on_message=on_message
+#     ).start_with_trigger(
+#         trigger_fn=lambda: devices.testSiteSsrDnsResolution(
+#             apisession, site_id=site_id, device_id=device_id, body=body
+#         ),
+#         ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+#             apisession, site_id=site_id, device_ids=[device_id]
+#         ),
 #     )
-#     util_response = UtilResponse(trigger)
-#     if trigger.status_code == 200:
-#         LOGGER.info(trigger.data)
-#         print(f"SSR DNS resolution command triggered for device {device_id}")
-#         ws = DeviceCmdEvents(apisession, site_id=site_id, device_ids=[device_id])
-#         util_response = await WebSocketWrapper(
-#             apisession, util_response, timeout=timeout, on_message=on_message
-#         ).start(ws)
-#     else:
-#         LOGGER.error(
-#             f"Failed to trigger SSR DNS resolution command: {trigger.status_code} - {trigger.data}"
-#         )  # Give the SSR DNS resolution command a moment to take effect
-#     return util_response

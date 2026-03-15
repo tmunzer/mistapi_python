@@ -712,9 +712,9 @@ with mistapi.websockets.sites.DeviceStatsEvents(apisession, site_ids=["<site_id>
 | Module | Device Type | Functions |
 |--------|-------------|-----------|
 | `device_utils.ap` | Mist Access Points | `ping`, `traceroute`, `retrieveArpTable` |
-| `device_utils.ex` | Juniper EX Switches | `ping`, `monitorTraffic`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveMacTable`, `clearMacTable`, `clearLearnedMac`, `clearBpduError`, `clearDot1xSessions`, `clearHitCount`, `bouncePort`, `cableTest` |
-| `device_utils.srx` | Juniper SRX Firewalls | `ping`, `monitorTraffic`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `showDatabase`, `showNeighbors`, `showInterfaces`, `bouncePort`, `retrieveRoutes` |
-| `device_utils.ssr` | Juniper SSR Routers | `ping`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `showDatabase`, `showNeighbors`, `showInterfaces`, `bouncePort`, `retrieveRoutes`, `showServicePath` |
+| `device_utils.ex` | Juniper EX Switches | `ping`, `monitorTraffic`, `topCommand`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveMacTable`, `clearMacTable`, `clearLearnedMac`, `clearBpduError`, `clearDot1xSessions`, `clearHitCount`, `bouncePort`, `cableTest` |
+| `device_utils.srx` | Juniper SRX Firewalls | `ping`, `monitorTraffic`, `topCommand`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveOspfDatabase`, `retrieveOspfNeighbors`, `retrieveOspfInterfaces`, `retrieveOspfSummary`, `retrieveSessions`, `clearSessions`, `bouncePort`, `retrieveRoutes` |
+| `device_utils.ssr` | Juniper SSR Routers | `ping`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveOspfDatabase`, `retrieveOspfNeighbors`, `retrieveOspfInterfaces`, `retrieveOspfSummary`, `retrieveSessions`, `clearSessions`, `bouncePort`, `retrieveRoutes`, `showServicePath` |
 
 ### Device Utilities Usage
 
@@ -746,7 +746,7 @@ Iterate over processed messages as they arrive, similar to `_MistWebsocket.recei
 ```python
 response = ex.retrieveMacTable(apisession, site_id, device_id)
 for msg in response.receive():    # blocking generator, yields each message
-    print(msg)
+    print(msg, end="", flush=True)
 # loop ends when the WebSocket closes
 print(response.ws_data)
 ```
@@ -758,7 +758,7 @@ print(response.ws_data)
 ```python
 with ex.cableTest(apisession, site_id, device_id, port_id="ge-0/0/0") as response:
     for msg in response.receive():
-        print(msg)
+        print(msg, end="", flush=True)
 # WebSocket disconnected, data ready
 print(response.ws_data)
 ```
@@ -794,7 +794,7 @@ import asyncio
 from mistapi.device_utils import ex
 
 async def main():
-    response = ex.traceroute(apisession, site_id, device_id, host="8.8.8.8")
+    response = ex.retrieveArpTable(apisession, site_id, device_id)
     await response               # non-blocking await
     print(response.ws_data)
 

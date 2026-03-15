@@ -43,6 +43,7 @@ from mistapi.device_utils.__tools.mac import retrieve_mac_table as retrieveMacTa
 # Tools (ping, monitor traffic)
 from mistapi.device_utils.__tools.miscellaneous import monitor_traffic as monitorTraffic
 from mistapi.device_utils.__tools.miscellaneous import ping
+from mistapi.device_utils.__tools.miscellaneous import top_command as topCommand
 
 # Policy functions
 from mistapi.device_utils.__tools.policy import clear_hit_count as clearHitCount
@@ -75,4 +76,5 @@ __all__ = [
     # Tools
     "monitorTraffic",
     "ping",
+    "topCommand",
 ]

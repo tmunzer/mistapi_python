@@ -317,53 +317,53 @@ def monitor_traffic(
     )
 
 
-## NO DATA
-# def srx_top_command(
-#     apisession: _APISession,
-#     site_id: str,
-#     device_id: str,
-#     timeout=10,
-#     on_message: Callable[[dict], None] | None = None,
-# ) -> UtilResponse:
-#     """
-#     DEVICE: SRX
+# NO DATA
+def top_command(
+    apisession: _APISession,
+    site_id: str,
+    device_id: str,
+    timeout=10,
+    on_message: Callable[[dict], None] | None = None,
+) -> UtilResponse:
+    """
+    DEVICE: EX, SRX
 
-#     For SRX Only. Initiates a top command on the device and streams the results.
+    Initiates a top command on the device and streams the results.
 
-#     PARAMS
-#     -----------
-#     apisession: mistapi.APISession
-#         The API session to use for the request.
-#     site_id : str
-#         UUID of the site where the device is located.
-#     device_id : str
-#         UUID of the device to run the top command on.
-#     timeout : int, optional
-#         Timeout for the top command in seconds.
-#     on_message : Callable, optional
-#         Callback invoked with each extracted raw message as it arrives.
+    PARAMS
+    -----------
+    apisession: mistapi.APISession
+        The API session to use for the request.
+    site_id : str
+        UUID of the site where the device is located.
+    device_id : str
+        UUID of the device to run the top command on.
+    timeout : int, optional
+        Timeout for the top command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
-#     RETURNS
-#     -----------
-#     UtilResponse
-#         A UtilResponse object containing the API response and a list of raw messages received
-#         from the WebSocket stream.
-#     """
-#     trigger = devices.runSiteSrxTopCommand(
-#         apisession,
-#         site_id=site_id,
-#         device_id=device_id,
-#     )
-#     util_response = UtilResponse(trigger)
-#     if trigger.status_code == 200:
-#         LOGGER.info(trigger.data)
-#         print(f"Top command triggered for device {device_id}")
-#         ws = SessionWithUrl(apisession, url=trigger.data.get("url", ""))
-#         util_response = WebSocketWrapper(
-#             apisession, util_response, timeout=timeout, on_message=on_message
-#         ).start(ws)
-#     else:
-#         LOGGER.error(
-#             f"Failed to trigger top command: {trigger.status_code} - {trigger.data}"
-#         )  # Give the top command a moment to take effect
-#     return util_response
+    RETURNS
+    -----------
+    UtilResponse
+        A UtilResponse object containing the API response and a list of raw messages received
+        from the WebSocket stream.
+    """
+
+    def _ws_factory(trigger):
+        if isinstance(trigger.data, dict) and "url" in trigger.data:
+            return SessionWithUrl(apisession, url=trigger.data.get("url", ""))
+        LOGGER.error(
+            "Monitor traffic command did not return a valid URL: %s", trigger.data
+        )
+        return None
+
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.runSiteSrxTopCommand(
+            apisession, site_id=site_id, device_id=device_id
+        ),
+        ws_factory_fn=_ws_factory,
+    )
