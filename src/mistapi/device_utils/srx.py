@@ -30,6 +30,11 @@ from mistapi.device_utils.__tools.bgp import summary as retrieveBgpSummary
 from mistapi.device_utils.__tools.dhcp import release_dhcp_leases as releaseDhcpLeases
 from mistapi.device_utils.__tools.dhcp import retrieve_dhcp_leases as retrieveDhcpLeases
 
+# Shell (interactive SSH)
+from mistapi.device_utils.__tools.shell import ShellSession
+from mistapi.device_utils.__tools.shell import create_shell_session as createShellSession
+from mistapi.device_utils.__tools.shell import interactive_shell as interactiveShell
+
 # Tools (ping, monitor traffic)
 from mistapi.device_utils.__tools.miscellaneous import monitor_traffic as monitorTraffic
 from mistapi.device_utils.__tools.miscellaneous import ping
@@ -73,6 +78,10 @@ __all__ = [
     # Sessions
     "retrieveSessions",
     "clearSessions",
+    # Shell
+    "ShellSession",
+    "createShellSession",
+    "interactiveShell",
     # Tools
     "monitorTraffic",
     "ping",

@@ -40,6 +40,11 @@ from mistapi.device_utils.__tools.mac import clear_learned_mac as clearLearnedMa
 from mistapi.device_utils.__tools.mac import clear_mac_table as clearMacTable
 from mistapi.device_utils.__tools.mac import retrieve_mac_table as retrieveMacTable
 
+# Shell (interactive SSH)
+from mistapi.device_utils.__tools.shell import ShellSession
+from mistapi.device_utils.__tools.shell import create_shell_session as createShellSession
+from mistapi.device_utils.__tools.shell import interactive_shell as interactiveShell
+
 # Tools (ping, monitor traffic)
 from mistapi.device_utils.__tools.miscellaneous import monitor_traffic as monitorTraffic
 from mistapi.device_utils.__tools.miscellaneous import ping
@@ -73,6 +78,10 @@ __all__ = [
     # Port
     "bouncePort",
     "cableTest",
+    # Shell
+    "ShellSession",
+    "createShellSession",
+    "interactiveShell",
     # Tools
     "monitorTraffic",
     "ping",

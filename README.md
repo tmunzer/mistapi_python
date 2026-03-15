@@ -712,8 +712,8 @@ with mistapi.websockets.sites.DeviceStatsEvents(apisession, site_ids=["<site_id>
 | Module | Device Type | Functions |
 |--------|-------------|-----------|
 | `device_utils.ap` | Mist Access Points | `ping`, `traceroute`, `retrieveArpTable` |
-| `device_utils.ex` | Juniper EX Switches | `ping`, `monitorTraffic`, `topCommand`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveMacTable`, `clearMacTable`, `clearLearnedMac`, `clearBpduError`, `clearDot1xSessions`, `clearHitCount`, `bouncePort`, `cableTest` |
-| `device_utils.srx` | Juniper SRX Firewalls | `ping`, `monitorTraffic`, `topCommand`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveOspfDatabase`, `retrieveOspfNeighbors`, `retrieveOspfInterfaces`, `retrieveOspfSummary`, `retrieveSessions`, `clearSessions`, `bouncePort`, `retrieveRoutes` |
+| `device_utils.ex` | Juniper EX Switches | `ping`, `monitorTraffic`, `topCommand`, `interactiveShell`, `createShellSession`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveMacTable`, `clearMacTable`, `clearLearnedMac`, `clearBpduError`, `clearDot1xSessions`, `clearHitCount`, `bouncePort`, `cableTest` |
+| `device_utils.srx` | Juniper SRX Firewalls | `ping`, `monitorTraffic`, `topCommand`, `interactiveShell`, `createShellSession`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveOspfDatabase`, `retrieveOspfNeighbors`, `retrieveOspfInterfaces`, `retrieveOspfSummary`, `retrieveSessions`, `clearSessions`, `bouncePort`, `retrieveRoutes` |
 | `device_utils.ssr` | Juniper SSR Routers | `ping`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveOspfDatabase`, `retrieveOspfNeighbors`, `retrieveOspfInterfaces`, `retrieveOspfSummary`, `retrieveSessions`, `clearSessions`, `bouncePort`, `retrieveRoutes`, `showServicePath` |
 
 ### Device Utilities Usage
@@ -830,6 +830,54 @@ All device utility functions return a `UtilResponse` object:
 
 - `ap.TracerouteProtocol` — `ICMP`, `UDP` (for `ap.traceroute()`)
 - `srx.Node` / `ssr.Node` — `NODE0`, `NODE1` (for dual-node devices)
+
+### Interactive Shell
+
+`interactiveShell()` and `createShellSession()` provide SSH-over-WebSocket access to EX and SRX devices. Unlike the diagnostic utilities above, the shell is **bidirectional** — you send keystrokes and receive terminal output in real time.
+
+#### Interactive mode (human at the keyboard)
+
+Takes over the terminal. Blocks until the connection closes or you press Ctrl+C:
+
+```python
+from mistapi.device_utils import ex
+
+ex.interactiveShell(apisession, site_id, device_id)
+```
+
+Requires the `sshkeyboard` package (installed automatically as a dependency).
+
+#### Programmatic mode
+
+Use `createShellSession()` to get a `ShellSession` object for scripting:
+
+```python
+from mistapi.device_utils import ex
+import time
+
+with ex.createShellSession(apisession, site_id, device_id) as session:
+    session.send_text("show version\r\n")
+    time.sleep(3)
+    while True:
+        data = session.recv(timeout=0.5)
+        if data is None:
+            break
+        print(data.decode("utf-8", errors="replace"), end="")
+```
+
+#### ShellSession API
+
+| Method / Property | Returns | Description |
+|-------------------|---------|-------------|
+| `connect()` | `None` | Open the WebSocket connection. Called automatically by `createShellSession()`. |
+| `disconnect()` | `None` | Close the WebSocket connection. |
+| `connected` | `bool` | `True` if the WebSocket is currently connected. |
+| `send(data)` | `None` | Send raw bytes (keystrokes) to the device. |
+| `send_text(text)` | `None` | Send a text string to the device (auto-prefixed with `\x00`). |
+| `recv(timeout=0.1)` | `bytes \| None` | Receive output from the device. Returns `None` on timeout or if disconnected. |
+| `resize(rows, cols)` | `None` | Send a terminal resize message. |
+
+`ShellSession` also supports the context manager protocol (`with` statement).
 
 ---
 
