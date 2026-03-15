@@ -13,11 +13,11 @@
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
-from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
 
 
-async def clear_error(
-    apissession: _APISession,
+def clear_error(
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
@@ -29,6 +29,8 @@ async def clear_error(
 
     PARAMS
     -----------
+    apisession: mistapi.APISession
+        The API session to use for the request.
     site_id : str
         UUID of the site where the switch is located.
     device_id : str
@@ -42,20 +44,15 @@ async def clear_error(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-
-    body: dict[str, str | list | int] = {"ports": port_ids}
-    trigger = devices.clearBpduErrorsFromPortsOnSwitch(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    LOGGER.debug(
+        "Initiating clear BPDU error command for device %s on ports %s",
+        device_id,
+        port_ids,
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Clear BPDU error command triggered for device {device_id}")
-    else:
-        LOGGER.error(
-            f"Failed to trigger clear BPDU error command: {trigger.status_code} - {trigger.data}"
-        )  # Give the clear BPDU error command a moment to take effect
-    return util_response
+    body: dict[str, str | list | int] = {"ports": port_ids}
+    util_response = UtilResponse()
+    return WebSocketWrapper(apisession, util_response).start_with_trigger(
+        trigger_fn=lambda: devices.clearBpduErrorsFromPortsOnSwitch(
+            apisession, site_id=site_id, device_id=device_id, body=body
+        ),
+    )

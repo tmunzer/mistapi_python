@@ -4,16 +4,10 @@ from enum import Enum
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
+from mistapi.device_utils.__tools.__common import Node
 from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
 from mistapi.websockets.session import SessionWithUrl
 from mistapi.websockets.sites import DeviceCmdEvents
-
-
-class Node(Enum):
-    """Node Enum for specifying node information in commands."""
-
-    NODE0 = "node0"
-    NODE1 = "node1"
 
 
 class TracerouteProtocol(Enum):
@@ -24,7 +18,7 @@ class TracerouteProtocol(Enum):
 
 
 def ping(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     host: str,
@@ -43,7 +37,7 @@ def ping(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -70,6 +64,17 @@ def ping(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating ping command for device %s to host %s with count %s, node %s, size %s, "
+        "VRF %s, and timeout %s",
+        device_id,
+        host,
+        count,
+        node,
+        size,
+        vrf,
+        timeout,
+    )
     body: dict[str, str | list | int] = {}
     if count:
         body["count"] = count
@@ -81,29 +86,22 @@ def ping(
         body["size"] = size
     if vrf:
         body["vrf"] = vrf
-    trigger = devices.pingFromDevice(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.pingFromDevice(
+            apisession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apisession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(f"Ping command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger ping command: {trigger.status_code} - {trigger.data}"
-        )  # Give the ping command a moment to take effect
-    return util_response
 
 
 ## NO DATA
 # def service_ping(
-#     apissession: _APISession,
+#     apisession: _APISession,
 #     site_id: str,
 #     device_id: str,
 #     host: str,
@@ -122,7 +120,7 @@ def ping(
 
 #     PARAMS
 #     -----------
-#     apissession : _APISession
+#     apisession: mistapi.APISession
 #         The API session to use for the request.
 #     site_id : str
 #         UUID of the site where the device is located.
@@ -165,7 +163,7 @@ def ping(
 #     if service:
 #         body["service"] = service
 #     trigger = devices.servicePingFromSsr(
-#         apissession,
+#         apisession,
 #         site_id=site_id,
 #         device_id=device_id,
 #         body=body,
@@ -173,9 +171,9 @@ def ping(
 #     util_response = UtilResponse(trigger)
 #     if trigger.status_code == 200:
 #         LOGGER.info(f"Service Ping command triggered for device {device_id}")
-#         ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
+#         ws = DeviceCmdEvents(apisession, site_id=site_id, device_ids=[device_id])
 #         util_response = WebSocketWrapper(
-#             apissession, util_response, timeout, on_message=on_message
+#             apisession, util_response, timeout, on_message=on_message
 #         ).start(ws)
 #     else:
 #         LOGGER.error(
@@ -185,7 +183,7 @@ def ping(
 
 
 def traceroute(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     host: str,
@@ -202,7 +200,7 @@ def traceroute(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -225,33 +223,35 @@ def traceroute(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating traceroute command for device %s to host %s with protocol %s, port %s, "
+        "and timeout %s",
+        device_id,
+        host,
+        protocol,
+        port,
+        timeout,
+    )
     body: dict[str, str | list | int] = {"host": host}
     if protocol:
         body["protocol"] = protocol.value
     if port:
         body["port"] = port
-    trigger = devices.tracerouteFromDevice(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.tracerouteFromDevice(
+            apisession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apisession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(f"Traceroute command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger traceroute command: {trigger.status_code} - {trigger.data}"
-        )  # Give the traceroute command a moment to take effect
-    return util_response
 
 
 def monitor_traffic(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_id: str | None = None,
@@ -269,7 +269,7 @@ def monitor_traffic(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -288,77 +288,80 @@ def monitor_traffic(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating monitor traffic command for device %s on port %s with timeout %s",
+        device_id,
+        port_id,
+        timeout,
+    )
     body: dict[str, str | int] = {"duration": 60}
     if port_id:
         body["port"] = port_id
-    trigger = devices.monitorSiteDeviceTraffic(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
-    )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Monitor traffic command triggered for device {device_id}")
-        ws = SessionWithUrl(apissession, url=trigger.data.get("url", ""))
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
+
+    def _ws_factory(trigger):
+        if isinstance(trigger.data, dict) and "url" in trigger.data:
+            return SessionWithUrl(apisession, url=trigger.data.get("url", ""))
         LOGGER.error(
-            f"Failed to trigger monitor traffic command: {trigger.status_code} - {trigger.data}"
-        )  # Give the monitor traffic command a moment to take effect
-    return util_response
+            "Monitor traffic command did not return a valid URL: %s", trigger.data
+        )
+        return None
+
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.monitorSiteDeviceTraffic(
+            apisession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=_ws_factory,
+    )
 
 
-## NO DATA
-# def srx_top_command(
-#     apissession: _APISession,
-#     site_id: str,
-#     device_id: str,
-#     timeout=10,
-#     on_message: Callable[[dict], None] | None = None,
-# ) -> UtilResponse:
-#     """
-#     DEVICE: SRX
+# NO DATA
+def top_command(
+    apisession: _APISession,
+    site_id: str,
+    device_id: str,
+    timeout=10,
+    on_message: Callable[[dict], None] | None = None,
+) -> UtilResponse:
+    """
+    DEVICE: EX, SRX
 
-#     For SRX Only. Initiates a top command on the device and streams the results.
+    Initiates a top command on the device and streams the results.
 
-#     PARAMS
-#     -----------
-#     apissession : _APISession
-#         The API session to use for the request.
-#     site_id : str
-#         UUID of the site where the device is located.
-#     device_id : str
-#         UUID of the device to run the top command on.
-#     timeout : int, optional
-#         Timeout for the top command in seconds.
-#     on_message : Callable, optional
-#         Callback invoked with each extracted raw message as it arrives.
+    PARAMS
+    -----------
+    apisession: mistapi.APISession
+        The API session to use for the request.
+    site_id : str
+        UUID of the site where the device is located.
+    device_id : str
+        UUID of the device to run the top command on.
+    timeout : int, optional
+        Timeout for the top command in seconds.
+    on_message : Callable, optional
+        Callback invoked with each extracted raw message as it arrives.
 
-#     RETURNS
-#     -----------
-#     UtilResponse
-#         A UtilResponse object containing the API response and a list of raw messages received
-#         from the WebSocket stream.
-#     """
-#     trigger = devices.runSiteSrxTopCommand(
-#         apissession,
-#         site_id=site_id,
-#         device_id=device_id,
-#     )
-#     util_response = UtilResponse(trigger)
-#     if trigger.status_code == 200:
-#         LOGGER.info(trigger.data)
-#         print(f"Top command triggered for device {device_id}")
-#         ws = SessionWithUrl(apissession, url=trigger.data.get("url", ""))
-#         util_response = WebSocketWrapper(
-#             apissession, util_response, timeout=timeout, on_message=on_message
-#         ).start(ws)
-#     else:
-#         LOGGER.error(
-#             f"Failed to trigger top command: {trigger.status_code} - {trigger.data}"
-#         )  # Give the top command a moment to take effect
-#     return util_response
+    RETURNS
+    -----------
+    UtilResponse
+        A UtilResponse object containing the API response and a list of raw messages received
+        from the WebSocket stream.
+    """
+
+    def _ws_factory(trigger):
+        if isinstance(trigger.data, dict) and "url" in trigger.data:
+            return SessionWithUrl(apisession, url=trigger.data.get("url", ""))
+        LOGGER.error("Top command did not return a valid URL: %s", trigger.data)
+        return None
+
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.runSiteSrxTopCommand(
+            apisession, site_id=site_id, device_id=device_id
+        ),
+        ws_factory_fn=_ws_factory,
+    )

@@ -23,7 +23,7 @@ import requests
 from dotenv import load_dotenv
 from requests import Session
 
-from mistapi.__api_request import APIRequest
+from mistapi.__api_request import APIRequest, _apitoken_sanitizer
 from mistapi.__api_response import APIResponse
 from mistapi.__logger import console as CONSOLE
 from mistapi.__logger import logger as LOGGER
@@ -277,10 +277,10 @@ class APISession(APIRequest):
                     if isinstance(mist_apitoken, str):
                         for token in mist_apitoken.split(","):
                             token = token.strip()
+                            masked = _apitoken_sanitizer(token)
                             LOGGER.info(
-                                "apisession:_load_keyring: Found MIST_APITOKEN=%s...%s",
-                                token[:4],
-                                token[-4:],
+                                "apisession:_load_keyring: Found MIST_APITOKEN=%s",
+                                masked,
                             )
                     self.set_api_token(mist_apitoken)
                 mist_user = keyring.get_password(keyring_service, "MIST_USER")
@@ -526,6 +526,7 @@ class APISession(APIRequest):
     def _get_api_token_data(self, apitoken) -> tuple[str | None, list | None]:
         token_privileges = []
         token_type = "org"  # nosec bandit B105
+        masked = _apitoken_sanitizer(apitoken)
         try:
             url = f"https://{self._cloud_uri}/api/v1/self"
             headers = {"Authorization": "Token " + apitoken}
@@ -536,9 +537,8 @@ class APISession(APIRequest):
             )
             data_json = data.json()
             LOGGER.debug(
-                "apisession:_get_api_token_data:info retrieved for token %s...%s",
-                apitoken[:4],
-                apitoken[-4:],
+                "apisession:_get_api_token_data:info retrieved for token %s",
+                masked,
             )
         except requests.exceptions.ProxyError as proxy_error:
             LOGGER.critical("apisession:_get_api_token_data:proxy not valid...")
@@ -554,10 +554,8 @@ class APISession(APIRequest):
             ) from connexion_error
         except Exception:
             LOGGER.error(
-                "apisession:_get_api_token_data:"
-                "unable to retrieve info for token %s...%s",
-                apitoken[:4],
-                apitoken[-4:],
+                "apisession:_get_api_token_data:unable to retrieve info for token %s",
+                masked,
             )
             LOGGER.error(
                 "apirequest:_get_api_token_data: Exception occurred", exc_info=True
@@ -566,20 +564,17 @@ class APISession(APIRequest):
 
         if data.status_code == 401:
             LOGGER.critical(
-                "apisession:_get_api_token_data:"
-                "invalid API Token %s...%s: status code %s",
-                apitoken[:4],
-                apitoken[-4:],
+                "apisession:_get_api_token_data:invalid API Token %s: status code %s",
+                masked,
                 data.status_code,
             )
             CONSOLE.critical(
-                "Invalid API Token %s...%s: status code %s\r\n",
-                apitoken[:4],
-                apitoken[-4:],
+                "Invalid API Token %s: status code %s\r\n",
+                masked,
                 data.status_code,
             )
             raise ValueError(
-                f"Invalid API Token {apitoken[:4]}...{apitoken[-4:]}: status code {data.status_code}"
+                f"Invalid API Token {masked}: status code {data.status_code}"
             )
 
         if data_json.get("email"):
@@ -604,11 +599,10 @@ class APISession(APIRequest):
                 LOGGER.error(
                     "apisession:_check_api_tokens:"
                     "unable to process privileges %s for the %s "
-                    "token %s...%s",
+                    "token %s",
                     priv,
                     token_type,
-                    apitoken[:4],
-                    apitoken[-4:],
+                    masked,
                 )
         return (token_type, token_privileges)
 
@@ -624,34 +618,34 @@ class APISession(APIRequest):
         else:
             primary_token_privileges: list[str] = []
             primary_token_type: str | None = ""
-            primary_token_value: str = ""
+            primary_masked: str | None = ""
             for token in apitokens:
-                not_sensitive_data = f"{token[:4]}...{token[-4:]}"
+                masked = _apitoken_sanitizer(token)
                 if token in valid_api_tokens:
                     LOGGER.info(
                         "apisession:_check_api_tokens:API Token %s is already valid",
-                        not_sensitive_data,
+                        masked,
                     )
                     continue
                 (token_type, token_privileges) = self._get_api_token_data(token)
                 if token_type is None or token_privileges is None:
                     LOGGER.error(
                         "apisession:_check_api_tokens:API Token %s is not valid",
-                        not_sensitive_data,
+                        masked,
                     )
                     LOGGER.error(
                         "API Token %s is not valid and will not be used",
-                        not_sensitive_data,
+                        masked,
                     )
                 elif len(primary_token_privileges) == 0 and token_privileges:
                     primary_token_privileges = token_privileges
                     primary_token_type = token_type
-                    primary_token_value = not_sensitive_data
+                    primary_masked = masked
                     valid_api_tokens.append(token)
                     LOGGER.info(
                         "apisession:_check_api_tokens:"
                         "API Token %s set as primary for comparison",
-                        not_sensitive_data,
+                        masked,
                     )
                 elif primary_token_privileges == token_privileges:
                     valid_api_tokens.append(token)
@@ -660,23 +654,19 @@ class APISession(APIRequest):
                         "%s API Token %s has same privileges as "
                         "the %s API Token %s",
                         token_type,
-                        not_sensitive_data,
+                        masked,
                         primary_token_type,
-                        primary_token_value,
+                        primary_masked,
                     )
                 else:
                     LOGGER.error(
                         "apisession:_check_api_tokens:"
                         "%s API Token %s has different privileges "
-                        "than the %s API Token %s",
+                        "than the %s API Token %s and will not be used",
                         token_type,
-                        not_sensitive_data,
+                        masked,
                         primary_token_type,
-                        primary_token_value,
-                    )
-                    LOGGER.error(
-                        "API Token %s has different privileges and will not be used",
-                        not_sensitive_data,
+                        primary_masked,
                     )
         return valid_api_tokens
 

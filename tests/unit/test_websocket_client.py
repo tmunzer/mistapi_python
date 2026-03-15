@@ -372,6 +372,26 @@ class TestHandleMessage:
     def test_no_error_without_on_message_callback(self, ws_client) -> None:
         ws_client._handle_message(Mock(), '{"ok": true}')  # Should not raise
 
+    def test_decodes_binary_frame_to_str(self, ws_client) -> None:
+        ws_client._handle_message(Mock(), b"hello binary")
+        item = ws_client._queue.get_nowait()
+        assert item == {"raw": "hello binary"}
+
+    def test_strips_null_bytes_from_binary(self, ws_client) -> None:
+        ws_client._handle_message(Mock(), b"\x00hello\x00world")
+        item = ws_client._queue.get_nowait()
+        assert item == {"raw": "helloworld"}
+
+    def test_binary_valid_json_is_parsed(self, ws_client) -> None:
+        ws_client._handle_message(Mock(), b'{"event": "data", "key": "value"}')
+        item = ws_client._queue.get_nowait()
+        assert item == {"event": "data", "key": "value"}
+
+    def test_binary_with_invalid_utf8_uses_replacement(self, ws_client) -> None:
+        ws_client._handle_message(Mock(), b"hello\xff\xfeworld")
+        item = ws_client._queue.get_nowait()
+        assert item["raw"] == "hello\ufffd\ufffdworld"
+
 
 class TestHandleError:
     """Tests for _handle_error()."""
@@ -773,7 +793,8 @@ class TestSessionChannel:
 
     def test_session_with_url_channels(self, mock_session) -> None:
         ws = SessionWithUrl(mock_session, url="wss://example.com/custom")
-        assert ws._channels == ["wss://example.com/custom"]
+        assert ws._channels == []
+        assert ws._build_ws_url() == "wss://example.com/custom"
 
     def test_inherits_from_mist_websocket(self, mock_session) -> None:
         ws = SessionWithUrl(mock_session, url="wss://example.com/custom")

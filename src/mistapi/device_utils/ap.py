@@ -26,6 +26,6 @@ from mistapi.device_utils.__tools.miscellaneous import (
 __all__ = [
     "ping",
     "traceroute",
-    "TracerouteProtocol",
     "retrieveArpTable",
+    "TracerouteProtocol",
 ]

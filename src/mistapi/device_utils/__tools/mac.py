@@ -20,13 +20,12 @@ from mistapi.websockets.sites import DeviceCmdEvents
 
 
 def clear_mac_table(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     mac_address: str | None = None,
     port_id: str | None = None,
     vlan_id: str | None = None,
-    # timeout=30,
 ) -> UtilResponse:
     """
     DEVICES: EX
@@ -35,7 +34,7 @@ def clear_mac_table(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession : mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -54,9 +53,14 @@ def clear_mac_table(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    # AP is returning RAW data
-    # SWITCH is returning ???
-    # GATEWAY is returning JSON
+    LOGGER.debug(
+        "Initiating clear MAC table command for device %s with MAC address filter %s, "
+        "port filter %s, and VLAN filter %s",
+        device_id,
+        mac_address,
+        port_id,
+        vlan_id,
+    )
     body: dict[str, str | list | int] = {}
     if mac_address:
         body["mac_address"] = mac_address
@@ -64,28 +68,16 @@ def clear_mac_table(
         body["port_id"] = port_id
     if vlan_id:
         body["vlan_id"] = vlan_id
-    trigger = devices.clearSiteDeviceMacTable(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(apisession, util_response).start_with_trigger(
+        trigger_fn=lambda: devices.clearSiteDeviceMacTable(
+            apisession, site_id=site_id, device_id=device_id, body=body
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Clear MAC Table command triggered for device {device_id}")
-        # util_response = WebSocketWrapper(
-        #     apissession, util_response, timeout=timeout, on_message=on_message
-        # ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger clear MAC Table command: {trigger.status_code} - {trigger.data}"
-        )  # Give the clear MAC Table command a moment to take effect
-    return util_response
 
 
 def retrieve_mac_table(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     mac_address: str | None = None,
@@ -101,20 +93,20 @@ def retrieve_mac_table(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession : mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
     device_id : str
-        UUID of the device to retrieve the ARP table from.
+        UUID of the device to retrieve the MAC table from.
     mac_address : str, optional
-        MAC address to filter the ARP table retrieval.
+        MAC address to filter the MAC table retrieval.
     port_id : str, optional
-        Port ID to filter the ARP table retrieval.
+        Port ID to filter the MAC table retrieval.
     vlan_id : str, optional
-        VLAN ID to filter the ARP table retrieval.
+        VLAN ID to filter the MAC table retrieval.
     timeout : int, optional
-        Timeout for the ARP table retrieval command in seconds.
+        Timeout for the MAC table retrieval command in seconds.
     on_message : Callable, optional
         Callback invoked with each extracted raw message as it arrives.
 
@@ -124,9 +116,15 @@ def retrieve_mac_table(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    # AP is returning RAW data
-    # SWITCH is returning ???
-    # GATEWAY is returning JSON
+    LOGGER.debug(
+        "Initiating MAC table retrieval for device %s with MAC address filter %s, port filter %s, "
+        "VLAN filter %s, and timeout %s",
+        device_id,
+        mac_address,
+        port_id,
+        vlan_id,
+        timeout,
+    )
     body: dict[str, str | list | int] = {}
     if mac_address:
         body["mac_address"] = mac_address
@@ -134,29 +132,21 @@ def retrieve_mac_table(
         body["port_id"] = port_id
     if vlan_id:
         body["vlan_id"] = vlan_id
-    trigger = devices.showSiteDeviceMacTable(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.showSiteDeviceMacTable(
+            apisession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apisession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Show MAC Table command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger show MAC Table command: {trigger.status_code} - {trigger.data}"
-        )  # Give the show ARP command a moment to take effect
-    return util_response
 
 
 def clear_learned_mac(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
@@ -168,6 +158,8 @@ def clear_learned_mac(
 
     PARAMS
     -----------
+    apisession: mistapi.APISession
+        The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
     device_id : str
@@ -181,19 +173,15 @@ def clear_learned_mac(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    body: dict[str, str | list | int] = {"ports": port_ids}
-    trigger = devices.clearSiteDeviceDot1xSession(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    LOGGER.debug(
+        "Initiating clear learned MACs command for device %s on ports %s",
+        device_id,
+        port_ids,
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Clear learned MACs command triggered for device {device_id}")
-    else:
-        LOGGER.error(
-            f"Failed to trigger clear learned MACs command: {trigger.status_code} - {trigger.data}"
-        )  # Give the clear learned MACs command a moment to take effect
-    return util_response
+    body: dict[str, str | list | int] = {"ports": port_ids}
+    util_response = UtilResponse()
+    return WebSocketWrapper(apisession, util_response).start_with_trigger(
+        trigger_fn=lambda: devices.clearAllLearnedMacsFromPortOnSwitch(
+            apisession, site_id=site_id, device_id=device_id, body=body
+        ),
+    )

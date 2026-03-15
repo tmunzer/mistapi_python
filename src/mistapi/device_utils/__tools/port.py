@@ -20,11 +20,11 @@ from mistapi.websockets.sites import DeviceCmdEvents
 
 
 def bounce(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
-    timeout=60,
+    timeout=5,
     on_message: Callable[[dict], None] | None = None,
 ) -> UtilResponse:
     """
@@ -52,33 +52,30 @@ def bounce(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating bounce command for device %s on ports %s with timeout %s",
+        device_id,
+        port_ids,
+        timeout,
+    )
     body: dict[str, str | list | int] = {}
     if port_ids:
         body["ports"] = port_ids
-    trigger = devices.bounceDevicePort(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.bounceDevicePort(
+            apisession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apisession, site_id=site_id, device_ids=[device_id]
+        ),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(
-            f"Bounce command triggered for ports {port_ids} on device {device_id}"
-        )
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger bounce command: {trigger.status_code} - {trigger.data}"
-        )  # Give the bounce command a moment to take effect
-    return util_response
 
 
 def cable_test(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_id: str,
@@ -92,7 +89,7 @@ def cable_test(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the switch is located.
@@ -100,7 +97,7 @@ def cable_test(
         UUID of the switch to perform the cable test on.
     port_id : str
         Port ID to perform the cable test on.
-    timeout : int, optional
+    timeout : int, default 10
         Timeout for the cable test command in seconds.
     on_message : Callable, optional
         Callback invoked with each extracted raw message as it arrives.
@@ -111,23 +108,21 @@ def cable_test(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
-    body: dict[str, str | list | int] = {"port": port_id}
-    trigger = devices.cableTestFromSwitch(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body=body,
+    LOGGER.debug(
+        "Initiating cable test for device %s on port %s with timeout %s",
+        device_id,
+        port_id,
+        timeout,
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Cable test command triggered for device {device_id}")
-        ws = DeviceCmdEvents(apissession, site_id=site_id, device_ids=[device_id])
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger cable test command: {trigger.status_code} - {trigger.data}"
-        )  # Give the cable test command a moment to take effect
-    return util_response
+    body: dict[str, str | list | int] = {"port": port_id}
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: devices.cableTestFromSwitch(
+            apisession, site_id=site_id, device_id=device_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: DeviceCmdEvents(
+            apisession, site_id=site_id, device_ids=[device_id]
+        ),
+    )

@@ -47,13 +47,13 @@ def _build_pcap_body(
         if tcpdump_expression is not None:
             port_entry["tcpdump_expression"] = tcpdump_expression
         body[device_key][mac]["ports"][port_id] = port_entry
-    if tcpdump_expression:
+    if tcpdump_expression is not None:
         body["tcpdump_expression"] = tcpdump_expression
     return body
 
 
 def ap_remote_pcap_wireless(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     band: str,
@@ -73,7 +73,7 @@ def ap_remote_pcap_wireless(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -105,6 +105,12 @@ def ap_remote_pcap_wireless(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating remote pcap for device %s on band %s with timeout %s",
+        device_id,
+        band,
+        timeout,
+    )
     body: dict[str, str | int] = {
         "band": band,
         "duration": duration,
@@ -119,28 +125,19 @@ def ap_remote_pcap_wireless(
         body["ap_mac"] = ap_mac
     if tcpdump_expression:
         body["tcpdump_expression"] = tcpdump_expression
-    trigger = pcaps.startSitePacketCapture(
-        apissession,
-        site_id=site_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: pcaps.startSitePacketCapture(
+            apisession, site_id=site_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: PcapEvents(apisession, site_id=site_id),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Remote pcap command triggered for device {device_id}")
-        ws = PcapEvents(apissession, site_id=site_id)
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
-        )  # Give the remote pcap command a moment to take effect
-    return util_response
 
 
 def ap_remote_pcap_wired(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     tcpdump_expression: str | None = None,
@@ -157,7 +154,7 @@ def ap_remote_pcap_wired(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -183,6 +180,11 @@ def ap_remote_pcap_wired(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating remote pcap for device %s with timeout %s",
+        device_id,
+        timeout,
+    )
     body: dict[str, str | int] = {
         "duration": duration,
         "max_pkt_len": max_pkt_len,
@@ -192,28 +194,19 @@ def ap_remote_pcap_wired(
     }
     if tcpdump_expression:
         body["tcpdump_expression"] = tcpdump_expression
-    trigger = pcaps.startSitePacketCapture(
-        apissession,
-        site_id=site_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: pcaps.startSitePacketCapture(
+            apisession, site_id=site_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: PcapEvents(apisession, site_id=site_id),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Remote pcap command triggered for device {device_id}")
-        ws = PcapEvents(apissession, site_id=site_id)
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
-        )  # Give the remote pcap command a moment to take effect
-    return util_response
 
 
 def srx_remote_pcap(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
@@ -231,7 +224,7 @@ def srx_remote_pcap(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -259,6 +252,12 @@ def srx_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating remote pcap for device %s on ports %s with timeout %s",
+        device_id,
+        port_ids,
+        timeout,
+    )
     body = _build_pcap_body(
         device_id,
         port_ids,
@@ -269,28 +268,19 @@ def srx_remote_pcap(
         max_pkt_len,
         num_packets,
     )
-    trigger = pcaps.startSitePacketCapture(
-        apissession,
-        site_id=site_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: pcaps.startSitePacketCapture(
+            apisession, site_id=site_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: PcapEvents(apisession, site_id=site_id),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Remote pcap command triggered for device {device_id}")
-        ws = PcapEvents(apissession, site_id=site_id)
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
-        )  # Give the remote pcap command a moment to take effect
-    return util_response
 
 
 def ssr_remote_pcap(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
@@ -308,7 +298,7 @@ def ssr_remote_pcap(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -336,6 +326,12 @@ def ssr_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating remote pcap for device %s on ports %s with timeout %s",
+        device_id,
+        port_ids,
+        timeout,
+    )
     body = _build_pcap_body(
         device_id,
         port_ids,
@@ -347,28 +343,19 @@ def ssr_remote_pcap(
         num_packets,
         raw=False,
     )
-    trigger = pcaps.startSitePacketCapture(
-        apissession,
-        site_id=site_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: pcaps.startSitePacketCapture(
+            apisession, site_id=site_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: PcapEvents(apisession, site_id=site_id),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Remote pcap command triggered for device {device_id}")
-        ws = PcapEvents(apissession, site_id=site_id)
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
-        )  # Give the remote pcap command a moment to take effect
-    return util_response
 
 
 def ex_remote_pcap(
-    apissession: _APISession,
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     port_ids: list[str],
@@ -386,7 +373,7 @@ def ex_remote_pcap(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession: mistapi.APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -414,6 +401,12 @@ def ex_remote_pcap(
         A UtilResponse object containing the API response and a list of raw messages received
         from the WebSocket stream.
     """
+    LOGGER.debug(
+        "Initiating remote pcap for device %s on ports %s with timeout %s",
+        device_id,
+        port_ids,
+        timeout,
+    )
     body = _build_pcap_body(
         device_id,
         port_ids,
@@ -424,21 +417,12 @@ def ex_remote_pcap(
         max_pkt_len,
         num_packets,
     )
-    trigger = pcaps.startSitePacketCapture(
-        apissession,
-        site_id=site_id,
-        body=body,
+    util_response = UtilResponse()
+    return WebSocketWrapper(
+        apisession, util_response, timeout=timeout, on_message=on_message
+    ).start_with_trigger(
+        trigger_fn=lambda: pcaps.startSitePacketCapture(
+            apisession, site_id=site_id, body=body
+        ),
+        ws_factory_fn=lambda _trigger: PcapEvents(apisession, site_id=site_id),
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(trigger.data)
-        print(f"Remote pcap command triggered for device {device_id}")
-        ws = PcapEvents(apissession, site_id=site_id)
-        util_response = WebSocketWrapper(
-            apissession, util_response, timeout=timeout, on_message=on_message
-        ).start(ws)
-    else:
-        LOGGER.error(
-            f"Failed to trigger remote pcap command: {trigger.status_code} - {trigger.data}"
-        )  # Give the remote pcap command a moment to take effect
-    return util_response

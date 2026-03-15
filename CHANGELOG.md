@@ -1,4 +1,116 @@
 # CHANGELOG
+## Version 0.61.1 (March 2026)
+
+**Released**: March 15, 2026
+
+This release improves async support with a new `arun()` helper, makes the Device Utilities module fully non-blocking, adds VT100 terminal emulation for screen-based commands, and introduces interactive SSH shell access for EX/SRX devices. (PR #16)
+
+---
+
+### 1. NEW FEATURES
+
+#### **`mistapi.arun()` — Async Helper**
+New helper function to run any sync mistapi function without blocking the event loop. Wraps the function call in `asyncio.to_thread()` so blocking HTTP requests run in a thread pool.
+
+```python
+import asyncio
+import mistapi
+from mistapi.api.v1.sites import devices
+
+async def main():
+    session = mistapi.APISession(env_file="~/.mist_env")
+    session.login()
+
+    # Run sync API call without blocking the event loop
+    response = await mistapi.arun(devices.listSiteDevices, session, site_id)
+    print(response.data)
+
+asyncio.run(main())
+```
+
+#### **Interactive SSH Shell** (`device_utils.ex` / `device_utils.srx`)
+New `interactiveShell()` and `createShellSession()` functions for SSH-over-WebSocket access to EX and SRX devices.
+
+- `interactiveShell()` — takes over the terminal for human SSH access (uses `sshkeyboard`)
+- `createShellSession()` — returns a `ShellSession` object for programmatic send/recv
+- `ShellSession` — bidirectional WebSocket session with `send()`, `recv()`, `resize()`, context manager support
+
+```python
+from mistapi.device_utils import ex
+
+# Interactive (human at the keyboard)
+ex.interactiveShell(apisession, site_id, device_id)
+
+# Programmatic
+with ex.createShellSession(apisession, site_id, device_id) as session:
+    session.send_text("show version\r\n")
+    import time; time.sleep(3)
+    while (data := session.recv(timeout=0.5)):
+        print(data.decode("utf-8", errors="replace"), end="")
+```
+
+#### **`topCommand`** (`device_utils.ex` / `device_utils.srx`)
+New `topCommand()` function to stream `top` output from EX and SRX devices. Uses VT100 screen-buffer rendering for proper in-place display.
+
+#### **VT100 Terminal Emulation**
+Added ANSI escape stripping and a minimal VT100 screen-buffer renderer for device command output. Stream-mode commands (ping, traceroute) have ANSI codes stripped automatically. Screen-mode commands (top, monitor interface) are rendered through a virtual terminal buffer.
+
+---
+
+### 2. IMPROVEMENTS
+
+#### **Non-Blocking Device Utilities**
+All `mistapi.device_utils` functions now return immediately. The HTTP trigger and WebSocket streaming run in background threads, allowing your code to continue executing while data is collected.
+
+**UtilResponse Object:**
+| Method/Property | Description |
+|-----------------|-------------|
+| `.ws_data` | List of processed messages |
+| `.done` | `True` if data collection is complete |
+| `.wait(timeout)` | Block until complete, returns self |
+| `.receive()` | Generator yielding messages as they arrive |
+| `.disconnect()` | Stop the WebSocket connection early |
+| `await response` | Async-friendly wait (non-blocking event loop) |
+
+**Example Usage:**
+```python
+from mistapi.device_utils import ex
+
+# Non-blocking - returns immediately, data collected in background
+response = ex.ping(apisession, site_id, device_id, host="8.8.8.8")
+do_other_work()  # Can do other things while waiting
+response.wait()  # Block when ready to collect results
+print(response.ws_data)
+
+# Generator style - process messages as they arrive
+for msg in response.receive():
+    print(msg)
+
+# Async-friendly - doesn't block the event loop
+await response
+```
+
+#### **Binary WebSocket Frame Support**
+`_MistWebsocket._handle_message()` now handles binary frames (strips null bytes, decodes UTF-8 with replacement characters).
+
+#### **Trigger-Only Commands Run Synchronously**
+Fire-and-forget device commands (e.g., `clearMacTable`, `clearBpduError`, `clearHitCount`) that don't require a WebSocket stream now run the API trigger synchronously, ensuring `trigger_api_response` is immediately available on the returned `UtilResponse`.
+
+---
+
+### 3. BUG FIXES
+
+- Fixed double-space typo in API token privilege mismatch error message
+- Fixed `first_message_timeout` timer stop to check timer is active before stopping
+
+---
+
+### 4. DEPENDENCIES
+
+- Added `sshkeyboard>=2.3.1` (for `interactiveShell()`)
+
+---
+
 ## Version 0.61.0 (March 2026)
 
 **Released**: March 13, 2026
@@ -19,7 +131,7 @@ Complete real-time event streaming support with flexible consumption patterns:
 |-------|-------------|
 | `mistapi.websockets.orgs.InsightsEvents` | Real-time insights events for an organization |
 | `mistapi.websockets.orgs.MxEdgesStatsEvents` | Real-time MX edges stats for an organization |
-| `mistapi.websockets.orgs.MxEdgesUpgradesEvents` | Real-time MX edges upgrades events for an organization |
+| `mistapi.websockets.orgs.MxEdgesEvents` | Real-time MX edges events for an organization |
 
 * Site Channels
 
@@ -28,7 +140,8 @@ Complete real-time event streaming support with flexible consumption patterns:
 | `mistapi.websockets.sites.ClientsStatsEvents` | Real-time clients stats for a site |
 | `mistapi.websockets.sites.DeviceCmdEvents` | Real-time device command events for a site |
 | `mistapi.websockets.sites.DeviceStatsEvents` | Real-time device stats for a site |
-| `mistapi.websockets.sites.DeviceUpgradesEvents` | Real-time device upgrades events for a site |
+| `mistapi.websockets.sites.DeviceEvents` | Real-time device events for a site |
+| `mistapi.websockets.sites.MxEdgesEvents` | Real-time MX edges events for a site |
 | `mistapi.websockets.sites.MxEdgesStatsEvents` | Real-time MX edges stats for a site |
 | `mistapi.websockets.sites.PcapEvents` | Real-time PCAP events for a site |
 
@@ -89,7 +202,7 @@ print(result.ws_data)
 def handle(msg):
     print("got:", msg)
 
-result = ex.cableTest(apisession, site_id, device_id, port="ge-0/0/0", on_message=handle)
+result = ex.cableTest(apisession, site_id, device_id, port_id="ge-0/0/0", on_message=handle)
 ```
 
 #### **1.3 New API Endpoints**
@@ -150,49 +263,6 @@ result = ex.cableTest(apisession, site_id, device_id, port="ge-0/0/0", on_messag
 
 ##### **New Dependencies**
 - Added `websocket-client>=1.8.0` for WebSocket streaming support
-
----
-
-## Version 0.60.3 (February 2026)
-
-**Released**: February 21, 2026
-
-This release add a missing query parameter to the `searchOrgWanClients()` function.
-
----
-
-### 1. CHANGES
-
-##### **API Function Updates**
-- Updated `searchOrgWanClients()` and related functions in `orgs/wan_clients.py`.
-
----
-
-## Version 0.60.1 (February 2026)
-
-**Released**: February 21, 2026
-
-This release includes function updates and bug fixes in the self/logs.py and sites/sle.py modules.
-
----
-
-### 1. CHANGES
-
-##### **API Function Updates**
-- Updated `listSelfAuditLogs()` and related functions in `self/logs.py`.
-- Updated deprecated and new SLE classifier functions in `sites/sle.py`.
-
----
-
-### 2. BUG FIXES
-
-- Minor bug fixes and improvements in API modules.
-
----
-
-### Breaking Changes
-
-No breaking changes in this release.
 
 ---
 
@@ -715,4 +785,4 @@ Previous stable release. See commit history for details.
 
 **Author**: Thomas Munzer <tmunzer@juniper.net>  
 **License**: MIT License  
-**Python Compatibility**: Python 3.8+
+**Python Compatibility**: Python 3.10+

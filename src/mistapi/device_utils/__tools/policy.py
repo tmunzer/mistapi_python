@@ -13,11 +13,11 @@
 from mistapi import APISession as _APISession
 from mistapi.__logger import logger as LOGGER
 from mistapi.api.v1.sites import devices
-from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse
+from mistapi.device_utils.__tools.__ws_wrapper import UtilResponse, WebSocketWrapper
 
 
-async def clear_hit_count(
-    apissession: _APISession,
+def clear_hit_count(
+    apisession: _APISession,
     site_id: str,
     device_id: str,
     policy_name: str,
@@ -29,7 +29,7 @@ async def clear_hit_count(
 
     PARAMS
     -----------
-    apissession : _APISession
+    apisession : _APISession
         The API session to use for the request.
     site_id : str
         UUID of the site where the device is located.
@@ -43,20 +43,17 @@ async def clear_hit_count(
     UtilResponse
         A UtilResponse object containing the API response and a list of raw messages received from the WebSocket stream.
     """
-    trigger = devices.clearSiteDevicePolicyHitCount(
-        apissession,
-        site_id=site_id,
-        device_id=device_id,
-        body={"policy_name": policy_name},
+    LOGGER.debug(
+        "Initiating clear policy hit count command for device %s and policy %s",
+        device_id,
+        policy_name,
     )
-    util_response = UtilResponse(trigger)
-    if trigger.status_code == 200:
-        LOGGER.info(f"Clear policy hit count command triggered for device {device_id}")
-        # util_response = await WebSocketWrapper(
-        #     apissession, util_response, timeout=timeout
-        # ).startCmdEvents(site_id, device_id)
-    else:
-        LOGGER.error(
-            f"Failed to trigger clear policy hit count command: {trigger.status_code} - {trigger.data}"
-        )  # Give the clear policy hit count command a moment to take effect
-    return util_response
+    util_response = UtilResponse()
+    return WebSocketWrapper(apisession, util_response).start_with_trigger(
+        trigger_fn=lambda: devices.clearSiteDevicePolicyHitCount(
+            apisession,
+            site_id=site_id,
+            device_id=device_id,
+            body={"policy_name": policy_name},
+        ),
+    )

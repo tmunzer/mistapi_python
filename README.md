@@ -35,6 +35,10 @@ A comprehensive Python package to interact with the Mist Cloud APIs, built from 
     - [Callbacks](#callbacks)
     - [Available Channels](#available-channels)
     - [Usage Patterns](#usage-patterns)
+- [Async Usage](#async-usage)
+    - [Running API Calls Asynchronously](#running-api-calls-asynchronously)
+    - [Concurrent API Calls](#concurrent-api-calls)
+    - [Combining with Device Utilities](#combining-with-device-utilities)
 - [Device Utilities](#device-utilities)
     - [Supported Devices](#supported-devices)
     - [Usage](#device-utilities-usage)
@@ -63,9 +67,10 @@ Support for all Mist cloud instances worldwide:
 
 ### Core Features
 - **Complete API Coverage**: Auto-generated from OpenAPI specs
+- **Async Support**: Run any API call asynchronously with `mistapi.arun()` — no changes to existing code
 - **Automatic Pagination**: Built-in support for paginated responses
 - **WebSocket Streaming**: Real-time event streaming for devices, clients, and location data
-- **Device Diagnostics**: High-level utilities for ping, traceroute, ARP, BGP, OSPF, and more
+- **Device Diagnostics**: High-level, non-blocking utilities for ping, traceroute, ARP, BGP, OSPF, and more
 - **Error Handling**: Detailed error responses and logging
 - **Proxy Support**: HTTP/HTTPS proxy configuration
 - **Log Sanitization**: Automatic redaction of sensitive data in logs
@@ -492,6 +497,82 @@ events = mistapi.api.v1.orgs.clients.searchOrgClientsEvents(
 
 ---
 
+## Async Usage
+
+All API functions in `mistapi.api.v1` are synchronous by default. To use them in an `asyncio` context (e.g., FastAPI, aiohttp, or any async application) without blocking the event loop, use `mistapi.arun()`.
+
+`arun()` wraps any sync mistapi function in `asyncio.to_thread()`, running the blocking HTTP request in a thread pool while the event loop continues. No changes are needed to the existing API functions.
+
+### Running API Calls Asynchronously
+
+```python
+import asyncio
+import mistapi
+from mistapi.api.v1.sites import devices
+
+apisession = mistapi.APISession(env_file="~/.mist_env")
+apisession.login()
+
+async def main():
+    # Wrap any sync API call with mistapi.arun()
+    response = await mistapi.arun(
+        devices.listSiteDevices, apisession, site_id
+    )
+    print(response.data)
+
+asyncio.run(main())
+```
+
+### Concurrent API Calls
+
+Use `asyncio.gather()` to run multiple API calls concurrently:
+
+```python
+import asyncio
+import mistapi
+from mistapi.api.v1.orgs import orgs
+from mistapi.api.v1.sites import devices
+
+async def main():
+    org_info, site_devices = await asyncio.gather(
+        mistapi.arun(orgs.getOrg, apisession, org_id),
+        mistapi.arun(devices.listSiteDevices, apisession, site_id),
+    )
+    print(f"Org: {org_info.data['name']}")
+    print(f"Devices: {len(site_devices.data)}")
+
+asyncio.run(main())
+```
+
+### Combining with Device Utilities
+
+Device utility functions are already non-blocking and return a `UtilResponse` that supports `await`. You can mix `arun()` for API calls and `await` for device utilities:
+
+```python
+import asyncio
+import mistapi
+from mistapi.api.v1.sites import devices
+from mistapi.device_utils import ex
+
+async def main():
+    # Start device utility — returns immediately, collects data in a background thread
+    response = ex.retrieveArpTable(apisession, site_id, device_id)
+
+    # Meanwhile, run an API call via arun() — both execute concurrently
+    device_info = await mistapi.arun(
+        devices.getSiteDevice, apisession, site_id, device_id
+    )
+    print(f"Device: {device_info.data['name']}")
+
+    # Wait for the device utility background thread to finish
+    await response
+    print(f"ARP entries: {len(response.ws_data)}")
+
+asyncio.run(main())
+```
+
+---
+
 ## WebSocket Streaming
 
 The package provides a WebSocket client for real-time event streaming from the Mist API (`wss://{host}/api-ws/v1/stream`). Authentication is handled automatically using the same session credentials (API token or login/password).
@@ -533,7 +614,7 @@ ws.connect()
 |-------|---------|-------------|
 | `mistapi.websockets.orgs.InsightsEvents` | `/orgs/{org_id}/insights/summary` | Real-time insights events for an organization |
 | `mistapi.websockets.orgs.MxEdgesStatsEvents` | `/orgs/{org_id}/stats/mxedges` | Real-time MX edges stats for an organization |
-| `mistapi.websockets.orgs.MxEdgesUpgradesEvents` | `/orgs/{org_id}/mxedges` | Real-time MX edges upgrades events for an organization |
+| `mistapi.websockets.orgs.MxEdgesEvents` | `/orgs/{org_id}/mxedges` | Real-time MX edges events for an organization |
 
 #### Site Channels
 
@@ -542,7 +623,7 @@ ws.connect()
 | `mistapi.websockets.sites.ClientsStatsEvents` | `/sites/{site_id}/stats/clients` | Real-time clients stats for a site |
 | `mistapi.websockets.sites.DeviceCmdEvents` | `/sites/{site_id}/devices/{device_id}/cmd` | Real-time device command events for a site |
 | `mistapi.websockets.sites.DeviceStatsEvents` | `/sites/{site_id}/stats/devices` | Real-time device stats for a site |
-| `mistapi.websockets.sites.DeviceUpgradesEvents` | `/sites/{site_id}/devices` | Real-time device upgrades events for a site |
+| `mistapi.websockets.sites.DeviceEvents` | `/sites/{site_id}/devices` | Real-time device events for a site |
 | `mistapi.websockets.sites.MxEdgesStatsEvents` | `/sites/{site_id}/stats/mxedges` | Real-time MX edges stats for a site |
 | `mistapi.websockets.sites.PcapEvents` | `/sites/{site_id}/pcap` | Real-time PCAP events for a site |
 
@@ -631,45 +712,172 @@ with mistapi.websockets.sites.DeviceStatsEvents(apisession, site_ids=["<site_id>
 | Module | Device Type | Functions |
 |--------|-------------|-----------|
 | `device_utils.ap` | Mist Access Points | `ping`, `traceroute`, `retrieveArpTable` |
-| `device_utils.ex` | Juniper EX Switches | `ping`, `monitorTraffic`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveMacTable`, `clearMacTable`, `clearLearnedMac`, `clearBpduError`, `clearDot1xSessions`, `clearHitCount`, `bouncePort`, `cableTest` |
-| `device_utils.srx` | Juniper SRX Firewalls | `ping`, `monitorTraffic`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `showDatabase`, `showNeighbors`, `showInterfaces`, `bouncePort`, `retrieveRoutes` |
-| `device_utils.ssr` | Juniper SSR Routers | `ping`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `showDatabase`, `showNeighbors`, `showInterfaces`, `bouncePort`, `retrieveRoutes`, `showServicePath` |
+| `device_utils.ex` | Juniper EX Switches | `ping`, `monitorTraffic`, `topCommand`, `interactiveShell`, `createShellSession`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveMacTable`, `clearMacTable`, `clearLearnedMac`, `clearBpduError`, `clearDot1xSessions`, `clearHitCount`, `bouncePort`, `cableTest` |
+| `device_utils.srx` | Juniper SRX Firewalls | `ping`, `monitorTraffic`, `topCommand`, `interactiveShell`, `createShellSession`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveOspfDatabase`, `retrieveOspfNeighbors`, `retrieveOspfInterfaces`, `retrieveOspfSummary`, `retrieveSessions`, `clearSessions`, `bouncePort`, `retrieveRoutes` |
+| `device_utils.ssr` | Juniper SSR Routers | `ping`, `retrieveArpTable`, `retrieveBgpSummary`, `retrieveDhcpLeases`, `releaseDhcpLeases`, `retrieveOspfDatabase`, `retrieveOspfNeighbors`, `retrieveOspfInterfaces`, `retrieveOspfSummary`, `retrieveSessions`, `clearSessions`, `bouncePort`, `retrieveRoutes`, `showServicePath` |
 
 ### Device Utilities Usage
 
+All device utility functions are **non-blocking**: they trigger the REST API call, start a WebSocket stream in the background, and return a `UtilResponse` immediately. Your script can continue processing while data streams in.
+
+#### Callback style
+
+Pass an `on_message` callback to process each result as it arrives:
+
 ```python
-from mistapi.device_utils import ap, ex
+from mistapi.device_utils import ex
 
-# Ping from an AP
-result = ap.ping(apisession, site_id, device_id, host="8.8.8.8")
-print(result.ws_data)
-
-# Retrieve ARP table from a switch
-result = ex.retrieveArpTable(apisession, site_id, device_id)
-print(result.ws_data)
-
-# With real-time callback
 def handle(msg):
-    print("got:", msg)
+    print("Live:", msg)
 
-result = ex.cableTest(apisession, site_id, device_id, port="ge-0/0/0", on_message=handle)
+response = ex.retrieveArpTable(apisession, site_id, device_id, on_message=handle)
+# returns immediately — on_message fires for each message in the background
+
+do_other_work()
+
+response.wait()              # block until streaming is complete
+print(response.ws_data)      # all collected data
+```
+
+#### Generator style
+
+Iterate over processed messages as they arrive, similar to `_MistWebsocket.receive()`:
+
+```python
+response = ex.retrieveMacTable(apisession, site_id, device_id)
+for msg in response.receive():    # blocking generator, yields each message
+    print(msg, end="", flush=True)
+# loop ends when the WebSocket closes
+print(response.ws_data)
+```
+
+#### Context manager
+
+`disconnect()` is called automatically when the context exits:
+
+```python
+with ex.cableTest(apisession, site_id, device_id, port_id="ge-0/0/0") as response:
+    for msg in response.receive():
+        print(msg, end="", flush=True)
+# WebSocket disconnected, data ready
+print(response.ws_data)
+```
+
+#### Polling
+
+Check `response.done` to avoid blocking:
+
+```python
+response = ex.retrieveBgpSummary(apisession, site_id, device_id)
+while not response.done:
+    do_other_work()
+print(response.ws_data)
+```
+
+#### Cancel early
+
+Stop a long-running stream before it completes:
+
+```python
+response = ex.monitorTraffic(apisession, site_id, device_id, port_id="ge-0/0/0")
+do_some_work()
+response.disconnect()        # stop the WebSocket
+print(response.ws_data)      # data collected so far
+```
+
+#### Async await
+
+Works in `asyncio` contexts without blocking the event loop:
+
+```python
+import asyncio
+from mistapi.device_utils import ex
+
+async def main():
+    response = ex.retrieveArpTable(apisession, site_id, device_id)
+    await response               # non-blocking await
+    print(response.ws_data)
+
+asyncio.run(main())
 ```
 
 ### UtilResponse Object
 
 All device utility functions return a `UtilResponse` object:
 
+#### Attributes
+
 | Attribute | Type | Description |
 |-----------|------|-------------|
 | `trigger_api_response` | `APIResponse` | The initial REST API response that triggered the device command. Contains `status_code`, `data`, and `headers` from the trigger request. |
 | `ws_required` | `bool` | `True` if the command required a WebSocket connection to stream results (most diagnostic commands do). `False` if the REST response alone was sufficient. |
-| `ws_data` | `list[str]` | Parsed result data extracted from the WebSocket stream. Each entry is a processed output line from the device (e.g., a line of ping output or an ARP table row). |
+| `ws_data` | `list[str]` | Parsed result data extracted from the WebSocket stream. This list is **live** — it grows as messages arrive in the background, even before `wait()` is called. |
 | `ws_raw_events` | `list[str]` | Raw, unprocessed WebSocket event payloads as received from the Mist API. Useful for debugging or custom parsing. |
+
+#### Properties and Methods
+
+| Method / Property | Returns | Description |
+|-------------------|---------|-------------|
+| `done` | `bool` | `True` if data collection is complete (or no WS was needed). |
+| `wait(timeout=None)` | `UtilResponse` | Block until data collection is complete. Returns `self`. |
+| `receive()` | `Generator` | Blocking generator that yields each processed message as it arrives. Exits when the WebSocket closes. |
+| `disconnect()` | `None` | Stop the WebSocket connection early. |
+| `await response` | `UtilResponse` | Non-blocking await for `asyncio` contexts. |
+
+`UtilResponse` also supports the context manager protocol (`with` statement).
 
 ### Enums
 
 - `ap.TracerouteProtocol` — `ICMP`, `UDP` (for `ap.traceroute()`)
 - `srx.Node` / `ssr.Node` — `NODE0`, `NODE1` (for dual-node devices)
+
+### Interactive Shell
+
+`interactiveShell()` and `createShellSession()` provide SSH-over-WebSocket access to EX and SRX devices. Unlike the diagnostic utilities above, the shell is **bidirectional** — you send keystrokes and receive terminal output in real time.
+
+#### Interactive mode (human at the keyboard)
+
+Takes over the terminal. Blocks until the connection closes or you press Ctrl+C:
+
+```python
+from mistapi.device_utils import ex
+
+ex.interactiveShell(apisession, site_id, device_id)
+```
+
+Requires the `sshkeyboard` package (installed automatically as a dependency).
+
+#### Programmatic mode
+
+Use `createShellSession()` to get a `ShellSession` object for scripting:
+
+```python
+from mistapi.device_utils import ex
+import time
+
+with ex.createShellSession(apisession, site_id, device_id) as session:
+    session.send_text("show version\r\n")
+    time.sleep(3)
+    while True:
+        data = session.recv(timeout=0.5)
+        if data is None:
+            break
+        print(data.decode("utf-8", errors="replace"), end="")
+```
+
+#### ShellSession API
+
+| Method / Property | Returns | Description |
+|-------------------|---------|-------------|
+| `connect()` | `None` | Open the WebSocket connection. Called automatically by `createShellSession()`. |
+| `disconnect()` | `None` | Close the WebSocket connection. |
+| `connected` | `bool` | `True` if the WebSocket is currently connected. |
+| `send(data)` | `None` | Send raw bytes (keystrokes) to the device. |
+| `send_text(text)` | `None` | Send a text string to the device (auto-prefixed with `\x00`). |
+| `recv(timeout=0.1)` | `bytes \| None` | Receive output from the device. Returns `None` on timeout or if disconnected. |
+| `resize(rows, cols)` | `None` | Send a terminal resize message. |
+
+`ShellSession` also supports the context manager protocol (`with` statement).
 
 ---
 

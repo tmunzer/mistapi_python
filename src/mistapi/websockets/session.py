@@ -65,9 +65,13 @@ class SessionWithUrl(_MistWebsocket):
         ping_interval: int = 30,
         ping_timeout: int = 10,
     ) -> None:
+        self._url = url
         super().__init__(
             mist_session,
-            channels=[url],
+            channels=[],
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
         )
+
+    def _build_ws_url(self) -> str:
+        return self._url
