@@ -353,7 +353,7 @@ def top_command(
     def _ws_factory(trigger):
         if isinstance(trigger.data, dict) and "url" in trigger.data:
             return SessionWithUrl(apisession, url=trigger.data.get("url", ""))
-        LOGGER.error("Top command command did not return a valid URL: %s", trigger.data)
+        LOGGER.error("Top command did not return a valid URL: %s", trigger.data)
         return None
 
     util_response = UtilResponse()

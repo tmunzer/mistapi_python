@@ -327,15 +327,15 @@ def interactive_shell(
         elif key == "tab":
             k = "\t"
         elif key == "up":
-            k = "\x00\x1b[A"
+            k = "\x1b[A"
         elif key == "right":
-            k = "\x00\x1b[C"
+            k = "\x1b[C"
         elif key == "down":
-            k = "\x00\x1b[B"
+            k = "\x1b[B"
         elif key == "left":
-            k = "\x00\x1b[D"
+            k = "\x1b[D"
         elif key == "backspace":
-            k = "\x00\x7f"
+            k = "\x7f"
         else:
             k = key
         data = f"\x00{k}"

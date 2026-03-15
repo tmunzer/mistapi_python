@@ -530,11 +530,13 @@ class WebSocketWrapper:
         ws_factory_fn: Callable | None = None,
     ) -> UtilResponse:
         """
-        Run the trigger API call (and optional WS setup) in a background thread.
+        Run the trigger API call and optionally start a WebSocket stream.
 
-        Returns the ``UtilResponse`` immediately. The trigger HTTP request and
-        the subsequent WebSocket connection both run in background threads, so
-        the calling code is never blocked.
+        If ``ws_factory_fn`` is provided, the trigger and WebSocket setup
+        run in a background thread (non-blocking). If ``ws_factory_fn`` is
+        ``None``, the trigger runs synchronously so that
+        ``trigger_api_response`` is immediately available on the returned
+        ``UtilResponse``.
 
         PARAMS
         -----------
@@ -547,6 +549,8 @@ class WebSocketWrapper:
             If ``None``, no WebSocket is started and the ``UtilResponse``
             completes as soon as the trigger finishes.
         """
+        if ws_factory_fn is None:
+            return self._trigger_only(trigger_fn)
 
         def _run():
             try:
@@ -555,12 +559,11 @@ class WebSocketWrapper:
                 if trigger.status_code == 200:
                     LOGGER.info("Trigger succeeded: %s", trigger.data)
                     self._extract_trigger_ids()
-                    if ws_factory_fn:
-                        ws = ws_factory_fn(trigger)
-                        if ws:
-                            self.start(ws)
-                            return  # start() / _on_close manages _closed
-                        LOGGER.error("WS factory returned None")
+                    ws = ws_factory_fn(trigger)
+                    if ws:
+                        self.start(ws)
+                        return  # start() / _on_close manages _closed
+                    LOGGER.error("WS factory returned None")
                 else:
                     LOGGER.error(
                         "Failed to trigger command: %s - %s",
@@ -569,9 +572,28 @@ class WebSocketWrapper:
                     )
             except Exception as e:
                 LOGGER.error("Error during trigger: %s", e)
-            # Mark done (success without WS, or failure)
+            # Mark done (failure or WS factory returned None)
             self.util_response._queue.put(None)
             self.util_response._closed.set()
 
         threading.Thread(target=_run, daemon=True).start()
+        return self.util_response
+
+    def _trigger_only(self, trigger_fn: Callable) -> UtilResponse:
+        """Run a trigger-only command synchronously (no WebSocket needed)."""
+        try:
+            trigger = trigger_fn()
+            self.util_response.trigger_api_response = trigger
+            if trigger.status_code == 200:
+                LOGGER.info("Trigger succeeded: %s", trigger.data)
+            else:
+                LOGGER.error(
+                    "Failed to trigger command: %s - %s",
+                    trigger.status_code,
+                    trigger.data,
+                )
+        except Exception as e:
+            LOGGER.error("Error during trigger: %s", e)
+        self.util_response._queue.put(None)
+        self.util_response._closed.set()
         return self.util_response

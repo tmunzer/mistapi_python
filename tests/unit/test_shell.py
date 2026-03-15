@@ -4,11 +4,13 @@ Unit tests for ShellSession and create_shell_session.
 """
 
 import json
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 
 import pytest
 import websocket
 
+from mistapi.api.v1.sites import devices as devices_module
+from mistapi.device_utils.__tools import shell as shell_module
 from mistapi.device_utils.__tools.shell import ShellSession, create_shell_session
 
 
@@ -32,6 +34,14 @@ def mock_apisession():
 @pytest.fixture
 def shell_session(mock_apisession):
     return ShellSession(mock_apisession, "wss://example.com/shell")
+
+
+@pytest.fixture
+def mock_ws():
+    ws = Mock()
+    ws.connected = True
+    ws.gettimeout.return_value = 0.1
+    return ws
 
 
 # ------------------------------------------------------------------
@@ -101,44 +111,46 @@ class TestAuthHelpers:
 class TestLifecycle:
     """Tests for connect/disconnect/connected."""
 
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_connect_calls_create_connection(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
-        mock_create.return_value = mock_ws
+    def test_connect_calls_create_connection(
+        self, shell_session, mock_ws
+    ) -> None:
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ) as mock_create:
+            shell_session.connect()
 
-        shell_session.connect()
+            mock_create.assert_called_once_with(
+                "wss://example.com/shell",
+                header=["Authorization: Token test-token-abc123"],
+                cookie=None,
+                sslopt={},
+            )
 
-        mock_create.assert_called_once_with(
-            "wss://example.com/shell",
-            header=["Authorization: Token test-token-abc123"],
-            cookie=None,
-            sslopt={},
-        )
+    def test_connect_sends_resize(self, shell_session, mock_ws) -> None:
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
 
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_connect_sends_resize(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
-        mock_create.return_value = mock_ws
+            mock_ws.send.assert_called_once_with(
+                json.dumps({"resize": {"width": 80, "height": 24}})
+            )
 
-        shell_session.connect()
+    def test_disconnect_closes_ws(self, shell_session, mock_ws) -> None:
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            shell_session.disconnect()
 
-        mock_ws.send.assert_called_once_with(
-            json.dumps({"resize": {"width": 80, "height": 24}})
-        )
-
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_disconnect_closes_ws(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
-        mock_create.return_value = mock_ws
-        shell_session.connect()
-
-        shell_session.disconnect()
-
-        mock_ws.close.assert_called_once()
-        assert shell_session._ws is None
+            mock_ws.close.assert_called_once()
+            assert shell_session._ws is None
 
     def test_disconnect_without_connect_is_safe(self, shell_session) -> None:
         shell_session.disconnect()  # Should not raise
@@ -146,13 +158,14 @@ class TestLifecycle:
     def test_connected_false_before_connect(self, shell_session) -> None:
         assert shell_session.connected is False
 
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_connected_true_after_connect(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
-        mock_create.return_value = mock_ws
-        shell_session.connect()
-        assert shell_session.connected is True
+    def test_connected_true_after_connect(self, shell_session, mock_ws) -> None:
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            assert shell_session.connected is True
 
 
 # ------------------------------------------------------------------
@@ -163,90 +176,87 @@ class TestLifecycle:
 class TestIO:
     """Tests for send/recv/resize."""
 
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_send_binary(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
-        mock_create.return_value = mock_ws
-        shell_session.connect()
+    def test_send_binary(self, shell_session, mock_ws) -> None:
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            shell_session.send(b"\x00hello")
+            mock_ws.send_binary.assert_called_once_with(b"\x00hello")
 
-        shell_session.send(b"\x00hello")
-        mock_ws.send_binary.assert_called_once_with(b"\x00hello")
+    def test_send_text_prefixes_null(self, shell_session, mock_ws) -> None:
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            shell_session.send_text("ls\r\n")
+            called_data = mock_ws.send_binary.call_args[0][0]
+            assert called_data == b"\x00ls\r\n"
 
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_send_text_prefixes_null(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
-        mock_create.return_value = mock_ws
-        shell_session.connect()
-
-        shell_session.send_text("ls\r\n")
-        called_data = mock_ws.send_binary.call_args[0][0]
-        assert called_data == b"\x00ls\r\n"
-
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_recv_returns_bytes(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
+    def test_recv_returns_bytes(self, shell_session, mock_ws) -> None:
         mock_ws.recv.return_value = b"output data"
-        mock_ws.gettimeout.return_value = 0.1
-        mock_create.return_value = mock_ws
-        shell_session.connect()
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            result = shell_session.recv()
+            assert result == b"output data"
 
-        result = shell_session.recv()
-        assert result == b"output data"
-
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_recv_converts_str_to_bytes(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
+    def test_recv_converts_str_to_bytes(self, shell_session, mock_ws) -> None:
         mock_ws.recv.return_value = "text output"
-        mock_ws.gettimeout.return_value = 0.1
-        mock_create.return_value = mock_ws
-        shell_session.connect()
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            result = shell_session.recv()
+            assert result == b"text output"
 
-        result = shell_session.recv()
-        assert result == b"text output"
-
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_recv_returns_none_on_timeout(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
+    def test_recv_returns_none_on_timeout(self, shell_session, mock_ws) -> None:
         mock_ws.recv.side_effect = websocket.WebSocketTimeoutException()
-        mock_ws.gettimeout.return_value = 0.1
-        mock_create.return_value = mock_ws
-        shell_session.connect()
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            result = shell_session.recv()
+            assert result is None
 
-        result = shell_session.recv()
-        assert result is None
-
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_recv_returns_none_on_closed(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
+    def test_recv_returns_none_on_closed(self, shell_session, mock_ws) -> None:
         mock_ws.recv.side_effect = websocket.WebSocketConnectionClosedException()
-        mock_ws.gettimeout.return_value = 0.1
-        mock_create.return_value = mock_ws
-        shell_session.connect()
-
-        result = shell_session.recv()
-        assert result is None
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            result = shell_session.recv()
+            assert result is None
 
     def test_recv_returns_none_when_not_connected(self, shell_session) -> None:
         assert shell_session.recv() is None
 
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_resize_sends_json(self, mock_create, shell_session) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
-        mock_create.return_value = mock_ws
-        shell_session.connect()
-        mock_ws.send.reset_mock()  # clear initial resize from connect()
+    def test_resize_sends_json(self, shell_session, mock_ws) -> None:
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            mock_ws.send.reset_mock()  # clear initial resize from connect()
 
-        shell_session.resize(40, 120)
-        mock_ws.send.assert_called_once_with(
-            json.dumps({"resize": {"width": 120, "height": 40}})
-        )
+            shell_session.resize(40, 120)
+            mock_ws.send.assert_called_once_with(
+                json.dumps({"resize": {"width": 120, "height": 40}})
+            )
 
 
 # ------------------------------------------------------------------
@@ -257,19 +267,19 @@ class TestIO:
 class TestContextManager:
     """Tests for context manager support."""
 
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    def test_exit_calls_disconnect(self, mock_create, mock_apisession) -> None:
-        mock_ws = Mock()
-        mock_ws.connected = True
-        mock_create.return_value = mock_ws
+    def test_exit_calls_disconnect(self, mock_apisession, mock_ws) -> None:
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            session = ShellSession(mock_apisession, "wss://example.com/shell")
+            session.connect()
 
-        session = ShellSession(mock_apisession, "wss://example.com/shell")
-        session.connect()
+            with session:
+                pass
 
-        with session:
-            pass
-
-        mock_ws.close.assert_called_once()
+            mock_ws.close.assert_called_once()
 
 
 # ------------------------------------------------------------------
@@ -280,41 +290,49 @@ class TestContextManager:
 class TestCreateShellSession:
     """Tests for the create_shell_session factory."""
 
-    @patch("mistapi.device_utils.__tools.shell.websocket.create_connection")
-    @patch("mistapi.api.v1.sites.devices.createSiteDeviceShellSession")
-    def test_happy_path(self, mock_shell_api, mock_create, mock_apisession) -> None:
+    def test_happy_path(self, mock_apisession, mock_ws) -> None:
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.data = {"url": "wss://example.com/shell/abc"}
-        mock_shell_api.return_value = mock_response
-        mock_ws = Mock()
-        mock_ws.connected = True
-        mock_create.return_value = mock_ws
 
-        session = create_shell_session(mock_apisession, "site-1", "device-1")
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ), patch.object(
+            devices_module,
+            "createSiteDeviceShellSession",
+            return_value=mock_response,
+        ) as mock_shell_api:
+            session = create_shell_session(mock_apisession, "site-1", "device-1")
 
-        assert isinstance(session, ShellSession)
-        mock_shell_api.assert_called_once_with(
-            mock_apisession, site_id="site-1", device_id="device-1", body={}
-        )
-        mock_create.assert_called_once()
+            assert isinstance(session, ShellSession)
+            mock_shell_api.assert_called_once_with(
+                mock_apisession, site_id="site-1", device_id="device-1", body={}
+            )
 
-    @patch("mistapi.api.v1.sites.devices.createSiteDeviceShellSession")
-    def test_api_failure_raises(self, mock_shell_api, mock_apisession) -> None:
+    def test_api_failure_raises(self, mock_apisession) -> None:
         mock_response = Mock()
         mock_response.status_code = 403
         mock_response.data = {"error": "forbidden"}
-        mock_shell_api.return_value = mock_response
 
-        with pytest.raises(RuntimeError, match="Shell API call failed"):
-            create_shell_session(mock_apisession, "site-1", "device-1")
+        with patch.object(
+            devices_module,
+            "createSiteDeviceShellSession",
+            return_value=mock_response,
+        ):
+            with pytest.raises(RuntimeError, match="Shell API call failed"):
+                create_shell_session(mock_apisession, "site-1", "device-1")
 
-    @patch("mistapi.api.v1.sites.devices.createSiteDeviceShellSession")
-    def test_missing_url_raises(self, mock_shell_api, mock_apisession) -> None:
+    def test_missing_url_raises(self, mock_apisession) -> None:
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.data = {"session": "abc"}  # no "url" key
-        mock_shell_api.return_value = mock_response
 
-        with pytest.raises(RuntimeError, match="did not contain a WebSocket URL"):
-            create_shell_session(mock_apisession, "site-1", "device-1")
+        with patch.object(
+            devices_module,
+            "createSiteDeviceShellSession",
+            return_value=mock_response,
+        ):
+            with pytest.raises(RuntimeError, match="did not contain a WebSocket URL"):
+                create_shell_session(mock_apisession, "site-1", "device-1")
