@@ -250,6 +250,11 @@ class _MistWebsocket:
             if self._user_disconnect.wait(timeout=delay):
                 break  # disconnect() called during backoff
 
+            # Guard against a disconnect that happens immediately after the
+            # backoff wait returns but before creating a new WebSocketApp.
+            if self._user_disconnect.is_set():
+                break
+
             self._ws = self._create_ws_app()
 
         # Final close: put sentinel and call callback
