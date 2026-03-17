@@ -32,7 +32,7 @@ class InsightsEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
@@ -42,7 +42,7 @@ class InsightsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = OrgInsightsEvents(session, org_id="abc123")
+        ws = InsightsEvents(session, org_id="abc123")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -50,14 +50,14 @@ class InsightsEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = OrgInsightsEvents(session, org_id="abc123")
+        ws = InsightsEvents(session, org_id="abc123")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with OrgInsightsEvents(session, org_id="abc123") as ws:
+        with InsightsEvents(session, org_id="abc123") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -101,7 +101,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
@@ -111,7 +111,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = OrgMxEdgesStatsEvents(session, org_id="abc123")
+        ws = MxEdgesStatsEvents(session, org_id="abc123")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -119,14 +119,14 @@ class MxEdgesStatsEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = OrgMxEdgesStatsEvents(session, org_id="abc123")
+        ws = MxEdgesStatsEvents(session, org_id="abc123")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with OrgMxEdgesStatsEvents(session, org_id="abc123") as ws:
+        with MxEdgesStatsEvents(session, org_id="abc123") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -170,7 +170,7 @@ class MxEdgesEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0

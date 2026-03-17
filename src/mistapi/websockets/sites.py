@@ -32,7 +32,7 @@ class ClientsStatsEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
@@ -42,7 +42,7 @@ class ClientsStatsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = SiteClientsStatsEvents(session, site_id="abc123")
+        ws = ClientsStatsEvents(session, site_id="abc123")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -50,14 +50,14 @@ class ClientsStatsEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = SiteClientsStatsEvents(session, site_id="abc123")
+        ws = ClientsStatsEvents(session, site_id="abc123")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with SiteClientsStatsEvents(session, site_id="abc123") as ws:
+        with ClientsStatsEvents(session, site_id="abc123") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -110,7 +110,7 @@ class DeviceCmdEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
@@ -120,7 +120,7 @@ class DeviceCmdEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = SiteDeviceCmdEvents(session, site_id="abc123", device_id="def456")
+        ws = DeviceCmdEvents(session, site_id="abc123", device_id="def456")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -128,14 +128,14 @@ class DeviceCmdEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = SiteDeviceCmdEvents(session, site_id="abc123", device_id="def456")
+        ws = DeviceCmdEvents(session, site_id="abc123", device_id="def456")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with SiteDeviceCmdEvents(session, site_id="abc123", device_id="def456") as ws:
+        with DeviceCmdEvents(session, site_id="abc123", device_id="def456") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -183,7 +183,7 @@ class DeviceStatsEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
@@ -193,7 +193,7 @@ class DeviceStatsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = SiteDeviceStatsEvents(session, site_id="abc123")
+        ws = DeviceStatsEvents(session, site_id="abc123")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -201,14 +201,14 @@ class DeviceStatsEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = SiteDeviceStatsEvents(session, site_id="abc123")
+        ws = DeviceStatsEvents(session, site_id="abc123")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with SiteDeviceStatsEvents(session, site_id="abc123") as ws:
+        with DeviceStatsEvents(session, site_id="abc123") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -253,7 +253,7 @@ class DeviceEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
@@ -323,7 +323,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
@@ -393,7 +393,7 @@ class MxEdgesEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
@@ -449,7 +449,7 @@ class MxEdgesEvents(_MistWebsocket):
 class PcapEvents(_MistWebsocket):
     """WebSocket stream for site PCAP events.
 
-    Subscribes to the ``sites/{site_id}/pcap`` channel and delivers
+    Subscribes to the ``sites/{site_id}/pcaps`` channel and delivers
     real-time PCAP events for the given site.
 
     PARAMS
@@ -463,7 +463,7 @@ class PcapEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0

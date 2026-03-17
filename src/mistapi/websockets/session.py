@@ -33,7 +33,7 @@ class SessionWithUrl(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
@@ -43,7 +43,7 @@ class SessionWithUrl(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = sessionWithUrl(session, url="wss://example.com/channel")
+        ws = SessionWithUrl(session, url="wss://example.com/channel")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -51,14 +51,14 @@ class SessionWithUrl(_MistWebsocket):
 
     Generator style::
 
-        ws = sessionWithUrl(session, url="wss://example.com/channel")
+        ws = SessionWithUrl(session, url="wss://example.com/channel")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with sessionWithUrl(session, url="wss://example.com/channel") as ws:
+        with SessionWithUrl(session, url="wss://example.com/channel") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)

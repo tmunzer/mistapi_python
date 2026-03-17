@@ -49,6 +49,11 @@ class _MistWebsocket:
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
     ) -> None:
+        if max_reconnect_attempts < 0:
+            raise ValueError("max_reconnect_attempts must be >= 0")
+        if reconnect_backoff <= 0:
+            raise ValueError("reconnect_backoff must be > 0")
+
         self._mist_session = mist_session
         self._channels = channels
         self._ping_interval = ping_interval
@@ -75,7 +80,7 @@ class _MistWebsocket:
     # Auth / URL helpers
 
     def _build_ws_url(self) -> str:
-        return f"wss://{self._mist_session._cloud_uri.replace('api.', 'api-ws.')}/api-ws/v1/stream"
+        return f"wss://{self._mist_session._cloud_uri.replace('api.', 'api-ws.', 1)}/api-ws/v1/stream"
 
     def _get_headers(self) -> dict:
         if self._mist_session._apitoken:
@@ -109,6 +114,7 @@ class _MistWebsocket:
         session = self._mist_session._session
         if session.verify is False:
             sslopt["cert_reqs"] = ssl.CERT_NONE
+            sslopt["check_hostname"] = False
         elif isinstance(session.verify, str):
             sslopt["ca_certs"] = session.verify
         if session.cert:
@@ -146,6 +152,8 @@ class _MistWebsocket:
         for channel in self._channels:
             ws.send(json.dumps({"subscribe": channel}))
         self._reconnect_attempts = 0
+        self._last_close_code = None
+        self._last_close_msg = None
         self._connected.set()
         if self._on_open_cb:
             self._on_open_cb()
@@ -200,6 +208,8 @@ class _MistWebsocket:
             If True, runs the WebSocket loop in a daemon thread (non-blocking).
             If False, blocks the calling thread until disconnected.
         """
+        if self._thread is not None and self._thread.is_alive():
+            raise RuntimeError("Already connected; call disconnect() first")
         self._user_disconnect.clear()
         self._reconnect_attempts = 0
         # Drain stale sentinel from previous connection

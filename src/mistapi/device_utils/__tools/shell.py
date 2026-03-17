@@ -127,6 +127,7 @@ class ShellSession:
         session = self._mist_session._session
         if session.verify is False:
             sslopt["cert_reqs"] = ssl.CERT_NONE
+            sslopt["check_hostname"] = False
         elif isinstance(session.verify, str):
             sslopt["ca_certs"] = session.verify
         if session.cert:
@@ -143,6 +144,8 @@ class ShellSession:
 
     def connect(self) -> None:
         """Open the WebSocket connection."""
+        if self._ws is not None and self._ws.connected:
+            raise RuntimeError("Already connected; call disconnect() first")
         LOGGER.info("Connecting to shell WebSocket: %s", self._ws_url)
         self._ws = websocket.create_connection(
             self._ws_url,
@@ -150,8 +153,12 @@ class ShellSession:
             cookie=self._get_cookie(),
             sslopt=self._build_sslopt(),
         )
-        self._ws.settimeout(0.1)
-        self.resize(self._rows, self._cols)
+        try:
+            self._ws.settimeout(0.1)
+            self.resize(self._rows, self._cols)
+        except Exception:
+            self.disconnect()
+            raise
         LOGGER.info("Shell WebSocket connected")
 
     def disconnect(self) -> None:
@@ -210,8 +217,16 @@ class ShellSession:
         finally:
             try:
                 ws.settimeout(old_timeout)
-            except Exception:
-                pass
+            except (
+                websocket.WebSocketConnectionClosedException,
+                ConnectionError,
+                OSError,
+            ) as exc:
+                LOGGER.debug(
+                    "ShellSession.recv: failed to restore websocket timeout "
+                    "(socket may be closed): %s",
+                    exc,
+                )
 
     def resize(self, rows: int, cols: int) -> None:
         """Send a terminal resize message to the device."""

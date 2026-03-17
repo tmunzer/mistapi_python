@@ -34,7 +34,7 @@ class BleAssetsEvents(_MistWebsocket):
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
-        Automatically reconnect on transient failures using exponential backoff.
+        Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
@@ -45,7 +45,7 @@ class BleAssetsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = LocationBleAssetsEvents(session, site_id="abc123", map_id="def456")
+        ws = BleAssetsEvents(session, site_id="abc123", map_id="def456")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -53,14 +53,14 @@ class BleAssetsEvents(_MistWebsocket):
 
     Generator style (background thread)::
 
-        ws = LocationBleAssetsEvents(session, site_id="abc123", map_id="def456")
+        ws = BleAssetsEvents(session, site_id="abc123", map_id="def456")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with LocationBleAssetsEvents(session, site_id="abc123", map_id="def456") as ws:
+        with BleAssetsEvents(session, site_id="abc123", map_id="def456") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -107,12 +107,18 @@ class ConnectedClientsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on unexpected disconnections using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
     Callback style (background thread)::
 
-        ws = LocationConnectedClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = ConnectedClientsEvents(session, site_id="abc123", map_id="def456")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -120,14 +126,14 @@ class ConnectedClientsEvents(_MistWebsocket):
 
     Generator style (background thread)::
 
-        ws = LocationConnectedClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = ConnectedClientsEvents(session, site_id="abc123", map_id="def456")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with LocationConnectedClientsEvents(session, site_id="abc123", map_id="def456") as ws:
+        with ConnectedClientsEvents(session, site_id="abc123", map_id="def456") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -174,12 +180,18 @@ class SdkClientsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on unexpected disconnections using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
     Callback style (background thread)::
 
-        ws = LocationSdkClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = SdkClientsEvents(session, site_id="abc123", map_id="def456")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -187,14 +199,14 @@ class SdkClientsEvents(_MistWebsocket):
 
     Generator style (background thread)::
 
-        ws = LocationSdkClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = SdkClientsEvents(session, site_id="abc123", map_id="def456")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with LocationSdkClientsEvents(session, site_id="abc123", map_id="def456") as ws:
+        with SdkClientsEvents(session, site_id="abc123", map_id="def456") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -241,12 +253,18 @@ class UnconnectedClientsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on unexpected disconnections using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
     Callback style (background thread)::
 
-        ws = LocationUnconnectedClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = UnconnectedClientsEvents(session, site_id="abc123", map_id="def456")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -254,14 +272,14 @@ class UnconnectedClientsEvents(_MistWebsocket):
 
     Generator style (background thread)::
 
-        ws = LocationUnconnectedClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = UnconnectedClientsEvents(session, site_id="abc123", map_id="def456")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with LocationUnconnectedClientsEvents(session, site_id="abc123", map_id="def456") as ws:
+        with UnconnectedClientsEvents(session, site_id="abc123", map_id="def456") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -310,12 +328,18 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on unexpected disconnections using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
     Callback style (background thread)::
 
-        ws = LocationDiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456")
+        ws = DiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -323,14 +347,14 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
 
     Generator style (background thread)::
 
-        ws = LocationDiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456")
+        ws = DiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with LocationDiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456") as ws:
+        with DiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
