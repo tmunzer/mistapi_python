@@ -580,7 +580,7 @@ class APISession(APIRequest):
         if data_json.get("email"):
             token_type = "user"  # nosec bandit B105
 
-        for priv in data_json.get("privileges"):
+        for priv in data_json.get("privileges", []):
             tmp = {
                 "scope": priv.get("scope"),
                 "role": priv.get("role"),
@@ -715,7 +715,7 @@ class APISession(APIRequest):
                     "email/password cleaned up. Restarting authentication function"
                 )
                 if retry:
-                    return self._process_login(retry)
+                    return self._process_login(retry=False)
         except requests.exceptions.ProxyError as proxy_error:
             LOGGER.critical("apisession:_process_login:proxy not valid...")
             CONSOLE.critical("Proxy not valid...\r\n")
@@ -935,9 +935,15 @@ class APISession(APIRequest):
                     LOGGER.error(
                         "apirequest:mist_post_file: Exception occurred", exc_info=True
                     )
-                self._csrftoken = self._session.cookies["csrftoken" + cookies_ext]
-                self._session.headers.update({"X-CSRFToken": self._csrftoken})
-                LOGGER.info("apisession:_set_authenticated:CSRF Token stored")
+                csrf_cookie = self._session.cookies.get("csrftoken" + cookies_ext)
+                if csrf_cookie:
+                    self._csrftoken = csrf_cookie
+                    self._session.headers.update({"X-CSRFToken": self._csrftoken})
+                    LOGGER.info("apisession:_set_authenticated:CSRF Token stored")
+                else:
+                    LOGGER.error(
+                        "apisession:_set_authenticated:CSRF Token cookie not found"
+                    )
         elif authentication_status is False:
             self._authenticated = False
             LOGGER.info(
@@ -1093,7 +1099,7 @@ class APISession(APIRequest):
                     for key, val in resp.data.items():
                         if key == "privileges":
                             self.privileges = Privileges(resp.data["privileges"])
-                        if key == "tags":
+                        elif key == "tags":
                             for tag in resp.data["tags"]:
                                 self.tags.append(tag)
                         else:

@@ -253,7 +253,8 @@ class APIRequest:
                     "apirequest:%s:Exception occurred", method_name, exc_info=True
                 )
                 break
-        self._count += 1
+        with self._token_lock:
+            self._count += 1
         return APIResponse(url=url, response=resp, proxy_error=proxy_failed)
 
     def mist_get(self, uri: str, query: dict[str, str] | None = None) -> APIResponse:

@@ -302,7 +302,12 @@ def isolate_env_vars():
     original_env = os.environ.copy()
 
     # Clear mistapi-related environment variables
-    mist_vars = [var for var in os.environ.keys() if var.startswith("MIST_")]
+    mist_vars = [
+        var
+        for var in os.environ.keys()
+        if var.startswith("MIST_")
+        or var in ("CONSOLE_LOG_LEVEL", "LOGGING_LOG_LEVEL", "HTTPS_PROXY")
+    ]
     for var in mist_vars:
         os.environ.pop(var, None)
 

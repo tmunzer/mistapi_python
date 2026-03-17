@@ -30,8 +30,10 @@ from mistapi.device_utils.__tools.bgp import summary as retrieveBgpSummary
 from mistapi.device_utils.__tools.dhcp import release_dhcp_leases as releaseDhcpLeases
 from mistapi.device_utils.__tools.dhcp import retrieve_dhcp_leases as retrieveDhcpLeases
 
-# Tools (ping only - no monitor_traffic for SSR)
+# Tools (ping, traceroute - no monitor_traffic for SSR)
+from mistapi.device_utils.__tools.miscellaneous import TracerouteProtocol
 from mistapi.device_utils.__tools.miscellaneous import ping
+from mistapi.device_utils.__tools.miscellaneous import traceroute
 
 # DNS functions
 # from mistapi.utils.dns import test_resolution as test_dns_resolution
@@ -45,6 +47,7 @@ from mistapi.device_utils.__tools.ospf import show_summary as retrieveOspfSummar
 from mistapi.device_utils.__tools.port import bounce as bouncePort
 
 # Route functions
+from mistapi.device_utils.__tools.routes import RouteProtocol
 from mistapi.device_utils.__tools.routes import show as retrieveRoutes
 
 # Service Path functions
@@ -59,6 +62,8 @@ from mistapi.device_utils.__tools.sessions import show as retrieveSessions
 __all__ = [
     # Classes/Enums
     "Node",
+    "RouteProtocol",
+    "TracerouteProtocol",
     # ARP
     "retrieveArpTable",
     # BGP
@@ -84,4 +89,5 @@ __all__ = [
     "clearSessions",
     # Tools
     "ping",
+    "traceroute",
 ]

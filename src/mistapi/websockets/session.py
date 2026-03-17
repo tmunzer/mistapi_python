@@ -32,12 +32,18 @@ class SessionWithUrl(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on unexpected disconnections using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
     Callback style (background thread)::
 
-        ws = sessionWithUrl(session, url="wss://example.com/channel")
+        ws = SessionWithUrl(session, url="wss://example.com/channel")
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -45,14 +51,14 @@ class SessionWithUrl(_MistWebsocket):
 
     Generator style::
 
-        ws = sessionWithUrl(session, url="wss://example.com/channel")
+        ws = SessionWithUrl(session, url="wss://example.com/channel")
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with sessionWithUrl(session, url="wss://example.com/channel") as ws:
+        with SessionWithUrl(session, url="wss://example.com/channel") as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -64,6 +70,9 @@ class SessionWithUrl(_MistWebsocket):
         url: str,
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         self._url = url
         super().__init__(
@@ -71,6 +80,9 @@ class SessionWithUrl(_MistWebsocket):
             channels=[],
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
     def _build_ws_url(self) -> str:

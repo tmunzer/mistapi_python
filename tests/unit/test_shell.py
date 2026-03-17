@@ -111,9 +111,7 @@ class TestAuthHelpers:
 class TestLifecycle:
     """Tests for connect/disconnect/connected."""
 
-    def test_connect_calls_create_connection(
-        self, shell_session, mock_ws
-    ) -> None:
+    def test_connect_calls_create_connection(self, shell_session, mock_ws) -> None:
         with patch.object(
             shell_module.websocket,
             "create_connection",
@@ -295,15 +293,18 @@ class TestCreateShellSession:
         mock_response.status_code = 200
         mock_response.data = {"url": "wss://example.com/shell/abc"}
 
-        with patch.object(
-            shell_module.websocket,
-            "create_connection",
-            return_value=mock_ws,
-        ), patch.object(
-            devices_module,
-            "createSiteDeviceShellSession",
-            return_value=mock_response,
-        ) as mock_shell_api:
+        with (
+            patch.object(
+                shell_module.websocket,
+                "create_connection",
+                return_value=mock_ws,
+            ),
+            patch.object(
+                devices_module,
+                "createSiteDeviceShellSession",
+                return_value=mock_response,
+            ) as mock_shell_api,
+        ):
             session = create_shell_session(mock_apisession, "site-1", "device-1")
 
             assert isinstance(session, ShellSession)

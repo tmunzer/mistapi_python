@@ -40,6 +40,8 @@ def summary(
         UUID of the site where the device is located.
     device_id : str
         UUID of the device to show BGP summary on.
+    timeout : int, default 5
+        Time in seconds to wait for data before closing the connection.
     on_message : Callable, optional
         Callback invoked with each extracted raw message as it arrives.
 

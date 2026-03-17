@@ -11,6 +11,8 @@
 This module manages API responses
 """
 
+import re
+
 from requests import Response
 from requests.structures import CaseInsensitiveDict
 
@@ -85,7 +87,11 @@ class APIResponse:
                             separator = "&" if "?" in uri else "?"
                             self.next = f"{uri}{separator}page={page + 1}"
                         else:
-                            self.next = uri.replace(f"page={page}", f"page={page + 1}")
+                            self.next = re.sub(
+                                rf"(?<=[?&])page={page}(?=&|$)",
+                                f"page={page + 1}",
+                                uri,
+                            )
                         logger.debug(f"apiresponse:_check_next:set next to {self.next}")
                 except ValueError:
                     logger.error(
