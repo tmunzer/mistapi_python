@@ -10,6 +10,7 @@ surface of all channel classes (sites, orgs, location, session).
 
 import json
 import ssl
+import threading
 from unittest.mock import Mock, call, patch
 
 import pytest
@@ -408,22 +409,26 @@ class TestHandleError:
 
 
 class TestHandleClose:
-    """Tests for _handle_close()."""
+    """Tests for _handle_close().
+
+    Note: _handle_close only clears _connected and stores the close
+    code/msg.  The sentinel and on_close callback are fired by
+    _run_forever_safe after the reconnect loop exits.
+    """
 
     def test_clears_connected_event(self, ws_client) -> None:
         ws_client._connected.set()
         ws_client._handle_close(Mock(), 1000, "normal closure")
         assert not ws_client._connected.is_set()
 
-    def test_puts_none_sentinel_on_queue(self, ws_client) -> None:
-        ws_client._handle_close(Mock(), 1000, "normal closure")
-        assert ws_client._queue.get_nowait() is None
-
-    def test_calls_on_close_callback(self, ws_client) -> None:
-        cb = Mock()
-        ws_client.on_close(cb)
+    def test_stores_close_code_and_msg(self, ws_client) -> None:
         ws_client._handle_close(Mock(), 1001, "going away")
-        cb.assert_called_once_with(1001, "going away")
+        assert ws_client._last_close_code == 1001
+        assert ws_client._last_close_msg == "going away"
+
+    def test_does_not_put_sentinel_directly(self, ws_client) -> None:
+        ws_client._handle_close(Mock(), 1000, "normal closure")
+        assert ws_client._queue.empty()
 
     def test_no_error_without_callback(self, ws_client) -> None:
         ws_client._handle_close(Mock(), 1000, "")  # Should not raise
@@ -465,7 +470,9 @@ class TestConnect:
         mock_ws_cls.return_value = Mock()
         ws_client.connect(run_in_background=False)
 
-        # Queue should have been drained before creating the WebSocketApp
+        # Stale items should have been drained; only the final sentinel
+        # from _run_forever_safe remains.
+        assert ws_client._queue.get_nowait() is None
         assert ws_client._queue.empty()
 
     @patch("mistapi.websockets.__ws_client.websocket.WebSocketApp")
@@ -546,11 +553,14 @@ class TestRunForeverSafe:
 
         error_cb.assert_called_once()
         assert isinstance(error_cb.call_args[0][0], RuntimeError)
+        # _handle_close stores (-1, str(exc)), _run_forever_safe forwards it
         close_cb.assert_called_once_with(-1, "connection failed")
 
-    def test_noop_when_ws_is_none(self, ws_client) -> None:
-        ws_client._ws = None
-        ws_client._run_forever_safe()  # Should not raise
+    def test_run_forever_safe_puts_sentinel_on_exit(self, ws_client) -> None:
+        mock_ws = Mock()
+        ws_client._ws = mock_ws
+        ws_client._run_forever_safe()
+        assert ws_client._queue.get_nowait() is None
 
 
 # ---------------------------------------------------------------------------
@@ -799,3 +809,143 @@ class TestSessionChannel:
     def test_inherits_from_mist_websocket(self, mock_session) -> None:
         ws = SessionWithUrl(mock_session, url="wss://example.com/custom")
         assert isinstance(ws, _MistWebsocket)
+
+
+# ---------------------------------------------------------------------------
+# Auto-reconnect
+# ---------------------------------------------------------------------------
+
+
+class TestAutoReconnect:
+    """Tests for the auto_reconnect feature."""
+
+    def _make_client(self, mock_session, **kwargs):
+        defaults = dict(
+            mist_session=mock_session,
+            channels=["/ch"],
+            auto_reconnect=True,
+            max_reconnect_attempts=3,
+            reconnect_backoff=0.01,  # fast for tests
+        )
+        defaults.update(kwargs)
+        return _MistWebsocket(**defaults)
+
+    def test_retries_on_transient_failure(self, mock_session) -> None:
+        client = self._make_client(mock_session, max_reconnect_attempts=2)
+        call_count = 0
+
+        def fake_run_forever(**kwargs):
+            nonlocal call_count
+            call_count += 1
+            # Simulate connection drop
+            client._handle_close(client._ws, 1006, "abnormal closure")
+
+        mock_ws = Mock()
+        mock_ws.run_forever.side_effect = fake_run_forever
+        with patch.object(client, "_create_ws_app", return_value=mock_ws):
+            client._ws = mock_ws
+            client._run_forever_safe()
+
+        # 1 initial + 2 retries = 3 calls
+        assert call_count == 3
+
+    def test_gives_up_after_max_attempts(self, mock_session) -> None:
+        client = self._make_client(mock_session, max_reconnect_attempts=2)
+        close_cb = Mock()
+        client.on_close(close_cb)
+
+        mock_ws = Mock()
+        mock_ws.run_forever.side_effect = lambda **kw: client._handle_close(
+            mock_ws, 1006, "drop"
+        )
+        with patch.object(client, "_create_ws_app", return_value=mock_ws):
+            client._ws = mock_ws
+            client._run_forever_safe()
+
+        # Callback fires exactly once (on final close)
+        close_cb.assert_called_once()
+        # Sentinel put exactly once
+        assert client._queue.get_nowait() is None
+        assert client._queue.empty()
+
+    def test_disconnect_during_backoff_exits_immediately(self, mock_session) -> None:
+        client = self._make_client(
+            mock_session, max_reconnect_attempts=5, reconnect_backoff=10.0
+        )
+        call_count = 0
+
+        def fake_run_forever(**kwargs):
+            nonlocal call_count
+            call_count += 1
+            client._handle_close(client._ws, 1006, "drop")
+
+        mock_ws = Mock()
+        mock_ws.run_forever.side_effect = fake_run_forever
+
+        def disconnect_soon():
+            """Disconnect after a short delay to interrupt the backoff."""
+            import time
+
+            time.sleep(0.05)
+            client.disconnect()
+
+        with patch.object(client, "_create_ws_app", return_value=mock_ws):
+            client._ws = mock_ws
+            t = threading.Thread(target=disconnect_soon)
+            t.start()
+            client._run_forever_safe()
+            t.join(timeout=2)
+
+        # Should have run once, then been interrupted during first backoff
+        assert call_count == 1
+        assert client._queue.get_nowait() is None
+
+    def test_handle_open_resets_reconnect_attempts(self, mock_session) -> None:
+        client = self._make_client(mock_session, max_reconnect_attempts=3)
+        client._reconnect_attempts = 5
+        client._handle_open(Mock())
+        assert client._reconnect_attempts == 0
+
+    def test_successful_reconnect_resets_counter(self, mock_session) -> None:
+        client = self._make_client(mock_session, max_reconnect_attempts=2)
+        call_count = 0
+
+        def fake_run_forever(**kwargs):
+            nonlocal call_count
+            call_count += 1
+            if call_count == 1:
+                # First connection drops
+                client._handle_close(client._ws, 1006, "drop")
+            elif call_count == 2:
+                # Reconnect succeeds, then simulate open + later drop
+                client._handle_open(client._ws)
+                client._handle_close(client._ws, 1006, "drop again")
+            elif call_count == 3:
+                # Another reconnect succeeds, then clean exit
+                client._handle_open(client._ws)
+                client._handle_close(client._ws, 1006, "drop again")
+            elif call_count == 4:
+                # Final reconnect succeeds then user disconnects
+                client._user_disconnect.set()
+
+        mock_ws = Mock()
+        mock_ws.run_forever.side_effect = fake_run_forever
+        with patch.object(client, "_create_ws_app", return_value=mock_ws):
+            client._ws = mock_ws
+            client._run_forever_safe()
+
+        # Counter was reset by _handle_open, so we got more than max_attempts+1 total calls
+        assert call_count == 4
+
+    def test_no_reconnect_when_disabled(self, mock_session) -> None:
+        client = _MistWebsocket(
+            mist_session=mock_session,
+            channels=["/ch"],
+            auto_reconnect=False,
+        )
+        mock_ws = Mock()
+        client._ws = mock_ws
+        client._run_forever_safe()
+
+        # run_forever called exactly once, no retry
+        mock_ws.run_forever.assert_called_once()

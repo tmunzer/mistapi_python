@@ -208,7 +208,10 @@ class ShellSession:
         ):
             return None
         finally:
-            ws.settimeout(old_timeout)
+            try:
+                ws.settimeout(old_timeout)
+            except Exception:
+                pass
 
     def resize(self, rows: int, cols: int) -> None:
         """Send a terminal resize message to the device."""

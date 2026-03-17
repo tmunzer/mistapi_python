@@ -1,4 +1,57 @@
 # CHANGELOG
+## Version 0.61.2 (March 2026)
+
+**Released**: March 17, 2026
+
+This release adds automatic reconnection support for WebSocket streams, updates the OpenAPI specification, and includes minor bug fixes.
+
+---
+
+### 1. NEW FEATURES
+
+#### **WebSocket Auto-Reconnect**
+`_MistWebsocket` now supports automatic reconnection with configurable parameters:
+- `auto_reconnect` — Enable/disable auto-reconnect (default: `False`)
+- `max_reconnect_attempts` — Maximum reconnect attempts before giving up (default: `5`)
+- `reconnect_backoff` — Base backoff delay in seconds, with exponential increase (default: `2.0`)
+
+When enabled, the WebSocket automatically reconnects on transient failures using exponential backoff. User-initiated `disconnect()` calls are respected during reconnection attempts.
+
+```python
+ws = mistapi.websockets.sites.DeviceStatsEvents(
+    apisession,
+    site_ids=["<site_id>"],
+    auto_reconnect=True,
+    max_reconnect_attempts=5,
+    reconnect_backoff=2.0
+)
+ws.connect(run_in_background=True)
+```
+
+---
+
+### 2. API CHANGES (OpenAPI 2602.1.7)
+
+Updated to mist_openapi spec version 2602.1.7.
+
+#### **Insights API**
+- **`getSiteInsightMetrics()`** — Now uses `metrics` as a query parameter instead of a path parameter
+- **`getSiteInsightMetricsForAP()`** — New function to retrieve insight metrics for a specific AP
+- **`getSiteInsightMetricsForClient()`** — Changed `metric` path parameter to `metrics` query parameter
+- **`getSiteInsightMetricsForGateway()`** — Changed `metric` path parameter to `metrics` query parameter
+
+#### **Stats API**
+- **`getOrgStats()`** — Removed `start`, `end`, `duration`, `limit`, `page` query parameters
+- **`listOrgSiteStats()`** — Removed `start`, `end`, `duration` query parameters
+
+---
+
+### 3. BUG FIXES
+
+- Fixed `ShellSession.recv()` to gracefully handle socket timeout reset when the connection is already closed
+
+---
+
 ## Version 0.61.1 (March 2026)
 
 **Released**: March 15, 2026

@@ -45,17 +45,27 @@ class _MistWebsocket:
         channels: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         self._mist_session = mist_session
         self._channels = channels
         self._ping_interval = ping_interval
         self._ping_timeout = ping_timeout
+        self._auto_reconnect = auto_reconnect
+        self._max_reconnect_attempts = max_reconnect_attempts
+        self._reconnect_backoff = reconnect_backoff
         self._ws: websocket.WebSocketApp | None = None
         self._thread: threading.Thread | None = None
         self._queue: queue.Queue[dict | None] = queue.Queue()
         self._connected = (
             threading.Event()
         )  # tracks whether the WebSocket connection is currently open
+        self._user_disconnect = threading.Event()
+        self._reconnect_attempts = 0
+        self._last_close_code: int | None = None
+        self._last_close_msg: str | None = None
         self._on_message_cb: Callable[[dict], None] | None = None
         self._on_error_cb: Callable[[Exception], None] | None = None
         self._on_open_cb: Callable[[], None] | None = None
@@ -135,6 +145,7 @@ class _MistWebsocket:
     def _handle_open(self, ws: websocket.WebSocketApp) -> None:
         for channel in self._channels:
             ws.send(json.dumps({"subscribe": channel}))
+        self._reconnect_attempts = 0
         self._connected.set()
         if self._on_open_cb:
             self._on_open_cb()
@@ -161,12 +172,23 @@ class _MistWebsocket:
         close_msg: str,
     ) -> None:
         self._connected.clear()
-        self._queue.put(None)  # Signals receive() generator to stop
-        if self._on_close_cb:
-            self._on_close_cb(close_status_code, close_msg)
+        self._last_close_code = close_status_code
+        self._last_close_msg = close_msg
 
     # ------------------------------------------------------------------
     # Lifecycle
+
+    def _create_ws_app(self) -> websocket.WebSocketApp:
+        """Create a new WebSocketApp instance with current auth/URL."""
+        return websocket.WebSocketApp(
+            self._build_ws_url(),
+            header=self._get_headers(),
+            cookie=self._get_cookie(),
+            on_open=self._handle_open,
+            on_message=self._handle_message,
+            on_error=self._handle_error,
+            on_close=self._handle_close,
+        )
 
     def connect(self, run_in_background: bool = True) -> None:
         """
@@ -178,6 +200,8 @@ class _MistWebsocket:
             If True, runs the WebSocket loop in a daemon thread (non-blocking).
             If False, blocks the calling thread until disconnected.
         """
+        self._user_disconnect.clear()
+        self._reconnect_attempts = 0
         # Drain stale sentinel from previous connection
         while not self._queue.empty():
             try:
@@ -185,15 +209,7 @@ class _MistWebsocket:
             except queue.Empty:
                 break
 
-        self._ws = websocket.WebSocketApp(
-            self._build_ws_url(),
-            header=self._get_headers(),
-            cookie=self._get_cookie(),
-            on_open=self._handle_open,
-            on_message=self._handle_message,
-            on_error=self._handle_error,
-            on_close=self._handle_close,
-        )
+        self._ws = self._create_ws_app()
         if run_in_background:
             self._thread = threading.Thread(target=self._run_forever_safe, daemon=True)
             self._thread.start()
@@ -201,7 +217,7 @@ class _MistWebsocket:
             self._run_forever_safe()
 
     def _run_forever_safe(self) -> None:
-        if self._ws:
+        while True:
             try:
                 sslopt = self._build_sslopt()
                 self._ws.run_forever(
@@ -213,10 +229,40 @@ class _MistWebsocket:
                 self._handle_error(self._ws, exc)
                 self._handle_close(self._ws, -1, str(exc))
 
+            if self._user_disconnect.is_set() or not self._auto_reconnect:
+                break
+
+            self._reconnect_attempts += 1
+            if self._reconnect_attempts > self._max_reconnect_attempts:
+                logger.warning(
+                    "Max reconnect attempts (%d) reached, giving up",
+                    self._max_reconnect_attempts,
+                )
+                break
+
+            delay = self._reconnect_backoff * (2 ** (self._reconnect_attempts - 1))
+            logger.info(
+                "Reconnecting in %.1fs (attempt %d/%d)",
+                delay,
+                self._reconnect_attempts,
+                self._max_reconnect_attempts,
+            )
+            if self._user_disconnect.wait(timeout=delay):
+                break  # disconnect() called during backoff
+
+            self._ws = self._create_ws_app()
+
+        # Final close: put sentinel and call callback
+        self._queue.put(None)
+        if self._on_close_cb:
+            self._on_close_cb(self._last_close_code, self._last_close_msg)
+
     def disconnect(self) -> None:
         """Close the WebSocket connection."""
-        if self._ws:
-            self._ws.close()
+        self._user_disconnect.set()
+        ws = self._ws
+        if ws:
+            ws.close()
 
     def receive(self) -> Generator[dict, None, None]:
         """
@@ -234,6 +280,8 @@ class _MistWebsocket:
                 item = self._queue.get(timeout=1)
             except queue.Empty:
                 if not self._connected.is_set() and self._queue.empty():
+                    if self._auto_reconnect and not self._user_disconnect.is_set():
+                        continue  # reconnect in progress, keep waiting
                     break
                 continue
             if item is None:

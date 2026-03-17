@@ -42,7 +42,9 @@ from mistapi.device_utils.__tools.mac import retrieve_mac_table as retrieveMacTa
 
 # Shell (interactive SSH)
 from mistapi.device_utils.__tools.shell import ShellSession
-from mistapi.device_utils.__tools.shell import create_shell_session as createShellSession
+from mistapi.device_utils.__tools.shell import (
+    create_shell_session as createShellSession,
+)
 from mistapi.device_utils.__tools.shell import interactive_shell as interactiveShell
 
 # Tools (ping, monitor traffic)

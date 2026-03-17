@@ -14,11 +14,131 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
+def getSiteInsightMetrics(
+    mist_session: _APISession,
+    site_id: str,
+    metrics: str,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str | None = None,
+    interval: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+
+    QUERY PARAMS
+    ------------
+    metrics : str
+    start : str
+    end : str
+    duration : str, default: 1d
+    interval : str
+    limit : int, default: 100
+    page : int, default: 1
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/insights"
+    query_params: dict[str, str] = {}
+    if metrics:
+        query_params["metrics"] = str(metrics)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if interval:
+        query_params["interval"] = str(interval)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def getSiteInsightMetricsForAP(
+    mist_session: _APISession,
+    site_id: str,
+    device_id: str,
+    metrics: str,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str | None = None,
+    interval: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics-for-a-p
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str
+
+    QUERY PARAMS
+    ------------
+    metrics : str
+    start : str
+    end : str
+    duration : str, default: 1d
+    interval : str
+    limit : int, default: 100
+    page : int, default: 1
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/insights/ap/{device_id}/stats"
+    query_params: dict[str, str] = {}
+    if metrics:
+        query_params["metrics"] = str(metrics)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if interval:
+        query_params["interval"] = str(interval)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
 def getSiteInsightMetricsForClient(
     mist_session: _APISession,
     site_id: str,
     client_mac: str,
-    metric: str,
+    metrics: str,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -38,10 +158,10 @@ def getSiteInsightMetricsForClient(
     -----------
     site_id : str
     client_mac : str
-    metric : str
 
     QUERY PARAMS
     ------------
+    metrics : str
     start : str
     end : str
     duration : str, default: 1d
@@ -55,8 +175,10 @@ def getSiteInsightMetricsForClient(
         response from the API call
     """
 
-    uri = f"/api/v1/sites/{site_id}/insights/client/{client_mac}/{metric}"
+    uri = f"/api/v1/sites/{site_id}/insights/client/{client_mac}"
     query_params: dict[str, str] = {}
+    if metrics:
+        query_params["metrics"] = str(metrics)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -274,8 +396,8 @@ def searchSiteClientFingerprints(
 def getSiteInsightMetricsForGateway(
     mist_session: _APISession,
     site_id: str,
-    metric: str,
     device_id: str,
+    metrics: str,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -294,11 +416,11 @@ def getSiteInsightMetricsForGateway(
     PATH PARAMS
     -----------
     site_id : str
-    metric : str
     device_id : str
 
     QUERY PARAMS
     ------------
+    metrics : str
     start : str
     end : str
     duration : str, default: 1d
@@ -312,8 +434,10 @@ def getSiteInsightMetricsForGateway(
         response from the API call
     """
 
-    uri = f"/api/v1/sites/{site_id}/insights/gateway/{device_id}/stats/{metric}"
+    uri = f"/api/v1/sites/{site_id}/insights/gateway/{device_id}/stats"
     query_params: dict[str, str] = {}
+    if metrics:
+        query_params["metrics"] = str(metrics)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -537,63 +661,6 @@ def getSiteInsightMetricsForSwitch(
     """
 
     uri = f"/api/v1/sites/{site_id}/insights/switch/{device_mac}/{metric}"
-    query_params: dict[str, str] = {}
-    if start:
-        query_params["start"] = str(start)
-    if end:
-        query_params["end"] = str(end)
-    if duration:
-        query_params["duration"] = str(duration)
-    if interval:
-        query_params["interval"] = str(interval)
-    if limit:
-        query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
-    resp = mist_session.mist_get(uri=uri, query=query_params)
-    return resp
-
-
-def getSiteInsightMetrics(
-    mist_session: _APISession,
-    site_id: str,
-    metric: str,
-    start: str | None = None,
-    end: str | None = None,
-    duration: str | None = None,
-    interval: str | None = None,
-    limit: int | None = None,
-    page: int | None = None,
-) -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/insights/get-site-insight-metrics
-
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-
-    PATH PARAMS
-    -----------
-    site_id : str
-    metric : str
-
-    QUERY PARAMS
-    ------------
-    start : str
-    end : str
-    duration : str, default: 1d
-    interval : str
-    limit : int, default: 100
-    page : int, default: 1
-
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-
-    uri = f"/api/v1/sites/{site_id}/insights/{metric}"
     query_params: dict[str, str] = {}
     if start:
         query_params["start"] = str(start)

@@ -14,15 +14,7 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
-def getOrgStats(
-    mist_session: _APISession,
-    org_id: str,
-    start: str | None = None,
-    end: str | None = None,
-    duration: str | None = None,
-    limit: int | None = None,
-    page: int | None = None,
-) -> _APIResponse:
+def getOrgStats(mist_session: _APISession, org_id: str) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/get-org-stats
 
@@ -35,14 +27,6 @@ def getOrgStats(
     -----------
     org_id : str
 
-    QUERY PARAMS
-    ------------
-    start : str
-    end : str
-    duration : str, default: 1d
-    limit : int, default: 100
-    page : int, default: 1
-
     RETURN
     -----------
     mistapi.APIResponse
@@ -51,16 +35,6 @@ def getOrgStats(
 
     uri = f"/api/v1/orgs/{org_id}/stats"
     query_params: dict[str, str] = {}
-    if start:
-        query_params["start"] = str(start)
-    if end:
-        query_params["end"] = str(end)
-    if duration:
-        query_params["duration"] = str(duration)
-    if limit:
-        query_params["limit"] = str(limit)
-    if page:
-        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -1017,9 +991,6 @@ def searchOrgSwOrGwPorts(
 def listOrgSiteStats(
     mist_session: _APISession,
     org_id: str,
-    start: str | None = None,
-    end: str | None = None,
-    duration: str | None = None,
     limit: int | None = None,
     page: int | None = None,
 ) -> _APIResponse:
@@ -1037,9 +1008,6 @@ def listOrgSiteStats(
 
     QUERY PARAMS
     ------------
-    start : str
-    end : str
-    duration : str, default: 1d
     limit : int, default: 100
     page : int, default: 1
 
@@ -1051,12 +1019,6 @@ def listOrgSiteStats(
 
     uri = f"/api/v1/orgs/{org_id}/stats/sites"
     query_params: dict[str, str] = {}
-    if start:
-        query_params["start"] = str(start)
-    if end:
-        query_params["end"] = str(end)
-    if duration:
-        query_params["duration"] = str(duration)
     if limit:
         query_params["limit"] = str(limit)
     if page:

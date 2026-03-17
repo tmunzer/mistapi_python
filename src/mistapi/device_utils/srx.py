@@ -32,7 +32,9 @@ from mistapi.device_utils.__tools.dhcp import retrieve_dhcp_leases as retrieveDh
 
 # Shell (interactive SSH)
 from mistapi.device_utils.__tools.shell import ShellSession
-from mistapi.device_utils.__tools.shell import create_shell_session as createShellSession
+from mistapi.device_utils.__tools.shell import (
+    create_shell_session as createShellSession,
+)
 from mistapi.device_utils.__tools.shell import interactive_shell as interactiveShell
 
 # Tools (ping, monitor traffic)
