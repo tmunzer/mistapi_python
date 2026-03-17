@@ -31,6 +31,12 @@ class InsightsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
@@ -63,12 +69,18 @@ class InsightsEvents(_MistWebsocket):
         org_id: str,
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         super().__init__(
             mist_session,
             channels=[f"/orgs/{org_id}/insights/summary"],
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -88,6 +100,12 @@ class MxEdgesStatsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
@@ -120,12 +138,18 @@ class MxEdgesStatsEvents(_MistWebsocket):
         org_id: str,
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         super().__init__(
             mist_session,
             channels=[f"/orgs/{org_id}/stats/mxedges"],
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -145,6 +169,12 @@ class MxEdgesEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
@@ -177,10 +207,16 @@ class MxEdgesEvents(_MistWebsocket):
         org_id: str,
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         super().__init__(
             mist_session,
             channels=[f"/orgs/{org_id}/mxedges"],
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )

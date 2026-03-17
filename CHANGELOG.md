@@ -47,8 +47,9 @@ Updated to mist_openapi spec version 2602.1.7.
 ---
 
 ### 3. BUG FIXES
-
 - Fixed `ShellSession.recv()` to gracefully handle socket timeout reset when the connection is already closed
+- Fixed thread-safety (TOCTOU) race conditions in `ShellSession` by capturing WebSocket reference in local variables across `disconnect()`, `connected`, `send()`, `recv()`, and `resize()` methods
+- Fixed thread-safety race condition in `_MistWebsocket.disconnect()` with local variable capture
 
 ---
 

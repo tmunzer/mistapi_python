@@ -579,19 +579,23 @@ The package provides a WebSocket client for real-time event streaming from the M
 
 ### Connection Parameters
 
-All channel classes accept the following optional keyword arguments to control the WebSocket keep-alive behaviour:
+All channel classes accept the following optional keyword arguments:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `ping_interval` | `int` | `30` | Seconds between automatic ping frames. Set to `0` to disable pings. |
 | `ping_timeout` | `int` | `10` | Seconds to wait for a pong response before treating the connection as dead. |
+| `auto_reconnect` | `bool` | `False` | Automatically reconnect on transient failures using exponential backoff. |
+| `max_reconnect_attempts` | `int` | `5` | Maximum number of reconnect attempts before giving up. |
+| `reconnect_backoff` | `float` | `2.0` | Base backoff delay in seconds. Doubles after each failed attempt (2s, 4s, 8s, ...). Resets on successful reconnection. |
 
 ```python
 ws = mistapi.websockets.sites.DeviceStatsEvents(
     apisession,
     site_ids=["<site_id>"],
-    ping_interval=60,   # ping every 60 s
-    ping_timeout=20,    # wait up to 20 s for pong
+    ping_interval=60,       # ping every 60 s
+    ping_timeout=20,        # wait up to 20 s for pong
+    auto_reconnect=True,    # reconnect on transient failures
 )
 ws.connect()
 ```

@@ -873,6 +873,14 @@ class TestAutoReconnect:
             mock_session, max_reconnect_attempts=5, reconnect_backoff=10.0
         )
         call_count = 0
+        entered_backoff = threading.Event()
+
+        original_wait = client._user_disconnect.wait
+
+        def wait_and_signal(timeout=None):
+            """Signal that the backoff wait has started, then delegate."""
+            entered_backoff.set()
+            return original_wait(timeout=timeout)
 
         def fake_run_forever(**kwargs):
             nonlocal call_count
@@ -882,16 +890,14 @@ class TestAutoReconnect:
         mock_ws = Mock()
         mock_ws.run_forever.side_effect = fake_run_forever
 
-        def disconnect_soon():
-            """Disconnect after a short delay to interrupt the backoff."""
-            import time
-
-            time.sleep(0.05)
+        def disconnect_when_ready():
+            entered_backoff.wait()  # deterministic: wait until backoff starts
             client.disconnect()
 
-        with patch.object(client, "_create_ws_app", return_value=mock_ws):
+        with patch.object(client, "_create_ws_app", return_value=mock_ws), \
+             patch.object(client._user_disconnect, "wait", side_effect=wait_and_signal):
             client._ws = mock_ws
-            t = threading.Thread(target=disconnect_soon)
+            t = threading.Thread(target=disconnect_when_ready)
             t.start()
             client._run_forever_safe()
             t.join(timeout=2)

@@ -33,6 +33,12 @@ class BleAssetsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
 
     EXAMPLE
@@ -67,6 +73,9 @@ class BleAssetsEvents(_MistWebsocket):
         map_id: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/maps/{mid}/assets" for mid in map_id]
         super().__init__(
@@ -74,6 +83,9 @@ class BleAssetsEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -128,6 +140,9 @@ class ConnectedClientsEvents(_MistWebsocket):
         map_id: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/maps/{mid}/clients" for mid in map_id]
         super().__init__(
@@ -135,6 +150,9 @@ class ConnectedClientsEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -189,6 +207,9 @@ class SdkClientsEvents(_MistWebsocket):
         map_id: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/maps/{mid}/sdkclients" for mid in map_id]
         super().__init__(
@@ -196,6 +217,9 @@ class SdkClientsEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -250,6 +274,9 @@ class UnconnectedClientsEvents(_MistWebsocket):
         map_id: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [
             f"/sites/{site_id}/stats/maps/{mid}/unconnected_clients" for mid in map_id
@@ -259,6 +286,9 @@ class UnconnectedClientsEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -313,6 +343,9 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
         map_id: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [
             f"/sites/{site_id}/stats/maps/{mid}/discovered_assets" for mid in map_id
@@ -322,4 +355,7 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )

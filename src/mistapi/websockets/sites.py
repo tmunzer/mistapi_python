@@ -31,6 +31,12 @@ class ClientsStatsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
@@ -63,6 +69,9 @@ class ClientsStatsEvents(_MistWebsocket):
         site_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/clients" for site_id in site_ids]
         super().__init__(
@@ -70,6 +79,9 @@ class ClientsStatsEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -97,6 +109,12 @@ class DeviceCmdEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
@@ -130,6 +148,9 @@ class DeviceCmdEvents(_MistWebsocket):
         device_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [
             f"/sites/{site_id}/devices/{device_id}/cmd" for device_id in device_ids
@@ -139,6 +160,9 @@ class DeviceCmdEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -158,6 +182,12 @@ class DeviceStatsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
@@ -190,6 +220,9 @@ class DeviceStatsEvents(_MistWebsocket):
         site_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/devices" for site_id in site_ids]
         super().__init__(
@@ -197,6 +230,9 @@ class DeviceStatsEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -216,6 +252,12 @@ class DeviceEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
@@ -248,6 +290,9 @@ class DeviceEvents(_MistWebsocket):
         site_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [f"/sites/{site_id}/devices" for site_id in site_ids]
         super().__init__(
@@ -255,6 +300,9 @@ class DeviceEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -274,6 +322,12 @@ class MxEdgesStatsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
@@ -306,6 +360,9 @@ class MxEdgesStatsEvents(_MistWebsocket):
         site_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/mxedges" for site_id in site_ids]
         super().__init__(
@@ -313,6 +370,9 @@ class MxEdgesStatsEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -332,6 +392,12 @@ class MxEdgesEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
@@ -364,6 +430,9 @@ class MxEdgesEvents(_MistWebsocket):
         site_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [f"/sites/{site_id}/mxedges" for site_id in site_ids]
         super().__init__(
@@ -371,6 +440,9 @@ class MxEdgesEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
 
 
@@ -390,6 +462,12 @@ class PcapEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
         Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on transient failures using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
 
     EXAMPLE
     -----------
@@ -422,6 +500,9 @@ class PcapEvents(_MistWebsocket):
         site_id: str,
         ping_interval: int = 30,
         ping_timeout: int = 10,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [f"/sites/{site_id}/pcaps"]
         super().__init__(
@@ -429,4 +510,7 @@ class PcapEvents(_MistWebsocket):
             channels=channels,
             ping_interval=ping_interval,
             ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
         )
