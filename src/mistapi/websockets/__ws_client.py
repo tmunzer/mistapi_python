@@ -74,7 +74,7 @@ class _MistWebsocket:
         self._on_message_cb: Callable[[dict], None] | None = None
         self._on_error_cb: Callable[[Exception], None] | None = None
         self._on_open_cb: Callable[[], None] | None = None
-        self._on_close_cb: Callable[[int, str], None] | None = None
+        self._on_close_cb: Callable[[int | None, str | None], None] | None = None
 
     # ------------------------------------------------------------------
     # Auth / URL helpers
@@ -141,7 +141,7 @@ class _MistWebsocket:
         """Register a callback invoked when the connection is established."""
         self._on_open_cb = callback
 
-    def on_close(self, callback: Callable[[int, str], None]) -> None:
+    def on_close(self, callback: Callable[[int | None, str | None], None]) -> None:
         """Register a callback invoked when the connection closes."""
         self._on_close_cb = callback
 
@@ -176,8 +176,8 @@ class _MistWebsocket:
     def _handle_close(
         self,
         ws: websocket.WebSocketApp,
-        close_status_code: int,
-        close_msg: str,
+        close_status_code: int | None,
+        close_msg: str | None,
     ) -> None:
         self._connected.clear()
         self._last_close_code = close_status_code
@@ -208,7 +208,7 @@ class _MistWebsocket:
             If True, runs the WebSocket loop in a daemon thread (non-blocking).
             If False, blocks the calling thread until disconnected.
         """
-        if self._thread is not None and self._thread.is_alive():
+        if self._connected.is_set() or (self._thread is not None and self._thread.is_alive()):
             raise RuntimeError("Already connected; call disconnect() first")
         self._user_disconnect.clear()
         self._reconnect_attempts = 0
@@ -270,10 +270,7 @@ class _MistWebsocket:
         # Final close: put sentinel and call callback
         self._queue.put(None)
         if self._on_close_cb:
-            # websocket-client may provide None for close code/message; normalize
-            code = self._last_close_code if self._last_close_code is not None else -1
-            msg = self._last_close_msg if self._last_close_msg is not None else ""
-            self._on_close_cb(code, msg)
+            self._on_close_cb(self._last_close_code, self._last_close_msg)
 
     def disconnect(self) -> None:
         """Close the WebSocket connection."""
@@ -291,7 +288,12 @@ class _MistWebsocket:
 
         Intended for use after connect(run_in_background=True).
         """
-        if not self._connected.wait(timeout=10):
+        if self._auto_reconnect:
+            while not self._connected.is_set() and not self._user_disconnect.is_set():
+                self._connected.wait(timeout=1)
+            if self._user_disconnect.is_set() and not self._connected.is_set():
+                return
+        elif not self._connected.wait(timeout=10):
             return
         while True:
             try:

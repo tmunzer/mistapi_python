@@ -234,7 +234,10 @@ class TestBuildSslopt:
         mock_session._session.verify = False
         mock_session._session.cert = None
         client = _MistWebsocket(mock_session, channels=["/ch"])
-        assert client._build_sslopt() == {"cert_reqs": ssl.CERT_NONE, "check_hostname": False}
+        assert client._build_sslopt() == {
+            "cert_reqs": ssl.CERT_NONE,
+            "check_hostname": False,
+        }
 
     def test_verify_custom_ca_path(self, mock_session) -> None:
         mock_session._session.verify = "/etc/ssl/custom-ca.pem"
@@ -703,6 +706,18 @@ class TestInit:
     def test_thread_starts_none(self, ws_client) -> None:
         assert ws_client._thread is None
 
+    def test_negative_max_reconnect_attempts_raises(self, mock_session) -> None:
+        with pytest.raises(ValueError, match="max_reconnect_attempts must be >= 0"):
+            _MistWebsocket(mock_session, channels=["/ch"], max_reconnect_attempts=-1)
+
+    def test_zero_reconnect_backoff_raises(self, mock_session) -> None:
+        with pytest.raises(ValueError, match="reconnect_backoff must be > 0"):
+            _MistWebsocket(mock_session, channels=["/ch"], reconnect_backoff=0)
+
+    def test_negative_reconnect_backoff_raises(self, mock_session) -> None:
+        with pytest.raises(ValueError, match="reconnect_backoff must be > 0"):
+            _MistWebsocket(mock_session, channels=["/ch"], reconnect_backoff=-1.0)
+
 
 # ---------------------------------------------------------------------------
 # Public WebSocket channel classes
@@ -772,30 +787,30 @@ class TestLocationChannels:
     """Tests for public location-level WebSocket channel classes."""
 
     def test_ble_assets_events_channels(self, mock_session) -> None:
-        ws = BleAssetsEvents(mock_session, site_id="s1", map_id=["m1", "m2"])
+        ws = BleAssetsEvents(mock_session, site_id="s1", map_ids=["m1", "m2"])
         assert ws._channels == [
             "/sites/s1/stats/maps/m1/assets",
             "/sites/s1/stats/maps/m2/assets",
         ]
 
     def test_connected_clients_events_channels(self, mock_session) -> None:
-        ws = ConnectedClientsEvents(mock_session, site_id="s1", map_id=["m1"])
+        ws = ConnectedClientsEvents(mock_session, site_id="s1", map_ids=["m1"])
         assert ws._channels == ["/sites/s1/stats/maps/m1/clients"]
 
     def test_sdk_clients_events_channels(self, mock_session) -> None:
-        ws = SdkClientsEvents(mock_session, site_id="s1", map_id=["m1"])
+        ws = SdkClientsEvents(mock_session, site_id="s1", map_ids=["m1"])
         assert ws._channels == ["/sites/s1/stats/maps/m1/sdkclients"]
 
     def test_unconnected_clients_events_channels(self, mock_session) -> None:
-        ws = UnconnectedClientsEvents(mock_session, site_id="s1", map_id=["m1"])
+        ws = UnconnectedClientsEvents(mock_session, site_id="s1", map_ids=["m1"])
         assert ws._channels == ["/sites/s1/stats/maps/m1/unconnected_clients"]
 
     def test_discovered_ble_assets_events_channels(self, mock_session) -> None:
-        ws = DiscoveredBleAssetsEvents(mock_session, site_id="s1", map_id=["m1"])
+        ws = DiscoveredBleAssetsEvents(mock_session, site_id="s1", map_ids=["m1"])
         assert ws._channels == ["/sites/s1/stats/maps/m1/discovered_assets"]
 
     def test_inherits_from_mist_websocket(self, mock_session) -> None:
-        ws = BleAssetsEvents(mock_session, site_id="s1", map_id=["m1"])
+        ws = BleAssetsEvents(mock_session, site_id="s1", map_ids=["m1"])
         assert isinstance(ws, _MistWebsocket)
 
 
@@ -864,7 +879,7 @@ class TestAutoReconnect:
             client._run_forever_safe()
 
         # Callback fires exactly once (on final close)
-        close_cb.assert_called_once()
+        close_cb.assert_called_once_with(1006, "drop")
         # Sentinel put exactly once
         assert client._queue.get_nowait() is None
         assert client._queue.empty()
@@ -895,8 +910,10 @@ class TestAutoReconnect:
             entered_backoff.wait()  # deterministic: wait until backoff starts
             client.disconnect()
 
-        with patch.object(client, "_create_ws_app", return_value=mock_ws), \
-             patch.object(client._user_disconnect, "wait", side_effect=wait_and_signal):
+        with (
+            patch.object(client, "_create_ws_app", return_value=mock_ws),
+            patch.object(client._user_disconnect, "wait", side_effect=wait_and_signal),
+        ):
             client._ws = mock_ws
             t = threading.Thread(target=disconnect_when_ready)
             t.start()

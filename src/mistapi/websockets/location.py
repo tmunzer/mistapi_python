@@ -27,12 +27,12 @@ class BleAssetsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    map_id : list[str]
+    map_ids : list[str]
         UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
-        Time in seconds to wait for a ping response before considering the connection dead.
+        ping_timeout : int, default 10
+            Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -45,7 +45,7 @@ class BleAssetsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = BleAssetsEvents(session, site_id="abc123", map_id="def456")
+        ws = BleAssetsEvents(session, site_id="abc123", map_ids=["def456"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -53,14 +53,14 @@ class BleAssetsEvents(_MistWebsocket):
 
     Generator style (background thread)::
 
-        ws = BleAssetsEvents(session, site_id="abc123", map_id="def456")
+        ws = BleAssetsEvents(session, site_id="abc123", map_ids=["def456"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with BleAssetsEvents(session, site_id="abc123", map_id="def456") as ws:
+        with BleAssetsEvents(session, site_id="abc123", map_ids=["def456"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -70,14 +70,14 @@ class BleAssetsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        map_id: list[str],
+        map_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
     ) -> None:
-        channels = [f"/sites/{site_id}/stats/maps/{mid}/assets" for mid in map_id]
+        channels = [f"/sites/{site_id}/stats/maps/{mid}/assets" for mid in map_ids]
         super().__init__(
             mist_session,
             channels=channels,
@@ -101,7 +101,7 @@ class ConnectedClientsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    map_id : list[str]
+    map_ids : list[str]
         UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
@@ -118,7 +118,7 @@ class ConnectedClientsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = ConnectedClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = ConnectedClientsEvents(session, site_id="abc123", map_ids=["def456"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -126,14 +126,14 @@ class ConnectedClientsEvents(_MistWebsocket):
 
     Generator style (background thread)::
 
-        ws = ConnectedClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = ConnectedClientsEvents(session, site_id="abc123", map_ids=["def456"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with ConnectedClientsEvents(session, site_id="abc123", map_id="def456") as ws:
+        with ConnectedClientsEvents(session, site_id="abc123", map_ids=["def456"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -143,14 +143,14 @@ class ConnectedClientsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        map_id: list[str],
+        map_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
     ) -> None:
-        channels = [f"/sites/{site_id}/stats/maps/{mid}/clients" for mid in map_id]
+        channels = [f"/sites/{site_id}/stats/maps/{mid}/clients" for mid in map_ids]
         super().__init__(
             mist_session,
             channels=channels,
@@ -174,7 +174,7 @@ class SdkClientsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    map_id : list[str]
+    map_ids : list[str]
         UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
@@ -191,7 +191,7 @@ class SdkClientsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = SdkClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = SdkClientsEvents(session, site_id="abc123", map_ids=["def456"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -199,14 +199,14 @@ class SdkClientsEvents(_MistWebsocket):
 
     Generator style (background thread)::
 
-        ws = SdkClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = SdkClientsEvents(session, site_id="abc123", map_ids=["def456"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with SdkClientsEvents(session, site_id="abc123", map_id="def456") as ws:
+        with SdkClientsEvents(session, site_id="abc123", map_ids=["def456"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -216,14 +216,14 @@ class SdkClientsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        map_id: list[str],
+        map_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
     ) -> None:
-        channels = [f"/sites/{site_id}/stats/maps/{mid}/sdkclients" for mid in map_id]
+        channels = [f"/sites/{site_id}/stats/maps/{mid}/sdkclients" for mid in map_ids]
         super().__init__(
             mist_session,
             channels=channels,
@@ -247,7 +247,7 @@ class UnconnectedClientsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    map_id : list[str]
+    map_ids : list[str]
         UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
@@ -264,7 +264,7 @@ class UnconnectedClientsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = UnconnectedClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = UnconnectedClientsEvents(session, site_id="abc123", map_ids=["def456"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -272,14 +272,14 @@ class UnconnectedClientsEvents(_MistWebsocket):
 
     Generator style (background thread)::
 
-        ws = UnconnectedClientsEvents(session, site_id="abc123", map_id="def456")
+        ws = UnconnectedClientsEvents(session, site_id="abc123", map_ids=["def456"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with UnconnectedClientsEvents(session, site_id="abc123", map_id="def456") as ws:
+        with UnconnectedClientsEvents(session, site_id="abc123", map_ids=["def456"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -289,7 +289,7 @@ class UnconnectedClientsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        map_id: list[str],
+        map_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
         auto_reconnect: bool = False,
@@ -297,7 +297,7 @@ class UnconnectedClientsEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [
-            f"/sites/{site_id}/stats/maps/{mid}/unconnected_clients" for mid in map_id
+            f"/sites/{site_id}/stats/maps/{mid}/unconnected_clients" for mid in map_ids
         ]
         super().__init__(
             mist_session,
@@ -322,7 +322,7 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    map_id : list[str]
+    map_ids : list[str]
         UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
@@ -339,7 +339,7 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = DiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456")
+        ws = DiscoveredBleAssetsEvents(session, site_id="abc123", map_ids=["def456"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -347,14 +347,14 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
 
     Generator style (background thread)::
 
-        ws = DiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456")
+        ws = DiscoveredBleAssetsEvents(session, site_id="abc123", map_ids=["def456"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with DiscoveredBleAssetsEvents(session, site_id="abc123", map_id="def456") as ws:
+        with DiscoveredBleAssetsEvents(session, site_id="abc123", map_ids=["def456"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -364,7 +364,7 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        map_id: list[str],
+        map_ids: list[str],
         ping_interval: int = 30,
         ping_timeout: int = 10,
         auto_reconnect: bool = False,
@@ -372,7 +372,7 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
     ) -> None:
         channels = [
-            f"/sites/{site_id}/stats/maps/{mid}/discovered_assets" for mid in map_id
+            f"/sites/{site_id}/stats/maps/{mid}/discovered_assets" for mid in map_ids
         ]
         super().__init__(
             mist_session,

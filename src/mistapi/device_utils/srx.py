@@ -37,10 +37,12 @@ from mistapi.device_utils.__tools.shell import (
 )
 from mistapi.device_utils.__tools.shell import interactive_shell as interactiveShell
 
-# Tools (ping, monitor traffic)
+# Tools (ping, traceroute, monitor traffic)
+from mistapi.device_utils.__tools.miscellaneous import TracerouteProtocol
 from mistapi.device_utils.__tools.miscellaneous import monitor_traffic as monitorTraffic
 from mistapi.device_utils.__tools.miscellaneous import ping
 from mistapi.device_utils.__tools.miscellaneous import top_command as topCommand
+from mistapi.device_utils.__tools.miscellaneous import traceroute
 
 # OSPF functions
 from mistapi.device_utils.__tools.ospf import show_database as retrieveOspfDatabase
@@ -52,6 +54,7 @@ from mistapi.device_utils.__tools.ospf import show_summary as retrieveOspfSummar
 from mistapi.device_utils.__tools.port import bounce as bouncePort
 
 # Route functions
+from mistapi.device_utils.__tools.routes import RouteProtocol
 from mistapi.device_utils.__tools.routes import show as retrieveRoutes
 
 # Sessions functions
@@ -61,6 +64,8 @@ from mistapi.device_utils.__tools.sessions import show as retrieveSessions
 __all__ = [
     # Classes/Enums
     "Node",
+    "RouteProtocol",
+    "TracerouteProtocol",
     # ARP
     "retrieveArpTable",
     # BGP
@@ -88,4 +93,5 @@ __all__ = [
     "monitorTraffic",
     "ping",
     "topCommand",
+    "traceroute",
 ]

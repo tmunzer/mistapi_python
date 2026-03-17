@@ -47,10 +47,12 @@ from mistapi.device_utils.__tools.shell import (
 )
 from mistapi.device_utils.__tools.shell import interactive_shell as interactiveShell
 
-# Tools (ping, monitor traffic)
+# Tools (ping, traceroute, monitor traffic)
+from mistapi.device_utils.__tools.miscellaneous import TracerouteProtocol
 from mistapi.device_utils.__tools.miscellaneous import monitor_traffic as monitorTraffic
 from mistapi.device_utils.__tools.miscellaneous import ping
 from mistapi.device_utils.__tools.miscellaneous import top_command as topCommand
+from mistapi.device_utils.__tools.miscellaneous import traceroute
 
 # Policy functions
 from mistapi.device_utils.__tools.policy import clear_hit_count as clearHitCount
@@ -88,4 +90,6 @@ __all__ = [
     "monitorTraffic",
     "ping",
     "topCommand",
+    "traceroute",
+    "TracerouteProtocol",
 ]

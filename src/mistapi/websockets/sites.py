@@ -42,7 +42,7 @@ class ClientsStatsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = ClientsStatsEvents(session, site_id="abc123")
+        ws = ClientsStatsEvents(session, site_ids=["abc123"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -50,14 +50,14 @@ class ClientsStatsEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = ClientsStatsEvents(session, site_id="abc123")
+        ws = ClientsStatsEvents(session, site_ids=["abc123"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with ClientsStatsEvents(session, site_id="abc123") as ws:
+        with ClientsStatsEvents(session, site_ids=["abc123"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -120,7 +120,7 @@ class DeviceCmdEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = DeviceCmdEvents(session, site_id="abc123", device_id="def456")
+        ws = DeviceCmdEvents(session, site_id="abc123", device_ids=["def456"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -128,14 +128,14 @@ class DeviceCmdEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = DeviceCmdEvents(session, site_id="abc123", device_id="def456")
+        ws = DeviceCmdEvents(session, site_id="abc123", device_ids=["def456"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with DeviceCmdEvents(session, site_id="abc123", device_id="def456") as ws:
+        with DeviceCmdEvents(session, site_id="abc123", device_ids=["def456"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -193,7 +193,7 @@ class DeviceStatsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = DeviceStatsEvents(session, site_id="abc123")
+        ws = DeviceStatsEvents(session, site_ids=["abc123"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -201,14 +201,14 @@ class DeviceStatsEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = DeviceStatsEvents(session, site_id="abc123")
+        ws = DeviceStatsEvents(session, site_ids=["abc123"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with DeviceStatsEvents(session, site_id="abc123") as ws:
+        with DeviceStatsEvents(session, site_ids=["abc123"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -263,7 +263,7 @@ class DeviceEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = DeviceEvents(session, site_id="abc123")
+        ws = DeviceEvents(session, site_ids=["abc123"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -271,14 +271,14 @@ class DeviceEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = DeviceEvents(session, site_id="abc123")
+        ws = DeviceEvents(session, site_ids=["abc123"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with DeviceEvents(session, site_id="abc123") as ws:
+        with DeviceEvents(session, site_ids=["abc123"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -333,7 +333,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = MxEdgesStatsEvents(session, site_id="abc123")
+        ws = MxEdgesStatsEvents(session, site_ids=["abc123"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -341,14 +341,14 @@ class MxEdgesStatsEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = MxEdgesStatsEvents(session, site_id="abc123")
+        ws = MxEdgesStatsEvents(session, site_ids=["abc123"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with MxEdgesStatsEvents(session, site_id="abc123") as ws:
+        with MxEdgesStatsEvents(session, site_ids=["abc123"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
@@ -403,7 +403,7 @@ class MxEdgesEvents(_MistWebsocket):
     -----------
     Callback style (background thread)::
 
-        ws = MxEdgesEvents(session, site_id="abc123")
+        ws = MxEdgesEvents(session, site_ids=["abc123"])
         ws.on_message(lambda data: print(data))
         ws.connect()  # non-blocking, runs in background thread
         input("Press Enter to stop")
@@ -411,14 +411,14 @@ class MxEdgesEvents(_MistWebsocket):
 
     Generator style::
 
-        ws = MxEdgesEvents(session, site_id="abc123")
+        ws = MxEdgesEvents(session, site_ids=["abc123"])
         ws.connect(run_in_background=True)
         for msg in ws.receive():
             process(msg)
 
     Context manager::
 
-        with MxEdgesEvents(session, site_id="abc123") as ws:
+        with MxEdgesEvents(session, site_ids=["abc123"]) as ws:
             ws.on_message(my_handler)
             ws.connect()  # non-blocking, runs in background thread
             time.sleep(60)
