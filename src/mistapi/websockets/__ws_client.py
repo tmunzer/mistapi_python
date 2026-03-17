@@ -255,7 +255,10 @@ class _MistWebsocket:
         # Final close: put sentinel and call callback
         self._queue.put(None)
         if self._on_close_cb:
-            self._on_close_cb(self._last_close_code, self._last_close_msg)
+            # websocket-client may provide None for close code/message; normalize
+            code = self._last_close_code if self._last_close_code is not None else -1
+            msg = self._last_close_msg if self._last_close_msg is not None else ""
+            self._on_close_cb(code, msg)
 
     def disconnect(self) -> None:
         """Close the WebSocket connection."""
