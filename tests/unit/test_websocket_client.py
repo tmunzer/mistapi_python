@@ -234,7 +234,7 @@ class TestBuildSslopt:
         mock_session._session.verify = False
         mock_session._session.cert = None
         client = _MistWebsocket(mock_session, channels=["/ch"])
-        assert client._build_sslopt() == {"cert_reqs": ssl.CERT_NONE}
+        assert client._build_sslopt() == {"cert_reqs": ssl.CERT_NONE, "check_hostname": False}
 
     def test_verify_custom_ca_path(self, mock_session) -> None:
         mock_session._session.verify = "/etc/ssl/custom-ca.pem"
@@ -270,6 +270,7 @@ class TestBuildSslopt:
         sslopt = client._build_sslopt()
         assert sslopt == {
             "cert_reqs": ssl.CERT_NONE,
+            "check_hostname": False,
             "certfile": "/path/cert.pem",
             "keyfile": "/path/key.pem",
         }
@@ -536,7 +537,7 @@ class TestRunForeverSafe:
         mock_ws.run_forever.assert_called_once_with(
             ping_interval=30,
             ping_timeout=10,
-            sslopt={"cert_reqs": ssl.CERT_NONE},
+            sslopt={"cert_reqs": ssl.CERT_NONE, "check_hostname": False},
         )
 
     def test_exception_triggers_error_and_close_handlers(self, ws_client) -> None:
