@@ -32,8 +32,11 @@ class _HeaderRedactFilter(logging.Filter):
     _REDACT = re.compile(r"((?:Authorization|Cookie):\s*)\S+", re.IGNORECASE)
 
     def filter(self, record: logging.LogRecord) -> bool:
-        if isinstance(record.msg, str):
-            record.msg = self._REDACT.sub(r"\1****", record.msg)
+        rendered = record.getMessage()
+        redacted = self._REDACT.sub(r"\1****", rendered)
+        if redacted != rendered:
+            record.msg = redacted
+            record.args = None
         return True
 
 
@@ -70,6 +73,8 @@ class _MistWebsocket:
             raise ValueError("max_reconnect_attempts must be >= 0")
         if reconnect_backoff <= 0:
             raise ValueError("reconnect_backoff must be > 0")
+        if queue_maxsize < 0:
+            raise ValueError("queue_maxsize must be >= 0")
 
         self._mist_session = mist_session
         self._channels = channels
