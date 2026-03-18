@@ -70,6 +70,7 @@ class _MistWebsocket:
         )  # tracks whether the WebSocket connection is currently open
         self._user_disconnect = threading.Event()
         self._finished = threading.Event()
+        self._finished.set()  # not running initially
         self._reconnect_attempts = 0
         self._last_close_code: int | None = None
         self._last_close_msg: str | None = None
@@ -164,7 +165,6 @@ class _MistWebsocket:
                 ws.send(json.dumps({"subscribe": channel}))
         except Exception as exc:
             logger.error("Subscription send failed: %s", exc)
-            self._handle_error(ws, exc)
             ws.close()
             return
         self._reconnect_attempts = 0
@@ -235,12 +235,10 @@ class _MistWebsocket:
             If False, blocks the calling thread until disconnected.
         """
         with self._lock:
-            if self._connected.is_set() or (
-                self._thread is not None and self._thread.is_alive()
-            ):
+            if self._connected.is_set() or not self._finished.is_set():
                 raise RuntimeError("Already connected; call disconnect() first")
-            self._user_disconnect.clear()
             self._finished.clear()
+            self._user_disconnect.clear()
             self._reconnect_attempts = 0
             # Drain stale sentinel from previous connection
             while not self._queue.empty():
@@ -309,15 +307,14 @@ class _MistWebsocket:
                     except Exception:
                         pass
 
-            # Final close: put sentinel, call callback
-            self._queue.put(None)
+        finally:
+            self._queue.put(None)  # sentinel — unblocks receive()
+            self._finished.set()  # mark as not running — unblocks connect()
             if self._on_close_cb:
                 try:
                     self._on_close_cb(self._last_close_code, self._last_close_msg)
                 except Exception:
                     logger.exception("on_close callback raised")
-        finally:
-            self._finished.set()
 
     def disconnect(self, wait: bool = False, timeout: float | None = None) -> None:
         """Close the WebSocket connection.
@@ -336,7 +333,8 @@ class _MistWebsocket:
         if ws:
             ws.close()
         if wait and self._thread is not None:
-            self._thread.join(timeout=timeout)
+            if self._thread is not threading.current_thread():
+                self._thread.join(timeout=timeout)
 
     def receive(self) -> Generator[dict, None, None]:
         """
@@ -346,7 +344,13 @@ class _MistWebsocket:
         the server closes the connection).
 
         Intended for use after connect(run_in_background=True).
+        Cannot be used when an on_message callback is registered.
         """
+        if self._on_message_cb is not None:
+            raise RuntimeError(
+                "receive() cannot be used when an on_message callback is "
+                "registered; use one or the other"
+            )
         if self._auto_reconnect:
             while (
                 not self._connected.is_set()
@@ -357,11 +361,15 @@ class _MistWebsocket:
             if not self._connected.is_set():
                 return
         elif not self._connected.wait(timeout=10):
-            return
+            if not self._finished.is_set():
+                return
+            # Thread already finished — fall through to drain queued messages
         while True:
             try:
                 item = self._queue.get(timeout=1)
             except queue.Empty:
+                if self._finished.is_set() and self._queue.empty():
+                    break
                 if not self._connected.is_set() and self._queue.empty():
                     if (
                         self._auto_reconnect
