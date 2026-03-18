@@ -1,4 +1,53 @@
 # CHANGELOG
+## Version 0.61.3 (March 2026)
+
+**Released**: March 18, 2026
+
+This release hardens the WebSocket client with improved thread-safety, bounded message queues, and better error handling.
+
+---
+
+### 1. NEW FEATURES
+
+#### **Bounded Message Queue (`queue_maxsize`)**
+The `_MistWebsocket` client now supports a `queue_maxsize` parameter to limit the internal message buffer size. When set, incoming messages are dropped with a warning when the queue is full, preventing unbounded memory growth on high-frequency streams.
+
+```python
+ws = mistapi.websockets.sites.DeviceStatsEvents(
+    apisession,
+    site_ids=["<site_id>"],
+    queue_maxsize=1000  # Limit buffer to 1000 messages
+)
+```
+
+---
+
+### 2. IMPROVEMENTS
+
+#### **Thread-Safety Enhancements**
+- Added `threading.Lock()` to protect shared state during concurrent access
+- Added `_finished` event for cleaner lifecycle management and proper shutdown signaling
+
+#### **Error Handling Hardening**
+- User-provided callbacks (`on_open`, `on_message`, `on_error`, `on_close`) are now wrapped in try/except blocks to prevent exceptions from crashing the WebSocket thread
+- Added warning when `cloud_uri` does not start with `"api."` (WebSocket URL may be incorrect)
+
+#### **Security: Header Redaction**
+- Added `_HeaderRedactFilter` to automatically redact `Authorization` and `Cookie` headers from `websocket-client` debug logs
+
+---
+
+### 3. API CHANGES
+
+#### **Insights API**
+Added optional `port_id` query parameter to the following functions for port-level filtering:
+- **`getSiteInsightMetricsForDevice()`**
+- **`getSiteInsightMetricsForGateway()`**
+- **`getSiteInsightMetricsForMxEdge()`**
+- **`getSiteInsightMetricsForSwitch()`**
+
+---
+
 ## Version 0.61.2 (March 2026)
 
 **Released**: March 17, 2026
