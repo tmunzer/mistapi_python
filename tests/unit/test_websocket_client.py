@@ -725,6 +725,10 @@ class TestInit:
         client = _MistWebsocket(mock_session, channels=["/ch"], queue_maxsize=10)
         assert client._queue.maxsize == 10
 
+    def test_negative_queue_maxsize_raises(self, mock_session) -> None:
+        with pytest.raises(ValueError, match="queue_maxsize must be >= 0"):
+            _MistWebsocket(mock_session, channels=["/ch"], queue_maxsize=-1)
+
 
 # ---------------------------------------------------------------------------
 # Public WebSocket channel classes
