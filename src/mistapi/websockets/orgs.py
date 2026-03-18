@@ -12,11 +12,11 @@ WebSocket channel for Org events.
 """
 
 from mistapi import APISession
-from mistapi.websockets.__ws_client import _MistWebsocket
+from mistapi.websockets.__ws_client import _COMMON_WS_PARAMS_DOC, _MistWebsocket
 
 
 class InsightsEvents(_MistWebsocket):
-    """WebSocket stream for organization insights events.
+    f"""WebSocket stream for organization insights events.
 
     Subscribes to the ``orgs/{org_id}/insights/summary`` channel and delivers
     real-time insights events for the given organization.
@@ -27,21 +27,7 @@ class InsightsEvents(_MistWebsocket):
         Authenticated API session.
     org_id : str
         UUID of the organization to stream events from.
-    ping_interval : int, default 30
-        Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
-        Time in seconds to wait for a ping response before considering the connection dead.
-    auto_reconnect : bool, default False
-        Automatically reconnect on unexpected disconnections using exponential backoff.
-    max_reconnect_attempts : int, default 5
-        Maximum number of reconnect attempts before giving up.
-    reconnect_backoff : float, default 2.0
-        Base backoff delay in seconds. Doubles after each failed attempt.
-    queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set, the
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+{_COMMON_WS_PARAMS_DOC}
 
     EXAMPLE
     -----------
@@ -92,7 +78,7 @@ class InsightsEvents(_MistWebsocket):
 
 
 class MxEdgesStatsEvents(_MistWebsocket):
-    """WebSocket stream for organization MX edges stats events.
+    f"""WebSocket stream for organization MX edges stats events.
 
     Subscribes to the ``orgs/{org_id}/stats/mxedges`` channel and delivers
     real-time MX edges stats events for the given organization.
@@ -103,21 +89,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
         Authenticated API session.
     org_id : str
         UUID of the organization to stream events from.
-    ping_interval : int, default 30
-        Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
-        Time in seconds to wait for a ping response before considering the connection dead.
-    auto_reconnect : bool, default False
-        Automatically reconnect on unexpected disconnections using exponential backoff.
-    max_reconnect_attempts : int, default 5
-        Maximum number of reconnect attempts before giving up.
-    reconnect_backoff : float, default 2.0
-        Base backoff delay in seconds. Doubles after each failed attempt.
-    queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set, the
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+{_COMMON_WS_PARAMS_DOC}
 
     EXAMPLE
     -----------
@@ -168,7 +140,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
 
 
 class MxEdgesEvents(_MistWebsocket):
-    """WebSocket stream for org MX edges events.
+    f"""WebSocket stream for org MX edges events.
 
     Subscribes to the ``orgs/{org_id}/mxedges`` channel and delivers
     real-time MX edges events for the given org.
@@ -179,21 +151,7 @@ class MxEdgesEvents(_MistWebsocket):
         Authenticated API session.
     org_id : str
         UUID of the org to stream events from.
-    ping_interval : int, default 30
-        Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
-        Time in seconds to wait for a ping response before considering the connection dead.
-    auto_reconnect : bool, default False
-        Automatically reconnect on unexpected disconnections using exponential backoff.
-    max_reconnect_attempts : int, default 5
-        Maximum number of reconnect attempts before giving up.
-    reconnect_backoff : float, default 2.0
-        Base backoff delay in seconds. Doubles after each failed attempt.
-    queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set, the
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+{_COMMON_WS_PARAMS_DOC}
 
     EXAMPLE
     -----------
