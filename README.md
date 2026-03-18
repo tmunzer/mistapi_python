@@ -588,7 +588,7 @@ All channel classes accept the following optional keyword arguments:
 | `auto_reconnect` | `bool` | `False` | Automatically reconnect on transient failures using exponential backoff. |
 | `max_reconnect_attempts` | `int` | `5` | Maximum number of reconnect attempts before giving up. |
 | `reconnect_backoff` | `float` | `2.0` | Base backoff delay in seconds. Doubles after each failed attempt (2s, 4s, 8s, ...). Resets on successful reconnection. |
-| `queue_maxsize` | `int` | `0` | Maximum messages buffered in the internal queue for `receive()`. `0` means unbounded. When set, the receive thread blocks if the queue is full, providing backpressure for high-frequency streams. |
+| `queue_maxsize` | `int` | `0` | Maximum messages buffered in the internal queue for `receive()`. `0` means unbounded. When set, incoming messages are dropped with a warning when the queue is full, preventing memory growth on high-frequency streams. |
 
 ```python
 ws = mistapi.websockets.sites.DeviceStatsEvents(

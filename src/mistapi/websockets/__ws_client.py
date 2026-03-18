@@ -196,7 +196,10 @@ class _MistWebsocket:
             except Exception:
                 logger.exception("on_message callback raised")
         else:
-            self._queue.put(data)
+            try:
+                self._queue.put_nowait(data)
+            except queue.Full:
+                logger.warning("Receive queue full; dropping message")
 
     def _handle_error(self, ws: websocket.WebSocketApp, error: Exception) -> None:
         if self._on_error_cb:

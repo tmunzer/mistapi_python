@@ -1096,6 +1096,17 @@ class TestQueueCallbackBehavior:
         with pytest.raises(RuntimeError, match="on_message callback"):
             list(ws_client.receive())
 
+    def test_queue_full_drops_message(self, mock_session) -> None:
+        client = _MistWebsocket(mock_session, channels=["/ch"], queue_maxsize=1)
+        # Fill the queue
+        client._handle_message(Mock(), '{"event": "first"}')
+        assert not client._queue.empty()
+        # Second message should be dropped, not block
+        client._handle_message(Mock(), '{"event": "dropped"}')
+        # Only the first message should be in the queue
+        assert client._queue.get_nowait() == {"event": "first"}
+        assert client._queue.empty()
+
 
 # ---------------------------------------------------------------------------
 # disconnect(wait=...)

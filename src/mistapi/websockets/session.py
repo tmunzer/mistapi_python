@@ -47,8 +47,8 @@ class SessionWithUrl(_MistWebsocket):
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
         ``receive()`` generator. ``0`` means unbounded. When set, the
-        websocket-client receive thread blocks if the queue is full,
-        providing backpressure for high-frequency streams.
+        incoming messages are dropped with a warning when the queue is
+        full, preventing memory growth on high-frequency streams.
 
     EXAMPLE
     -----------
