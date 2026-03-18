@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mistapi"
-version = "0.61.2"
+version = "0.61.3"
 authors = [{ name = "Thomas Munzer", email = "tmunzer@juniper.net" }]
 description = "Python package to simplify the Mist System APIs usage"
 keywords = ["Mist", "Juniper", "API"]
@@ -64,7 +64,7 @@ dev = [
   "twine>=6.1.0",
   "build>=1.2.2.post1",
   "pyyaml>=6.0.2",
-  "urllib3>=2.4.0",
+  "urllib3>=2.6.3",
 ]
 
 # Hatchling configuration (replaces setup.cfg)
