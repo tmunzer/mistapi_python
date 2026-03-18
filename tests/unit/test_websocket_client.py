@@ -718,6 +718,13 @@ class TestInit:
         with pytest.raises(ValueError, match="reconnect_backoff must be > 0"):
             _MistWebsocket(mock_session, channels=["/ch"], reconnect_backoff=-1.0)
 
+    def test_queue_maxsize_default_unbounded(self, ws_client) -> None:
+        assert ws_client._queue.maxsize == 0
+
+    def test_queue_maxsize_custom(self, mock_session) -> None:
+        client = _MistWebsocket(mock_session, channels=["/ch"], queue_maxsize=10)
+        assert client._queue.maxsize == 10
+
 
 # ---------------------------------------------------------------------------
 # Public WebSocket channel classes

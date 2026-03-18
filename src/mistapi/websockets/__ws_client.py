@@ -13,6 +13,7 @@ to the Mist API streaming endpoint (wss://{host}/api-ws/v1/stream).
 """
 
 import json
+import logging
 import queue
 import ssl
 import threading
@@ -22,6 +23,10 @@ from typing import TYPE_CHECKING
 import websocket
 
 from mistapi.__logger import logger
+
+# Prevent websocket-client from logging HTTP headers (which contain API
+# tokens) at DEBUG level.
+logging.getLogger("websocket").setLevel(logging.WARNING)
 
 if TYPE_CHECKING:
     from mistapi import APISession
@@ -48,6 +53,7 @@ class _MistWebsocket:
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         if max_reconnect_attempts < 0:
             raise ValueError("max_reconnect_attempts must be >= 0")
@@ -64,7 +70,7 @@ class _MistWebsocket:
         self._lock = threading.Lock()
         self._ws: websocket.WebSocketApp | None = None
         self._thread: threading.Thread | None = None
-        self._queue: queue.Queue[dict | None] = queue.Queue()
+        self._queue: queue.Queue[dict | None] = queue.Queue(maxsize=queue_maxsize)
         self._connected = (
             threading.Event()
         )  # tracks whether the WebSocket connection is currently open

@@ -44,6 +44,11 @@ class SessionWithUrl(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set, the
+        websocket-client receive thread blocks if the queue is full,
+        providing backpressure for high-frequency streams.
 
     EXAMPLE
     -----------
@@ -79,6 +84,7 @@ class SessionWithUrl(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         if not url.startswith("wss://"):
             raise ValueError("url must use the wss:// scheme")
@@ -91,6 +97,7 @@ class SessionWithUrl(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
 
     def _build_ws_url(self) -> str:

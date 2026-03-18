@@ -32,7 +32,7 @@ A comprehensive Python package to interact with the Mist Cloud APIs, built from 
     - [Examples](#examples)
 - [WebSocket Streaming](#websocket-streaming)
     - [Connection Parameters](#connection-parameters)
-    - [Callbacks](#callbacks)
+    - [Methods](#methods)
     - [Available Channels](#available-channels)
     - [Usage Patterns](#usage-patterns)
 - [Async Usage](#async-usage)
@@ -588,6 +588,7 @@ All channel classes accept the following optional keyword arguments:
 | `auto_reconnect` | `bool` | `False` | Automatically reconnect on transient failures using exponential backoff. |
 | `max_reconnect_attempts` | `int` | `5` | Maximum number of reconnect attempts before giving up. |
 | `reconnect_backoff` | `float` | `2.0` | Base backoff delay in seconds. Doubles after each failed attempt (2s, 4s, 8s, ...). Resets on successful reconnection. |
+| `queue_maxsize` | `int` | `0` | Maximum messages buffered in the internal queue for `receive()`. `0` means unbounded. When set, the receive thread blocks if the queue is full, providing backpressure for high-frequency streams. |
 
 ```python
 ws = mistapi.websockets.sites.DeviceStatsEvents(
@@ -600,15 +601,18 @@ ws = mistapi.websockets.sites.DeviceStatsEvents(
 ws.connect()
 ```
 
-### Callbacks
+### Methods
 
 | Method | Signature | Description |
 |--------|-----------|-------------|
-| `ws.on_open(cb)` | `cb()` | Called when the connection is established |
-| `ws.on_message(cb)` | `cb(data: dict)` | Called for every incoming message |
-| `ws.on_error(cb)` | `cb(error: Exception)` | Called on WebSocket errors |
-| `ws.on_close(cb)` | `cb(status_code: int, msg: str)` | Called when the connection closes |
-| `ws.ready()` | `-> bool \| None` | Returns `True` if the connection is open and ready |
+| `ws.on_open(cb)` | `cb()` | Register callback for connection established |
+| `ws.on_message(cb)` | `cb(data: dict)` | Register callback for incoming messages. Mutually exclusive with `receive()`. |
+| `ws.on_error(cb)` | `cb(error: Exception)` | Register callback for WebSocket errors |
+| `ws.on_close(cb)` | `cb(code: int, msg: str)` | Register callback for connection close. Safe to call `connect()` from within. |
+| `ws.connect(run_in_background)` | | Open the connection. `True` (default) runs in a daemon thread; `False` blocks. |
+| `ws.disconnect(wait, timeout)` | | Close the connection. `wait=True` blocks until the background thread finishes. |
+| `ws.receive()` | `-> Generator[dict]` | Blocking generator yielding messages. Mutually exclusive with `on_message`. |
+| `ws.ready()` | `-> bool` | Returns `True` if the connection is open and ready |
 
 ### Available Channels
 

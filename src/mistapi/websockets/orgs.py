@@ -37,6 +37,11 @@ class InsightsEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set, the
+        websocket-client receive thread blocks if the queue is full,
+        providing backpressure for high-frequency streams.
 
     EXAMPLE
     -----------
@@ -72,6 +77,7 @@ class InsightsEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         super().__init__(
             mist_session,
@@ -81,6 +87,7 @@ class InsightsEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
 
 
@@ -106,6 +113,11 @@ class MxEdgesStatsEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set, the
+        websocket-client receive thread blocks if the queue is full,
+        providing backpressure for high-frequency streams.
 
     EXAMPLE
     -----------
@@ -141,6 +153,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         super().__init__(
             mist_session,
@@ -150,6 +163,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
 
 
@@ -175,6 +189,11 @@ class MxEdgesEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set, the
+        websocket-client receive thread blocks if the queue is full,
+        providing backpressure for high-frequency streams.
 
     EXAMPLE
     -----------
@@ -210,6 +229,7 @@ class MxEdgesEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         super().__init__(
             mist_session,
@@ -219,4 +239,5 @@ class MxEdgesEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
