@@ -10,16 +10,15 @@
 --------------------------------------------------------------------------------
 """
 
-import deprecation
-
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 
 @deprecation.deprecated(
     deprecated_in="0.59.2",
     removed_in="0.65.0",
-    current_version="0.61.2",
+    current_version="0.61.3",
     details="function replaced with getSiteSleClassifierSummaryTrend",
 )
 def getSiteSleClassifierDetails(
@@ -691,7 +690,7 @@ def listSiteSleImpactedWirelessClients(
 @deprecation.deprecated(
     deprecated_in="0.59.2",
     removed_in="0.65.0",
-    current_version="0.61.2",
+    current_version="0.61.3",
     details="function replaced with getSiteSleSummaryTrend",
 )
 def getSiteSleSummary(

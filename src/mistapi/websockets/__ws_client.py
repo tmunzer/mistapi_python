@@ -68,6 +68,7 @@ class _MistWebsocket:
             threading.Event()
         )  # tracks whether the WebSocket connection is currently open
         self._user_disconnect = threading.Event()
+        self._finished = threading.Event()
         self._reconnect_attempts = 0
         self._last_close_code: int | None = None
         self._last_close_msg: str | None = None
@@ -208,9 +209,12 @@ class _MistWebsocket:
             If True, runs the WebSocket loop in a daemon thread (non-blocking).
             If False, blocks the calling thread until disconnected.
         """
-        if self._connected.is_set() or (self._thread is not None and self._thread.is_alive()):
+        if self._connected.is_set() or (
+            self._thread is not None and self._thread.is_alive()
+        ):
             raise RuntimeError("Already connected; call disconnect() first")
         self._user_disconnect.clear()
+        self._finished.clear()
         self._reconnect_attempts = 0
         # Drain stale sentinel from previous connection
         while not self._queue.empty():
@@ -267,10 +271,11 @@ class _MistWebsocket:
 
             self._ws = self._create_ws_app()
 
-        # Final close: put sentinel and call callback
+        # Final close: put sentinel, call callback, signal finished
         self._queue.put(None)
         if self._on_close_cb:
             self._on_close_cb(self._last_close_code, self._last_close_msg)
+        self._finished.set()
 
     def disconnect(self) -> None:
         """Close the WebSocket connection."""
@@ -289,9 +294,13 @@ class _MistWebsocket:
         Intended for use after connect(run_in_background=True).
         """
         if self._auto_reconnect:
-            while not self._connected.is_set() and not self._user_disconnect.is_set():
+            while (
+                not self._connected.is_set()
+                and not self._user_disconnect.is_set()
+                and not self._finished.is_set()
+            ):
                 self._connected.wait(timeout=1)
-            if self._user_disconnect.is_set() and not self._connected.is_set():
+            if not self._connected.is_set():
                 return
         elif not self._connected.wait(timeout=10):
             return
@@ -300,7 +309,11 @@ class _MistWebsocket:
                 item = self._queue.get(timeout=1)
             except queue.Empty:
                 if not self._connected.is_set() and self._queue.empty():
-                    if self._auto_reconnect and not self._user_disconnect.is_set():
+                    if (
+                        self._auto_reconnect
+                        and not self._user_disconnect.is_set()
+                        and not self._finished.is_set()
+                    ):
                         continue  # reconnect in progress, keep waiting
                     break
                 continue

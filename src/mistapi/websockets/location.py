@@ -31,8 +31,8 @@ class BleAssetsEvents(_MistWebsocket):
         UUIDs of the maps to stream events from.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
-        ping_timeout : int, default 10
-            Time in seconds to wait for a ping response before considering the connection dead.
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5

@@ -907,7 +907,7 @@ class TestAutoReconnect:
         mock_ws.run_forever.side_effect = fake_run_forever
 
         def disconnect_when_ready():
-            entered_backoff.wait()  # deterministic: wait until backoff starts
+            entered_backoff.wait(timeout=5)  # deterministic: wait until backoff starts
             client.disconnect()
 
         with (
@@ -919,6 +919,7 @@ class TestAutoReconnect:
             t.start()
             client._run_forever_safe()
             t.join(timeout=2)
+            assert not t.is_alive(), "Helper thread leaked"
 
         # Should have run once, then been interrupted during first backoff
         assert call_count == 1
