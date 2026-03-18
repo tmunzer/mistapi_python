@@ -39,7 +39,7 @@ class ClientsStatsEvents(_MistWebsocket):
         Base backoff delay in seconds. Doubles after each failed attempt.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set, the
+        ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
 
@@ -124,7 +124,7 @@ class DeviceCmdEvents(_MistWebsocket):
         Base backoff delay in seconds. Doubles after each failed attempt.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set, the
+        ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
 
@@ -204,7 +204,7 @@ class DeviceStatsEvents(_MistWebsocket):
         Base backoff delay in seconds. Doubles after each failed attempt.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set, the
+        ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
 
@@ -281,7 +281,7 @@ class DeviceEvents(_MistWebsocket):
         Base backoff delay in seconds. Doubles after each failed attempt.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set, the
+        ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
 
@@ -358,7 +358,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
         Base backoff delay in seconds. Doubles after each failed attempt.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set, the
+        ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
 
@@ -435,7 +435,7 @@ class MxEdgesEvents(_MistWebsocket):
         Base backoff delay in seconds. Doubles after each failed attempt.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set, the
+        ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
 
@@ -512,7 +512,7 @@ class PcapEvents(_MistWebsocket):
         Base backoff delay in seconds. Doubles after each failed attempt.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set, the
+        ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
 
