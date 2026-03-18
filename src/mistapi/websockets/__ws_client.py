@@ -15,6 +15,7 @@ to the Mist API streaming endpoint (wss://{host}/api-ws/v1/stream).
 import json
 import logging
 import queue
+import re
 import ssl
 import threading
 from collections.abc import Callable, Generator
@@ -24,9 +25,19 @@ import websocket
 
 from mistapi.__logger import logger
 
-# Prevent websocket-client from logging HTTP headers (which contain API
-# tokens) at DEBUG level.
-logging.getLogger("websocket").setLevel(logging.WARNING)
+
+class _HeaderRedactFilter(logging.Filter):
+    """Redact Authorization and Cookie values from websocket-client log output."""
+
+    _REDACT = re.compile(r"((?:Authorization|Cookie):\s*)\S+", re.IGNORECASE)
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        if isinstance(record.msg, str):
+            record.msg = self._REDACT.sub(r"\1****", record.msg)
+        return True
+
+
+logging.getLogger("websocket").addFilter(_HeaderRedactFilter())
 
 if TYPE_CHECKING:
     from mistapi import APISession
@@ -317,7 +328,10 @@ class _MistWebsocket:
                         pass
 
         finally:
-            self._queue.put(None)  # sentinel — unblocks receive()
+            try:
+                self._queue.put_nowait(None)  # sentinel — unblocks receive()
+            except queue.Full:
+                pass  # _finished.set() below will unblock receive() independently
             self._finished.set()  # mark as not running — unblocks connect()
             if self._on_close_cb:
                 try:

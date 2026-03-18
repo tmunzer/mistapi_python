@@ -11,6 +11,8 @@
 WebSocket channel for Remote Commands events.
 """
 
+from urllib.parse import urlparse
+
 from mistapi import APISession
 from mistapi.websockets.__ws_client import _MistWebsocket
 
@@ -86,8 +88,9 @@ class SessionWithUrl(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         queue_maxsize: int = 0,
     ) -> None:
-        if not url.startswith("wss://"):
-            raise ValueError("url must use the wss:// scheme")
+        parsed = urlparse(url)
+        if parsed.scheme.lower() != "wss" or not parsed.netloc:
+            raise ValueError("url must be a valid wss:// URL with a host")
         self._url = url
         super().__init__(
             mist_session,

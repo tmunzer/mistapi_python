@@ -930,6 +930,7 @@ class TestAutoReconnect:
 
         # Should have run once, then been interrupted during first backoff
         assert call_count == 1
+        assert entered_backoff.is_set(), "Backoff was never entered"
         assert client._queue.get_nowait() is None
 
     def test_handle_open_resets_reconnect_attempts(self, mock_session) -> None:
@@ -1032,6 +1033,19 @@ class TestCallbackExceptionSafety:
         assert ws_client._finished.is_set()
         # Sentinel should still be in the queue
         assert ws_client._queue.get_nowait() is None
+
+    def test_finished_set_when_queue_full_at_shutdown(self, mock_session) -> None:
+        """_finished must be set even when the queue is full (sentinel can't be placed)."""
+        client = _MistWebsocket(mock_session, channels=["/ch"], queue_maxsize=1)
+        client._finished.clear()  # simulate connect()
+        # Fill the queue so sentinel can't be placed
+        client._queue.put_nowait({"data": "fill"})
+
+        mock_ws = Mock()
+        client._ws = mock_ws
+        client._run_forever_safe()
+
+        assert client._finished.is_set()
 
     @patch("mistapi.websockets.__ws_client.websocket.WebSocketApp")
     def test_connect_from_on_close_callback(self, mock_ws_cls, mock_session) -> None:
@@ -1191,9 +1205,17 @@ class TestUrlValidation:
         with pytest.raises(ValueError, match="wss://"):
             SessionWithUrl(mock_session, url="http://example.com/ch")
 
+    def test_session_with_url_rejects_missing_host(self, mock_session) -> None:
+        with pytest.raises(ValueError, match="wss://"):
+            SessionWithUrl(mock_session, url="wss://")
+
     def test_session_with_url_accepts_wss(self, mock_session) -> None:
         ws = SessionWithUrl(mock_session, url="wss://api-ws.mist.com/stream")
         assert ws._build_ws_url() == "wss://api-ws.mist.com/stream"
+
+    def test_session_with_url_accepts_uppercase_wss(self, mock_session) -> None:
+        ws = SessionWithUrl(mock_session, url="WSS://api-ws.mist.com/stream")
+        assert ws._build_ws_url() == "WSS://api-ws.mist.com/stream"
 
 
 # ---------------------------------------------------------------------------

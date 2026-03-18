@@ -608,7 +608,7 @@ ws.connect()
 | `ws.on_open(cb)` | `cb()` | Register callback for connection established |
 | `ws.on_message(cb)` | `cb(data: dict)` | Register callback for incoming messages. Mutually exclusive with `receive()`. |
 | `ws.on_error(cb)` | `cb(error: Exception)` | Register callback for WebSocket errors |
-| `ws.on_close(cb)` | `cb(code: int, msg: str)` | Register callback for connection close. Safe to call `connect()` from within. |
+| `ws.on_close(cb)` | `cb(code: int \| None, msg: str \| None)` | Register callback for connection close. Safe to call `connect()` from within. |
 | `ws.connect(run_in_background)` | | Open the connection. `True` (default) runs in a daemon thread; `False` blocks. |
 | `ws.disconnect(wait, timeout)` | | Close the connection. `wait=True` blocks until the background thread finishes. |
 | `ws.receive()` | `-> Generator[dict]` | Blocking generator yielding messages. Mutually exclusive with `on_message`. |
