@@ -40,7 +40,9 @@ class _HeaderRedactFilter(logging.Filter):
         return True
 
 
-logging.getLogger("websocket").addFilter(_HeaderRedactFilter())
+_ws_logger = logging.getLogger("websocket")
+if not any(isinstance(f, _HeaderRedactFilter) for f in _ws_logger.filters):
+    _ws_logger.addFilter(_HeaderRedactFilter())
 
 if TYPE_CHECKING:
     from mistapi import APISession
@@ -284,16 +286,18 @@ class _MistWebsocket:
     def _run_forever_safe(self) -> None:
         try:
             while True:
+                with self._lock:
+                    ws = self._ws
                 try:
                     sslopt = self._build_sslopt()
-                    self._ws.run_forever(
+                    ws.run_forever(
                         ping_interval=self._ping_interval,
                         ping_timeout=self._ping_timeout,
                         sslopt=sslopt,
                     )
                 except Exception as exc:
-                    self._handle_error(self._ws, exc)
-                    self._handle_close(self._ws, -1, str(exc))
+                    self._handle_error(ws, exc)
+                    self._handle_close(ws, -1, str(exc))
 
                 if self._user_disconnect.is_set() or not self._auto_reconnect:
                     break
