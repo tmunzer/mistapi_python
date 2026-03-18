@@ -669,23 +669,26 @@ def _create_get(
         if code:
             has_deprecated = True
 
-    # Generate main function parameters and documentation
-    code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
-    code_query_params, desc_query_params = _gen_code_params(query_params, operation_id)
-    code_query = _gen_query_code(query_params)
-    code_desc = _gen_description(
-        operation_id, tags, desc_path_params, desc_query_params
-    )
+    else:
+        # Generate main function parameters and documentation
+        code_path_params, desc_path_params = _gen_code_params(path_params, operation_id)
+        code_query_params, desc_query_params = _gen_code_params(
+            query_params, operation_id
+        )
+        code_query = _gen_query_code(query_params)
+        code_desc = _gen_description(
+            operation_id, tags, desc_path_params, desc_query_params
+        )
 
-    # Generate main GET function code
-    code += FUNCTION_GET_TEMPLATE.format(
-        operation_id=operation_id,
-        code_path_params=code_path_params,
-        code_query_params=code_query_params,
-        code_desc=code_desc,
-        uri=_gen_uri(endpoint_path),
-        query_code=code_query,
-    )
+        # Generate main GET function code
+        code += FUNCTION_GET_TEMPLATE.format(
+            operation_id=operation_id,
+            code_path_params=code_path_params,
+            code_query_params=code_query_params,
+            code_desc=code_desc,
+            uri=_gen_uri(endpoint_path),
+            query_code=code_query,
+        )
     return code, has_deprecated
 
 

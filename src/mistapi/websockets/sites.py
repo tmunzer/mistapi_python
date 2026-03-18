@@ -37,6 +37,11 @@ class ClientsStatsEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set,
+        incoming messages are dropped with a warning when the queue is
+        full, preventing memory growth on high-frequency streams.
 
     EXAMPLE
     -----------
@@ -72,6 +77,7 @@ class ClientsStatsEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/clients" for site_id in site_ids]
         super().__init__(
@@ -82,6 +88,7 @@ class ClientsStatsEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
 
 
@@ -115,6 +122,11 @@ class DeviceCmdEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set,
+        incoming messages are dropped with a warning when the queue is
+        full, preventing memory growth on high-frequency streams.
 
     EXAMPLE
     -----------
@@ -151,6 +163,7 @@ class DeviceCmdEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         channels = [
             f"/sites/{site_id}/devices/{device_id}/cmd" for device_id in device_ids
@@ -163,6 +176,7 @@ class DeviceCmdEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
 
 
@@ -188,6 +202,11 @@ class DeviceStatsEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set,
+        incoming messages are dropped with a warning when the queue is
+        full, preventing memory growth on high-frequency streams.
 
     EXAMPLE
     -----------
@@ -223,6 +242,7 @@ class DeviceStatsEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/devices" for site_id in site_ids]
         super().__init__(
@@ -233,6 +253,7 @@ class DeviceStatsEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
 
 
@@ -258,6 +279,11 @@ class DeviceEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set,
+        incoming messages are dropped with a warning when the queue is
+        full, preventing memory growth on high-frequency streams.
 
     EXAMPLE
     -----------
@@ -293,6 +319,7 @@ class DeviceEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         channels = [f"/sites/{site_id}/devices" for site_id in site_ids]
         super().__init__(
@@ -303,6 +330,7 @@ class DeviceEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
 
 
@@ -328,6 +356,11 @@ class MxEdgesStatsEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set,
+        incoming messages are dropped with a warning when the queue is
+        full, preventing memory growth on high-frequency streams.
 
     EXAMPLE
     -----------
@@ -363,6 +396,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/mxedges" for site_id in site_ids]
         super().__init__(
@@ -373,6 +407,7 @@ class MxEdgesStatsEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
 
 
@@ -398,6 +433,11 @@ class MxEdgesEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set,
+        incoming messages are dropped with a warning when the queue is
+        full, preventing memory growth on high-frequency streams.
 
     EXAMPLE
     -----------
@@ -433,6 +473,7 @@ class MxEdgesEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         channels = [f"/sites/{site_id}/mxedges" for site_id in site_ids]
         super().__init__(
@@ -443,6 +484,7 @@ class MxEdgesEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
 
 
@@ -468,6 +510,11 @@ class PcapEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set,
+        incoming messages are dropped with a warning when the queue is
+        full, preventing memory growth on high-frequency streams.
 
     EXAMPLE
     -----------
@@ -503,6 +550,7 @@ class PcapEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
         channels = [f"/sites/{site_id}/pcaps"]
         super().__init__(
@@ -513,4 +561,5 @@ class PcapEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )

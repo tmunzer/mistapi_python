@@ -11,6 +11,8 @@
 WebSocket channel for Remote Commands events.
 """
 
+from urllib.parse import urlparse
+
 from mistapi import APISession
 from mistapi.websockets.__ws_client import _MistWebsocket
 
@@ -28,6 +30,12 @@ class SessionWithUrl(_MistWebsocket):
         Authenticated API session.
     url : str
         URL of the WebSocket channel to connect to.
+
+        .. warning::
+
+            The session's authentication credentials (API token or cookies)
+            are sent to whatever host is specified in this URL. Only use
+            trusted URLs — never pass user-supplied or untrusted input.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -38,6 +46,11 @@ class SessionWithUrl(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set,
+        incoming messages are dropped with a warning when the queue is
+        full, preventing memory growth on high-frequency streams.
 
     EXAMPLE
     -----------
@@ -73,7 +86,11 @@ class SessionWithUrl(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        queue_maxsize: int = 0,
     ) -> None:
+        parsed = urlparse(url)
+        if parsed.scheme.lower() != "wss" or not parsed.netloc:
+            raise ValueError("url must be a valid wss:// URL with a host")
         self._url = url
         super().__init__(
             mist_session,
@@ -83,6 +100,7 @@ class SessionWithUrl(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            queue_maxsize=queue_maxsize,
         )
 
     def _build_ws_url(self) -> str:

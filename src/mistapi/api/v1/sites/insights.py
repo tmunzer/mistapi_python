@@ -200,6 +200,7 @@ def getSiteInsightMetricsForDevice(
     site_id: str,
     metric: str,
     device_mac: str,
+    port_id: str | None = None,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -223,6 +224,7 @@ def getSiteInsightMetricsForDevice(
 
     QUERY PARAMS
     ------------
+    port_id : str
     start : str
     end : str
     duration : str, default: 1d
@@ -238,6 +240,8 @@ def getSiteInsightMetricsForDevice(
 
     uri = f"/api/v1/sites/{site_id}/insights/device/{device_mac}/{metric}"
     query_params: dict[str, str] = {}
+    if port_id:
+        query_params["port_id"] = str(port_id)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -398,6 +402,7 @@ def getSiteInsightMetricsForGateway(
     site_id: str,
     device_id: str,
     metrics: str,
+    port_id: str | None = None,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -421,6 +426,7 @@ def getSiteInsightMetricsForGateway(
     QUERY PARAMS
     ------------
     metrics : str
+    port_id : str
     start : str
     end : str
     duration : str, default: 1d
@@ -438,6 +444,8 @@ def getSiteInsightMetricsForGateway(
     query_params: dict[str, str] = {}
     if metrics:
         query_params["metrics"] = str(metrics)
+    if port_id:
+        query_params["port_id"] = str(port_id)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -459,6 +467,7 @@ def getSiteInsightMetricsForMxEdge(
     site_id: str,
     metric: str,
     device_mac: str,
+    port_id: str | None = None,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -482,6 +491,7 @@ def getSiteInsightMetricsForMxEdge(
 
     QUERY PARAMS
     ------------
+    port_id : str
     start : str
     end : str
     duration : str, default: 1d
@@ -497,6 +507,8 @@ def getSiteInsightMetricsForMxEdge(
 
     uri = f"/api/v1/sites/{site_id}/insights/mxedge/{device_mac}/{metric}"
     query_params: dict[str, str] = {}
+    if port_id:
+        query_params["port_id"] = str(port_id)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -624,6 +636,7 @@ def getSiteInsightMetricsForSwitch(
     site_id: str,
     metric: str,
     device_mac: str,
+    port_id: str | None = None,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -647,6 +660,7 @@ def getSiteInsightMetricsForSwitch(
 
     QUERY PARAMS
     ------------
+    port_id : str
     start : str
     end : str
     duration : str, default: 1d
@@ -662,6 +676,8 @@ def getSiteInsightMetricsForSwitch(
 
     uri = f"/api/v1/sites/{site_id}/insights/switch/{device_mac}/{metric}"
     query_params: dict[str, str] = {}
+    if port_id:
+        query_params["port_id"] = str(port_id)
     if start:
         query_params["start"] = str(start)
     if end:
