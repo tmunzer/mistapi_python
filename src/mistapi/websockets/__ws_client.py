@@ -29,14 +29,14 @@ from mistapi.__logger import logger
 class _HeaderRedactFilter(logging.Filter):
     """Redact Authorization and Cookie values from websocket-client log output."""
 
-    _REDACT = re.compile(r"((?:Authorization|Cookie):\s*)\S+", re.IGNORECASE)
+    _REDACT = re.compile(r"((?:Authorization|Cookie):\s*).+", re.IGNORECASE)
 
     def filter(self, record: logging.LogRecord) -> bool:
         rendered = record.getMessage()
         redacted = self._REDACT.sub(r"\1****", rendered)
         if redacted != rendered:
             record.msg = redacted
-            record.args = None
+            record.args = ()
         return True
 
 
@@ -46,6 +46,25 @@ if not any(isinstance(f, _HeaderRedactFilter) for f in _ws_logger.filters):
 
 if TYPE_CHECKING:
     from mistapi import APISession
+
+
+#: Shared parameter documentation for all WebSocket channel subclasses.
+_COMMON_WS_PARAMS_DOC = """\
+    ping_interval : int, default 30
+        Interval in seconds to send WebSocket ping frames (keep-alive).
+    ping_timeout : int, default 10
+        Time in seconds to wait for a ping response before considering the connection dead.
+    auto_reconnect : bool, default False
+        Automatically reconnect on unexpected disconnections using exponential backoff.
+    max_reconnect_attempts : int, default 5
+        Maximum number of reconnect attempts before giving up.
+    reconnect_backoff : float, default 2.0
+        Base backoff delay in seconds. Doubles after each failed attempt.
+    queue_maxsize : int, default 0
+        Maximum number of messages buffered in the internal queue for the
+        ``receive()`` generator. ``0`` means unbounded. When set,
+        incoming messages are dropped with a warning when the queue is
+        full, preventing memory growth on high-frequency streams."""
 
 
 class _MistWebsocket:
@@ -280,6 +299,8 @@ class _MistWebsocket:
                     target=self._run_forever_safe, daemon=True
                 )
                 self._thread.start()
+            else:
+                self._thread = None
         if not run_in_background:
             self._run_forever_safe()
 
