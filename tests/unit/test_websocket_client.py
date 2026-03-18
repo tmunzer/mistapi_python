@@ -974,3 +974,160 @@ class TestAutoReconnect:
 
         # run_forever called exactly once, no retry
         mock_ws.run_forever.assert_called_once()
+
+
+# ---------------------------------------------------------------------------
+# Callback exception safety
+# ---------------------------------------------------------------------------
+
+
+class TestCallbackExceptionSafety:
+    """Verify that user callback exceptions don't crash or hang the client."""
+
+    def test_on_open_exception_does_not_crash(self, ws_client) -> None:
+        def bad_cb():
+            raise ValueError("boom in on_open")
+
+        ws_client.on_open(bad_cb)
+        mock_ws = Mock()
+        # Should not raise — exception is caught and logged
+        ws_client._handle_open(mock_ws)
+        # _connected should still be set despite the callback error
+        assert ws_client._connected.is_set()
+
+    def test_on_message_exception_does_not_crash(self, ws_client) -> None:
+        def bad_cb(data):
+            raise ValueError("boom in on_message")
+
+        ws_client.on_message(bad_cb)
+        # Should not raise
+        ws_client._handle_message(Mock(), '{"ok": true}')
+
+    def test_on_error_exception_does_not_crash(self, ws_client) -> None:
+        def bad_cb(error):
+            raise ValueError("boom in on_error")
+
+        ws_client.on_error(bad_cb)
+        # Should not raise
+        ws_client._handle_error(Mock(), RuntimeError("original"))
+
+    def test_on_close_exception_still_sets_finished(self, ws_client) -> None:
+        """If on_close callback raises, _finished must still be set."""
+
+        def bad_cb(code, msg):
+            raise ValueError("boom in on_close")
+
+        ws_client.on_close(bad_cb)
+        mock_ws = Mock()
+        ws_client._ws = mock_ws
+        ws_client._run_forever_safe()
+
+        assert ws_client._finished.is_set()
+        # Sentinel should still be in the queue
+        assert ws_client._queue.get_nowait() is None
+
+    def test_on_open_send_failure_closes_connection(self, ws_client) -> None:
+        """If ws.send() raises during subscription, connection is closed."""
+        mock_ws = Mock()
+        mock_ws.send.side_effect = ConnectionError("send failed")
+        error_cb = Mock()
+        ws_client.on_error(error_cb)
+
+        ws_client._handle_open(mock_ws)
+
+        # Connection should NOT be marked as connected
+        assert not ws_client._connected.is_set()
+        # ws.close() should have been called
+        mock_ws.close.assert_called_once()
+        # Error callback should have been invoked
+        error_cb.assert_called_once()
+
+
+# ---------------------------------------------------------------------------
+# Queue behavior with callbacks
+# ---------------------------------------------------------------------------
+
+
+class TestQueueCallbackBehavior:
+    """Verify queue is not populated when a message callback is registered."""
+
+    def test_message_callback_skips_queue(self, ws_client) -> None:
+        cb = Mock()
+        ws_client.on_message(cb)
+        ws_client._handle_message(Mock(), '{"event": "data"}')
+
+        cb.assert_called_once_with({"event": "data"})
+        assert ws_client._queue.empty()
+
+    def test_no_callback_uses_queue(self, ws_client) -> None:
+        ws_client._handle_message(Mock(), '{"event": "data"}')
+        assert not ws_client._queue.empty()
+        assert ws_client._queue.get_nowait() == {"event": "data"}
+
+
+# ---------------------------------------------------------------------------
+# disconnect(wait=...)
+# ---------------------------------------------------------------------------
+
+
+class TestDisconnectWait:
+    """Tests for disconnect(wait=True)."""
+
+    @patch("mistapi.websockets.__ws_client.websocket.WebSocketApp")
+    def test_disconnect_wait_blocks_until_thread_finishes(
+        self, mock_ws_cls, mock_session
+    ) -> None:
+        mock_ws_cls.return_value = Mock()
+        client = _MistWebsocket(mock_session, channels=["/ch"])
+        client.connect(run_in_background=True)
+        client.disconnect(wait=True, timeout=5)
+        assert client._finished.is_set()
+        assert not client._thread.is_alive()
+
+
+# ---------------------------------------------------------------------------
+# Cookie edge cases
+# ---------------------------------------------------------------------------
+
+
+class TestCookieEdgeCases:
+    """Tests for cookie None values."""
+
+    def test_none_value_cookie_serialized_as_empty(self, mock_session) -> None:
+        cookie = Mock()
+        cookie.name = "token"
+        cookie.value = None
+        mock_session._session.cookies = [cookie]
+
+        client = _MistWebsocket(mock_session, channels=["/ch"])
+        assert client._get_cookie() == "token="
+
+
+# ---------------------------------------------------------------------------
+# URL validation
+# ---------------------------------------------------------------------------
+
+
+class TestUrlValidation:
+    """Tests for URL building and SessionWithUrl validation."""
+
+    def test_build_ws_url_warns_for_non_api_prefix(self, mock_session) -> None:
+        mock_session._cloud_uri = "custom.mist.com"
+        client = _MistWebsocket(mock_session, channels=["/ch"])
+        with patch("mistapi.websockets.__ws_client.logger") as mock_logger:
+            url = client._build_ws_url()
+            mock_logger.warning.assert_called_once()
+        # Still builds a URL (best-effort)
+        assert url == "wss://custom.mist.com/api-ws/v1/stream"
+
+    def test_session_with_url_rejects_non_wss(self, mock_session) -> None:
+        with pytest.raises(ValueError, match="wss://"):
+            SessionWithUrl(mock_session, url="ws://insecure.example.com/ch")
+
+    def test_session_with_url_rejects_http(self, mock_session) -> None:
+        with pytest.raises(ValueError, match="wss://"):
+            SessionWithUrl(mock_session, url="http://example.com/ch")
+
+    def test_session_with_url_accepts_wss(self, mock_session) -> None:
+        ws = SessionWithUrl(mock_session, url="wss://api-ws.mist.com/stream")
+        assert ws._build_ws_url() == "wss://api-ws.mist.com/stream"

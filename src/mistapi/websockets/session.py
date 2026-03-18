@@ -28,6 +28,12 @@ class SessionWithUrl(_MistWebsocket):
         Authenticated API session.
     url : str
         URL of the WebSocket channel to connect to.
+
+        .. warning::
+
+            The session's authentication credentials (API token or cookies)
+            are sent to whatever host is specified in this URL. Only use
+            trusted URLs — never pass user-supplied or untrusted input.
     ping_interval : int, default 30
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int, default 10
@@ -74,6 +80,8 @@ class SessionWithUrl(_MistWebsocket):
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
     ) -> None:
+        if not url.startswith("wss://"):
+            raise ValueError("url must use the wss:// scheme")
         self._url = url
         super().__init__(
             mist_session,
