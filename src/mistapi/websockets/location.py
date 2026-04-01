@@ -80,6 +80,7 @@ class BleAssetsEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/maps/{mid}/assets" for mid in map_ids]
@@ -91,6 +92,7 @@ class BleAssetsEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
         )
 
@@ -160,6 +162,7 @@ class ConnectedClientsEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/maps/{mid}/clients" for mid in map_ids]
@@ -171,6 +174,7 @@ class ConnectedClientsEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
         )
 
@@ -240,6 +244,7 @@ class SdkClientsEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/maps/{mid}/sdkclients" for mid in map_ids]
@@ -251,6 +256,7 @@ class SdkClientsEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
         )
 
@@ -320,6 +326,7 @@ class UnconnectedClientsEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
     ) -> None:
         channels = [
@@ -333,6 +340,7 @@ class UnconnectedClientsEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
         )
 
@@ -402,6 +410,7 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
     ) -> None:
         channels = [
@@ -415,5 +424,6 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
         )

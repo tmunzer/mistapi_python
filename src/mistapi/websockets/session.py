@@ -86,6 +86,7 @@ class SessionWithUrl(_MistWebsocket):
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
     ) -> None:
         parsed = urlparse(url)
@@ -100,6 +101,7 @@ class SessionWithUrl(_MistWebsocket):
             auto_reconnect=auto_reconnect,
             max_reconnect_attempts=max_reconnect_attempts,
             reconnect_backoff=reconnect_backoff,
+            max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
         )
 

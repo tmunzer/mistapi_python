@@ -1,4 +1,56 @@
 # CHANGELOG
+## Version 0.61.4 (April 2026)
+
+**Released**: April 1, 2026
+
+This release improves WebSocket reconnection, hardens credential handling, and fixes the two-factor authentication flow.
+
+---
+
+### 1. NEW FEATURES
+
+#### **Capped Reconnect Backoff (`max_reconnect_backoff`)**
+The `_MistWebsocket` client now supports a `max_reconnect_backoff` parameter to cap the exponential backoff delay during reconnection attempts:
+
+```python
+ws = mistapi.websockets.sites.DeviceStatsEvents(
+    apisession,
+    site_ids=["<site_id>"],
+    auto_reconnect=True,
+    max_reconnect_backoff=60.0  # Cap backoff at 60 seconds
+)
+```
+
+#### **Unlimited Reconnect Attempts**
+Setting `max_reconnect_attempts=0` now enables unlimited reconnection attempts:
+
+```python
+ws = mistapi.websockets.sites.DeviceStatsEvents(
+    apisession,
+    site_ids=["<site_id>"],
+    auto_reconnect=True,
+    max_reconnect_attempts=0  # Reconnect indefinitely
+)
+```
+
+---
+
+### 2. IMPROVEMENTS
+
+#### **Credential Override Logging**
+`APISession` now logs INFO-level messages when credentials (host, email, password, API token) are overridden by:
+- Constructor parameters overriding environment variables
+- Vault secrets overriding previously loaded values
+- Keyring credentials overriding previously loaded values
+
+#### **Security: Password Cleared After Login**
+The stored password is now cleared from memory immediately after successful login authentication.
+
+#### **User Attribute Handling**
+`_get_self()` now only sets known user attributes (`first_name`, `last_name`, `email`, `enable_two_factor`, `two_factor_verified`, `no_tracking`, `password_expiry`, `password_modified_time`) instead of setting arbitrary response keys as object attributes.
+
+---
+
 ## Version 0.61.3 (March 2026)
 
 **Released**: March 18, 2026

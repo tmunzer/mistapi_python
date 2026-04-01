@@ -69,12 +69,15 @@ class _MistWebsocket:
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
+        max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
     ) -> None:
         if max_reconnect_attempts < 0:
-            raise ValueError("max_reconnect_attempts must be >= 0")
+            raise ValueError("max_reconnect_attempts must be >= 0 (0 = unlimited)")
         if reconnect_backoff <= 0:
             raise ValueError("reconnect_backoff must be > 0")
+        if max_reconnect_backoff is not None and max_reconnect_backoff <= 0:
+            raise ValueError("max_reconnect_backoff must be > 0")
         if queue_maxsize < 0:
             raise ValueError("queue_maxsize must be >= 0")
 
@@ -85,6 +88,7 @@ class _MistWebsocket:
         self._auto_reconnect = auto_reconnect
         self._max_reconnect_attempts = max_reconnect_attempts
         self._reconnect_backoff = reconnect_backoff
+        self._max_reconnect_backoff = max_reconnect_backoff
         self._lock = threading.Lock()
         self._ws: websocket.WebSocketApp | None = None
         self._thread: threading.Thread | None = None
@@ -305,22 +309,32 @@ class _MistWebsocket:
                     break
 
                 self._reconnect_attempts += 1
-                if self._reconnect_attempts > self._max_reconnect_attempts:
+                if (
+                    self._max_reconnect_attempts > 0
+                    and self._reconnect_attempts > self._max_reconnect_attempts
+                ):
                     logger.warning(
                         "Max reconnect attempts (%d) reached, giving up",
                         self._max_reconnect_attempts,
                     )
                     break
 
-                delay = self._reconnect_backoff * (
-                    2 ** (self._reconnect_attempts - 1)
-                )
-                logger.info(
-                    "Reconnecting in %.1fs (attempt %d/%d)",
-                    delay,
-                    self._reconnect_attempts,
-                    self._max_reconnect_attempts,
-                )
+                delay = self._reconnect_backoff * (2 ** (self._reconnect_attempts - 1))
+                if self._max_reconnect_backoff is not None:
+                    delay = min(delay, self._max_reconnect_backoff)
+                if self._max_reconnect_attempts > 0:
+                    logger.info(
+                        "Reconnecting in %.1fs (attempt %d/%d)",
+                        delay,
+                        self._reconnect_attempts,
+                        self._max_reconnect_attempts,
+                    )
+                else:
+                    logger.info(
+                        "Reconnecting in %.1fs (attempt %d, unlimited)",
+                        delay,
+                        self._reconnect_attempts,
+                    )
                 if self._user_disconnect.wait(timeout=delay):
                     break  # disconnect() called during backoff
 

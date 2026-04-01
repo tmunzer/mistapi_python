@@ -1254,9 +1254,7 @@ class TestConnectDisconnectCycle:
 class TestReceiveFinishedExit:
     """Verify receive() exits when _finished is set even without a sentinel."""
 
-    def test_receive_exits_when_finished_set_without_sentinel(
-        self, ws_client
-    ) -> None:
+    def test_receive_exits_when_finished_set_without_sentinel(self, ws_client) -> None:
         """Simulates a BaseException scenario where sentinel is never queued."""
         ws_client._connected.set()
         # Simulate: thread died, _finished set, _connected still set, no sentinel
