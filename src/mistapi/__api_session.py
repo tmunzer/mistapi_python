@@ -1153,6 +1153,7 @@ class APISession(APIRequest):
                             "first_name",
                             "last_name",
                             "email",
+                            "phone",
                             "enable_two_factor",
                             "two_factor_verified",
                             "no_tracking",
