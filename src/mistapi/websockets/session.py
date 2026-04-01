@@ -46,6 +46,8 @@ class SessionWithUrl(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    max_reconnect_backoff : float | None, default None
+        Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
         ``receive()`` generator. ``0`` means unbounded. When set,

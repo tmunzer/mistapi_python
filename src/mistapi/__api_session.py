@@ -1156,8 +1156,10 @@ class APISession(APIRequest):
                             "enable_two_factor",
                             "two_factor_verified",
                             "no_tracking",
+                            "oauth_google",
                             "password_expiry",
                             "password_modified_time",
+                            "via_sso",
                         ]:
                             setattr(self, key, val)
                     if self._show_cli_notif:

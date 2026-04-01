@@ -37,6 +37,8 @@ class ClientsStatsEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    max_reconnect_backoff : float | None, default None
+        Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
         ``receive()`` generator. ``0`` means unbounded. When set,
@@ -124,6 +126,8 @@ class DeviceCmdEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    max_reconnect_backoff : float | None, default None
+        Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
         ``receive()`` generator. ``0`` means unbounded. When set,
@@ -206,6 +210,8 @@ class DeviceStatsEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    max_reconnect_backoff : float | None, default None
+        Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
         ``receive()`` generator. ``0`` means unbounded. When set,
@@ -285,6 +291,8 @@ class DeviceEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    max_reconnect_backoff : float | None, default None
+        Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
         ``receive()`` generator. ``0`` means unbounded. When set,
@@ -364,6 +372,8 @@ class MxEdgesStatsEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    max_reconnect_backoff : float | None, default None
+        Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
         ``receive()`` generator. ``0`` means unbounded. When set,
@@ -443,6 +453,8 @@ class MxEdgesEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    max_reconnect_backoff : float | None, default None
+        Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
         ``receive()`` generator. ``0`` means unbounded. When set,
@@ -522,6 +534,8 @@ class PcapEvents(_MistWebsocket):
         Maximum number of reconnect attempts before giving up.
     reconnect_backoff : float, default 2.0
         Base backoff delay in seconds. Doubles after each failed attempt.
+    max_reconnect_backoff : float | None, default None
+        Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
         Maximum number of messages buffered in the internal queue for the
         ``receive()`` generator. ``0`` means unbounded. When set,
