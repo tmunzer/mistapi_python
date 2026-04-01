@@ -47,7 +47,7 @@ ws = mistapi.websockets.sites.DeviceStatsEvents(
 The stored password is now cleared from memory immediately after successful login authentication.
 
 #### **User Attribute Handling**
-`_get_self()` now only sets known user attributes (`first_name`, `last_name`, `email`, `enable_two_factor`, `two_factor_verified`, `no_tracking`, `password_expiry`, `password_modified_time`) instead of setting arbitrary response keys as object attributes.
+`APISession._getself()` now only sets a fixed set of known user-related attributes instead of setting every response key as an object attribute.
 
 ---
 
