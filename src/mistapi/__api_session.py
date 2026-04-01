@@ -157,12 +157,28 @@ class APISession(APIRequest):
         self._session.proxies.update(filtered_proxies)
 
         if host:
+            if self._cloud_uri:
+                LOGGER.info(
+                    "apisession:__init__: overriding previously loaded MIST_HOST with constructor parameter"
+                )
             self.set_cloud(host)
         if email:
+            if self.email:
+                LOGGER.info(
+                    "apisession:__init__: overriding previously loaded MIST_USER with constructor parameter"
+                )
             self.set_email(email)
         if password:
+            if self._password:
+                LOGGER.info(
+                    "apisession:__init__: overriding previously loaded MIST_PASSWORD with constructor parameter"
+                )
             self.set_password(password)
         if apitoken:
+            if self._apitoken:
+                LOGGER.info(
+                    "apisession:__init__: overriding previously loaded MIST_APITOKEN with constructor parameter"
+                )
             self.set_api_token(apitoken)
         self.first_name: str = ""
         self.last_name: str = ""
@@ -244,10 +260,18 @@ class APISession(APIRequest):
             mist_host = read_response["data"]["data"].get("MIST_HOST", None)
             LOGGER.info("apisession:_load_vault: MIST_HOST=%s", mist_host)
             if mist_host:
+                if self._cloud_uri:
+                    LOGGER.info(
+                        "apisession:_load_vault: overriding previously loaded MIST_HOST"
+                    )
                 self.set_cloud(mist_host)
 
             mist_apitoken = read_response["data"]["data"].get("MIST_APITOKEN", None)
             if mist_apitoken:
+                if self._apitoken:
+                    LOGGER.info(
+                        "apisession:_load_vault: overriding previously loaded MIST_APITOKEN"
+                    )
                 self.set_api_token(mist_apitoken)
         except (KeyError, TypeError, AttributeError):
             LOGGER.error("apisession:_load_vault: Failed to retrieve secret")
@@ -270,10 +294,18 @@ class APISession(APIRequest):
             try:
                 mist_host = keyring.get_password(keyring_service, "MIST_HOST")
                 if mist_host:
+                    if self._cloud_uri:
+                        LOGGER.info(
+                            "apisession:_load_keyring: overriding previously loaded MIST_HOST"
+                        )
                     LOGGER.info("apisession:_load_keyring: MIST_HOST=%s", mist_host)
                     self.set_cloud(mist_host)
                 mist_apitoken = keyring.get_password(keyring_service, "MIST_APITOKEN")
                 if mist_apitoken:
+                    if self._apitoken:
+                        LOGGER.info(
+                            "apisession:_load_keyring: overriding previously loaded MIST_APITOKEN"
+                        )
                     if isinstance(mist_apitoken, str):
                         for token in mist_apitoken.split(","):
                             token = token.strip()
@@ -285,10 +317,18 @@ class APISession(APIRequest):
                     self.set_api_token(mist_apitoken)
                 mist_user = keyring.get_password(keyring_service, "MIST_USER")
                 if mist_user:
+                    if self.email:
+                        LOGGER.info(
+                            "apisession:_load_keyring: overriding previously loaded MIST_USER"
+                        )
                     LOGGER.info("apisession:_load_keyring: MIST_USER retrieved")
                     self.set_email(mist_user)
                 mist_password = keyring.get_password(keyring_service, "MIST_PASSWORD")
                 if mist_password:
+                    if self._password:
+                        LOGGER.info(
+                            "apisession:_load_keyring: overriding previously loaded MIST_PASSWORD"
+                        )
                     LOGGER.info("apisession:_load_keyring: MIST_PASSWORD retrieved")
                     self.set_password(mist_password)
             except Exception as e:
@@ -701,6 +741,7 @@ class APISession(APIRequest):
             if resp.status_code == 200:
                 LOGGER.info("apisession:_process_login:authentication successful!")
                 CONSOLE.info("Authentication successful!")
+                self._password = None
                 self._set_authenticated(True)
             else:
                 error = resp.json().get("detail")
@@ -818,14 +859,22 @@ class APISession(APIRequest):
         elif self.email and self._password:
             if two_factor:
                 LOGGER.debug("apisession:login_with_return:login/pwd provided with 2FA")
-                if self._two_factor_authentication(two_factor):
+                error_login = self._process_login(retry=False)
+                if error_login:
                     LOGGER.error(
-                        "apisession:login_with_return:login/pwd auth failed: 2FA authentication failed"
+                        "apisession:login_with_return:login/pwd auth failed: %s",
+                        error_login,
+                    )
+                    return {"authenticated": False, "error": error_login}
+                if not self._two_factor_authentication(two_factor):
+                    LOGGER.error(
+                        "apisession:login_with_return:2FA authentication failed"
                     )
                     return {
                         "authenticated": False,
                         "error": "2FA authentication failed",
                     }
+                LOGGER.info("apisession:login_with_return:authenticated with 2FA")
             else:
                 LOGGER.debug("apisession:login_with_return:login/pwd provided w/o 2FA")
                 error_login = self._process_login(retry=False)
@@ -1044,10 +1093,8 @@ class APISession(APIRequest):
             True if authentication succeed, False otherwise
         """
         LOGGER.debug("apisession:_two_factor_authentication")
-        uri = "/api/v1/login"
+        uri = "/api/v1/login/two_factor"
         body = {
-            "email": self.email,
-            "password": self._password,
             "two_factor": two_factor,
         }
         resp = self._session.post(self._url(uri), json=body)
@@ -1102,7 +1149,19 @@ class APISession(APIRequest):
                         elif key == "tags":
                             for tag in resp.data["tags"]:
                                 self.tags.append(tag)
-                        else:
+                        elif key in [
+                            "first_name",
+                            "last_name",
+                            "email",
+                            "phone",
+                            "enable_two_factor",
+                            "two_factor_verified",
+                            "no_tracking",
+                            "oauth_google",
+                            "password_expiry",
+                            "password_modified_time",
+                            "via_sso",
+                        ]:
                             setattr(self, key, val)
                     if self._show_cli_notif:
                         print()

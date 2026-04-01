@@ -729,6 +729,18 @@ class TestInit:
         with pytest.raises(ValueError, match="queue_maxsize must be >= 0"):
             _MistWebsocket(mock_session, channels=["/ch"], queue_maxsize=-1)
 
+    def test_negative_max_reconnect_backoff_raises(self, mock_session) -> None:
+        with pytest.raises(ValueError, match="max_reconnect_backoff must be > 0"):
+            _MistWebsocket(mock_session, channels=["/ch"], max_reconnect_backoff=-1.0)
+
+    def test_zero_max_reconnect_backoff_raises(self, mock_session) -> None:
+        with pytest.raises(ValueError, match="max_reconnect_backoff must be > 0"):
+            _MistWebsocket(mock_session, channels=["/ch"], max_reconnect_backoff=0)
+
+    def test_max_reconnect_backoff_none_allowed(self, mock_session) -> None:
+        client = _MistWebsocket(mock_session, channels=["/ch"], max_reconnect_backoff=None)
+        assert client._max_reconnect_backoff is None
+
 
 # ---------------------------------------------------------------------------
 # Public WebSocket channel classes
@@ -986,6 +998,102 @@ class TestAutoReconnect:
 
         # run_forever called exactly once, no retry
         mock_ws.run_forever.assert_called_once()
+
+    def test_unlimited_attempts_when_max_is_zero(self, mock_session) -> None:
+        """max_reconnect_attempts=0 means unlimited: loop should not stop on its own."""
+        client = self._make_client(mock_session, max_reconnect_attempts=0)
+        call_count = 0
+        target_calls = 8  # well above any hardcoded limit
+
+        def fake_run_forever(**kwargs):
+            nonlocal call_count
+            call_count += 1
+            if call_count >= target_calls:
+                client._user_disconnect.set()  # stop the loop
+            client._handle_close(client._ws, 1006, "drop")
+
+        mock_ws = Mock()
+        mock_ws.run_forever.side_effect = fake_run_forever
+        with patch.object(client, "_create_ws_app", return_value=mock_ws):
+            client._ws = mock_ws
+            client._run_forever_safe()
+
+        assert call_count == target_calls
+
+    def test_delay_capped_by_max_reconnect_backoff(self, mock_session) -> None:
+        """When max_reconnect_backoff is set, the backoff delay never exceeds it."""
+        cap = 0.05
+        client = self._make_client(
+            mock_session,
+            max_reconnect_attempts=5,
+            reconnect_backoff=0.01,
+            max_reconnect_backoff=cap,
+        )
+        observed_delays: list[float] = []
+
+        original_wait = client._user_disconnect.wait
+
+        def capture_delay(timeout=None):
+            if timeout is not None:
+                observed_delays.append(timeout)
+            return original_wait(timeout=0)  # don't actually sleep
+
+        def fake_run_forever(**kwargs):
+            client._handle_close(client._ws, 1006, "drop")
+
+        mock_ws = Mock()
+        mock_ws.run_forever.side_effect = fake_run_forever
+        with (
+            patch.object(client, "_create_ws_app", return_value=mock_ws),
+            patch.object(client._user_disconnect, "wait", side_effect=capture_delay),
+        ):
+            client._ws = mock_ws
+            client._run_forever_safe()
+
+        # Should have recorded a delay for each reconnect attempt
+        assert len(observed_delays) > 0
+        # Every observed delay must be <= cap
+        for delay in observed_delays:
+            assert delay <= cap, f"delay {delay} exceeds cap {cap}"
+        # Without the cap, later delays would grow via exponential backoff
+        # (e.g., 0.01, 0.02, 0.04, 0.08, 0.16). Verify the cap was actually
+        # needed by checking that at least one uncapped delay would exceed it.
+        uncapped = [0.01 * (2 ** i) for i in range(len(observed_delays))]
+        assert any(d > cap for d in uncapped), "cap was never exercised"
+
+    def test_delay_uncapped_when_max_reconnect_backoff_is_none(self, mock_session) -> None:
+        """Without max_reconnect_backoff, delays grow without bound."""
+        client = self._make_client(
+            mock_session,
+            max_reconnect_attempts=4,
+            reconnect_backoff=0.01,
+            max_reconnect_backoff=None,
+        )
+        observed_delays: list[float] = []
+
+        original_wait = client._user_disconnect.wait
+
+        def capture_delay(timeout=None):
+            if timeout is not None:
+                observed_delays.append(timeout)
+            return original_wait(timeout=0)
+
+        def fake_run_forever(**kwargs):
+            client._handle_close(client._ws, 1006, "drop")
+
+        mock_ws = Mock()
+        mock_ws.run_forever.side_effect = fake_run_forever
+        with (
+            patch.object(client, "_create_ws_app", return_value=mock_ws),
+            patch.object(client._user_disconnect, "wait", side_effect=capture_delay),
+        ):
+            client._ws = mock_ws
+            client._run_forever_safe()
+
+        assert len(observed_delays) >= 2
+        # Each delay should be double the previous (exponential backoff)
+        for i in range(1, len(observed_delays)):
+            assert observed_delays[i] == pytest.approx(observed_delays[i - 1] * 2)
 
 
 # ---------------------------------------------------------------------------
@@ -1254,9 +1362,7 @@ class TestConnectDisconnectCycle:
 class TestReceiveFinishedExit:
     """Verify receive() exits when _finished is set even without a sentinel."""
 
-    def test_receive_exits_when_finished_set_without_sentinel(
-        self, ws_client
-    ) -> None:
+    def test_receive_exits_when_finished_set_without_sentinel(self, ws_client) -> None:
         """Simulates a BaseException scenario where sentinel is never queued."""
         ws_client._connected.set()
         # Simulate: thread died, _finished set, _connected still set, no sentinel

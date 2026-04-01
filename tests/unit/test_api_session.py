@@ -252,6 +252,110 @@ class TestAuthentication:
         assert authenticated_session.get_authentication_status()
 
 
+class TestPasswordClearingAfterLogin:
+    """Test that _password is cleared after successful login"""
+
+    def test_password_cleared_after_successful_login(self, isolated_session) -> None:
+        """_process_login sets _password to None after a 200 response from /api/v1/login"""
+        # Arrange
+        isolated_session._cloud_uri = "api.mist.com"
+        isolated_session.email = "test@example.com"
+        isolated_session._password = "secret_password"
+
+        mock_session = Mock()
+        mock_resp = Mock()
+        mock_resp.status_code = 200
+        mock_session.post.return_value = mock_resp
+
+        with patch.object(isolated_session, "_new_session", return_value=mock_session):
+            # Act
+            error = isolated_session._process_login(retry=False)
+
+            # Assert
+            assert error is None
+            assert isolated_session._password is None
+
+    def test_password_cleared_after_failed_login(self, isolated_session) -> None:
+        """_process_login also clears _password on failure (existing behaviour)"""
+        # Arrange
+        isolated_session._cloud_uri = "api.mist.com"
+        isolated_session.email = "test@example.com"
+        isolated_session._password = "wrong_password"
+
+        mock_session = Mock()
+        mock_resp = Mock()
+        mock_resp.status_code = 401
+        mock_resp.json.return_value = {"detail": "invalid credentials"}
+        mock_session.post.return_value = mock_resp
+
+        with patch.object(isolated_session, "_new_session", return_value=mock_session):
+            # Act
+            isolated_session._process_login(retry=False)
+
+            # Assert
+            assert isolated_session._password is None
+
+    def test_two_factor_succeeds_after_password_cleared(self, isolated_session) -> None:
+        """
+        login_with_return with two_factor still succeeds after _process_login
+        clears the password, because _two_factor_authentication only sends the
+        2FA code (not the password) to /api/v1/login/two_factor.
+        """
+        # Arrange
+        isolated_session._cloud_uri = "api.mist.com"
+        isolated_session.email = "test@example.com"
+        isolated_session._password = "secret_password"
+
+        # Mock _new_session
+        mock_session = Mock()
+        isolated_session._session = mock_session
+
+        # _process_login succeeds (clears password)
+        login_resp = Mock()
+        login_resp.status_code = 200
+
+        # _two_factor_authentication succeeds
+        two_factor_resp = Mock()
+        two_factor_resp.status_code = 200
+
+        mock_session.post.side_effect = [login_resp, two_factor_resp]
+
+        # mist_get for /api/v1/self after auth
+        mock_self_resp = Mock()
+        mock_self_resp.status_code = 200
+        mock_self_resp.data = {
+            "id": "user-123",
+            "email": "test@example.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "privileges": [],
+            "two_factor_required": False,
+            "two_factor_passed": True,
+            "via_sso": False,
+            "tags": [],
+        }
+
+        with patch.object(isolated_session, "_new_session", return_value=mock_session):
+            with patch.object(
+                isolated_session, "mist_get", return_value=mock_self_resp
+            ):
+                # Act
+                result = isolated_session.login_with_return(
+                    email="test@example.com",
+                    password="secret_password",
+                    two_factor="123456",
+                )
+
+                # Assert – password was cleared by _process_login
+                assert isolated_session._password is None
+                # Assert – 2FA POST was sent to the correct endpoint without password
+                second_post_call = mock_session.post.call_args_list[1]
+                assert "/api/v1/login/two_factor" in second_post_call.args[0]
+                assert second_post_call.kwargs["json"] == {"two_factor": "123456"}
+                # Assert – overall auth succeeded
+                assert result["authenticated"] is True
+
+
 class TestPrivilegeManagement:
     """Test privilege-related functionality"""
 
