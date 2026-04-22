@@ -47,10 +47,13 @@ class _Privilege:
 
 
 class Privileges:
-    def __init__(self, privileges: list[dict]) -> None:
+    def __init__(self, privileges: list[dict | _Privilege]) -> None:
         self.privileges: list[_Privilege] = []
         for privilege in privileges:
-            self.privileges.append(_Privilege(privilege))
+            if isinstance(privilege, _Privilege):
+                self.privileges.append(privilege)
+            else:
+                self.privileges.append(_Privilege(privilege))
 
     def __iter__(self) -> Iterator[_Privilege]:
         """Return an iterator over the privileges."""

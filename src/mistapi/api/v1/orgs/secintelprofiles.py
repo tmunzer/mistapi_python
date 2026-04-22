@@ -14,7 +14,12 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
-def listOrgSecIntelProfiles(mist_session: _APISession, org_id: str) -> _APIResponse:
+def listOrgSecIntelProfiles(
+    mist_session: _APISession,
+    org_id: str,
+    limit: int | None = None,
+    page: int | None = None,
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/secintel-profiles/list-org-sec-intel-profiles
 
@@ -27,6 +32,11 @@ def listOrgSecIntelProfiles(mist_session: _APISession, org_id: str) -> _APIRespo
     -----------
     org_id : str
 
+    QUERY PARAMS
+    ------------
+    limit : int, default: 100
+    page : int, default: 1
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -35,6 +45,10 @@ def listOrgSecIntelProfiles(mist_session: _APISession, org_id: str) -> _APIRespo
 
     uri = f"/api/v1/orgs/{org_id}/secintelprofiles"
     query_params: dict[str, str] = {}
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
