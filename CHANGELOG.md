@@ -1,4 +1,19 @@
 # CHANGELOG
+## Version 0.61.5 (April 2026)
+
+**Released**: April 22, 2026
+
+This release fixes a bug in the `Privileges` class initialization.
+
+---
+
+### BUG FIXES
+
+#### **Privileges Initialization**
+Fixed `Privileges.__init__()` to correctly handle lists containing `_Privilege` instances in addition to dicts. Previously, passing already-instantiated `_Privilege` objects would cause initialization errors.
+
+---
+
 ## Version 0.61.4 (April 2026)
 
 **Released**: April 1, 2026

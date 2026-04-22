@@ -738,7 +738,9 @@ class TestInit:
             _MistWebsocket(mock_session, channels=["/ch"], max_reconnect_backoff=0)
 
     def test_max_reconnect_backoff_none_allowed(self, mock_session) -> None:
-        client = _MistWebsocket(mock_session, channels=["/ch"], max_reconnect_backoff=None)
+        client = _MistWebsocket(
+            mock_session, channels=["/ch"], max_reconnect_backoff=None
+        )
         assert client._max_reconnect_backoff is None
 
 
@@ -1058,10 +1060,12 @@ class TestAutoReconnect:
         # Without the cap, later delays would grow via exponential backoff
         # (e.g., 0.01, 0.02, 0.04, 0.08, 0.16). Verify the cap was actually
         # needed by checking that at least one uncapped delay would exceed it.
-        uncapped = [0.01 * (2 ** i) for i in range(len(observed_delays))]
+        uncapped = [0.01 * (2**i) for i in range(len(observed_delays))]
         assert any(d > cap for d in uncapped), "cap was never exercised"
 
-    def test_delay_uncapped_when_max_reconnect_backoff_is_none(self, mock_session) -> None:
+    def test_delay_uncapped_when_max_reconnect_backoff_is_none(
+        self, mock_session
+    ) -> None:
         """Without max_reconnect_backoff, delays grow without bound."""
         client = self._make_client(
             mock_session,
