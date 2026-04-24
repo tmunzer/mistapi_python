@@ -27,9 +27,9 @@ class ClientsStatsEvents(_MistWebsocket):
         Authenticated API session.
     site_ids : list[str]
         UUIDs of the sites to stream events from.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
+    ping_timeout : int, default 45
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
@@ -74,8 +74,8 @@ class ClientsStatsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_ids: list[str],
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int = 45,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -116,9 +116,9 @@ class DeviceCmdEvents(_MistWebsocket):
         UUID of the site to stream events from.
     device_ids : list[str]
         UUIDs of the devices to stream events from.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
+    ping_timeout : int, default 45
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
@@ -164,8 +164,8 @@ class DeviceCmdEvents(_MistWebsocket):
         mist_session: APISession,
         site_id: str,
         device_ids: list[str],
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int = 45,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -200,9 +200,9 @@ class DeviceStatsEvents(_MistWebsocket):
         Authenticated API session.
     site_ids : list[str]
         UUIDs of the sites to stream events from.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
+    ping_timeout : int, default 45
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
@@ -247,8 +247,8 @@ class DeviceStatsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_ids: list[str],
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int = 45,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -281,9 +281,9 @@ class DeviceEvents(_MistWebsocket):
         Authenticated API session.
     site_ids : list[str]
         UUIDs of the sites to stream events from.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
+    ping_timeout : int, default 45
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
@@ -328,8 +328,8 @@ class DeviceEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_ids: list[str],
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int = 45,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -362,9 +362,9 @@ class MxEdgesStatsEvents(_MistWebsocket):
         Authenticated API session.
     site_ids : list[str]
         UUIDs of the sites to stream events from.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
+    ping_timeout : int, default 45
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
@@ -409,8 +409,8 @@ class MxEdgesStatsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_ids: list[str],
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int = 45,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -443,9 +443,9 @@ class MxEdgesEvents(_MistWebsocket):
         Authenticated API session.
     site_ids : list[str]
         UUIDs of the sites to stream events from.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
+    ping_timeout : int, default 45
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
@@ -490,8 +490,8 @@ class MxEdgesEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_ids: list[str],
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int = 45,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -524,9 +524,9 @@ class PcapEvents(_MistWebsocket):
         Authenticated API session.
     site_id : str
         UUID of the site to stream events from.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
+    ping_timeout : int, default 45
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
@@ -571,8 +571,8 @@ class PcapEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         site_id: str,
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int = 45,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,

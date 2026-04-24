@@ -36,9 +36,9 @@ class SessionWithUrl(_MistWebsocket):
             The session's authentication credentials (API token or cookies)
             are sent to whatever host is specified in this URL. Only use
             trusted URLs — never pass user-supplied or untrusted input.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
+    ping_timeout : int, default 45
         Time in seconds to wait for a ping response before considering the connection dead.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
@@ -83,8 +83,8 @@ class SessionWithUrl(_MistWebsocket):
         self,
         mist_session: APISession,
         url: str,
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int = 45,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,

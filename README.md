@@ -583,19 +583,22 @@ All channel classes accept the following optional keyword arguments:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `ping_interval` | `int` | `30` | Seconds between automatic ping frames. Set to `0` to disable pings. |
-| `ping_timeout` | `int` | `10` | Seconds to wait for a pong response before treating the connection as dead. |
+| `ping_interval` | `int` | `60` | Seconds between automatic ping frames. Set to `0` to disable pings. |
+| `ping_timeout` | `int` | `45` | Seconds to wait for a pong response before treating the connection as dead. Must be lower than `ping_interval`. |
 | `auto_reconnect` | `bool` | `False` | Automatically reconnect on transient failures using exponential backoff. |
 | `max_reconnect_attempts` | `int` | `5` | Maximum number of reconnect attempts before giving up. |
 | `reconnect_backoff` | `float` | `2.0` | Base backoff delay in seconds. Doubles after each failed attempt (2s, 4s, 8s, ...). Resets on successful reconnection. |
 | `queue_maxsize` | `int` | `0` | Maximum messages buffered in the internal queue for `receive()`. `0` means unbounded. When set, incoming messages are dropped with a warning when the queue is full, preventing memory growth on high-frequency streams. |
+| `subscription_watchdog_timeout` | `float` | `10.0` | Maximum time to wait for all `channel_subscribed` acknowledgements after connect. On timeout, the connection is closed to trigger a clean reconnect. |
+| `rate_limit_backoff` | `float` | `30.0` | Minimum reconnect delay after a 429 rate-limit response. |
+| `throughput_log_interval` | `int` | `100` | Logs queue depth and processed counts every N messages. Set to `0` to disable periodic throughput logs. |
 
 ```python
 ws = mistapi.websockets.sites.DeviceStatsEvents(
     apisession,
     site_ids=["<site_id>"],
     ping_interval=60,       # ping every 60 s
-    ping_timeout=20,        # wait up to 20 s for pong
+    ping_timeout=45,        # wait up to 45 s for pong
     auto_reconnect=True,    # reconnect on transient failures
 )
 ws.connect()
@@ -609,6 +612,8 @@ ws.connect()
 | `ws.on_message(cb)` | `cb(data: dict)` | Register callback for incoming messages. Mutually exclusive with `receive()`. |
 | `ws.on_error(cb)` | `cb(error: Exception)` | Register callback for WebSocket errors |
 | `ws.on_close(cb)` | `cb(code: int \| None, msg: str \| None)` | Register callback for connection close. Safe to call `connect()` from within. |
+| `ws.on_ping(cb)` | `cb(message: str \| bytes \| None)` | Register callback for received ping frames. |
+| `ws.on_pong(cb)` | `cb(message: str \| bytes \| None)` | Register callback for received pong frames. |
 | `ws.connect(run_in_background)` | | Open the connection. `True` (default) runs in a daemon thread; `False` blocks. |
 | `ws.disconnect(wait, timeout)` | | Close the connection. `wait=True` blocks until the background thread finishes. |
 | `ws.receive()` | `-> Generator[dict]` | Blocking generator yielding messages. Mutually exclusive with `on_message`. |
