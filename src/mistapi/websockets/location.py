@@ -84,6 +84,9 @@ class BleAssetsEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/maps/{mid}/assets" for mid in map_ids]
         super().__init__(
@@ -96,6 +99,9 @@ class BleAssetsEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -168,6 +174,9 @@ class ConnectedClientsEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/maps/{mid}/clients" for mid in map_ids]
         super().__init__(
@@ -180,6 +189,9 @@ class ConnectedClientsEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -252,6 +264,9 @@ class SdkClientsEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/maps/{mid}/sdkclients" for mid in map_ids]
         super().__init__(
@@ -264,6 +279,9 @@ class SdkClientsEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -336,6 +354,9 @@ class UnconnectedClientsEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [
             f"/sites/{site_id}/stats/maps/{mid}/unconnected_clients" for mid in map_ids
@@ -350,6 +371,9 @@ class UnconnectedClientsEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -422,6 +446,9 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [
             f"/sites/{site_id}/stats/maps/{mid}/discovered_assets" for mid in map_ids
@@ -436,4 +463,7 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )

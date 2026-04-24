@@ -378,8 +378,7 @@ class TestHandleMessage:
         assert called.wait(timeout=1), "callback was not invoked by worker"
         cb.assert_called_once_with(payload)
 
-        ws_client._callback_stop.set()
-        ws_client._callback_queue.put_nowait(None)
+        ws_client.disconnect(wait=True, timeout=1)
 
     def test_calls_on_message_callback_with_raw_fallback(self, ws_client) -> None:
         cb = Mock()
@@ -397,8 +396,7 @@ class TestHandleMessage:
         assert called.wait(timeout=1), "callback was not invoked by worker"
         cb.assert_called_once_with({"raw": "plain text"})
 
-        ws_client._callback_stop.set()
-        ws_client._callback_queue.put_nowait(None)
+        ws_client.disconnect(wait=True, timeout=1)
 
     def test_no_error_without_on_message_callback(self, ws_client) -> None:
         ws_client._handle_message(Mock(), '{"ok": true}')  # Should not raise
@@ -829,6 +827,18 @@ class TestSiteChannels:
         ws = DeviceCmdEvents(mock_session, site_id="s1", device_ids=["d1"])
         assert isinstance(ws, _MistWebsocket)
 
+    def test_supports_reliability_kwargs(self, mock_session) -> None:
+        ws = DeviceStatsEvents(
+            mock_session,
+            site_ids=["s1"],
+            subscription_watchdog_timeout=3.0,
+            rate_limit_backoff=12.0,
+            throughput_log_interval=250,
+        )
+        assert ws._subscription_watchdog_timeout == 3.0
+        assert ws._rate_limit_backoff == 12.0
+        assert ws._throughput_log_interval == 250
+
 
 class TestOrgChannels:
     """Tests for public org-level WebSocket channel classes."""
@@ -848,6 +858,18 @@ class TestOrgChannels:
     def test_inherits_from_mist_websocket(self, mock_session) -> None:
         ws = InsightsEvents(mock_session, org_id="o1")
         assert isinstance(ws, _MistWebsocket)
+
+    def test_supports_reliability_kwargs(self, mock_session) -> None:
+        ws = InsightsEvents(
+            mock_session,
+            org_id="o1",
+            subscription_watchdog_timeout=5.0,
+            rate_limit_backoff=20.0,
+            throughput_log_interval=400,
+        )
+        assert ws._subscription_watchdog_timeout == 5.0
+        assert ws._rate_limit_backoff == 20.0
+        assert ws._throughput_log_interval == 400
 
 
 class TestLocationChannels:
@@ -880,6 +902,19 @@ class TestLocationChannels:
         ws = BleAssetsEvents(mock_session, site_id="s1", map_ids=["m1"])
         assert isinstance(ws, _MistWebsocket)
 
+    def test_supports_reliability_kwargs(self, mock_session) -> None:
+        ws = ConnectedClientsEvents(
+            mock_session,
+            site_id="s1",
+            map_ids=["m1"],
+            subscription_watchdog_timeout=4.0,
+            rate_limit_backoff=18.0,
+            throughput_log_interval=150,
+        )
+        assert ws._subscription_watchdog_timeout == 4.0
+        assert ws._rate_limit_backoff == 18.0
+        assert ws._throughput_log_interval == 150
+
 
 class TestSessionChannel:
     """Tests for the SessionWithUrl WebSocket channel class."""
@@ -892,6 +927,18 @@ class TestSessionChannel:
     def test_inherits_from_mist_websocket(self, mock_session) -> None:
         ws = SessionWithUrl(mock_session, url="wss://example.com/custom")
         assert isinstance(ws, _MistWebsocket)
+
+    def test_supports_reliability_kwargs(self, mock_session) -> None:
+        ws = SessionWithUrl(
+            mock_session,
+            url="wss://example.com/custom",
+            subscription_watchdog_timeout=6.0,
+            rate_limit_backoff=25.0,
+            throughput_log_interval=300,
+        )
+        assert ws._subscription_watchdog_timeout == 6.0
+        assert ws._rate_limit_backoff == 25.0
+        assert ws._throughput_log_interval == 300
 
 
 # ---------------------------------------------------------------------------
@@ -1264,8 +1311,7 @@ class TestQueueCallbackBehavior:
         cb.assert_called_once_with({"event": "data"})
         assert ws_client._queue.empty()
 
-        ws_client._callback_stop.set()
-        ws_client._callback_queue.put_nowait(None)
+        ws_client.disconnect(wait=True, timeout=1)
 
     def test_no_callback_uses_queue(self, ws_client) -> None:
         ws_client._handle_message(Mock(), '{"event": "data"}')

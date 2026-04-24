@@ -81,6 +81,9 @@ class ClientsStatsEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/clients" for site_id in site_ids]
         super().__init__(
@@ -93,6 +96,9 @@ class ClientsStatsEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -171,6 +177,9 @@ class DeviceCmdEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [
             f"/sites/{site_id}/devices/{device_id}/cmd" for device_id in device_ids
@@ -185,6 +194,9 @@ class DeviceCmdEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -254,6 +266,9 @@ class DeviceStatsEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/devices" for site_id in site_ids]
         super().__init__(
@@ -266,6 +281,9 @@ class DeviceStatsEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -335,6 +353,9 @@ class DeviceEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [f"/sites/{site_id}/devices" for site_id in site_ids]
         super().__init__(
@@ -347,6 +368,9 @@ class DeviceEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -416,6 +440,9 @@ class MxEdgesStatsEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [f"/sites/{site_id}/stats/mxedges" for site_id in site_ids]
         super().__init__(
@@ -428,6 +455,9 @@ class MxEdgesStatsEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -497,6 +527,9 @@ class MxEdgesEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [f"/sites/{site_id}/mxedges" for site_id in site_ids]
         super().__init__(
@@ -509,6 +542,9 @@ class MxEdgesEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -578,6 +614,9 @@ class PcapEvents(_MistWebsocket):
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         channels = [f"/sites/{site_id}/pcaps"]
         super().__init__(
@@ -590,4 +629,7 @@ class PcapEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
