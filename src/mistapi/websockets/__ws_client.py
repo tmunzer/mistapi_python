@@ -19,7 +19,7 @@ import re
 import ssl
 import threading
 from collections.abc import Callable, Generator
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import websocket
 
@@ -48,6 +48,10 @@ if TYPE_CHECKING:
     from mistapi import APISession
 
 
+MAX_CHANNELS_PER_CONNECTION = 2000
+HIGH_CHANNEL_COUNT_WARNING = 1500
+
+
 class _MistWebsocket:
     """
     Base class for Mist API WebSocket channels.
@@ -64,14 +68,25 @@ class _MistWebsocket:
         self,
         mist_session: "APISession",
         channels: list[str],
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int = 45,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
+        if ping_interval < 0:
+            raise ValueError("ping_interval must be >= 0")
+        if ping_timeout <= 0:
+            raise ValueError("ping_timeout must be > 0")
+        if ping_interval and ping_interval <= ping_timeout:
+            raise ValueError(
+                "ping_interval must be greater than ping_timeout when enabled"
+            )
         if max_reconnect_attempts < 0:
             raise ValueError("max_reconnect_attempts must be >= 0 (0 = unlimited)")
         if reconnect_backoff <= 0:
@@ -80,32 +95,75 @@ class _MistWebsocket:
             raise ValueError("max_reconnect_backoff must be > 0")
         if queue_maxsize < 0:
             raise ValueError("queue_maxsize must be >= 0")
+        if subscription_watchdog_timeout <= 0:
+            raise ValueError("subscription_watchdog_timeout must be > 0")
+        if rate_limit_backoff <= 0:
+            raise ValueError("rate_limit_backoff must be > 0")
+        if throughput_log_interval < 0:
+            raise ValueError("throughput_log_interval must be >= 0")
+
+        deduped_channels = list(dict.fromkeys(channels))
+        if len(deduped_channels) != len(channels):
+            logger.warning(
+                "Duplicate channels detected; using %d unique channels instead of %d",
+                len(deduped_channels),
+                len(channels),
+            )
+        if len(deduped_channels) > MAX_CHANNELS_PER_CONNECTION:
+            raise ValueError(
+                f"Too many channels ({len(deduped_channels)}). "
+                f"Mist supports up to {MAX_CHANNELS_PER_CONNECTION} channels per connection"
+            )
+        if len(deduped_channels) >= HIGH_CHANNEL_COUNT_WARNING:
+            logger.warning(
+                "High channel count (%d). Consider spreading subscriptions over multiple "
+                "WebSocket connections to reduce message backlog risk.",
+                len(deduped_channels),
+            )
 
         self._mist_session = mist_session
-        self._channels = channels
+        self._channels = deduped_channels
+        self._expected_channels = set(deduped_channels)
         self._ping_interval = ping_interval
         self._ping_timeout = ping_timeout
         self._auto_reconnect = auto_reconnect
         self._max_reconnect_attempts = max_reconnect_attempts
         self._reconnect_backoff = reconnect_backoff
         self._max_reconnect_backoff = max_reconnect_backoff
+        self._subscription_watchdog_timeout = subscription_watchdog_timeout
+        self._rate_limit_backoff = rate_limit_backoff
+        self._throughput_log_interval = throughput_log_interval
         self._lock = threading.Lock()
+        self._subscription_lock = threading.Lock()
         self._ws: websocket.WebSocketApp | None = None
         self._thread: threading.Thread | None = None
+        self._callback_thread: threading.Thread | None = None
+        self._subscription_watchdog: threading.Timer | None = None
         self._queue: queue.Queue[dict | None] = queue.Queue(maxsize=queue_maxsize)
+        self._callback_queue: queue.Queue[dict | None] = queue.Queue(
+            maxsize=queue_maxsize
+        )
         self._connected = (
             threading.Event()
         )  # tracks whether the WebSocket connection is currently open
         self._user_disconnect = threading.Event()
+        self._callback_stop = threading.Event()
         self._finished = threading.Event()
         self._finished.set()  # not running initially
         self._reconnect_attempts = 0
         self._last_close_code: int | None = None
         self._last_close_msg: str | None = None
+        self._last_http_status: int | None = None
+        self._subscribed_channels: set[str] = set()
+        self._messages_received = 0
+        self._messages_dropped = 0
+        self._messages_processed = 0
         self._on_message_cb: Callable[[dict], None] | None = None
         self._on_error_cb: Callable[[Exception], None] | None = None
         self._on_open_cb: Callable[[], None] | None = None
         self._on_close_cb: Callable[[int | None, str | None], None] | None = None
+        self._on_ping_cb: Callable[[str | bytes | None], None] | None = None
+        self._on_pong_cb: Callable[[str | bytes | None], None] | None = None
 
     # ------------------------------------------------------------------
     # Auth / URL helpers
@@ -184,10 +242,198 @@ class _MistWebsocket:
         """Register a callback invoked when the connection closes."""
         self._on_close_cb = callback
 
+    def on_ping(self, callback: Callable[[str | bytes | None], None]) -> None:
+        """Register a callback invoked when a ping frame is received."""
+        self._on_ping_cb = callback
+
+    def on_pong(self, callback: Callable[[str | bytes | None], None]) -> None:
+        """Register a callback invoked when a pong frame is received."""
+        self._on_pong_cb = callback
+
+    # ------------------------------------------------------------------
+    # Internal helpers
+
+    @staticmethod
+    def _extract_status_code(error: Exception) -> int | None:
+        status_code = getattr(error, "status_code", None)
+        if isinstance(status_code, int):
+            return status_code
+        response = getattr(error, "response", None)
+        if response is not None:
+            response_code = getattr(response, "status_code", None)
+            if isinstance(response_code, int):
+                return response_code
+        return None
+
+    def _drain_queue(self, target_queue: queue.Queue[Any]) -> None:
+        while not target_queue.empty():
+            try:
+                target_queue.get_nowait()
+            except queue.Empty:
+                break
+
+    def _start_callback_worker(self) -> None:
+        if self._callback_thread is not None and self._callback_thread.is_alive():
+            return
+        self._callback_stop.clear()
+        self._callback_thread = threading.Thread(
+            target=self._run_callback_worker, daemon=True
+        )
+        self._callback_thread.start()
+
+    def _run_callback_worker(self) -> None:
+        while True:
+            if self._callback_stop.is_set():
+                break
+            try:
+                item = self._callback_queue.get(timeout=1)
+            except queue.Empty:
+                if self._finished.is_set() and self._callback_queue.empty():
+                    break
+                continue
+            if item is None:
+                if self._callback_stop.is_set() or self._finished.is_set():
+                    break
+                continue
+            callback = self._on_message_cb
+            if callback is None:
+                continue
+            try:
+                callback(item)
+            except Exception:
+                logger.exception("on_message callback raised")
+            self._messages_processed += 1
+            if (
+                self._throughput_log_interval
+                and self._messages_processed % self._throughput_log_interval == 0
+            ):
+                logger.info(
+                    "WebSocket callback worker processed %d messages. "
+                    "Callback queue size=%d dropped=%d",
+                    self._messages_processed,
+                    self._callback_queue.qsize(),
+                    self._messages_dropped,
+                )
+
+    def _cancel_subscription_watchdog(self) -> None:
+        with self._lock:
+            timer = self._subscription_watchdog
+            self._subscription_watchdog = None
+        if timer is not None:
+            timer.cancel()
+
+    def _arm_subscription_watchdog(self, ws: websocket.WebSocketApp) -> None:
+        if not self._expected_channels:
+            return
+
+        def _watchdog_expired() -> None:
+            if self._user_disconnect.is_set():
+                return
+            with self._lock:
+                current_ws = self._ws
+            if ws is not current_ws:
+                return
+            with self._subscription_lock:
+                missing = sorted(self._expected_channels - self._subscribed_channels)
+            if not missing:
+                return
+            preview = ", ".join(missing[:5])
+            if len(missing) > 5:
+                preview = f"{preview}, ..."
+            self._last_close_code = 1008
+            self._last_close_msg = (
+                f"subscription watchdog timeout: missing {len(missing)} channels"
+            )
+            logger.error(
+                "Subscription watchdog timeout after %.1fs: received %d/%d subscriptions. "
+                "Missing: %s",
+                self._subscription_watchdog_timeout,
+                len(self._expected_channels) - len(missing),
+                len(self._expected_channels),
+                preview,
+            )
+            ws.close()
+
+        timer = threading.Timer(self._subscription_watchdog_timeout, _watchdog_expired)
+        timer.daemon = True
+        self._cancel_subscription_watchdog()
+        with self._lock:
+            self._subscription_watchdog = timer
+        timer.start()
+
+    def _process_subscription_event(
+        self, ws: websocket.WebSocketApp, data: dict
+    ) -> None:
+        event = data.get("event")
+        channel = data.get("channel")
+        if not isinstance(channel, str):
+            channel = None
+
+        if event == "channel_subscribed" and channel:
+            with self._subscription_lock:
+                self._subscribed_channels.add(channel)
+                subscribed_count = len(self._subscribed_channels)
+                expected_count = len(self._expected_channels)
+            logger.info(
+                "Channel subscribed (%d/%d): %s",
+                subscribed_count,
+                expected_count,
+                channel,
+            )
+            if channel not in self._expected_channels:
+                logger.warning(
+                    "Received channel_subscribed for unexpected channel: %s", channel
+                )
+            if subscribed_count >= expected_count:
+                self._cancel_subscription_watchdog()
+                logger.info("All requested channels subscribed (%d)", expected_count)
+            return
+
+        if event == "subscribe_failed":
+            detail = data.get("detail")
+            logger.error(
+                "Subscription failed for channel %s: %s. Closing to trigger reconnect.",
+                channel,
+                detail,
+            )
+            self._last_close_code = 1008
+            self._last_close_msg = f"subscribe_failed channel={channel} detail={detail}"
+            self._cancel_subscription_watchdog()
+            ws.close()
+
+    def _enqueue_message(self, message: dict, to_callback_queue: bool) -> None:
+        target_queue = self._callback_queue if to_callback_queue else self._queue
+        queue_name = "callback" if to_callback_queue else "receive"
+        self._messages_received += 1
+        try:
+            target_queue.put_nowait(message)
+        except queue.Full:
+            self._messages_dropped += 1
+            logger.warning("%s queue full; dropping message", queue_name.capitalize())
+            return
+        if (
+            self._throughput_log_interval
+            and self._messages_received % self._throughput_log_interval == 0
+        ):
+            logger.info(
+                "WebSocket received %d messages. %s queue size=%d dropped=%d",
+                self._messages_received,
+                queue_name.capitalize(),
+                target_queue.qsize(),
+                self._messages_dropped,
+            )
+
     # ------------------------------------------------------------------
     # Internal WebSocketApp handlers
 
     def _handle_open(self, ws: websocket.WebSocketApp) -> None:
+        logger.info(
+            "WebSocket opened. Requesting %d channel subscription(s)",
+            len(self._channels),
+        )
+        self._last_http_status = None
+        with self._subscription_lock:
+            self._subscribed_channels.clear()
         try:
             for channel in self._channels:
                 ws.send(json.dumps({"subscribe": channel}))
@@ -195,6 +441,8 @@ class _MistWebsocket:
             logger.error("Subscription send failed: %s", exc)
             ws.close()
             return
+        if self._expected_channels:
+            self._arm_subscription_watchdog(ws)
         self._reconnect_attempts = 0
         self._last_close_code = None
         self._last_close_msg = None
@@ -212,33 +460,70 @@ class _MistWebsocket:
             data = json.loads(message)
         except (json.JSONDecodeError, TypeError):
             data = {"raw": message}
-        if self._on_message_cb:
-            try:
-                self._on_message_cb(data)
-            except Exception:
-                logger.exception("on_message callback raised")
-        else:
-            try:
-                self._queue.put_nowait(data)
-            except queue.Full:
-                logger.warning("Receive queue full; dropping message")
 
-    def _handle_error(self, ws: websocket.WebSocketApp, error: Exception) -> None:
+        if isinstance(data, dict):
+            self._process_subscription_event(ws, data)
+
+        if self._on_message_cb:
+            self._start_callback_worker()
+            self._enqueue_message(data, to_callback_queue=True)
+            return
+
+        self._enqueue_message(data, to_callback_queue=False)
+
+    def _handle_error(self, _ws: websocket.WebSocketApp, error: Exception) -> None:
+        status_code = self._extract_status_code(error)
+        if status_code is not None:
+            self._last_http_status = status_code
+        if status_code == 429:
+            logger.warning(
+                "WebSocket received HTTP 429 (rate limit). "
+                "Reconnect backoff will be raised to at least %.1fs",
+                self._rate_limit_backoff,
+            )
+        else:
+            logger.error("WebSocket error: %s", error)
         if self._on_error_cb:
             try:
                 self._on_error_cb(error)
             except Exception:
                 logger.exception("on_error callback raised")
 
+    def _handle_ping(
+        self, _ws: websocket.WebSocketApp, message: str | bytes | None
+    ) -> None:
+        logger.info("WebSocket ping received")
+        if self._on_ping_cb:
+            try:
+                self._on_ping_cb(message)
+            except Exception:
+                logger.exception("on_ping callback raised")
+
+    def _handle_pong(
+        self, _ws: websocket.WebSocketApp, message: str | bytes | None
+    ) -> None:
+        logger.info("WebSocket pong received")
+        if self._on_pong_cb:
+            try:
+                self._on_pong_cb(message)
+            except Exception:
+                logger.exception("on_pong callback raised")
+
     def _handle_close(
         self,
-        ws: websocket.WebSocketApp,
+        _ws: websocket.WebSocketApp,
         close_status_code: int | None,
         close_msg: str | None,
     ) -> None:
         self._connected.clear()
+        self._cancel_subscription_watchdog()
         self._last_close_code = close_status_code
         self._last_close_msg = close_msg
+        logger.info(
+            "WebSocket closed. code=%s message=%s",
+            close_status_code,
+            close_msg,
+        )
 
     # ------------------------------------------------------------------
     # Lifecycle
@@ -253,6 +538,8 @@ class _MistWebsocket:
             on_message=self._handle_message,
             on_error=self._handle_error,
             on_close=self._handle_close,
+            on_ping=self._handle_ping,
+            on_pong=self._handle_pong,
         )
 
     def connect(self, run_in_background: bool = True) -> None:
@@ -270,15 +557,18 @@ class _MistWebsocket:
                 raise RuntimeError("Already connected; call disconnect() first")
             self._finished.clear()
             self._user_disconnect.clear()
+            self._callback_stop.clear()
             self._reconnect_attempts = 0
+            self._messages_received = 0
+            self._messages_dropped = 0
+            self._messages_processed = 0
             # Drain stale sentinel from previous connection
-            while not self._queue.empty():
-                try:
-                    self._queue.get_nowait()
-                except queue.Empty:
-                    break
+            self._drain_queue(self._queue)
+            self._drain_queue(self._callback_queue)
 
             self._ws = self._create_ws_app()
+            if self._on_message_cb:
+                self._start_callback_worker()
             if run_in_background:
                 self._thread = threading.Thread(
                     target=self._run_forever_safe, daemon=True
@@ -294,6 +584,8 @@ class _MistWebsocket:
             while True:
                 with self._lock:
                     ws = self._ws
+                if ws is None:
+                    break
                 try:
                     sslopt = self._build_sslopt()
                     ws.run_forever(
@@ -322,6 +614,8 @@ class _MistWebsocket:
                 delay = self._reconnect_backoff * (2 ** (self._reconnect_attempts - 1))
                 if self._max_reconnect_backoff is not None:
                     delay = min(delay, self._max_reconnect_backoff)
+                if self._last_http_status == 429:
+                    delay = max(delay, self._rate_limit_backoff)
                 if self._max_reconnect_attempts > 0:
                     logger.info(
                         "Reconnecting in %.1fs (attempt %d/%d)",
@@ -353,10 +647,16 @@ class _MistWebsocket:
                         pass
 
         finally:
+            self._cancel_subscription_watchdog()
+            self._callback_stop.set()
             try:
                 self._queue.put_nowait(None)  # sentinel — unblocks receive()
             except queue.Full:
                 pass  # _finished.set() below will unblock receive() independently
+            try:
+                self._callback_queue.put_nowait(None)  # sentinel — unblocks worker
+            except queue.Full:
+                pass
             self._finished.set()  # mark as not running — unblocks connect()
             if self._on_close_cb:
                 try:
@@ -376,13 +676,22 @@ class _MistWebsocket:
             when *wait* is True). ``None`` means wait indefinitely.
         """
         self._user_disconnect.set()
+        self._callback_stop.set()
+        self._cancel_subscription_watchdog()
         with self._lock:
             ws = self._ws
         if ws:
             ws.close()
+        try:
+            self._callback_queue.put_nowait(None)
+        except queue.Full:
+            pass
         if wait and self._thread is not None:
             if self._thread is not threading.current_thread():
                 self._thread.join(timeout=timeout)
+        if wait and self._callback_thread is not None:
+            if self._callback_thread is not threading.current_thread():
+                self._callback_thread.join(timeout=timeout)
 
     def receive(self) -> Generator[dict, None, None]:
         """
@@ -442,4 +751,4 @@ class _MistWebsocket:
 
     def ready(self) -> bool:
         """Returns True if the WebSocket connection is open and ready."""
-        return self._ws is not None and self._ws.ready()
+        return bool(self._ws is not None and self._ws.ready())

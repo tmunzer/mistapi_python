@@ -363,16 +363,42 @@ class TestHandleMessage:
 
     def test_calls_on_message_callback_with_parsed_data(self, ws_client) -> None:
         cb = Mock()
-        ws_client.on_message(cb)
+        called = threading.Event()
+
+        def cb_wrapper(data):
+            cb(data)
+            called.set()
+
+        ws_client.on_message(cb_wrapper)
+        ws_client._finished.clear()  # keep worker alive for this assertion
+        ws_client._start_callback_worker()
         payload = {"type": "event"}
         ws_client._handle_message(Mock(), json.dumps(payload))
+
+        assert called.wait(timeout=1), "callback was not invoked by worker"
         cb.assert_called_once_with(payload)
+
+        ws_client._callback_stop.set()
+        ws_client._callback_queue.put_nowait(None)
 
     def test_calls_on_message_callback_with_raw_fallback(self, ws_client) -> None:
         cb = Mock()
-        ws_client.on_message(cb)
+        called = threading.Event()
+
+        def cb_wrapper(data):
+            cb(data)
+            called.set()
+
+        ws_client.on_message(cb_wrapper)
+        ws_client._finished.clear()  # keep worker alive for this assertion
+        ws_client._start_callback_worker()
         ws_client._handle_message(Mock(), "plain text")
+
+        assert called.wait(timeout=1), "callback was not invoked by worker"
         cb.assert_called_once_with({"raw": "plain text"})
+
+        ws_client._callback_stop.set()
+        ws_client._callback_queue.put_nowait(None)
 
     def test_no_error_without_on_message_callback(self, ws_client) -> None:
         ws_client._handle_message(Mock(), '{"ok": true}')  # Should not raise
@@ -461,6 +487,8 @@ class TestConnect:
             on_message=ws_client._handle_message,
             on_error=ws_client._handle_error,
             on_close=ws_client._handle_close,
+            on_ping=ws_client._handle_ping,
+            on_pong=ws_client._handle_pong,
         )
         mock_ws_instance.run_forever.assert_called_once()
 
@@ -538,8 +566,8 @@ class TestRunForeverSafe:
         client._ws = mock_ws
         client._run_forever_safe()
         mock_ws.run_forever.assert_called_once_with(
-            ping_interval=30,
-            ping_timeout=10,
+            ping_interval=60,
+            ping_timeout=45,
             sslopt={"cert_reqs": ssl.CERT_NONE, "check_hostname": False},
         )
 
@@ -687,8 +715,8 @@ class TestInit:
     """Tests for __init__ defaults."""
 
     def test_default_ping_interval_and_timeout(self, ws_client) -> None:
-        assert ws_client._ping_interval == 30
-        assert ws_client._ping_timeout == 10
+        assert ws_client._ping_interval == 60
+        assert ws_client._ping_timeout == 45
 
     def test_custom_ping_interval_and_timeout(self, single_channel_client) -> None:
         assert single_channel_client._ping_interval == 15
@@ -728,6 +756,22 @@ class TestInit:
     def test_negative_queue_maxsize_raises(self, mock_session) -> None:
         with pytest.raises(ValueError, match="queue_maxsize must be >= 0"):
             _MistWebsocket(mock_session, channels=["/ch"], queue_maxsize=-1)
+
+    def test_ping_interval_must_be_greater_than_ping_timeout(
+        self, mock_session
+    ) -> None:
+        with pytest.raises(ValueError, match="ping_interval must be greater"):
+            _MistWebsocket(
+                mock_session,
+                channels=["/ch"],
+                ping_interval=10,
+                ping_timeout=10,
+            )
+
+    def test_channel_limit_enforced(self, mock_session) -> None:
+        channels = [f"/sites/{i}/stats/devices" for i in range(2001)]
+        with pytest.raises(ValueError, match="Too many channels"):
+            _MistWebsocket(mock_session, channels=channels)
 
     def test_negative_max_reconnect_backoff_raises(self, mock_session) -> None:
         with pytest.raises(ValueError, match="max_reconnect_backoff must be > 0"):
@@ -1205,11 +1249,23 @@ class TestQueueCallbackBehavior:
 
     def test_message_callback_skips_queue(self, ws_client) -> None:
         cb = Mock()
-        ws_client.on_message(cb)
+        called = threading.Event()
+
+        def cb_wrapper(data):
+            cb(data)
+            called.set()
+
+        ws_client.on_message(cb_wrapper)
+        ws_client._finished.clear()  # keep worker alive for this assertion
+        ws_client._start_callback_worker()
         ws_client._handle_message(Mock(), '{"event": "data"}')
 
+        assert called.wait(timeout=1), "callback was not invoked by worker"
         cb.assert_called_once_with({"event": "data"})
         assert ws_client._queue.empty()
+
+        ws_client._callback_stop.set()
+        ws_client._callback_queue.put_nowait(None)
 
     def test_no_callback_uses_queue(self, ws_client) -> None:
         ws_client._handle_message(Mock(), '{"event": "data"}')
