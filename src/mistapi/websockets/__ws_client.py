@@ -135,6 +135,7 @@ class _MistWebsocket:
         self._throughput_log_interval = throughput_log_interval
         self._lock = threading.Lock()
         self._subscription_lock = threading.Lock()
+        self._metrics_lock = threading.Lock()
         self._ws: websocket.WebSocketApp | None = None
         self._thread: threading.Thread | None = None
         self._callback_thread: threading.Thread | None = None
@@ -302,17 +303,20 @@ class _MistWebsocket:
                 callback(item)
             except Exception:
                 logger.exception("on_message callback raised")
-            self._messages_processed += 1
+            with self._metrics_lock:
+                self._messages_processed += 1
+                messages_processed = self._messages_processed
+                messages_dropped = self._messages_dropped
             if (
                 self._throughput_log_interval
-                and self._messages_processed % self._throughput_log_interval == 0
+                and messages_processed % self._throughput_log_interval == 0
             ):
                 logger.info(
                     "WebSocket callback worker processed %d messages. "
                     "Callback queue size=%d dropped=%d",
-                    self._messages_processed,
+                    messages_processed,
                     self._callback_queue.qsize(),
-                    self._messages_dropped,
+                    messages_dropped,
                 )
 
     def _cancel_subscription_watchdog(self) -> None:
@@ -374,12 +378,22 @@ class _MistWebsocket:
                 self._subscribed_channels.add(channel)
                 subscribed_count = len(self._subscribed_channels)
                 expected_count = len(self._expected_channels)
-            logger.info(
+            logger.debug(
                 "Channel subscribed (%d/%d): %s",
                 subscribed_count,
                 expected_count,
                 channel,
             )
+            if expected_count and (
+                subscribed_count == 1
+                or subscribed_count % 100 == 0
+                or subscribed_count >= expected_count
+            ):
+                logger.info(
+                    "Subscription progress: received %d/%d channel acknowledgements",
+                    subscribed_count,
+                    expected_count,
+                )
             if channel not in self._expected_channels:
                 logger.warning(
                     "Received channel_subscribed for unexpected channel: %s", channel
@@ -404,23 +418,28 @@ class _MistWebsocket:
     def _enqueue_message(self, message: dict, to_callback_queue: bool) -> None:
         target_queue = self._callback_queue if to_callback_queue else self._queue
         queue_name = "callback" if to_callback_queue else "receive"
-        self._messages_received += 1
+        with self._metrics_lock:
+            self._messages_received += 1
+            messages_received = self._messages_received
         try:
             target_queue.put_nowait(message)
         except queue.Full:
-            self._messages_dropped += 1
+            with self._metrics_lock:
+                self._messages_dropped += 1
             logger.warning("%s queue full; dropping message", queue_name.capitalize())
             return
         if (
             self._throughput_log_interval
-            and self._messages_received % self._throughput_log_interval == 0
+            and messages_received % self._throughput_log_interval == 0
         ):
+            with self._metrics_lock:
+                messages_dropped = self._messages_dropped
             logger.info(
                 "WebSocket received %d messages. %s queue size=%d dropped=%d",
-                self._messages_received,
+                messages_received,
                 queue_name.capitalize(),
                 target_queue.qsize(),
-                self._messages_dropped,
+                messages_dropped,
             )
 
     # ------------------------------------------------------------------
@@ -493,7 +512,7 @@ class _MistWebsocket:
     def _handle_ping(
         self, _ws: websocket.WebSocketApp, message: str | bytes | None
     ) -> None:
-        logger.info("WebSocket ping received")
+        logger.debug("WebSocket ping received")
         if self._on_ping_cb:
             try:
                 self._on_ping_cb(message)
@@ -503,7 +522,7 @@ class _MistWebsocket:
     def _handle_pong(
         self, _ws: websocket.WebSocketApp, message: str | bytes | None
     ) -> None:
-        logger.info("WebSocket pong received")
+        logger.debug("WebSocket pong received")
         if self._on_pong_cb:
             try:
                 self._on_pong_cb(message)
