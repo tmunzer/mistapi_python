@@ -460,6 +460,8 @@ class _MistWebsocket:
             data = json.loads(message)
         except (json.JSONDecodeError, TypeError):
             data = {"raw": message}
+        if not isinstance(data, dict):
+            data = {"data": data}
 
         if isinstance(data, dict):
             self._process_subscription_event(ws, data)
@@ -473,8 +475,7 @@ class _MistWebsocket:
 
     def _handle_error(self, _ws: websocket.WebSocketApp, error: Exception) -> None:
         status_code = self._extract_status_code(error)
-        if status_code is not None:
-            self._last_http_status = status_code
+        self._last_http_status = status_code
         if status_code == 429:
             logger.warning(
                 "WebSocket received HTTP 429 (rate limit). "
@@ -517,12 +518,14 @@ class _MistWebsocket:
     ) -> None:
         self._connected.clear()
         self._cancel_subscription_watchdog()
-        self._last_close_code = close_status_code
-        self._last_close_msg = close_msg
+        if close_status_code is not None:
+            self._last_close_code = close_status_code
+        if close_msg not in (None, ""):
+            self._last_close_msg = close_msg
         logger.info(
             "WebSocket closed. code=%s message=%s",
-            close_status_code,
-            close_msg,
+            self._last_close_code,
+            self._last_close_msg,
         )
 
     # ------------------------------------------------------------------
