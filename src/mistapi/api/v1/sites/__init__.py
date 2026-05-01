@@ -12,7 +12,6 @@
 
 from mistapi.api.v1.sites import (
     sites,
-    search,
     aamwprofiles,
     alarms,
     analyze_spectrum,
@@ -35,6 +34,7 @@ from mistapi.api.v1.sites import (
     guests,
     idpprofiles,
     insights,
+    iotendpoints,
     licenses,
     location,
     maps,
@@ -82,7 +82,6 @@ from mistapi.api.v1.sites import (
 
 __all__ = [
     "sites",
-    "search",
     "aamwprofiles",
     "alarms",
     "analyze_spectrum",
@@ -105,6 +104,7 @@ __all__ = [
     "guests",
     "idpprofiles",
     "insights",
+    "iotendpoints",
     "licenses",
     "location",
     "maps",

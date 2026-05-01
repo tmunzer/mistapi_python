@@ -10,10 +10,9 @@
 --------------------------------------------------------------------------------
 """
 
-import deprecation
-
 from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
+import deprecation
 
 
 @deprecation.deprecated(

@@ -55,7 +55,7 @@ def searchSiteIotEndpoints(
         response from the API call
     """
 
-    uri = f"/api/v1/sites/{site_id}//search"
+    uri = f"/api/v1/sites/{site_id}/iotendpoints/search"
     query_params: dict[str, str] = {}
     if ap_mac:
         query_params["ap_mac"] = str(ap_mac)
