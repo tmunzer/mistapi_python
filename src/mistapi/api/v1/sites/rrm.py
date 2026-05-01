@@ -14,6 +14,48 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
+def getSiteChannelScores(
+    mist_session: _APISession,
+    site_id: str,
+    band: str,
+    start: str | None = None,
+    end: str | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/rrm/get-site-channel-scores
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
+      802.11 Band
+
+    QUERY PARAMS
+    ------------
+    start : str
+    end : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/rrm/channel_scores/band/{band}"
+    query_params: dict[str, str] = {}
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
 def getSiteCurrentChannelPlanning(
     mist_session: _APISession, site_id: str
 ) -> _APIResponse:
@@ -56,7 +98,7 @@ def getSiteCurrentRrmConsiderations(
     -----------
     site_id : str
     device_id : str
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
 
     RETURN
@@ -95,7 +137,7 @@ def listSiteRrmEvents(
 
     QUERY PARAMS
     ------------
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
     start : str
     end : str
@@ -145,7 +187,7 @@ def listSiteCurrentRrmNeighbors(
     PATH PARAMS
     -----------
     site_id : str
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
 
     QUERY PARAMS

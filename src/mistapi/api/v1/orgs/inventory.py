@@ -154,8 +154,12 @@ def updateOrgInventoryAssignment(
 def countOrgInventory(
     mist_session: _APISession,
     org_id: str,
-    type: str | None = None,
     distinct: str | None = None,
+    type: str | None = None,
+    site_id: str | None = None,
+    model: str | None = None,
+    version: str | None = None,
+    status: str | None = None,
     limit: int | None = None,
 ) -> _APIResponse:
     """
@@ -172,8 +176,12 @@ def countOrgInventory(
 
     QUERY PARAMS
     ------------
-    type : str{'ap', 'gateway', 'switch'}, default: ap
     distinct : str{'model', 'status', 'site_id', 'sku', 'version'}, default: model
+    type : str{'ap', 'gateway', 'switch'}, default: ap
+    site_id : str
+    model : str
+    version : str
+    status : str{'connected', 'disconnected'}
     limit : int, default: 100
 
     RETURN
@@ -184,10 +192,18 @@ def countOrgInventory(
 
     uri = f"/api/v1/orgs/{org_id}/inventory/count"
     query_params: dict[str, str] = {}
-    if type:
-        query_params["type"] = str(type)
     if distinct:
         query_params["distinct"] = str(distinct)
+    if type:
+        query_params["type"] = str(type)
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if model:
+        query_params["model"] = str(model)
+    if version:
+        query_params["version"] = str(version)
+    if status:
+        query_params["status"] = str(status)
     if limit:
         query_params["limit"] = str(limit)
     resp = mist_session.mist_get(uri=uri, query=query_params)

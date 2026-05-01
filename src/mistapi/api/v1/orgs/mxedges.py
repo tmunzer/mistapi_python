@@ -578,6 +578,65 @@ def getOrgMxEdgeUpgrade(
     return resp
 
 
+def updateOrgMxEdgeUpgrade(
+    mist_session: _APISession, org_id: str, upgrade_id: str, body: dict
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/update-org-mx-edge-upgrade
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+    upgrade_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/mxedges/upgrade/{upgrade_id}"
+    resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+
+
+def cancelOrgMxEdgeUpgrade(
+    mist_session: _APISession, org_id: str, upgrade_id: str
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/upgrade/cancel-org-mx-edge-upgrade
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+    upgrade_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/mxedges/upgrade/{upgrade_id}/cancel"
+    resp = mist_session.mist_post(uri=uri)
+    return resp
+
+
 def getOrgMxEdgeUpgradeInfo(
     mist_session: _APISession,
     org_id: str,

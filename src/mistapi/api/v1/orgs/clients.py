@@ -139,7 +139,7 @@ def countOrgWirelessClientEvents(
     ap : str
     proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
       a / b / g / n / ac / ax
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
     wlan_id : str
     site_id : str
@@ -227,7 +227,7 @@ def searchOrgWirelessClientEvents(
       Key Management Protocol, e.g. WPA2-PSK, WPA3-SAE, WPA2-Enterprise
     proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
       a / b / g / n / ac / ax
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
     wlan_id : str
     nacrule_id : str
@@ -428,7 +428,7 @@ def countOrgWirelessClientsSessions(
     ------------
     distinct : str{'ap', 'device', 'hostname', 'ip', 'model', 'os', 'ssid', 'vlan'}, default: device
     ap : str
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
     client_family : str
     client_manufacture : str
@@ -515,7 +515,7 @@ def searchOrgWirelessClientSessions(
     QUERY PARAMS
     ------------
     ap : str
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
     client_family : str
     client_manufacture : str

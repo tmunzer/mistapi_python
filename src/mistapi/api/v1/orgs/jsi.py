@@ -515,12 +515,18 @@ def countOrgJsiSirt(
 def searchOrgJsiSirt(
     mist_session: _APISession,
     org_id: str,
-    versions: str | None = None,
-    models: str | None = None,
     severity: str | None = None,
     id: str | None = None,
+    updated_after: str | None = None,
+    updated_before: str | None = None,
+    published_after: str | None = None,
+    published_before: str | None = None,
+    models: str | None = None,
+    versions: str | None = None,
+    text: str | None = None,
     limit: int | None = None,
     page: int | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -539,12 +545,18 @@ def searchOrgJsiSirt(
 
     QUERY PARAMS
     ------------
-    versions : str
-    models : str
     severity : str
     id : str
+    updated_after : str
+    updated_before : str
+    published_after : str
+    published_before : str
+    models : str
+    versions : str
+    text : str
     limit : int, default: 100
     page : int, default: 1
+    sort : str, default: timestamp
     search_after : str
     start : str
     end : str
@@ -557,18 +569,30 @@ def searchOrgJsiSirt(
 
     uri = f"/api/v1/orgs/{org_id}/jsi/sirt/search"
     query_params: dict[str, str] = {}
-    if versions:
-        query_params["versions"] = str(versions)
-    if models:
-        query_params["models"] = str(models)
     if severity:
         query_params["severity"] = str(severity)
     if id:
         query_params["id"] = str(id)
+    if updated_after:
+        query_params["updated_after"] = str(updated_after)
+    if updated_before:
+        query_params["updated_before"] = str(updated_before)
+    if published_after:
+        query_params["published_after"] = str(published_after)
+    if published_before:
+        query_params["published_before"] = str(published_before)
+    if models:
+        query_params["models"] = str(models)
+    if versions:
+        query_params["versions"] = str(versions)
+    if text:
+        query_params["text"] = str(text)
     if limit:
         query_params["limit"] = str(limit)
     if page:
         query_params["page"] = str(page)
+    if sort:
+        query_params["sort"] = str(sort)
     if search_after:
         query_params["search_after"] = str(search_after)
     if start:

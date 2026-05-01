@@ -1,4 +1,69 @@
 # CHANGELOG
+## Version 0.62.0 (May 2026)
+
+**Released**: May 1, 2026
+
+This release updates generated API bindings from the latest OpenAPI spec, adding new endpoints for E911 export, SSO admin management, NAC CoA, Mist Edge upgrades, and site auto-map assignment workflows.
+
+---
+
+### 1. NEW FEATURES
+
+#### **Org Exports: E911 Report Management**
+Added a new org exports module with E911 report controls:
+- **`getOrgE911Report()`**
+- **`enableOrgE911Report()`**
+- **`disableOrgE911Report()`**
+
+#### **SSO Admin Removal APIs**
+Added explicit SSO admin cleanup endpoints:
+- **`deleteOrgSsoAdmins()`**
+- **`deleteMspSsoAdmins()`**
+
+#### **NAC Change of Authorization (CoA)**
+Added NAC CoA trigger functions:
+- **`sendOrgNacClientCoA()`**
+- **`sendSiteNacClientCoA()`**
+
+#### **Mist Edge Upgrade Lifecycle APIs**
+Added org and site upgrade lifecycle operations:
+- Org: **`updateOrgMxEdgeUpgrade()`**, **`cancelOrgMxEdgeUpgrade()`**
+- Site: **`listSiteMxEdgeUpgrades()`**, **`upgradeSiteMxEdges()`**, **`getSiteMxEdgeUpgrade()`**, **`updateSiteMxEdgeUpgrade()`**, **`cancelSiteMxEdgeUpgrade()`**
+
+#### **Site Auto-Map Assignment APIs**
+Added new site modules and functions for auto-map assignment workflows:
+- **`startSiteAutoMapAssignment()`**, **`getSiteAutoMapAssignmentStatus()`**, **`cancelSiteAutoMapAssignment()`**
+- **`applySiteAutoMapAssignment()`**
+- **`clearSiteAutoMapAssignment()`**
+
+#### **Additional Site API Coverage**
+- Added **`enableSiteDeviceZigbeeJoin()`**
+- Added **`getSiteChannelScores()`**
+- Added **`searchSiteIotEndpoints()`**
+
+---
+
+### 2. IMPROVEMENTS
+
+#### **Expanded Query Parameter Coverage**
+- **`countOrgInventory()`** now supports `site_id`, `model`, `version`, and `status` filters.
+- **`searchOrgJsiSirt()`** now supports `updated_after`, `updated_before`, `published_after`, `published_before`, `text`, and `sort`.
+- **`listOrgSecIntelProfiles()`** now supports `limit` and `page`.
+
+#### **Audit Log API Alignment**
+- **`countOrgAuditLogs()`** now maps to `/logs/count` with count-specific filters.
+- **`listOrgAuditLogs()`** now maps to `/logs/search` with listing and pagination parameters.
+
+#### **Updated Band Enum Support**
+Expanded band values across org/site wireless client and RRM APIs to include:
+- `5-dedicated`, `5-selectable`, `6-dedicated`, `6-selectable`
+
+#### **Module Export Updates**
+- Added org module export: **`exports`**
+- Added site module exports: **`search`**, **`apply_auto_map_assignment`**, **`auto_map_assignment`**, **`clear_auto_map_assignment`**
+
+---
+
 ## Version 0.61.5 (April 2026)
 
 **Released**: April 22, 2026
@@ -13,6 +78,7 @@ This release fixes a bug in the `Privileges` class initialization.
 Fixed `Privileges.__init__()` to correctly handle lists containing `_Privilege` instances in addition to dicts. Previously, passing already-instantiated `_Privilege` objects would cause initialization errors.
 
 ---
+
 
 ## Version 0.61.4 (April 2026)
 
