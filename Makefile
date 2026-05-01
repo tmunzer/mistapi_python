@@ -24,7 +24,6 @@ setup-openapi: ## Initialize or update OpenAPI submodule
 	git submodule update --remote mist_openapi
 
 generate: setup-openapi ## Run the code generation script
-	git submodule update --remote mist_openapi
 	echo "Updating version in pyproject.toml to $(VERSION)"
 	sed -e "s/version = .*/version = \"$(VERSION)\"/g" pyproject.toml > new_pyproject.toml
 	mv new_pyproject.toml pyproject.toml

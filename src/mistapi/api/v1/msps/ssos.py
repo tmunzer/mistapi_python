@@ -154,6 +154,38 @@ def updateMspSso(
     return resp
 
 
+def deleteMspSsoAdmins(
+    mist_session: _APISession, msp_id: str, sso_id: str, body: dict | list
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/msps/sso/delete-msp-sso-admins
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    msp_id : str
+    sso_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/msps/{msp_id}/ssos/{sso_id}/delete_admins"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+
+
 def listMspSsoLatestFailures(
     mist_session: _APISession, msp_id: str, sso_id: str
 ) -> _APIResponse:

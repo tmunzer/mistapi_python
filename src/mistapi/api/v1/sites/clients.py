@@ -165,7 +165,7 @@ def countSiteWirelessClientEvents(
     ap : str
     proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
       a / b / g / n / ac / ax
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
     wlan_id : str
     start : str
@@ -247,7 +247,7 @@ def searchSiteWirelessClientEvents(
     ap : str
     proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
       a / b / g / n / ac / ax
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
     wlan_id : str
     nacrule_id : str
@@ -442,7 +442,7 @@ def countSiteWirelessClientSessions(
     ------------
     distinct : str{'ap', 'client_family', 'client_manufacture', 'client_model', 'client_os', 'mac', 'ssid', 'wlan_id'}, default: mac
     ap : str
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
     client_family : str
     client_manufacture : str
@@ -529,7 +529,7 @@ def searchSiteWirelessClientSessions(
     QUERY PARAMS
     ------------
     ap : str
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
     client_family : str
     client_manufacture : str
@@ -712,7 +712,7 @@ def getSiteEventsForClient(
     type : str
     proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
       a / b / g / n / ac / ax
-    band : str{'24', '5', '6'}
+    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
       802.11 Band
     channel : str
     wlan_id : str
