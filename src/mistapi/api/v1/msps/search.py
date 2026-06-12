@@ -40,13 +40,19 @@ def searchMspOrgGroup(
     QUERY PARAMS
     ------------
     type : str{'orgs'}
-      Orgs
+      MSP search result type to return. enum: `orgs`
     q : str
+      Filter results by search string
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
 
     RETURN
     -----------

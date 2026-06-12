@@ -38,10 +38,15 @@ def listSitePsks(
     QUERY PARAMS
     ------------
     ssid : str
+      Filter results by SSID
     role : str
+      Filter PSK results by role
     name : str
+      Filter results by name
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -145,7 +150,7 @@ def importSitePsksFile(
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload.
+        path to the file to upload. Uploaded CSV or binary file containing PSKs to import
 
     RETURN
     -----------
@@ -205,6 +210,7 @@ def getSitePsk(mist_session: _APISession, site_id: str, psk_id: str) -> _APIResp
     -----------
     site_id : str
     psk_id : str
+      PSK ID
 
     RETURN
     -----------
@@ -231,6 +237,7 @@ def deleteSitePsk(mist_session: _APISession, site_id: str, psk_id: str) -> _APIR
     -----------
     site_id : str
     psk_id : str
+      PSK ID
 
     RETURN
     -----------
@@ -259,6 +266,7 @@ def updateSitePsk(
     -----------
     site_id : str
     psk_id : str
+      PSK ID
 
     BODY PARAMS
     -----------

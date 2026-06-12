@@ -47,19 +47,33 @@ def countOrgWirelessClients(
     QUERY PARAMS
     ------------
     distinct : str{'ap', 'device', 'hostname', 'ip', 'mac', 'model', 'os', 'ssid', 'vlan'}, default: device
+      Field used to group this count response. enum: `ap`, `device`, `hostname`, `ip`, `mac`, `model`, `os`, `ssid`, `vlan`
     mac : str
+      Partial / full Client MAC address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported. Accepts multiple comma-separated values.
     hostname : str
+      Partial / full Client hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported. Accepts multiple comma-separated values.
     device : str
+      Filter results by device type
     os : str
+      Filter results by operating system
     model : str
+      Filter results by device model
     ap : str
+      Filter results by AP MAC address
     vlan : str
+      Filter results by VLAN ID
     ssid : str
+      Filter results by SSID
     ip : str
+      Filter results by IPv4 address
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -133,20 +147,31 @@ def countOrgWirelessClientEvents(
     QUERY PARAMS
     ------------
     distinct : str{'band', 'channel', 'proto', 'ssid', 'type', 'wlan_id'}
+      Field used to group this count response. enum: `band`, `channel`, `proto`, `ssid`, `type`, `wlan_id`
     type : str
+      See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions). Accepts multiple comma-separated values.
     reason_code : int
+      Reason code filter for association and disassociation events
     ssid : str
+      Filter results by SSID
     ap : str
+      Filter results by AP MAC address
     proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
-      a / b / g / n / ac / ax
+      802.11 protocol used to filter results. enum: `a`, `ac`, `ax`, `b`, `be`, `g`, `n`
     band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
-      802.11 Band
+      802.11 band used to filter radio results. enum: `24`, `5`, `5-dedicated`, `5-selectable`, `6`, `6-dedicated`, `6-selectable`
     wlan_id : str
+      Filter results by WLAN identifier
     site_id : str
+      Filter results by site identifier
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -190,7 +215,7 @@ def searchOrgWirelessClientEvents(
     mist_session: _APISession,
     org_id: str,
     type: str | None = None,
-    reason_code: int | None = None,
+    reason_code: str | None = None,
     ssid: str | None = None,
     ap: str | None = None,
     key_mgmt: str | None = None,
@@ -220,23 +245,35 @@ def searchOrgWirelessClientEvents(
     QUERY PARAMS
     ------------
     type : str
-    reason_code : int
+      See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions). Accepts multiple comma-separated values.
+    reason_code : str
+      Reason code filter for association and disassociation events. Accepts multiple comma-separated integer values.
     ssid : str
+      Filter results by SSID. Accepts multiple comma-separated values.
     ap : str
-    key_mgmt : str{'WPA2-PSK', 'WPA2-PSK/CCMP', 'WPA2-PSK-FT', 'WPA2-PSK-SHA256', 'WPA3-EAP-SHA256', 'WPA3-EAP-SHA256/CCMP', 'WPA3-EAP-FT/GCMP256', 'WPA3-SAE-FT', 'WPA3-SAE-PSK'}
-      Key Management Protocol, e.g. WPA2-PSK, WPA3-SAE, WPA2-Enterprise
-    proto : str{'a', 'ac', 'ax', 'b', 'be', 'g', 'n'}
-      a / b / g / n / ac / ax
-    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
-      802.11 Band
+      Filter results by AP MAC address. Accepts multiple comma-separated values.
+    key_mgmt : str
+      Key management protocol used to filter client events. enum: `WPA2-PSK`, `WPA2-PSK/CCMP`, `WPA2-PSK-FT`, `WPA2-PSK-SHA256`, `WPA3-EAP-SHA256`, `WPA3-EAP-SHA256/CCMP`, `WPA3-EAP-FT/GCMP256`, `WPA3-SAE-FT`, `WPA3-SAE-PSK`. Accepts multiple comma-separated values.
+    proto : str
+      802.11 protocol used to filter results. enum: `a`, `ac`, `ax`, `b`, `be`, `g`, `n`. Accepts multiple comma-separated values.
+    band : str
+      802.11 band used to filter radio results. enum: `24`, `5`, `5-dedicated`, `5-selectable`, `6`, `6-dedicated`, `6-selectable`. Accepts multiple comma-separated values.
     wlan_id : str
+      Filter results by WLAN identifier
     nacrule_id : str
+      Filter results by NAC rule identifier. Accepts multiple comma-separated values.
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     limit : int, default: 100
+      Maximum number of results to return per page
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -320,26 +357,47 @@ def searchOrgWirelessClients(
     QUERY PARAMS
     ------------
     site_id : str
+      Filter results by site identifier
     ap : str
+      Filter results by AP MAC address
     band : str
+      Comma separated list of Radio band (e.g. `24,5`). enum: `24`, `5`, `6`
     device : str
+      Comma separated list of Device type (e.g. `Mac,iPhone`). Case sensitive
     hostname : str
+      Partial / full Client hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported. Accepts multiple comma-separated values.
     ip : str
+      Partial / full Client IP address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `10.100.10.*` and `*100.10.*` match `10.100.10.54`). Suffix-only wildcards (e.g. `*.54`) are not supported. Accepts multiple comma-separated values.
     mac : str
+      Partial / full Client MAC address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported. Accepts multiple comma-separated values.
     model : str
+      Only available for clients running the Marvis Client app, model, e.g. "MBP 15 late 2013", 6, 6s, "8+ GSM"
     os : str
+      Only available for clients running the Marvis Client app, os, e.g. Sierra, Yosemite, Windows 10
     psk_id : str
+      PSK identifier used to filter the results
     psk_name : str
+      Only available for clients using PPSK authentication, the Name of the PSK
     ssid : str
+      Filter results by SSID
     text : str
+      Partial / full MAC address, hostname, username, psk_name or ip. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported
     username : str
+      Partial / full username. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `johndoe*` and `*mycorp*` match `johndoe@mycorp.com`). Suffix-only wildcards (e.g. `*mycorp.com`) are not supported. Accepts multiple comma-separated values.
     vlan : str
+      Filter results by VLAN ID
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -427,19 +485,31 @@ def countOrgWirelessClientsSessions(
     QUERY PARAMS
     ------------
     distinct : str{'ap', 'device', 'hostname', 'ip', 'model', 'os', 'ssid', 'vlan'}, default: device
+      Field used to group this count response. enum: `ap`, `device`, `hostname`, `ip`, `model`, `os`, `ssid`, `vlan`
     ap : str
+      Filter results by AP MAC address
     band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
-      802.11 Band
+      802.11 band used to filter radio results. enum: `24`, `5`, `5-dedicated`, `5-selectable`, `6`, `6-dedicated`, `6-selectable`
     client_family : str
+      E.g. "Mac", "iPhone", "Apple watch"
     client_manufacture : str
+      Filter results by client manufacturer, e.g. "Apple"
     client_model : str
+      Filter results by client model, e.g. "8+", "XS"
     client_os : str
+      E.g. "Mojave", "Windows 10", "Linux"
     ssid : str
+      Filter results by SSID
     wlan_id : str
+      Filter results by WLAN identifier
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -515,23 +585,39 @@ def searchOrgWirelessClientSessions(
     QUERY PARAMS
     ------------
     ap : str
-    band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
-      802.11 Band
+      Filter results by AP MAC address
+    band : str
+      802.11 band used to filter radio results. enum: `24`, `5`, `5-dedicated`, `5-selectable`, `6`, `6-dedicated`, `6-selectable`. Accepts multiple comma-separated values.
     client_family : str
+      E.g. "Mac", "iPhone", "Apple watch". Accepts multiple comma-separated values.
     client_manufacture : str
+      Filter results by client manufacturer, e.g. "Apple". Accepts multiple comma-separated values.
     client_model : str
+      Filter results by client model, e.g. "8+", "XS". Accepts multiple comma-separated values.
     client_username : str
+      Filter results by client username. Accepts multiple comma-separated values.
     client_os : str
+      E.g. "Mojave", "Windows 10", "Linux". Accepts multiple comma-separated values.
     ssid : str
+      Filter results by SSID. Accepts multiple comma-separated values.
     wlan_id : str
+      Filter results by WLAN identifier
     psk_id : str
+      PSK identifier used to filter the results
     psk_name : str
+      Filter results by PSK name. Accepts multiple comma-separated values.
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

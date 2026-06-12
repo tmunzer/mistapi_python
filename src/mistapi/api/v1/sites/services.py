@@ -32,6 +32,7 @@ def listSiteServicesDerived(
     QUERY PARAMS
     ------------
     resolve : bool
+      Whether resolve the site variables
 
     RETURN
     -----------
@@ -59,7 +60,6 @@ def countSiteServicePathEvents(
     port_id: str | None = None,
     model: str | None = None,
     version: str | None = None,
-    timestamp: float | None = None,
     mac: str | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -81,20 +81,33 @@ def countSiteServicePathEvents(
     QUERY PARAMS
     ------------
     distinct : str{'mac', 'model', 'policy', 'port_id', 'site_id', 'type', 'vpn_name', 'vpn_path'}, default: type
+      Field used to group this count response. enum: `mac`, `model`, `policy`, `port_id`, `site_id`, `type`, `vpn_name`, `vpn_path`
     type : str
+      Event type, e.g. GW_SERVICE_PATH_DOWN
     text : str
+      Description of the event including the reason it is triggered
     vpn_name : str
+      Filter results by vpn name
     vpn_path : str
+      Filter results by vpn path
     policy : str
+      Service policy associated with that specific path
     port_id : str
+      Filter results by port identifier
     model : str
+      Filter results by device model
     version : str
-    timestamp : float
+      Filter results by software version
     mac : str
+      Filter results by MAC address
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -122,8 +135,6 @@ def countSiteServicePathEvents(
         query_params["model"] = str(model)
     if version:
         query_params["version"] = str(version)
-    if timestamp:
-        query_params["timestamp"] = str(timestamp)
     if mac:
         query_params["mac"] = str(mac)
     if start:
@@ -151,7 +162,6 @@ def searchSiteServicePathEvents(
     port_id: str | None = None,
     model: str | None = None,
     version: str | None = None,
-    timestamp: float | None = None,
     mac: str | None = None,
     limit: int | None = None,
     start: str | None = None,
@@ -175,23 +185,39 @@ def searchSiteServicePathEvents(
     QUERY PARAMS
     ------------
     type : str
+      Event type, e.g. GW_SERVICE_PATH_DOWN
     text : str
+      Description of the event including the reason it is triggered
     peer_port_id : str
+      Port ID of the peer gateway
     peer_mac : str
+      MAC address of the peer gateway
     vpn_name : str
+      Filter results by vpn name
     vpn_path : str
+      Filter results by vpn path
     policy : str
+      Service policy associated with that specific path
     port_id : str
+      Filter results by port identifier
     model : str
+      Filter results by device model
     version : str
-    timestamp : float
+      Filter results by software version
     mac : str
+      Filter results by MAC address
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -221,8 +247,6 @@ def searchSiteServicePathEvents(
         query_params["model"] = str(model)
     if version:
         query_params["version"] = str(version)
-    if timestamp:
-        query_params["timestamp"] = str(timestamp)
     if mac:
         query_params["mac"] = str(mac)
     if limit:

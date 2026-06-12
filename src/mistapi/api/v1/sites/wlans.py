@@ -35,7 +35,9 @@ def listSiteWlans(
     QUERY PARAMS
     ------------
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -105,7 +107,9 @@ def listSiteWlansDerived(
     QUERY PARAMS
     ------------
     resolve : bool
+      Whether to resolve SITE_VARS
     wlan_id : str
+      Filter by WLAN ID
 
     RETURN
     -----------
@@ -260,8 +264,9 @@ def uploadSiteWlanPortalImageFile(
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. Binary file
+        path to the file to upload. Image file content uploaded as multipart form data
     json : str
+        Optional JSON metadata submitted with the image upload
 
     RETURN
     -----------

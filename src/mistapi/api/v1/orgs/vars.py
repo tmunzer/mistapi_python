@@ -39,11 +39,17 @@ def searchOrgVars(
     QUERY PARAMS
     ------------
     site_id : str
+      Filter results by site identifier. Accepts multiple comma-separated values.
     var : str
+      Filter variable results by variable name. Accepts multiple comma-separated values.
     src : str{'deviceprofile', 'site'}
+      Filter results by source. enum: `deviceprofile`, `site`
     limit : int, default: 100
+      Maximum number of results to return per page
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

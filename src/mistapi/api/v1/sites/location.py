@@ -40,12 +40,19 @@ def getSiteBeamCoverageOverview(
     QUERY PARAMS
     ------------
     map_id : str
+      Filter results by map identifier
     type : str{'asset', 'client', 'sdkclient'}
+      Filter results by type. enum: `asset`, `client`, `sdkclient`
     client_type : str
+      Filter results by client type
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     resolution : str{'default', 'fine'}, default: default
+      Location calculation resolution used by the query. enum: `default`, `fine`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
 
     RETURN
     -----------
@@ -91,6 +98,7 @@ def getSiteMachineLearningCurrentStat(
     QUERY PARAMS
     ------------
     map_id : str
+      Filter results by map identifier
 
     RETURN
     -----------

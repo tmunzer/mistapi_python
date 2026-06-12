@@ -42,14 +42,23 @@ def countOrgAuditLogs(
     QUERY PARAMS
     ------------
     distinct : str{'admin_id', 'admin_name', 'message', 'site_id'}, default: admin_name
+      Field used to group this count response. enum: `admin_id`, `admin_name`, `message`, `site_id`
     admin_id : str
+      Filter audit log results by administrator identifier
     admin_name : str
+      Filter audit log results by one or more administrator names. Supports comma-separated values
     site_id : str
+      Filter results by site identifier
     message : str
+      Filter log results by message text
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -109,15 +118,23 @@ def listOrgAuditLogs(
     QUERY PARAMS
     ------------
     site_id : str
+      Filter results by site identifier. Accepts multiple comma-separated values.
     admin_name : str
+      Filter results by one or more administrator names or email addresses. Supports comma-separated values
     message : str
+      Filter results by one or more message text values. Supports comma-separated values
     sort : str{'-timestamp', 'admin_id', 'site_id', 'timestamp'}
-      Sort order
+      Field used to sort results; a leading `-` indicates descending order. enum: `-timestamp`, `admin_id`, `site_id`, `timestamp`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------

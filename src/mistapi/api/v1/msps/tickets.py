@@ -36,8 +36,11 @@ def listMspTickets(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
 
     RETURN
     -----------
@@ -78,7 +81,9 @@ def countMspTickets(
     QUERY PARAMS
     ------------
     distinct : str{'org_id', 'status', 'type'}, default: status
+      Field used to group this count response. enum: `org_id`, `status`, `type`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------

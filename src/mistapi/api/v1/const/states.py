@@ -26,6 +26,7 @@ def listStates(mist_session: _APISession, country_code: str) -> _APIResponse:
     QUERY PARAMS
     ------------
     country_code : str
+      Country code, in [two-character](/#operations/listCountryCodes)
 
     RETURN
     -----------

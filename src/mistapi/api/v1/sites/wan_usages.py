@@ -45,17 +45,29 @@ def countSiteWanUsage(
     QUERY PARAMS
     ------------
     mac : str
+      Filter results by MAC address
     peer_mac : str
+      Filter results by peer MAC address
     port_id : str
+      Port ID for the device
     peer_port_id : str
+      Peer Port ID for the device
     policy : str
+      Filter results by WAN path policy
     tenant : str
+      Filter results by tenant network
     path_type : str
+      Filter results by port path type
     distinct : str{'mac', 'path_type', 'peer_mac', 'peer_port_id', 'policy', 'port_id', 'tenant'}, default: policy
+      Field used to group this count response. enum: `mac`, `path_type`, `peer_mac`, `peer_port_id`, `policy`, `port_id`, `tenant`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -124,17 +136,29 @@ def searchSiteWanUsage(
     QUERY PARAMS
     ------------
     mac : str
+      Filter results by MAC address
     peer_mac : str
+      Filter results by peer MAC address
     port_id : str
+      Port ID for the device
     peer_port_id : str
+      Peer Port ID for the device
     policy : str
+      Filter results by WAN path policy
     tenant : str
+      Filter results by tenant network
     path_type : str
+      Filter results by port path type
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
 
     RETURN
     -----------

@@ -44,16 +44,27 @@ def countSiteRogueEvents(
     QUERY PARAMS
     ------------
     distinct : str{'ap', 'bssid', 'ssid', 'type'}, default: bssid
+      Field used to group this count response. enum: `ap`, `bssid`, `ssid`, `type`
     type : str{'honeypot', 'lan', 'others', 'spoof'}
+      Rogue classification used to filter the results. enum: `honeypot`, `lan`, `others`, `spoof`
     ssid : str
+      Filter results by SSID
     bssid : str
+      Filter results by BSSID
     ap_mac : str
+      MAC of the device that had strongest signal strength for ssid/bssid pair
     channel : str
+      Filter results by channel
     seen_on_lan : bool
+      Whether the reporting AP see a wireless client (on LAN) connecting to it
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -120,17 +131,29 @@ def searchSiteRogueEvents(
     QUERY PARAMS
     ------------
     type : str{'honeypot', 'lan', 'others', 'spoof'}
+      Rogue classification used to filter the results. enum: `honeypot`, `lan`, `others`, `spoof`
     ssid : str
+      Filter results by SSID
     bssid : str
+      Filter results by BSSID
     ap_mac : str
+      MAC of the device that had strongest signal strength for ssid/bssid pair
     channel : int
+      Filter results by channel
     seen_on_lan : bool
+      Whether the reporting AP see a wireless client (on LAN) connecting to it
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

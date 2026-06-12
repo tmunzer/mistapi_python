@@ -32,6 +32,7 @@ def listSiteAllGuestAuthorizations(
     QUERY PARAMS
     ------------
     wlan_id : str
+      UUID of single or multiple (Comma separated) WLAN under Site `site_id` (to filter by WLAN)
 
     RETURN
     -----------
@@ -71,10 +72,15 @@ def countSiteGuestAuthorizations(
     QUERY PARAMS
     ------------
     distinct : str{'auth_method', 'company', 'ssid'}, default: auth_method
+      Field used to group this count response. enum: `auth_method`, `company`, `ssid`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -119,7 +125,9 @@ def listSiteAllGuestAuthorizationsDerived(
     QUERY PARAMS
     ------------
     wlan_id : str
+      UUID of single or multiple (Comma separated) WLAN under Site `site_id` (to filter by WLAN)
     cross_site : bool
+      Whether to get org level guests, default is false i.e get site level guests
 
     RETURN
     -----------
@@ -165,14 +173,23 @@ def searchSiteGuestAuthorization(
     QUERY PARAMS
     ------------
     wlan_id : str
+      Filter results by WLAN identifier
     auth_method : str
+      Filter guest results by authentication method
     ssid : str
+      Filter results by SSID
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

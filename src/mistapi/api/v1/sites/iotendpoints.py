@@ -41,13 +41,21 @@ def searchSiteIotEndpoints(
     QUERY PARAMS
     ------------
     ap_mac : str
+      Filter results by AP MAC address
     mac : str
+      Filter results by MAC address
     type : str
+      IoT endpoint type. enum: `zigbee`
     mfg : str
+      Filter results by manufacturer
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
 
     RETURN
     -----------

@@ -38,10 +38,15 @@ def listOrgPsks(
     QUERY PARAMS
     ------------
     name : str
+      Filter results by name. Accepts multiple comma-separated values.
     ssid : str
+      Filter results by SSID. Accepts multiple comma-separated values.
     role : str
+      Filter PSK results by role. Accepts multiple comma-separated values.
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -176,7 +181,7 @@ def importOrgPsksFile(
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload.
+        path to the file to upload. Uploaded CSV or binary file containing PSKs to import
 
     RETURN
     -----------
@@ -236,6 +241,7 @@ def getOrgPsk(mist_session: _APISession, org_id: str, psk_id: str) -> _APIRespon
     -----------
     org_id : str
     psk_id : str
+      PSK ID
 
     RETURN
     -----------
@@ -262,6 +268,7 @@ def deleteOrgPsk(mist_session: _APISession, org_id: str, psk_id: str) -> _APIRes
     -----------
     org_id : str
     psk_id : str
+      PSK ID
 
     RETURN
     -----------
@@ -290,6 +297,7 @@ def updateOrgPsk(
     -----------
     org_id : str
     psk_id : str
+      PSK ID
 
     BODY PARAMS
     -----------
@@ -322,6 +330,7 @@ def deleteOrgPskOldPassphrase(
     -----------
     org_id : str
     psk_id : str
+      PSK ID
 
     RETURN
     -----------

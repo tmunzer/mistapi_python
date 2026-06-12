@@ -14,11 +14,11 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
-def getOauth2AuthorizationUrlForLogin(
-    mist_session: _APISession, provider: str, forward: str | None = None
+def listOrgAsyncClaims(
+    mist_session: _APISession, org_id: str, detail: bool | None = None
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/login/oauth2/get-oauth2-authorization-url-for-login
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/list-org-async-claims
 
     PARAMS
     -----------
@@ -27,12 +27,12 @@ def getOauth2AuthorizationUrlForLogin(
 
     PATH PARAMS
     -----------
-    provider : str
+    org_id : str
 
     QUERY PARAMS
     ------------
-    forward : str
-      Callback URL used after completing the OAuth login flow
+    detail : bool
+      Whether to include per-device detail in each claim record
 
     RETURN
     -----------
@@ -40,44 +40,19 @@ def getOauth2AuthorizationUrlForLogin(
         response from the API call
     """
 
-    uri = f"/api/v1/login/oauth/{provider}"
+    uri = f"/api/v1/orgs/{org_id}/claims"
     query_params: dict[str, str] = {}
-    if forward:
-        query_params["forward"] = str(forward)
+    if detail:
+        query_params["detail"] = str(detail)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
 
-def unlinkOauth2Provider(mist_session: _APISession, provider: str) -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/login/oauth2/unlink-oauth2-provider
-
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-
-    PATH PARAMS
-    -----------
-    provider : str
-
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-
-    uri = f"/api/v1/login/oauth/{provider}"
-    query_params: dict[str, str] = {}
-    resp = mist_session.mist_delete(uri=uri, query=query_params)
-    return resp
-
-
-def loginOauth2(
-    mist_session: _APISession, provider: str, body: dict | list
+def createOrgAsyncClaim(
+    mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/admins/login/oauth2/login-oauth2
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/create-org-async-claim
 
     PARAMS
     -----------
@@ -86,7 +61,7 @@ def loginOauth2(
 
     PATH PARAMS
     -----------
-    provider : str
+    org_id : str
 
     BODY PARAMS
     -----------
@@ -99,6 +74,42 @@ def loginOauth2(
         response from the API call
     """
 
-    uri = f"/api/v1/login/oauth/{provider}"
+    uri = f"/api/v1/orgs/{org_id}/claims"
     resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+
+
+def getOrgAsyncClaimStatus(
+    mist_session: _APISession, org_id: str, claim_id: str, detail: bool | None = None
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/licenses/get-org-async-claim-status
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+    claim_id : str
+      Unique identifier of the async claim job
+
+    QUERY PARAMS
+    ------------
+    detail : bool
+      Whether to include per-device detail in the claim status response
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/claims/{claim_id}"
+    query_params: dict[str, str] = {}
+    if detail:
+        query_params["detail"] = str(detail)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp

@@ -105,16 +105,25 @@ def countSiteAlarms(
     QUERY PARAMS
     ------------
     distinct : str{'acked', 'group', 'severity', 'type'}, default: type
-      Group by and count the alarms by some distinct field
+      Field used to group this count response. enum: `acked`, `group`, `severity`, `type`
     ack_admin_name : str
+      Name of the admins who have acked the alarms; accepts multiple values separated by comma
     acked : bool
+      Filter alarm results by whether the alarm has been acknowledged
     type : str
+      Key-name of the alarms; accepts multiple values separated by comma
     severity : str
+      Alarm severity; accepts multiple values separated by comma
     group : str
+      Alarm group name; accepts multiple values separated by comma
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -164,42 +173,46 @@ def searchSiteAlarms(
     search_after: str | None = None,
 ) -> _APIResponse:
     """
-        API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/search-site-alarms
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/alarms/search-site-alarms
 
-        PARAMS
-        -----------
-        mistapi.APISession : mist_session
-            mistapi session including authentication and Mist host information
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
 
-        PATH PARAMS
-        -----------
-        site_id : str
+    PATH PARAMS
+    -----------
+    site_id : str
 
-        QUERY PARAMS
-        ------------
-        group : str{'infrastructure', 'marvis', 'security'}
-          Alarm group. enum: `infrastructure`, `marvis`, `security`.
-    The `marvis` group is used to retrieve AI-driven network issue detections.
-    Known Marvis alarm types include: `bad_cable`, `bad_wan_uplink`, `dns_failure`,
-    `arp_failure`, `auth_failure`, `dhcp_failure`, `missing_vlan`,
-    `negotiation_mismatch`, `port_flap`. Results include resolution status
-    (`status`, `resolved_time`) and affected entity details."
-        severity : str{'critical', 'info', 'warn'}
-          Severity of the alarm. enum: `critical`, `info`, `warn`
-        type : str
-        ack_admin_name : str
-        acked : bool
-        limit : int, default: 100
-        start : str
-        end : str
-        duration : str, default: 1d
-        sort : str, default: timestamp
-        search_after : str
+    QUERY PARAMS
+    ------------
+    group : str{'certificate_expiry', 'infrastructure', 'marvis', 'security'}
+      Alarm group used to filter alarm results. enum: `certificate_expiry`, `infrastructure`, `marvis`, `security`. The `marvis` group is used to retrieve AI-driven network issue detections. Known Marvis alarm types include: `bad_cable`, `bad_wan_uplink`, `dns_failure`, `arp_failure`, `auth_failure`, `dhcp_failure`, `missing_vlan`, `negotiation_mismatch`, `port_flap`. Results include resolution status (`status`, `resolved_time`) and affected entity details.
+    severity : str{'critical', 'info', 'warn'}
+      Alarm severity used to filter results. enum: `critical`, `info`, `warn`
+    type : str
+      Filter alarms by alarm type. Accepts multiple values separated by comma. Use [List Alarm Definitions](/#operations/listAlarmDefinitions) to get the list of possible alarm types
+    ack_admin_name : str
+      Name of the admins who have acked the alarms; accepts multiple values separated by comma
+    acked : bool
+      Filter alarm results by whether the alarm has been acknowledged
+    limit : int, default: 100
+      Maximum number of results to return per page
+    start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
+    end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
+    duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
+    sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
+    search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
-        RETURN
-        -----------
-        mistapi.APIResponse
-            response from the API call
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
     """
 
     uri = f"/api/v1/sites/{site_id}/alarms/search"

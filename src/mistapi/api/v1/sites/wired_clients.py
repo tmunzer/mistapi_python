@@ -42,14 +42,23 @@ def countSiteWiredClients(
     QUERY PARAMS
     ------------
     distinct : str{'mac', 'port_id', 'vlan'}, default: mac
+      Field used to group this count response. enum: `mac`, `port_id`, `vlan`
     mac : str
+      Filter results by MAC address
     device_mac : str
+      Filter results by device MAC address
     port_id : str
+      Filter results by port identifier
     vlan : str
+      Filter results by VLAN ID
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -120,26 +129,45 @@ def searchSiteWiredClients(
     QUERY PARAMS
     ------------
     device_mac : str
+      Filter results by device MAC address
     mac : str
+      Filter results by MAC address
     ip : str
+      Filter results by IP address
     port_id : str
+      Filter results by port identifier
     source : str{'lldp', 'mac'}
-      source from where the client was learned (lldp, mac)
+      Filter results by client learning source. enum: `lldp`, `mac`
     vlan : str
+      Filter results by VLAN ID
     manufacture : str
+      Filter results by manufacturer
     text : str
+      Single entry of hostname/mac
     nacrule_id : str
+      Filter results by NAC rule identifier
     dhcp_hostname : str
+      Filter results by DHCP hostname
     dhcp_fqdn : str
+      Filter results by DHCP FQDN
     dhcp_client_identifier : str
+      Filter results by DHCP client identifier
     dhcp_vendor_class_identifier : str
+      DHCP Vendor Class Identifier
     dhcp_request_params : str
+      Filter results by DHCP request parameters
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

@@ -38,10 +38,15 @@ def listOrgJsiDevices(
     QUERY PARAMS
     ------------
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
     model : str
+      Filter results by device model
     serial : str
+      Filter results by device serial number
     mac : str
+      Filter results by MAC address
 
     RETURN
     -----------
@@ -172,9 +177,13 @@ def listOrgJsiPastPurchases(
     QUERY PARAMS
     ------------
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
     model : str
+      Filter results by one or more device models. Supports comma-separated values
     serial : str
+      Filter results by device serial number
 
     RETURN
     -----------
@@ -216,9 +225,10 @@ def countOrgJsiAssetsAndContracts(
 
     QUERY PARAMS
     ------------
-    distinct : str{'account_id', 'claimed', 'has_support', 'eol_time', 'eos_time', 'version_time', 'model', 'sku', 'status', 'type', 'version', 'warranty_type'}
-      Distinct attributes to count
+    distinct : str{'account_id', 'claimed', 'has_support', 'end_of_sale_time', 'eos_time', 'version_time', 'model', 'sku', 'status', 'type', 'version', 'warranty_type'}
+      Field used to group this count response. enum: `account_id`, `claimed`, `has_support`, `end_of_sale_time`, `eos_time`, `version_time`, `model`, `sku`, `status`, `type`, `version`, `warranty_type`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -245,8 +255,8 @@ def searchOrgJsiAssetsAndContracts(
     sku: str | None = None,
     status: str | None = None,
     warranty_type: str | None = None,
-    eol_after: str | None = None,
-    eol_before: str | None = None,
+    end_of_sale_after: str | None = None,
+    end_of_sale_before: str | None = None,
     eos_after: str | None = None,
     eos_before: str | None = None,
     version_eos_after: str | None = None,
@@ -274,26 +284,43 @@ def searchOrgJsiAssetsAndContracts(
     QUERY PARAMS
     ------------
     claimed : bool
+      Device claim status, `true` for claimed devices, `false` for all devices. Accepts multiple comma-separated boolean values.
     model : str
+      Filter results by device model. Accepts multiple comma-separated values.
     serial : str
+      Filter results by device serial number. Accepts multiple comma-separated values.
     sku : str
+      Filter results by SKU. Accepts multiple comma-separated values.
     status : str{'all', 'connected', 'disconnected'}, default: all
-      Device status
+      Device status. enum: `all`, `connected`, `disconnected`
     warranty_type : str{'Standard Hardware Warranty', 'Enhanced Hardware Warranty', 'Dead On Arrival Warranty', 'Limited Lifetime Warranty', 'Software Warranty', 'Limited Lifetime Warranty for WLA', 'Warranty-JCPO EOL (DOA Not Included)', 'MIST Enhanced Hardware Warranty', 'MIST Standard Warranty', 'Determine Lifetime warranty'}
-      Device warranty type
-    eol_after : str
-    eol_before : str
+      Device warranty type used to filter Juniper Support Insight inventory. enum: `Standard Hardware Warranty`, `Enhanced Hardware Warranty`, `Dead On Arrival Warranty`, `Limited Lifetime Warranty`, `Software Warranty`, `Limited Lifetime Warranty for WLA`, `Warranty-JCPO EOL (DOA Not Included)`, `MIST Enhanced Hardware Warranty`, `MIST Standard Warranty`, `Determine Lifetime warranty`
+    end_of_sale_after : str
+      Filter devices with End Of Sale date after this date
+    end_of_sale_before : str
+      Filter devices with End Of Sale date before this date
     eos_after : str
+      Filter devices with End Of Support date after this date
     eos_before : str
+      Filter devices with End Of Support date before this date
     version_eos_after : str
+      Filter devices with OS Version End Of Support date after this date
     version_eos_before : str
+      Filter devices with OS Version End Of Support date before this date
     has_support : bool
+      Indicates if the device is covered under active support contract. Accepts multiple comma-separated boolean values.
     sirt_id : str
+      To get the onboarded devices that are affected by the SIRT ID
     pbn_id : str
+      To get the onboarded devices that are affected by the PBN ID
     text : str
+      Wildcards for `serial`, `model`, `account_id`
     limit : int, default: 100
+      Maximum number of results to return per page
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -315,10 +342,10 @@ def searchOrgJsiAssetsAndContracts(
         query_params["status"] = str(status)
     if warranty_type:
         query_params["warranty_type"] = str(warranty_type)
-    if eol_after:
-        query_params["eol_after"] = str(eol_after)
-    if eol_before:
-        query_params["eol_before"] = str(eol_before)
+    if end_of_sale_after:
+        query_params["end_of_sale_after"] = str(end_of_sale_after)
+    if end_of_sale_before:
+        query_params["end_of_sale_before"] = str(end_of_sale_before)
     if eos_after:
         query_params["eos_after"] = str(eos_after)
     if eos_before:
@@ -370,8 +397,11 @@ def countOrgJsiPbn(
     distinct : str{'versions', 'models', 'customer_risk', 'bug_type'}
       Field to group by enum: `versions`, `models`, `customer_risk`, `bug_type`
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
 
     RETURN
     -----------
@@ -422,15 +452,25 @@ def searchOrgJsiPbn(
     QUERY PARAMS
     ------------
     versions : str
+      OS versions to search for
     models : str
+      Device models to search for
     customer_risk : str
+      Customer risk level to filter by
     id : str
+      PBN ID to search for
     bug_type : str
+      Bug type to filter by
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
 
     RETURN
     -----------
@@ -489,8 +529,11 @@ def countOrgJsiSirt(
     distinct : str{'versions', 'models', 'severity', 'jsa_updated_date'}
       Field to group by. enum: `jsa_updated_date`, `models`, `severity`, `versions`
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
 
     RETURN
     -----------
@@ -546,20 +589,35 @@ def searchOrgJsiSirt(
     QUERY PARAMS
     ------------
     severity : str
+      Filter results by severity
     id : str
+      Filter results by identifier
     updated_after : str
+      JSA Updated date to be filtered after this date
     updated_before : str
+      JSA Updated date to be filtered before this date
     published_after : str
+      JSA Published date to be filtered after this date
     published_before : str
+      JSA Published date to be filtered before this date
     models : str
+      Filter results by models
     versions : str
+      Software version affected by the SIRT
     text : str
+      Wildcards search on os_version_affected, affected_models, severity, jsa_id
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
 
     RETURN
     -----------

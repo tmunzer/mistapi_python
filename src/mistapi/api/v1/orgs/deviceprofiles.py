@@ -36,8 +36,11 @@ def listOrgDeviceProfiles(
     QUERY PARAMS
     ------------
     type : str{'ap', 'gateway', 'switch'}, default: ap
+      Filter results by one device profile type. Use a single value; comma-separated values are not supported. enum: `ap`, `gateway`, `switch`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------

@@ -28,7 +28,7 @@ def generateSecretFor2faVerification(
     QUERY PARAMS
     ------------
     by : str{'qrcode'}, default: qrcode
-      If `by`==`qrcode`, returns the secret as a qrcode image
+      Secret response format. If `by`==`qrcode`, returns the secret as a QR code image. enum: `qrcode`
 
     RETURN
     -----------

@@ -32,6 +32,7 @@ def listSiteDeviceProfilesDerived(
     QUERY PARAMS
     ------------
     resolve : bool
+      Whether resolve the site variables
 
     RETURN
     -----------

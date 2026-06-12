@@ -17,6 +17,7 @@ from mistapi.__api_response import APIResponse as _APIResponse
 def listSiteMaps(
     mist_session: _APISession,
     site_id: str,
+    mapstack_id: str | None = None,
     limit: int | None = None,
     page: int | None = None,
 ) -> _APIResponse:
@@ -34,8 +35,12 @@ def listSiteMaps(
 
     QUERY PARAMS
     ------------
+    mapstack_id : str
+      Filter maps by mapstack UUID; returns only maps belonging to that mapstack
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -45,6 +50,8 @@ def listSiteMaps(
 
     uri = f"/api/v1/sites/{site_id}/maps"
     query_params: dict[str, str] = {}
+    if mapstack_id:
+        query_params["mapstack_id"] = str(mapstack_id)
     if limit:
         query_params["limit"] = str(limit)
     if page:
@@ -133,10 +140,11 @@ def importSiteMapsFile(
     auto_deviceprofile_assignment : bool
         Whether to auto assign device to deviceprofile by name
     csv : str
-        path to the file to upload. CSV file for ap name mapping, optional
+        path to the file to upload. Optional AP name-mapping CSV file
     file : str
-        path to the file to upload. Ekahau or ibwave file
+        path to the file to upload. Ekahau or iBwave floorplan file to import
     json : dict
+        Import options for the site map file
 
     RETURN
     -----------
@@ -236,6 +244,38 @@ def updateSiteMap(
 
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+
+
+def acceptSiteApLocalizationData(
+    mist_session: _APISession, site_id: str, map_id: str, body: dict | list
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/accept-site-ap-localization-data
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    map_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/apply_autoplacement"
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
 
@@ -640,8 +680,9 @@ def addSiteMapImageFile(
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. Binary file
+        path to the file to upload. Image file content uploaded as multipart form data
     json : str
+        Optional JSON metadata submitted with the image upload
 
     RETURN
     -----------
@@ -681,8 +722,9 @@ def replaceSiteMapImageFile(
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload.
+        path to the file to upload. Map image file used to replace the existing site map
     json : dict
+        Replacement transform options for the map image
 
     RETURN
     -----------
@@ -727,38 +769,6 @@ def bulkAssignSiteApsToMap(
     """
 
     uri = f"/api/v1/sites/{site_id}/maps/{map_id}/set_map"
-    resp = mist_session.mist_post(uri=uri, body=body)
-    return resp
-
-
-def confirmSiteApLocalizationData(
-    mist_session: _APISession, site_id: str, map_id: str, body: dict | list
-) -> _APIResponse:
-    """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/maps/auto-placement/confirm-site-ap-localization-data
-
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
-
-    PATH PARAMS
-    -----------
-    site_id : str
-    map_id : str
-
-    BODY PARAMS
-    -----------
-    body : dict
-        JSON object to send to Mist Cloud (see API doc above for more details)
-
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
-    """
-
-    uri = f"/api/v1/sites/{site_id}/maps/{map_id}/use_auto_ap_values"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 

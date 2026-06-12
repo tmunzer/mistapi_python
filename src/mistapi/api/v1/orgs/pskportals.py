@@ -35,7 +35,9 @@ def listOrgPskPortals(
     QUERY PARAMS
     ------------
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -108,10 +110,15 @@ def listOrgPskPortalLogs(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -159,10 +166,15 @@ def countOrgPskPortalLogs(
     QUERY PARAMS
     ------------
     distinct : str{'admin_id', 'admin_name', 'psk_id', 'psk_name', 'pskportal_id', 'user_id'}, default: pskportal_id
+      Field used to group this count response. enum: `admin_id`, `admin_name`, `psk_id`, `psk_name`, `pskportal_id`, `user_id`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -218,18 +230,31 @@ def searchOrgPskPortalLogs(
     QUERY PARAMS
     ------------
     psk_name : str
+      Filter PSK portal log results by PSK name
     psk_id : str
+      Filter PSK portal log results by PSK identifier
     pskportal_id : str
+      Filter PSK portal log results by PSK portal identifier
     id : str
+      Filter results by identifier
     admin_name : str
+      Filter audit log results by administrator name
     admin_id : str
+      Filter audit log results by administrator identifier
     name_id : str
+      Filter results by name id
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -408,9 +433,9 @@ def uploadOrgPskPortalImageFile(
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. Binary file
+        path to the file to upload. Image binary payload to upload for the PSK portal
     json : str
-        JSON string describing the upload
+        Metadata JSON string describing the PSK portal image upload
 
     RETURN
     -----------

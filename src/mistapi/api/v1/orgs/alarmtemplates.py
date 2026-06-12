@@ -35,7 +35,9 @@ def listOrgAlarmTemplates(
     QUERY PARAMS
     ------------
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -102,7 +104,7 @@ def listOrgSuppressedAlarms(
     QUERY PARAMS
     ------------
     scope : str{'org', 'site'}, default: site
-      Returns both scopes if not specified
+      Filter results by scope. enum: `org`, `site`
 
     RETURN
     -----------

@@ -30,6 +30,7 @@ def getSiteAnomalyEventsForClient(
     site_id : str
     client_mac : str
     metric : str
+      See [List Insight Metrics](/#operations/listInsightMetrics) for available metrics
 
     RETURN
     -----------
@@ -58,6 +59,7 @@ def getSiteAnomalyEventsForDevice(
     -----------
     site_id : str
     metric : str
+      See [List Insight Metrics](/#operations/listInsightMetrics) for available metrics
     device_mac : str
 
     RETURN
@@ -87,6 +89,7 @@ def listSiteAnomalyEvents(
     -----------
     site_id : str
     metric : str
+      See [List Insight Metrics](/#operations/listInsightMetrics) for available metrics
 
     RETURN
     -----------

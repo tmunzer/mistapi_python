@@ -38,7 +38,9 @@ def getSiteChannelScores(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
 
     RETURN
     -----------
@@ -138,12 +140,17 @@ def listSiteRrmEvents(
     QUERY PARAMS
     ------------
     band : str{'24', '5', '5-dedicated', '5-selectable', '6', '6-dedicated', '6-selectable'}
-      802.11 Band
+      802.11 band used to filter radio results. enum: `24`, `5`, `5-dedicated`, `5-selectable`, `6`, `6-dedicated`, `6-selectable`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -193,7 +200,9 @@ def listSiteCurrentRrmNeighbors(
     QUERY PARAMS
     ------------
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
