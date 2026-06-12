@@ -1,4 +1,50 @@
 # CHANGELOG
+## Version 0.63.0 (June 2026)
+
+**Released**: June 12, 2026
+
+This release updates generated API bindings from the latest OpenAPI spec, adding new async claim, Marvis client, Marvis configuration, and AP localization workflows while expanding parameter documentation across the SDK.
+
+---
+
+### 1. NEW FEATURES
+
+#### **Org Async Claim APIs**
+Added a new org claims module for asynchronous claim workflows:
+- **`listOrgAsyncClaims()`**
+- **`createOrgAsyncClaim()`**
+- **`getOrgAsyncClaimStatus()`**
+
+#### **Org Marvis Client APIs**
+Added org-level Marvis client insight, event, and statistics operations:
+- **`getOrgMarvisClientInsights()`**
+- **`countOrgMarvisClientEvents()`**, **`searchOrgMarvisClientEvents()`**
+- **`countOrgMarvisClientsStats()`**, **`searchOrgMarvisClientsStats()`**
+
+#### **Site Marvis Configuration Actions**
+Added a new site Marvis configuration module with action search, count, delete, and feedback operations:
+- **`countSiteMarvisConfigActions()`**
+- **`searchSiteMarvisConfigActions()`**
+- **`deleteSiteMarvisConfigAction()`**
+- **`submitSiteMarvisConfigFeedback()`**
+
+#### **AP Localization Data Acceptance**
+Added a site maps operation for accepting AP localization data:
+- **`acceptSiteApLocalizationData()`**
+
+---
+
+### 2. IMPROVEMENTS
+
+#### **Expanded Query Parameter Coverage**
+Added and refined filters across generated endpoints, including device, client, stats, SLE, alarm, event, VPN, tunnel, NAC, webhook, PSK, and inventory APIs. New coverage includes richer `distinct` count fields, device type and status filters, duration ranges, pagination cursors, sort parameters, and model, hostname, MAC, OS, LLDP, RF, and Mist Edge filters.
+
+#### **Improved Generated Parameter Documentation**
+Updated the OpenAPI generator to preserve parameter descriptions, improving generated docstrings for wildcard matching, comma-separated values, enum meanings, pagination behavior, and conditional filters.
+
+
+---
+
 ## Version 0.62.0 (May 2026)
 
 **Released**: May 1, 2026

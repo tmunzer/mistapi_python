@@ -28,7 +28,9 @@ def getGatewayDefaultConfig(
     QUERY PARAMS
     ------------
     model : str
+      Device model for which to generate the default gateway config.
     ha : str
+      Whether the config is intended for HA
 
     RETURN
     -----------

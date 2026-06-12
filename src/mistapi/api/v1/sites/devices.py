@@ -37,9 +37,13 @@ def listSiteDevices(
     QUERY PARAMS
     ------------
     type : str, default: ap
+      Filter results by type
     name : str
+      Filter results by name
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -79,6 +83,7 @@ def listSiteDeviceRadioChannels(
     QUERY PARAMS
     ------------
     country_code : str
+      Country code for the site (for AP config generation), in [two-character](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 
     RETURN
     -----------
@@ -150,11 +155,17 @@ def countSiteDeviceConfigHistory(
     QUERY PARAMS
     ------------
     distinct : str
+      Field used to group this count response
     mac : str
+      Filter results by MAC address
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -207,13 +218,21 @@ def searchSiteDeviceConfigHistory(
     QUERY PARAMS
     ------------
     type : str{'ap', 'gateway', 'switch'}, default: ap
+      Filter results by type. enum: `ap`, `gateway`, `switch`
     mac : str
+      Filter results by MAC address
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -278,21 +297,37 @@ def countSiteDevices(
     QUERY PARAMS
     ------------
     distinct : str{'hostname', 'lldp_mgmt_addr', 'lldp_port_id', 'lldp_system_desc', 'lldp_system_name', 'map_id', 'model', 'mxedge_id', 'mxtunnel_status', 'version'}, default: model
+      Field used to group this count response. enum: `hostname`, `lldp_mgmt_addr`, `lldp_port_id`, `lldp_system_desc`, `lldp_system_name`, `map_id`, `model`, `mxedge_id`, `mxtunnel_status`, `version`
     hostname : str
+      Filter results by hostname
     model : str
+      Filter results by device model
     mac : str
+      Filter results by MAC address
     version : str
+      Filter results by software version
     mxtunnel_status : str
+      Filter AP results by Mist Tunnel status
     mxedge_id : str
+      Filter results by Mist Edge identifier
     lldp_system_name : str
+      Filter AP results by LLDP system name
     lldp_system_desc : str
+      Filter AP results by LLDP system description
     lldp_port_id : str
+      Filter AP results by LLDP port identifier
     lldp_mgmt_addr : str
+      Filter AP results by LLDP management IP address
     map_id : str
+      Filter results by map identifier
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -365,13 +400,21 @@ def countSiteDeviceEvents(
     QUERY PARAMS
     ------------
     distinct : str{'mac', 'model', 'type', 'type_code'}, default: model
+      Field used to group this count response. enum: `mac`, `model`, `type`, `type_code`
     model : str
+      Filter results by device model
     type : str
+      See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
     type_code : str
+      Filter results by event type code
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -407,7 +450,6 @@ def searchSiteDeviceEvents(
     mac: str | None = None,
     model: str | None = None,
     text: str | None = None,
-    timestamp: str | None = None,
     type: str | None = None,
     last_by: str | None = None,
     includes: str | None = None,
@@ -433,18 +475,29 @@ def searchSiteDeviceEvents(
     QUERY PARAMS
     ------------
     mac : str
+      Filter results by MAC address
     model : str
+      Filter results by device model
     text : str
-    timestamp : str
+      Filter results by event message text
     type : str
+      See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
     last_by : str
+      Return last/recent event for passed in field
     includes : str
+      Keyword to include events from additional indices (e.g. ext_tunnel for prisma events)
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -460,8 +513,6 @@ def searchSiteDeviceEvents(
         query_params["model"] = str(model)
     if text:
         query_params["text"] = str(text)
-    if timestamp:
-        query_params["timestamp"] = str(timestamp)
     if type:
         query_params["type"] = str(type)
     if last_by:
@@ -558,7 +609,7 @@ def importSiteDevicesFile(
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. File to upload
+        path to the file to upload. Binary file payload to upload with this request
 
     RETURN
     -----------
@@ -629,10 +680,15 @@ def countSiteDeviceLastConfig(
     QUERY PARAMS
     ------------
     distinct : str{'mac', 'name', 'site_id', 'version'}, default: mac
+      Field used to group this count response. enum: `mac`, `name`, `site_id`, `version`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -686,16 +742,27 @@ def searchSiteDeviceLastConfigs(
     QUERY PARAMS
     ------------
     cert_expiry_duration : str
+      Duration for expiring cert queries (format: 2d/3h/172800 seconds)
     device_type : str{'ap', 'gateway', 'switch', 'mxedge'}, default: ap
+      Filter results by device type. enum: `ap`, `gateway`, `switch`, `mxedge`
     mac : str
+      Filter results by MAC address
     version : str
+      Filter results by software version
     name : str
+      Filter results by name
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -895,71 +962,114 @@ def searchSiteDevices(
     search_after: str | None = None,
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-devices
+        API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/search-site-devices
 
-    PARAMS
-    -----------
-    mistapi.APISession : mist_session
-        mistapi session including authentication and Mist host information
+        PARAMS
+        -----------
+        mistapi.APISession : mist_session
+            mistapi session including authentication and Mist host information
 
-    PATH PARAMS
-    -----------
-    site_id : str
+        PATH PARAMS
+        -----------
+        site_id : str
 
-    QUERY PARAMS
-    ------------
-    band_24_channel : int
-    band_5_channel : int
-    band_6_channel : int
-    band_24_bandwidth : int
-    band_5_bandwidth : int
-    band_6_bandwidth : int
-    band_24_power : int
-    band_5_power : int
-    band_6_power : int
-    clustered : bool
-    eth0_port_speed : int
-    evpntopo_id : str
-    ext_ip : str
-    hostname : str
-    ip : str
-    last_config_status : str
-    last_hostname : str
-    lldp_mgmt_addr : str
-    lldp_port_id : str
-    lldp_system_desc : str
-    lldp_system_name : str
-    mac : str
-    model : str
-    mxedge_id : str
-    mxedge_ids : str
-    mxtunnel_status : str{'down', 'up'}
-      When `type`==`ap`, MxTunnel status, up / down.
-    node : str{'node0', 'node1'}
-      When `type`==`gateway`. enum: `node0`, `node1`
-    node0_mac : str
-    node1_mac : str
-    power_constrained : bool
-    radius_stats : str
-    stats : bool
-    t128agent_version : str
-    type : str{'ap', 'gateway', 'switch'}, default: ap
-      Type of device. enum: `ap`, `gateway`, `switch`
-    version : str
-    limit : int, default: 100
-    start : str
-    end : str
-    duration : str, default: 1d
-    sort : str{'mac', 'model', 'sku', 'timestamp'}, default: timestamp
-      Sort options
-    desc_sort : str{'mac', 'model', 'sku', 'timestamp'}
-      Sort options in reverse order
-    search_after : str
+        QUERY PARAMS
+        ------------
+        band_24_channel : int
+          When `type`==`ap`, Channel of band_24
+        band_5_channel : int
+          When `type`==`ap`, Channel of band_5
+        band_6_channel : int
+          When `type`==`ap`, Channel of band_6
+        band_24_bandwidth : int
+          When `type`==`ap`, Bandwidth of band_24
+        band_5_bandwidth : int
+          When `type`==`ap`, Bandwidth of band_5
+        band_6_bandwidth : int
+          When `type`==`ap`, Bandwidth of band_6
+        band_24_power : int
+          When `type`==`ap`, Power of band_24
+        band_5_power : int
+          When `type`==`ap`, Power of band_5
+        band_6_power : int
+          When `type`==`ap`, Power of band_6
+        clustered : bool
+          When `type`==`gateway`, true / false
+        eth0_port_speed : int
+          When `type`==`ap`, Port speed of eth0
+        evpntopo_id : str
+          When `type`==`switch`, EVPN topology id
+        ext_ip : str
+          Partial / full Device external ip. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `1.2.3.*` and `*.2.3.*` match `1.2.3.4`). Suffix-only wildcards (e.g. `*.2.3.4`) are not supported
+        hostname : str
+          Partial / full Device hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `my-london*` and `*london*` match `my-london-1`). Suffix-only wildcards (e.g. `*london-1`) are not supported
+        ip : str
+          Partial / full Device IP address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `10.100.10.*` and `*100.10.*` match `10.100.10.54`). Suffix-only wildcards (e.g. `*.54`) are not supported
+        last_config_status : str
+          When `type`==`switch` or `type`==`gateway`, last configuration status
+        last_hostname : str
+          Last hostname of the device.
+        lldp_mgmt_addr : str
+          When `type`==`ap`, LLDP management IP address
+        lldp_port_id : str
+          When `type`==`ap`, LLDP port id. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `ge-0/0/*` and `*-0/0/*` match `ge-0/0/30`). Suffix-only wildcards (e.g. `*switch-01`) are not supported
+        lldp_system_desc : str
+          When `type`==`ap`, LLDP system description. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `Juniper Networks*` and `*Networks*` match `Juniper Networks, Inc.`). Suffix-only wildcards (e.g. `*switch-01`) are not supported
+        lldp_system_name : str
+          When `type`==`ap`, LLDP system name. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `my-switch*` and `*switch*` match `my-switch-01`). Suffix-only wildcards (e.g. `*switch-01`) are not supported
+        mac : str
+          Partial / full Device MAC address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `001122*` and `*1122*` match `001122334455`). Suffix-only wildcards (e.g. `*4455`) are not supported
+        model : str
+          Partial / full Device model. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `AP4*` and `*P4*` match `AP43`). Suffix-only wildcards (e.g. `*43`) are not supported
+        mxedge_id : str
+          When `type`==`ap`, Mist Edge id, if AP is connecting to a Mist Edge
+        mxedge_ids : str
+          When `type`==`ap`, Comma separated list of Mist Edge id, if AP is connecting to a Mist Edge
+        mxtunnel_status : str{'down', 'up'}
+          When `type`==`ap`, Mist Tunnel status used to filter results. enum: `down`, `up`
+        node : str{'node0', 'node1'}
+          When `type`==`gateway`. enum: `node0`, `node1`
+        node0_mac : str
+          When `type`==`gateway`, node0 MAC address
+        node1_mac : str
+          When `type`==`gateway`, node1 MAC address
+        power_constrained : bool
+          When `type`==`ap`, whether the AP is power constrained
+        radius_stats : str
+          When `type`==`switch` or `type`==`gateway`, Key-value pairs where the key
+    is the RADIUS server address and the value contains authentication statistics:
+      * <server_address> (string): IP address of the RADIUS server as the key
+      * `auth_accepts` (long): Number of accepted authentication requests
+      * `auth_rejects` (long): Number of rejected authentication requests
+      * `auth_timeouts` (long): Number of authentication timeouts
+      * `auth_server_status` (string): Status of the server. Possible values: `up`, `down`, `unreachable`
+        stats : bool
+          Whether to return device stats
+        t128agent_version : str
+          When `type`==`gateway` (SSR only), version of 128T agent
+        type : str{'ap', 'gateway', 'switch'}, default: ap
+          Device type used to filter results. enum: `ap`, `gateway`, `switch`
+        version : str
+          Filter results by software version
+        limit : int, default: 100
+          Maximum number of results to return per page
+        start : str
+          Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
+        end : str
+          Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
+        duration : str, default: 1d
+          Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
+        sort : str{'mac', 'model', 'sku', 'timestamp'}, default: timestamp
+          Field used to sort results; a leading `-` indicates descending order. enum: `mac`, `model`, `sku`, `timestamp`
+        desc_sort : str{'mac', 'model', 'sku', 'timestamp'}
+          Field used to sort results in descending order. enum: `mac`, `model`, `sku`, `timestamp`
+        search_after : str
+          Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
-    RETURN
-    -----------
-    mistapi.APIResponse
-        response from the API call
+        RETURN
+        -----------
+        mistapi.APIResponse
+            response from the API call
     """
 
     uri = f"/api/v1/sites/{site_id}/devices/search"
@@ -1101,6 +1211,7 @@ def listSiteDeviceUpgrades(
     QUERY PARAMS
     ------------
     status : str{'cancelled', 'completed', 'created', 'downloaded', 'downloading', 'failed', 'queued', 'upgrading'}
+      Filter results by status. enum: `cancelled`, `completed`, `created`, `downloaded`, `downloading`, `failed`, `queued`, `upgrading`
 
     RETURN
     -----------
@@ -1285,7 +1396,9 @@ def listSiteAvailableDeviceVersions(
     QUERY PARAMS
     ------------
     type : str{'ap', 'gateway', 'switch'}, default: ap
+      Filter results by type. enum: `ap`, `gateway`, `switch`
     model : str
+      Fetch version for device model, use/combine with `type` as needed (for switch and gateway devices)
 
     RETURN
     -----------
@@ -1824,6 +1937,7 @@ def getSiteDeviceConfigCmd(
     QUERY PARAMS
     ------------
     sort : bool
+      Make output cmds sorted (for better readability) or not.
 
     RETURN
     -----------
@@ -1981,8 +2095,9 @@ def addSiteDeviceImageFile(
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. Binary file
+        path to the file to upload. Image file content uploaded as multipart form data
     json : str
+        Optional JSON metadata submitted with the image upload
 
     RETURN
     -----------

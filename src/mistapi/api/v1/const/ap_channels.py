@@ -28,6 +28,7 @@ def listApChannels(
     QUERY PARAMS
     ------------
     country_code : str
+      Country code, in two-character
 
     RETURN
     -----------

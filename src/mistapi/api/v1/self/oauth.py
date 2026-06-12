@@ -32,6 +32,7 @@ def getOauth2UrlForLinking(
     QUERY PARAMS
     ------------
     forward : str
+      Callback URL to forward to after the OAuth login flow
 
     RETURN
     -----------

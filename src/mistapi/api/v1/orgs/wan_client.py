@@ -39,11 +39,17 @@ def countOrgWanClientEvents(
     QUERY PARAMS
     ------------
     distinct : str{'hostname', 'ip', 'mac', 'mfg', 'type'}, default: type
+      Field used to group this count response. enum: `hostname`, `ip`, `mac`, `mfg`, `type`
     type : str
+      See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------

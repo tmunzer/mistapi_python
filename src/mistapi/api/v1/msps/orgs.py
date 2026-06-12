@@ -128,16 +128,25 @@ def searchMspOrgs(
     QUERY PARAMS
     ------------
     name : str
+      Filter results by name
     org_id : str
+      Filter results by organization identifier
     sub_insufficient : bool
+      If this org has sufficient subscription
     trial_enabled : bool
+      If this org is under trial period
     usage_types : list
       List of types that enabled by usage
     limit : int, default: 100
+      Maximum number of results to return per page
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

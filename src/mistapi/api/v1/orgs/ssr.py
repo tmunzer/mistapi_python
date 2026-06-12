@@ -66,6 +66,7 @@ def getOrgSsrRegistrationCommands(
     QUERY PARAMS
     ------------
     ttl : int
+      Token validity duration in seconds. Defaults to 1 year (31536000 seconds)
     asset_ids : list
       When specified restricts registration to listed assets only. Prefer HTTP body over headers for this parameter, especially with long lists to avoid header size limits.
 
@@ -217,8 +218,9 @@ def listOrgAvailableSsrVersions(
     QUERY PARAMS
     ------------
     channel : str{'alpha', 'beta', 'stable'}, default: stable
-      SSR version channel
+      SSR release channel used to filter available versions. enum: `alpha`, `beta`, `stable`
     mac : str
+      Optional. MAC address, or comma separated MAC address list.
 
     RETURN
     -----------

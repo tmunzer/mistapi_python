@@ -32,6 +32,7 @@ def getOrgJuniperDevicesCommand(
     QUERY PARAMS
     ------------
     site_id : str
+      Filter results by site identifier
 
     RETURN
     -----------

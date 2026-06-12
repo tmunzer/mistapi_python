@@ -77,20 +77,31 @@ def searchSiteSyntheticTest(
     QUERY PARAMS
     ------------
     mac : str
+      Filter results by MAC address
     port_id : str
+      Filter results by port identifier
     vlan_id : str
+      Filter results by VLAN ID
     by : str
+      Entity who triggers the test
     reason : str
+      Filter results by reason
     type : str{'arp', 'curl', 'dhcp', 'dhcp6', 'dns', 'lan_connectivity', 'radius', 'speedtest'}
-      Synthetic test type
+      Synthetic test type used to filter results. enum: `arp`, `curl`, `dhcp`, `dhcp6`, `dns`, `lan_connectivity`, `radius`, `speedtest`
     protocol : str{'ping', 'traceroute'}
-      Connectivity protocol
+      Connectivity protocol used to filter synthetic test results. enum: `ping`, `traceroute`
     tenant : str
+      Filter results by tenant network
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

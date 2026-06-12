@@ -63,6 +63,7 @@ def GetOrgLicenseAsyncClaimStatus(
     QUERY PARAMS
     ------------
     detail : bool
+      Whether to include license details in the claim status response
 
     RETURN
     -----------

@@ -26,6 +26,7 @@ def getOrgInventory(
     vc: bool | None = None,
     unassigned: bool | None = None,
     modified_after: int | None = None,
+    disconnected_before: int | None = None,
     limit: int | None = None,
     page: int | None = None,
 ) -> _APIResponse:
@@ -44,16 +45,29 @@ def getOrgInventory(
     QUERY PARAMS
     ------------
     serial : str
+      Filter results by device serial number. Accepts multiple comma-separated values.
     model : str
-    type : str{'ap', 'gateway', 'switch'}
+      Filter results by device model. Accepts multiple comma-separated values.
+    type : str
+      Filter results by type. enum: `ap`, `gateway`, `switch`. Accepts multiple comma-separated values.
     mac : str
+      Filter results by MAC address. Accepts multiple comma-separated values.
     site_id : str
+      Filter results by one site identifier. Use a single value; comma-separated values are not supported
     vc_mac : str
+      Virtual Chassis MAC address. Accepts multiple comma-separated values.
     vc : bool
+      To display Virtual Chassis members
     unassigned : bool, default: True
+      To display Unassigned devices
     modified_after : int
+      Filter on inventory last modified time, in epoch
+    disconnected_before : int
+      Filter results to devices that were last disconnected before this time, in epoch seconds
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -81,6 +95,8 @@ def getOrgInventory(
         query_params["unassigned"] = str(unassigned)
     if modified_after:
         query_params["modified_after"] = str(modified_after)
+    if disconnected_before:
+        query_params["disconnected_before"] = str(disconnected_before)
     if limit:
         query_params["limit"] = str(limit)
     if page:
@@ -177,12 +193,19 @@ def countOrgInventory(
     QUERY PARAMS
     ------------
     distinct : str{'model', 'status', 'site_id', 'sku', 'version'}, default: model
+      Field used to group this count response. enum: `model`, `status`, `site_id`, `sku`, `version`
     type : str{'ap', 'gateway', 'switch'}, default: ap
+      Filter results by type. enum: `ap`, `gateway`, `switch`
     site_id : str
+      Filter results by site identifier
     model : str
+      Filter results by device model. Accepts multiple comma-separated values.
     version : str
+      Filter results by software version
     status : str{'connected', 'disconnected'}
+      Filter results by status. enum: `connected`, `disconnected`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -360,20 +383,33 @@ def searchOrgInventory(
     QUERY PARAMS
     ------------
     type : str{'ap', 'gateway', 'switch'}, default: ap
+      Filter results by type. enum: `ap`, `gateway`, `switch`
     mac : str
+      Filter by MAC address. Partial matches may use `*` wildcards (e.g. `*5b35*` matches `5c5b350e0001` and `5c5b35000301`). Accepts multiple comma-separated values.
     model : str
+      Partial / full Device model. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `AP4*` and `*P4*` match `AP43`). Suffix-only wildcards (e.g. `*43`) are not supported. Accepts multiple comma-separated values.
     name : str
+      Device name. Always a partial match (e.g. `london` will match `london-1`, `london-2`, `my-london-device`...). Accepts multiple comma-separated values.
     site_id : str
+      Filter inventory results by site identifier. Accepts multiple comma-separated values.
     serial : str
+      Device serial number. Partial match allowed with wildcard * (e.g. `*123*` will match `AB123CD`, `12345`, `XY123`). Accepts multiple comma-separated values.
     master : str
+      Filter inventory results by whether the device is the Virtual Chassis master
     sku : str
+      Device SKU. Partial match allowed with wildcard * (e.g. `*2300*` will match `EX2300-F-12P`). Accepts multiple comma-separated values.
     version : str
-    status : str{'connected', 'disconnected'}
-      Device status. enum: `connected`, `disconnected`
+      Device version. Partial match allowed with wildcard * (e.g. `2R3` will match `21.2R3-S3.5`). Accepts multiple comma-separated values.
+    status : str
+      Device status. enum: `connected`, `disconnected`. Accepts multiple comma-separated values.
     text : str
+      Wildcards for name, mac, serial
     limit : int, default: 100
+      Maximum number of results to return per page
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

@@ -35,7 +35,9 @@ def countMspsMarvisActions(
     QUERY PARAMS
     ------------
     distinct : str{'org_id', 'status'}, default: org_id
+      Field used to group this count response. enum: `org_id`, `status`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------

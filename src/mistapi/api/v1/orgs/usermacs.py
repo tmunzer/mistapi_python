@@ -101,8 +101,11 @@ def countOrgUserMacs(
     distinct : str{'mac', 'name', 'labels', 'org_id'}
       Attribute to count by. enum: `mac`, `name`, `labels`, `org_id`
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
 
     RETURN
     -----------
@@ -173,7 +176,7 @@ def importOrgUserMacsFile(
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. File to upload
+        path to the file to upload. CSV file containing user MAC entries to import
 
     RETURN
     -----------
@@ -244,11 +247,15 @@ def searchOrgUserMacs(
     QUERY PARAMS
     ------------
     mac : str
+      Partial / full Client MAC address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported
     labels : list
       Optional, array of strings of labels
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
 
     RETURN
     -----------

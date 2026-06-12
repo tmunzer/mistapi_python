@@ -36,9 +36,11 @@ def listOrgEvpnTopologies(
     QUERY PARAMS
     ------------
     for_site : str{'any', 'false', 'true'}, default: any
-      Filter for org/site level EVPN Toplogies
+      Filter for org/site level EVPN topologies. enum: `any`, `false`, `true`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------

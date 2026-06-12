@@ -609,9 +609,14 @@ def updateOrgMistScep(
 def listOrgIssuedClientCertificates(
     mist_session: _APISession,
     org_id: str,
-    sso_name_id: str | None = None,
+    common_name: str | None = None,
+    cert_provider: str | None = None,
     serial_number: str | None = None,
     device_id: str | None = None,
+    expire_time: int | None = None,
+    created_time: int | None = None,
+    limit: int | None = None,
+    page: int | None = None,
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/list-org-issued-client-certificates
@@ -627,9 +632,22 @@ def listOrgIssuedClientCertificates(
 
     QUERY PARAMS
     ------------
-    sso_name_id : str
+    common_name : str
+      Filter by certificate common name (e.g. user UPN or device identifier)
+    cert_provider : str
+      Filter by MDM or certificate provider that issued the certificate. Accepts multiple comma-separated values.
     serial_number : str
+      Filter by certificate serial number. Accepts multiple comma-separated values.
     device_id : str
+      Filter by device identifier associated with the certificate. Accepts multiple comma-separated values.
+    expire_time : int
+      Filter by certificate expiry time, in epoch seconds
+    created_time : int
+      Filter by certificate issuance time, in epoch seconds
+    limit : int, default: 100
+      Maximum number of results to return per page
+    page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -639,12 +657,22 @@ def listOrgIssuedClientCertificates(
 
     uri = f"/api/v1/orgs/{org_id}/setting/mist_scep/client_certs"
     query_params: dict[str, str] = {}
-    if sso_name_id:
-        query_params["sso_name_id"] = str(sso_name_id)
+    if common_name:
+        query_params["common_name"] = str(common_name)
+    if cert_provider:
+        query_params["cert_provider"] = str(cert_provider)
     if serial_number:
         query_params["serial_number"] = str(serial_number)
     if device_id:
         query_params["device_id"] = str(device_id)
+    if expire_time:
+        query_params["expire_time"] = str(expire_time)
+    if created_time:
+        query_params["created_time"] = str(created_time)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -1017,6 +1045,7 @@ def getOrgOauthAppLinkedStatus(
     QUERY PARAMS
     ------------
     forward : str
+      Mist portal url to which backend needs to redirect after successful OAuth authorization. **Required** to get the `authorization_url`
 
     RETURN
     -----------

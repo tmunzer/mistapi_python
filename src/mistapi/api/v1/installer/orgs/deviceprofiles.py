@@ -32,6 +32,7 @@ def listInstallerDeviceProfiles(
     QUERY PARAMS
     ------------
     type : str{'ap', 'gateway', 'switch'}, default: ap
+      Filter results by type. enum: `ap`, `gateway`, `switch`
 
     RETURN
     -----------

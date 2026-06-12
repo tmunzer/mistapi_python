@@ -36,14 +36,20 @@ def getMspSle(
     -----------
     msp_id : str
     metric : str
+      See [List Insight Metrics](/#operations/listInsightMetrics) for available metrics
 
     QUERY PARAMS
     ------------
     sle : str
+      See [List Insight Metrics](/#operations/listInsightMetrics) for more details
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     interval : str
+      Aggregation works by giving a time range plus interval (e.g. 1d, 1h, 10m) where aggregation function would be applied to.
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
 
     RETURN
     -----------

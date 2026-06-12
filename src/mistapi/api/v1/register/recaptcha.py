@@ -28,6 +28,7 @@ def getAdminRegistrationInfo(
     QUERY PARAMS
     ------------
     recaptcha_flavor : str{'google', 'hcaptcha'}, default: google
+      Filter login settings by reCAPTCHA flavor. enum: `google`, `hcaptcha`
 
     RETURN
     -----------

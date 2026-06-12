@@ -206,6 +206,7 @@ def gen_param(data: dict, openapi_schemas: dict) -> dict:
             # Handle inline parameter definition - extract directly from schema
             tmp = {
                 "name": data["name"].replace(" ", "_").replace("-", "_"),
+                "description": data.get("description"),
                 "required": data.get("required", False),
                 "enum": data["schema"].get("enum", None),
                 "type": data["schema"].get("type"),

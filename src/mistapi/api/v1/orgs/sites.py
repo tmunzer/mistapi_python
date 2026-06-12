@@ -35,7 +35,9 @@ def listOrgSites(
     QUERY PARAMS
     ------------
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -108,10 +110,15 @@ def countOrgSites(
     QUERY PARAMS
     ------------
     distinct : str{'analytic_enabled', 'app_waking', 'asset_enabled', 'auto_upgrade_enabled', 'auto_upgrade_version', 'country_code', 'honeypot_enabled', 'id', 'locate_unconnected', 'mesh_enabled', 'name', 'remote_syslog_enabled', 'rogue_enabled', 'rtsa_enabled', 'vna_enabled', 'wifi_enabled'}, default: id
+      Field used to group this count response. enum: `analytic_enabled`, `app_waking`, `asset_enabled`, `auto_upgrade_enabled`, `auto_upgrade_version`, `country_code`, `honeypot_enabled`, `id`, `locate_unconnected`, `mesh_enabled`, `name`, `remote_syslog_enabled`, `rogue_enabled`, `rtsa_enabled`, `vna_enabled`, `wifi_enabled`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -176,27 +183,49 @@ def searchOrgSites(
     QUERY PARAMS
     ------------
     analytic_enabled : bool
+      If Advanced Analytic feature is enabled. Accepts multiple comma-separated boolean values.
     app_waking : bool
+      If App Waking feature is enabled
     asset_enabled : bool
+      If Asset Tracking is enabled. Accepts multiple comma-separated boolean values.
     auto_upgrade_enabled : bool
+      Filter results by whether automatic upgrades are enabled
     auto_upgrade_version : str
+      Filter results by automatic upgrade version. Accepts multiple comma-separated values.
     country_code : str
+      Filter results by country code. Accepts multiple comma-separated values.
     honeypot_enabled : bool
+      If Honeypot detection is enabled. Accepts multiple comma-separated boolean values.
     id : str
+      Filter results by identifier. Accepts multiple comma-separated values.
     locate_unconnected : bool
+      If unconnected client are located. Accepts multiple comma-separated boolean values.
     mesh_enabled : bool
+      If Mesh feature is enabled. Accepts multiple comma-separated boolean values.
     name : str
+      Partial / full Site name. Case insensitive. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `my-site*` and `*site*` match `my-site-01`). Suffix-only wildcards (e.g. `*site-01`) are not supported. Accepts multiple comma-separated values.
     rogue_enabled : bool
+      If Rogue detection is enabled. Accepts multiple comma-separated boolean values.
     remote_syslog_enabled : bool
+      If Remote Syslog is enabled
     rtsa_enabled : bool
+      If managed mobility feature is enabled. Accepts multiple comma-separated boolean values.
     vna_enabled : bool
+      If Virtual Network Assistant is enabled. Accepts multiple comma-separated boolean values.
     wifi_enabled : bool
+      If Wi-Fi feature is enabled
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -281,10 +310,11 @@ def importOrgMapToSiteFile(
     auto_deviceprofile_assignment : bool
         Whether to auto assign device to deviceprofile by name
     csv : str
-        path to the file to upload. CSV file for ap name mapping, optional
+        path to the file to upload. Optional AP name-mapping CSV file
     file : str
-        path to the file to upload. Ekahau or ibwave file
+        path to the file to upload. Ekahau or iBwave floorplan file to import
     json : dict
+        Import options for the site map file
 
     RETURN
     -----------

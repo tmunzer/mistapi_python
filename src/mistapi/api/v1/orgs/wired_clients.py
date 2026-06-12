@@ -38,10 +38,15 @@ def countOrgWiredClients(
     QUERY PARAMS
     ------------
     distinct : str{'device_mac', 'mac', 'port_id', 'site_id', 'type', 'vlan'}, default: mac
+      Field used to group this count response. enum: `device_mac`, `mac`, `port_id`, `site_id`, `type`, `vlan`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -75,7 +80,7 @@ def searchOrgWiredClients(
     device_mac: str | None = None,
     mac: str | None = None,
     port_id: str | None = None,
-    vlan: int | None = None,
+    vlan: str | None = None,
     ip: str | None = None,
     manufacture: str | None = None,
     text: str | None = None,
@@ -107,29 +112,51 @@ def searchOrgWiredClients(
     QUERY PARAMS
     ------------
     auth_state : str
+      Filter results by auth state
     auth_method : str
-    source : str{'lldp', 'mac'}
-      source from where the client was learned (lldp, mac)
+      Filter results by authentication method. Accepts multiple comma-separated values.
+    source : str
+      Filter results by client learning source. enum: `lldp`, `mac`. Accepts multiple comma-separated values.
     site_id : str
+      Filter results by site identifier
     device_mac : str
+      Filter results by one or more gateway or switch MAC addresses where the client has connected. Supports comma-separated values
     mac : str
+      Partial / full Client MAC address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported. Accepts multiple comma-separated values.
     port_id : str
-    vlan : int
+      Filter results by one or more port identifiers where the client has connected. Supports comma-separated values
+    vlan : str
+      Filter results by one or more VLAN IDs. Supports comma-separated values
     ip : str
+      Filter results by one or more IPv4 addresses. Supports comma-separated values
     manufacture : str
+      Filter results by manufacturer. Accepts multiple comma-separated values.
     text : str
+      Partial / full Client MAC address, hostname or username. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*ddeeff`) are not supported
     nacrule_id : str
+      Filter results by NAC rule identifier
     dhcp_hostname : str
+      Filter results by DHCP hostname. Accepts multiple comma-separated values.
     dhcp_fqdn : str
+      Filter results by DHCP FQDN
     dhcp_client_identifier : str
+      Filter results by DHCP client identifier. Accepts multiple comma-separated values.
     dhcp_vendor_class_identifier : str
+      DHCP Vendor Class Identifier. Accepts multiple comma-separated values.
     dhcp_request_params : str
+      Filter results by DHCP request parameters. Accepts multiple comma-separated values.
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

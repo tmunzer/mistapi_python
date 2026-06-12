@@ -28,6 +28,7 @@ def listCountryCodes(
     QUERY PARAMS
     ------------
     extend : bool
+      Will include more country codes if true
 
     RETURN
     -----------

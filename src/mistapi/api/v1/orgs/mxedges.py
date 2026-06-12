@@ -36,9 +36,11 @@ def listOrgMxEdges(
     QUERY PARAMS
     ------------
     for_site : str{'any', 'false', 'true'}, default: any
-      Filter for org/site level mist edges
+      Filter for org/site level Mist Edges. enum: `any`, `false`, `true`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -183,18 +185,31 @@ def countOrgMxEdges(
     QUERY PARAMS
     ------------
     distinct : str{'distro', 'model', 'mxcluster_id', 'site_id', 'tunterm_version'}, default: model
+      Field used to group this count response. enum: `distro`, `model`, `mxcluster_id`, `site_id`, `tunterm_version`
     mxedge_id : str
+      Filter results by Mist Edge identifier
     site_id : str
+      Mist edge site id
     mxcluster_id : str
+      Mist edge cluster id
     model : str
+      Filter results by device model
     distro : str
+      Debian code name (buster, bullseye)
     tunterm_version : str
+      Filter results by tunnel termination version
     sort : str
+      Field used to sort results
     stats : bool
+      Whether to return device stats, default is false
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -262,14 +277,23 @@ def countOrgSiteMxEdgeEvents(
     QUERY PARAMS
     ------------
     distinct : str{'mxcluster_id', 'mxedge_id', 'package', 'type'}, default: mxedge_id
+      Field used to group this count response. enum: `mxcluster_id`, `mxedge_id`, `package`, `type`
     mxedge_id : str
+      Filter results by Mist Edge identifier
     mxcluster_id : str
+      Mist edge cluster id
     type : str
+      See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
     service : str
+      Filter results by service name
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -331,16 +355,27 @@ def searchOrgMistEdgeEvents(
     QUERY PARAMS
     ------------
     mxedge_id : str
+      Filter results by Mist Edge identifier
     mxcluster_id : str
+      Mist edge cluster id
     type : str
+      See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
     service : str
+      Filter results by service name
     component : str
+      Filter results by component name
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -409,19 +444,33 @@ def searchOrgMxEdges(
     QUERY PARAMS
     ------------
     hostname : str
+      Partial / full Device hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `my-london*` and `*london*` match `my-london-1`). Suffix-only wildcards (e.g. `*london-1`) are not supported. Accepts multiple comma-separated values.
     mxedge_id : str
+      Filter results by Mist Edge identifier. Accepts multiple comma-separated values.
     mxcluster_id : str
+      Mist edge cluster id. Accepts multiple comma-separated values.
     model : str
+      Partial / full Device model. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `AP4*` and `*P4*` match `AP43`). Suffix-only wildcards (e.g. `*43`) are not supported. Accepts multiple comma-separated values.
     distro : str
+      Debian code name (buster, bullseye)
     tunterm_version : str
+      Filter results by tunnel termination version
     site_id : str
+      Mist edge site id
     stats : bool
+      Whether to return device stats, default is false
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -658,8 +707,9 @@ def getOrgMxEdgeUpgradeInfo(
     QUERY PARAMS
     ------------
     channel : str{'alpha', 'beta', 'stable'}, default: stable
-      Upgrade channel to follow, stable (default) / beta / alpha
+      Upgrade channel used to filter available versions. enum: `alpha`, `beta`, `stable`
     distro : str
+      Filter results by distro
 
     RETURN
     -----------
@@ -819,8 +869,9 @@ def addOrgMxEdgeImageFile(
     BODY PARAMS
     -----------
     file : str
-        path to the file to upload. Binary file
+        path to the file to upload. Image file content uploaded as multipart form data
     json : str
+        Optional JSON metadata submitted with the image upload
 
     RETURN
     -----------

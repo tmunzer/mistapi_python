@@ -38,10 +38,15 @@ def listInstallerListOfRecentlyClaimedDevices(
     QUERY PARAMS
     ------------
     model : str
+      Filter results by device model
     site_name : str
+      Filter results by site name
     site_id : str
+      Filter results by site identifier
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -268,10 +273,11 @@ def addInstallerDeviceImageFile(
     auto_deviceprofile_assignment : bool
         Whether to auto assign device to deviceprofile by name
     csv : str
-        path to the file to upload. CSV file for ap name mapping, optional
+        path to the file to upload. Optional AP name-mapping CSV file
     file : str
-        path to the file to upload. Ekahau or ibwave file
+        path to the file to upload. Ekahau or iBwave floorplan file to import
     json : dict
+        Import options for the site map file
 
     RETURN
     -----------
@@ -305,6 +311,7 @@ def getInstallerDeviceVirtualChassis(
     -----------
     org_id : str
     fpc0_mac : str
+      FPC0 MAC address
 
     RETURN
     -----------
@@ -333,6 +340,7 @@ def createInstallerVirtualChassis(
     -----------
     org_id : str
     fpc0_mac : str
+      FPC0 MAC address
 
     BODY PARAMS
     -----------
@@ -365,6 +373,7 @@ def updateInstallerVirtualChassisMember(
     -----------
     org_id : str
     fpc0_mac : str
+      FPC0 MAC address
 
     BODY PARAMS
     -----------

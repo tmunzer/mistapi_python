@@ -43,15 +43,25 @@ def countSiteSkyatpEvents(
     QUERY PARAMS
     ------------
     distinct : str{'device_mac', 'mac', 'threat_level', 'type'}, default: type
+      Field used to group this count response. enum: `device_mac`, `mac`, `threat_level`, `type`
     type : str
+      Event type, e.g. cc, fs, mw
     mac : str
+      Filter results by MAC address
     device_mac : str
+      Filter results by device MAC address
     threat_level : int
+      Filter results by threat level
     ip : str
+      Filter results by IPv4 address
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -115,16 +125,27 @@ def searchSiteSkyatpEvents(
     QUERY PARAMS
     ------------
     type : str
+      Event type, e.g. cc, fs, mw
     mac : str
+      Filter results by MAC address
     device_mac : str
+      Filter results by device MAC address
     threat_level : int
+      Filter results by threat level
     ip : str
+      Filter results by IPv4 address
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

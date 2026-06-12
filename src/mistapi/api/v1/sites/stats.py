@@ -62,9 +62,13 @@ def listSiteSpectrumAnalysis(
     QUERY PARAMS
     ------------
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
 
     RETURN
     -----------
@@ -110,11 +114,15 @@ def countSiteApps(
     QUERY PARAMS
     ------------
     distinct : str{'ap', 'app', 'category', 'device_mac', 'port_id', 'service', 'src_ip', 'ssid', 'wcid', 'wlan_id app'}
-      Default for wireless devices is `ap`. Default for wired devices is `device_mac`
+      Field used to group application statistics count results. enum: `ap`, `app`, `category`, `device_mac`, `port_id`, `service`, `src_ip`, `ssid`, `wcid`, `wlan_id`
     device_mac : str
+      MAC of the device
     app : str
+      Filter results by application name
     wired : str
+      If a device is wired or wireless. Default is False.
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -141,6 +149,7 @@ def countSiteApps(
 def listSiteAssetsStats(
     mist_session: _APISession,
     site_id: str,
+    map_id: str | None = None,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -161,11 +170,18 @@ def listSiteAssetsStats(
 
     QUERY PARAMS
     ------------
+    map_id : str
+      Filter assets by map UUID
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -175,6 +191,8 @@ def listSiteAssetsStats(
 
     uri = f"/api/v1/sites/{site_id}/stats/assets"
     query_params: dict[str, str] = {}
+    if map_id:
+        query_params["map_id"] = str(map_id)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -210,7 +228,9 @@ def countSiteAssets(
     QUERY PARAMS
     ------------
     distinct : str{'by', 'device_name', 'eddystone_uid_instance', 'eddystone_uid_namespace', 'eddystone_url', 'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'name'}, default: map_id
+      Field used to group this count response. enum: `by`, `device_name`, `eddystone_uid_instance`, `eddystone_uid_namespace`, `eddystone_url`, `ibeacon_major`, `ibeacon_minor`, `ibeacon_uuid`, `mac`, `map_id`, `name`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -267,25 +287,45 @@ def searchSiteAssets(
     QUERY PARAMS
     ------------
     mac : str
+      Filter results by MAC address
     map_id : str
+      Filter results by map identifier
     ibeacon_uuid : str
+      Filter asset results by iBeacon UUID
     ibeacon_major : int
+      Filter asset results by iBeacon major value
     ibeacon_minor : int
+      Filter asset results by iBeacon minor value
     eddystone_uid_namespace : str
+      Filter asset results by Eddystone UID namespace
     eddystone_uid_instance : str
+      Filter asset results by Eddystone UID instance
     eddystone_url : str
+      Filter asset results by Eddystone URL
     device_name : str
+      Filter asset results by reporting device name
     by : str
+      Select how the value should be returned
     name : str
+      Filter results by name
     ap_mac : str
+      Filter asset results by reporting AP MAC address
     beam : str
+      Filter asset results by beam value
     rssi : str
+      Filter asset results by RSSI value
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -363,8 +403,11 @@ def getSiteAssetStats(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
 
     RETURN
     -----------
@@ -408,10 +451,15 @@ def listSiteBeaconsStats(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -457,8 +505,11 @@ def countSiteBgpStats(
     QUERY PARAMS
     ------------
     state : str
+      Filter peer results by state
     distinct : str
+      Field used to group this count response
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -506,14 +557,23 @@ def searchSiteBgpStats(
     QUERY PARAMS
     ------------
     mac : str
+      Filter results by MAC address
     neighbor_mac : str
+      Filter peer results by neighbor MAC address
     vrf_name : str
+      Filter peer results by VRF name
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -574,13 +634,21 @@ def troubleshootSiteCall(
     QUERY PARAMS
     ------------
     meeting_id : str
+      Filter results by meeting identifier
     mac : str
+      Filter results by MAC address
     app : str
+      Third party app name
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -635,11 +703,17 @@ def countSiteCalls(
     QUERY PARAMS
     ------------
     distinct : str{'mac'}, default: mac
+      Field used to group this count response. enum: `mac`
     rating : int
+      Feedback rating (e.g. "rating=1" or "rating=1,2")
     app : str
+      Filter application statistics by application name
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -692,13 +766,21 @@ def searchSiteCalls(
     QUERY PARAMS
     ------------
     mac : str
+      Filter results by MAC address
     app : str
+      Third party app name
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -751,9 +833,13 @@ def getSiteCallsSummary(
     QUERY PARAMS
     ------------
     ap_mac : str
+      Filter results by AP MAC address
     app : str
+      Filter results by application name
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
 
     RETURN
     -----------
@@ -803,14 +889,23 @@ def listSiteTroubleshootCalls(
     QUERY PARAMS
     ------------
     ap : str
+      Filter results by AP MAC address
     meeting_id : str
+      Filter results by meeting identifier
     mac : str
+      Filter results by MAC address
     app : str
+      Third party app name
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -866,10 +961,15 @@ def listSiteWirelessClientsStats(
     QUERY PARAMS
     ------------
     wired : bool
+      Filter results by whether the client is wired
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
 
     RETURN
     -----------
@@ -912,6 +1012,7 @@ def getSiteWirelessClientStats(
     QUERY PARAMS
     ------------
     wired : bool
+      Filter results by whether the client is wired
 
     RETURN
     -----------
@@ -950,9 +1051,13 @@ def listSiteDevicesStats(
     QUERY PARAMS
     ------------
     type : str, default: ap
+      Filter results by type
     status : str{'all', 'connected', 'disconnected'}, default: all
+      Filter results by status. enum: `all`, `connected`, `disconnected`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -993,6 +1098,7 @@ def getSiteDeviceStats(
     QUERY PARAMS
     ------------
     fields : str
+      List of additional fields requests, comma separated, or `fields=*` for all of them
 
     RETURN
     -----------
@@ -1060,10 +1166,15 @@ def listSiteDiscoveredAssets(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -1114,15 +1225,21 @@ def searchSiteDiscoveredSwitchesMetrics(
     QUERY PARAMS
     ------------
     scope : str{'site', 'switch'}, default: site
-      Metric scope
+      Filter results by scope. enum: `site`, `switch`
     type : str{'inactive_wired_vlans', 'poe_compliance', 'switch_ap_affinity', 'version_compliance'}
-      Metric type
+      Metric type. enum: `inactive_wired_vlans`, `poe_compliance`, `switch_ap_affinity`, `version_compliance`
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -1176,10 +1293,15 @@ def countSiteDiscoveredSwitches(
     QUERY PARAMS
     ------------
     distinct : str{'mgmt_addr', 'model', 'system_name', 'version'}, default: system_name
+      Field used to group this count response. enum: `mgmt_addr`, `model`, `system_name`, `version`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -1224,7 +1346,9 @@ def listSiteDiscoveredSwitchesMetrics(
     QUERY PARAMS
     ------------
     threshold : str
+      Configurable # ap per switch threshold, default 12
     system_name : str
+      System name for switch level metrics, optional
 
     RETURN
     -----------
@@ -1273,17 +1397,29 @@ def searchSiteDiscoveredSwitches(
     QUERY PARAMS
     ------------
     adopted : bool
+      Filter results by whether the device is adopted
     system_name : str
+      Filter discovered switch results by system name
     hostname : str
+      Filter results by hostname
     vendor : str
+      Filter results by vendor
     model : str
+      Filter results by device model
     version : str
+      Filter results by software version
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -1345,10 +1481,15 @@ def getSiteAssetsOfInterest(
     QUERY PARAMS
     ------------
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -1423,10 +1564,15 @@ def getSiteWirelessClientsStatsByMap(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -1558,10 +1704,15 @@ def listSiteMxEdgesStats(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -1609,8 +1760,11 @@ def getSiteMxEdgeStats(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
 
     RETURN
     -----------
@@ -1655,11 +1809,17 @@ def countSiteOspfStats(
     QUERY PARAMS
     ------------
     distinct : str{'site_id', 'org_id', 'mac', 'peer_ip', 'port_id', 'state', 'vrf_name'}
+      Field used to group this count response. enum: `site_id`, `org_id`, `mac`, `peer_ip`, `port_id`, `state`, `vrf_name`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     limit : int, default: 100
+      Maximum number of results to return per page
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -1712,13 +1872,21 @@ def searchSiteOspfStats(
     QUERY PARAMS
     ------------
     mac : str
+      Filter results by MAC address
     vrf_name : str
+      Filter peer results by VRF name
     peer_ip : str
+      Filter peer results by peer IP address
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     limit : int, default: 100
+      Maximum number of results to return per page
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -1797,38 +1965,65 @@ def countSiteSwOrGwPorts(
     QUERY PARAMS
     ------------
     distinct : str{'full_duplex', 'mac', 'neighbor_mac', 'neighbor_port_desc', 'neighbor_system_name', 'poe_disabled', 'poe_mode', 'poe_on', 'port_id', 'port_mac', 'speed', 'up'}, default: mac
+      Field used to group this count response. enum: `full_duplex`, `mac`, `neighbor_mac`, `neighbor_port_desc`, `neighbor_system_name`, `poe_disabled`, `poe_mode`, `poe_on`, `port_id`, `port_mac`, `speed`, `up`
     full_duplex : bool
+      Indicates full or half duplex
     mac : str
+      Filter results by MAC address
     neighbor_mac : str
+      Chassis identifier of the chassis type listed
     neighbor_port_desc : str
+      Description supplied by the system on the interface E.g. "GigabitEthernet2/0/39"
     neighbor_system_name : str
+      Name supplied by the system on the interface E.g. neighbor system name E.g. "Kumar-Acc-SW.mist.local"
     poe_disabled : bool
+      Is the POE configured not be disabled.
     poe_mode : str
+      POE mode depending on class E.g. "802.3at"
     poe_on : bool
+      Is the device attached to POE
     port_id : str
+      Filter results by port identifier
     port_mac : str
+      Filter results by port MAC address
     power_draw : float
+      Amount of power being used by the interface at the time the command is executed. Unit in watts.
     tx_pkts : int
+      Filter results by transmitted packet count
     rx_pkts : int
+      Filter results by received packet count
     rx_bytes : int
+      Filter results by received byte count
     tx_bps : int
+      Filter results by transmit rate
     rx_bps : int
+      Filter results by receive rate
     tx_mcast_pkts : int
+      Filter results by transmitted multicast packet count
     tx_bcast_pkts : int
+      Filter results by transmitted broadcast packet count
     rx_mcast_pkts : int
+      Filter results by received multicast packet count
     rx_bcast_pkts : int
+      Filter results by received broadcast packet count
     speed : int
+      Filter results by port speed
     stp_state : str{'', 'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
-      If `up`==`true`
+      STP state used to filter port results when `up`==`true`. enum: `""`, `blocking`, `disabled`, `forwarding`, `learning`, `listening`
     stp_role : str{'', 'alternate', 'backup', 'designated', 'disabled', 'root', 'root-prevented'}
-      If `up`==`true`
+      STP role used to filter port results when `up`==`true`. enum: `""`, `alternate`, `backup`, `designated`, `disabled`, `root`, `root-prevented`
     auth_state : str{'', 'authenticated', 'authenticating', 'held', 'init'}
-      If `up`==`true` && has Authenticator role
+      Authentication state used to filter port results when `up`==`true` and the port has an authenticator role. enum: `""`, `authenticated`, `authenticating`, `held`, `init`
     up : bool
+      Indicates if interface is up
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -1947,32 +2142,51 @@ def searchSiteSwOrGwPorts(
     device_type : str{'switch', 'gateway', 'all'}, default: all
       Type of device. enum: `switch`, `gateway`, `all`
     auth_state : str{'', 'authenticated', 'authenticating', 'held', 'init'}
-      If `up`==`true` && has Authenticator role
+      Authentication state used to filter port results when `up`==`true` and the port has an authenticator role. enum: `""`, `authenticated`, `authenticating`, `held`, `init`
     full_duplex : bool
+      Indicates full or half duplex
     lte_imsi : str
+      LTE IMSI value, Check for null/empty
     lte_iccid : str
+      LTE ICCID value, Check for null/empty
     lte_imei : str
+      LTE IMEI value, Check for null/empty
     mac : str
+      Filter results by MAC address
     neighbor_mac : str
+      Chassis identifier of the chassis type listed
     neighbor_port_desc : str
+      Description supplied by the system on the interface E.g. "GigabitEthernet2/0/39"
     neighbor_system_name : str
+      Name supplied by the system on the interface E.g. neighbor system name E.g. "Kumar-Acc-SW.mist.local"
     poe_disabled : bool
+      Is the POE configured not be disabled.
     poe_mode : str
+      POE mode depending on class E.g. "802.3at"
     poe_on : bool
+      Is the device attached to POE
     poe_priority : str{'low', 'high'}
-      PoE priority.
+      PoE priority used to filter switch port results. enum: `low`, `high`
     port_id : str
+      Filter results by port identifier
     port_mac : str
+      Filter results by port MAC address
     speed : int
+      Filter results by port speed
     stp_state : str{'', 'blocking', 'disabled', 'forwarding', 'learning', 'listening'}
-      If `up`==`true`
+      STP state used to filter port results when `up`==`true`. enum: `""`, `blocking`, `disabled`, `forwarding`, `learning`, `listening`
     stp_role : str{'', 'alternate', 'backup', 'designated', 'disabled', 'root', 'root-prevented'}
-      If `up`==`true`
+      STP role used to filter port results when `up`==`true`. enum: `""`, `alternate`, `backup`, `designated`, `disabled`, `root`, `root-prevented`
     up : bool
+      Indicates if interface is up
     xcvr_part_number : str
+      Optic Slot Partnumber, Check for null/empty
     limit : int, default: 100
+      Maximum number of results to return per page
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------
@@ -2137,8 +2351,11 @@ def getSiteSwitchesMetrics(
     QUERY PARAMS
     ------------
     type : str{'active_ports_summary'}
+      Filter results by type. enum: `active_ports_summary`
     scope : str{'site', 'switch'}
+      Filter results by scope. enum: `site`, `switch`
     switch_mac : str
+      Switch mac, used only with metric `type`==`active_ports_summary`
 
     RETURN
     -----------
@@ -2204,7 +2421,9 @@ def listSiteZonesStats(
     QUERY PARAMS
     ------------
     map_id : str
+      Filter results by map identifier
     min_duration : int
+      Filter results by minimum duration
 
     RETURN
     -----------

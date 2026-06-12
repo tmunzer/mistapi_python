@@ -38,11 +38,15 @@ def troubleshootOrg(
     QUERY PARAMS
     ------------
     mac : str
+      **required** when troubleshooting device or a client
     site_id : str
+      **required** when troubleshooting site
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     type : str{'wan', 'wired', 'wireless'}
-      When troubleshooting site, type of network to troubleshoot
+      When troubleshooting site, type of network to troubleshoot. enum: `wan`, `wired`, `wireless`
 
     RETURN
     -----------

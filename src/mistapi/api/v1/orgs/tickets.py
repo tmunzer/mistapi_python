@@ -36,8 +36,11 @@ def listOrgTickets(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
 
     RETURN
     -----------
@@ -109,7 +112,9 @@ def countOrgTickets(
     QUERY PARAMS
     ------------
     distinct : str{'status', 'type'}, default: status
+      Field used to group this count response. enum: `status`, `type`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -151,8 +156,11 @@ def getOrgTicket(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
 
     RETURN
     -----------
@@ -265,8 +273,11 @@ def GetOrgTicketAttachment(
     QUERY PARAMS
     ------------
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
 
     RETURN
     -----------
@@ -309,8 +320,9 @@ def addOrgTicketCommentFile(
     BODY PARAMS
     -----------
     comment : str
+        Text body for the ticket comment submitted with the uploaded file
     file : str
-        path to the file to upload.
+        path to the file to upload. Binary file payload to attach to the ticket comment
 
     RETURN
     -----------

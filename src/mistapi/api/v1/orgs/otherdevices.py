@@ -40,12 +40,19 @@ def listOrgOtherDevices(
     QUERY PARAMS
     ------------
     vendor : str
+      Filter results by vendor
     mac : str
+      Filter results by MAC address
     serial : str
+      Filter results by device serial number
     model : str
+      Filter results by device model
     name : str
+      Filter results by name
     limit : int, default: 100
+      Maximum number of results to return per page
     page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
 
     RETURN
     -----------
@@ -129,11 +136,17 @@ def countOrgOtherDeviceEvents(
     QUERY PARAMS
     ------------
     distinct : str{'mac', 'site_id', 'type', 'vendor'}, default: mac
+      Field used to group this count response. enum: `mac`, `site_id`, `type`, `vendor`
     type : str
+      See [List Device Events Definitions](/#operations/listOtherDeviceEventsDefinitions)
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
@@ -190,17 +203,29 @@ def searchOrgOtherDeviceEvents(
     QUERY PARAMS
     ------------
     site_id : str
+      Filter results by site identifier
     mac : str
+      Filter results by MAC address
     device_mac : str
+      MAC of attached device
     model : str
+      Filter results by device model
     vendor : str
+      Filter results by vendor
     type : str
+      See [List Device Events Definitions](/#operations/listOtherDeviceEventsDefinitions)
     limit : int, default: 100
+      Maximum number of results to return per page
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
 
     RETURN
     -----------

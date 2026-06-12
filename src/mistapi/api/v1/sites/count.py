@@ -44,16 +44,23 @@ def countSiteZoneSessions(
     QUERY PARAMS
     ------------
     distinct : str{'scope', 'scope_id', 'user', 'user_type'}, default: scope_id
+      Field used to group this count response. enum: `scope`, `scope_id`, `user`, `user_type`
     user_type : str{'asset', 'client', 'sdkclient'}
-      User type
+      Filter results by user type. enum: `asset`, `client`, `sdkclient`
     user : str
+      Client MAC / Asset MAC / SDK UUID
     scope_id : str
+      If `scope`==`map`/`zone`/`rssizone`, the scope id
     scope : str{'map', 'rssizone', 'site', 'zone'}, default: site
-      Scope
+      Filter results by scope. enum: `map`, `rssizone`, `site`, `zone`
     start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
     duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
     limit : int, default: 100
+      Maximum number of results to return per page
 
     RETURN
     -----------
