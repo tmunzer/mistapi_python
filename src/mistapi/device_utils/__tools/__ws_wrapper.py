@@ -219,6 +219,13 @@ class UtilResponse:
         self.ws_required: bool = False
         self.ws_data: list[str] = []
         self.ws_raw_events: list[str] = []
+        # Set when the WebSocket leg did NOT complete cleanly (transport error,
+        # abnormal close, or failure to start). Stays None on a clean completion or
+        # a trigger-only command, so `ws_error is not None` is a reliable
+        # "did not cleanly confirm" signal for consumers. ws_close_code records the
+        # WebSocket close status code when one was received.
+        self.ws_error: str | None = None
+        self.ws_close_code: int | None = None
         self._queue: queue.Queue[str | None] = queue.Queue()
         self._closed = threading.Event()
         self._await_timeout: float | None = None
@@ -349,8 +356,22 @@ class WebSocketWrapper:
         # Start the max duration timer
         self._timeout_handler(Timer.MAX_DURATION, TimerAction.START)
 
+    def _on_error(self, error):
+        LOGGER.error("Error: %s", error)
+        # Record the first WebSocket transport error so a consumer can tell an
+        # errored stream from a clean one (otherwise the error is only logged).
+        if self.util_response.ws_error is None:
+            self.util_response.ws_error = str(error)
+
     def _on_close(self, code, msg):
         LOGGER.info("WebSocket closed: %s - %s", code, msg)
+        self.util_response.ws_close_code = code
+        # An abnormal close (anything other than a normal 1000 / no-status close)
+        # is recorded as an error so a clean completion is distinguishable.
+        if code is not None and code != 1000 and self.util_response.ws_error is None:
+            self.util_response.ws_error = (
+                f"WebSocket closed abnormally (code {code}): {msg}"
+            )
         self._stop_all_timers()
         self.util_response._queue.put(None)  # sentinel for receive()
         self.util_response._closed.set()  # signal completion
@@ -507,7 +528,7 @@ class WebSocketWrapper:
         """
         self.ws = ws
         ws.on_message(self._handle_message)
-        ws.on_error(lambda error: LOGGER.error("Error: %s", error))
+        ws.on_error(self._on_error)
         ws.on_close(self._on_close)
         ws.on_open(self._on_open)
 
@@ -564,6 +585,11 @@ class WebSocketWrapper:
                         self.start(ws)
                         return  # start() / _on_close manages _closed
                     LOGGER.error("WS factory returned None")
+                    # The WebSocket leg was expected but never started; record it so
+                    # consumers don't mistake this for a clean trigger-only completion.
+                    # Guarded (first-write-wins) to match _on_error / _on_close.
+                    if self.util_response.ws_error is None:
+                        self.util_response.ws_error = "WebSocket factory returned None"
                 else:
                     LOGGER.error(
                         "Failed to trigger command: %s - %s",
@@ -572,6 +598,10 @@ class WebSocketWrapper:
                     )
             except Exception as e:
                 LOGGER.error("Error during trigger: %s", e)
+                # This except also wraps trigger_fn(), so the message stays neutral
+                # rather than implying the failure was always in WebSocket setup.
+                if self.util_response.ws_error is None:
+                    self.util_response.ws_error = f"trigger/WebSocket setup error: {e}"
             # Mark done (failure or WS factory returned None)
             self.util_response._queue.put(None)
             self.util_response._closed.set()
