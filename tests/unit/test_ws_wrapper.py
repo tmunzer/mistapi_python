@@ -183,3 +183,77 @@ class TestVT100Screen:
         rendered = s.render()
         assert rendered == "A"
         assert not rendered.endswith(" ")
+
+
+# ------------------------------------------------------------------
+# ws_error / ws_close_code (issue #29): let consumers distinguish a clean
+# WebSocket completion from an errored / abnormal / never-started one.
+# ------------------------------------------------------------------
+class TestUtilResponseWsErrorDefaults:
+    def test_defaults_are_none(self) -> None:
+        r = UtilResponse()
+        assert r.ws_error is None
+        assert r.ws_close_code is None
+
+
+class TestOnError:
+    def test_records_first_error(self) -> None:
+        w = _make_wrapper()
+        w._on_error(Exception("boom"))
+        assert w.util_response.ws_error == "boom"
+
+    def test_does_not_overwrite_existing(self) -> None:
+        w = _make_wrapper()
+        w._on_error(Exception("first"))
+        w._on_error(Exception("second"))
+        assert w.util_response.ws_error == "first"
+
+
+class TestOnClose:
+    def test_normal_close_is_clean(self) -> None:
+        w = _make_wrapper()
+        w._on_close(1000, "")
+        assert w.util_response.ws_close_code == 1000
+        assert w.util_response.ws_error is None
+
+    def test_abnormal_close_sets_error(self) -> None:
+        w = _make_wrapper()
+        w._on_close(1006, "abnormal closure")
+        assert w.util_response.ws_close_code == 1006
+        assert "1006" in (w.util_response.ws_error or "")
+
+    def test_no_status_close_is_not_flagged(self) -> None:
+        w = _make_wrapper()
+        w._on_close(None, "")
+        assert w.util_response.ws_close_code is None
+        assert w.util_response.ws_error is None
+
+
+class TestStartWithTriggerWsError:
+    """A WS-backed command whose WebSocket never starts must record ws_error so it
+    is not mistaken for a clean trigger-only completion."""
+
+    @staticmethod
+    def _trigger(status: int = 200, data=None):
+        return Mock(status_code=status, data=data if data is not None else {})
+
+    def test_ws_factory_returning_none_sets_ws_error(self) -> None:
+        w = _make_wrapper()
+        w.start_with_trigger(
+            trigger_fn=lambda: self._trigger(),
+            ws_factory_fn=lambda trigger: None,
+        )
+        w.util_response.wait(timeout=5)
+        assert w.util_response.done
+        assert w.util_response.ws_required is False  # WS never started
+        assert w.util_response.ws_error == "WebSocket factory returned None"
+
+    def test_ws_factory_raising_sets_ws_error(self) -> None:
+        def boom(trigger):
+            raise RuntimeError("factory kaboom")
+
+        w = _make_wrapper()
+        w.start_with_trigger(trigger_fn=lambda: self._trigger(), ws_factory_fn=boom)
+        w.util_response.wait(timeout=5)
+        assert w.util_response.done
+        assert "factory kaboom" in (w.util_response.ws_error or "")
