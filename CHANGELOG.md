@@ -1,4 +1,18 @@
 # CHANGELOG
+## Unreleased
+
+### 1. BUG FIXES
+
+#### **Device Utilities: surface WebSocket errors on `UtilResponse`**
+`UtilResponse` now exposes `ws_error` and `ws_close_code` so callers can distinguish a clean WebSocket completion from an errored, abnormally-closed, or never-started one. Previously a WebSocket transport error was only logged and discarded, and a WS-backed command whose WebSocket failed to start was indistinguishable from a healthy trigger-only command.
+- `_on_error` records the first transport error (was a discard-only callback).
+- `_on_close` records the close status code and flags a non-1000 abnormal close.
+- `start_with_trigger` records `ws_error` when the WebSocket factory returns `None` or raises during setup.
+
+Additive and backward-compatible: `ws_error` stays `None` on a clean completion or a trigger-only command. (#29)
+
+---
+
 ## Version 0.63.0 (June 2026)
 
 **Released**: June 12, 2026
