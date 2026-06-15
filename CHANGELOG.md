@@ -1,5 +1,11 @@
 # CHANGELOG
-## Unreleased
+## Version 0.63.1 (June 2026)
+
+**Released**: June 14, 2026
+
+This patch release lets callers of the device-utility helpers detect WebSocket failures that were previously only logged.
+
+---
 
 ### 1. BUG FIXES
 
