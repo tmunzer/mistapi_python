@@ -587,7 +587,9 @@ class WebSocketWrapper:
                     LOGGER.error("WS factory returned None")
                     # The WebSocket leg was expected but never started; record it so
                     # consumers don't mistake this for a clean trigger-only completion.
-                    self.util_response.ws_error = "WebSocket factory returned None"
+                    # Guarded (first-write-wins) to match _on_error / _on_close.
+                    if self.util_response.ws_error is None:
+                        self.util_response.ws_error = "WebSocket factory returned None"
                 else:
                     LOGGER.error(
                         "Failed to trigger command: %s - %s",
@@ -596,8 +598,10 @@ class WebSocketWrapper:
                     )
             except Exception as e:
                 LOGGER.error("Error during trigger: %s", e)
+                # This except also wraps trigger_fn(), so the message stays neutral
+                # rather than implying the failure was always in WebSocket setup.
                 if self.util_response.ws_error is None:
-                    self.util_response.ws_error = f"WebSocket setup error: {e}"
+                    self.util_response.ws_error = f"trigger/WebSocket setup error: {e}"
             # Mark done (failure or WS factory returned None)
             self.util_response._queue.put(None)
             self.util_response._closed.set()
