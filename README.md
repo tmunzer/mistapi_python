@@ -584,7 +584,7 @@ All channel classes accept the following optional keyword arguments:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `ping_interval` | `int` | `60` | Seconds between automatic ping frames. Set to `0` to disable pings. |
-| `ping_timeout` | `int \| None` | `None` | Seconds to wait for a pong response before treating the connection as dead. Defaults to `min(45, ping_interval - 1)`. When `ping_interval > 0`, this must be lower than `ping_interval`. |
+| `ping_timeout` | `int \| None` | `None` | Seconds to wait for a pong response before treating the connection as dead. Defaults to `min(45, ping_interval - 1)` when pings are enabled, or `45` when `ping_interval=0` (unused since pings are disabled). When `ping_interval > 0`, this must be lower than `ping_interval`. |
 | `auto_reconnect` | `bool` | `False` | Automatically reconnect on transient failures using exponential backoff. |
 | `max_reconnect_attempts` | `int` | `5` | Maximum number of reconnect attempts before giving up. |
 | `reconnect_backoff` | `float` | `2.0` | Base backoff delay in seconds. Doubles after each failed attempt (2s, 4s, 8s, ...). Resets on successful reconnection. |

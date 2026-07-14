@@ -31,8 +31,10 @@ class ClientsStatsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int | None, default None
         Time in seconds to wait for a ping response before considering the
-        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
-        lower than ping_interval.
+        connection dead. Defaults to ``min(45, ping_interval - 1)`` when
+        pings are enabled, or ``45`` when ``ping_interval`` is 0 (unused
+        since pings are disabled). Must be lower than ping_interval when
+        pings are enabled.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -42,10 +44,11 @@ class ClientsStatsEvents(_MistWebsocket):
     max_reconnect_backoff : float | None, default None
         Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set,
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+        Maximum number of messages buffered in each of the internal queues
+        used for the ``receive()`` generator and callback delivery. ``0``
+        means unbounded. When set, incoming messages are dropped with a
+        warning when the target queue is full, preventing memory growth on
+        high-frequency streams.
     subscription_watchdog_timeout : float, default 10.0
         Maximum time in seconds to wait for all channel subscription
         acknowledgements after connect. On timeout, the error is reported to
@@ -139,8 +142,10 @@ class DeviceCmdEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int | None, default None
         Time in seconds to wait for a ping response before considering the
-        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
-        lower than ping_interval.
+        connection dead. Defaults to ``min(45, ping_interval - 1)`` when
+        pings are enabled, or ``45`` when ``ping_interval`` is 0 (unused
+        since pings are disabled). Must be lower than ping_interval when
+        pings are enabled.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -150,10 +155,11 @@ class DeviceCmdEvents(_MistWebsocket):
     max_reconnect_backoff : float | None, default None
         Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set,
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+        Maximum number of messages buffered in each of the internal queues
+        used for the ``receive()`` generator and callback delivery. ``0``
+        means unbounded. When set, incoming messages are dropped with a
+        warning when the target queue is full, preventing memory growth on
+        high-frequency streams.
     subscription_watchdog_timeout : float, default 10.0
         Maximum time in seconds to wait for all channel subscription
         acknowledgements after connect. On timeout, the error is reported to
@@ -242,8 +248,10 @@ class DeviceStatsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int | None, default None
         Time in seconds to wait for a ping response before considering the
-        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
-        lower than ping_interval.
+        connection dead. Defaults to ``min(45, ping_interval - 1)`` when
+        pings are enabled, or ``45`` when ``ping_interval`` is 0 (unused
+        since pings are disabled). Must be lower than ping_interval when
+        pings are enabled.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -253,10 +261,11 @@ class DeviceStatsEvents(_MistWebsocket):
     max_reconnect_backoff : float | None, default None
         Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set,
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+        Maximum number of messages buffered in each of the internal queues
+        used for the ``receive()`` generator and callback delivery. ``0``
+        means unbounded. When set, incoming messages are dropped with a
+        warning when the target queue is full, preventing memory growth on
+        high-frequency streams.
     subscription_watchdog_timeout : float, default 10.0
         Maximum time in seconds to wait for all channel subscription
         acknowledgements after connect. On timeout, the error is reported to
@@ -342,8 +351,10 @@ class DeviceEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int | None, default None
         Time in seconds to wait for a ping response before considering the
-        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
-        lower than ping_interval.
+        connection dead. Defaults to ``min(45, ping_interval - 1)`` when
+        pings are enabled, or ``45`` when ``ping_interval`` is 0 (unused
+        since pings are disabled). Must be lower than ping_interval when
+        pings are enabled.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -353,10 +364,11 @@ class DeviceEvents(_MistWebsocket):
     max_reconnect_backoff : float | None, default None
         Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set,
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+        Maximum number of messages buffered in each of the internal queues
+        used for the ``receive()`` generator and callback delivery. ``0``
+        means unbounded. When set, incoming messages are dropped with a
+        warning when the target queue is full, preventing memory growth on
+        high-frequency streams.
     subscription_watchdog_timeout : float, default 10.0
         Maximum time in seconds to wait for all channel subscription
         acknowledgements after connect. On timeout, the error is reported to
@@ -442,8 +454,10 @@ class MxEdgesStatsEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int | None, default None
         Time in seconds to wait for a ping response before considering the
-        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
-        lower than ping_interval.
+        connection dead. Defaults to ``min(45, ping_interval - 1)`` when
+        pings are enabled, or ``45`` when ``ping_interval`` is 0 (unused
+        since pings are disabled). Must be lower than ping_interval when
+        pings are enabled.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -453,10 +467,11 @@ class MxEdgesStatsEvents(_MistWebsocket):
     max_reconnect_backoff : float | None, default None
         Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set,
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+        Maximum number of messages buffered in each of the internal queues
+        used for the ``receive()`` generator and callback delivery. ``0``
+        means unbounded. When set, incoming messages are dropped with a
+        warning when the target queue is full, preventing memory growth on
+        high-frequency streams.
     subscription_watchdog_timeout : float, default 10.0
         Maximum time in seconds to wait for all channel subscription
         acknowledgements after connect. On timeout, the error is reported to
@@ -542,8 +557,10 @@ class MxEdgesEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int | None, default None
         Time in seconds to wait for a ping response before considering the
-        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
-        lower than ping_interval.
+        connection dead. Defaults to ``min(45, ping_interval - 1)`` when
+        pings are enabled, or ``45`` when ``ping_interval`` is 0 (unused
+        since pings are disabled). Must be lower than ping_interval when
+        pings are enabled.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -553,10 +570,11 @@ class MxEdgesEvents(_MistWebsocket):
     max_reconnect_backoff : float | None, default None
         Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set,
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+        Maximum number of messages buffered in each of the internal queues
+        used for the ``receive()`` generator and callback delivery. ``0``
+        means unbounded. When set, incoming messages are dropped with a
+        warning when the target queue is full, preventing memory growth on
+        high-frequency streams.
     subscription_watchdog_timeout : float, default 10.0
         Maximum time in seconds to wait for all channel subscription
         acknowledgements after connect. On timeout, the error is reported to
@@ -642,8 +660,10 @@ class PcapEvents(_MistWebsocket):
         Interval in seconds to send WebSocket ping frames (keep-alive).
     ping_timeout : int | None, default None
         Time in seconds to wait for a ping response before considering the
-        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
-        lower than ping_interval.
+        connection dead. Defaults to ``min(45, ping_interval - 1)`` when
+        pings are enabled, or ``45`` when ``ping_interval`` is 0 (unused
+        since pings are disabled). Must be lower than ping_interval when
+        pings are enabled.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -653,10 +673,11 @@ class PcapEvents(_MistWebsocket):
     max_reconnect_backoff : float | None, default None
         Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set,
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+        Maximum number of messages buffered in each of the internal queues
+        used for the ``receive()`` generator and callback delivery. ``0``
+        means unbounded. When set, incoming messages are dropped with a
+        warning when the target queue is full, preventing memory growth on
+        high-frequency streams.
     subscription_watchdog_timeout : float, default 10.0
         Maximum time in seconds to wait for all channel subscription
         acknowledgements after connect. On timeout, the error is reported to

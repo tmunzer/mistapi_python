@@ -53,8 +53,9 @@ if TYPE_CHECKING:
 MAX_CHANNELS_PER_CONNECTION = 2000
 HIGH_CHANNEL_COUNT_WARNING = 1500
 
-# Default pong timeout, and the value ping_timeout is derived from when only
-# ping_interval is supplied (min(DEFAULT_PING_TIMEOUT, ping_interval - 1)).
+# Default pong timeout. When ping_timeout is not supplied it is derived as
+# min(DEFAULT_PING_TIMEOUT, ping_interval - 1), or DEFAULT_PING_TIMEOUT when
+# ping_interval is 0 (pings disabled, so the value is unused).
 DEFAULT_PING_TIMEOUT = 45
 
 
