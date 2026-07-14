@@ -864,8 +864,7 @@ from mistapi.device_utils import ex
 import time
 
 with ex.createShellSession(apisession, site_id, device_id) as session:
-    session.send_text("show version\r\n")
-    time.sleep(3)
+    session.send_commands(["configure","show | display set | no-more", "exit"])
     while True:
         data = session.recv(timeout=0.5)
         if data is None:
@@ -882,6 +881,7 @@ with ex.createShellSession(apisession, site_id, device_id) as session:
 | `connected` | `bool` | `True` if the WebSocket is currently connected. |
 | `send(data)` | `None` | Send raw bytes (keystrokes) to the device. |
 | `send_text(text)` | `None` | Send a text string to the device (auto-prefixed with `\x00`). |
+| `send_commands(commands)` | `None` | Send a list of commands to the device, each is automatically followed by a newline. |
 | `recv(timeout=0.1)` | `bytes \| None` | Receive output from the device. Returns `None` on timeout or if disconnected. |
 | `resize(rows, cols)` | `None` | Send a terminal resize message. |
 

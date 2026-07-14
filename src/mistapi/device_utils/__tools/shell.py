@@ -20,9 +20,11 @@ This module provides:
 
 import json
 import os
+import select
 import ssl
 import sys
 import threading
+import time
 from typing import TYPE_CHECKING
 
 import websocket
@@ -45,7 +47,7 @@ class ShellSession:
     Programmatic::
 
         session = create_shell_session(apisession, site_id, device_id)
-        session.send_text("show version\\r\\n")
+        session.send_commands(["show version"])
         while session.connected:
             data = session.recv()
             if data:
@@ -55,7 +57,7 @@ class ShellSession:
     Context manager::
 
         with create_shell_session(apisession, site_id, device_id) as session:
-            session.send_text("show interfaces terse\\r\\n")
+            session.send_commands(["show interfaces terse"])
             import time; time.sleep(5)
             while True:
                 data = session.recv()
@@ -92,6 +94,8 @@ class ShellSession:
         self._rows = rows
         self._cols = cols
         self._ws: websocket.WebSocket | None = None
+        self._recv_buffer: list[bytes] = []
+        self._shell_ready = False
 
     # ------------------------------------------------------------------
     # Auth / SSL helpers (mirrors _MistWebsocket but avoids coupling)
@@ -165,6 +169,8 @@ class ShellSession:
         """Close the WebSocket connection."""
         ws = self._ws
         self._ws = None
+        self._shell_ready = False
+        self._recv_buffer.clear()
         if ws:
             try:
                 ws.close()
@@ -184,11 +190,21 @@ class ShellSession:
         """Send raw bytes (keystrokes) to the device shell."""
         ws = self._ws
         if ws and ws.connected:
-            ws.send_binary(data)
+            self._wait_for_shell_ready()
+            if ws.connected:
+                try:
+                    ws.send_binary(data)
+                except websocket.WebSocketConnectionClosedException:
+                    pass
 
     def send_text(self, text: str) -> None:
         """Send a text string as binary data to the device shell."""
         self.send(f"\x00{text}".encode("utf-8"))
+
+    def send_commands(self, commands: list[str]) -> None:
+        """Send commands, adding a newline after each command."""
+        text = "".join(command.rstrip("\n") + "\n" for command in commands)
+        self.send_text(text)
 
     def recv(self, timeout: float = 0.1) -> bytes | None:
         """
@@ -197,6 +213,8 @@ class ShellSession:
         Returns None if no data is available within the timeout, or if
         the connection is closed.
         """
+        if self._recv_buffer:
+            return self._recv_buffer.pop(0)
         ws = self._ws
         if not ws or not ws.connected:
             return None
@@ -205,7 +223,9 @@ class ShellSession:
             ws.settimeout(timeout)
             data = ws.recv()
             if isinstance(data, str):
-                return data.encode("utf-8")
+                data = data.encode("utf-8")
+            if data:
+                self._shell_ready = True
             return data
         except websocket.WebSocketTimeoutException:
             return None
@@ -225,6 +245,51 @@ class ShellSession:
                 LOGGER.debug(
                     "ShellSession.recv: failed to restore websocket timeout "
                     "(socket may be closed): %s",
+                    exc,
+                )
+
+    def _wait_for_shell_ready(self, timeout: float = 10.0) -> None:
+        """Wait for first shell output before sending keystrokes."""
+        if self._shell_ready:
+            return
+        ws = self._ws
+        if not ws or not ws.connected:
+            return
+
+        old_timeout = ws.gettimeout()
+        deadline = time.monotonic() + timeout
+        try:
+            while (
+                time.monotonic() < deadline and ws.connected and not self._shell_ready
+            ):
+                ws.settimeout(min(0.25, max(0.01, deadline - time.monotonic())))
+                try:
+                    data = ws.recv()
+                except websocket.WebSocketTimeoutException:
+                    continue
+                except (
+                    websocket.WebSocketConnectionClosedException,
+                    ConnectionError,
+                ):
+                    return
+                if isinstance(data, str):
+                    data = data.encode("utf-8")
+                if data:
+                    self._recv_buffer.append(data)
+                    self._shell_ready = True
+                    return
+            self._shell_ready = True
+        finally:
+            try:
+                ws.settimeout(old_timeout)
+            except (
+                websocket.WebSocketConnectionClosedException,
+                ConnectionError,
+                OSError,
+            ) as exc:
+                LOGGER.debug(
+                    "ShellSession._wait_for_shell_ready: failed to restore "
+                    "websocket timeout (socket may be closed): %s",
                     exc,
                 )
 
@@ -299,6 +364,80 @@ def create_shell_session(
     return session
 
 
+def _posix_input_loop(session: ShellSession) -> None:
+    """Forward raw keystrokes from a POSIX TTY until the session closes.
+
+    The terminal is put in raw mode, so control characters (including
+    Ctrl+C) are forwarded to the device instead of being handled locally.
+    """
+    import termios
+    import tty
+
+    stdin_fd = sys.stdin.fileno()
+    old_stdin_settings = termios.tcgetattr(stdin_fd)
+    try:
+        tty.setraw(stdin_fd)
+        while session.connected:
+            readable, _, _ = select.select([sys.stdin], [], [], 0.1)
+            if not readable:
+                continue
+            data = os.read(stdin_fd, 1024)
+            if not data:
+                break
+            session.send(b"\x00" + data)
+    finally:
+        termios.tcsetattr(stdin_fd, termios.TCSADRAIN, old_stdin_settings)
+
+
+# Second half of the two-part console key codes returned by msvcrt.getwch()
+# (after a "\x00"/"\xe0" prefix), mapped to the ANSI sequences the device
+# pty expects.
+_WINDOWS_KEY_ESCAPES = {
+    "H": "\x1b[A",  # up
+    "P": "\x1b[B",  # down
+    "M": "\x1b[C",  # right
+    "K": "\x1b[D",  # left
+    "G": "\x1b[H",  # home
+    "O": "\x1b[F",  # end
+    "S": "\x1b[3~",  # delete
+    "I": "\x1b[5~",  # page up
+    "Q": "\x1b[6~",  # page down
+}
+
+
+def _windows_input_loop(session: ShellSession) -> None:
+    """Forward keystrokes from the Windows console until the session closes.
+
+    Unlike the POSIX raw-mode loop, Ctrl+C raises KeyboardInterrupt here
+    (the console is not in raw mode), so it ends the session locally.
+    """
+    import ctypes
+    import msvcrt
+
+    # Legacy consoles need virtual terminal processing enabled to render
+    # the ANSI sequences the device sends; Windows Terminal already has it.
+    try:
+        kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined]
+        handle = kernel32.GetStdHandle(-11)  # STD_OUTPUT_HANDLE
+        mode = ctypes.c_uint32()
+        if kernel32.GetConsoleMode(handle, ctypes.byref(mode)):
+            kernel32.SetConsoleMode(handle, mode.value | 0x0004)
+    except (OSError, AttributeError):
+        pass
+
+    while session.connected:
+        if not msvcrt.kbhit():  # type: ignore[attr-defined]
+            time.sleep(0.05)
+            continue
+        ch = msvcrt.getwch()  # type: ignore[attr-defined]
+        if ch in ("\x00", "\xe0"):
+            seq = _WINDOWS_KEY_ESCAPES.get(msvcrt.getwch())  # type: ignore[attr-defined]
+            if seq is None:
+                continue
+            ch = seq
+        session.send(b"\x00" + ch.encode("utf-8"))
+
+
 def interactive_shell(
     apisession: "APISession",
     site_id: str,
@@ -308,8 +447,10 @@ def interactive_shell(
     Launch an interactive SSH shell session to a device.
 
     Takes over the terminal: captures keystrokes, sends them to the device,
-    and displays output. Blocks until the connection closes or the user
-    presses Ctrl+C.
+    and displays output. Blocks until the connection closes (e.g. after
+    typing ``exit`` on the device). On POSIX systems the terminal runs in
+    raw mode, so Ctrl+C is forwarded to the device rather than ending the
+    session; on Windows, Ctrl+C ends the session locally.
 
     PARAMS
     -----------
@@ -319,8 +460,19 @@ def interactive_shell(
         UUID of the site where the device is located.
     device_id : str
         UUID of the device to connect to.
+
+    RAISES
+    -----------
+    RuntimeError
+        If stdin is not an interactive terminal (TTY). Use ShellSession
+        for programmatic access.
     """
-    from sshkeyboard import listen_keyboard
+    if not sys.stdin.isatty():
+        raise RuntimeError(
+            "interactive_shell requires an interactive terminal (stdin is "
+            "not a TTY); use ShellSession/create_shell_session for "
+            "programmatic access"
+        )
 
     try:
         cols, rows = os.get_terminal_size()
@@ -337,40 +489,14 @@ def interactive_shell(
                 sys.stdout.buffer.write(data)
                 sys.stdout.buffer.flush()
 
-    def _on_key_press(key: str) -> None:
-        """Handle a key press event from sshkeyboard."""
-        if not session.connected:
-            return
-        if key == "enter":
-            k = "\r\n"
-        elif key == "space":
-            k = " "
-        elif key == "tab":
-            k = "\t"
-        elif key == "up":
-            k = "\x1b[A"
-        elif key == "right":
-            k = "\x1b[C"
-        elif key == "down":
-            k = "\x1b[B"
-        elif key == "left":
-            k = "\x1b[D"
-        elif key == "backspace":
-            k = "\x7f"
-        else:
-            k = key
-        session.send(f"\x00{k}".encode("utf-8"))
-
     reader_thread = threading.Thread(target=_reader, daemon=True)
     reader_thread.start()
 
     try:
-        listen_keyboard(
-            on_press=_on_key_press,
-            delay_second_char=0,
-            delay_other_chars=0,
-            lower=False,
-        )
+        if os.name == "nt":
+            _windows_input_loop(session)
+        else:
+            _posix_input_loop(session)
     except KeyboardInterrupt:
         pass
     finally:

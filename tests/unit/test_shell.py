@@ -4,6 +4,7 @@ Unit tests for ShellSession and create_shell_session.
 """
 
 import json
+import sys
 from unittest.mock import Mock, patch
 
 import pytest
@@ -12,7 +13,6 @@ import websocket
 from mistapi.api.v1.sites import devices as devices_module
 from mistapi.device_utils.__tools import shell as shell_module
 from mistapi.device_utils.__tools.shell import ShellSession, create_shell_session
-
 
 # ------------------------------------------------------------------
 # Fixtures
@@ -184,6 +184,54 @@ class TestIO:
             shell_session.send(b"\x00hello")
             mock_ws.send_binary.assert_called_once_with(b"\x00hello")
 
+    def test_send_skips_binary_when_socket_closes_during_ready_wait(
+        self, shell_session, mock_ws
+    ) -> None:
+        def close_socket() -> None:
+            mock_ws.connected = False
+
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            with patch.object(shell_session, "_wait_for_shell_ready", close_socket):
+                shell_session.send(b"\x00hello")
+
+            mock_ws.send_binary.assert_not_called()
+
+    def test_send_ignores_socket_closed_during_send(self, shell_session, mock_ws) -> None:
+        mock_ws.send_binary.side_effect = websocket.WebSocketConnectionClosedException()
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            shell_session.send(b"\x00hello")
+
+            mock_ws.send_binary.assert_called_once_with(b"\x00hello")
+
+    def test_wait_for_shell_ready_stops_if_ready_elsewhere(
+        self, shell_session, mock_ws
+    ) -> None:
+        def mark_ready_and_timeout():
+            shell_session._shell_ready = True
+            raise websocket.WebSocketTimeoutException()
+
+        mock_ws.recv.side_effect = mark_ready_and_timeout
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            shell_session.send(b"\x00hello")
+
+            assert mock_ws.recv.call_count == 1
+            mock_ws.send_binary.assert_called_once_with(b"\x00hello")
+
     def test_send_text_prefixes_null(self, shell_session, mock_ws) -> None:
         with patch.object(
             shell_module.websocket,
@@ -191,9 +239,65 @@ class TestIO:
             return_value=mock_ws,
         ):
             shell_session.connect()
-            shell_session.send_text("ls\r\n")
+            shell_session.send_text("ls\n")
             called_data = mock_ws.send_binary.call_args[0][0]
-            assert called_data == b"\x00ls\r\n"
+            assert called_data == b"\x00ls\n"
+
+    def test_send_commands_adds_crlf(self, shell_session, mock_ws) -> None:
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            shell_session.send_commands(["configure", "show | display set", "exit"])
+
+            called_data = mock_ws.send_binary.call_args[0][0]
+            assert called_data == b"\x00configure\nshow | display set\nexit\n"
+
+    def test_send_commands_does_not_duplicate_crlf(
+        self, shell_session, mock_ws
+    ) -> None:
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            shell_session.send_commands(["configure\n", "exit\n"])
+
+            called_data = mock_ws.send_binary.call_args[0][0]
+            assert called_data == b"\x00configure\nexit\n"
+
+    def test_send_text_waits_for_initial_shell_output(
+        self, shell_session, mock_ws
+    ) -> None:
+        mock_ws.recv.return_value = b"device> "
+        with patch.object(
+            shell_module.websocket,
+            "create_connection",
+            return_value=mock_ws,
+        ):
+            shell_session.connect()
+            shell_session.send_text("show version\n")
+
+            assert shell_session.recv() == b"device> "
+            mock_ws.send_binary.assert_called_once_with(b"\x00show version\n")
+
+    def test_send_text_sends_after_ready_timeout(self, shell_session, mock_ws) -> None:
+        mock_ws.recv.side_effect = websocket.WebSocketTimeoutException()
+        with (
+            patch.object(
+                shell_module.websocket,
+                "create_connection",
+                return_value=mock_ws,
+            ),
+            patch.object(shell_module.time, "monotonic", side_effect=[0, 11]),
+        ):
+            shell_session.connect()
+            shell_session.send_text("show version\n")
+
+            mock_ws.send_binary.assert_called_once_with(b"\x00show version\n")
 
     def test_recv_returns_bytes(self, shell_session, mock_ws) -> None:
         mock_ws.recv.return_value = b"output data"
@@ -205,6 +309,7 @@ class TestIO:
             shell_session.connect()
             result = shell_session.recv()
             assert result == b"output data"
+            assert shell_session._shell_ready is True
 
     def test_recv_converts_str_to_bytes(self, shell_session, mock_ws) -> None:
         mock_ws.recv.return_value = "text output"
@@ -337,3 +442,72 @@ class TestCreateShellSession:
         ):
             with pytest.raises(RuntimeError, match="did not contain a WebSocket URL"):
                 create_shell_session(mock_apisession, "site-1", "device-1")
+
+
+# ------------------------------------------------------------------
+# interactive_shell
+# ------------------------------------------------------------------
+
+
+class TestInteractiveShell:
+    """Tests for the interactive_shell entry point and input loops."""
+
+    def test_requires_tty(self, mock_apisession) -> None:
+        with (
+            patch.object(shell_module.sys.stdin, "isatty", return_value=False),
+            patch.object(
+                devices_module, "createSiteDeviceShellSession"
+            ) as mock_shell_api,
+        ):
+            with pytest.raises(RuntimeError, match="not a TTY"):
+                shell_module.interactive_shell(mock_apisession, "site-1", "device-1")
+
+            mock_shell_api.assert_not_called()
+
+    def test_windows_input_loop_forwards_and_maps_keys(self) -> None:
+        keys = ["a", "\xe0", "H", "\r"]
+
+        class FakeSession:
+            def __init__(self) -> None:
+                self.sent: list[bytes] = []
+
+            @property
+            def connected(self) -> bool:
+                return bool(keys)
+
+            def send(self, data: bytes) -> None:
+                self.sent.append(data)
+
+        fake_msvcrt = Mock()
+        fake_msvcrt.kbhit.side_effect = lambda: bool(keys)
+        fake_msvcrt.getwch.side_effect = lambda: keys.pop(0)
+
+        session = FakeSession()
+        with patch.dict(sys.modules, {"msvcrt": fake_msvcrt}):
+            shell_module._windows_input_loop(session)  # type: ignore[arg-type]
+
+        assert session.sent == [b"\x00a", b"\x00\x1b[A", b"\x00\r"]
+
+    def test_windows_input_loop_skips_unmapped_special_keys(self) -> None:
+        keys = ["\xe0", "\x86", "b"]  # F12 (unmapped), then a normal char
+
+        class FakeSession:
+            def __init__(self) -> None:
+                self.sent: list[bytes] = []
+
+            @property
+            def connected(self) -> bool:
+                return bool(keys)
+
+            def send(self, data: bytes) -> None:
+                self.sent.append(data)
+
+        fake_msvcrt = Mock()
+        fake_msvcrt.kbhit.side_effect = lambda: bool(keys)
+        fake_msvcrt.getwch.side_effect = lambda: keys.pop(0)
+
+        session = FakeSession()
+        with patch.dict(sys.modules, {"msvcrt": fake_msvcrt}):
+            shell_module._windows_input_loop(session)  # type: ignore[arg-type]
+
+        assert session.sent == [b"\x00b"]
