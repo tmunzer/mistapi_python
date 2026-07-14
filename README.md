@@ -861,7 +861,6 @@ Use `createShellSession()` to get a `ShellSession` object for scripting:
 
 ```python
 from mistapi.device_utils import ex
-import time
 
 with ex.createShellSession(apisession, site_id, device_id) as session:
     session.send_commands(["configure","show | display set | no-more", "exit"])
