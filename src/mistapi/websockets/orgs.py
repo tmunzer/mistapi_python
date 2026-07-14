@@ -27,10 +27,14 @@ class InsightsEvents(_MistWebsocket):
         Authenticated API session.
     org_id : str
         UUID of the organization to stream events from.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
-        Time in seconds to wait for a ping response before considering the connection dead.
+    ping_timeout : int | None, default None
+        Time in seconds to wait for a ping response before considering the
+        connection dead. Defaults to ``min(45, ping_interval - 1)`` when
+        pings are enabled, or ``45`` when ``ping_interval`` is 0 (unused
+        since pings are disabled). Must be lower than ping_interval when
+        pings are enabled.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -40,10 +44,22 @@ class InsightsEvents(_MistWebsocket):
     max_reconnect_backoff : float | None, default None
         Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set,
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+        Maximum number of messages buffered in each of the internal queues
+        used for the ``receive()`` generator and callback delivery. ``0``
+        means unbounded. When set, incoming messages are dropped with a
+        warning when the target queue is full, preventing memory growth on
+        high-frequency streams.
+    subscription_watchdog_timeout : float, default 10.0
+        Maximum time in seconds to wait for all channel subscription
+        acknowledgements after connect. On timeout, the error is reported to
+        ``on_error`` and the connection is closed (auto_reconnect, when
+        enabled, then reconnects).
+    rate_limit_backoff : float, default 30.0
+        Minimum reconnect delay in seconds after an HTTP 429 rate-limit
+        response.
+    throughput_log_interval : int, default 100
+        Log queue depth and processed counts every N messages. ``0`` disables
+        periodic throughput logs.
 
     EXAMPLE
     -----------
@@ -74,13 +90,16 @@ class InsightsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         org_id: str,
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int | None = None,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         super().__init__(
             mist_session,
@@ -92,6 +111,9 @@ class InsightsEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -107,10 +129,14 @@ class MxEdgesStatsEvents(_MistWebsocket):
         Authenticated API session.
     org_id : str
         UUID of the organization to stream events from.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
-        Time in seconds to wait for a ping response before considering the connection dead.
+    ping_timeout : int | None, default None
+        Time in seconds to wait for a ping response before considering the
+        connection dead. Defaults to ``min(45, ping_interval - 1)`` when
+        pings are enabled, or ``45`` when ``ping_interval`` is 0 (unused
+        since pings are disabled). Must be lower than ping_interval when
+        pings are enabled.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -120,10 +146,22 @@ class MxEdgesStatsEvents(_MistWebsocket):
     max_reconnect_backoff : float | None, default None
         Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set,
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+        Maximum number of messages buffered in each of the internal queues
+        used for the ``receive()`` generator and callback delivery. ``0``
+        means unbounded. When set, incoming messages are dropped with a
+        warning when the target queue is full, preventing memory growth on
+        high-frequency streams.
+    subscription_watchdog_timeout : float, default 10.0
+        Maximum time in seconds to wait for all channel subscription
+        acknowledgements after connect. On timeout, the error is reported to
+        ``on_error`` and the connection is closed (auto_reconnect, when
+        enabled, then reconnects).
+    rate_limit_backoff : float, default 30.0
+        Minimum reconnect delay in seconds after an HTTP 429 rate-limit
+        response.
+    throughput_log_interval : int, default 100
+        Log queue depth and processed counts every N messages. ``0`` disables
+        periodic throughput logs.
 
     EXAMPLE
     -----------
@@ -154,13 +192,16 @@ class MxEdgesStatsEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         org_id: str,
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int | None = None,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         super().__init__(
             mist_session,
@@ -172,6 +213,9 @@ class MxEdgesStatsEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )
 
 
@@ -187,10 +231,14 @@ class MxEdgesEvents(_MistWebsocket):
         Authenticated API session.
     org_id : str
         UUID of the org to stream events from.
-    ping_interval : int, default 30
+    ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 10
-        Time in seconds to wait for a ping response before considering the connection dead.
+    ping_timeout : int | None, default None
+        Time in seconds to wait for a ping response before considering the
+        connection dead. Defaults to ``min(45, ping_interval - 1)`` when
+        pings are enabled, or ``45`` when ``ping_interval`` is 0 (unused
+        since pings are disabled). Must be lower than ping_interval when
+        pings are enabled.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -200,10 +248,22 @@ class MxEdgesEvents(_MistWebsocket):
     max_reconnect_backoff : float | None, default None
         Maximum backoff delay in seconds. If None, backoff grows indefinitely.
     queue_maxsize : int, default 0
-        Maximum number of messages buffered in the internal queue for the
-        ``receive()`` generator. ``0`` means unbounded. When set,
-        incoming messages are dropped with a warning when the queue is
-        full, preventing memory growth on high-frequency streams.
+        Maximum number of messages buffered in each of the internal queues
+        used for the ``receive()`` generator and callback delivery. ``0``
+        means unbounded. When set, incoming messages are dropped with a
+        warning when the target queue is full, preventing memory growth on
+        high-frequency streams.
+    subscription_watchdog_timeout : float, default 10.0
+        Maximum time in seconds to wait for all channel subscription
+        acknowledgements after connect. On timeout, the error is reported to
+        ``on_error`` and the connection is closed (auto_reconnect, when
+        enabled, then reconnects).
+    rate_limit_backoff : float, default 30.0
+        Minimum reconnect delay in seconds after an HTTP 429 rate-limit
+        response.
+    throughput_log_interval : int, default 100
+        Log queue depth and processed counts every N messages. ``0`` disables
+        periodic throughput logs.
 
     EXAMPLE
     -----------
@@ -234,13 +294,16 @@ class MxEdgesEvents(_MistWebsocket):
         self,
         mist_session: APISession,
         org_id: str,
-        ping_interval: int = 30,
-        ping_timeout: int = 10,
+        ping_interval: int = 60,
+        ping_timeout: int | None = None,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
         max_reconnect_backoff: float | None = None,
         queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
     ) -> None:
         super().__init__(
             mist_session,
@@ -252,4 +315,7 @@ class MxEdgesEvents(_MistWebsocket):
             reconnect_backoff=reconnect_backoff,
             max_reconnect_backoff=max_reconnect_backoff,
             queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
         )

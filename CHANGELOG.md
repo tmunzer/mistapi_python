@@ -1,4 +1,47 @@
 # CHANGELOG
+
+## Version 0.63.3 (July 2026)
+
+**Released**: July 14, 2026
+
+This patch release improves WebSocket subscription reliability, isolates user callbacks from the receive loop, and adds stronger reconnect, rate-limit, and connection-health safeguards. (#26)
+
+---
+
+### 1. NEW FEATURES
+
+#### **Subscription Acknowledgement Watchdog**
+WebSocket clients now track `channel_subscribed` acknowledgements for every requested channel. The configurable `subscription_watchdog_timeout` closes an incomplete connection and reports a `TimeoutError` through `on_error`; when `auto_reconnect=True`, the client reconnects and retries the subscriptions. Explicit `subscribe_failed` events are also surfaced through `on_error` before reconnecting.
+
+#### **Ping and Pong Hooks**
+Added `on_ping()` and `on_pong()` callbacks for applications that need visibility into WebSocket keepalive frames.
+
+---
+
+### 2. IMPROVEMENTS
+
+#### **Non-Blocking Callback Delivery**
+Incoming frames are now placed on a dedicated callback-worker queue so slow user callbacks no longer block the WebSocket receive loop. Pending callback messages are drained during shutdown, and `queue_maxsize` bounds both generator and callback delivery queues.
+
+#### **Reconnect and Rate-Limit Handling**
+- HTTP 429 handshake failures use the configurable `rate_limit_backoff` as a minimum reconnect delay.
+- Exponential reconnect state is reset only after all requested subscriptions are acknowledged, so persistent subscription failures respect `max_reconnect_attempts` and continue increasing the backoff.
+- `SessionWithUrl` connections with no managed channels reset reconnect state when the transport opens.
+
+#### **Connection Health and Observability**
+- Updated keepalive defaults to `ping_interval=60` and a derived `ping_timeout` of up to 45 seconds.
+- Added periodic, thread-safe throughput and queue-depth logging through `throughput_log_interval`.
+- Duplicate channels are removed while preserving order, high channel counts produce a warning, and connections above the 2,000-channel limit are rejected.
+
+---
+
+### 3. BUG FIXES
+
+#### **Subscription Completion Accounting**
+Unexpected `channel_subscribed` acknowledgements are now ignored before updating subscription progress, preventing them from cancelling the watchdog while requested channels are still missing.
+
+---
+
 ## Version 0.63.2 (July 2026)
 
 **Released**: July 14, 2026
