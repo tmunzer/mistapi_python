@@ -201,7 +201,9 @@ class TestIO:
 
             mock_ws.send_binary.assert_not_called()
 
-    def test_send_ignores_socket_closed_during_send(self, shell_session, mock_ws) -> None:
+    def test_send_ignores_socket_closed_during_send(
+        self, shell_session, mock_ws
+    ) -> None:
         mock_ws.send_binary.side_effect = websocket.WebSocketConnectionClosedException()
         with patch.object(
             shell_module.websocket,
