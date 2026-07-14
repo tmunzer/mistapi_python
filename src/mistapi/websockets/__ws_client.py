@@ -48,8 +48,14 @@ if TYPE_CHECKING:
     from mistapi import APISession
 
 
+# Channel limits from the Mist WebSocket documentation:
+# https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/websockets/rate-limits
 MAX_CHANNELS_PER_CONNECTION = 2000
 HIGH_CHANNEL_COUNT_WARNING = 1500
+
+# Default pong timeout, and the value ping_timeout is derived from when only
+# ping_interval is supplied (min(DEFAULT_PING_TIMEOUT, ping_interval - 1)).
+DEFAULT_PING_TIMEOUT = 45
 
 
 class _MistWebsocket:
@@ -69,7 +75,7 @@ class _MistWebsocket:
         mist_session: "APISession",
         channels: list[str],
         ping_interval: int = 60,
-        ping_timeout: int = 45,
+        ping_timeout: int | None = None,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -81,6 +87,20 @@ class _MistWebsocket:
     ) -> None:
         if ping_interval < 0:
             raise ValueError("ping_interval must be >= 0")
+        if ping_timeout is None:
+            # Derive a valid pong timeout so callers who only set
+            # ping_interval keep working (websocket-client requires
+            # ping_timeout < ping_interval).
+            ping_timeout = (
+                min(DEFAULT_PING_TIMEOUT, ping_interval - 1)
+                if ping_interval > 0
+                else DEFAULT_PING_TIMEOUT
+            )
+            if ping_timeout < 1:
+                raise ValueError(
+                    "ping_interval must be >= 2 to leave room for the pong "
+                    "timeout, or set ping_interval=0 to disable pings"
+                )
         if ping_timeout <= 0:
             raise ValueError("ping_timeout must be > 0")
         if ping_interval and ping_interval <= ping_timeout:
@@ -274,28 +294,31 @@ class _MistWebsocket:
                 break
 
     def _start_callback_worker(self) -> None:
+        if self._callback_stop.is_set():
+            # Disconnecting/stopped: don't resurrect the worker for a late
+            # message. connect() clears the flag before starting a new run.
+            return
         if self._callback_thread is not None and self._callback_thread.is_alive():
             return
-        self._callback_stop.clear()
         self._callback_thread = threading.Thread(
             target=self._run_callback_worker, daemon=True
         )
         self._callback_thread.start()
 
     def _run_callback_worker(self) -> None:
+        # On stop, keep draining so every message received before the stop
+        # (i.e. before the None sentinel) is still delivered to the callback.
         while True:
-            if self._callback_stop.is_set():
-                break
             try:
                 item = self._callback_queue.get(timeout=1)
             except queue.Empty:
+                if self._callback_stop.is_set():
+                    break  # stop requested and queue fully drained
                 if self._finished.is_set() and self._callback_queue.empty():
                     break
                 continue
             if item is None:
-                if self._callback_stop.is_set() or self._finished.is_set():
-                    break
-                continue
+                break  # end-of-stream sentinel; everything before it was delivered
             callback = self._on_message_cb
             if callback is None:
                 continue
@@ -348,13 +371,18 @@ class _MistWebsocket:
             self._last_close_msg = (
                 f"subscription watchdog timeout: missing {len(missing)} channels"
             )
-            logger.error(
-                "Subscription watchdog timeout after %.1fs: received %d/%d subscriptions. "
-                "Missing: %s",
-                self._subscription_watchdog_timeout,
-                len(self._expected_channels) - len(missing),
-                len(self._expected_channels),
-                preview,
+            # Surface through on_error so callers without auto_reconnect
+            # still get an actionable signal (the close alone reconnects
+            # only when auto_reconnect is enabled).
+            self._handle_error(
+                ws,
+                TimeoutError(
+                    f"subscription watchdog timeout after "
+                    f"{self._subscription_watchdog_timeout:.1f}s: received "
+                    f"{len(self._expected_channels) - len(missing)}/"
+                    f"{len(self._expected_channels)} subscriptions. "
+                    f"Missing: {preview}"
+                ),
             )
             ws.close()
 
@@ -405,14 +433,15 @@ class _MistWebsocket:
 
         if event == "subscribe_failed":
             detail = data.get("detail")
-            logger.error(
-                "Subscription failed for channel %s: %s. Closing to trigger reconnect.",
-                channel,
-                detail,
-            )
             self._last_close_code = 1008
             self._last_close_msg = f"subscribe_failed channel={channel} detail={detail}"
             self._cancel_subscription_watchdog()
+            # Surface through on_error so callers without auto_reconnect
+            # still get an actionable signal before the connection closes.
+            self._handle_error(
+                ws,
+                ConnectionError(f"subscription failed for channel {channel}: {detail}"),
+            )
             ws.close()
 
     def _enqueue_message(self, message: dict, to_callback_queue: bool) -> None:
@@ -482,8 +511,7 @@ class _MistWebsocket:
         if not isinstance(data, dict):
             data = {"data": data}
 
-        if isinstance(data, dict):
-            self._process_subscription_event(ws, data)
+        self._process_subscription_event(ws, data)
 
         if self._on_message_cb:
             self._start_callback_worker()

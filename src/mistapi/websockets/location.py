@@ -31,8 +31,10 @@ class BleAssetsEvents(_MistWebsocket):
         UUIDs of the maps to stream events from.
     ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 45
-        Time in seconds to wait for a ping response before considering the connection dead.
+    ping_timeout : int | None, default None
+        Time in seconds to wait for a ping response before considering the
+        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
+        lower than ping_interval.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -46,6 +48,17 @@ class BleAssetsEvents(_MistWebsocket):
         ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
+    subscription_watchdog_timeout : float, default 10.0
+        Maximum time in seconds to wait for all channel subscription
+        acknowledgements after connect. On timeout, the error is reported to
+        ``on_error`` and the connection is closed (auto_reconnect, when
+        enabled, then reconnects).
+    rate_limit_backoff : float, default 30.0
+        Minimum reconnect delay in seconds after an HTTP 429 rate-limit
+        response.
+    throughput_log_interval : int, default 100
+        Log queue depth and processed counts every N messages. ``0`` disables
+        periodic throughput logs.
 
     EXAMPLE
     -----------
@@ -78,7 +91,7 @@ class BleAssetsEvents(_MistWebsocket):
         site_id: str,
         map_ids: list[str],
         ping_interval: int = 60,
-        ping_timeout: int = 45,
+        ping_timeout: int | None = None,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -121,8 +134,10 @@ class ConnectedClientsEvents(_MistWebsocket):
         UUIDs of the maps to stream events from.
     ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 45
-        Time in seconds to wait for a ping response before considering the connection dead.
+    ping_timeout : int | None, default None
+        Time in seconds to wait for a ping response before considering the
+        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
+        lower than ping_interval.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -136,6 +151,17 @@ class ConnectedClientsEvents(_MistWebsocket):
         ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
+    subscription_watchdog_timeout : float, default 10.0
+        Maximum time in seconds to wait for all channel subscription
+        acknowledgements after connect. On timeout, the error is reported to
+        ``on_error`` and the connection is closed (auto_reconnect, when
+        enabled, then reconnects).
+    rate_limit_backoff : float, default 30.0
+        Minimum reconnect delay in seconds after an HTTP 429 rate-limit
+        response.
+    throughput_log_interval : int, default 100
+        Log queue depth and processed counts every N messages. ``0`` disables
+        periodic throughput logs.
 
     EXAMPLE
     -----------
@@ -168,7 +194,7 @@ class ConnectedClientsEvents(_MistWebsocket):
         site_id: str,
         map_ids: list[str],
         ping_interval: int = 60,
-        ping_timeout: int = 45,
+        ping_timeout: int | None = None,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -211,8 +237,10 @@ class SdkClientsEvents(_MistWebsocket):
         UUIDs of the maps to stream events from.
     ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 45
-        Time in seconds to wait for a ping response before considering the connection dead.
+    ping_timeout : int | None, default None
+        Time in seconds to wait for a ping response before considering the
+        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
+        lower than ping_interval.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -226,6 +254,17 @@ class SdkClientsEvents(_MistWebsocket):
         ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
+    subscription_watchdog_timeout : float, default 10.0
+        Maximum time in seconds to wait for all channel subscription
+        acknowledgements after connect. On timeout, the error is reported to
+        ``on_error`` and the connection is closed (auto_reconnect, when
+        enabled, then reconnects).
+    rate_limit_backoff : float, default 30.0
+        Minimum reconnect delay in seconds after an HTTP 429 rate-limit
+        response.
+    throughput_log_interval : int, default 100
+        Log queue depth and processed counts every N messages. ``0`` disables
+        periodic throughput logs.
 
     EXAMPLE
     -----------
@@ -258,7 +297,7 @@ class SdkClientsEvents(_MistWebsocket):
         site_id: str,
         map_ids: list[str],
         ping_interval: int = 60,
-        ping_timeout: int = 45,
+        ping_timeout: int | None = None,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -301,8 +340,10 @@ class UnconnectedClientsEvents(_MistWebsocket):
         UUIDs of the maps to stream events from.
     ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 45
-        Time in seconds to wait for a ping response before considering the connection dead.
+    ping_timeout : int | None, default None
+        Time in seconds to wait for a ping response before considering the
+        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
+        lower than ping_interval.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -316,6 +357,17 @@ class UnconnectedClientsEvents(_MistWebsocket):
         ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
+    subscription_watchdog_timeout : float, default 10.0
+        Maximum time in seconds to wait for all channel subscription
+        acknowledgements after connect. On timeout, the error is reported to
+        ``on_error`` and the connection is closed (auto_reconnect, when
+        enabled, then reconnects).
+    rate_limit_backoff : float, default 30.0
+        Minimum reconnect delay in seconds after an HTTP 429 rate-limit
+        response.
+    throughput_log_interval : int, default 100
+        Log queue depth and processed counts every N messages. ``0`` disables
+        periodic throughput logs.
 
     EXAMPLE
     -----------
@@ -348,7 +400,7 @@ class UnconnectedClientsEvents(_MistWebsocket):
         site_id: str,
         map_ids: list[str],
         ping_interval: int = 60,
-        ping_timeout: int = 45,
+        ping_timeout: int | None = None,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,
@@ -393,8 +445,10 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
         UUIDs of the maps to stream events from.
     ping_interval : int, default 60
         Interval in seconds to send WebSocket ping frames (keep-alive).
-    ping_timeout : int, default 45
-        Time in seconds to wait for a ping response before considering the connection dead.
+    ping_timeout : int | None, default None
+        Time in seconds to wait for a ping response before considering the
+        connection dead. Defaults to ``min(45, ping_interval - 1)``. Must be
+        lower than ping_interval.
     auto_reconnect : bool, default False
         Automatically reconnect on unexpected disconnections using exponential backoff.
     max_reconnect_attempts : int, default 5
@@ -408,6 +462,17 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
         ``receive()`` generator. ``0`` means unbounded. When set,
         incoming messages are dropped with a warning when the queue is
         full, preventing memory growth on high-frequency streams.
+    subscription_watchdog_timeout : float, default 10.0
+        Maximum time in seconds to wait for all channel subscription
+        acknowledgements after connect. On timeout, the error is reported to
+        ``on_error`` and the connection is closed (auto_reconnect, when
+        enabled, then reconnects).
+    rate_limit_backoff : float, default 30.0
+        Minimum reconnect delay in seconds after an HTTP 429 rate-limit
+        response.
+    throughput_log_interval : int, default 100
+        Log queue depth and processed counts every N messages. ``0`` disables
+        periodic throughput logs.
 
     EXAMPLE
     -----------
@@ -440,7 +505,7 @@ class DiscoveredBleAssetsEvents(_MistWebsocket):
         site_id: str,
         map_ids: list[str],
         ping_interval: int = 60,
-        ping_timeout: int = 45,
+        ping_timeout: int | None = None,
         auto_reconnect: bool = False,
         max_reconnect_attempts: int = 5,
         reconnect_backoff: float = 2.0,

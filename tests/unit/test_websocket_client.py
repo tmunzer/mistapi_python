@@ -766,6 +766,21 @@ class TestInit:
                 ping_timeout=10,
             )
 
+    def test_ping_timeout_derived_from_ping_interval(self, mock_session) -> None:
+        client = _MistWebsocket(mock_session, channels=["/ch"], ping_interval=30)
+        assert client._ping_timeout == 29
+
+        client = _MistWebsocket(mock_session, channels=["/ch"], ping_interval=120)
+        assert client._ping_timeout == 45
+
+    def test_ping_timeout_derived_with_pings_disabled(self, mock_session) -> None:
+        client = _MistWebsocket(mock_session, channels=["/ch"], ping_interval=0)
+        assert client._ping_timeout == 45
+
+    def test_tiny_ping_interval_without_timeout_raises(self, mock_session) -> None:
+        with pytest.raises(ValueError, match="ping_interval must be >= 2"):
+            _MistWebsocket(mock_session, channels=["/ch"], ping_interval=1)
+
     def test_channel_limit_enforced(self, mock_session) -> None:
         channels = [f"/sites/{i}/stats/devices" for i in range(2001)]
         with pytest.raises(ValueError, match="Too many channels"):
@@ -1559,3 +1574,96 @@ class TestBlockingConnectGuard:
             barrier.set()  # release blocking thread
             t.join(timeout=5)
             assert not t.is_alive()
+
+
+# ---------------------------------------------------------------------------
+# Reliability behaviors (callback worker, watchdog, subscribe_failed)
+# ---------------------------------------------------------------------------
+
+
+class TestReliabilityBehavior:
+    """Tests for the callback worker lifecycle and subscription safeguards."""
+
+    def test_callback_worker_drains_queue_on_stop(self, ws_client) -> None:
+        received = []
+        ws_client.on_message(received.append)
+        for i in range(3):
+            ws_client._callback_queue.put_nowait({"n": i})
+        ws_client._callback_queue.put_nowait(None)  # end-of-stream sentinel
+        ws_client._callback_stop.set()
+
+        ws_client._run_callback_worker()  # run synchronously
+
+        assert received == [{"n": 0}, {"n": 1}, {"n": 2}]
+
+    def test_start_callback_worker_refuses_after_stop(self, ws_client) -> None:
+        ws_client._callback_stop.set()
+        ws_client._start_callback_worker()
+        assert ws_client._callback_thread is None
+
+    def test_watchdog_timeout_reports_on_error_and_closes(self, mock_session) -> None:
+        client = _MistWebsocket(
+            mock_session,
+            channels=["/ch1", "/ch2"],
+            subscription_watchdog_timeout=0.05,
+        )
+        errors = []
+        error_seen = threading.Event()
+
+        def on_error(exc):
+            errors.append(exc)
+            error_seen.set()
+
+        client.on_error(on_error)
+        mock_ws = Mock()
+        client._ws = mock_ws
+
+        client._arm_subscription_watchdog(mock_ws)
+
+        assert error_seen.wait(timeout=2), "watchdog did not fire"
+        assert isinstance(errors[0], TimeoutError)
+        assert "subscription watchdog timeout" in str(errors[0])
+        mock_ws.close.assert_called_once()
+        assert client._last_close_code == 1008
+
+    def test_watchdog_cancelled_when_all_channels_subscribed(
+        self, mock_session
+    ) -> None:
+        client = _MistWebsocket(
+            mock_session,
+            channels=["/ch1"],
+            subscription_watchdog_timeout=0.05,
+        )
+        errors = []
+        client.on_error(errors.append)
+        mock_ws = Mock()
+        client._ws = mock_ws
+
+        client._arm_subscription_watchdog(mock_ws)
+        client._process_subscription_event(
+            mock_ws, {"event": "channel_subscribed", "channel": "/ch1"}
+        )
+
+        threading.Event().wait(timeout=0.2)  # let a stray timer fire if any
+        assert errors == []
+        mock_ws.close.assert_not_called()
+
+    def test_subscribe_failed_reports_on_error_and_closes(self, ws_client) -> None:
+        errors = []
+        ws_client.on_error(errors.append)
+        mock_ws = Mock()
+
+        ws_client._process_subscription_event(
+            mock_ws,
+            {
+                "event": "subscribe_failed",
+                "channel": "/test/channel1",
+                "detail": "denied",
+            },
+        )
+
+        assert len(errors) == 1
+        assert isinstance(errors[0], ConnectionError)
+        assert "/test/channel1" in str(errors[0])
+        mock_ws.close.assert_called_once()
+        assert ws_client._last_close_code == 1008
