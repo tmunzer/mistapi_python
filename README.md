@@ -845,7 +845,7 @@ All device utility functions return a `UtilResponse` object:
 
 #### Interactive mode (human at the keyboard)
 
-Takes over the terminal. Blocks until the connection closes or you press Ctrl+C:
+Takes over the terminal. Blocks until the connection closes (e.g. after typing `exit` on the device). On Linux/macOS the terminal runs in raw mode, so Ctrl+C is forwarded to the device; on Windows, Ctrl+C ends the session locally:
 
 ```python
 from mistapi.device_utils import ex
@@ -853,7 +853,7 @@ from mistapi.device_utils import ex
 ex.interactiveShell(apisession, site_id, device_id)
 ```
 
-Requires the `sshkeyboard` package (installed automatically as a dependency).
+Requires an interactive terminal (TTY); raises `RuntimeError` if stdin is piped or redirected. No extra package is needed.
 
 #### Programmatic mode
 
@@ -861,11 +861,9 @@ Use `createShellSession()` to get a `ShellSession` object for scripting:
 
 ```python
 from mistapi.device_utils import ex
-import time
 
 with ex.createShellSession(apisession, site_id, device_id) as session:
-    session.send_text("show version\r\n")
-    time.sleep(3)
+    session.send_commands(["configure","show | display set | no-more", "exit"])
     while True:
         data = session.recv(timeout=0.5)
         if data is None:
@@ -882,6 +880,7 @@ with ex.createShellSession(apisession, site_id, device_id) as session:
 | `connected` | `bool` | `True` if the WebSocket is currently connected. |
 | `send(data)` | `None` | Send raw bytes (keystrokes) to the device. |
 | `send_text(text)` | `None` | Send a text string to the device (auto-prefixed with `\x00`). |
+| `send_commands(commands)` | `None` | Send a list of commands to the device, each is automatically followed by a newline. |
 | `recv(timeout=0.1)` | `bytes \| None` | Receive output from the device. Returns `None` on timeout or if disconnected. |
 | `resize(rows, cols)` | `None` | Send a terminal resize message. |
 
