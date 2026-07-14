@@ -845,7 +845,7 @@ All device utility functions return a `UtilResponse` object:
 
 #### Interactive mode (human at the keyboard)
 
-Takes over the terminal. Blocks until the connection closes or you press Ctrl+C:
+Takes over the terminal. Blocks until the connection closes (e.g. after typing `exit` on the device). On Linux/macOS the terminal runs in raw mode, so Ctrl+C is forwarded to the device; on Windows, Ctrl+C ends the session locally:
 
 ```python
 from mistapi.device_utils import ex
@@ -853,7 +853,7 @@ from mistapi.device_utils import ex
 ex.interactiveShell(apisession, site_id, device_id)
 ```
 
-Requires the `sshkeyboard` package (installed automatically as a dependency).
+Requires an interactive terminal (TTY); raises `RuntimeError` if stdin is piped or redirected. No extra package is needed.
 
 #### Programmatic mode
 
