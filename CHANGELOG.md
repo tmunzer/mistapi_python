@@ -1,4 +1,51 @@
 # CHANGELOG
+## Version 0.63.2 (July 2026)
+
+**Released**: July 14, 2026
+
+This patch release stabilizes EX/SRX remote shell sessions, improves interactive terminal input handling, and adds a convenience helper for sending command batches. (#32)
+
+---
+
+### 1. NEW FEATURES
+
+#### **Remote Shell Command Batches (`send_commands`)**
+`ShellSession` now supports `send_commands()` to send multiple shell commands without manually appending line endings:
+
+```python
+from mistapi.device_utils import ex
+
+with ex.createShellSession(apisession, site_id, device_id) as session:
+    session.send_commands(["configure", "show | display set | no-more", "exit"])
+    while data := session.recv(timeout=0.5):
+        print(data.decode("utf-8", errors="replace"), end="")
+```
+
+---
+
+### 2. IMPROVEMENTS
+
+#### **Remote Shell Readiness Handling**
+`ShellSession` now waits for the initial shell output before sending the first keystrokes, then buffers that initial output so callers still receive the banner or prompt on the next `recv()` call. This avoids losing early commands when the WebSocket is connected but the remote PTY is not yet ready.
+
+#### **Interactive Shell Input Handling**
+`interactiveShell()` now uses platform-specific terminal input loops instead of `sshkeyboard`:
+- POSIX terminals use raw-mode input so keystrokes are forwarded directly to the device.
+- Windows consoles map special keys, such as arrows and navigation keys, to terminal escape sequences.
+- Non-interactive stdin now raises a clear `RuntimeError` instructing callers to use `ShellSession` / `createShellSession()` for programmatic access.
+
+#### **Dependency Cleanup**
+Removed the unused `sshkeyboard` dependency and updated the lockfile.
+
+---
+
+### 3. BUG FIXES
+
+#### **Remote Shell Close Races**
+`ShellSession.send()` now handles WebSocket close races during the readiness wait or `send_binary()` call, preventing teardown windows from surfacing as `WebSocketConnectionClosedException` crashes.
+
+---
+
 ## Version 0.63.1 (June 2026)
 
 **Released**: June 14, 2026
