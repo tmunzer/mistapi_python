@@ -1057,11 +1057,83 @@ class TestAutoReconnect:
         assert entered_backoff.is_set(), "Backoff was never entered"
         assert client._queue.get_nowait() is None
 
-    def test_handle_open_resets_reconnect_attempts(self, mock_session) -> None:
+    def test_reconnect_counter_resets_after_all_channels_subscribed(
+        self, mock_session
+    ) -> None:
         client = self._make_client(mock_session, max_reconnect_attempts=3)
         client._reconnect_attempts = 5
-        client._handle_open(Mock())
+        client._last_close_code = 1006
+        client._last_close_msg = "previous failure"
+        mock_ws = Mock()
+
+        client._handle_open(mock_ws)
+
+        assert client._reconnect_attempts == 5
+        assert client._last_close_code == 1006
+        assert client._last_close_msg == "previous failure"
+
+        client._process_subscription_event(
+            mock_ws, {"event": "channel_subscribed", "channel": "/ch"}
+        )
+
         assert client._reconnect_attempts == 0
+        assert client._last_close_code is None
+        assert client._last_close_msg is None
+
+    def test_handle_open_resets_reconnect_attempts_without_channels(
+        self, mock_session
+    ) -> None:
+        client = self._make_client(mock_session, channels=[], max_reconnect_attempts=3)
+        client._reconnect_attempts = 5
+        client._last_close_code = 1006
+        client._last_close_msg = "previous failure"
+
+        client._handle_open(Mock())
+
+        assert client._reconnect_attempts == 0
+        assert client._last_close_code is None
+        assert client._last_close_msg is None
+
+    def test_subscription_failures_honor_retry_limit_and_backoff(
+        self, mock_session
+    ) -> None:
+        client = self._make_client(
+            mock_session, max_reconnect_attempts=2, reconnect_backoff=0.01
+        )
+        call_count = 0
+        observed_delays: list[float] = []
+
+        def fake_run_forever(**kwargs):
+            nonlocal call_count
+            call_count += 1
+            client._handle_open(client._ws)
+            client._process_subscription_event(
+                client._ws,
+                {
+                    "event": "subscribe_failed",
+                    "channel": "/ch",
+                    "detail": "denied",
+                },
+            )
+            client._handle_close(client._ws, None, None)
+
+        def capture_delay(timeout=None):
+            if timeout is not None:
+                observed_delays.append(timeout)
+            return False
+
+        mock_ws = Mock()
+        mock_ws.run_forever.side_effect = fake_run_forever
+        with (
+            patch.object(client, "_create_ws_app", return_value=mock_ws),
+            patch.object(client, "_arm_subscription_watchdog"),
+            patch.object(client._user_disconnect, "wait", side_effect=capture_delay),
+        ):
+            client._ws = mock_ws
+            client._run_forever_safe()
+
+        assert call_count == 3  # initial connection plus two retries
+        assert observed_delays == pytest.approx([0.01, 0.02])
 
     def test_successful_reconnect_resets_counter(self, mock_session) -> None:
         client = self._make_client(mock_session, max_reconnect_attempts=2)
@@ -1076,10 +1148,18 @@ class TestAutoReconnect:
             elif call_count == 2:
                 # Reconnect succeeds, then simulate open + later drop
                 client._handle_open(client._ws)
+                client._process_subscription_event(
+                    client._ws,
+                    {"event": "channel_subscribed", "channel": "/ch"},
+                )
                 client._handle_close(client._ws, 1006, "drop again")
             elif call_count == 3:
                 # Another reconnect succeeds, then clean exit
                 client._handle_open(client._ws)
+                client._process_subscription_event(
+                    client._ws,
+                    {"event": "channel_subscribed", "channel": "/ch"},
+                )
                 client._handle_close(client._ws, 1006, "drop again")
             elif call_count == 4:
                 # Final reconnect succeeds then user disconnects
@@ -1647,6 +1727,30 @@ class TestReliabilityBehavior:
         threading.Event().wait(timeout=0.2)  # let a stray timer fire if any
         assert errors == []
         mock_ws.close.assert_not_called()
+
+    def test_unexpected_ack_does_not_count_toward_subscription_completion(
+        self, mock_session
+    ) -> None:
+        client = _MistWebsocket(
+            mock_session,
+            channels=["/ch1", "/ch2"],
+        )
+        mock_ws = Mock()
+        watchdog = Mock()
+        client._subscription_watchdog = watchdog
+
+        client._process_subscription_event(
+            mock_ws,
+            {"event": "channel_subscribed", "channel": "/unexpected"},
+        )
+        client._process_subscription_event(
+            mock_ws,
+            {"event": "channel_subscribed", "channel": "/ch1"},
+        )
+
+        assert client._subscribed_channels == {"/ch1"}
+        assert client._subscription_watchdog is watchdog
+        watchdog.cancel.assert_not_called()
 
     def test_subscribe_failed_reports_on_error_and_closes(self, ws_client) -> None:
         errors = []

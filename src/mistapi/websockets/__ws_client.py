@@ -403,6 +403,11 @@ class _MistWebsocket:
             channel = None
 
         if event == "channel_subscribed" and channel:
+            if channel not in self._expected_channels:
+                logger.warning(
+                    "Received channel_subscribed for unexpected channel: %s", channel
+                )
+                return
             with self._subscription_lock:
                 self._subscribed_channels.add(channel)
                 subscribed_count = len(self._subscribed_channels)
@@ -423,12 +428,11 @@ class _MistWebsocket:
                     subscribed_count,
                     expected_count,
                 )
-            if channel not in self._expected_channels:
-                logger.warning(
-                    "Received channel_subscribed for unexpected channel: %s", channel
-                )
-            if subscribed_count >= expected_count:
+            if subscribed_count == expected_count:
                 self._cancel_subscription_watchdog()
+                self._reconnect_attempts = 0
+                self._last_close_code = None
+                self._last_close_msg = None
                 logger.info("All requested channels subscribed (%d)", expected_count)
             return
 
@@ -492,9 +496,13 @@ class _MistWebsocket:
             return
         if self._expected_channels:
             self._arm_subscription_watchdog(ws)
-        self._reconnect_attempts = 0
-        self._last_close_code = None
-        self._last_close_msg = None
+        else:
+            # Clients without managed subscriptions (for example
+            # SessionWithUrl) are fully established as soon as the transport
+            # opens because no channel acknowledgements will arrive.
+            self._reconnect_attempts = 0
+            self._last_close_code = None
+            self._last_close_msg = None
         self._connected.set()
         if self._on_open_cb:
             try:

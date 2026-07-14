@@ -587,7 +587,7 @@ All channel classes accept the following optional keyword arguments:
 | `ping_timeout` | `int \| None` | `None` | Seconds to wait for a pong response before treating the connection as dead. Defaults to `min(45, ping_interval - 1)` when pings are enabled, or `45` when `ping_interval=0` (unused since pings are disabled). When `ping_interval > 0`, this must be lower than `ping_interval`. |
 | `auto_reconnect` | `bool` | `False` | Automatically reconnect on transient failures using exponential backoff. |
 | `max_reconnect_attempts` | `int` | `5` | Maximum number of reconnect attempts before giving up. |
-| `reconnect_backoff` | `float` | `2.0` | Base backoff delay in seconds. Doubles after each failed attempt (2s, 4s, 8s, ...). Resets on successful reconnection. |
+| `reconnect_backoff` | `float` | `2.0` | Base backoff delay in seconds. Doubles after each failed attempt (2s, 4s, 8s, ...). Resets once the connection is fully established and all requested subscriptions are acknowledged. |
 | `queue_maxsize` | `int` | `0` | Maximum messages buffered in the internal queues used for both `receive()` and callback delivery. `0` means unbounded. When set, incoming messages are dropped with a warning when either queue is full, preventing memory growth on high-frequency streams. |
 | `subscription_watchdog_timeout` | `float` | `10.0` | Maximum time to wait for all `channel_subscribed` acknowledgements after connect. On timeout, the error is reported to `on_error` and the connection is closed; with `auto_reconnect=True` this triggers a clean reconnect. |
 | `rate_limit_backoff` | `float` | `30.0` | Minimum reconnect delay after a 429 rate-limit response. |
