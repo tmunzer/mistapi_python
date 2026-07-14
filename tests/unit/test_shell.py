@@ -513,3 +513,44 @@ class TestInteractiveShell:
             shell_module._windows_input_loop(session)  # type: ignore[arg-type]
 
         assert session.sent == [b"\x00b"]
+
+    def test_posix_input_loop_forwards_stdin_and_restores_terminal(self) -> None:
+        chunks = [b"ls\r", b""]  # empty read (EOF) ends the loop
+
+        class FakeSession:
+            def __init__(self) -> None:
+                self.sent: list[bytes] = []
+
+            @property
+            def connected(self) -> bool:
+                return True
+
+            def send(self, data: bytes) -> None:
+                self.sent.append(data)
+
+        fake_termios = Mock()
+        fake_termios.tcgetattr.return_value = "old-settings"
+        fake_tty = Mock()
+        fake_stdin = Mock()
+        fake_stdin.fileno.return_value = 0
+
+        session = FakeSession()
+        with (
+            patch.dict(sys.modules, {"termios": fake_termios, "tty": fake_tty}),
+            patch.object(shell_module.sys, "stdin", fake_stdin),
+            patch.object(
+                shell_module.select,
+                "select",
+                return_value=([fake_stdin], [], []),
+            ),
+            patch.object(
+                shell_module.os, "read", side_effect=lambda fd, n: chunks.pop(0)
+            ),
+        ):
+            shell_module._posix_input_loop(session)  # type: ignore[arg-type]
+
+        assert session.sent == [b"\x00ls\r"]
+        fake_tty.setraw.assert_called_once_with(0)
+        fake_termios.tcsetattr.assert_called_once_with(
+            0, fake_termios.TCSADRAIN, "old-settings"
+        )
