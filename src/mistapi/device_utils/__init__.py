@@ -38,6 +38,7 @@ Supported Devices:
 from mistapi.device_utils import (
     ap,
     ex,
+    mxedge,
     srx,
     ssr,
 )
@@ -46,6 +47,7 @@ __all__ = [
     # Device-specific modules (recommended)
     "ap",
     "ex",
+    "mxedge",
     "srx",
     "ssr",
 ]
