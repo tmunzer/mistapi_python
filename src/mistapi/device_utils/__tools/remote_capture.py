@@ -268,7 +268,7 @@ def srx_remote_pcap(
         UUID of the site where the device is located.
     device_interfaces : dict[str, dict[str, str | None]]
         Device IDs mapped to port IDs and their optional tcpdump expressions.
-        ex: {"ge-0/0/0": {"tcpdump_expression": "udp port 67 or udp port 68 -vvv -tttt -en"}}
+        ex: {"00000000-0000-0000-1000-0123456789abcd": {"ge-0/0/0": "udp port 67 or udp port 68 -vvv -tttt -en"}}
     tcpdump_expression : str, optional
         Tcpdump expression to filter the captured traffic.
         e.g. "udp port 67 or udp port 68 -vvv -tttt -en"
@@ -338,7 +338,7 @@ def ssr_remote_pcap(
         UUID of the site where the device is located.
     device_interfaces : dict[str, dict[str, str | None]]
         Device IDs mapped to port IDs and their optional tcpdump expressions.
-        ex: {"ge-0/0/0": {"tcpdump_expression": "udp port 67 or udp port 68 -vvv -tttt -en"}}
+        ex: {"00000000-0000-0000-1000-0123456789abcd": {"ge-0/0/0": "udp port 67 or udp port 68 -vvv -tttt -en"}}
     tcpdump_expression : str, optional
         Tcpdump expression to filter the captured traffic.
         e.g. "udp port 67 or udp port 68 -vvv -tttt -en"
@@ -409,7 +409,7 @@ def ex_remote_pcap(
         UUID of the site where the device is located.
     device_interfaces : dict[str, dict[str, str | None]]
         Device IDs mapped to port IDs and their optional tcpdump expressions.
-        ex: {"ge-0/0/0": {"tcpdump_expression": "udp port 67 or udp port 68 -vvv -tttt -en"}}
+        ex: {"00000000-0000-0000-1000-0123456789abcd": {"ge-0/0/0": "udp port 67 or udp port 68 -vvv -tttt -en"}}
     tcpdump_expression : str, optional
         Tcpdump expression to filter the captured traffic.
         e.g. "udp port 67 or udp port 68 -vvv -tttt -en"
@@ -479,7 +479,7 @@ def site_mxedge_remote_pcap(
         UUID of the site where the device is located.
     device_interfaces : dict[str, dict[str, str | None]]
         Device IDs mapped to port IDs and their optional tcpdump expressions.
-        ex: {"port0": {"tcpdump_expression": "udp port 67 or udp port 68 -vvv -tttt -en"}, "oobm": {}}
+        ex: {"00000000-0000-0000-1000-0123456789abcd": {"port0": "udp port 67 or udp port 68 -vvv -tttt -en", "oobm: None}}
     tcpdump_expression : str, optional
         Tcpdump expression to filter the captured traffic.
         e.g. "udp port 67 or udp port 68 -vvv -tttt -en"
@@ -546,7 +546,7 @@ def org_mxedge_remote_pcap(
         UUID of the organization where the device is located.
     device_interfaces : dict[str, dict[str, str | None]]
         Device IDs mapped to port IDs and their optional tcpdump expressions.
-        ex: {"port0": {"tcpdump_expression": "udp port 67 or udp port 68 -vvv -tttt -en"}, "oobm": {}}
+        ex: {"00000000-0000-0000-1000-0123456789abcd": {"port0": "udp port 67 or udp port 68 -vvv -tttt -en", "oobm: None}}
     tcpdump_expression : str, optional
         Tcpdump expression to filter the captured traffic.
         e.g. "udp port 67 or udp port 68 -vvv -tttt -en"
