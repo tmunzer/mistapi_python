@@ -815,6 +815,7 @@ def getSiteCallsSummary(
     site_id: str,
     ap_mac: str | None = None,
     app: str | None = None,
+    wired: bool | None = None,
     start: str | None = None,
     end: str | None = None,
 ) -> _APIResponse:
@@ -836,6 +837,8 @@ def getSiteCallsSummary(
       Filter results by AP MAC address
     app : str
       Filter results by application name
+    wired : bool
+      Filter results by whether the client is wired
     start : str
       Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
@@ -853,6 +856,8 @@ def getSiteCallsSummary(
         query_params["ap_mac"] = str(ap_mac)
     if app:
         query_params["app"] = str(app)
+    if wired:
+        query_params["wired"] = str(wired)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -868,6 +873,7 @@ def listSiteTroubleshootCalls(
     meeting_id: str | None = None,
     mac: str | None = None,
     app: str | None = None,
+    wired: bool | None = None,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -896,6 +902,8 @@ def listSiteTroubleshootCalls(
       Filter results by MAC address
     app : str
       Third party app name
+    wired : bool
+      Filter results by whether the client is wired
     start : str
       Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
@@ -923,6 +931,8 @@ def listSiteTroubleshootCalls(
         query_params["mac"] = str(mac)
     if app:
         query_params["app"] = str(app)
+    if wired:
+        query_params["wired"] = str(wired)
     if start:
         query_params["start"] = str(start)
     if end:
