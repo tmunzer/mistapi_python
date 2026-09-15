@@ -80,7 +80,7 @@ def countSiteNacClients(
     mdm_compliance_status : str
       MDM compliance of client i.e "compliant", "not compliant"
     mdm_provider : str
-      MDM provider of client’s organisation eg "intune", "jamf"
+      MDM provider of client’s organization eg "intune", "jamf"
     start : str
       Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
