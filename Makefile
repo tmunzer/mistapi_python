@@ -15,6 +15,10 @@ help: ## Show this help message
 	@echo 'Targets:'
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+update-openapi:
+	git submodule sync --recursive
+	git submodule update --init --recursive --remote --checkout mist_openapi
+
 setup-openapi: ## Initialize or update OpenAPI submodule
 	@if [ ! -d "mist_openapi/.git" ]; then \
 		echo "Initializing OpenAPI submodule..."; \
@@ -23,7 +27,7 @@ setup-openapi: ## Initialize or update OpenAPI submodule
 	@echo "Updating OpenAPI submodule..."; \
 	git submodule update --remote mist_openapi
 
-generate: setup-openapi ## Run the code generation script
+generate: update-openapi ## Run the code generation script
 	echo "Updating version in pyproject.toml to $(VERSION)"
 	sed -e "s/version = .*/version = \"$(VERSION)\"/g" pyproject.toml > new_pyproject.toml
 	mv new_pyproject.toml pyproject.toml
