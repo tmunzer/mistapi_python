@@ -261,6 +261,12 @@ def searchOrgJsiAssetsAndContracts(
     eos_before: str | None = None,
     version_eos_after: str | None = None,
     version_eos_before: str | None = None,
+    contract_end_before: str | None = None,
+    contract_end_after: str | None = None,
+    contract_type: str | None = None,
+    contract_sku: str | None = None,
+    end_of_service_time: str | None = None,
+    support_contract_status: str | None = None,
     has_support: bool | None = None,
     sirt_id: str | None = None,
     pbn_id: str | None = None,
@@ -293,8 +299,8 @@ def searchOrgJsiAssetsAndContracts(
       Filter results by SKU. Accepts multiple comma-separated values.
     status : str{'all', 'connected', 'disconnected'}, default: all
       Device status. enum: `all`, `connected`, `disconnected`
-    warranty_type : str{'Standard Hardware Warranty', 'Enhanced Hardware Warranty', 'Dead On Arrival Warranty', 'Limited Lifetime Warranty', 'Software Warranty', 'Limited Lifetime Warranty for WLA', 'Warranty-JCPO EOL (DOA Not Included)', 'MIST Enhanced Hardware Warranty', 'MIST Standard Warranty', 'Determine Lifetime warranty'}
-      Device warranty type used to filter Juniper Support Insight inventory. enum: `Standard Hardware Warranty`, `Enhanced Hardware Warranty`, `Dead On Arrival Warranty`, `Limited Lifetime Warranty`, `Software Warranty`, `Limited Lifetime Warranty for WLA`, `Warranty-JCPO EOL (DOA Not Included)`, `MIST Enhanced Hardware Warranty`, `MIST Standard Warranty`, `Determine Lifetime warranty`
+    warranty_type : str
+      Device warranty type used to filter Juniper Support Insight inventory
     end_of_sale_after : str
       Filter devices with End Of Sale date after this date
     end_of_sale_before : str
@@ -307,6 +313,18 @@ def searchOrgJsiAssetsAndContracts(
       Filter devices with OS Version End Of Support date after this date
     version_eos_before : str
       Filter devices with OS Version End Of Support date before this date
+    contract_end_before : str
+      Filter results by service contract end date before this date
+    contract_end_after : str
+      Filter results by service contract end date after this date
+    contract_type : str
+      Filter results by contract type
+    contract_sku : str
+      Filter results by contract SKU
+    end_of_service_time : str
+      Filter results by end of service time
+    support_contract_status : str{'Active', 'Declined', 'EOL', 'Service Available'}
+      Filter results by service contract status
     has_support : bool
       Indicates if the device is covered under active support contract. Accepts multiple comma-separated boolean values.
     sirt_id : str
@@ -314,7 +332,7 @@ def searchOrgJsiAssetsAndContracts(
     pbn_id : str
       To get the onboarded devices that are affected by the PBN ID
     text : str
-      Wildcards for `serial`, `model`, `account_id`
+      Wildcard text search across `account_id`, `contract_id`, `contract_reseller`, `contract_sku`, `device_name`, `distributor`, `ia_address`, `ia_country`, `ia_region`, `ia_zip_postal`, `model`, `serial`, `sku`, `status`, `suggested_version`, `version`, `warranty`
     limit : int, default: 100
       Maximum number of results to return per page
     sort : str, default: timestamp
@@ -354,6 +372,18 @@ def searchOrgJsiAssetsAndContracts(
         query_params["version_eos_after"] = str(version_eos_after)
     if version_eos_before:
         query_params["version_eos_before"] = str(version_eos_before)
+    if contract_end_before:
+        query_params["contract_end_before"] = str(contract_end_before)
+    if contract_end_after:
+        query_params["contract_end_after"] = str(contract_end_after)
+    if contract_type:
+        query_params["contract_type"] = str(contract_type)
+    if contract_sku:
+        query_params["contract_sku"] = str(contract_sku)
+    if end_of_service_time:
+        query_params["end_of_service_time"] = str(end_of_service_time)
+    if support_contract_status:
+        query_params["support_contract_status"] = str(support_contract_status)
     if has_support:
         query_params["has_support"] = str(has_support)
     if sirt_id:
@@ -431,8 +461,10 @@ def searchOrgJsiPbn(
     customer_risk: str | None = None,
     id: str | None = None,
     bug_type: str | None = None,
+    text: str | None = None,
     limit: int | None = None,
     page: int | None = None,
+    sort: str | None = None,
     search_after: str | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -452,19 +484,23 @@ def searchOrgJsiPbn(
     QUERY PARAMS
     ------------
     versions : str
-      OS versions to search for
+      Software versions affected by the PBN
     models : str
-      Device models to search for
+      Models affected by the PBN
     customer_risk : str
-      Customer risk level to filter by
+      Filter results by customer risk. enum: `Critical`, `Major`, `Minor`
     id : str
-      PBN ID to search for
-    bug_type : str
-      Bug type to filter by
+      ID of the PBN
+    bug_type : str{'Day-1', 'Regression'}
+      Filter results by bug type
+    text : str
+      Wildcard search across `versions`, `models`, `customer_risk`, `id`, `bug_type`
     limit : int, default: 100
       Maximum number of results to return per page
     page : int, default: 1
       Select the page number to return when using page-based pagination; starts at `1`
+    sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
     search_after : str
       Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
     start : str
@@ -490,10 +526,14 @@ def searchOrgJsiPbn(
         query_params["id"] = str(id)
     if bug_type:
         query_params["bug_type"] = str(bug_type)
+    if text:
+        query_params["text"] = str(text)
     if limit:
         query_params["limit"] = str(limit)
     if page:
         query_params["page"] = str(page)
+    if sort:
+        query_params["sort"] = str(sort)
     if search_after:
         query_params["search_after"] = str(search_after)
     if start:
@@ -588,10 +628,10 @@ def searchOrgJsiSirt(
 
     QUERY PARAMS
     ------------
-    severity : str
-      Filter results by severity
+    severity : str{'Critical', 'High', 'Low', 'Medium'}
+      Filter results by SIRT severity
     id : str
-      Filter results by identifier
+      JSA number
     updated_after : str
       JSA Updated date to be filtered after this date
     updated_before : str
@@ -601,11 +641,11 @@ def searchOrgJsiSirt(
     published_before : str
       JSA Published date to be filtered before this date
     models : str
-      Filter results by models
+      Models affected by the SIRT
     versions : str
-      Software version affected by the SIRT
+      Software versions affected by the SIRT
     text : str
-      Wildcards search on os_version_affected, affected_models, severity, jsa_id
+      Wildcard search across `versions`, `models`, `severity`, `id`
     limit : int, default: 100
       Maximum number of results to return per page
     page : int, default: 1
