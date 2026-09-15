@@ -26,28 +26,40 @@ Added packet capture helpers that start captures and collect streamed results th
 
 ---
 
-### 2. IMPROVEMENTS
+### 2. BREAKING CHANGES
 
-#### **OpenAPI Generation Updates**
-The `update-openapi` target now advances the `mist_openapi` submodule to the configured remote branch, and `generate` uses that target before regenerating the SDK.
+#### **Remote Capture Argument Structure**
+The `remotePcap()` helpers for EX, SRX, and SSR devices now accept a single `device_interfaces` mapping instead of separate `device_id` and `port_ids` arguments. Each device ID maps to its interfaces, and each interface maps to an optional per-interface tcpdump expression. Use `None` when an interface does not need its own expression; the existing `tcpdump_expression` argument remains the capture-wide filter.
 
-#### **Remote Capture Coverage**
-Added unit coverage for packet capture request construction, WebSocket channel selection, capture triggers, and streamed response handling.
+```python
+# Before
+ex.remotePcap(
+  apisession,
+  site_id,
+  device_id,
+  ["ge-0/0/0", "ge-0/0/1"],
+  tcpdump_expression="udp",
+)
 
----
+# Now
+ex.remotePcap(
+  apisession,
+  site_id,
+  {
+    device_id: {
+      "ge-0/0/0": None,
+      "ge-0/0/1": "port 443",
+    }
+  },
+  tcpdump_expression="udp",
+)
+```
 
-### 3. BREAKING CHANGES
+This change also allows one capture request to target multiple EX, SRX, or SSR devices. The AP `remotePcapWired()` and `remotePcapWireless()` signatures are unchanged.
 
 #### **Generated Naming Corrections**
 - Renamed the organization `aos` API module to `aoscx` to match the platform name.
 - Renamed the NAC client query argument from `edr_provider` to `edr_providers` to match the API parameter.
-
----
-
-### 4. BUG FIXES
-
-#### **Generated Documentation Corrections**
-Corrected OAuth provider naming and NAC client parameter documentation in the generated bindings.
 
 ---
 
