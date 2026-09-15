@@ -31,9 +31,11 @@ from mistapi.device_utils.__tools.dhcp import release_dhcp_leases as releaseDhcp
 from mistapi.device_utils.__tools.dhcp import retrieve_dhcp_leases as retrieveDhcpLeases
 
 # Tools (ping, traceroute - no monitor_traffic for SSR)
-from mistapi.device_utils.__tools.miscellaneous import TracerouteProtocol
-from mistapi.device_utils.__tools.miscellaneous import ping
-from mistapi.device_utils.__tools.miscellaneous import traceroute
+from mistapi.device_utils.__tools.miscellaneous import (
+    TracerouteProtocol,
+    ping,
+    traceroute,
+)
 
 # DNS functions
 # from mistapi.utils.dns import test_resolution as test_dns_resolution
@@ -45,6 +47,7 @@ from mistapi.device_utils.__tools.ospf import show_summary as retrieveOspfSummar
 
 # Port functions
 from mistapi.device_utils.__tools.port import bounce as bouncePort
+from mistapi.device_utils.__tools.remote_capture import ssr_remote_pcap as remotePcap
 
 # Route functions
 from mistapi.device_utils.__tools.routes import RouteProtocol
@@ -80,6 +83,7 @@ __all__ = [
     "retrieveOspfSummary",
     # Port
     "bouncePort",
+    "remotePcap",
     # Routes
     "retrieveRoutes",
     # Service Path
