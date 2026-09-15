@@ -40,19 +40,14 @@ from mistapi.device_utils.__tools.mac import clear_learned_mac as clearLearnedMa
 from mistapi.device_utils.__tools.mac import clear_mac_table as clearMacTable
 from mistapi.device_utils.__tools.mac import retrieve_mac_table as retrieveMacTable
 
-# Shell (interactive SSH)
-from mistapi.device_utils.__tools.shell import ShellSession
-from mistapi.device_utils.__tools.shell import (
-    create_shell_session as createShellSession,
-)
-from mistapi.device_utils.__tools.shell import interactive_shell as interactiveShell
-
 # Tools (ping, traceroute, monitor traffic)
-from mistapi.device_utils.__tools.miscellaneous import TracerouteProtocol
+from mistapi.device_utils.__tools.miscellaneous import (
+    TracerouteProtocol,
+    ping,
+    traceroute,
+)
 from mistapi.device_utils.__tools.miscellaneous import monitor_traffic as monitorTraffic
-from mistapi.device_utils.__tools.miscellaneous import ping
 from mistapi.device_utils.__tools.miscellaneous import top_command as topCommand
-from mistapi.device_utils.__tools.miscellaneous import traceroute
 
 # Policy functions
 from mistapi.device_utils.__tools.policy import clear_hit_count as clearHitCount
@@ -60,6 +55,14 @@ from mistapi.device_utils.__tools.policy import clear_hit_count as clearHitCount
 # Port functions
 from mistapi.device_utils.__tools.port import bounce as bouncePort
 from mistapi.device_utils.__tools.port import cable_test as cableTest
+from mistapi.device_utils.__tools.remote_capture import ex_remote_pcap as remotePcap
+
+# Shell (interactive SSH)
+from mistapi.device_utils.__tools.shell import ShellSession
+from mistapi.device_utils.__tools.shell import (
+    create_shell_session as createShellSession,
+)
+from mistapi.device_utils.__tools.shell import interactive_shell as interactiveShell
 
 __all__ = [
     # ARP
@@ -82,6 +85,7 @@ __all__ = [
     # Port
     "bouncePort",
     "cableTest",
+    "remotePcap",
     # Shell
     "ShellSession",
     "createShellSession",

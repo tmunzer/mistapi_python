@@ -15,6 +15,40 @@ from mistapi import APISession
 from mistapi.websockets.__ws_client import _MistWebsocket
 
 
+class PcapEvents(_MistWebsocket):
+    """WebSocket stream for organization packet capture events."""
+
+    def __init__(
+        self,
+        mist_session: APISession,
+        org_id: str,
+        ping_interval: int = 60,
+        ping_timeout: int | None = None,
+        auto_reconnect: bool = False,
+        max_reconnect_attempts: int = 5,
+        reconnect_backoff: float = 2.0,
+        max_reconnect_backoff: float | None = None,
+        queue_maxsize: int = 0,
+        subscription_watchdog_timeout: float = 10.0,
+        rate_limit_backoff: float = 30.0,
+        throughput_log_interval: int = 100,
+    ) -> None:
+        super().__init__(
+            mist_session,
+            channels=[f"/orgs/{org_id}/pcaps"],
+            ping_interval=ping_interval,
+            ping_timeout=ping_timeout,
+            auto_reconnect=auto_reconnect,
+            max_reconnect_attempts=max_reconnect_attempts,
+            reconnect_backoff=reconnect_backoff,
+            max_reconnect_backoff=max_reconnect_backoff,
+            queue_maxsize=queue_maxsize,
+            subscription_watchdog_timeout=subscription_watchdog_timeout,
+            rate_limit_backoff=rate_limit_backoff,
+            throughput_log_interval=throughput_log_interval,
+        )
+
+
 class InsightsEvents(_MistWebsocket):
     """WebSocket stream for organization insights events.
 

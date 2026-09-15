@@ -1,5 +1,68 @@
 # CHANGELOG
 
+## Version 0.64.0 (September 2026)
+
+**Released**: September 15, 2026
+
+This release updates the generated API bindings and adds remote packet capture helpers for AP, EX, SRX, SSR, and Mist Edge devices, including streamed organization-level capture events.
+
+---
+
+### 1. NEW FEATURES
+
+#### **Remote Packet Capture Utilities**
+Added packet capture helpers that start captures and collect streamed results through WebSockets:
+- AP wired and wireless captures through `remotePcapWired()` and `remotePcapWireless()`.
+- EX, SRX, and SSR interface captures through `remotePcap()`.
+- Site-level and organization-level Mist Edge captures through the new `mistapi.device_utils.mxedge` module.
+- Organization packet capture events through `mistapi.websockets.orgs.PcapEvents`.
+
+#### **Generated API Additions**
+- Added site device flow-record search and Zigbee event management APIs.
+- Added IoT endpoint counting and Zigbee rejoin APIs.
+- Added AOS-CX and EdgeConnect registration command APIs.
+- Added Marvis client event definitions and new JSI asset and contract filters.
+- Added the `magic` claim-code filter to organization inventory searches and the `wired` filter to site call summaries and troubleshoot-call listings.
+
+---
+
+### 2. BREAKING CHANGES
+
+#### **Remote Capture Argument Structure**
+The `remotePcap()` helpers for EX, SRX, and SSR devices now accept a single `device_interfaces` mapping instead of separate `device_id` and `port_ids` arguments. Each device ID maps to its interfaces, and each interface maps to an optional per-interface tcpdump expression. Use `None` when an interface does not need its own expression; the existing `tcpdump_expression` argument remains the capture-wide filter.
+
+```python
+# Before
+ex.remotePcap(
+  apisession,
+  site_id,
+  device_id,
+  ["ge-0/0/0", "ge-0/0/1"],
+  tcpdump_expression="udp",
+)
+
+# Now
+ex.remotePcap(
+  apisession,
+  site_id,
+  {
+    device_id: {
+      "ge-0/0/0": None,
+      "ge-0/0/1": "port 443",
+    }
+  },
+  tcpdump_expression="udp",
+)
+```
+
+This change also allows one capture request to target multiple EX, SRX, or SSR devices. The AP `remotePcapWired()` and `remotePcapWireless()` signatures are unchanged.
+
+#### **Generated Naming Corrections**
+- Renamed the organization `aos` API module to `aoscx` to match the platform name.
+- Renamed the NAC client query argument from `edr_provider` to `edr_providers` to match the API parameter.
+
+---
+
 ## Version 0.63.3 (July 2026)
 
 **Released**: July 14, 2026

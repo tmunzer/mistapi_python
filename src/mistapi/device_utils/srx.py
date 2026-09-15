@@ -30,19 +30,14 @@ from mistapi.device_utils.__tools.bgp import summary as retrieveBgpSummary
 from mistapi.device_utils.__tools.dhcp import release_dhcp_leases as releaseDhcpLeases
 from mistapi.device_utils.__tools.dhcp import retrieve_dhcp_leases as retrieveDhcpLeases
 
-# Shell (interactive SSH)
-from mistapi.device_utils.__tools.shell import ShellSession
-from mistapi.device_utils.__tools.shell import (
-    create_shell_session as createShellSession,
-)
-from mistapi.device_utils.__tools.shell import interactive_shell as interactiveShell
-
 # Tools (ping, traceroute, monitor traffic)
-from mistapi.device_utils.__tools.miscellaneous import TracerouteProtocol
+from mistapi.device_utils.__tools.miscellaneous import (
+    TracerouteProtocol,
+    ping,
+    traceroute,
+)
 from mistapi.device_utils.__tools.miscellaneous import monitor_traffic as monitorTraffic
-from mistapi.device_utils.__tools.miscellaneous import ping
 from mistapi.device_utils.__tools.miscellaneous import top_command as topCommand
-from mistapi.device_utils.__tools.miscellaneous import traceroute
 
 # OSPF functions
 from mistapi.device_utils.__tools.ospf import show_database as retrieveOspfDatabase
@@ -52,6 +47,7 @@ from mistapi.device_utils.__tools.ospf import show_summary as retrieveOspfSummar
 
 # Port functions
 from mistapi.device_utils.__tools.port import bounce as bouncePort
+from mistapi.device_utils.__tools.remote_capture import srx_remote_pcap as remotePcap
 
 # Route functions
 from mistapi.device_utils.__tools.routes import RouteProtocol
@@ -60,6 +56,13 @@ from mistapi.device_utils.__tools.routes import show as retrieveRoutes
 # Sessions functions
 from mistapi.device_utils.__tools.sessions import clear as clearSessions
 from mistapi.device_utils.__tools.sessions import show as retrieveSessions
+
+# Shell (interactive SSH)
+from mistapi.device_utils.__tools.shell import ShellSession
+from mistapi.device_utils.__tools.shell import (
+    create_shell_session as createShellSession,
+)
+from mistapi.device_utils.__tools.shell import interactive_shell as interactiveShell
 
 __all__ = [
     # Classes/Enums
@@ -80,6 +83,7 @@ __all__ = [
     "retrieveOspfSummary",
     # Port
     "bouncePort",
+    "remotePcap",
     # Routes
     "retrieveRoutes",
     # Sessions

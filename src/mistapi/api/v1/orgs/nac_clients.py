@@ -52,8 +52,8 @@ def countOrgNacClients(
 
     QUERY PARAMS
     ------------
-    distinct : str{'ap', 'auth_type', 'device_mac', 'edr_managed', 'edr_provider', 'edr_status', 'family', 'hostname', 'idp_id', 'mfg', 'mdm_compliance', 'mdm_managed', 'mdm_provider', 'model', 'mxedge_id', 'nacrule_matched', 'nacrule_name', 'nacrule_id', 'nas_ip', 'nas_vendor', 'os', 'site_id', 'ssid', 'status', 'type', 'usermac_label', 'username', 'vlan'}, default: type
-      Field used to group this count response. enum: `ap`, `auth_type`, `device_mac`, `edr_managed`, `edr_provider`, `edr_status`, `family`, `hostname`, `idp_id`, `mfg`, `mdm_compliance`, `mdm_managed`, `mdm_provider`, `model`, `mxedge_id`, `nacrule_matched`, `nacrule_name`, `nacrule_id`, `nas_ip`, `nas_vendor`, `os`, `site_id`, `ssid`, `status`, `type`, `usermac_label`, `username`, `vlan`
+    distinct : str{'ap', 'auth_type', 'device_mac', 'edr_managed', 'edr_providers', 'edr_status', 'family', 'hostname', 'idp_id', 'mfg', 'mdm_compliance', 'mdm_managed', 'mdm_provider', 'model', 'mxedge_id', 'nacrule_matched', 'nacrule_name', 'nacrule_id', 'nas_ip', 'nas_vendor', 'os', 'site_id', 'ssid', 'status', 'type', 'usermac_label', 'username', 'vlan'}, default: type
+      Field used to group this count response. enum: `ap`, `auth_type`, `device_mac`, `edr_managed`, `edr_providers`, `edr_status`, `family`, `hostname`, `idp_id`, `mfg`, `mdm_compliance`, `mdm_managed`, `mdm_provider`, `model`, `mxedge_id`, `nacrule_matched`, `nacrule_name`, `nacrule_id`, `nas_ip`, `nas_vendor`, `os`, `site_id`, `ssid`, `status`, `type`, `usermac_label`, `username`, `vlan`
     last_nacrule_id : str
       NAC Policy Rule ID, if matched
     nacrule_matched : bool
@@ -389,7 +389,7 @@ def searchOrgNacClients(
     auth_type: str | None = None,
     cert_expiry_duration: str | None = None,
     edr_managed: bool | None = None,
-    edr_provider: str | None = None,
+    edr_providers: str | None = None,
     edr_status: str | None = None,
     family: str | None = None,
     hostname: str | None = None,
@@ -444,8 +444,8 @@ def searchOrgNacClients(
       Filter by certificate expiry within a specific duration from now (e.g., "7d" for 7 days, "1m" for 1 month). Accepts multiple comma-separated values.
     edr_managed : bool
       Filters NAC clients that are integrated with EDR providers
-    edr_provider : str{'crowdstrike', 'sentinelone'}
-      EDR provider used to filter NAC clients. enum: `crowdstrike`, `sentinelone`
+    edr_providers : str{'crowdstrike', 'sentinelone'}
+      EDR provider of the client's organization. enum: `crowdstrike`, `sentinelone`
     edr_status : str{'sentinelone_healthy', 'sentinelone_infected', 'crowdstrike_low', 'crowdstrike_medium', 'crowdstrike_high', 'crowdstrike_critical', 'crowdstrike_informational'}
       EDR status used to filter NAC clients. enum: `sentinelone_healthy`, `sentinelone_infected`, `crowdstrike_low`, `crowdstrike_medium`, `crowdstrike_high`, `crowdstrike_critical`, `crowdstrike_informational`
     family : str
@@ -525,8 +525,8 @@ def searchOrgNacClients(
         query_params["cert_expiry_duration"] = str(cert_expiry_duration)
     if edr_managed:
         query_params["edr_managed"] = str(edr_managed)
-    if edr_provider:
-        query_params["edr_provider"] = str(edr_provider)
+    if edr_providers:
+        query_params["edr_providers"] = str(edr_providers)
     if edr_status:
         query_params["edr_status"] = str(edr_status)
     if family:

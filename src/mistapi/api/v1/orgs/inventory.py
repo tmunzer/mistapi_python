@@ -359,6 +359,7 @@ def searchOrgInventory(
     name: str | None = None,
     site_id: str | None = None,
     serial: str | None = None,
+    magic: str | None = None,
     master: str | None = None,
     sku: str | None = None,
     version: str | None = None,
@@ -394,6 +395,8 @@ def searchOrgInventory(
       Filter inventory results by site identifier. Accepts multiple comma-separated values.
     serial : str
       Device serial number. Partial match allowed with wildcard * (e.g. `*123*` will match `AB123CD`, `12345`, `XY123`). Accepts multiple comma-separated values.
+    magic : str
+      Device claim code (magic). Accepts multiple comma-separated values.
     master : str
       Filter inventory results by whether the device is the Virtual Chassis master
     sku : str
@@ -431,6 +434,8 @@ def searchOrgInventory(
         query_params["site_id"] = str(site_id)
     if serial:
         query_params["serial"] = str(serial)
+    if magic:
+        query_params["magic"] = str(magic)
     if master:
         query_params["master"] = str(master)
     if sku:

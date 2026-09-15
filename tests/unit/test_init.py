@@ -217,12 +217,12 @@ class TestLazyImportMechanism:
         for key, value in mistapi._LAZY_SUBPACKAGES.items():
             assert value == f"mistapi.{key}"
 
-    def test_getattr_delegates_to_importlib(self):
+    def test_getattr_delegates_to_importlib(self, monkeypatch):
         """__getattr__ should call importlib.import_module for known subpackages."""
         import mistapi
 
         sentinel = types.ModuleType("mistapi.api")
-        mistapi.__dict__.pop("api", None)
+        monkeypatch.delattr(mistapi, "api", raising=False)
 
         with patch("importlib.import_module", return_value=sentinel) as mock_import:
             result = mistapi.__getattr__("api")
@@ -230,12 +230,12 @@ class TestLazyImportMechanism:
         mock_import.assert_called_once_with("mistapi.api")
         assert result is sentinel
 
-    def test_getattr_caches_result_in_globals(self):
+    def test_getattr_caches_result_in_globals(self, monkeypatch):
         """__getattr__ should store the imported module in the package globals."""
         import mistapi
 
         sentinel = types.ModuleType("mistapi.device_utils")
-        mistapi.__dict__.pop("device_utils", None)
+        monkeypatch.delattr(mistapi, "device_utils", raising=False)
 
         with patch("importlib.import_module", return_value=sentinel):
             mistapi.__getattr__("device_utils")

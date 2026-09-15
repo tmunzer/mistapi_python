@@ -175,6 +175,7 @@ def countOrgDeviceEvents(
     model: str | None = None,
     text: str | None = None,
     type: str | None = None,
+    includes: str | None = None,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -195,7 +196,7 @@ def countOrgDeviceEvents(
     QUERY PARAMS
     ------------
     distinct : str{'ap', 'apfw', 'model', 'org_id', 'site_id', 'text', 'timestamp', 'type'}, default: model
-      Field used to group this count response. enum: `ap`, `apfw`, `model`, `org_id`, `site_id`, `text`, `timestamp`, `type`
+      Field used to group this count response. enum: `ap`, `apfw`, `model`, `org_id`, `site_id`, `status`, `text`, `timestamp`, `type`
     site_id : str
       Filter results by site identifier
     ap : str
@@ -208,6 +209,8 @@ def countOrgDeviceEvents(
       Filter results by event message text
     type : str
       See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
+    includes : str
+      Keyword to include events from additional indices (e.g. ext_tunnel for ext tunnel events)
     start : str
       Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
@@ -239,6 +242,8 @@ def countOrgDeviceEvents(
         query_params["text"] = str(text)
     if type:
         query_params["type"] = str(type)
+    if includes:
+        query_params["includes"] = str(includes)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -295,7 +300,7 @@ def searchOrgDeviceEvents(
     last_by : str
       Return last/recent event for passed in field
     includes : str
-      Keyword to include events from additional indices (e.g. ext_tunnel for prisma events)
+      Keyword to include events from additional indices (e.g. ext_tunnel for ext tunnel events)
     limit : int, default: 100
       Maximum number of results to return per page
     start : str
