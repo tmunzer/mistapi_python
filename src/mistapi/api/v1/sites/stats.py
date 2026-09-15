@@ -856,7 +856,7 @@ def getSiteCallsSummary(
         query_params["ap_mac"] = str(ap_mac)
     if app:
         query_params["app"] = str(app)
-    if wired:
+    if wired is not None:
         query_params["wired"] = str(wired)
     if start:
         query_params["start"] = str(start)
