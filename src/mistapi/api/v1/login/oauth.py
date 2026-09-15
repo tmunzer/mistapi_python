@@ -28,6 +28,7 @@ def getOauth2AuthorizationUrlForLogin(
     PATH PARAMS
     -----------
     provider : str
+      Oauth2 provider name
 
     QUERY PARAMS
     ------------
@@ -60,6 +61,7 @@ def unlinkOauth2Provider(mist_session: _APISession, provider: str) -> _APIRespon
     PATH PARAMS
     -----------
     provider : str
+      Oauth2 provider name
 
     RETURN
     -----------
@@ -87,6 +89,7 @@ def loginOauth2(
     PATH PARAMS
     -----------
     provider : str
+      Oauth2 provider name
 
     BODY PARAMS
     -----------
