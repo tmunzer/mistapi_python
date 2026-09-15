@@ -1,5 +1,56 @@
 # CHANGELOG
 
+## Version 0.64.0 (September 2026)
+
+**Released**: September 15, 2026
+
+This release updates the generated API bindings and adds remote packet capture helpers for AP, EX, SRX, SSR, and Mist Edge devices, including streamed organization-level capture events.
+
+---
+
+### 1. NEW FEATURES
+
+#### **Remote Packet Capture Utilities**
+Added packet capture helpers that start captures and collect streamed results through WebSockets:
+- AP wired and wireless captures through `remotePcapWired()` and `remotePcapWireless()`.
+- EX, SRX, and SSR interface captures through `remotePcap()`.
+- Site-level and organization-level Mist Edge captures through the new `mistapi.device_utils.mxedge` module.
+- Organization packet capture events through `mistapi.websockets.orgs.PcapEvents`.
+
+#### **Generated API Additions**
+- Added site device flow-record search and Zigbee event management APIs.
+- Added IoT endpoint counting and Zigbee rejoin APIs.
+- Added AOS-CX and EdgeConnect registration command APIs.
+- Added Marvis client event definitions and new JSI asset and contract filters.
+- Added the `magic` claim-code filter to organization inventory searches and the `wired` filter to site call summaries and troubleshoot-call listings.
+
+---
+
+### 2. IMPROVEMENTS
+
+#### **OpenAPI Generation Updates**
+The `update-openapi` target now advances the `mist_openapi` submodule to the configured remote branch, and `generate` uses that target before regenerating the SDK.
+
+#### **Remote Capture Coverage**
+Added unit coverage for packet capture request construction, WebSocket channel selection, capture triggers, and streamed response handling.
+
+---
+
+### 3. BREAKING CHANGES
+
+#### **Generated Naming Corrections**
+- Renamed the organization `aos` API module to `aoscx` to match the platform name.
+- Renamed the NAC client query argument from `edr_provider` to `edr_providers` to match the API parameter.
+
+---
+
+### 4. BUG FIXES
+
+#### **Generated Documentation Corrections**
+Corrected OAuth provider naming and NAC client parameter documentation in the generated bindings.
+
+---
+
 ## Version 0.63.3 (July 2026)
 
 **Released**: July 14, 2026
