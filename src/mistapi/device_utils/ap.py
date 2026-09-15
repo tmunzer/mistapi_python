@@ -22,10 +22,18 @@ from mistapi.device_utils.__tools.miscellaneous import (
     ping,
     traceroute,
 )
+from mistapi.device_utils.__tools.remote_capture import (
+    ap_remote_pcap_wired as remotePcapWired,
+)
+from mistapi.device_utils.__tools.remote_capture import (
+    ap_remote_pcap_wireless as remotePcapWireless,
+)
 
 __all__ = [
     "ping",
     "traceroute",
     "retrieveArpTable",
+    "remotePcapWired",
+    "remotePcapWireless",
     "TracerouteProtocol",
 ]
