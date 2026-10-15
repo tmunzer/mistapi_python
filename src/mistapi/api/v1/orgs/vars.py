@@ -14,6 +14,77 @@ from mistapi import APISession as _APISession
 from mistapi.__api_response import APIResponse as _APIResponse
 
 
+def countOrgVars(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str | None = None,
+    site_id: str | None = None,
+    var: str | None = None,
+    src: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str | None = None,
+    limit: int | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/vars/count-org-vars
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    distinct : str{'site_id', 'src', 'var'}, default: var
+      Field used to group this count response. enum: `site_id`, `src`, `var`
+    site_id : str
+      Filter results by site identifier. Accepts multiple comma-separated values.
+    var : str
+      Filter variable results by variable name. Accepts multiple comma-separated values.
+    src : str{'deviceprofile', 'site'}
+      Filter results by source. enum: `deviceprofile`, `site`
+    start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
+    end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
+    duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
+    limit : int, default: 100
+      Maximum number of results to return per page
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/vars/count"
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if var:
+        query_params["var"] = str(var)
+    if src:
+        query_params["src"] = str(src)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
 def searchOrgVars(
     mist_session: _APISession,
     org_id: str,
