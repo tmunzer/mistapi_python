@@ -355,6 +355,8 @@ def searchOrgInventory(
     org_id: str,
     type: str | None = None,
     mac: str | None = None,
+    vc_mac: str | None = None,
+    master_mac: str | None = None,
     model: str | None = None,
     name: str | None = None,
     site_id: str | None = None,
@@ -365,6 +367,8 @@ def searchOrgInventory(
     version: str | None = None,
     status: str | None = None,
     text: str | None = None,
+    modified_after: int | None = None,
+    disconnected_before: int | None = None,
     limit: int | None = None,
     sort: str | None = None,
     search_after: str | None = None,
@@ -387,6 +391,10 @@ def searchOrgInventory(
       Filter results by type. enum: `ap`, `gateway`, `switch`
     mac : str
       Filter by MAC address. Partial matches may use `*` wildcards (e.g. `*5b35*` matches `5c5b350e0001` and `5c5b35000301`). Accepts multiple comma-separated values.
+    vc_mac : str
+      Virtual Chassis MAC address. Accepts multiple comma-separated values.
+    master_mac : str
+      MAC address of the Virtual Chassis master device. Accepts multiple comma-separated values.
     model : str
       Partial / full Device model. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `AP4*` and `*P4*` match `AP43`). Suffix-only wildcards (e.g. `*43`) are not supported. Accepts multiple comma-separated values.
     name : str
@@ -407,6 +415,10 @@ def searchOrgInventory(
       Device status. enum: `connected`, `disconnected`. Accepts multiple comma-separated values.
     text : str
       Wildcards for name, mac, serial
+    modified_after : int
+      Filter on inventory last modified time, in epoch
+    disconnected_before : int
+      Filter results to devices that were last disconnected before this time, in epoch seconds
     limit : int, default: 100
       Maximum number of results to return per page
     sort : str, default: timestamp
@@ -426,6 +438,10 @@ def searchOrgInventory(
         query_params["type"] = str(type)
     if mac:
         query_params["mac"] = str(mac)
+    if vc_mac:
+        query_params["vc_mac"] = str(vc_mac)
+    if master_mac:
+        query_params["master_mac"] = str(master_mac)
     if model:
         query_params["model"] = str(model)
     if name:
@@ -446,6 +462,10 @@ def searchOrgInventory(
         query_params["status"] = str(status)
     if text:
         query_params["text"] = str(text)
+    if modified_after:
+        query_params["modified_after"] = str(modified_after)
+    if disconnected_before:
+        query_params["disconnected_before"] = str(disconnected_before)
     if limit:
         query_params["limit"] = str(limit)
     if sort:
