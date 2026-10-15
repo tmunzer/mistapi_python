@@ -131,6 +131,23 @@ class TestGetAllList:
 
         assert result == [{"id": "1"}]
 
+    def test_stops_when_fetching_next_page_returns_none(self):
+        """get_all() should stop when fetching a next page returns None."""
+        session = Mock()
+        session.mist_get.side_effect = [
+            None,
+            AssertionError("get_all() retried a page fetch that returned None"),
+        ]
+        response = _make_response(
+            data=[{"id": "1"}],
+            next_url="/api/v1/items?page=2",
+        )
+
+        result = get_all(session, response)
+
+        assert result == [{"id": "1"}]
+        session.mist_get.assert_called_once_with("/api/v1/items?page=2")
+
 
 class TestGetAllDict:
     """Tests for get_all() when response.data is a dict with 'results' key."""
@@ -216,6 +233,23 @@ class TestGetAllDict:
         result = get_all(session, page1)
 
         assert result == [{"id": "1"}]
+
+    def test_stops_when_fetching_next_page_returns_none(self):
+        """get_all() should stop when fetching a next page returns None."""
+        session = Mock()
+        session.mist_get.side_effect = [
+            None,
+            AssertionError("get_all() retried a page fetch that returned None"),
+        ]
+        response = _make_response(
+            data={"results": [{"id": "1"}]},
+            next_url="/api/v1/items?page=2",
+        )
+
+        result = get_all(session, response)
+
+        assert result == [{"id": "1"}]
+        session.mist_get.assert_called_once_with("/api/v1/items?page=2")
 
 
 class TestGetAllEdgeCases:

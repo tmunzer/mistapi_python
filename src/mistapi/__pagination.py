@@ -60,6 +60,8 @@ def get_all(mist_session: _APISession, response: _APIResponse) -> list:
             if tmp:
                 response = tmp
                 data += response.data
+            else:
+                break
     elif isinstance(response.data, dict) and "results" in response.data:
         data = response.data["results"].copy()
         while response.next:
@@ -67,4 +69,6 @@ def get_all(mist_session: _APISession, response: _APIResponse) -> list:
             if tmp:
                 response = tmp
                 data += response.data["results"]
+            else:
+                break
     return data

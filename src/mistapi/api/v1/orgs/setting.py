@@ -708,6 +708,72 @@ def revokeOrgIssuedClientCertificates(
     return resp
 
 
+def searchOrgScepEvents(
+    mist_session: _APISession,
+    org_id: str,
+    type: str | None = None,
+    cert_provider: str | None = None,
+    common_name: str | None = None,
+    device_id: str | None = None,
+    text: str | None = None,
+    limit: int | None = None,
+    page: int | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/scep/search-org-scep-events
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    type : str{'failure', 'success'}
+      Filter by event type. enum: `failure`, `success`
+    cert_provider : str
+      Filter by the MDM or certificate provider that triggered the operation
+    common_name : str
+      Partial match against the certificate common name, such as a user UPN
+    device_id : str
+      Filter by the device identifier associated with the SCEP operation
+    text : str
+      Keyword search within the event reason text
+    limit : int, default: 100
+      Maximum number of results to return per page
+    page : int, default: 1
+      Select the page number to return when using page-based pagination; starts at `1`
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/setting/mist_scep/events/search"
+    query_params: dict[str, str] = {}
+    if type:
+        query_params["type"] = str(type)
+    if cert_provider:
+        query_params["cert_provider"] = str(cert_provider)
+    if common_name:
+        query_params["common_name"] = str(common_name)
+    if device_id:
+        query_params["device_id"] = str(device_id)
+    if text:
+        query_params["text"] = str(text)
+    if limit:
+        query_params["limit"] = str(limit)
+    if page:
+        query_params["page"] = str(page)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
 def setOrgCustomBucket(
     mist_session: _APISession, org_id: str, body: dict | list
 ) -> _APIResponse:

@@ -1,5 +1,47 @@
 # CHANGELOG
 
+## Version 0.64.1 (October 2026)
+
+This patch release expands organization and site API coverage, updates generated API bindings, and fixes pagination when a next-page request returns no response.
+
+---
+
+### 1. NEW FEATURES
+
+#### **Organization APIs**
+- Added organization security zone list, get, create, update, and delete operations.
+- Added organization SCEP event search and organization variable counting.
+- Added organization client fingerprint count and search operations.
+
+#### **Site APIs**
+- Added helpers to start and stop site flow capture.
+- Added site map stack list, get, create, update, and delete operations.
+
+---
+
+### 2. IMPROVEMENTS
+
+- Expanded organization inventory search filters.
+- Added MAC and AP MAC filters to site call analytics and updated the call rating type.
+- Added an optional AP MAC filter to site channel score queries.
+- Updated generated organization and site API bindings.
+
+---
+
+### 3. BREAKING CHANGES
+
+#### **Client Fingerprint API Scope**
+Client fingerprint count and search helpers are now exposed at the organization level as `countOrgClientFingerprints()` and `searchOrgClientFingerprints()`. The former site-level helpers have been removed.
+
+---
+
+### 4. BUG FIXES
+
+#### **Pagination Termination**
+`get_all()` now stops when fetching a next page returns `None`, preventing repeated requests against the same next-page link.
+
+---
+
 ## Version 0.64.0 (September 2026)
 
 **Released**: September 15, 2026
