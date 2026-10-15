@@ -682,7 +682,9 @@ def countSiteCalls(
     mist_session: _APISession,
     site_id: str,
     distinct: str | None = None,
-    rating: int | None = None,
+    mac: str | None = None,
+    ap_mac: str | None = None,
+    rating: str | None = None,
     app: str | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -704,8 +706,12 @@ def countSiteCalls(
     ------------
     distinct : str{'mac'}, default: mac
       Field used to group this count response. enum: `mac`
-    rating : int
-      Feedback rating (e.g. "rating=1" or "rating=1,2")
+    mac : str
+      Filter results by client MAC address
+    ap_mac : str
+      Filter results by AP MAC address
+    rating : str
+      Feedback rating, from 1 to 5; accepts comma-separated values such as "1,2"
     app : str
       Filter application statistics by application name
     start : str
@@ -725,6 +731,10 @@ def countSiteCalls(
     query_params: dict[str, str] = {}
     if distinct:
         query_params["distinct"] = str(distinct)
+    if mac:
+        query_params["mac"] = str(mac)
+    if ap_mac:
+        query_params["ap_mac"] = str(ap_mac)
     if rating:
         query_params["rating"] = str(rating)
     if app:
@@ -856,7 +866,7 @@ def getSiteCallsSummary(
         query_params["ap_mac"] = str(ap_mac)
     if app:
         query_params["app"] = str(app)
-    if wired is not None:
+    if wired:
         query_params["wired"] = str(wired)
     if start:
         query_params["start"] = str(start)
