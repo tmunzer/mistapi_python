@@ -18,6 +18,7 @@ def getSiteChannelScores(
     mist_session: _APISession,
     site_id: str,
     band: str,
+    ap: str | None = None,
     start: str | None = None,
     end: str | None = None,
 ) -> _APIResponse:
@@ -37,6 +38,8 @@ def getSiteChannelScores(
 
     QUERY PARAMS
     ------------
+    ap : str
+      AP MAC address. When supplied, returns per-AP channel scores instead of site-wide scores.
     start : str
       Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
@@ -50,6 +53,8 @@ def getSiteChannelScores(
 
     uri = f"/api/v1/sites/{site_id}/rrm/channel_scores/band/{band}"
     query_params: dict[str, str] = {}
+    if ap:
+        query_params["ap"] = str(ap)
     if start:
         query_params["start"] = str(start)
     if end:
