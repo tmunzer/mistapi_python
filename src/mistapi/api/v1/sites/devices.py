@@ -1379,6 +1379,7 @@ def listSiteAvailableDeviceVersions(
     mist_session: _APISession,
     site_id: str,
     type: str | None = None,
+    family: str | None = None,
     model: str | None = None,
 ) -> _APIResponse:
     """
@@ -1395,10 +1396,12 @@ def listSiteAvailableDeviceVersions(
 
     QUERY PARAMS
     ------------
-    type : str{'ap', 'gateway', 'switch'}, default: ap
-      Filter results by type. enum: `ap`, `gateway`, `switch`
+    type : str{'ap', 'gateway', 'router', 'switch'}, default: ap
+      Fetch versions for device type. `router` returns Junos firmware for MX routers only (no AOS-CX). enum: `ap`, `gateway`, `router`, `switch`
+    family : str
+      Fetch versions for device family within the device type, e.g. `aoscx` (Aruba OS) or `junos` (Junos OS)
     model : str
-      Fetch version for device model, use/combine with `type` as needed (for switch and gateway devices)
+      Fetch version for device model, use/combine with `type` as needed (for switch, gateway and router devices)
 
     RETURN
     -----------
@@ -1410,6 +1413,8 @@ def listSiteAvailableDeviceVersions(
     query_params: dict[str, str] = {}
     if type:
         query_params["type"] = str(type)
+    if family:
+        query_params["family"] = str(family)
     if model:
         query_params["model"] = str(model)
     resp = mist_session.mist_get(uri=uri, query=query_params)
@@ -1504,6 +1509,38 @@ def updateSiteDevice(
 
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}"
     resp = mist_session.mist_put(uri=uri, body=body)
+    return resp
+
+
+def addSiteDeviceGbpTag(
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/add-site-device-gbp-tag
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/add_gbp_tag"
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 
 
@@ -1953,7 +1990,35 @@ def getSiteDeviceConfigCmd(
     return resp
 
 
-def searchSiteDeviceFlowRecords(
+def getSiteDeviceDerivedConfig(
+    mist_session: _APISession, site_id: str, device_id: str
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/devices/get-site-device-derived-config
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/derived"
+    query_params: dict[str, str] = {}
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def searchSiteDeviceFlows(
     mist_session: _APISession,
     site_id: str,
     device_id: str,
@@ -1971,7 +2036,7 @@ def searchSiteDeviceFlowRecords(
     search_after: str | None = None,
 ) -> _APIResponse:
     """
-    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/search-site-device-flow-records
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/search-site-device-flows
 
     PARAMS
     -----------
@@ -2016,7 +2081,7 @@ def searchSiteDeviceFlowRecords(
         response from the API call
     """
 
-    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/flow_records/search"
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/flows/search"
     query_params: dict[str, str] = {}
     if start:
         query_params["start"] = str(start)
@@ -2537,6 +2602,38 @@ def releaseSiteDeviceDhcpLease(
     """
 
     uri = f"/api/v1/sites/{site_id}/devices/{device_id}/release_dhcp_leases"
+    resp = mist_session.mist_post(uri=uri, body=body)
+    return resp
+
+
+def removeSiteDeviceGbpTag(
+    mist_session: _APISession, site_id: str, device_id: str, body: dict | list
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/utilities/lan/remove-site-device-gbp-tag
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+    device_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/devices/{device_id}/remove_gbp_tag"
     resp = mist_session.mist_post(uri=uri, body=body)
     return resp
 

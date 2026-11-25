@@ -227,8 +227,8 @@ def countSiteAssets(
 
     QUERY PARAMS
     ------------
-    distinct : str{'by', 'device_name', 'eddystone_uid_instance', 'eddystone_uid_namespace', 'eddystone_url', 'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'name'}, default: map_id
-      Field used to group this count response. enum: `by`, `device_name`, `eddystone_uid_instance`, `eddystone_uid_namespace`, `eddystone_url`, `ibeacon_major`, `ibeacon_minor`, `ibeacon_uuid`, `mac`, `map_id`, `name`
+    distinct : str{'altbeacon_major', 'altbeacon_minor', 'altbeacon_uuid', 'by', 'device_name', 'eddystone_uid_instance', 'eddystone_uid_namespace', 'eddystone_url', 'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'name', 'site_id'}, default: site_id
+      Field used to group this count response. enum: `altbeacon_major`, `altbeacon_minor`, `altbeacon_uuid`, `by`, `device_name`, `eddystone_uid_instance`, `eddystone_uid_namespace`, `eddystone_url`, `ibeacon_major`, `ibeacon_minor`, `ibeacon_uuid`, `mac`, `map_id`, `name`, `site_id`
     limit : int, default: 100
       Maximum number of results to return per page
 
@@ -256,6 +256,9 @@ def searchSiteAssets(
     ibeacon_uuid: str | None = None,
     ibeacon_major: int | None = None,
     ibeacon_minor: int | None = None,
+    altbeacon_uuid: str | None = None,
+    altbeacon_major: int | None = None,
+    altbeacon_minor: int | None = None,
     eddystone_uid_namespace: str | None = None,
     eddystone_uid_instance: str | None = None,
     eddystone_url: str | None = None,
@@ -296,6 +299,12 @@ def searchSiteAssets(
       Filter asset results by iBeacon major value
     ibeacon_minor : int
       Filter asset results by iBeacon minor value
+    altbeacon_uuid : str
+      Filter asset results by AltBeacon UUID
+    altbeacon_major : int
+      Filter asset results by AltBeacon major value
+    altbeacon_minor : int
+      Filter asset results by AltBeacon minor value
     eddystone_uid_namespace : str
       Filter asset results by Eddystone UID namespace
     eddystone_uid_instance : str
@@ -345,6 +354,12 @@ def searchSiteAssets(
         query_params["ibeacon_major"] = str(ibeacon_major)
     if ibeacon_minor:
         query_params["ibeacon_minor"] = str(ibeacon_minor)
+    if altbeacon_uuid:
+        query_params["altbeacon_uuid"] = str(altbeacon_uuid)
+    if altbeacon_major:
+        query_params["altbeacon_major"] = str(altbeacon_major)
+    if altbeacon_minor:
+        query_params["altbeacon_minor"] = str(altbeacon_minor)
     if eddystone_uid_namespace:
         query_params["eddystone_uid_namespace"] = str(eddystone_uid_namespace)
     if eddystone_uid_instance:
@@ -1293,6 +1308,7 @@ def countSiteDiscoveredSwitches(
     mist_session: _APISession,
     site_id: str,
     distinct: str | None = None,
+    device_type: str | None = None,
     start: str | None = None,
     end: str | None = None,
     duration: str | None = None,
@@ -1312,8 +1328,10 @@ def countSiteDiscoveredSwitches(
 
     QUERY PARAMS
     ------------
-    distinct : str{'mgmt_addr', 'model', 'system_name', 'version'}, default: system_name
-      Field used to group this count response. enum: `mgmt_addr`, `model`, `system_name`, `version`
+    distinct : str{'device_type', 'hostname', 'mgmt_addr', 'model', 'system_name', 'vendor', 'version'}, default: hostname
+      Field used to group this count response. enum: `device_type`, `hostname`, `mgmt_addr`, `model`, `system_name`, `vendor`, `version`
+    device_type : str{'ap', 'camera', 'digital_signage', 'endpoint', 'gateway', 'switch', 'unknown', 'voip'}
+      Filter results by type of the discovered device. enum: `ap`, `camera`, `digital_signage`, `endpoint`, `gateway`, `switch`, `unknown`, `voip`
     start : str
       Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
@@ -1333,6 +1351,8 @@ def countSiteDiscoveredSwitches(
     query_params: dict[str, str] = {}
     if distinct:
         query_params["distinct"] = str(distinct)
+    if device_type:
+        query_params["device_type"] = str(device_type)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -1395,6 +1415,7 @@ def searchSiteDiscoveredSwitches(
     vendor: str | None = None,
     model: str | None = None,
     version: str | None = None,
+    device_type: str | None = None,
     limit: int | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -1428,6 +1449,8 @@ def searchSiteDiscoveredSwitches(
       Filter results by device model
     version : str
       Filter results by software version
+    device_type : str{'ap', 'camera', 'digital_signage', 'endpoint', 'gateway', 'switch', 'unknown', 'voip'}
+      Filter results by type of the discovered device. enum: `ap`, `camera`, `digital_signage`, `endpoint`, `gateway`, `switch`, `unknown`, `voip`
     limit : int, default: 100
       Maximum number of results to return per page
     start : str
@@ -1461,6 +1484,8 @@ def searchSiteDiscoveredSwitches(
         query_params["model"] = str(model)
     if version:
         query_params["version"] = str(version)
+    if device_type:
+        query_params["device_type"] = str(device_type)
     if limit:
         query_params["limit"] = str(limit)
     if start:
@@ -1617,7 +1642,7 @@ def getSiteWirelessClientsStatsByMap(
 
 
 def getSiteDiscoveredAssetByMap(
-    mist_session: _APISession, site_id: str, map_id: str
+    mist_session: _APISession, site_id: str, map_id: str, duration: int | None = None
 ) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/assets/get-site-discovered-asset-by-map
@@ -1632,6 +1657,11 @@ def getSiteDiscoveredAssetByMap(
     site_id : str
     map_id : str
 
+    QUERY PARAMS
+    ------------
+    duration : int, default: 60
+      Optional. Time duration TTL filter, in seconds, for each returned asset
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -1640,6 +1670,8 @@ def getSiteDiscoveredAssetByMap(
 
     uri = f"/api/v1/sites/{site_id}/stats/maps/{map_id}/discovered_assets"
     query_params: dict[str, str] = {}
+    if duration:
+        query_params["duration"] = str(duration)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
@@ -1808,6 +1840,7 @@ def countSiteOspfStats(
     mist_session: _APISession,
     site_id: str,
     distinct: str | None = None,
+    state: str | None = None,
     start: str | None = None,
     end: str | None = None,
     limit: int | None = None,
@@ -1830,6 +1863,8 @@ def countSiteOspfStats(
     ------------
     distinct : str{'site_id', 'org_id', 'mac', 'peer_ip', 'port_id', 'state', 'vrf_name'}
       Field used to group this count response. enum: `site_id`, `org_id`, `mac`, `peer_ip`, `port_id`, `state`, `vrf_name`
+    state : str
+      Filter results by OSPF neighbor state (e.g. `Full`)
     start : str
       Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
@@ -1851,6 +1886,8 @@ def countSiteOspfStats(
     query_params: dict[str, str] = {}
     if distinct:
         query_params["distinct"] = str(distinct)
+    if state:
+        query_params["state"] = str(state)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -2135,6 +2172,7 @@ def searchSiteSwOrGwPorts(
     poe_on: bool | None = None,
     poe_priority: str | None = None,
     port_id: str | None = None,
+    port_ips: str | None = None,
     port_mac: str | None = None,
     speed: int | None = None,
     stp_state: str | None = None,
@@ -2189,6 +2227,8 @@ def searchSiteSwOrGwPorts(
       PoE priority used to filter switch port results. enum: `low`, `high`
     port_id : str
       Filter results by port identifier
+    port_ips : str
+      Filter results by IP address on the interface. Accepts multiple comma-separated values.
     port_mac : str
       Filter results by port MAC address
     speed : int
@@ -2246,6 +2286,8 @@ def searchSiteSwOrGwPorts(
         query_params["poe_priority"] = str(poe_priority)
     if port_id:
         query_params["port_id"] = str(port_id)
+    if port_ips:
+        query_params["port_ips"] = str(port_ips)
     if port_mac:
         query_params["port_mac"] = str(port_mac)
     if speed:
@@ -2391,6 +2433,143 @@ def getSiteSwitchesMetrics(
         query_params["scope"] = str(scope)
     if switch_mac:
         query_params["switch_mac"] = str(switch_mac)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def countSiteVtepStats(
+    mist_session: _APISession,
+    site_id: str,
+    distinct: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str | None = None,
+    limit: int | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/vtep-peers/count-site-vtep-stats
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+
+    QUERY PARAMS
+    ------------
+    distinct : str{'ip', 'mac', 'peer_ip', 'peer_mac', 'site_id'}, default: mac
+      Field used to group this count response. enum: `ip`, `mac`, `peer_ip`, `peer_mac`, `site_id`
+    start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
+    end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
+    duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
+    limit : int, default: 100
+      Maximum number of results to return per page
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/stats/vtep_peers/count"
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def searchSiteVtepStats(
+    mist_session: _APISession,
+    site_id: str,
+    mac: str | None = None,
+    ip: str | None = None,
+    peer_ip: str | None = None,
+    peer_mac: str | None = None,
+    limit: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str | None = None,
+    sort: str | None = None,
+    search_after: str | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/stats/vtep-peers/search-site-vtep-stats
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    site_id : str
+
+    QUERY PARAMS
+    ------------
+    mac : str
+      Filter results by device MAC address. Accepts multiple comma-separated values.
+    ip : str
+      Filter results by local device source VTEP IP (SVTEP-IP)
+    peer_ip : str
+      Filter results by remote VTEP (peer) endpoint IP
+    peer_mac : str
+      Filter results by remote VTEP device MAC address
+    limit : int, default: 100
+      Maximum number of results to return per page
+    start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
+    end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
+    duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
+    sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
+    search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/sites/{site_id}/stats/vtep_peers/search"
+    query_params: dict[str, str] = {}
+    if mac:
+        query_params["mac"] = str(mac)
+    if ip:
+        query_params["ip"] = str(ip)
+    if peer_ip:
+        query_params["peer_ip"] = str(peer_ip)
+    if peer_mac:
+        query_params["peer_mac"] = str(peer_mac)
+    if limit:
+        query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 

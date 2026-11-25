@@ -421,6 +421,32 @@ def searchOrgDeviceLastConfigs(
     name: str | None = None,
     version: str | None = None,
     cert_expiry_duration: str | None = None,
+    cert_expiry: int | None = None,
+    ssids: str | None = None,
+    ssids_6: str | None = None,
+    ssids_5: str | None = None,
+    ssids_24: str | None = None,
+    channel_5: int | None = None,
+    channel_6: int | None = None,
+    channel_24: int | None = None,
+    radio_macs: str | None = None,
+    secpolicy_violated: bool | None = None,
+    wlan_ids: str | None = None,
+    errors: str | None = None,
+    uses_mxtunnel: bool | None = None,
+    evpntopo_id: str | None = None,
+    evpntopo_role: str | None = None,
+    evpntopo_type: str | None = None,
+    evpntopo_as: int | None = None,
+    networks: str | None = None,
+    vrfs: str | None = None,
+    services: str | None = None,
+    lan_networks: str | None = None,
+    servicepolicies: str | None = None,
+    securityzones: str | None = None,
+    zones: str | None = None,
+    zonepolicies: str | None = None,
+    idpprofiles: str | None = None,
     start: str | None = None,
     end: str | None = None,
     limit: int | None = None,
@@ -452,6 +478,58 @@ def searchOrgDeviceLastConfigs(
       Filter results by software version. Accepts multiple comma-separated values.
     cert_expiry_duration : str
       Duration for expiring cert queries (format: 2d/3h/172800 seconds)
+    cert_expiry : int
+      Filter results by certificate expiry, in epoch seconds. Can be used with `cert_expiry_duration`. Available for all device types: `ap`, `gateway`, `switch`, `mxedge`
+    ssids : str
+      AP only. Filter results by WLAN SSID. Accepts multiple comma-separated values.
+    ssids_6 : str
+      AP only. Filter results by 6 GHz WLAN SSID. Accepts multiple comma-separated values.
+    ssids_5 : str
+      AP only. Filter results by 5 GHz WLAN SSID. Accepts multiple comma-separated values.
+    ssids_24 : str
+      AP only. Filter results by 2.4 GHz WLAN SSID. Accepts multiple comma-separated values.
+    channel_5 : int
+      AP only. Filter results by 5 GHz channel
+    channel_6 : int
+      AP only. Filter results by 6 GHz channel
+    channel_24 : int
+      AP only. Filter results by 2.4 GHz channel
+    radio_macs : str
+      AP only. Filter results by radio MAC address. Accepts multiple comma-separated values.
+    secpolicy_violated : bool
+      AP only. Filter results by whether the configuration violated a security policy
+    wlan_ids : str
+      AP only. Filter results by WLAN identifier. Accepts multiple comma-separated values.
+    errors : str
+      AP only. Filter results by configuration error. Accepts multiple comma-separated values.
+    uses_mxtunnel : bool
+      AP only. Filter results by whether the AP uses a Mist Edge tunnel
+    evpntopo_id : str
+      Switch only. Filter results by EVPN topology identifier. Accepts multiple comma-separated values.
+    evpntopo_role : str
+      Switch only. Filter results by EVPN topology role. Accepts multiple comma-separated values.
+    evpntopo_type : str
+      Switch only. Filter results by EVPN topology type. Accepts multiple comma-separated values.
+    evpntopo_as : int
+      Switch only. Filter results by EVPN topology AS number
+    networks : str
+      Switch and gateway only. Filter results by network name. Accepts multiple comma-separated values.
+    vrfs : str
+      Switch only. Filter results by VRF name. Accepts multiple comma-separated values.
+    services : str
+      Gateway only. Filter results by service. Accepts multiple comma-separated values.
+    lan_networks : str
+      Gateway only. Filter results by LAN network name. Accepts multiple comma-separated values.
+    servicepolicies : str
+      Gateway only. Filter results by service policy. Accepts multiple comma-separated values.
+    securityzones : str
+      Gateway only. Filter results by security zone. Accepts multiple comma-separated values.
+    zones : str
+      Gateway only. Filter results by zone. Accepts multiple comma-separated values.
+    zonepolicies : str
+      Gateway only. Filter results by zone policy. Accepts multiple comma-separated values.
+    idpprofiles : str
+      Gateway only. Filter results by IDP profile. Accepts multiple comma-separated values.
     start : str
       Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
@@ -483,6 +561,58 @@ def searchOrgDeviceLastConfigs(
         query_params["version"] = str(version)
     if cert_expiry_duration:
         query_params["cert_expiry_duration"] = str(cert_expiry_duration)
+    if cert_expiry:
+        query_params["cert_expiry"] = str(cert_expiry)
+    if ssids:
+        query_params["ssids"] = str(ssids)
+    if ssids_6:
+        query_params["ssids_6"] = str(ssids_6)
+    if ssids_5:
+        query_params["ssids_5"] = str(ssids_5)
+    if ssids_24:
+        query_params["ssids_24"] = str(ssids_24)
+    if channel_5:
+        query_params["channel_5"] = str(channel_5)
+    if channel_6:
+        query_params["channel_6"] = str(channel_6)
+    if channel_24:
+        query_params["channel_24"] = str(channel_24)
+    if radio_macs:
+        query_params["radio_macs"] = str(radio_macs)
+    if secpolicy_violated:
+        query_params["secpolicy_violated"] = str(secpolicy_violated)
+    if wlan_ids:
+        query_params["wlan_ids"] = str(wlan_ids)
+    if errors:
+        query_params["errors"] = str(errors)
+    if uses_mxtunnel:
+        query_params["uses_mxtunnel"] = str(uses_mxtunnel)
+    if evpntopo_id:
+        query_params["evpntopo_id"] = str(evpntopo_id)
+    if evpntopo_role:
+        query_params["evpntopo_role"] = str(evpntopo_role)
+    if evpntopo_type:
+        query_params["evpntopo_type"] = str(evpntopo_type)
+    if evpntopo_as:
+        query_params["evpntopo_as"] = str(evpntopo_as)
+    if networks:
+        query_params["networks"] = str(networks)
+    if vrfs:
+        query_params["vrfs"] = str(vrfs)
+    if services:
+        query_params["services"] = str(services)
+    if lan_networks:
+        query_params["lan_networks"] = str(lan_networks)
+    if servicepolicies:
+        query_params["servicepolicies"] = str(servicepolicies)
+    if securityzones:
+        query_params["securityzones"] = str(securityzones)
+    if zones:
+        query_params["zones"] = str(zones)
+    if zonepolicies:
+        query_params["zonepolicies"] = str(zonepolicies)
+    if idpprofiles:
+        query_params["idpprofiles"] = str(idpprofiles)
     if start:
         query_params["start"] = str(start)
     if end:

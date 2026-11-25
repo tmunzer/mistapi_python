@@ -225,6 +225,7 @@ def searchSiteNacClientEvents(
     usermac_label: str | None = None,
     text: str | None = None,
     nas_ip: str | None = None,
+    nas_ip6: str | None = None,
     ingress_vlan: str | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -289,6 +290,8 @@ def searchSiteNacClientEvents(
       Partial / full MAC address, username, device_mac or ap. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported
     nas_ip : str
       IP address of NAS device
+    nas_ip6 : str
+      IPv6 address of NAS device
     ingress_vlan : str
       Vendor specific VLAN ID in RADIUS requests
     start : str
@@ -354,6 +357,8 @@ def searchSiteNacClientEvents(
         query_params["text"] = str(text)
     if nas_ip:
         query_params["nas_ip"] = str(nas_ip)
+    if nas_ip6:
+        query_params["nas_ip6"] = str(nas_ip6)
     if ingress_vlan:
         query_params["ingress_vlan"] = str(ingress_vlan)
     if start:
@@ -395,6 +400,7 @@ def searchSiteNacClients(
     nacrule_matched: bool | None = None,
     nas_vendor: str | None = None,
     nas_ip: str | None = None,
+    nas_ip6: str | None = None,
     ingress_vlan: str | None = None,
     os: str | None = None,
     ssid: str | None = None,
@@ -465,6 +471,8 @@ def searchSiteNacClients(
       Vendor of NAS device
     nas_ip : str
       IP address of NAS device
+    nas_ip6 : str
+      IPv6 address of NAS device
     ingress_vlan : str
       Vendor specific VLAN ID in RADIUS requests
     os : str
@@ -544,6 +552,8 @@ def searchSiteNacClients(
         query_params["nas_vendor"] = str(nas_vendor)
     if nas_ip:
         query_params["nas_ip"] = str(nas_ip)
+    if nas_ip6:
+        query_params["nas_ip6"] = str(nas_ip6)
     if ingress_vlan:
         query_params["ingress_vlan"] = str(ingress_vlan)
     if os:

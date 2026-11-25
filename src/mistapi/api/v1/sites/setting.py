@@ -128,7 +128,9 @@ def createSiteWirelessClientsBlocklist(
     return resp
 
 
-def getSiteSettingDerived(mist_session: _APISession, site_id: str) -> _APIResponse:
+def getSiteSettingDerived(
+    mist_session: _APISession, site_id: str, device_type: str | None = None
+) -> _APIResponse:
     """
     API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/sites/setting/get-site-setting-derived
 
@@ -141,6 +143,11 @@ def getSiteSettingDerived(mist_session: _APISession, site_id: str) -> _APIRespon
     -----------
     site_id : str
 
+    QUERY PARAMS
+    ------------
+    device_type : str
+      Device type to derive the site settings for, e.g. `router` (Junos MX devices). For `router`, the router also inherits the Network (switch) template (`switch_mgmt` / `switch_matching`) and uses the `switch` sub-node in the site settings as a base, with its own `router` sub-node overriding any conflicting keys
+
     RETURN
     -----------
     mistapi.APIResponse
@@ -149,6 +156,8 @@ def getSiteSettingDerived(mist_session: _APISession, site_id: str) -> _APIRespon
 
     uri = f"/api/v1/sites/{site_id}/setting/derived"
     query_params: dict[str, str] = {}
+    if device_type:
+        query_params["device_type"] = str(device_type)
     resp = mist_session.mist_get(uri=uri, query=query_params)
     return resp
 
