@@ -47,7 +47,7 @@ def getOrgInventory(
     serial : str
       Filter results by device serial number. Accepts multiple comma-separated values.
     model : str
-      Filter results by device model. Accepts multiple comma-separated values.
+      Filter results by device model. Accepts multiple comma-separated values. Use the special value `mutable` to list the common-hardware devices whose model can still be changed with [Update Inventory Model](/#operations/updateOrgInventoryModel).
     type : str
       Filter results by type. enum: `ap`, `gateway`, `switch`. Accepts multiple comma-separated values.
     mac : str
@@ -473,4 +473,35 @@ def searchOrgInventory(
     if search_after:
         query_params["search_after"] = str(search_after)
     resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def updateOrgInventoryModel(
+    mist_session: _APISession, org_id: str, body: dict | list
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/inventory/update-org-inventory-model
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    BODY PARAMS
+    -----------
+    body : dict
+        JSON object to send to Mist Cloud (see API doc above for more details)
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/inventory/update_model"
+    resp = mist_session.mist_post(uri=uri, body=body)
     return resp

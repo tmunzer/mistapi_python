@@ -12,6 +12,7 @@
 
 from mistapi.api.v1.orgs import (
     orgs,
+    oauth,
     aamwprofiles,
     admins,
     alarms,
@@ -96,10 +97,12 @@ from mistapi.api.v1.orgs import (
     wxrules,
     wxtags,
     wxtunnels,
+    zonepolicies,
 )
 
 __all__ = [
     "orgs",
+    "oauth",
     "aamwprofiles",
     "admins",
     "alarms",
@@ -184,4 +187,5 @@ __all__ = [
     "wxrules",
     "wxtags",
     "wxtunnels",
+    "zonepolicies",
 ]

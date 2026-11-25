@@ -1,5 +1,52 @@
 # CHANGELOG
 
+## Version 0.64.2 (November 2026)
+
+This patch release updates the generated API bindings to the latest Mist OpenAPI specification (2611.1.0), adding OAuth2, zone policy, security zone, VTEP, GBP tag, and flow search helpers, along with new filters on existing search and count helpers.
+
+---
+
+### 1. NEW FEATURES
+
+#### **Organization APIs**
+- Added the new `mistapi.api.v1.orgs.oauth` module with `getOauthAuthorization()`, `grantOauthAuthorization()`, and `exchangeOauthToken()` for the OAuth2 authorization code flow.
+- Added the new `mistapi.api.v1.orgs.zonepolicies` module with organization zone policy list, get, create, update, and delete operations.
+- Added `updateOrgInventoryModel()` to set the intended model of common-hardware devices before onboarding.
+- Added `countOrgVtepStats()` and `searchOrgVtepStats()`.
+
+#### **Site APIs**
+- Added the new `mistapi.api.v1.sites.flows` module with `searchSiteFlows()`.
+- Added the new `mistapi.api.v1.sites.securityzones` module with `listSiteSecurityZonesDerived()`.
+- Added the new `mistapi.api.v1.sites.zonepolicies` module with `listSiteZonePoliciesDerived()`.
+- Added `addSiteDeviceGbpTag()`, `removeSiteDeviceGbpTag()`, and `getSiteDeviceDerivedConfig()` for site devices.
+- Added `countSiteVtepStats()` and `searchSiteVtepStats()`.
+
+---
+
+### 2. IMPROVEMENTS
+
+- Added many filters to `searchOrgDeviceLastConfigs()` (e.g. `cert_expiry`, `ssids`, `channel_5`, `wlan_ids`, `evpntopo_*`, `networks`, `vrfs`, `securityzones`, `zonepolicies`, `idpprofiles`).
+- Added `category` filter to `listOrgAuditLogs()` and `category` as a `distinct` value for `countOrgAuditLogs()`.
+- Added `nas_ip6` filter to organization and site NAC client and NAC client event searches.
+- Added `altbeacon_uuid`, `altbeacon_major`, and `altbeacon_minor` filters to `searchOrgAssets()` and `searchSiteAssets()`, and a `by` filter to `searchOrgAssets()`.
+- Added `state` filter to `countOrgOspfStats()` and `countSiteOspfStats()`.
+- Added `device_type` filter to `countSiteDiscoveredSwitches()` and `searchSiteDiscoveredSwitches()`.
+- Added `port_ips` filter to `searchSiteSwOrGwPorts()`.
+- Added `family` filter to `listSiteAvailableDeviceVersions()`.
+- Added `device_type` filter to `getSiteSettingDerived()` and `listApplications()`.
+- Added `infoblox` as a supported OAuth `app_name` value for organization OAuth app helpers.
+- Documented the `mutable` model filter value in `getOrgInventory()`.
+- Updated documentation for `listOrgIssuedClientCertificates()` and `searchOrgScepEvents()`.
+
+---
+
+### 3. BREAKING CHANGES
+
+#### **Site Device Flow Search**
+`searchSiteDeviceFlowRecords()` has been replaced by `searchSiteDeviceFlows()`, which now calls `/devices/{device_id}/flows/search` instead of `/devices/{device_id}/flow_records/search`.
+
+---
+
 ## Version 0.64.1 (October 2026)
 
 This patch release expands organization and site API coverage, updates generated API bindings, and fixes pagination when a next-page request returns no response.

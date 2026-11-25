@@ -115,8 +115,8 @@ def countOrgAssetsByDistanceField(
 
     QUERY PARAMS
     ------------
-    distinct : str{'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'site_id'}
-      Field used to group this count response. enum: `ibeacon_major`, `ibeacon_minor`, `ibeacon_uuid`, `mac`, `map_id`, `site_id`
+    distinct : str{'altbeacon_major', 'altbeacon_minor', 'altbeacon_uuid', 'by', 'device_name', 'eddystone_uid_instance', 'eddystone_uid_namespace', 'eddystone_url', 'ibeacon_major', 'ibeacon_minor', 'ibeacon_uuid', 'mac', 'map_id', 'name', 'site_id'}, default: site_id
+      Field used to group this count response. enum: `altbeacon_major`, `altbeacon_minor`, `altbeacon_uuid`, `by`, `device_name`, `eddystone_uid_instance`, `eddystone_uid_namespace`, `eddystone_url`, `ibeacon_major`, `ibeacon_minor`, `ibeacon_uuid`, `mac`, `map_id`, `name`, `site_id`
     limit : int, default: 100
       Maximum number of results to return per page
 
@@ -147,9 +147,13 @@ def searchOrgAssets(
     ibeacon_uuid: str | None = None,
     ibeacon_major: str | None = None,
     ibeacon_minor: str | None = None,
+    altbeacon_uuid: str | None = None,
+    altbeacon_major: str | None = None,
+    altbeacon_minor: str | None = None,
     eddystone_uid_namespace: str | None = None,
     eddystone_uid_instance: str | None = None,
     eddystone_url: str | None = None,
+    by: str | None = None,
     ap_mac: str | None = None,
     beam: int | None = None,
     rssi: int | None = None,
@@ -190,12 +194,20 @@ def searchOrgAssets(
       Filter asset results by iBeacon major value. Accepts multiple comma-separated values.
     ibeacon_minor : str
       Filter asset results by iBeacon minor value. Accepts multiple comma-separated values.
+    altbeacon_uuid : str
+      Filter asset results by AltBeacon UUID. Accepts multiple comma-separated values.
+    altbeacon_major : str
+      Filter asset results by AltBeacon major value. Accepts multiple comma-separated values.
+    altbeacon_minor : str
+      Filter asset results by AltBeacon minor value. Accepts multiple comma-separated values.
     eddystone_uid_namespace : str
       Filter asset results by Eddystone UID namespace
     eddystone_uid_instance : str
       Filter asset results by Eddystone UID instance
     eddystone_url : str
       Filter asset results by Eddystone URL
+    by : str
+      Filter asset results by the source that identified the asset (e.g. `assetfilter`)
     ap_mac : str
       Filter asset results by reporting AP MAC address. Accepts multiple comma-separated values.
     beam : int
@@ -239,12 +251,20 @@ def searchOrgAssets(
         query_params["ibeacon_major"] = str(ibeacon_major)
     if ibeacon_minor:
         query_params["ibeacon_minor"] = str(ibeacon_minor)
+    if altbeacon_uuid:
+        query_params["altbeacon_uuid"] = str(altbeacon_uuid)
+    if altbeacon_major:
+        query_params["altbeacon_major"] = str(altbeacon_major)
+    if altbeacon_minor:
+        query_params["altbeacon_minor"] = str(altbeacon_minor)
     if eddystone_uid_namespace:
         query_params["eddystone_uid_namespace"] = str(eddystone_uid_namespace)
     if eddystone_uid_instance:
         query_params["eddystone_uid_instance"] = str(eddystone_uid_instance)
     if eddystone_url:
         query_params["eddystone_url"] = str(eddystone_url)
+    if by:
+        query_params["by"] = str(by)
     if ap_mac:
         query_params["ap_mac"] = str(ap_mac)
     if beam:
@@ -807,6 +827,7 @@ def countOrgOspfStats(
     mist_session: _APISession,
     org_id: str,
     distinct: str | None = None,
+    state: str | None = None,
     start: str | None = None,
     end: str | None = None,
     limit: int | None = None,
@@ -829,6 +850,8 @@ def countOrgOspfStats(
     ------------
     distinct : str{'site_id', 'org_id', 'mac', 'peer_ip', 'port_id', 'state', 'vrf_name'}
       Field used to group this count response. enum: `site_id`, `org_id`, `mac`, `peer_ip`, `port_id`, `state`, `vrf_name`
+    state : str
+      Filter results by OSPF neighbor state (e.g. `Full`)
     start : str
       Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
     end : str
@@ -850,6 +873,8 @@ def countOrgOspfStats(
     query_params: dict[str, str] = {}
     if distinct:
         query_params["distinct"] = str(distinct)
+    if state:
+        query_params["state"] = str(state)
     if start:
         query_params["start"] = str(start)
     if end:
@@ -1649,6 +1674,148 @@ def searchOrgPeerPathStats(
         query_params["site_id"] = str(site_id)
     if type:
         query_params["type"] = str(type)
+    if limit:
+        query_params["limit"] = str(limit)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if sort:
+        query_params["sort"] = str(sort)
+    if search_after:
+        query_params["search_after"] = str(search_after)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def countOrgVtepStats(
+    mist_session: _APISession,
+    org_id: str,
+    distinct: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str | None = None,
+    limit: int | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/vtep-peers/count-org-vtep-stats
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    distinct : str{'ip', 'mac', 'peer_ip', 'peer_mac', 'site_id'}, default: mac
+      Field used to group this count response. enum: `ip`, `mac`, `peer_ip`, `peer_mac`, `site_id`
+    start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
+    end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
+    duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
+    limit : int, default: 100
+      Maximum number of results to return per page
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/stats/vtep_peers/count"
+    query_params: dict[str, str] = {}
+    if distinct:
+        query_params["distinct"] = str(distinct)
+    if start:
+        query_params["start"] = str(start)
+    if end:
+        query_params["end"] = str(end)
+    if duration:
+        query_params["duration"] = str(duration)
+    if limit:
+        query_params["limit"] = str(limit)
+    resp = mist_session.mist_get(uri=uri, query=query_params)
+    return resp
+
+
+def searchOrgVtepStats(
+    mist_session: _APISession,
+    org_id: str,
+    site_id: str | None = None,
+    mac: str | None = None,
+    ip: str | None = None,
+    peer_ip: str | None = None,
+    peer_mac: str | None = None,
+    limit: int | None = None,
+    start: str | None = None,
+    end: str | None = None,
+    duration: str | None = None,
+    sort: str | None = None,
+    search_after: str | None = None,
+) -> _APIResponse:
+    """
+    API doc: https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/stats/vtep-peers/search-org-vtep-stats
+
+    PARAMS
+    -----------
+    mistapi.APISession : mist_session
+        mistapi session including authentication and Mist host information
+
+    PATH PARAMS
+    -----------
+    org_id : str
+
+    QUERY PARAMS
+    ------------
+    site_id : str
+      Filter results by site identifier
+    mac : str
+      Filter results by device MAC address. Accepts multiple comma-separated values.
+    ip : str
+      Filter results by local device source VTEP IP (SVTEP-IP)
+    peer_ip : str
+      Filter results by remote VTEP (peer) endpoint IP
+    peer_mac : str
+      Filter results by remote VTEP device MAC address
+    limit : int, default: 100
+      Maximum number of results to return per page
+    start : str
+      Lower bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d` or `-1w`
+    end : str
+      Upper bound of the time range, as an epoch timestamp in seconds or a relative value such as `-1d`, `-2h`, or `now`
+    duration : str, default: 1d
+      Time range duration for the query, using relative units such as `10m`, `7d`, or `2w`
+    sort : str, default: timestamp
+      On which field the list should be sorted, -prefix represents DESC order
+    search_after : str
+      Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+
+    RETURN
+    -----------
+    mistapi.APIResponse
+        response from the API call
+    """
+
+    uri = f"/api/v1/orgs/{org_id}/stats/vtep_peers/search"
+    query_params: dict[str, str] = {}
+    if site_id:
+        query_params["site_id"] = str(site_id)
+    if mac:
+        query_params["mac"] = str(mac)
+    if ip:
+        query_params["ip"] = str(ip)
+    if peer_ip:
+        query_params["peer_ip"] = str(peer_ip)
+    if peer_mac:
+        query_params["peer_mac"] = str(peer_mac)
     if limit:
         query_params["limit"] = str(limit)
     if start:

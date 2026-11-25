@@ -41,8 +41,8 @@ def countOrgAuditLogs(
 
     QUERY PARAMS
     ------------
-    distinct : str{'admin_id', 'admin_name', 'message', 'site_id'}, default: admin_name
-      Field used to group this count response. enum: `admin_id`, `admin_name`, `message`, `site_id`
+    distinct : str{'admin_id', 'admin_name', 'category', 'message', 'site_id'}, default: admin_name
+      Field used to group this count response. enum: `admin_id`, `admin_name`, `category`, `message`, `site_id`
     admin_id : str
       Filter audit log results by administrator identifier
     admin_name : str
@@ -96,6 +96,7 @@ def listOrgAuditLogs(
     site_id: str | None = None,
     admin_name: str | None = None,
     message: str | None = None,
+    category: str | None = None,
     sort: str | None = None,
     start: str | None = None,
     end: str | None = None,
@@ -123,6 +124,8 @@ def listOrgAuditLogs(
       Filter results by one or more administrator names or email addresses. Supports comma-separated values
     message : str
       Filter results by one or more message text values. Supports comma-separated values
+    category : str
+      Filter results by configuration change category. Use `*` to match any categorized change
     sort : str{'-timestamp', 'admin_id', 'site_id', 'timestamp'}
       Field used to sort results; a leading `-` indicates descending order. enum: `-timestamp`, `admin_id`, `site_id`, `timestamp`
     start : str
@@ -150,6 +153,8 @@ def listOrgAuditLogs(
         query_params["admin_name"] = str(admin_name)
     if message:
         query_params["message"] = str(message)
+    if category:
+        query_params["category"] = str(category)
     if sort:
         query_params["sort"] = str(sort)
     if start:

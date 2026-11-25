@@ -231,6 +231,7 @@ def searchOrgNacClientEvents(
     usermac_label: str | None = None,
     text: str | None = None,
     nas_ip: str | None = None,
+    nas_ip6: str | None = None,
     ingress_vlan: str | None = None,
     limit: int | None = None,
     start: str | None = None,
@@ -297,6 +298,8 @@ def searchOrgNacClientEvents(
       Partial / full MAC address, username, device_mac or ap
     nas_ip : str
       IP address of NAS device. Accepts multiple comma-separated values.
+    nas_ip6 : str
+      IPv6 address of NAS device. Accepts multiple comma-separated values.
     ingress_vlan : str
       Vendor specific VLAN ID in RADIUS requests
     limit : int, default: 100
@@ -364,6 +367,8 @@ def searchOrgNacClientEvents(
         query_params["text"] = str(text)
     if nas_ip:
         query_params["nas_ip"] = str(nas_ip)
+    if nas_ip6:
+        query_params["nas_ip6"] = str(nas_ip6)
     if ingress_vlan:
         query_params["ingress_vlan"] = str(ingress_vlan)
     if limit:
@@ -405,6 +410,7 @@ def searchOrgNacClients(
     nacrule_matched: bool | None = None,
     nas_vendor: str | None = None,
     nas_ip: str | None = None,
+    nas_ip6: str | None = None,
     ingress_vlan: str | None = None,
     os: str | None = None,
     ssid: str | None = None,
@@ -476,6 +482,8 @@ def searchOrgNacClients(
       Vendor of NAS device
     nas_ip : str
       IP address of NAS device. Accepts multiple comma-separated values.
+    nas_ip6 : str
+      IPv6 address of NAS device. Accepts multiple comma-separated values.
     ingress_vlan : str
       Vendor specific VLAN ID in RADIUS requests
     os : str
@@ -557,6 +565,8 @@ def searchOrgNacClients(
         query_params["nas_vendor"] = str(nas_vendor)
     if nas_ip:
         query_params["nas_ip"] = str(nas_ip)
+    if nas_ip6:
+        query_params["nas_ip6"] = str(nas_ip6)
     if ingress_vlan:
         query_params["ingress_vlan"] = str(ingress_vlan)
     if os:

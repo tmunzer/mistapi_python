@@ -645,7 +645,7 @@ def listOrgIssuedClientCertificates(
     created_time : int
       Filter by certificate issuance time, in epoch seconds
     limit : int, default: 100
-      Maximum number of results to return per page
+      Maximum number of results to return (default: 100, max: 1000)
     page : int, default: 1
       Select the page number to return when using page-based pagination; starts at `1`
 
@@ -734,7 +734,7 @@ def searchOrgScepEvents(
     QUERY PARAMS
     ------------
     type : str{'failure', 'success'}
-      Filter by event type. enum: `failure`, `success`
+      Filter by event type. `failure`: PKI operation failed (e.g. invalid CN, invalid/expired challenge, CA rejection). `success`: PKI operation succeeded, certificate issued successfully. enum: `failure`, `success`
     cert_provider : str
       Filter by the MDM or certificate provider that triggered the operation
     common_name : str
@@ -1105,7 +1105,7 @@ def getOrgOauthAppLinkedStatus(
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
+    app_name : str{'crowdstrike', 'infoblox', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
       OAuth application name
 
     QUERY PARAMS
@@ -1141,7 +1141,7 @@ def addOrgOauthAppAccounts(
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
+    app_name : str{'crowdstrike', 'infoblox', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
       OAuth application name
 
     BODY PARAMS
@@ -1174,7 +1174,7 @@ def deleteOrgOauthAppAuthorization(
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
+    app_name : str{'crowdstrike', 'infoblox', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
       OAuth application name
     account_id : str
 
@@ -1204,7 +1204,7 @@ def updateOrgOauthAppAccount(
     PATH PARAMS
     -----------
     org_id : str
-    app_name : str{'crowdstrike', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
+    app_name : str{'crowdstrike', 'infoblox', 'intune', 'jamf', 'mobicontrol', 'prisma', 'sentinelone', 'teams', 'vmware', 'zdx', 'zoom'}
       OAuth application name
     account_id : str
 
